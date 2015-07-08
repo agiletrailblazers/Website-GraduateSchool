@@ -1,6 +1,6 @@
 ![GraduateSchool](https://upload.wikimedia.org/wikipedia/en/2/2d/Graduate_School_USA_Logo.png)
 # Website-GraduateSchool
-This is the Express.js repository for the GraduateSchool's new website.
+This is the [Express.js](http://expressjs.com/) repository for the GraduateSchool's new website.
 
 ## Installation
 
