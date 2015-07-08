@@ -21,6 +21,10 @@ This is the [Express.js](http://expressjs.com/) repository for the GraduateSchoo
   6. To start run `> set DEBUG=myapp & npm start`
 
 ## Adding Packages
-  When adding packages please use the `--save` option to add to our list of dependencies in the package.json file. If you add a package please tell the team that you have added a package so we can install the dependency on our local machines after pulling from upstream master.
+  When adding packages please use the `--save` option to add to our list of dependencies in the package.json file. If you add a package please notify the team on SLACK that you have added a package so we can install the dependency on our local machines after pulling from upstream master.
 
   Example: `npm install [NAME] --save`
+
+## Environment Preferences
+IDE: Intellij || Eclipse <br>
+[ATOM](https://atom.io/)
