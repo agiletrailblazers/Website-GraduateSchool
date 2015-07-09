@@ -11,20 +11,20 @@ html {
   box-sizing: inherit;
 }
 
-a {
-  color: #00B7FF;
-}
-
 body {
   padding: 50px;
   height: 100%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+a {
+  color: #00B7FF;
+}
+
 #home-page-container{
   border: 1px dotted red;
   height: 100%;
-  width: 80%;
+  width: 100%;
 }
 
 #home-page-footer{
