@@ -1,25 +1,42 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+}
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 a {
   color: #00B7FF;
 }
 
+body {
+  padding: 50px;
+  height: 100%;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
 #home-page-container{
   border: 1px dotted red;
-  height: 1000px;
+  height: 100%;
   width: 80%;
 }
 
 #home-page-footer{
   position: absolute;
+  right: 0;
   bottom: 0;
-  /*height: 100px;*/
-  width: 100%;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
   background-color: #cbcac5;
 }
+
 #search{
   width: 30%;
 }
