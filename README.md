@@ -2,6 +2,11 @@
 # Website-GraduateSchool
 This is the [Express.js](http://expressjs.com/) repository for the GraduateSchool's new website.
 
+## Testing Tools
+  1. [Mocha](http://mochajs.org/) (Test Framework)
+  2. [Cucumber.js](https://github.com/cucumber/cucumber-js) (BDD)
+  3. [Expect.js](https://github.com/Automattic/expect.js) (Minimalistic BDD assertion toolkit.)
+
 ## Installation
 
 ### Mac OSX || Linux
