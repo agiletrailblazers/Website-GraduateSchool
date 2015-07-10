@@ -7,6 +7,7 @@ This is the [Express.js](http://expressjs.com/) repository for the GraduateSchoo
   2. [Cucumber.js](https://github.com/cucumber/cucumber-js) (BDD)
   3. [Expect.js](https://github.com/Automattic/expect.js) (Minimalistic BDD assertion toolkit.)
   4. [Chai](http://chaijs.com/)
+  To run tests use the command `mocha`.
 
 ## Installation
 
