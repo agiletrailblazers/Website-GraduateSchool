@@ -37,6 +37,10 @@ a {
   background-color: #cbcac5;
 }
 
+#home-search{
+  width: 30%;
+}
+
 #search{
   width: 30%;
 }
