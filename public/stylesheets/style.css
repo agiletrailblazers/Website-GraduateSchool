@@ -39,10 +39,7 @@ a {
 
 #home-search{
   width: 30%;
-}
-
-#search{
-  width: 30%;
+  min-width: 200px !important;
 }
 
 ul {
