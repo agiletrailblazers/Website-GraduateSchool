@@ -2,11 +2,15 @@
 # Website-GraduateSchool
 This is the [Express.js](http://expressjs.com/) repository for the GraduateSchool's new website.
 
-## Testing Tools
-  1. [Mocha](http://mochajs.org/) (Test Framework)
+## Tools & Technologies
+  1. [Mocha](http://mochajs.org/) (Test Framework) [Wiki](https://github.com/mochajs/mocha/wiki)
   2. [Cucumber.js](https://github.com/cucumber/cucumber-js) (BDD)
   3. [Expect.js](https://github.com/Automattic/expect.js) (Minimalistic BDD assertion toolkit.)
   4. [Chai](http://chaijs.com/).To run tests use the command `mocha` :: Chai is an assertion library.
+  5. [Contentful](https://github.com/contentful/contentful.js)
+  6. Facebook
+  7. Twitter
+  8. [selenium-webdriver](https://www.npmjs.com/package/selenium-webdriver)
 
 ## Installation
 
