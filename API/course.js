@@ -2,6 +2,7 @@ var request = require('request');
 
 module.exports = {
   performCourseSearch: function(callback, searchCriteria) {
+    //TODO: environmentalize the URL for course search (this is dev)
     request({
       method: 'GET',
       url: 'http://54.88.17.121:8080/api/course?search=' + searchCriteria
