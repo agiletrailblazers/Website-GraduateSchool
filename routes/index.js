@@ -15,7 +15,6 @@ router.get('/demo', function(req, res, next){
 // Get What's new page.
 router.get('/whats-new', function(req, res, next){
   contentful.getWhatsNew(function(response){
-    console.log(response)
     res.render('whats_new', { entry: response.fields });
   });
 });
