@@ -1,4 +1,5 @@
 var express = require('express');
+var contentful = require("../API/contentful.js");
 var router = express.Router();
 
 /* GET home page. */
@@ -13,7 +14,9 @@ router.get('/demo', function(req, res, next){
 
 // Get What's new page.
 router.get('/whats-new', function(req, res, next){
-  res.render('whats_new', { });
+  contentful.getWhatsNew(function(response){
+    res.render('whats_new', { entry: response.fields });
+  });
 });
 
 module.exports = router;
