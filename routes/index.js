@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express', name: 'Arti'});
+  res.render('index', { title: 'Graduate School', name: 'Home Page'});
 });
 
 // GET demo home page
