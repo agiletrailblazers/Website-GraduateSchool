@@ -1,3 +1,4 @@
 exports.landingPage =function(homepg){
-  return homepg.toLowerCase()
+  console.log('Inside homepage test function');
+  return homepg.toLowerCase();
 }
