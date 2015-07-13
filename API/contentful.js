@@ -3,7 +3,7 @@ var request = require('request');
 
 var client = contentful.createClient({
   accessToken: '940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652',
-  host: 'preview.contentful.com',
+  host: 'production.contentful.com',
   space: 'jzmztwi1xqvn'
 });
 
