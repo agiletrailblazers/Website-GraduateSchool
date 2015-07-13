@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+  <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
+</head>
+<body>
+  <span>
+  <h1>Course Search Results</h1>
+  <% for(var i=0; i<entry.courses.length; i++) { %>
+        <p>
+            <div>
+                <span><%= entry.courses[i].courseId %></span>
+                &nbsp;
+                <span><%= entry.courses[i].courseTitle %></span>
+            </div>
+            <div><%= entry.courses[i].courseDescription %></div>
+        </p>
+  <% } %>
+  </span>
+</body>
+</html>
