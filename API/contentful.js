@@ -7,7 +7,6 @@ var client = contentful.createClient({
   space: 'jzmztwi1xqvn'
 });
 
-
 module.exports = {
   getWhatsNew: function(callback) {
     request({
