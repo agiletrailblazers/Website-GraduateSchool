@@ -16,9 +16,9 @@ module.exports = {
       headers: {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }}, function (error, response, body) {
-        console.log('Status:', response.statusCode);
-        entry = JSON.parse(body);
-        return callback(entry);
-      });
-    }
-  };
+      console.log('Status:', response.statusCode);
+      entry = JSON.parse(body);
+      return callback(entry);
+    });
+  }
+};
