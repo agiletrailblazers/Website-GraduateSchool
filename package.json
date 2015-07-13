@@ -29,9 +29,7 @@
   },
   "config": {
     "blanket": {
-      "pattern": [
-        "../routes/index.js"
-      ],
+      "pattern": [],
       "data-cover-never": "node_modules"
     }
   }

@@ -4,11 +4,9 @@ var router = express.Router();
 
 /* GET home page. */
 
-module.exports = function(router){
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Graduate School', name: 'Home Page'});
 });
-};
 
 // GET demo home page
 router.get('/demo', function(req, res, next){
