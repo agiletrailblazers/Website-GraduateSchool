@@ -11,6 +11,7 @@ router.get('/demo', function(req, res, next){
   res.render('demo_index', { });
 });
 
+// Get What's new page.
 router.get('/whats-new', function(req, res, next){
   res.render('whats_new', { });
 });
