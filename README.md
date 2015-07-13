@@ -39,7 +39,7 @@ This is the [Express.js](http://expressjs.com/) repository for the GraduateSchoo
 IDE: Intellij || Eclipse <br>
 [ATOM](https://atom.io/)
 
-## Tutorials and help
+## Tutorials and help <br>
   ### Testing
     1. [How to build and test apps using Mocha](https://thewayofcode.wordpress.com/tag/route-unit-test/)
     2. [How to unit test routes w/ Express](http://stackoverflow.com/questions/9517880/how-does-one-unit-test-routes-with-express)
