@@ -11,7 +11,10 @@
 <body>
   <span>
   <h1>Course Search Results</h1>
-  <% for(var i=0; i<entry.courses.length; i++) { %>
+  <% if (entry == null || entry.courses == null || entry.courses.length == 0) { %>
+    <p>No matches</p>
+  <% } else { %>
+    <% for(var i=0; i<entry.courses.length; i++) { %>
         <p>
             <div>
                 <span><%= entry.courses[i].courseId %></span>
@@ -20,7 +23,8 @@
             </div>
             <div><%= entry.courses[i].courseDescription %></div>
         </p>
-  <% } %>
+      <% } %>
+    <% } %>
   </span>
 </body>
 </html>
