@@ -4,7 +4,7 @@ module.exports = {
   performCourseSearch: function(callback, searchCriteria) {
     request({
       method: 'GET',
-      url: 'http://localhost:8080/api/course?search=' + searchCriteria
+      url: 'http://54.88.17.121:8080/api/course?search=' + searchCriteria
     }, function (error, response, body) {
       console.log('Status:', response.statusCode);
       if (response.statusCode != 200) {
