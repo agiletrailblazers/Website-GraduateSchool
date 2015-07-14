@@ -1,6 +1,5 @@
-var homepg=require('../routes/index');
-var homepg=require('../routes/users');
-var gethomepage = require('../routes/param/gethomepage');
+var getHomepage = require('../routes/index');
+var getRoutemocker = require('../routes/param/getroutemocker');
 
 var sinon = require('sinon');
 var chai = require('chai');
@@ -8,15 +7,14 @@ var expect = chai.expect;
 
 describe("Routes", function() {
   describe("GET Homepage", function() {
-      it("should respond", function() {
+      it("test home page", function() {
         var req,res,spy;
 
         req = res = {};
         spy = res.send = sinon.spy();
 
-        gethomepage(req, res);
+        getRoutemocker.getHomepage(req, res);
         expect(spy.calledOnce).to.equal(true);
       });
-
   });
 });
