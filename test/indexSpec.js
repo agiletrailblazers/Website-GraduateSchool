@@ -1,5 +1,3 @@
-
-
 var homepg=require('../routes/index');
 var homepg=require('../routes/users');
 var gethomepage = require('../routes/param/gethomepage');
