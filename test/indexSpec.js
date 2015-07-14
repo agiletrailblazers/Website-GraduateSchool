@@ -1,6 +1,6 @@
-var homepg=require('../routes/index');
-var homepg=require('../routes/users');
-var gethomepage = require('../routes/param/gethomepage');
+var getHomepage = require('../routes/index');
+var getUsername = require('../routes/users');
+var getRoutemocker = require('../routes/param/getroutemocker');
 
 var sinon = require('sinon');
 var chai = require('chai');
@@ -14,9 +14,8 @@ describe("Routes", function() {
         req = res = {};
         spy = res.send = sinon.spy();
 
-        gethomepage(req, res);
+        getRoutemocker.getHomepage(req, res);
         expect(spy.calledOnce).to.equal(true);
       });
-
   });
 });
