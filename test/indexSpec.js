@@ -1,12 +1,24 @@
-var chai=require('chai');
-var expect=require('chai').expect;
 
-var homepg=require('../API/homepage.js');
 
- describe ('homepage', function(){
-   it('returns lowercase of a string', function(){
-     var inputword='Welcome to the Graduate School Home Page';
-     var outputword = homepg.landingPage(inputword);
-     expect(outputword).to.equal('welcome to the graduate school home page');
-   });
- });
+var homepg=require('../routes/index');
+var homepg=require('../routes/users');
+var gethomepage = require('../routes/param/gethomepage');
+
+var sinon = require('sinon');
+var chai = require('chai');
+var expect = chai.expect;
+
+describe("Routes", function() {
+  describe("GET Homepage", function() {
+      it("should respond", function() {
+        var req,res,spy;
+
+        req = res = {};
+        spy = res.send = sinon.spy();
+
+        gethomepage(req, res);
+        expect(spy.calledOnce).to.equal(true);
+      });
+
+  });
+});
