@@ -1,5 +1,4 @@
 var getHomepage = require('../routes/index');
-var getUsername = require('../routes/users');
 var getRoutemocker = require('../routes/param/getroutemocker');
 
 var sinon = require('sinon');
@@ -8,7 +7,7 @@ var expect = chai.expect;
 
 describe("Routes", function() {
   describe("GET Homepage", function() {
-      it("should respond", function() {
+      it("test home page", function() {
         var req,res,spy;
 
         req = res = {};
