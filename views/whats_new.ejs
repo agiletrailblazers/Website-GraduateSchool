@@ -1,13 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>What's New</title>
-    <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-    <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
-  </head>
-  <body>
-  </body>
+<head>
+  <title>What's New</title>
+  <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+  <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <header>
+        <img src="<%= entry.topBanners %>" alt="" /> <br/>
+        <img src="images/whats_new_header2.jpg" alt="" />
+      </header>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <aside>
+          <h1 class="box">Your success is our mission.</h1>
+          <h2 class="title"><%= entry.sidebarTitle %></h2>
+          <blockquote cite="">
+            <%= entry.sidebarQuote %>
+          </blockquote>
+          <button type="button" name="button">Register today</button>
+        </aside>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12">
+        <section>
+          <p>
+            <%= entry.sectionSummary %>
+          </p>
+        </section>
+      </div> <!--/#col -->
+    </div> <!--/#row -->
+  </div><!--/#container-fulid -->
+</body>
 </html>
