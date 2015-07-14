@@ -1,7 +1,7 @@
 var chai=require('chai');
 var expect=require('chai').expect;
 
-var homepg=require('../API/homepage.js');
+var homepg=require('../API/tester.js');
 
  describe ('homepage', function(){
    it('returns lowercase of a string', function(){
