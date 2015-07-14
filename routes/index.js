@@ -21,8 +21,8 @@ router.get('/whats-new', function(req, res, next) {
       contentful.getAsset("jzmztwi1xqvn", response.fields.topBanners[i].sys.id, function(resp) {
         console.log(typeof String(resp.fields.file.url) === 'string');
         assets.push(resp.fields.file.url);
-        return assets;
       });
+      return assets;
     }
     res.render('whats_new', { entry: response.fields, assets: assets });
   });
