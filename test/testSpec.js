@@ -4,6 +4,7 @@ var contentful = require("../API/contentful.js");
 var homepg = require('../API/tester.js');
 var sinon = require('sinon');
 var nock = require('nock');
+var should = require("should");
 
 describe ('homepage', function() {
   it('returns lowercase of a string', function(){
@@ -13,7 +14,7 @@ describe ('homepage', function() {
   });
 });
 
-describe('/whats-new', function() {
+describe('Whats-new Contentful API', function() {
   var contentfulServer = nock('https://cdn.contentful.com')
         .get('/spaces/jzmztwi1xqvn/entries/4QlvJ0GeQw4AY2QOq8SUMY?access_token=940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652')
         .reply(200, {

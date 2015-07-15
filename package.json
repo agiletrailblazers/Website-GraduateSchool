@@ -34,7 +34,8 @@
   "config": {
     "blanket": {
       "pattern": [
-        "/routes/"
+        "/routes/",
+        "/API/contentful.js"
       ],
       "data-cover-never": "node_modules"
     }
