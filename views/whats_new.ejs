@@ -12,21 +12,29 @@
   <div class="container">
     <div class="row">
       <header>
-        <img src="<%= entry.topBanners[0] %>" alt="" /> <br/>
-        <img src="images/whats_new_header2.jpg" alt="" />
+        <img src="/images/whats_new_header1.jpg" alt=""  class="img"/>
+        <img src="/images/whats_new_header2.jpg" alt="" class="img"/>
       </header>
       <div class="col-lg-4 col-md-4 col-sm-12">
-        <aside>
+      <aside>
+          <div class="clearfix">
           <h1 class="box">Your success is our mission.</h1>
           <h2 class="title"><%= entry.sidebarTitle %></h2>
           <blockquote cite="">
             <%= entry.sidebarQuote %>
           </blockquote>
-          <button type="button" name="button">Register today</button>
+          <button type="button" name="button" class="quote pull-right">Register today</button>
+          </div>
         </aside>
+
       </div>
       <div class="col-lg-8 col-md-8 col-sm-12">
         <section>
+          <p>
+            A leader in government training for over nine decades, we continuously update and add to our services in response to changing laws, rules and regulations, and content requirements. Graduate School USA instructors are subject matter experts with professional experience in the areas they teach, and they know the challenges you face.
+
+          Count on us for dynamic, interactive training intended for immediate application on the job. All of our courses and programs can be customized and delivered to meet agency needs—anywhere, anytime
+          </p>
           <p>
             <%= entry.sectionSummary %>
           </p>
