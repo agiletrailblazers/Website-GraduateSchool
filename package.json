@@ -20,6 +20,7 @@
     "flickr": "^0.2.0",
     "mocha": "^2.2.5",
     "morgan": "~1.6.1",
+    "nock": "^2.7.0",
     "passport-facebook": "^2.0.0",
     "request": "^2.58.0",
     "selenium-webdriver": "^2.46.1",

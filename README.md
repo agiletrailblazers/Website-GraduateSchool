@@ -11,6 +11,7 @@ This is the [Express.js](http://expressjs.com/) repository for the GraduateSchoo
   6. Facebook
   7. Twitter
   8. [selenium-webdriver](https://www.npmjs.com/package/selenium-webdriver)
+  9. [nock](https://github.com/pgte/nock)
 
 ## Installation
 
