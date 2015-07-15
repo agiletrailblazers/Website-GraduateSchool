@@ -14,10 +14,6 @@ describe ('homepage', function() {
 });
 
 describe('/whats-new', function() {
-  it.skip("makes a GET request for what's new", function() {
-
-  });
-
   it("should return a 200 response code", function(done) {
     nock('https://cdn.contentful.com')
       .get('/spaces/jzmztwi1xqvn/entries/4QlvJ0GeQw4AY2QOq8SUMY?access_token=940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652')
@@ -58,5 +54,4 @@ describe('/whats-new', function() {
       expect(response).to.be.a('json');
     });
   });
-
 });
