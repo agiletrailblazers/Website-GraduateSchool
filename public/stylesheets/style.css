@@ -65,3 +65,38 @@ a:link, a:visited {
 a:hover, a:active {
     background-color: #9ACD32;
 }
+
+
+/* What's new temporary styles */
+
+.img {
+  width: 100%;
+  max-width: 1000px;
+}
+
+h1.box {
+font-size: 30px;
+border-left: 20px solid #993;
+padding-left: 10px;
+color: #004C4C;
+
+}
+
+h2.title {
+font-size: 18px;
+color: #993;
+
+}
+
+button.quote {
+background-color: #993;
+color: #FFFFFF !important;
+padding: 10px 20px;
+margin-bottom: 20px !important;
+}
+
+blockquote {
+  font-size: 15px !important;
+}
+
+/* END What's new temporary styles   */
