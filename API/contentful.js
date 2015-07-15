@@ -17,7 +17,8 @@ module.exports = {
       }}, function (error, response, body) {
       console.log('Status:', response.statusCode);
       cmsEntry = JSON.parse(body);
-      return callback(cmsEntry);
+      console.log(cmsEntry);
+      return callback({cmsEntry: cmsEntry, statusCode: response.statusCode});
     });
   },
   getAsset: function(space, asset, callback) {
