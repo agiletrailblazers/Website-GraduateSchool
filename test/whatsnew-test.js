@@ -2,6 +2,7 @@ var chai = require('chai');
 var expect = require('chai').expect;
 var contentful = require("../API/contentful.js");
 var nock = require('nock');
+var should = require("should");
 
 describe('/whats-new', function() {
   var contentfulServer = nock('https://cdn.contentful.com')
