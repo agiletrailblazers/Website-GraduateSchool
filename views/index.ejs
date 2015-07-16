@@ -10,30 +10,43 @@
   <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
 </head>
 <body>
-  <span>
-    <div id="home-page-container" class="container">
-      <nav class="navbar navbar-default navbar-static-top">
-        <div style="width: 50%">
+<div class="container-fluid b_bottom">
+  <div class="container">
+    <div class="row nm header clearfix">
+        <header>
+          <div class="row nm">
+            <div class="col lg-6 pull-left">
+              <img alt="Brand" src="/images/logo.jpg" class="img">
+              <!-- <img alt="Brand" src="/images/logo.jpg">  - uncomment for the git-->
 
-          <img alt="Brand" src="/images/logo.jpg">
-        </div>
-
-      </span>
-      <br/>
-
-      <div style="float:center">
-        <nav class="navbar" style="width:18%;">
-          <div style=" background-color:#666666;">
-            <ul>
-              <li><a href="#">Students</a></li>
-              <li><a href="#">Training Officers </a></li>
-            </ul>
+                <!-- Current Menu -
+              <nav class="navbar" style="width:18%;">
+                <div style=" background-color:#666666;">
+                  <ul>
+                    <li><a href="#">Students</a></li>
+                    <li><a href="#">Training Officers </a></li>
+                  </ul>
+                </div>
+              </nav>
+            -->
+            </div>
+            <div class="col lg-6 pull-right searchbox">
+              <div id="home-search" class="col-lg-6">
+                <form action="javascript:performCourseSearch();">
+                  <div class="input-group">
+                    <input type="text" id="searchCriteria" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </span>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
-        </nav>
-      </div>
+        </div> <!-- /end of the first Row  -->
 
-      <div style="display: block; float:left-center; width:100%; background-color:#1E90FF;">
-        <br/>
+      <!-- Current Menu -
+      <div class="row nm">
         <ul>
           <li><a href="http://graduateschool.edu/index.php?option=com_content&task=view&id=35&Itemid=281">About Graduate School</a></li>
           <li><a href="http://graduateschool.edu/index.php?option=com_content&task=view&id=29&Itemid=154">Courses & Programs </a></li>
@@ -42,41 +55,46 @@
           <li><a href="http://graduateschool.edu/index.php?option=com_content&task=view&id=33&Itemid=161">Trainig Officials</a></li>
           <li><a href="http://www.graduateschool.edu/de/distance_education.html">Distance Education</a></li>
         </ul>
-      </div>
-    </nav>
-    <div>
-      <div id="home-search" class="col-lg-6">
-        <form action="javascript:performCourseSearch();">
-          <div class="input-group">
-            <input type="text" id="searchCriteria" class="form-control" placeholder="Search for...">
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-            </span>
-          </div>
-        </form>
-      </div>
-      <div>
-        <a href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;">
-          <div style="float:right">
-            <img alt="Live chat by BoldChat" src="http://images.boldchat.com/ext/images/buttons/chat/120x90_rounded/live_chat/120x90_rnd_chat_red_wt.gif" border="0" id="0.06143315345980227">
-          </div>
-        </a>
-      </div>
-    </div>
+      </div> -->
 
-  </div>
-  <footer id="home-page-footer" style="height:25%">
-    <span style="width:50%; float:left;">
-      <div>
-        <a href="http://www.facebook.com/GraduateSchoolUSA" target="_blank"><img title="Facebook" src="/images/facebook.ico" alt="Facebook" width="35" height="35" /></a>
-        <a href="http://twitter.com/thegradschool" target="_blank"><img title="Twitter" src="/images/twitter.ico" alt="Twitter" width="35" height="35" /></a>
-        <a href="http://www.youtube.com/user/TheGradSchool" target="_blank"><img title="YouTube" src="/images/youtube.ico" alt="Pinterest" width="35" height="35" /></a>
-        <a href="http://www.flickr.com/photos/thegradschool" target="_blank"><img title="Flickr" src="/images/flickr.ico" alt="RSS" width="35" height="35" /></a></div>
-      </span>
-      <span style="width:50%; float:right;">
-        <img alt="Brand" src="/images/crest.png">
-      </span>
-    </footer>
-  </div>
+      </header>
+    </div><!-- /end Row Container -->
+   </div><!-- /end Row Header -->
+
+  <div class="row t_officer center b_bottom">
+      <div class="container-fluid">
+        <img src="/images/01.jpg" alt="" class="img full-width"/>
+      </div>
+   </div> <!-- /end Row Training officer -->
+  <div class="row student center b_bottom">
+    <div class="container-fluid">
+      <img src="/images/02.jpg" alt="" class="img full-width"/>
+    </div>
+   </div><!-- /end Row student -->
+  <div class="row search b_bottom">
+    <div class="container center">
+      <img src="/images/03.png" alt="" style="max-height:241px; width:100%; max-width:512px;"/>
+    </div>
+   </div><!-- /end Row search -->
+
+   <div class="row footer">
+   <div class="container">
+
+     <footer class="center">
+
+       <p class="copy"> &copy; 2015 Graduate School USA </p>
+
+       <p class="copy social"> Facebook | Twitter | Youtube | Flicker </p>
+      <!--
+      <span class="social">
+       <a href="http://www.facebook.com/GraduateSchoolUSA" target="_blank"><img title="Facebook" src="/images/facebook.ico" alt="Facebook" width="35" height="35" /></a>
+       <a href="http://twitter.com/thegradschool" target="_blank"><img title="Twitter" src="/images/twitter.ico" alt="Twitter" width="35" height="35" /></a>
+       <a href="http://www.youtube.com/user/TheGradSchool" target="_blank"><img title="YouTube" src="/images/youtube.ico" alt="Pinterest" width="35" height="35" /></a>
+       <a href="http://www.flickr.com/photos/thegradschool" target="_blank"><img title="Flickr" src="/images/flickr.ico" alt="RSS" width="35" height="35" /></a></div>
+     </span> -->
+     </footer>
+ </div>
+  </div> <!-- /end Container-fluid -->
+</div>
 </body>
 </html>
