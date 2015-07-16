@@ -34,9 +34,13 @@
   "config": {
     "blanket": {
       "pattern": [
-        "/routes/"
+        "/routes/",
+        "/API/"
       ],
-      "data-cover-never": "node_modules"
+      "data-cover-never": "node_modules",
+      "data-cover-reporter-options": {
+        "shortnames": true
+      }
     }
   }
 }
