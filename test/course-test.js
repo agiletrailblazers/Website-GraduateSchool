@@ -29,4 +29,18 @@ describe ('course-search', function(){
       },'government');
     });
 
+    //test a 500 internal server error
+    var courseServer = nock('http://54.88.17.121:8080')
+          .get('/api/course?search=failure')
+          .reply(500, {
+      });
+      it("Calls course search API 200 OK", function(done) {
+        courseServer;
+        course.performCourseSearch(function(response, error, result){
+          expect(response.statusCode).to.eql(500);
+          expect(result).to.equal(null);
+          done();
+        },'failure');
+      });
+
 });

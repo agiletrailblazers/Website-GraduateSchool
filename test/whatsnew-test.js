@@ -1,17 +1,7 @@
 var chai = require('chai');
 var expect = require('chai').expect;
 var contentful = require("../API/contentful.js");
-var homepg = require('../API/tester.js');
-var sinon = require('sinon');
 var nock = require('nock');
-
-describe ('homepage', function() {
-  it('returns lowercase of a string', function(){
-    var inputword='Welcome to the Graduate School Home Page';
-    var outputword = homepg.landingPage(inputword);
-    expect(outputword).to.equal('welcome to the graduate school home page');
-  });
-});
 
 describe('/whats-new', function() {
   var contentfulServer = nock('https://cdn.contentful.com')

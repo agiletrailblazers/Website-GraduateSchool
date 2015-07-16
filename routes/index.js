@@ -19,7 +19,8 @@ router.get('/whats-new', function(req, res, next) {
 //  otherwise show the search results page.
 router.get('/course-search', function(req, res, next){
   var searchCriteria = req.query["search"];
-  course.performCourseSearch(function(response){
+  course.performCourseSearch(function(response, error, result){
+    //TODO: how do we globally handle error's and send to an error page?
     if (result && result.exactMatch) {
       //redirect to course details
       console.log("Exact course match found for " + result.courses[0].courseId + " - Redirecting.")
