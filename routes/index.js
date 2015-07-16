@@ -19,15 +19,16 @@ router.get('/whats-new', function(req, res, next) {
 //  otherwise show the search results page.
 router.get('/course-search', function(req, res, next){
   var searchCriteria = req.query["search"];
-  course.performCourseSearch(function(response){
-    if (entry.exactMatch) {
+  course.performCourseSearch(function(response, error, result){
+    //TODO: how do we globally handle error's and send to an error page?
+    if (result && result.exactMatch) {
       //redirect to course details
-      console.log("Exact course match found for " + entry.courses[0].courseId + " - Redirecting.")
-      res.redirect('course-detail?courseId=' + entry.courses[0].courseId);
+      console.log("Exact course match found for " + result.courses[0].courseId + " - Redirecting.")
+      res.redirect('course-detail?courseId=' + result.courses[0].courseId);
     }
     else {
       //display course search page
-      res.render('course_search', { title: 'Course Search', entry: entry });
+      res.render('course_search', { title: 'Course Search', result: result });
     }
   }, searchCriteria);
 });
