@@ -31,6 +31,13 @@ This is the [Express.js](http://expressjs.com/) repository for the GraduateSchoo
   5. Navigate inside repository using Powershell || Command Prompt and run `npm install`.
   6. To start run `> set DEBUG=myapp & npm start` (will run on localhost:3000).
 
+#### Running in Different Environments
+By defauly "npm start" will run the "dev" environment.
+To run as a different environment use: `$ NODE_ENV={env} npm start`
+Options for {env} are: NONE, dev, test, prod
+
+Example for running LOCAL: `NODE_ENV= node ./bin/www`
+
 ## Adding Packages
   When adding packages please use the `--save` option to add to our list of dependencies in the package.json file. If you add a package please notify the team on SLACK that you have added a package so we can install the dependency on our local machines after pulling from upstream master.
 

@@ -21,6 +21,7 @@ module.exports = {
       return callback({cmsEntry: cmsEntry, statusCode: response.statusCode});
     });
   },
+  //Below function is for the future use to support image assets.
   getAsset: function(space, asset, callback) {
     request({
       method: 'GET',
