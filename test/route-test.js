@@ -1,5 +1,5 @@
-var getHomepage = require('../routes/index');
-var getRoutemocker = require('../routes/param/getroutemocker');
+var getHomepage = require('../router/index');
+var getRoutemocker = require('../router/param/getroutemocker');
 
 var sinon = require('sinon');
 var chai = require('chai');
