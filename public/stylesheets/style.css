@@ -132,6 +132,13 @@ p.social {
 .searchbox {
   padding-top: 20px;
 }
+
+a.homepage {
+  color: transparent;
+  background-color: transparent;
+  padding: 0 !important;
+
+}
 /* END Homepage - demo - temporary code */
 
 
