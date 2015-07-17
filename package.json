@@ -37,7 +37,8 @@
   "config": {
     "blanket": {
       "pattern": [
-        "/routes/",
+        "/router/",
+        "/router/routes/",
         "/API/"
       ],
       "data-cover-never": "node_modules",

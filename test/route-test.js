@@ -1,4 +1,7 @@
-var getHomepage = require('../router/index');
+var indexRouter = require('../router/index');
+var indexRouter = require('../router/routes/home-route');
+var indexRouter = require('../router/routes/course-route');
+var indexRouter = require('../router/routes/whatsnew-route');
 var getRoutemocker = require('../router/param/getroutemocker');
 
 var sinon = require('sinon');
