@@ -3,11 +3,15 @@ var request = require('request');
 var nock = require('nock');
 var chai = require('chai');
 var expect = chai.expect;
+var config = require('konphyg')(__dirname + "/../config");
 
 describe ('course-search', function(){
 
+  //use endpoing from config even for tests
+  var courseApiUrl = config("endpoint").courseApiUrl;
+
   //test a 200 ok
-  var courseServer = nock('http://54.88.17.121:8080')
+  var courseServer = nock(courseApiUrl)
         .get('/api/course?search=government')
         .reply(200, {
           "exactMatch": true,
@@ -30,7 +34,7 @@ describe ('course-search', function(){
     });
 
     //test a 500 internal server error
-    var courseServer = nock('http://54.88.17.121:8080')
+    var courseServer = nock(courseApiUrl)
           .get('/api/course?search=failure')
           .reply(500, {
       });
