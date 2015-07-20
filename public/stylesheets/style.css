@@ -231,4 +231,25 @@ blockquote {
   font-size: 15px !important;
 }
 
+table {
+  	width: 100%;
+    margin: 20px 0px !important;
+}
+
+table, th, tr, td {
+  border: 1px solid #DDD;
+}
+
+td, th {
+  padding: 5px 10px !important;
+}
+
+table h5 {
+    color: #008C00;
+    padding: 0;
+}
+
+
+
+
 /* END What's new temporary styles   */
