@@ -56,7 +56,6 @@ li {
 a:link, a:visited {
     width: 150px;
     font-weight: bold;
-    color: #FFFFFF;
     text-align: center;
     padding: 4px;
     text-decoration: none;
@@ -64,9 +63,16 @@ a:link, a:visited {
 
 a:hover, a:active {
     background-color: #9ACD32;
+    text-decoration: none;
+    border: none;
+    outline: none;
 }
 
 /* Homepage - demo - temporary code */
+
+*:focus {
+    outline: 0;
+}
 
 body {
   padding: 0px;
@@ -139,6 +145,53 @@ a.homepage {
   padding: 0 !important;
 
 }
+
+ul {
+  display: inline-block;
+  text-align: center;
+  margin: 0 auto;
+}
+
+ul li {
+  display: inline;
+  list-style: none;
+  float: none;
+}
+
+a:active, ul li:active, a:focus, ul li:focus  {
+  color: #DDDDDD !important;
+  text-decoration: none !important;
+  outline: none !important;
+  border: none !important;
+}
+
+
+li a:hover, li:hover   {
+  background-color: #AAA;
+  color: #000;
+  text-decoration: none;
+}
+
+
+
+#chat {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  right: 50px;
+  bottom: 50px;
+}
+
+#chat a{
+  padding: 0;
+  outline: 0;
+  border: none;
+}
+
+
+
+
+
 /* END Homepage - demo - temporary code */
 
 
@@ -147,6 +200,10 @@ a.homepage {
 .img {
   width: 100%;
   max-width: 1000px;
+}
+
+img.img.logo {
+  max-width: 311px;
 }
 
 h1.box {
