@@ -31,12 +31,33 @@
       <div class="col-lg-8 col-md-8 col-sm-12">
         <section>
           <p>
-            A leader in government training for over nine decades, we continuously update and add to our services in response to changing laws, rules and regulations, and content requirements. Graduate School USA instructors are subject matter experts with professional experience in the areas they teach, and they know the challenges you face.
-
-          Count on us for dynamic, interactive training intended for immediate application on the job. All of our courses and programs can be customized and delivered to meet agency needs—anywhere, anytime
-          </p>
-          <p>
             <%= entry.sectionSummary %>
+
+    <table>
+      <tbody>
+        <tr>
+          <th>
+            <strong>Class Code</strong>
+          </th>
+          <th>
+            <strong>Class Name</strong>
+          </th>
+        </tr>
+
+            <% for (var i=0; i < entry.sectionClasses.values.length; i++) { %>
+                <tr>
+                  <td>
+                      <%= entry.sectionClasses.values[i]["classNumber"]%>
+                  </td>
+                  <td>
+                  <h5><%= entry.sectionClasses.values[i]["className"] %></h5>
+                  </td>
+
+                </tr>
+
+            <% } %>
+          </tbody>
+      </table>
           </p>
         </section>
       </div> <!--/#col -->
