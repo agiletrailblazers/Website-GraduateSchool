@@ -42,22 +42,11 @@ a {
   min-width: 200px !important;
 }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
 
-li {
-    float: left;
-}
 
 a:link, a:visited {
-    width: 150px;
     font-weight: bold;
     text-align: center;
-    padding: 4px;
     text-decoration: none;
 }
 
@@ -71,7 +60,8 @@ a:hover, a:active {
 /* Homepage - demo - temporary code */
 
 *:focus {
-    outline: 0;
+    outline: 0 !important;
+    border: none;
 }
 
 body {
@@ -146,27 +136,30 @@ a.homepage {
 
 }
 
-ul {
+nav.social_media ul {
+  list-style-type: none;
   display: inline-block;
   text-align: center;
   margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
 }
 
-ul li {
+nav.social_media ul li {
   display: inline;
   list-style: none;
   float: none;
 }
 
-a:active, ul li:active, a:focus, ul li:focus  {
+nav.social_media a, nav.social_media a:active, nav.social_media ul li:active, nav.social_media a:focus, nav.social_media ul li:focus  {
   color: #DDDDDD !important;
   text-decoration: none !important;
   outline: none !important;
   border: none !important;
+  padding: 6px 10px;
 }
 
-
-li a:hover, li:hover   {
+nav.social_media li a:hover, nav.social_media li:hover   {
   background-color: #AAA;
   color: #000;
   text-decoration: none;
@@ -182,7 +175,7 @@ li a:hover, li:hover   {
   bottom: 50px;
 }
 
-#chat a{
+#chat a {
   padding: 0;
   outline: 0;
   border: none;
@@ -233,7 +226,7 @@ blockquote {
 
 table {
   	width: 100%;
-    margin: 20px 0px !important;
+    margin: 20px 0 px !important;
 }
 
 table, th, tr, td {
@@ -250,6 +243,18 @@ table h5 {
 }
 
 
-
-
 /* END What's new temporary styles   */
+
+
+/* FIXES   */
+
+/*for FireFox*/
+    input[type="submit"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner
+    {
+        border : 0px;
+    }
+/*for IE8 */
+    input[type="submit"]:focus, input[type="button"]:focus
+    {
+        outline : none;
+    }
