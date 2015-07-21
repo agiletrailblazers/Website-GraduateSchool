@@ -5,26 +5,24 @@
   <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
   <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/course_search.css' />
   <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
   <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
 </head>
 <body>
-  <span>
-  <h1>Course Search Results</h1>
-  <% if (result == null || result.courses == null || result.courses.length == 0) { %>
-    <p>No matches</p>
-  <% } else { %>
-    <% for(var i=0; i<result.courses.length; i++) { %>
-        <p>
-            <div>
-                <span><%= result.courses[i].courseId %></span>
-                &nbsp;
-                <span><%= result.courses[i].courseTitle %></span>
-            </div>
-            <div><%= result.courses[i].courseDescription %></div>
-        </p>
+  <div class="container">
+    <h1>Course Search Results</h1>
+    <% if (result == null || result.courses == null || result.courses.length == 0) { %>
+      <p>No matches</p>
+      <% } else { %>
+        <% for(var i=0; i<result.courses.length; i++) { %>
+          <div id="course-result">
+            <h3><a><%= result.courses[i].courseId %> - <%= result.courses[i].courseTitle %></a></h3>
+          </div>
+          <div><%= result.courses[i].courseDescription %></div>
+          <hr>
+        <% } %>
       <% } %>
-    <% } %>
-  </span>
-</body>
-</html>
+  </div>
+      </body>
+      </html>
