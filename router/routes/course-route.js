@@ -10,8 +10,8 @@ router.get('/course-search', function(req, res, next){
     //TODO: how do we globally handle error's and send to an error page?
     if (result && result.exactMatch) {
       //redirect to course details
-      console.log("Exact course match found for " + result.courses[0].courseId + " - Redirecting.")
-      res.redirect('course-detail?courseId=' + result.courses[0].courseId);
+      console.log("Exact course match found for " + result.courses[0].id + " - Redirecting.")
+      res.redirect('course-detail?courseId=' + result.courses[0].id);
     }
     else {
       //display course search page
