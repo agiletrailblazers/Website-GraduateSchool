@@ -22,7 +22,7 @@ router.get('/course-search', function(req, res, next){
 
 // Get the course details page
 router.get('/course-detail', function(req, res, next){
-  var courseId = req.query["courseId"];
+  var courseId = req.query["id"];
   console.log("Getting course details for course " + courseId);
   //TODO - make a call to get course details and pass it to the view
   res.render('course_detail', { title: 'Course Details', courseId : courseId });
