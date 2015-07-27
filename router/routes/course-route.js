@@ -38,7 +38,8 @@ router.get('/courses/:course_id', function(req, res, next){
       res.render('course_detail', { title: "Title", courseTitle: result.title,
                   courseId: result.id, courseCode: result.code, courseType: result.type,
                   courseDescription: result.description, courseCredit: result.credit,
-                  courseLength: result.length, courseSchedule: result.schedule });
+                  courseLength: result.length.value, courseInterval: result.length.interval,
+                  courseSchedule: result.schedule });
     } else {
       // Render a 404 page.
     }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= title %></title>
+  <title><%= courseTitle %></title>
   <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
   <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
   <link rel='stylesheet' href='/stylesheets/style.css' />
@@ -154,19 +154,19 @@
             <h3>Course details</h3>
             <tr>
                 <th>Code</th>
-                <td>STAF8007D</td>
+                <td><%= courseCode %></td>
             </tr>
             <tr>
                 <th>Type</th>
-                <td>Classroom Day</td>
+                <td><%= courseType %></td>
             </tr>
             <tr>
                 <th>Length</th>
-                <td>1 day(s)</td>
+                <td><%= courseLength %> <%= courseInterval %>(s)</td>
             </tr>
             <tr>
                 <th>Credit</th>
-                <td>.6 CEU</td>
+                <td><%= courseCredit.value %> <%= courseCredit.type %></td>
             </tr>
         </table>
        </div>
@@ -181,9 +181,7 @@
            <div class="tab-content">
              <div id="home" class="tab-pane fade in active">
                <h3>Course overview</h3>
-               <p>Ensure your personnel actions fully comply with all current and applicable veterans' preference laws, rules, and regulations. Understand who meets the definition of veteran; who is entitled to preference in employment in the competitive and excepted services; and the circumstances under which veterans' preference applies, including competitive appointments, noncompetitive appointments, and merit promotion.
-
-Related Distance Education Course: Adjudicatingand Applying Veterans' Preference (STAF8607A)</p>
+               <p><%= courseDescription %></p>
              </div>
              <div id="menu1" class="tab-pane fade">
                <h3>Who should attend?</h3>
