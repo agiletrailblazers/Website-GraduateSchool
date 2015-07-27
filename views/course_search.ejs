@@ -21,9 +21,9 @@
       <% } else { %>
         <% for(var i=0; i<result.courses.length; i++) { %>
           <div id="course-result">
-            <h3><a><%= result.courses[i].courseId %> - <%= result.courses[i].courseTitle %></a></h3>
+            <h3><a href="/courses/<%= result.courses[i].id %>"><%= result.courses[i].id %> - <%= result.courses[i].title %></a></h3>
           </div>
-          <div><%= result.courses[i].courseDescription %></div>
+          <div><%= result.courses[i].description %></div>
           <hr>
         <% } %>
       <% } %>
