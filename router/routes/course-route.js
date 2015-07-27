@@ -11,7 +11,8 @@ router.get('/course-search', function(req, res, next){
     if (result && result.exactMatch) {
       //redirect to course details
       console.log("Exact course match found for " + result.courses[0].id + " - Redirecting.")
-      res.redirect('course-detail?courseId=' + result.courses[0].id);
+      // res.redirect('course-detail?courseId=' + result.courses[0].id);
+      res.redirect('courses/' + result.courses[0].id);
     }
     else {
       //display course search page
