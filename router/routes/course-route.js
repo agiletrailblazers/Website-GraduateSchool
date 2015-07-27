@@ -28,4 +28,19 @@ router.get('/course-detail', function(req, res, next){
   res.render('course_detail', { title: 'Course Details', courseId : courseId });
 });
 
+// Get course details based off course code.
+router.get('/courses/:course_id', function(req, res, next){
+  var courseId = req.params.course_id;
+  course.performExactCourseSearch(function(response, error, result) {
+    if (result) {
+      console.log(result);
+      res.render('course_detail', { title: "Title", courseTitle: result.title,
+                  courseCode: result.id, courseType: result.type,
+                  courseDescription: result.description, courseCredit: result.credit,
+                  courseLength: result.length, courseSchedule: result.schedule });
+    } else {
+      // Render a 404 page.
+    }
+  }, courseId);
+});
 module.exports = router;
