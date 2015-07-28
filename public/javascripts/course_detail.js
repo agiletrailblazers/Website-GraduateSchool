@@ -8,7 +8,6 @@ mapApp = {
     });
   }
 } 
-
 $(document).ready(function(){
   $('#map-canvas').hide();
   $('#close-map').hide();

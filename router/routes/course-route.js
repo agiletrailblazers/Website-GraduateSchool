@@ -1,6 +1,8 @@
 var express = require('express');
 var course = require("../../API/course.js");
+var striptags = require('striptags');
 var router = express.Router();
+
 
 // Search for a course.  If there is only one exact match redirect to the course details page
 //  otherwise show the search results page.
@@ -37,7 +39,7 @@ router.get('/courses/:course_id', function(req, res, next){
       console.log(result);
       res.render('course_detail', { title: "Title", courseTitle: result.title,
                   courseId: result.id, courseCode: result.code, courseType: result.type,
-                  courseDescription: result.description, courseCredit: result.credit,
+                  courseDescription: striptags(result.description), courseCredit: result.credit,
                   courseLength: result.length.value, courseInterval: result.length.interval,
                   courseSchedule: result.schedule });
     } else {
