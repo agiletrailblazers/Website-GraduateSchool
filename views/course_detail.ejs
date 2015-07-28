@@ -1,239 +1,242 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= title %></title>
+  <title><%= courseTitle %></title>
   <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
   <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_9EOg9DdnSOQ0nCJrOcMdGQARxtZNd0"></script>
+  <script type="text/javascript" src="/javascripts/map.js"></script>
+  <script type="text/javascript" src="/javascripts/course_detail.js"></script>
+  <link rel="stylesheet" href="/stylesheets/course_detail.css">
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
   <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
   <!-- Style fix for Link color - to be removed after -->
-    <style media="screen">
-      a:link, a:visited{
-        color: #337AB7;
-      }
-    </style>
+  <style media="screen">
+  a:link, a:visited{
+    color: #337AB7;
+  }
+  </style>
 </head>
 <body>
   <div class="container">
 
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12">
-            <h1>Course Details for <%= courseId %></h1>
+        <h1>Course Details for <%= courseId %></h1>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12">
-          <button type="button" name="button">Multiple registration</button>
-          <button type="button" name="button">Bring course to your location</button>
+        <button type="button" name="button">Multiple registration</button>
+        <button type="button" name="button">Bring course to your location</button>
+        <button type="button" name="button" id="close-map">Close Map</button>
       </div>
-  </div> <!--/#row -->
-  <div class="row">
-    <div class="table-responsive">
-          <table class="table table-striped">
-            <thead >
-              <tr>
-                <th>Session Schedule</th>
-                <th>Instructor</th>
-                <th>Location</th>
-                <th>Amount</th>
-                <th>Registration closed</th>
-                <th>Guaranteed to go</th>
-                <th>#</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1,001</td>
-                <td>Lorem</td>
-                <td>ipsum</td>
-                <td>dolor</td>
-                <td></td>
-                <td><img src="/images/yes.png" alt="" /></td>
-                <td><button type="button" name="button">Register</button></td>
-              </tr>
-              <tr>
-                <td>1,002</td>
-                <td>amet</td>
-                <td>consectetur</td>
-                <td>adipiscing</td>
-                <td></td>
-                <td><img src="/images/yes.png" alt="" /></td>
-                <td><button type="button" name="button">Register</button></td>
-              </tr>
-              <tr>
-                <td>1,003</td>
-                <td>Integer</td>
-                <td>nec</td>
-                <td>odio</td>
-                <td></td>
-                <td><img src="/images/yes.png" alt="" /></td>
-                <td><button type="button" name="button">Register</button></td>
-              </tr>
-              <tr>
-                <td>1,003</td>
-                <td>libero</td>
-                <td>Sed</td>
-                <td>cursus</td>
-                <td></td>
-                <td><img src="/images/yes.png" alt="" /></td>
-                <td><button type="button" name="button">Register</button></td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td><img src="/images/closed.png" alt="" /></td>
-                <td></td>
-                <td><button type="button" name="button">Register</button></td>
-              </tr>
-              <tr>
-                <td>1,005</td>
-                <td>Nulla</td>
-                <td>quis</td>
-                <td>sem</td>
-                <td><img src="/images/closed.png" alt="" /></td>
-                <td></td>
-                <td><button type="button" name="button">Register</button></td>
-              </tr>
-              <tr>
-                <td>1,006</td>
-                <td>nibh</td>
-                <td>elementum</td>
-                <td>imperdiet</td>
-                <td><img src="/images/closed.png" alt="" /></td>
-                <td></td>
-                <td><button type="button" name="button">Register</button></td>
-              </tr>
-              <tr>
-                <td>1,007</td>
-                <td>sagittis</td>
-                <td>ipsum</td>
-                <td>Praesent</td>
-                <td><img src="/images/closed.png" alt="" /></td>
-                <td></td>
-                <td><button type="button" name="button">Register</button></td>
-              </tr>
-              <tr>
-                <td>1,008</td>
-                <td>Fusce</td>
-                <td>nec</td>
-                <td>tellus</td>
-                <td><img src="/images/closed.png" alt="" /></td>
-                <td></td>
-                <td><button type="button" name="button">Register</button></td>
-              </tr>
-              <tr>
-                <td>1,009</td>
-                <td>augue</td>
-                <td>semper</td>
-                <td>porta</td>
-                <td></td>
-                <td><img src="/images/yes.png" alt="" /></td>
-                <td><button type="button" name="button">Register</button></td>
-              </tr>
-              <tr>
-                <td>1,010</td>
-                <td>massa</td>
-                <td>Vestibulum</td>
-                <td>lacinia</td>
-                <td></td>
-                <td><img src="/images/yes.png" alt="" /></td>
-                <td><button type="button" name="button">Register</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-  </div> <!-- End of row -->
-
-<br/>
-<br/>
+    </div> <!--/#row -->
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead >
+            <tr>
+              <th>Session Schedule</th>
+              <th>Instructor</th>
+              <th>Location</th>
+              <th>Amount</th>
+              <th>Registration closed</th>
+              <th>Guaranteed to go</th>
+              <th>#</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1,001</td>
+              <td>Lorem</td>
+              <td>ipsum <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></span></td>
+              <td>dolor</td>
+              <td></td>
+              <td><img src="/images/yes.png" alt="" /></td>
+              <td><button type="button" name="button">Register</button></td>
+            </tr>
+            <tr>
+              <td>1,002</td>
+              <td>amet</td>
+              <td>consectetur <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
+              <td>adipiscing</td>
+              <td></td>
+              <td><img src="/images/yes.png" alt="" /></td>
+              <td><button type="button" name="button">Register</button></td>
+            </tr>
+            <tr>
+              <td>1,003</td>
+              <td>Integer</td>
+              <td>nec <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
+              <td>odio</td>
+              <td></td>
+              <td><img src="/images/yes.png" alt="" /></td>
+              <td><button type="button" name="button">Register</button></td>
+            </tr>
+            <tr>
+              <td>1,003</td>
+              <td>libero</td>
+              <td>Sed <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
+              <td>cursus</td>
+              <td></td>
+              <td><img src="/images/yes.png" alt="" /></td>
+              <td><button type="button" name="button">Register</button></td>
+            </tr>
+            <tr>
+              <td>1,004</td>
+              <td>dapibus</td>
+              <td>diam <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
+              <td>Sed</td>
+              <td><span class="label label-danger">Closed</span></td>
+              <td></td>
+              <td><button type="button" name="button">Register</button></td>
+            </tr>
+            <tr>
+              <td>1,005</td>
+              <td>Nulla</td>
+              <td>quis <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
+              <td>sem</td>
+              <td><img src="/images/closed.png" alt="" /></td>
+              <td></td>
+              <td><button type="button" name="button">Register</button></td>
+            </tr>
+            <tr>
+              <td>1,006</td>
+              <td>nibh</td>
+              <td>elementum</td>
+              <td>imperdiet</td>
+              <td><span class="label label-success">Open</td>
+              <td></td>
+              <td><button type="button" name="button">Register</button></td>
+            </tr>
+            <tr>
+              <td>1,007</td>
+              <td>sagittis</td>
+              <td>ipsum</td>
+              <td>Praesent</td>
+              <td><img src="/images/closed.png" alt="" /></td>
+              <td></td>
+              <td><button type="button" name="button">Register</button></td>
+            </tr>
+            <tr>
+              <td>1,008</td>
+              <td>Fusce</td>
+              <td>nec</td>
+              <td>tellus</td>
+              <td><img src="/images/closed.png" alt="" /></td>
+              <td></td>
+              <td><button type="button" name="button">Register</button></td>
+            </tr>
+            <tr>
+              <td>1,009</td>
+              <td>augue</td>
+              <td>semper</td>
+              <td>porta</td>
+              <td></td>
+              <td><img src="/images/yes.png" alt="" /></td>
+              <td><button type="button" name="button">Register</button></td>
+            </tr>
+            <tr>
+              <td>1,010</td>
+              <td>massa</td>
+              <td>Vestibulum</td>
+              <td>lacinia</td>
+              <td></td>
+              <td><img src="/images/yes.png" alt="" /></td>
+              <td><button type="button" name="button">Register</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div> <!-- End of row -->
+    <div id="map-canvas"></div>
+    <br/>
+    <br/>
 
     <div class="row">
-       <div class="col-lg-4 col-md-4 col-sm-12">
-         <table class="table table-striped">
-            <h3>Course details</h3>
-            <tr>
-                <th>Code</th>
-                <td>STAF8007D</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>Classroom Day</td>
-            </tr>
-            <tr>
-                <th>Length</th>
-                <td>1 day(s)</td>
-            </tr>
-            <tr>
-                <th>Credit</th>
-                <td>.6 CEU</td>
-            </tr>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <table class="table table-striped">
+          <h3>Course details</h3>
+          <tr>
+            <th>Code</th>
+            <td><%= courseCode %></td>
+          </tr>
+          <tr>
+            <th>Type</th>
+            <td><%= courseType %></td>
+          </tr>
+          <tr>
+            <th>Length</th>
+            <td><%= courseLength %> <%= courseInterval %>(s)</td>
+          </tr>
+          <tr>
+            <th>Credit</th>
+            <td><%= courseCredit.value %> <%= courseCredit.type %></td>
+          </tr>
         </table>
-       </div>
-       <div class="col-lg-8 col-md-8 col-sm-12">
-         <ul class="nav nav-tabs">
-           <li class="active"><a data-toggle="tab" href="#home">Course overview</a></li>
-           <li><a data-toggle="tab" href="#menu1">Who should attend?</a></li>
-           <li><a data-toggle="tab" href="#menu2">Learning outcomes</a></li>
-           <li><a data-toggle="tab" href="#menu3">Course outline</a></li>
-         </ul>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#home">Course overview</a></li>
+          <li><a data-toggle="tab" href="#menu1">Who should attend?</a></li>
+          <li><a data-toggle="tab" href="#menu2">Learning outcomes</a></li>
+          <li><a data-toggle="tab" href="#menu3">Course outline</a></li>
+        </ul>
 
-           <div class="tab-content">
-             <div id="home" class="tab-pane fade in active">
-               <h3>Course overview</h3>
-               <p>Ensure your personnel actions fully comply with all current and applicable veterans' preference laws, rules, and regulations. Understand who meets the definition of veteran; who is entitled to preference in employment in the competitive and excepted services; and the circumstances under which veterans' preference applies, including competitive appointments, noncompetitive appointments, and merit promotion.
+        <div class="tab-content">
+          <div id="home" class="tab-pane fade in active">
+            <h3>Course overview</h3>
+            <p><%= courseDescription %></p>
+          </div>
+          <div id="menu1" class="tab-pane fade">
+            <h3>Who should attend?</h3>
+            <p>Anyone who adjudicates veterans' preference claims or performs delegated examining work.</p>
+          </div>
+          <div id="menu2" class="tab-pane fade">
+            <h3>Learning outcomes</h3>
+            <p>
+              <ul>
+                <li>Know the circumstances when Veterans' Preference applies</li>
+                <li>Identify the types of veterans' preference, including veteran, spouse, widow/widower, and mother</li>
+                <li>Correctly adjudicate veterans' preference claims</li>
+                <li>Apply veterans' preference to competitive and excepted service appointments</li>
+                <li>Apply special appointing authorities for veterans in the following: Veterans' Recruitment Appointments (VRA); 30 Percent or More Disabled Veterans; Disabled veterans enrolled in a VA training program; and Veterans Employment Opportunity Act of 1998</li>
+              </ul>
+            </p>
+          </div>
+          <div id="menu3" class="tab-pane fade">
+            <h3>Course outline</h3>
 
-Related Distance Education Course: Adjudicatingand Applying Veterans' Preference (STAF8607A)</p>
-             </div>
-             <div id="menu1" class="tab-pane fade">
-               <h3>Who should attend?</h3>
-               <p>Anyone who adjudicates veterans' preference claims or performs delegated examining work.</p>
-             </div>
-             <div id="menu2" class="tab-pane fade">
-               <h3>Learning outcomes</h3>
-               <p>
-                 <ul>
-                   <li>Know the circumstances when Veterans' Preference applies</li>
-                   <li>Identify the types of veterans' preference, including veteran, spouse, widow/widower, and mother</li>
-                   <li>Correctly adjudicate veterans' preference claims</li>
-                   <li>Apply veterans' preference to competitive and excepted service appointments</li>
-                   <li>Apply special appointing authorities for veterans in the following: Veterans' Recruitment Appointments (VRA); 30 Percent or More Disabled Veterans; Disabled veterans enrolled in a VA training program; and Veterans Employment Opportunity Act of 1998</li>
-                 </ul>
-               </p>
-             </div>
-             <div id="menu3" class="tab-pane fade">
-               <h3>Course outline</h3>
-
-                 <td>
-                   <p><strong>Day One</strong></p>
-                    <div>Introduction<br>
-                    <ul>
-                      <li>Pre-course Assessment</li>
-                    </ul>
-                    Definitions and History of Veterans' Preference<br>
-                    <br>
-                    Applicable Laws, Rules, and Regulations<br>
-                    <ul>
-                      <li>Types of veterans' preference</li>
-                      <li>Adjudicating veterans' preference claims</li>
-                    </ul>
-                    Veterans' Preference in the Competitive and Excepted Services<br>
-                    <ul>
-                      <li>Applying veterans' preference</li>
-                    </ul>
-                    Special Appointing Authorities and Entitlements for Veterans<br>
-                    <br>
-                    Veterans’ Preference and Reduction-In-Force<br>
-                    <br>
-                    Summary<br>
-                    <ul>
-                      <li>Post-course Assessment</li>
-                    </ul>
-                    </div>
-                 </td>
-             </div>
-           </div>
-       </div>
+            <td>
+              <p><strong>Day One</strong></p>
+              <div>Introduction<br>
+                <ul>
+                  <li>Pre-course Assessment</li>
+                </ul>
+                Definitions and History of Veterans' Preference<br>
+                <br>
+                Applicable Laws, Rules, and Regulations<br>
+                <ul>
+                  <li>Types of veterans' preference</li>
+                  <li>Adjudicating veterans' preference claims</li>
+                </ul>
+                Veterans' Preference in the Competitive and Excepted Services<br>
+                <ul>
+                  <li>Applying veterans' preference</li>
+                </ul>
+                Special Appointing Authorities and Entitlements for Veterans<br>
+                <br>
+                Veterans’ Preference and Reduction-In-Force<br>
+                <br>
+                Summary<br>
+                <ul>
+                  <li>Post-course Assessment</li>
+                </ul>
+              </div>
+            </td>
+          </div>
+        </div>
+      </div>
 
     </div> <!--/#row -->
 

@@ -5,6 +5,7 @@ function performCourseSearch() {
 
 $(document).ready(function(){
   $("#searchWarn").hide();
+  // Validating search on front-end.
   $("#course-search-button").click(function(e){
     e.preventDefault();
     var searchInput = $("#searchCriteria").val();
