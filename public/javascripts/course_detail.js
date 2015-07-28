@@ -4,11 +4,10 @@ mapApp = {
   start: function() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
       zoom: 8,
-      center: {lat: -34.397, lng: 150.644}
+      center: {lat: 38.8859870, lng: -77.0212}
     });
   }
 } 
-
 
 $(document).ready(function(){
   $('#map-canvas').hide();
@@ -16,8 +15,8 @@ $(document).ready(function(){
   $('.glyphicon-map-marker').click(function(e) {
     e.preventDefault();
     $('#map-canvas').slideDown();
-    mapApp.start();
     $('#close-map').show();
+    mapApp.start();
     google.maps.event.addListenerOnce(map, 'idle', function() {
        google.maps.event.trigger(map, 'resize');
     });
