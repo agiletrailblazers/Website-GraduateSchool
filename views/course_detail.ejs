@@ -4,6 +4,10 @@
   <title><%= courseTitle %></title>
   <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
   <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_9EOg9DdnSOQ0nCJrOcMdGQARxtZNd0"></script>
+  <script type="text/javascript" src="/javascripts/map.js"></script>
+  <script type="text/javascript" src="/javascripts/course_detail.js"></script>
+  <link rel="stylesheet" href="/stylesheets/course_detail.css">
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
   <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
@@ -24,6 +28,7 @@
       <div class="col-lg-6 col-md-6 col-sm-12">
         <button type="button" name="button">Multiple registration</button>
         <button type="button" name="button">Bring course to your location</button>
+        <button type="button" name="button" id="close-map">Close Map</button>
       </div>
     </div> <!--/#row -->
     <div class="row">
@@ -44,7 +49,7 @@
             <tr>
               <td>1,001</td>
               <td>Lorem</td>
-              <td>ipsum</td>
+              <td>ipsum <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></span></td>
               <td>dolor</td>
               <td></td>
               <td><img src="/images/yes.png" alt="" /></td>
@@ -53,7 +58,7 @@
             <tr>
               <td>1,002</td>
               <td>amet</td>
-              <td>consectetur</td>
+              <td>consectetur <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
               <td>adipiscing</td>
               <td></td>
               <td><img src="/images/yes.png" alt="" /></td>
@@ -62,7 +67,7 @@
             <tr>
               <td>1,003</td>
               <td>Integer</td>
-              <td>nec</td>
+              <td>nec <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
               <td>odio</td>
               <td></td>
               <td><img src="/images/yes.png" alt="" /></td>
@@ -71,7 +76,7 @@
             <tr>
               <td>1,003</td>
               <td>libero</td>
-              <td>Sed</td>
+              <td>Sed <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
               <td>cursus</td>
               <td></td>
               <td><img src="/images/yes.png" alt="" /></td>
@@ -80,7 +85,7 @@
             <tr>
               <td>1,004</td>
               <td>dapibus</td>
-              <td>diam</td>
+              <td>diam <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
               <td>Sed</td>
               <td><span class="label label-danger">Closed</span></td>
               <td></td>
@@ -89,7 +94,7 @@
             <tr>
               <td>1,005</td>
               <td>Nulla</td>
-              <td>quis</td>
+              <td>quis <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
               <td>sem</td>
               <td><img src="/images/closed.png" alt="" /></td>
               <td></td>
@@ -144,7 +149,7 @@
         </table>
       </div>
     </div> <!-- End of row -->
-
+    <div id="map-canvas"></div>
     <br/>
     <br/>
 
