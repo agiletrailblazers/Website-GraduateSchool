@@ -42,7 +42,7 @@ router.get('/courses/:course_id', function(req, res, next){
                   courseLength: result.length.value, courseInterval: result.length.interval,
                   courseSchedule: result.schedule });
     } else {
-      // Render a 404 page.
+      res.render('404');
     }
   }, courseId);
 });
