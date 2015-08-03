@@ -1,4 +1,5 @@
 var express = require('express');
+var async = require('async');
 var course = require("../../API/course.js");
 var striptags = require('striptags');
 var router = express.Router();
@@ -32,18 +33,33 @@ router.get('/course-detail', function(req, res, next){
 
 // Get course details based off course code.
 router.get('/courses/:course_id', function(req, res, next){
-  var courseId = req.params.course_id;
-  course.performExactCourseSearch(function(response, error, result) {
-    if (result) {
-      console.log(result);
-      res.render('course_detail', { title: "Title", courseTitle: result.title,
-                  courseId: result.id, courseCode: result.code, courseType: result.type,
-                  courseDescription: striptags(result.description), courseCredit: result.credit,
-                  courseLength: result.length.value, courseInterval: result.length.interval,
-                  courseSchedule: result.schedule });
-    } else {
-      res.render('404');
+  courseId = req.params.course_id;
+  content = {};
+  var spaceId = "jzmztwi1xqvn";
+  async.series([
+    function(callback) {
+      course.performExactCourseSearch(function(response, error, result) {
+        if (result) {
+          content.class = result;
+          callback();
+        }
+      }, courseId);
+    },
+    function(callback) {
+      course.getSchedule(function(response, error, result) {
+        if (result) {
+          content.session = result;
+          callback();
+        }
+      }, courseId);
     }
-  }, courseId);
+  ], function(results) {
+    console.log('Results:', content);
+    res.render('course_detail', { title: "Title", courseTitle: content.class.title,
+    courseId: content.class.id, courseCode: content.class.code, courseType: content.class.type,
+    courseDescription: striptags(content.class.description), courseCredit: content.class.credit,
+    courseLength: content.class.length.value, courseInterval: content.class.length.interval,
+    courseSchedule: content.class.schedule });
+  });
 });
 module.exports = router;
