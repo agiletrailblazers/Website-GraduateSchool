@@ -39,6 +39,7 @@ router.get('/courses/:course_id', function(req, res, next){
   async.series([
     function(callback) {
       course.performExactCourseSearch(function(response, error, result) {
+        console.log(result);
         if (result) {
           content.class = result;
           callback();
@@ -47,8 +48,12 @@ router.get('/courses/:course_id', function(req, res, next){
     },
     function(callback) {
       course.getSchedule(function(response, error, result) {
-        if (result) {
+        console.log("Result:", result);
+        if (result != null) {
           content.session = result;
+          callback();
+        } else {
+          content.session = "No courses found."
           callback();
         }
       }, courseId);
