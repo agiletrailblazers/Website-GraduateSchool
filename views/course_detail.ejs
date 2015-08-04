@@ -114,7 +114,9 @@ table.schedule tr:nth-child(even) {
           <li class="active"><a data-toggle="tab" href="#home">Course overview</a></li>
           <li><a data-toggle="tab" href="#menu1">Who should attend?</a></li>
           <li><a data-toggle="tab" href="#menu2">Learning outcomes</a></li>
-          <li><a data-toggle="tab" href="#menu3">Course outline</a></li>
+          <% if ( courseOutline &&  courseOutline.fields &&  courseOutline.fields.syllabusContent ) { %>
+          	<li><a data-toggle="tab" href="#menu3">Course outline</a></li>
+          <% } %>
         </ul>
 
         <div class="tab-content">
@@ -138,11 +140,11 @@ table.schedule tr:nth-child(even) {
               </ul>
             </p>
           </div>
-          <div id="menu3" class="tab-pane fade">
-            <h3>Course outline</h3>
-
-          <%- courseOutline.fields.syllabusContent %>
-
+          <% if ( courseOutline &&  courseOutline.fields &&  courseOutline.fields.syllabusContent ) { %>
+            <div id="menu3" class="tab-pane fade">
+              <h3>Course outline</h3>
+              <%- courseOutline.fields.syllabusContent %>
+		  <% } %>
           </div>
         </div>
       </div>
