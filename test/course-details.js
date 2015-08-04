@@ -34,7 +34,6 @@ describe('/course-detail', function() {
     server;
     course.performExactCourseSearch(function(response, error, result) {
       expect(response.statusCode).to.eql(200);
-      expect(response.statusMessage).to.eql("OK");
       done();
     }, 'AUDT8002G001');
   });
