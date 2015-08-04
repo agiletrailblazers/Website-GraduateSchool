@@ -60,8 +60,10 @@ router.get('/courses/:course_id', function(req, res, next){
     },
     function(callback) {
       var entryName = courseId.toLowerCase().slice(0,-3);
+      console.log(entryName);
       contentful.getSyllabus(entryName, function(response, error, result) {
-        content.syllabus = result;
+        content.syllabus = response;
+        console.log("Response:", response);
         callback();
       });
     }
