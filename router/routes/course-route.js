@@ -59,7 +59,9 @@ router.get('/courses/:course_id', function(req, res, next){
       }, courseId);
     },
     function(callback) {
-      contentful.getSyllabus(courseId, function(response, error, result) {
+      var entryName = courseId.toLowerCase().slice(0,-3);
+      console.log(entryName);
+      contentful.getSyllabus(entryName, function(response, error, result) {
         content.syllabus = result;
         callback();
       });
