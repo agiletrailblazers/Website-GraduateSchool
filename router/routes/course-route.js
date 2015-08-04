@@ -57,7 +57,7 @@ router.get('/courses/:course_id', function(req, res, next){
     console.log('Results:', content);
     res.render('course_detail', { title: "Title", courseTitle: content.class.title,
     courseId: content.class.id, courseCode: content.class.code, courseType: content.class.type,
-    courseDescription: striptags(content.class.description), courseCredit: content.class.credit,
+    courseDescription: striptags(content.class.description.text), courseCredit: content.class.credit,
     courseLength: content.class.length.value, courseInterval: content.class.length.interval,
     courseSchedule: content.class.schedule });
   });
