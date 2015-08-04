@@ -1,4 +1,5 @@
 var request = require('request');
+var async = require('async');
 var config = require('konphyg')(__dirname + "/../config");
 
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
     console.log(courseApiUrl);
     request({
       method: 'GET',
-      url: courseApiUrl + '/api/course?search=' + searchCriteria + ''
+      url: courseApiUrl + '/api/courses?search=' + searchCriteria + ''
     }, function (error, response, body) {
       if (error != null || response == null || response.statusCode != 200) {
         console.log("Exception occured performing course search. " + error);
@@ -22,7 +23,23 @@ module.exports = {
     var courseApiUrl = config("endpoint").courseApiUrl;
     request({
       method: 'GET',
-      url: 'http://54.88.17.121:8080' + '/api/course/' + courseId + ''
+      url: courseApiUrl + '/api/courses/' + courseId + ''
+    }, function (error, response, body) {
+      if (error != null || response == null || response.statusCode != 200) {
+        console.log("Exception occured performing course search. " + error);
+        return callback(response, new Error("Exception occured performing course search"), null);
+      }
+      console.log('Status:', response.statusCode);
+      result = JSON.parse(body);
+      return callback(response, error, result);
+    });
+  },
+  getSchedule: function(callback, courseId) {
+    console.log(courseId);
+    var courseApiUrl = config("endpoint").courseApiUrl;
+    request({
+      method: 'GET',
+      url: courseApiUrl + '/api/courses/' + courseId + '/sessions'
     }, function (error, response, body) {
       if (error != null || response == null || response.statusCode != 200) {
         console.log("Exception occured performing course search. " + error);

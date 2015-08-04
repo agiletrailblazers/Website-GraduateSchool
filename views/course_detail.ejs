@@ -16,135 +16,70 @@
   a:link, a:visited{
     color: #337AB7;
   }
+
+ table.schedule  tr {
+    background-color: #F9F9F9;
+  }
+table.schedule tr:nth-child(even) {
+    background-color: #FFFFFF;
+  }
+
+
   </style>
 </head>
 <body>
   <div class="container">
+<br/><br/> <!--/# spacer to be removed -->
 
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <h1>Course Details for <%= courseId %></h1>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <button type="button" name="button">Multiple registration</button>
-        <button type="button" name="button">Bring course to your location</button>
-        <button type="button" name="button" id="close-map">Close Map</button>
-      </div>
-    </div> <!--/#row -->
-    <div class="row">
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead >
-            <tr>
-              <th>Session Schedule</th>
-              <th>Instructor</th>
-              <th>Location</th>
-              <th>Amount</th>
-              <th>Registration closed</th>
-              <th>Guaranteed to go</th>
-              <th>#</th>
-            </tr>
-          </thead>
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <h3>Course Details for <%= courseId %></h3>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <button type="button" name="button">Multiple registration</button>
+    <button type="button" name="button">Bring course to your location</button>
+    <button type="button" name="button" id="close-map">Close Map</button>
+  </div>
+</div> <!--/#row -->
+
+<div class="row">
+  <div class="table-responsive">
+    <table class="table table-striped schedule">
+      <thead>
+        <tr>
+          <th>Session Schedule</th>
+          <th>Instructor</th>
+          <th>Location</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>Maximum</th>
+          <th>Availble</th>
+          <th>#</th>
+        </tr>
+<% if (sessions.status === 404) { %>
+<tr><td> There are no sessions scheduled for this course at the time. Please stop by later. </td></tr>
+
+<% } else { %>
+
+    <% for (var i=0; i < sessions.length; i++) { %>
+      <tr>
+        <td> <%= sessions[i]["startDate"] %> - <%= sessions[i]["endDate"]%> <br/>
+            <%= sessions[i]["startTime"]%> - <%= sessions[i]["endTime"]%> , <%= sessions[i]["days"]%></td>
+        <!-- <td><button type="button" data-toggle="modal" data-target="#myModal"><%= sessions[i]["instructor"]%></button> </td> -->
+        <td><button type="button" data-toggle="modal" data-target="#myModal"> Ann Martick </button> </td>
+        <td><%= sessions[i].location["address1"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
+        <td><%= sessions[i]["tuition"]%></td>
+        <td><%= sessions[i]["status"]%></td>
+        <td><%= sessions[i]["scheduleMaximum"]%></td>
+        <td><%= sessions[i]["scheduleAvailable"]%></td>
+        <td><button type="button" name="button">Register</button></td>
+      </tr>
+     <% } %>
+
+<% } %>
+      </thead>
           <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>Lorem</td>
-              <td>ipsum <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></span></td>
-              <td>dolor</td>
-              <td></td>
-              <td><img src="/images/yes.png" alt="" /></td>
-              <td><button type="button" name="button">Register</button></td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>amet</td>
-              <td>consectetur <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
-              <td>adipiscing</td>
-              <td></td>
-              <td><img src="/images/yes.png" alt="" /></td>
-              <td><button type="button" name="button">Register</button></td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>Integer</td>
-              <td>nec <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
-              <td>odio</td>
-              <td></td>
-              <td><img src="/images/yes.png" alt="" /></td>
-              <td><button type="button" name="button">Register</button></td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>libero</td>
-              <td>Sed <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
-              <td>cursus</td>
-              <td></td>
-              <td><img src="/images/yes.png" alt="" /></td>
-              <td><button type="button" name="button">Register</button></td>
-            </tr>
-            <tr>
-              <td>1,004</td>
-              <td>dapibus</td>
-              <td>diam <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
-              <td>Sed</td>
-              <td><span class="label label-danger">Closed</span></td>
-              <td></td>
-              <td><button type="button" name="button">Register</button></td>
-            </tr>
-            <tr>
-              <td>1,005</td>
-              <td>Nulla</td>
-              <td>quis <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden="true"></td>
-              <td>sem</td>
-              <td><img src="/images/closed.png" alt="" /></td>
-              <td></td>
-              <td><button type="button" name="button">Register</button></td>
-            </tr>
-            <tr>
-              <td>1,006</td>
-              <td>nibh</td>
-              <td>elementum</td>
-              <td>imperdiet</td>
-              <td><span class="label label-success">Open</td>
-              <td></td>
-              <td><button type="button" name="button">Register</button></td>
-            </tr>
-            <tr>
-              <td>1,007</td>
-              <td>sagittis</td>
-              <td>ipsum</td>
-              <td>Praesent</td>
-              <td><img src="/images/closed.png" alt="" /></td>
-              <td></td>
-              <td><button type="button" name="button">Register</button></td>
-            </tr>
-            <tr>
-              <td>1,008</td>
-              <td>Fusce</td>
-              <td>nec</td>
-              <td>tellus</td>
-              <td><img src="/images/closed.png" alt="" /></td>
-              <td></td>
-              <td><button type="button" name="button">Register</button></td>
-            </tr>
-            <tr>
-              <td>1,009</td>
-              <td>augue</td>
-              <td>semper</td>
-              <td>porta</td>
-              <td></td>
-              <td><img src="/images/yes.png" alt="" /></td>
-              <td><button type="button" name="button">Register</button></td>
-            </tr>
-            <tr>
-              <td>1,010</td>
-              <td>massa</td>
-              <td>Vestibulum</td>
-              <td>lacinia</td>
-              <td></td>
-              <td><img src="/images/yes.png" alt="" /></td>
-              <td><button type="button" name="button">Register</button></td>
-            </tr>
+
           </tbody>
         </table>
       </div>
@@ -241,5 +176,29 @@
     </div> <!--/#row -->
 
   </div><!--/#container-fulid -->
+
+<br/><br/> <!--/# spacer to be removed -->
+
+  <!-- Modal dialog -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Instructor Bio - Ann Martick</h4>
+        </div>
+        <div class="modal-body">
+        <p><strong>Ann J. Martick</strong> an Industrial Security expert, is a certified ISP (Industrial Security Professional) and an FSO (Facility Security Officer). She has 20+ years experience serving variously as Security Manager, Facility Security Officer, Contractor Information System Security Manager, and Project Administrator. She's developed comprehensive security policies, procedures, and training for managing secure communications, document control, and classified information systems.</p>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- END - Modal dialog -->
+
 </body>
 </html>
