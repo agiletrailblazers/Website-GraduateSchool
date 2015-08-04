@@ -8,6 +8,20 @@
   <link rel='stylesheet' href='/stylesheets/course_search.css' />
   <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
   <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
+
+  <!-- Style fix for Link color - to be removed after -->
+  <style media="screen">
+  a:link, a:visited{
+    color: #337AB7;
+    text-decoration: none;
+  }
+  a:hover, a:active{
+    color: #000;
+    text-decoration: none;
+    background-color: transparent;
+  }
+
+  </style>
 </head>
 <body>
   <div class="container">
@@ -20,11 +34,14 @@
       </div>
       <% } else { %>
         <% for(var i=0; i<result.courses.length; i++) { %>
-          <div id="course-result">
-            <h3><a href="/courses/<%= result.courses[i].id %>"><%= result.courses[i].id %> - <%= result.courses[i].title %></a></h3>
-          </div>
-          <div><%= result.courses[i].description.text %></div>
-          <hr>
+
+                <% if ( result.courses[i].description.text !== null ) { %>
+                  <div id="course-result">
+                    <h3><a href="/courses/<%= result.courses[i].id %>"><%= result.courses[i].id %> - <%= result.courses[i].title %></a></h3>
+                  </div>
+                  <div><%= result.courses[i].description.text %></div>
+                  <hr>
+                <% } %>
         <% } %>
       <% } %>
   </div>
