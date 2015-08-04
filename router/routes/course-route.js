@@ -53,7 +53,7 @@ router.get('/courses/:course_id', function(req, res, next){
           content.session = result;
           callback();
         } else {
-          content.session = "No courses found."
+          content.session = {status: 404, text: "No courses found."}
           callback();
         }
       }, courseId);
