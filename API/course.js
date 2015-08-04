@@ -27,7 +27,7 @@ module.exports = {
     }, function (error, response, body) {
       if (error != null || response == null || response.statusCode != 200) {
         console.log("Exception occured performing course search. " + error);
-        return callback(response, new Error("Exception occured performing course search"), null);
+        return callback(response, new Error("Exception occured performing exact course search"), null);
       }
       console.log('Status:', response.statusCode);
       result = JSON.parse(body);
@@ -42,7 +42,7 @@ module.exports = {
       url: courseApiUrl + '/api/courses/' + courseId + '/sessions'
     }, function (error, response, body) {
       if (error != null || response == null || response.statusCode != 200) {
-        console.log("Exception occured performing course search. " + error);
+        console.log("Exception occured performing course schedule search. " + error);
         return callback(response, new Error("Exception occured performing couse search"), null);
       }
       console.log('Status:', response.statusCode);
