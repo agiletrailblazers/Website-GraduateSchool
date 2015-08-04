@@ -1,4 +1,5 @@
 var express = require('express');
+var contentful = require('../../API/contentful.js');
 var async = require('async');
 var course = require("../../API/course.js");
 var striptags = require('striptags');
@@ -39,7 +40,6 @@ router.get('/courses/:course_id', function(req, res, next){
   async.series([
     function(callback) {
       course.performExactCourseSearch(function(response, error, result) {
-        console.log(result);
         if (result) {
           content.class = result;
           callback();
@@ -48,7 +48,7 @@ router.get('/courses/:course_id', function(req, res, next){
     },
     function(callback) {
       course.getSchedule(function(response, error, result) {
-        console.log("Result:", result);
+        // console.log("Result:", result);
         if (result != null) {
           content.session = result;
           callback();
@@ -57,9 +57,15 @@ router.get('/courses/:course_id', function(req, res, next){
           callback();
         }
       }, courseId);
+    },
+    function(callback) {
+      contentful.getSyllabus(courseId, function(response, error, result) {
+        content.syllabus = result;
+        callback();
+      });
     }
   ], function(results) {
-    console.log('Results:', content);
+    // console.log('Results:', content);
     res.render('course_detail', { title: "Title", courseTitle: content.class.title,
     courseId: content.class.id, courseCode: content.class.code, courseType: content.class.type,
     courseDescription: striptags(content.class.description.text), courseCredit: content.class.credit,
