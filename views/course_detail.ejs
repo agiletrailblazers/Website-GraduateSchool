@@ -63,12 +63,24 @@ table.schedule tr:nth-child(even) {
     <% for (var i=0; i < sessions.length; i++) { %>
       <tr>
         <td> <%= sessions[i]["startDate"] %> - <%= sessions[i]["endDate"]%> <br/>
-            <%= sessions[i]["startTime"]%> - <%= sessions[i]["endTime"]%> , <%= sessions[i]["days"]%></td>
+            <%= sessions[i]["startTime"]%> - <%= sessions[i]["endTime"]%>   %></td>
         <!-- <td><button type="button" data-toggle="modal" data-target="#myModal"><%= sessions[i]["instructor"]%></button> </td> -->
         <td><button type="button" data-toggle="modal" data-target="#myModal"> Ann Martick </button> </td>
         <td><%= sessions[i].location["address1"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
         <td> $<%= sessions[i]["tuition"]%></td>
-        <td><%= sessions[i]["status"]%></td>
+        <td><!-- <%= sessions[i]["status"]%> -->
+            <% if (sessions[i]["status"] === null) { %>
+
+              <% } else if (sessions[i]["status"] === 'S'){ %>
+               <img src="/images/yes.png" alt="" />
+              <% } else if (sessions[i]["status"] === 'C'){ %>
+                <img src="/images/closed.png" alt="" />
+
+              <% } else if (sessions[i]["status"] === 'P'){ %>
+                <!-- <img src="/images/no.png" alt="" /> -->
+              <% } else { }%>
+
+        </td>
       <!--  <td><%= sessions[i]["scheduleMaximum"]%></td>
         <td><%= sessions[i]["scheduleAvailable"]%></td> -->
         <td><button type="button" name="button">Register</button></td>
