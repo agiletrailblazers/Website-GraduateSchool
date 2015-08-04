@@ -16,7 +16,6 @@ module.exports = {
       }
       console.log('Status:', response.statusCode);
       result = JSON.parse(body);
-      console.log(result);
       return callback(response, error, result);
     })
   },
