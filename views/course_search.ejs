@@ -36,7 +36,7 @@
         <% for(var i=0; i<result.courses.length; i++) { %>
 
                 <% if ( result.courses[i].description.text !== null ) { %>
-                  <% if (result.courses[i].code === null) { result.courses.code = result.courses[i].id.slice(0, -3); }%>
+                  <% if (result.courses[i].code === null) { result.courses[i].code = result.courses[i].id.slice(0, -3); }%>
                   <div id="course-result">
                     <h3><a href="/courses/<%= result.courses[i].id %>"><%= result.courses[i].code %> - <%= result.courses[i].title %></a></h3>
                   </div>
