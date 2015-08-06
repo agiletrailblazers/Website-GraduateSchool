@@ -67,9 +67,9 @@ table.schedule tr:nth-child(even) {
             <% if (sessions[i]["status"] === null) { %>
 
               <% } else if (sessions[i]["status"] === 'S'){ %>
-               <img src="/images/yes.png" alt="" />
+                <span class="label label-success">Open</span>
               <% } else if (sessions[i]["status"] === 'C'){ %>
-                <img src="/images/closed.png" alt="" />
+                <span class="label label-danger">Closed</span>
 
               <% } else if (sessions[i]["status"] === 'P'){ %>
                 <!-- <img src="/images/no.png" alt="" /> -->
