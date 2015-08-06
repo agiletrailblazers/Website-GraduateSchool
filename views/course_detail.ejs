@@ -83,7 +83,12 @@ table.schedule tr:nth-child(even) {
         </td>
       <!--  <td><%= sessions[i]["scheduleMaximum"]%></td>
         <td><%= sessions[i]["scheduleAvailable"]%></td> -->
-        <td><button type="button" name="button">Register</button></td>
+        <% if (sessions[i]["status"] === 'S') { %>
+          <td><button type="button" name="button">Register</button></td>
+        <% } else if (sessions[i]["status"] === 'C') { %>
+          <td><button type="button" name="button" disabled>Register</button></td>
+        <% } else {}%>
+
       </tr>
      <% } %>
 
