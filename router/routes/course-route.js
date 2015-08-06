@@ -56,8 +56,8 @@ router.get('/courses/:course_id', function(req, res, next){
           // Changing dateFormat for all sessions.
           for (var i = 0; i < content.session.length; i++) {
             var iSession = content.session[i];
-            iSession["startDate"] = content.session[i]["startDate"].date('MMM-DD, YYYY');
-            iSession["endDate"] = content.session[i]["endDate"].date('MMM-DD, YYYY');
+            iSession["startDate"] = content.session[i]["startDate"].date('MMM DD, YYYY');
+            iSession["endDate"] = content.session[i]["endDate"].date('MMM DD, YYYY');
           }
           callback();
         } else {
