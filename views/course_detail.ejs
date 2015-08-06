@@ -59,7 +59,7 @@ table.schedule tr:nth-child(even) {
 
     <% for (var i=0; i < sessions.length; i++) { %>
       <tr>
-        <td> <%= sessions[i]["startDate"] %> - <%= sessions[i]["endDate"]%> <br/>
+        <td> <%= sessions[i]["startDate"].slice(0,-6) %> - <%= sessions[i]["endDate"].slice(4)%> <br/>
             <%= sessions[i]["startTime"]%> - <%= sessions[i]["endTime"]%>   %></td>
         <td><%= sessions[i].location["address1"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
         <td> $<%= sessions[i]["tuition"]%></td>
