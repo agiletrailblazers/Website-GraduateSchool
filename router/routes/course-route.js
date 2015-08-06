@@ -50,13 +50,14 @@ router.get('/courses/:course_id', function(req, res, next){
     },
     function(callback) {
       course.getSchedule(function(response, error, result) {
-        // console.log("Result:", result);
         if (result != null) {
           content.session = result;
           console.log(content.session.length);
+          // Changing dateFormat for all sessions.
           for (var i = 0; i < content.session.length; i++) {
-            content.session[i]["startDate"] = content.session[i]["startDate"].date('MMM-DD-YYYY');
-            content.session[i]["endDate"] = content.session[i]["endDate"].date('MMM-DD-YYYY');
+            var class = content.session[i];
+            class["startDate"] = content.session[i]["startDate"].date('MMM-DD-YYYY');
+            class["endDate"] = content.session[i]["endDate"].date('MMM-DD-YYYY');
           }
           callback();
         } else {
