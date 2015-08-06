@@ -47,12 +47,9 @@ table.schedule tr:nth-child(even) {
       <thead>
         <tr>
           <th>Session Schedule</th>
-          <th>Instructor</th>
           <th>Location</th>
           <th>Price</th>
           <th>Status</th>
-        <!--  <th>Maximum</th>
-          <th>Availble</th> -->
           <th>#</th>
         </tr>
 <% if (sessions.status === 404) { %>
@@ -64,8 +61,6 @@ table.schedule tr:nth-child(even) {
       <tr>
         <td> <%= sessions[i]["startDate"] %> - <%= sessions[i]["endDate"]%> <br/>
             <%= sessions[i]["startTime"]%> - <%= sessions[i]["endTime"]%>   %></td>
-        <!-- <td><button type="button" data-toggle="modal" data-target="#myModal"><%= sessions[i]["instructor"]%></button> </td> -->
-        <td><button type="button" data-toggle="modal" data-target="#myModal"> Ann Martick </button> </td>
         <td><%= sessions[i].location["address1"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
         <td> $<%= sessions[i]["tuition"]%></td>
         <td><!-- <%= sessions[i]["status"]%> -->
