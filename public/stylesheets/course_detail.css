@@ -3,3 +3,12 @@
   width: 100%;
   margin: 0 auto;
 }
+td.g2gData {
+  margin: 0 auto;
+  text-align: center !important;
+}
+
+td.statusData {
+  margin: 0 auto;
+  text-align: center !important;
+}

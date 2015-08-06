@@ -3,6 +3,7 @@ var contentful = require('../../API/contentful.js');
 var async = require('async');
 var course = require("../../API/course.js");
 var striptags = require('striptags');
+var dateformat = require('date-format-lite');
 var router = express.Router();
 
 
@@ -49,9 +50,15 @@ router.get('/courses/:course_id', function(req, res, next){
     },
     function(callback) {
       course.getSchedule(function(response, error, result) {
-        // console.log("Result:", result);
         if (result != null) {
           content.session = result;
+          console.log(content.session.length);
+          // Changing dateFormat for all sessions.
+          for (var i = 0; i < content.session.length; i++) {
+            var iSession = content.session[i];
+            iSession["startDate"] = content.session[i]["startDate"].date('MMM-DD, YYYY');
+            iSession["endDate"] = content.session[i]["endDate"].date('MMM-DD, YYYY');
+          }
           callback();
         } else {
           content.session = {status: 404, text: "No courses found."}
@@ -61,10 +68,8 @@ router.get('/courses/:course_id', function(req, res, next){
     },
     function(callback) {
       var entryName = courseId.toLowerCase().slice(0,-3);
-      console.log(entryName);
       contentful.getSyllabus(entryName, function(response, error, result) {
         content.syllabus = response;
-        console.log("Response:", response);
         callback();
       });
     }
@@ -73,7 +78,8 @@ router.get('/courses/:course_id', function(req, res, next){
       code = content.class.id.slice(0,-3);
       content.class.code = code;
     }
-    res.render('course_detail', { title: "Title", courseTitle: content.class.title,
+    console.log('Date: ',content.session[1]["startDate"]);
+    res.render('course_detail', { courseTitle: content.class.title,
     courseId: content.class.id, courseCode: content.class.code, courseType: content.class.type,
     courseDescription: striptags(content.class.description.text), courseCredit: content.class.credit,
     courseLength: content.class.length.value, courseInterval: content.class.length.interval,

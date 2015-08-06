@@ -1,5 +1,6 @@
 var express = require('express');
 var contentful = require("../../API/contentful.js");
+var async = require('async');
 var router = express.Router();
 
 // Get What's new page.

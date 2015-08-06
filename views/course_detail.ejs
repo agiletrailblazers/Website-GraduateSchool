@@ -47,12 +47,10 @@ table.schedule tr:nth-child(even) {
       <thead>
         <tr>
           <th>Session Schedule</th>
-          <th>Instructor</th>
           <th>Location</th>
           <th>Price</th>
           <th>Status</th>
-        <!--  <th>Maximum</th>
-          <th>Availble</th> -->
+          <th>G2G</th>
           <th>#</th>
         </tr>
 <% if (sessions.status === 404) { %>
@@ -62,28 +60,39 @@ table.schedule tr:nth-child(even) {
 
     <% for (var i=0; i < sessions.length; i++) { %>
       <tr>
-        <td> <%= sessions[i]["startDate"] %> - <%= sessions[i]["endDate"]%> <br/>
+        <td> <%= sessions[i]["startDate"].slice(0,-6) %> - <%= sessions[i]["endDate"].slice(4)%> <br/>
             <%= sessions[i]["startTime"]%> - <%= sessions[i]["endTime"]%>   %></td>
-        <!-- <td><button type="button" data-toggle="modal" data-target="#myModal"><%= sessions[i]["instructor"]%></button> </td> -->
-        <td><button type="button" data-toggle="modal" data-target="#myModal"> Ann Martick </button> </td>
         <td><%= sessions[i].location["address1"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
         <td> $<%= sessions[i]["tuition"]%></td>
-        <td><!-- <%= sessions[i]["status"]%> -->
+        <td class="statusData"><!-- <%= sessions[i]["status"]%> -->
             <% if (sessions[i]["status"] === null) { %>
 
               <% } else if (sessions[i]["status"] === 'S'){ %>
-               <img src="/images/yes.png" alt="" />
+                <span class="label label-success">Open</span>
               <% } else if (sessions[i]["status"] === 'C'){ %>
-                <img src="/images/closed.png" alt="" />
+                <span class="label label-danger">Closed</span>
 
               <% } else if (sessions[i]["status"] === 'P'){ %>
                 <!-- <img src="/images/no.png" alt="" /> -->
-              <% } else { }%>
+                <span class="label label-warning">Almost Full</span>
+              <% } else { %>
+                <span class="label label-warning">Almost Full</span>
+              <% } %>
 
+        </td>
+        <td class="g2gData">
+          <span class="glyphicon glyphicon-ok"></span>
         </td>
       <!--  <td><%= sessions[i]["scheduleMaximum"]%></td>
         <td><%= sessions[i]["scheduleAvailable"]%></td> -->
-        <td><button type="button" name="button">Register</button></td>
+        <% if (sessions[i]["status"] === 'S') { %>
+          <td><button type="button" name="button">Register</button></td>
+        <% } else if (sessions[i]["status"] === 'C') { %>
+          <td><button type="button" name="button" disabled>Register</button></td>
+        <% } else { %>
+          <td><button type="button" name="button" disabled>Register</button></td>
+        <% } %>
+
       </tr>
      <% } %>
 
