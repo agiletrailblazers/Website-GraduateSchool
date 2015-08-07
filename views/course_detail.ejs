@@ -66,7 +66,7 @@ table.schedule tr:nth-child(even) {
               <% } else if (sessions[i]["status"] === 'S'){ %>
                 <span class="label label-success">Open</span>
               <% } else if (sessions[i]["status"] === 'C'){ %>
-                <span class="label label-danger">Closed</span>
+                <span class="label label-warning">Closed</span>
 
               <% } else if (sessions[i]["status"] === 'P'){ %>
                 <!-- <img src="/images/no.png" alt="" /> -->
@@ -84,9 +84,9 @@ table.schedule tr:nth-child(even) {
         <% if (sessions[i]["status"] === 'S') { %>
           <td><button type="button" name="button">Register</button></td>
         <% } else if (sessions[i]["status"] === 'C') { %>
-          <td><button type="button" name="button" disabled>Register</button></td>
+          <!-- <td><button type="button" name="button" disabled>Register</button></td> -->
         <% } else { %>
-          <td><button type="button" name="button" disabled>Register</button></td>
+          <!-- <td><button type="button" name="button" disabled>Register</button></td> -->
         <% } %>
 
       </tr>
