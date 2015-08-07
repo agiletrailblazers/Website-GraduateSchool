@@ -2,14 +2,10 @@
 <html>
 <head>
   <title><%= courseTitle %></title>
-  <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
-  <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_9EOg9DdnSOQ0nCJrOcMdGQARxtZNd0"></script>
+  <% include partials/head %>
   <script type="text/javascript" src="/javascripts/course_detail.js"></script>
   <link rel="stylesheet" href="/stylesheets/course_detail.css">
   <link rel='stylesheet' href='/stylesheets/style.css' />
-  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-  <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
   <!-- Style fix for Link color - to be removed after -->
   <style media="screen">
   a:link, a:visited{
@@ -171,9 +167,9 @@ table.schedule tr:nth-child(even) {
       </div>
 
     </div> <!--/#row -->
-
+    <% include partials/footer %>
   </div><!--/#container-fulid -->
-
+  <% include partials/chat %>
 <br/><br/> <!--/# spacer to be removed -->
 
   <!-- Modal dialog -->

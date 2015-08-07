@@ -2,12 +2,9 @@
 <html>
 <head>
   <title><%= title %></title>
-  <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
-  <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+  <% include partials/head %>
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel='stylesheet' href='/stylesheets/course_search.css' />
-  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-  <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
 
   <!-- Style fix for Link color - to be removed after -->
   <style media="screen">
@@ -23,28 +20,29 @@
 
   </style>
 </head>
-<body>
-  <div class="container">
-    <h1>Course Search Results</h1>
-    <% if (result == null || result.courses == null || result.courses.length == 0) { %>
-      <div class="alert alert-danger" role="alert">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span class="sr-only">Error:</span>
-        No matches
-      </div>
-      <% } else { %>
-        <% for(var i=0; i<result.courses.length; i++) { %>
+  <body>
+    <div class="container">
+      <h1>Course Search Results</h1>
+      <% if (result == null || result.courses == null || result.courses.length == 0) { %>
+        <div class="alert alert-danger" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Error:</span>
+          No matches
+        </div>
+        <% } else { %>
+          <% for(var i=0; i<result.courses.length; i++) { %>
 
-                <% if ( result.courses[i].description.text !== null ) { %>
-                  <% if (result.courses[i].code === null) { result.courses[i].code = result.courses[i].id.slice(0, -3); }%>
-                  <div id="course-result">
-                    <h3><a href="/courses/<%= result.courses[i].id %>"><%= result.courses[i].code %> - <%= result.courses[i].title %></a></h3>
-                  </div>
-                  <div><%- result.courses[i].description.text %></div>
-                  <hr>
-                <% } %>
+                  <% if ( result.courses[i].description.text !== null ) { %>
+                    <% if (result.courses[i].code === null) { result.courses[i].code = result.courses[i].id.slice(0, -3); }%>
+                    <div id="course-result">
+                      <h3><a href="/courses/<%= result.courses[i].id %>"><%= result.courses[i].code %> - <%= result.courses[i].title %></a></h3>
+                    </div>
+                    <div><%- result.courses[i].description.text %></div>
+                    <hr>
+                  <% } %>
+          <% } %>
         <% } %>
-      <% } %>
-  </div>
-      </body>
-      </html>
+    </div>
+    <% include partials/footer %>
+  </body>
+</html>
