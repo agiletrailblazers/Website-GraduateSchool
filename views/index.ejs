@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title><%= title %></title>
+  <title>
+    <%= title %>
+  </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
-  <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+  <% include partials/head %>
   <script type="text/javascript" src="/javascripts/search.js"></script>
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel='stylesheet' href='/stylesheets/menu.css' />
-  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-  <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
-
 </head>
+
 <body>
-<div class="container-fluid b_bottom">
-  <div class="container">
-    <div class="row nm header clearfix">
+  <div class="container-fluid b_bottom">
+    <div class="container">
+      <div class="row nm header clearfix">
         <header>
           <div class="row nm clearfix">
             <div class="col-lg-8 col-md-6 col-sm-12 pull-left">
               <a href="/" class="homepage">
-              <img alt="Graduate School" src="/images/logo.jpg" class="img logo">
-            </a>
+                <img alt="Graduate School" src="/images/logo.jpg" class="img logo">
+              </a>
             </div>
             <div class="col-lg-4 col-md-6  col-sm-12">
               <div id="home-search" class="col-lg-4 col-md-6 col-sm-12 col-xs-4 p20">
@@ -29,7 +29,9 @@
                   <div class="input-group">
                     <input type="text" id="searchCriteria" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
-                      <button id="course-search-button" class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                      <button id="course-search-button" class="btn btn-default" type="submit">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                      </button>
                     </span>
                   </div>
                 </form>
@@ -37,260 +39,366 @@
               </div>
               <div class="col-lg-4 col-md-6 col-sm-12 col-xs-4 p20">
                 <a href="#" class="homepage" target="_blank">
-                <img alt="Register" src="/images/register.png" class="" style="width:110px;" >
-              </a>
+                  <img alt="Register" src="/images/register.png" class="" style="width:110px;">
+                </a>
               </div>
             </div>
           </div>
-        </div> <!-- /end of the first Row  -->
+      </div>
+      <!-- /end of the first Row  -->
 
 
-<div class="row">
-  <div class="navbar navbar-default gs">
-            <div class="navbar-header">
-              <button type="button" data-toggle="collapse" data-target="#navbar-collapse-grid" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-              <a href="/" class="navbar-brand">Homepage</a>
-            </div>
-            <div id="navbar-collapse-grid" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="dropdown gs-fw"><a href="/whats-new" class="">What's New</a></li>
+      <div class="row">
+        <div class="navbar navbar-default gs">
+          <div class="navbar-header">
+            <button type="button" data-toggle="collapse" data-target="#navbar-collapse-grid" class="navbar-toggle">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">Homepage</a>
+          </div>
+          <div id="navbar-collapse-grid" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="dropdown gs-fw"><a href="/whats-new" class="">What's New</a></li>
 
-                <!-- Grid 12 Menu -->
-                <li class="dropdown gs-fw"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle">Menu item 1 <b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li class="grid-demo">
-                      <div class="row">
-                        <div class="col-sm-6">
+              <!-- Grid 12 Menu -->
+              <li class="dropdown gs-fw"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle">Menu item 1 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="grid-demo">
+                    <div class="row">
+                      <div class="col-sm-6">
                         <h4>Menu section name</h4>
                         <ul>
-                          <li><a href="#"></a>Menu item 1</a></li>
-                          <li><a href="#"></a>Menu item 2</a></li>
-                          <li><a href="#"></a>Menu item 3</a></li>
-                          <li><a href="#"></a>Menu item 4</a></li>
-                          <li><a href="#"></a>Menu item 5</a></li>
-                          <li><a href="#"></a>Menu item 6</a></li>
+                          <li>
+                            <a href="#"></a>Menu item 1</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 2</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 3</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 4</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 5</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 6</a>
+                          </li>
                         </ul>
-                        </div>
-                        <div class="col-sm-6">
-                          <h4>Menu section name</h4>
-                          <ul>
-                            <li><a href="#"></a>Menu item 1</a></li>
-                            <li><a href="#"></a>Menu item 2</a></li>
-                            <li><a href="#"></a>Menu item 3</a></li>
-                            <li><a href="#"></a>Menu item 4</a></li>
-                            <li><a href="#"></a>Menu item 5</a></li>
-                            <li><a href="#"></a>Menu item 6</a></li>
-                            <li><a href="#"></a>Menu item 7</a></li>
-                            <li><a href="#"></a>Menu item 8</a></li>
-                          </ul>
-                        </div>
                       </div>
-                    </li>
-                  </ul>
-                </li>
-
-                <!-- Grid 12 Menu -->
-                <li class="dropdown gs-fw"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle">Menu item 2<b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li class="grid-demo">
-
-                      <div class="row">
-                        <div class="col-sm-4">
-                          <h4>Menu section name</h4>
-                          <ul>
-                            <li><a href="#"></a>Menu item 1</a></li>
-                            <li><a href="#"></a>Menu item 2</a></li>
-                            <li><a href="#"></a>Menu item 3</a></li>
-                            <li><a href="#"></a>Menu item 4</a></li>
-                            <li><a href="#"></a>Menu item 5</a></li>
-                            <li><a href="#"></a>Menu item 6</a></li>
-                            <li><a href="#"></a>Menu item 7</a></li>
-                            <li><a href="#"></a>Menu item 8</a></li>
-                          </ul>
-                        </div>
-                        <div class="col-sm-4">
-                          <h4>Menu section name</h4>
-                          <ul>
-                            <li><a href="#"></a>Menu item 1</a></li>
-                            <li><a href="#"></a>Menu item 2</a></li>
-                            <li><a href="#"></a>Menu item 3</a></li>
-                            <li><a href="#"></a>Menu item 4</a></li>
-                            <li><a href="#"></a>Menu item 5</a></li>
-                            <li><a href="#"></a>Menu item 6</a></li>
-
-                          </ul>
-                        </div>
-                        <div class="col-sm-4">
-                          <h4>Menu section name</h4>
-                          <ul>
-                            <li><a href="#"></a>Menu item 1</a></li>
-                            <li><a href="#"></a>Menu item 2</a></li>
-                            <li><a href="#"></a>Menu item 3</a></li>
-                            <li><a href="#"></a>Menu item 4</a></li>
-                            <li><a href="#"></a>Menu item 5</a></li>
-                            <li><a href="#"></a>Menu item 6</a></li>
-
-                          </ul>
-                        </div>
+                      <div class="col-sm-6">
+                        <h4>Menu section name</h4>
+                        <ul>
+                          <li>
+                            <a href="#"></a>Menu item 1</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 2</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 3</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 4</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 5</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 6</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 7</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 8</a>
+                          </li>
+                        </ul>
                       </div>
-                    </li>
-                  </ul>
-                </li>
+                    </div>
+                  </li>
+                </ul>
+              </li>
 
-                <!-- Grid 12 Menu -->
-                <li class="dropdown gs-fw"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle">Menu item 3<b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li class="grid-demo">
+              <!-- Grid 12 Menu -->
+              <li class="dropdown gs-fw"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle">Menu item 2<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="grid-demo">
 
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h4>Menu section name</h4>
-                          <ul>
-                            <li><a href="#"></a>Menu item 1</a></li>
-                            <li><a href="#"></a>Menu item 2</a></li>
-                            <li><a href="#"></a>Menu item 3</a></li>
-                            <li><a href="#"></a>Menu item 4</a></li>
-                            <li><a href="#"></a>Menu item 5</a></li>
-                            <li><a href="#"></a>Menu item 6</a></li>
-                            <li><a href="#"></a>Menu item 7</a></li>
-                            <li><a href="#"></a>Menu item 8</a></li>
-                          </ul>
-                        </div>
-                        <div class="col-sm-3">
-                          <h4>Menu section name</h4>
-                          <ul>
-                            <li><a href="#"></a>Menu item 1</a></li>
-                            <li><a href="#"></a>Menu item 2</a></li>
-                            <li><a href="#"></a>Menu item 3</a></li>
-                            <li><a href="#"></a>Menu item 4</a></li>
-                            <li><a href="#"></a>Menu item 5</a></li>
-                            <li><a href="#"></a>Menu item 6</a></li>
-
-                          </ul>
-                        </div>
-                        <div class="col-sm-3">
-                          <h4>Menu section name</h4>
-                          <ul>
-                            <li><a href="#"></a>Menu item 1</a></li>
-                            <li><a href="#"></a>Menu item 2</a></li>
-                            <li><a href="#"></a>Menu item 3</a></li>
-                            <li><a href="#"></a>Menu item 4</a></li>
-                            <li><a href="#"></a>Menu item 5</a></li>
-                            <li><a href="#"></a>Menu item 6</a></li>
-
-                          </ul>
-                        </div>
-                        <div class="col-sm-3">
-                          <h4>Menu section name</h4>
-                          <ul>
-                            <li><a href="#"></a>Menu item 1</a></li>
-                            <li><a href="#"></a>Menu item 2</a></li>
-                            <li><a href="#"></a>Menu item 3</a></li>
-                            <li><a href="#"></a>Menu item 4</a></li>
-                            <li><a href="#"></a>Menu item 5</a></li>
-                            <li><a href="#"></a>Menu item 6</a></li>
-                            <li><a href="#"></a>Menu item 7</a></li>
-                            <li><a href="#"></a>Menu item 8</a></li>
-                          </ul>
-                        </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <h4>Menu section name</h4>
+                        <ul>
+                          <li>
+                            <a href="#"></a>Menu item 1</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 2</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 3</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 4</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 5</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 6</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 7</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 8</a>
+                          </li>
+                        </ul>
                       </div>
-                    </li>
+                      <div class="col-sm-4">
+                        <h4>Menu section name</h4>
+                        <ul>
+                          <li>
+                            <a href="#"></a>Menu item 1</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 2</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 3</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 4</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 5</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 6</a>
+                          </li>
 
-                  </ul>
-                </li>
-                <!-- Classic dropdown -->
-                <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Classic dropdown<b class="caret"></b></a>
-                  <ul role="menu" class="dropdown-menu">
-                    <li><a tabindex="-1" href="#"> Action </a></li>
-                    <li><a tabindex="-1" href="#"> Another action </a></li>
-                    <li><a tabindex="-1" href="#"> Something else here </a></li>
-                    <li class="divider"></li>
-                    <li><a tabindex="-1" href="#"> Separated link </a></li>
-                  </ul>
-                </li>
+                        </ul>
+                      </div>
+                      <div class="col-sm-4">
+                        <h4>Menu section name</h4>
+                        <ul>
+                          <li>
+                            <a href="#"></a>Menu item 1</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 2</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 3</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 4</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 5</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 6</a>
+                          </li>
 
-              </ul>
-            </div>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Grid 12 Menu -->
+              <li class="dropdown gs-fw"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle">Menu item 3<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="grid-demo">
+
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <h4>Menu section name</h4>
+                        <ul>
+                          <li>
+                            <a href="#"></a>Menu item 1</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 2</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 3</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 4</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 5</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 6</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 7</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 8</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-sm-3">
+                        <h4>Menu section name</h4>
+                        <ul>
+                          <li>
+                            <a href="#"></a>Menu item 1</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 2</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 3</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 4</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 5</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 6</a>
+                          </li>
+
+                        </ul>
+                      </div>
+                      <div class="col-sm-3">
+                        <h4>Menu section name</h4>
+                        <ul>
+                          <li>
+                            <a href="#"></a>Menu item 1</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 2</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 3</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 4</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 5</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 6</a>
+                          </li>
+
+                        </ul>
+                      </div>
+                      <div class="col-sm-3">
+                        <h4>Menu section name</h4>
+                        <ul>
+                          <li>
+                            <a href="#"></a>Menu item 1</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 2</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 3</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 4</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 5</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 6</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 7</a>
+                          </li>
+                          <li>
+                            <a href="#"></a>Menu item 8</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+
+                </ul>
+              </li>
+              <!-- Classic dropdown -->
+              <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Classic dropdown<b class="caret"></b></a>
+                <ul role="menu" class="dropdown-menu">
+                  <li><a tabindex="-1" href="#"> Action </a></li>
+                  <li><a tabindex="-1" href="#"> Another action </a></li>
+                  <li><a tabindex="-1" href="#"> Something else here </a></li>
+                  <li class="divider"></li>
+                  <li><a tabindex="-1" href="#"> Separated link </a></li>
+                </ul>
+              </li>
+
+            </ul>
           </div>
+        </div>
 
-</div> <!-- / end of row -->
+      </div>
+      <!-- / end of row -->
 
 
 
       <!-- Current Menu
-      <div class="row nm">
+        <div class="row nm">
         <ul>
-          <li><a href="http://graduateschool.edu/index.php?option=com_content&task=view&id=35&Itemid=281">About Graduate School</a></li>
-          <li><a href="http://graduateschool.edu/index.php?option=com_content&task=view&id=29&Itemid=154">Courses & Programs </a></li>
-          <li><a href="http://graduateschool.edu/index.php?option=com_content&task=view&id=31&Itemid=156">Customized Solutions</a></li>
-          <li><a href="http://graduateschool.edu/index.php?option=com_content&task=view&id=32&Itemid=160">Certified Programs</a></li>
-          <li><a href="http://graduateschool.edu/index.php?option=com_content&task=view&id=33&Itemid=161">Trainig Officials</a></li>
-          <li><a href="http://www.graduateschool.edu/de/distance_education.html">Distance Education</a></li>
-        </ul>
-      </div> -->
+        <li><a href="http://graduateschool.edu/index.php?option=com_content&task=view&id=35&Itemid=281">About Graduate School</a></li>
+        <li><a href="http://graduateschool.edu/index.php?option=com_content&task=view&id=29&Itemid=154">Courses & Programs </a></li>
+        <li><a href="http://graduateschool.edu/index.php?option=com_content&task=view&id=31&Itemid=156">Customized Solutions</a></li>
+        <li><a href="http://graduateschool.edu/index.php?option=com_content&task=view&id=32&Itemid=160">Certified Programs</a></li>
+        <li><a href="http://graduateschool.edu/index.php?option=com_content&task=view&id=33&Itemid=161">Trainig Officials</a></li>
+        <li><a href="http://www.graduateschool.edu/de/distance_education.html">Distance Education</a></li>
+      </ul>
+    </div> -->
 
       </header>
-    </div><!-- /end Row Container -->
-   </div><!-- /end Row Header -->
+    </div>
+    <!-- /end Row Container -->
+  </div>
+  <!-- /end Row Header -->
 
-   <div class="row t_officer center b_bottom">
-         <div class="container-fluid">
-           <img src="/images/01.jpg" alt="" class="img full-width"/>
-         </div>
-      </div> <!-- /end Row Training officer -->
+  <div class="row t_officer center b_bottom">
+    <div class="container-fluid">
+      <img src="/images/01.jpg" alt="" class="img full-width" />
+    </div>
+  </div>
+  <!-- /end Row Training officer -->
 
-   <div class="row student center b_bottom">
-         <div class="container-fluid">
-           <img src="/images/02.jpg" alt="" class="img full-width"/>
-         </div>
-      </div> <!-- /end Row Student -->
+  <div class="row student center b_bottom">
+    <div class="container-fluid">
+      <img src="/images/02.jpg" alt="" class="img full-width" />
+    </div>
+  </div>
+  <!-- /end Row Student -->
 
   <div class="row search b_bottom">
     <div class="container center">
-      <img src="/images/03.png" alt="" style="max-height:241px; width:100%; max-width:512px;"/>
+      <img src="/images/03.png" alt="" style="max-height:241px; width:100%; max-width:512px;" />
     </div>
-   </div><!-- /end Row search -->
+  </div>
+  <!-- /end Row search -->
+  <!-- Include Footer Here! -->
+  <% include partials/footer %>
+  <!-- /end Container-fluid -->
+  </div>
+  <% include partials/chat %>
+  <!-- /end of the chat  -->
 
-   <div class="row footer">
-   <div class="container">
-
-     <footer class="center">
-
-       <p class="copy"> &copy; 2015 Graduate School USA </p>
-
-<nav class="social_media">
-  <ul>
-    <li><a href="http://www.facebook.com/GraduateSchoolUSA" target="_blank">Facebook</a></li>
-    <li><a href="http://twitter.com/thegradschool" target="_blank">Twitter</a></li>
-    <li><a href="http://www.youtube.com/user/TheGradSchool" target="_blank">Youtube</a></li>
-    <li><a href="http://www.flickr.com/photos/thegradschool" target="_blank">Flicker</a></li>
-  </ul>
-</nav>
-
-      <!--
-      <span class="social">
-       <a href="http://www.facebook.com/GraduateSchoolUSA" target="_blank"><img title="Facebook" src="/images/facebook.ico" alt="Facebook" width="35" height="35" /></a>
-       <a href="http://twitter.com/thegradschool" target="_blank"><img title="Twitter" src="/images/twitter.ico" alt="Twitter" width="35" height="35" /></a>
-       <a href="http://www.youtube.com/user/TheGradSchool" target="_blank"><img title="YouTube" src="/images/youtube.ico" alt="Pinterest" width="35" height="35" /></a>
-       <a href="http://www.flickr.com/photos/thegradschool" target="_blank"><img title="Flickr" src="/images/flickr.ico" alt="RSS" width="35" height="35" /></a></div>
-     </span> -->
-     </footer>
- </div>
-  </div> <!-- /end Container-fluid -->
-</div>
-
-<div id="chat"> <!-- chat -->
-    <a href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;">
-      <div>
-        <img alt="Live chat by BoldChat" src="images/chat.png" border="0" id="0.06143315345980227">
-      </div>
-    </a>
-</div><!-- /end of the chat  -->
-
-<script type="text/javascript">
-$(document).on('click', '.gs .dropdown-menu', function(e) {
-e.stopPropagation()
-})
-</script>
+  <script type="text/javascript">
+    $(document).on('click', '.gs .dropdown-menu', function(e) {
+      e.stopPropagation()
+    })
+  </script>
 </body>
+
 </html>
