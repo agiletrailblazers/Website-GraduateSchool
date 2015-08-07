@@ -8,5 +8,8 @@ router.get('/registration/policy', function(req, res, next) {
 // Ask A Question About This Course
 // Find Another Course
 // Bring this Course to Your Location
+router.get('/forms/onsite-inquiry', function(req, res, next) {
+  res.render('forms/courses/onsite_inquiry');
+});
 
 module.exports = router;
