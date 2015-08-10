@@ -78,7 +78,6 @@ router.get('/courses/:course_id', function(req, res, next){
       code = content.class.id.slice(0,-3);
         content.class.code = code;
     }
-
     res.render('course_detail', { courseTitle: content.class.title,
     courseId: content.class.id, courseCode: content.class.code, courseType: content.class.type,
     courseDescription: striptags(content.class.description.text), courseCredit: content.class.credit,
