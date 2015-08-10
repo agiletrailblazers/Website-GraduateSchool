@@ -57,7 +57,11 @@ table.schedule tr:nth-child(even) {
     <% for (var i=0; i < sessions.length; i++) { %>
       <tr>
         <td> <%= sessions[i]["startDate"].slice(0,-6) %> - <%= sessions[i]["endDate"]%> <br/>
-            <%= sessions[i]["startTime"]%> - <%= sessions[i]["endTime"]%>   %></td>
+            <% if (sessions[i]["startTime"] !== null || sessions[i]["endTime"] !== null) { %>
+              <%= sessions[i]["startTime"]%> - <%= sessions[i]["endTime"]%>   %>
+            <% } %>
+        </td>
+
         <td><%= sessions[i].location["address1"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
         <td> $<%= sessions[i]["tuition"]%></td>
         <td class="statusData"><!-- <%= sessions[i]["status"]%> -->
@@ -84,9 +88,9 @@ table.schedule tr:nth-child(even) {
         <% if (sessions[i]["status"] === 'S') { %>
           <td><button type="button" name="button">Register</button></td>
         <% } else if (sessions[i]["status"] === 'C') { %>
-          <!-- <td><button type="button" name="button" disabled>Register</button></td> -->
+          <td><button type="button" name="button" disabled>Register</button></td>
         <% } else { %>
-          <!-- <td><button type="button" name="button" disabled>Register</button></td> -->
+          <td><button type="button" name="button" disabled>Register</button></td>
         <% } %>
 
       </tr>
