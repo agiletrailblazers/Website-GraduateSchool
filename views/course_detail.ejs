@@ -67,7 +67,7 @@ table.schedule tr:nth-child(even) {
 
         <td><%= sessions[i].location["address1"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
         <td> $<%= sessions[i]["tuition"]%></td>
-        <td class="statusData"><!-- <%= sessions[i]["status"]%> -->
+        <td class="statusData">
           <% if (sessions[i]["status"] === "C")  {%>
             <% if (sessions[i]["scheduleAvailable"] === sessions[i]["scheduleMaximum"]) { %>
               <span class="label label-warning">Closed</span>
@@ -78,7 +78,7 @@ table.schedule tr:nth-child(even) {
           <% } %>
         </td>
         <td class="g2gData">
-          <% if (sessions[i]["status"] === "C") %>
+          <% if (sessions[i]["status"] === "C") {%>
           <span class="glyphicon glyphicon-ok"></span>
           <% } %>
         </td>
