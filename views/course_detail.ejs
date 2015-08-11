@@ -46,7 +46,6 @@ table.schedule tr:nth-child(even) {
           <th>Location</th>
           <th>Price</th>
           <th>Status</th>
-          <th>G2G</th>
           <th>#</th>
         </tr>
 <% if (sessions.status === 404) { %>
@@ -71,24 +70,19 @@ table.schedule tr:nth-child(even) {
           <% if (sessions[i]["status"] === "C")  {%>
             <% if (sessions[i]["scheduleAvailable"] === sessions[i]["scheduleMaximum"]) { %>
               <span class="label label-warning">Closed</span>
+            <% } else { %>
+            <span class="label label-success">G2G</span>
             <% } %>
-          <% } %>
-          <% if (sessions[i]["scheduleAvailable"] < sessions[i]["scheduleMaximum"]) { %>
-            <span class="label label-success">Open</span>
-          <% } %>
-        </td>
-        <td class="g2gData">
-          <% if (sessions[i]["status"] === "C" && sessions[i]["scheduleAvailable"] < sessions[i]["scheduleMaximum"]) {%>
-          <span class="glyphicon glyphicon-ok"></span>
+          <% } else { %>
+            <span class="label label-info">Open</span>
           <% } %>
         </td>
-
       <% if (sessions[i]["status"] === 'S') { %>
         <td><button type="button" name="button">Register</button></td>
-      <% } else if (sessions[i]["status"] === 'C') { %>
+      <% } else if (sessions[i]["status"] === 'C' && sessions[i]["scheduleAvailable"] === sessions[i]["scheduleMaximum"]) { %>
         <td><button type="button" name="button" disabled>Register</button></td>
       <% } else { %>
-        <td><button type="button" name="button" disabled>Register</button></td>
+        <td><button type="button" name="button">Register</button></td>
       <% } %>
       </tr>
     <% } %>
