@@ -73,12 +73,14 @@ table.schedule tr:nth-child(even) {
               <span class="label label-warning">Closed</span>
             <% } %>
           <% } %>
-          <% if (session[i]["scheduleAvailable"] < sessions[i]["scheduleMaximum"]) { %>
+          <% if (sessions[i]["scheduleAvailable"] < sessions[i]["scheduleMaximum"]) { %>
             <span class="label label-success">Open</span>
           <% } %>
         </td>
         <td class="g2gData">
+          <% if (sessions[i]["status"] === "C") %>
           <span class="glyphicon glyphicon-ok"></span>
+          <% } %>
         </td>
 
       <% if (sessions[i]["status"] === 'S') { %>
