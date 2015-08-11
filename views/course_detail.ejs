@@ -68,37 +68,28 @@ table.schedule tr:nth-child(even) {
         <td><%= sessions[i].location["address1"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
         <td> $<%= sessions[i]["tuition"]%></td>
         <td class="statusData"><!-- <%= sessions[i]["status"]%> -->
-            <% if (sessions[i]["status"] === null) { %>
-
-              <% } else if (sessions[i]["status"] === 'S'){ %>
-                <span class="label label-success">Open</span>
-              <% } else if (sessions[i]["status"] === 'C'){ %>
-                <span class="label label-warning">Closed</span>
-
-              <% } else if (sessions[i]["status"] === 'P'){ %>
-                <!-- <img src="/images/no.png" alt="" /> -->
-                <span class="label label-warning">Almost Full</span>
-              <% } else { %>
-                <span class="label label-warning">Almost Full</span>
+          <% if (sessions[i]["status"] === "C")  {%>
+            <% if (sessions[i]["scheduleAvailable"] === sessions[i]["scheduleMaximum"]) { %>
+              <span class="label label-warning">Closed</span>
             <% } %>
-
+          <% } %>
+          <% if (session[i]["scheduleAvailable"] < sessions[i]["scheduleMaximum"]) { %>
+            <span class="label label-success">Open</span>
+          <% } %>
         </td>
         <td class="g2gData">
           <span class="glyphicon glyphicon-ok"></span>
         </td>
-      <!--  <td><%= sessions[i]["scheduleMaximum"]%></td>
-        <td><%= sessions[i]["scheduleAvailable"]%></td> -->
-        <% if (sessions[i]["status"] === 'S') { %>
-          <td><button type="button" name="button">Register</button></td>
-        <% } else if (sessions[i]["status"] === 'C') { %>
-          <td><button type="button" name="button" disabled>Register</button></td>
-        <% } else { %>
-          <td><button type="button" name="button" disabled>Register</button></td>
-        <% } %>
 
+      <% if (sessions[i]["status"] === 'S') { %>
+        <td><button type="button" name="button">Register</button></td>
+      <% } else if (sessions[i]["status"] === 'C') { %>
+        <td><button type="button" name="button" disabled>Register</button></td>
+      <% } else { %>
+        <td><button type="button" name="button" disabled>Register</button></td>
+      <% } %>
       </tr>
-     <% } %>
-
+    <% } %>
 <% } %>
       </thead>
           <tbody>
