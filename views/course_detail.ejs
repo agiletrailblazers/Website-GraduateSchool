@@ -78,7 +78,7 @@ table.schedule tr:nth-child(even) {
           <% } %>
         </td>
         <td class="g2gData">
-          <% if (sessions[i]["status"] === "C") {%>
+          <% if (sessions[i]["status"] === "C" && sessions[i]["scheduleAvailable"] < sessions[i]["scheduleMaximum"]) {%>
           <span class="glyphicon glyphicon-ok"></span>
           <% } %>
         </td>
