@@ -1,7 +1,9 @@
 var express = require('express');
+var contentful = require('../../API/contentful.js');
 var async = require('async');
 var course = require("../../API/course.js");
 var striptags = require('striptags');
+var dateformat = require('date-format-lite');
 var router = express.Router();
 
 
@@ -39,8 +41,8 @@ router.get('/courses/:course_id', function(req, res, next){
   async.series([
     function(callback) {
       course.performExactCourseSearch(function(response, error, result) {
-        console.log(result);
         if (result) {
+          console.log(result);
           content.class = result;
           callback();
         }
@@ -48,23 +50,39 @@ router.get('/courses/:course_id', function(req, res, next){
     },
     function(callback) {
       course.getSchedule(function(response, error, result) {
-        console.log("Result:", result);
         if (result != null) {
           content.session = result;
+          console.log(content.session.length);
+          // Changing dateFormat for all sessions.
+          for (var i = 0; i < content.session.length; i++) {
+            var iSession = content.session[i];
+            iSession["startDate"] = content.session[i]["startDate"].date('MMM DD, YYYY');
+            iSession["endDate"] = content.session[i]["endDate"].date('MMM DD, YYYY');
+          }
           callback();
         } else {
           content.session = {status: 404, text: "No courses found."}
           callback();
         }
       }, courseId);
+    },
+    function(callback) {
+      var entryName = courseId.toLowerCase().slice(0,-3);
+      contentful.getSyllabus(entryName, function(response, error, result) {
+        content.syllabus = response;
+        callback();
+      });
     }
   ], function(results) {
-    console.log('Results:', content);
-    res.render('course_detail', { title: "Title", courseTitle: content.class.title,
+    if (content.class.code === null) {
+      code = content.class.id.slice(0,-3);
+        content.class.code = code;
+    }
+    res.render('course_detail', { courseTitle: content.class.title,
     courseId: content.class.id, courseCode: content.class.code, courseType: content.class.type,
     courseDescription: striptags(content.class.description.text), courseCredit: content.class.credit,
     courseLength: content.class.length.value, courseInterval: content.class.length.interval,
-    courseSchedule: content.class.schedule, sessions: content.session});
+    courseSchedule: content.class.schedule, sessions: content.session, courseOutline: content.syllabus});
   });
 });
 module.exports = router;

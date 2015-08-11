@@ -2,15 +2,10 @@
 <html>
 <head>
   <title><%= courseTitle %></title>
-  <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
-  <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_9EOg9DdnSOQ0nCJrOcMdGQARxtZNd0"></script>
-  <script type="text/javascript" src="/javascripts/map.js"></script>
+  <% include partials/head %>
   <script type="text/javascript" src="/javascripts/course_detail.js"></script>
   <link rel="stylesheet" href="/stylesheets/course_detail.css">
   <link rel='stylesheet' href='/stylesheets/style.css' />
-  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-  <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
   <!-- Style fix for Link color - to be removed after -->
   <style media="screen">
   a:link, a:visited{
@@ -33,7 +28,7 @@ table.schedule tr:nth-child(even) {
 
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-12">
-    <h3>Course Details for <%= courseId %></h3>
+    <h3><%= courseTitle %> - <%= courseCode %></h3>
   </div>
   <div class="col-lg-6 col-md-6 col-sm-12">
     <button type="button" name="button">Multiple registration</button>
@@ -48,12 +43,9 @@ table.schedule tr:nth-child(even) {
       <thead>
         <tr>
           <th>Session Schedule</th>
-          <th>Instructor</th>
           <th>Location</th>
           <th>Price</th>
           <th>Status</th>
-          <th>Maximum</th>
-          <th>Availble</th>
           <th>#</th>
         </tr>
 <% if (sessions.status === 404) { %>
@@ -63,19 +55,37 @@ table.schedule tr:nth-child(even) {
 
     <% for (var i=0; i < sessions.length; i++) { %>
       <tr>
-        <td> <%= sessions[i]["startDate"] %> - <%= sessions[i]["endDate"]%> <br/>
-            <%= sessions[i]["startTime"]%> - <%= sessions[i]["endTime"]%> , <%= sessions[i]["days"]%></td>
-        <!-- <td><button type="button" data-toggle="modal" data-target="#myModal"><%= sessions[i]["instructor"]%></button> </td> -->
-        <td><button type="button" data-toggle="modal" data-target="#myModal"> Ann Martick </button> </td>
-        <td><%= sessions[i].location["address1"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
-        <td><%= sessions[i]["tuition"]%></td>
-        <td><%= sessions[i]["status"]%></td>
-        <td><%= sessions[i]["scheduleMaximum"]%></td>
-        <td><%= sessions[i]["scheduleAvailable"]%></td>
-        <td><button type="button" name="button">Register</button></td>
-      </tr>
-     <% } %>
+        <td> <%= sessions[i]["startDate"].slice(0,-6) %> - <%= sessions[i]["endDate"]%> <br/>
+            <% if (sessions[i]["startTime"] !== null || sessions[i]["endTime"] !== null) { %>
+              <%= sessions[i]["startTime"]%> - <%= sessions[i]["endTime"]%>   %>
+            <% } %>
+            <% if (sessions[i]["days"] !== null) { %>
+              <br><%= sessions[i]["days"] %>
+            <% } %>
+        </td>
 
+        <td><%= sessions[i].location["address1"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
+        <td> $<%= sessions[i]["tuition"]%></td>
+        <td class="statusData">
+          <% if (sessions[i]["status"] === "C")  {%>
+            <% if (sessions[i]["scheduleAvailable"] === sessions[i]["scheduleMaximum"]) { %>
+              <span class="label label-warning">Closed</span>
+            <% } else { %>
+            <span class="label label-success">G2G</span>
+            <% } %>
+          <% } else { %>
+            <span class="label label-info">Open</span>
+          <% } %>
+        </td>
+      <% if (sessions[i]["status"] === 'S') { %>
+        <td><button type="button" name="button">Register</button></td>
+      <% } else if (sessions[i]["status"] === 'C' && sessions[i]["scheduleAvailable"] === sessions[i]["scheduleMaximum"]) { %>
+        <td><button type="button" name="button" disabled>Full</button></td>
+      <% } else { %>
+        <td><button type="button" name="button">Register</button></td>
+      <% } %>
+      </tr>
+    <% } %>
 <% } %>
       </thead>
           <tbody>
@@ -115,13 +125,19 @@ table.schedule tr:nth-child(even) {
           <li class="active"><a data-toggle="tab" href="#home">Course overview</a></li>
           <li><a data-toggle="tab" href="#menu1">Who should attend?</a></li>
           <li><a data-toggle="tab" href="#menu2">Learning outcomes</a></li>
-          <li><a data-toggle="tab" href="#menu3">Course outline</a></li>
+          <% if ( courseOutline &&  courseOutline.fields &&  courseOutline.fields.syllabusContent ) { %>
+          	<li><a data-toggle="tab" href="#menu3">Course outline</a></li>
+          <% } %>
         </ul>
 
         <div class="tab-content">
           <div id="home" class="tab-pane fade in active">
             <h3>Course overview</h3>
             <p><%= courseDescription %></p>
+            <a href="/registration/policy"></a>
+            <a href='mailto:customersupport@graduateschool.edu?subject=Question about Course <%= courseCode %>'>Ask a Question About This Course</a>
+            <a href="/">Find Another Course</a>
+            <a href="/forms/onsite-inquiry">Bring This Course To Your Location</a>
           </div>
           <div id="menu1" class="tab-pane fade">
             <h3>Who should attend?</h3>
@@ -139,44 +155,19 @@ table.schedule tr:nth-child(even) {
               </ul>
             </p>
           </div>
-          <div id="menu3" class="tab-pane fade">
-            <h3>Course outline</h3>
-
-            <td>
-              <p><strong>Day One</strong></p>
-              <div>Introduction<br>
-                <ul>
-                  <li>Pre-course Assessment</li>
-                </ul>
-                Definitions and History of Veterans' Preference<br>
-                <br>
-                Applicable Laws, Rules, and Regulations<br>
-                <ul>
-                  <li>Types of veterans' preference</li>
-                  <li>Adjudicating veterans' preference claims</li>
-                </ul>
-                Veterans' Preference in the Competitive and Excepted Services<br>
-                <ul>
-                  <li>Applying veterans' preference</li>
-                </ul>
-                Special Appointing Authorities and Entitlements for Veterans<br>
-                <br>
-                Veterans’ Preference and Reduction-In-Force<br>
-                <br>
-                Summary<br>
-                <ul>
-                  <li>Post-course Assessment</li>
-                </ul>
-              </div>
-            </td>
+          <% if ( courseOutline &&  courseOutline.fields &&  courseOutline.fields.syllabusContent ) { %>
+            <div id="menu3" class="tab-pane fade">
+              <h3>Course outline</h3>
+              <%- courseOutline.fields.syllabusContent %>
+		  <% } %>
           </div>
         </div>
       </div>
 
     </div> <!--/#row -->
-
   </div><!--/#container-fulid -->
-
+    <% include partials/footer %>
+  <% include partials/chat %>
 <br/><br/> <!--/# spacer to be removed -->
 
   <!-- Modal dialog -->
