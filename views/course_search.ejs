@@ -3,7 +3,6 @@
 <head>
   <title><%= title %></title>
   <% include partials/head %>
-  <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel='stylesheet' href='/stylesheets/course_search.css' />
 
   <!-- Style fix for Link color - to be removed after -->
@@ -21,6 +20,12 @@
   </style>
 </head>
   <body>
+    <div class="container">
+      <div class="row nm header clearfix">
+        <% include partials/header %>
+      </div>
+    <!-- /end Row Container -->
+    </div>
     <div class="container">
       <h1>Course Search Results</h1>
       <% if (result == null || result.courses == null || result.courses.length == 0) { %>
@@ -43,6 +48,7 @@
           <% } %>
         <% } %>
     </div>
+      <% include partials/chat %>
     <% include partials/footer %>
   </body>
 </html>
