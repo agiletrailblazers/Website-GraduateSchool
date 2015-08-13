@@ -21,6 +21,12 @@
 </head>
   <body>
     <div class="container">
+      <div class="row nm header clearfix">
+        <% include partials/header %>
+      </div>
+    <!-- /end Row Container -->
+    </div>
+    <div class="container">
       <h1>Course Search Results</h1>
       <% if (result == null || result.courses == null || result.courses.length == 0) { %>
         <div class="alert alert-danger" role="alert">
@@ -42,6 +48,7 @@
           <% } %>
         <% } %>
     </div>
+      <% include partials/chat %>
     <% include partials/footer %>
   </body>
 </html>
