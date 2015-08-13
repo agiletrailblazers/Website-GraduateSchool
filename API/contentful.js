@@ -45,10 +45,10 @@ module.exports = {
           return callback(syllabus);
       });
   },
-  getNewsDetail: function(callback, entry) {
+  getNewsDetail: function(callback, slug) {
     request({
       method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries/' + entry + '?access_token=940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652',
+      url: 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?access_token=940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652&slug=' + slug +'',
       headers: {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }}, function(error, response, body) {
