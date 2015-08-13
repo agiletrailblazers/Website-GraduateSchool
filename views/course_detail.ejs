@@ -60,11 +60,11 @@ table.schedule tr:nth-child(even) {
               <%= sessions[i]["startTime"]%> - <%= sessions[i]["endTime"]%>   %>
             <% } %>
             <% if (sessions[i]["days"] !== null) { %>
-              <br><%= sessions[i]["days"] %>
+            , <%= sessions[i]["days"] %>
             <% } %>
         </td>
 
-        <td><%= sessions[i].location["address1"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
+        <td><%= sessions[i].location["city"]%>, <%= sessions[i].location["state"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
         <td> $<%= sessions[i]["tuition"]%></td>
         <td class="statusData">
           <% if (sessions[i]["status"] === "C")  {%>
