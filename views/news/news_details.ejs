@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    <%= title %>
+  </title>
+    <% include partials/head %>
+</head>
+<body>
+  <div class="container-fluid b_bottom">
+    <div class="container">
+      <div class="row nm header clearfix">
+        <% include partials/header %>
+      </div>
+    <!-- /end Row Container -->
+  </div>
+  <!-- /end Row Header -->
+
+      <div class="container">
+        <h1>
+          <%= entry.newsTitle %>
+        </h1>
+
+        <p>
+          <%= entry.newsContent %>
+        </p>
+      </div> <!-- /end Container -->
+
+  <!-- Include Footer Here! -->
+  <% include partials/footer %>
+  <!-- /end Container-fluid -->
+  </div>
+  <% include partials/chat %>
+  <!-- /end of the chat  -->
+
+</body>
+
+</html>
