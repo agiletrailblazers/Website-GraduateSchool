@@ -25,8 +25,9 @@ module.exports = {
       method: 'GET',
       url: courseApiUrl + '/api/courses/' + courseId + ''
     }, function (error, response, body) {
+        console.log(response.statusCode);
       if (error != null || response == null || response.statusCode != 200) {
-        console.log("Exception occured performing course search. " + error);
+        console.log("Exception occured performing exact course search. " + error);
         return callback(response, new Error("Exception occured performing exact course search"), null);
       }
       console.log('Status:', response.statusCode);

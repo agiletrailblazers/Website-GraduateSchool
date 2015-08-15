@@ -41,11 +41,15 @@ router.get('/courses/:course_id', function(req, res, next){
   async.series([
     function(callback) {
       course.performExactCourseSearch(function(response, error, result) {
-        if (result) {
-          console.log(result);
-          content.class = result;
-          callback();
-        }
+    	if (error || result == null) {
+    		console.log("Course not found")
+    		content.session = {status: 404, text: "No courses found."}
+    	}
+    	else {
+    		console.log(result);
+    		content.class = result;
+    	}
+        callback();
       }, courseId);
     },
     function(callback) {
@@ -74,15 +78,21 @@ router.get('/courses/:course_id', function(req, res, next){
       });
     }
   ], function(results) {
-    if (content.class.code === null) {
-      code = content.class.id.slice(0,-3);
-        content.class.code = code;
+    if (content && content.class) {
+    	if (content.class.code === null) {   
+    		code = content.class.id.slice(0,-3);
+    		content.class.code = code;
+    	}
+	    res.render('course_detail', { courseTitle: content.class.title,
+	    	courseId: content.class.id, courseCode: content.class.code, courseType: content.class.type,
+	    	courseDescription: striptags(content.class.description.text), courseCredit: content.class.credit,
+	    	courseLength: content.class.length.value, courseInterval: content.class.length.interval,
+	    	courseSchedule: content.class.schedule, sessions: content.session, courseOutline: content.syllabus});
     }
-    res.render('course_detail', { courseTitle: content.class.title,
-    courseId: content.class.id, courseCode: content.class.code, courseType: content.class.type,
-    courseDescription: striptags(content.class.description.text), courseCredit: content.class.credit,
-    courseLength: content.class.length.value, courseInterval: content.class.length.interval,
-    courseSchedule: content.class.schedule, sessions: content.session, courseOutline: content.syllabus});
+    else {
+    	//handle error
+    	res.render('error', { message: 'Sorry, course not found.', error: null });
+    }
   });
 });
 module.exports = router;
