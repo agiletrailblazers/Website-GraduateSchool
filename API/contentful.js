@@ -44,5 +44,23 @@ module.exports = {
           syllabus = JSON.parse(body);
           return callback(syllabus);
       });
+  },
+  getContentAsset: function(space, callback) {
+    request({
+      method: 'GET',
+      url: 'https://cdn.contentful.com/spaces/'+ space +'/assets/'+ '',
+      headers: {
+        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      }}, function (error, response, body) {
+
+      if (error != null || response == null || response.statusCode != 200) {
+        console.log("Exception occured in getting the images " + error);
+        return callback(response, new Error("Exception occured in getting the images"), null);
+      }
+      console.log('Status:', response.statusCode);
+      result = JSON.parse(body);
+      return callback(response, error, result);
+
+    });
   }
 };
