@@ -8,7 +8,18 @@
 <body>
   <div class="container">
     <div class="row">
-      <% include partials/header %>
+          <% include partials/header %>
+      <header>
+          <%
+          var whatsnewheaderImageURLs= whatsnewheaderImageURLList.split(',');
+          for (var i=0; i <whatsnewheaderImageURLs.length;i++) {
+          %>
+
+
+          <img src="<%= whatsnewheaderImageURLs[i] %>" alt=""  class="img"/>
+
+          <% } %>
+       </header>
       <div class="col-lg-4 col-md-4 col-sm-12">
       <aside>
           <div class="clearfix">
