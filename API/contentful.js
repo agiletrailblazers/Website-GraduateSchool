@@ -14,21 +14,26 @@ module.exports = {
       url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/4QlvJ0GeQw4AY2QOq8SUMY?access_token=940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652',
       headers: {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
-      }}, function (error, response, body) {
+      }
+    }, function(error, response, body) {
       console.log('Status:', response.statusCode);
       cmsEntry = JSON.parse(body);
       console.log(cmsEntry.fields.topBanners);
-      return callback({cmsEntry: cmsEntry, statusCode: response.statusCode});
+      return callback({
+        cmsEntry: cmsEntry,
+        statusCode: response.statusCode
+      });
     });
   },
   //Below function is for the future use to support image assets.
   getAsset: function(space, asset, callback) {
     request({
       method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/'+ space +'/assets/' + asset + '',
+      url: 'https://cdn.contentful.com/spaces/' + space + '/assets/' + asset + '',
       headers: {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
-      }}, function (error, response, body) {
+      }
+    }, function(error, response, body) {
       console.log('Status:', response.statusCode);
       asset = JSON.parse(body);
       return callback(asset);
@@ -40,18 +45,36 @@ module.exports = {
       url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/' + entry + '?access_token=940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652',
       headers: {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
-      }}, function(error, response, body) {
-          syllabus = JSON.parse(body);
-          return callback(syllabus);
-      });
+      }
+    }, function(error, response, body) {
+      syllabus = JSON.parse(body);
+      return callback(syllabus);
+    });
+  },
+  getNewsDetail: function(callback, slug) {
+    console.log(slug);
+    request({
+      method: 'GET',
+      url: 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?access_token=a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e&content_type=2wKn6yEnZewu2SCCkus4as&fields.title%5Bmatch%5D=' + slug + '',
+      headers: {
+        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      }
+    }, function(error, response, body) {
+      newsPost = JSON.parse(body);
+      // console.log(newsPost);
+      // console.log("Items:", newsPost.items);
+      newsPost = newsPost.items;
+      return callback(newsPost);
+    });
   },
   getContentAsset: function(space, callback) {
     request({
       method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/'+ space +'/assets/'+ '',
+      url: 'https://cdn.contentful.com/spaces/' + space + '/assets/' + '',
       headers: {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
-      }}, function (error, response, body) {
+      }
+    }, function(error, response, body) {
 
       if (error != null || response == null || response.statusCode != 200) {
         console.log("Exception occured in getting the images " + error);
@@ -64,14 +87,15 @@ module.exports = {
     });
   },
   getMainNav: function(callback) {
-	    request({
-	      method: 'GET',
-	      url: 'https://cdn.contentful.com/spaces/5tnto6ug3qkh/entries/6A8kbegf6Me6aKKeCECiQE?access_token=db132f1da5cc75a00f487cce1c94143798d8e5d12c65c169b2fc04febdfae44d',
-	      headers: {
-	        'Authorization': 'Bearer db132f1da5cc75a00f487cce1c94143798d8e5d12c65c169b2fc04febdfae44d'
-	      }}, function(error, response, body) {
-	          nav = JSON.parse(body);
-	          return callback(nav.fields.main);
-	    })
-	}
+    request({
+      method: 'GET',
+      url: 'https://cdn.contentful.com/spaces/5tnto6ug3qkh/entries/6A8kbegf6Me6aKKeCECiQE?access_token=db132f1da5cc75a00f487cce1c94143798d8e5d12c65c169b2fc04febdfae44d',
+      headers: {
+        'Authorization': 'Bearer db132f1da5cc75a00f487cce1c94143798d8e5d12c65c169b2fc04febdfae44d'
+      }
+    }, function(error, response, body) {
+      nav = JSON.parse(body);
+      return callback(nav.fields.main);
+    })
+  }
 };
