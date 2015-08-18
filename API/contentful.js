@@ -93,7 +93,6 @@ module.exports = {
       console.log('Status:', response.statusCode);
       result = JSON.parse(body);
       return callback(response, error, result);
-
     });
   },
   getMainNav: function(callback) {

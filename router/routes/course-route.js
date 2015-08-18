@@ -53,10 +53,17 @@ router.get('/courses/:course_id', function(req, res, next){
       }, courseId);
     },
     function(callback) {
+      function compare(a,b) {
+        if (a.startDate < b.startDate)
+          return -1;
+        if (a.startDate > b.startDate)
+          return 1;
+        return 0;
+      }
       course.getSchedule(function(response, error, result) {
         if (result != null) {
-          content.session = result;
-          console.log(content.session.length);
+          content.session = result.sort(compare);
+          console.log(content.session);
           // Changing dateFormat for all sessions.
           for (var i = 0; i < content.session.length; i++) {
             var iSession = content.session[i];
@@ -79,7 +86,7 @@ router.get('/courses/:course_id', function(req, res, next){
     }
   ], function(results) {
     if (content && content.class) {
-    	if (content.class.code === null) {   
+    	if (content.class.code === null) {
     		code = content.class.id.slice(0,-3);
     		content.class.code = code;
     	}
