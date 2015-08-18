@@ -5,11 +5,17 @@
   <% include partials/head %>
   <script type="text/javascript" src="/javascripts/course_detail.js"></script>
   <link rel="stylesheet" href="/stylesheets/course_detail.css">
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-  <!-- Style fix for Link color - to be removed after -->
+  <!-- Style fix - to be removed after -->
   <style media="screen">
-  a:link, a:visited{
+ a:link, a:visited{
     color: #337AB7;
+
+  }
+
+  a:hover, a:active {
+    color: #000;
+    background: #EEE;
+
   }
 
  table.schedule  tr {
@@ -19,10 +25,26 @@ table.schedule tr:nth-child(even) {
     background-color: #FFFFFF;
   }
 
+ul {padding-left: 10px;}
 
+.course_related_information nav ul li {list-style: none; padding: 5px;}
+
+.course_related_information {
+  border: 1px solid #EEE;
+  padding: 10px;
+}
   </style>
+    <!-- END Style fix - to be removed after -->
 </head>
 <body>
+
+  <div class="container">
+    <div class="row nm header clearfix">
+      <% include partials/header %>
+    </div>
+  <!-- /end Row Container -->
+  </div>
+
   <div class="container">
 <br/><br/> <!--/# spacer to be removed -->
 
@@ -31,8 +53,6 @@ table.schedule tr:nth-child(even) {
     <h3><%= courseTitle %> - <%= courseCode %></h3>
   </div>
   <div class="col-lg-6 col-md-6 col-sm-12">
-    <button type="button" name="button">Multiple registration</button>
-    <button type="button" name="button">Bring course to your location</button>
     <button type="button" name="button" id="close-map">Close Map</button>
   </div>
 </div> <!--/#row -->
@@ -60,11 +80,11 @@ table.schedule tr:nth-child(even) {
               <%= sessions[i]["startTime"]%> - <%= sessions[i]["endTime"]%>   %>
             <% } %>
             <% if (sessions[i]["days"] !== null) { %>
-              <br><%= sessions[i]["days"] %>
+            , <%= sessions[i]["days"] %>
             <% } %>
         </td>
 
-        <td><%= sessions[i].location["address1"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
+        <td><%= sessions[i].location["city"]%>, <%= sessions[i].location["state"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
         <td> $<%= sessions[i]["tuition"]%></td>
         <td class="statusData">
           <% if (sessions[i]["status"] === "C")  {%>
@@ -119,6 +139,17 @@ table.schedule tr:nth-child(even) {
             <td><%= courseCredit.value %> <%= courseCredit.type %></td>
           </tr>
         </table>
+
+            <div class="course_related_information">
+              <h4>Related information</h4>
+              <nav>
+                <ul>
+                  <li><a href="#">View Our Registration Policies</a></li>
+                  <li><a href='mailto:customersupport@graduateschool.edu?subject=Question about Course <%= courseCode %>'>Ask a Question About This Course</a></li>
+                  <li><a href="#">Bring This Course To Your Location</a></li>
+                </ul>
+              </nav>
+            </div>
       </div>
       <div class="col-lg-8 col-md-8 col-sm-12">
         <ul class="nav nav-tabs">
@@ -134,10 +165,8 @@ table.schedule tr:nth-child(even) {
           <div id="home" class="tab-pane fade in active">
             <h3>Course overview</h3>
             <p><%= courseDescription %></p>
-            <a href="/registration/policy"></a>
-            <a href='mailto:customersupport@graduateschool.edu?subject=Question about Course <%= courseCode %>'>Ask a Question About This Course</a>
-            <a href="/">Find Another Course</a>
-            <a href="/forms/onsite-inquiry">Bring This Course To Your Location</a>
+
+
           </div>
           <div id="menu1" class="tab-pane fade">
             <h3>Who should attend?</h3>
@@ -159,9 +188,10 @@ table.schedule tr:nth-child(even) {
             <div id="menu3" class="tab-pane fade">
               <h3>Course outline</h3>
               <%- courseOutline.fields.syllabusContent %>
-		  <% } %>
+		      <% } %>
           </div>
         </div>
+
       </div>
 
     </div> <!--/#row -->
