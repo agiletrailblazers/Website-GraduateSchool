@@ -243,6 +243,19 @@ table h5 {
 }
 
 
+a:link, a:visited{
+   color: #337AB7;
+
+ }
+
+ a:hover, a:active {
+   color: #000;
+   background: #EEE;
+
+ }
+
+
+
 /* END What's new temporary styles   */
 
 
