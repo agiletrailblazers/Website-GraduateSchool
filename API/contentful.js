@@ -54,8 +54,8 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }}, function(error, response, body) {
           newsPost = JSON.parse(body);
-          console.log(newsPost);
-          console.log("Items:", newsPost.items);
+          // console.log(newsPost);
+          // console.log("Items:", newsPost.items);
           newsPost = newsPost.items;
           return callback(newsPost);
     });

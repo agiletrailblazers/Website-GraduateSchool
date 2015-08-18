@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/news/:news_slug', function(req, res, next){
   slug = req.params.news_slug;
   contentful.getNewsDetail(function(response){
-    console.log("Made it here.");
+    console.log(response);
   }, slug)
 });
 
