@@ -51,8 +51,20 @@ module.exports = {
       return callback(syllabus);
     });
   },
+  getNewsRecent: function(callback) {
+    request({
+      method: 'GET',
+      url: 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?access_token=a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e&content_type=2wKn6yEnZewu2SCCkus4as&order=sys.createdAt',
+      headers: {
+        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      }
+    }, function(error, response, body) {
+      posts = JSON.parse(body);
+      // console.log(posts);
+      return callback(posts);
+    });
+  },
   getNewsDetail: function(callback, slug) {
-    console.log(slug);
     request({
       method: 'GET',
       url: 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?access_token=a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e&content_type=2wKn6yEnZewu2SCCkus4as&fields.title%5Bmatch%5D=' + slug + '',
@@ -61,8 +73,6 @@ module.exports = {
       }
     }, function(error, response, body) {
       newsPost = JSON.parse(body);
-      // console.log(newsPost);
-      // console.log("Items:", newsPost.items);
       newsPost = newsPost.items;
       return callback(newsPost);
     });
