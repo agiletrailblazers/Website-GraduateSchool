@@ -54,9 +54,9 @@ router.get('/courses/:course_id', function(req, res, next){
     },
     function(callback) {
       function compare(a,b) {
-        if (a.location.city < b.location.city)
+        if (a.startDate < b.startDate)
           return -1;
-        if (a.location.city > b.location.city)
+        if (a.startDate > b.startDate)
           return 1;
         return 0;
       }
