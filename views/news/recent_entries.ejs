@@ -26,11 +26,18 @@
     </style>
   </head>
   <body>
+    <!--  Header include -->
+    <div class="container-fluid">
+        <div class="container">
+          <div class="row nm header clearfix">
+            <% include ../partials/header %>
+          </div> <!-- /end Row Container -->
+    </div>
+    <!-- /end Header include -->
+
 <!-- Page Content -->
     <div class="container">
-
       <div class="row">
-
 <!-- Blog Entries Column -->
         <div class="col-md-8">
 
@@ -57,5 +64,16 @@
 
             <hr>
           <% } %>
-        </body>
-      </html>
+
+        </div>  <!-- END Blog Entries Column -->
+
+      </div><!-- END Row -->
+    </div><!-- END Container -->
+
+    <!-- Include Footer Here! -->
+      <% include ../partials/footer %>
+    </div><!-- END Container-fluid -->
+    <% include ../partials/chat %>
+    <!-- END of chat  -->
+</body>
+</html>
