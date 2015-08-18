@@ -4,13 +4,13 @@
     <title>
       <%= title %>
     </title>
-    <% include partials/head %>
+    <% include ../partials/head %>
   </head>
   <body>
     <div class="container-fluid b_bottom">
       <div class="container">
         <div class="row nm header clearfix">
-          <% include partials/header %>
+          <% include ../partials/header %>
         </div>
 <!-- /end Row Container -->
       </div>
@@ -18,20 +18,20 @@
 
       <div class="container">
         <h1>
-          <%= entry.newsTitle %>
+          <%= title %>
         </h1>
 
         <p>
-          <%= entry.newsContent %>
+          <%- body %>
         </p>
       </div>
 <!-- /end Container -->
 
 <!-- Include Footer Here! -->
-      <% include partials/footer %>
+      <% include ../partials/footer %>
 <!-- /end Container-fluid -->
     </div>
-    <% include partials/chat %>
+    <% include ../partials/chat %>
 <!-- /end of the chat  -->
 
   </body>

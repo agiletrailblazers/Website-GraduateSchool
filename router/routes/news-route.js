@@ -3,6 +3,14 @@ var contentful = require('../../API/contentful.js');
 var async = require('async');
 var router = express.Router();
 
+router.get('/news', function(req, res, next) {
+  contentful.getNewsRecent(function(response) {
+    res.render('news/recent_entries', {
+      posts: response
+    });
+  });
+});
+
 router.get('/news/:news_slug', function(req, res, next) {
   slug = req.params.news_slug;
   contentful.getNewsDetail(function(response) {
