@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/news', function(req, res, next) {
   contentful.getNewsRecent(function(response) {
     res.render('news/recent_entries', {
-      posts: response
+      posts: response.items
     });
   });
 });
@@ -14,8 +14,6 @@ router.get('/news', function(req, res, next) {
 router.get('/news/:news_slug', function(req, res, next) {
   slug = req.params.news_slug;
   contentful.getNewsDetail(function(response) {
-    console.log(response);
-    console.log("Slug:", slug);
     // Response is an array.
     // If array is === 0 Render 404
     // If array === 1 display post
