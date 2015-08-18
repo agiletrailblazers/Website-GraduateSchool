@@ -37,6 +37,7 @@ router.get('/news/:news_slug', function(req, res, next) {
             author: response[i].fields.author,
             date: response[i].fields.date
           });
+          break;
         } else {
           render('404');
         }
