@@ -54,7 +54,7 @@ module.exports = {
   getNewsRecent: function(callback) {
     request({
       method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?access_token=a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e&content_type=2wKn6yEnZewu2SCCkus4as&order=sys.createdAt',
+      url: 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?access_token=a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e&content_type=2wKn6yEnZewu2SCCkus4as&order=-fields.date',
       headers: {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }

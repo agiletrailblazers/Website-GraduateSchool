@@ -5,6 +5,19 @@
       <%= title %>
     </title>
     <% include ../partials/head %>
+    </script>
+      <!-- Style fix for Link color - to be removed after -->
+      <style media="screen">
+          a.readmore:link, a.readmore:visited{
+            color: #FFF;
+            background-position: 0px 15px;
+          }
+          a.readmore:hover, a.readmore:active{
+            color: #FFF;
+            background-position: 0px 15px;
+            border: 1px solid transparent;
+          }
+      </style>
   </head>
   <body>
   <!--  Header include -->
@@ -22,8 +35,17 @@
             <%= title %>
           </h1>
 
+		  <p>
+		    <span class="glyphicon glyphicon-time"></span>
+		    Posted on <%= date.date('MMM DD, YYYY') %></p>
+		  </p>
           <p>
             <%- body %>
+          </p>
+          <p>
+          	<a class="btn btn-primary readmore" href='/news'>
+          	  <span class="glyphicon glyphicon-chevron-left"></span>Back to News
+            </a>
           </p>
           <br/>
         </div>
