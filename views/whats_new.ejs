@@ -52,10 +52,10 @@
             <% for (var i=0; i < entry.sectionClasses.values.length; i++) { %>
                 <tr>
                   <td>
-                      <%= entry.sectionClasses.values[i]["classNumber"]%>
+                      <a href='/courses/<%=entry.sectionClasses.values[i]["classNumber"] %>'><%=entry.sectionClasses.values[i]["classNumber"] %></a>
                   </td>
                   <td>
-                  <h5><%= entry.sectionClasses.values[i]["className"] %></h5>
+                      <h5><a href='/courses/<%=entry.sectionClasses.values[i]["classNumber"] %>'><%= entry.sectionClasses.values[i]["className"] %></a></h5>
                   </td>
 
                 </tr>
