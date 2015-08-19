@@ -12,27 +12,34 @@
           });
       });
     </script>
-    <!-- Style fix for Link color - to be removed after -->
-    <style media="screen">
-    a:link, a:visited{
-      color: #337AB7;
-      text-decoration: none;
-    }
-    a:hover, a:active{
-      color: #000;
-      text-decoration: none;
-      background-color: transparent;
-    }
-    </style>
+      <!-- Style fix for Link color - to be removed after -->
+      <style media="screen">
+          a.readmore:link, a.readmore:visited{
+            color: #FFF;
+            background-position: 0px 15px;
+          }
+          a.readmore:hover, a.readmore:active{
+            color: #FFF;
+            background-position: 0px 15px;
+            border: 1px solid transparent;
+          }
+      </style>
   </head>
   <body>
+    <!--  Header include -->
+    <div class="container-fluid">
+        <div class="container">
+          <div class="row nm header clearfix">
+            <% include ../partials/header %>
+          </div> <!-- /end Row Container -->
+    </div>
+    <!-- /end Header include -->
+
 <!-- Page Content -->
     <div class="container">
-
       <div class="row">
-
 <!-- Blog Entries Column -->
-        <div class="col-md-8">
+        <div class="col-md-9">
 
           <h1 class="page-header">
             Recent News
@@ -46,16 +53,27 @@
             </h3>
             <p>
               <span class="glyphicon glyphicon-time"></span>
-              Posted on <%= posts[i].fields.date %></p>
+              Posted on <%= posts[i].fields.date.date('MMM DD, YYYY') %></p>
             <%# <hr>%>
             <%# <img alt="" class="img-responsive" src="http://placehold.it/900x300">%>
             <%# <hr>%>
             <p class="truncate"><%= posts[i].fields.body %></p>
-            <a class="btn btn-primary" href='/news/<%= posts[i].fields.slug %>'>Read More
+            <a class="btn btn-primary readmore" href='/news/<%= posts[i].fields.slug %>'>Read More
               <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
 
             <hr>
           <% } %>
-        </body>
-      </html>
+
+        </div>  <!-- END Blog Entries Column -->
+
+      </div><!-- END Row -->
+    </div><!-- END Container -->
+
+    <!-- Include Footer Here! -->
+      <% include ../partials/footer %>
+    </div><!-- END Container-fluid -->
+    <% include ../partials/chat %>
+    <!-- END of chat  -->
+</body>
+</html>

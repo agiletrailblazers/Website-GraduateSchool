@@ -5,35 +5,56 @@
       <%= title %>
     </title>
     <% include ../partials/head %>
+    </script>
+      <!-- Style fix for Link color - to be removed after -->
+      <style media="screen">
+          a.readmore:link, a.readmore:visited{
+            color: #FFF;
+            background-position: 0px 15px;
+          }
+          a.readmore:hover, a.readmore:active{
+            color: #FFF;
+            background-position: 0px 15px;
+            border: 1px solid transparent;
+          }
+      </style>
   </head>
   <body>
-    <div class="container-fluid b_bottom">
+  <!--  Header include -->
+<div class="container-fluid">
       <div class="container">
         <div class="row nm header clearfix">
           <% include ../partials/header %>
-        </div>
-<!-- /end Row Container -->
-      </div>
-<!-- /end Row Header -->
-
+        </div> <!-- END Row  -->
+      </div><!-- END Container  -->
+  <!-- END Header include -->
+<!-- Page Content -->
       <div class="container">
-        <h1>
-          <%= title %>
-        </h1>
+        <div class="col-md-9">
+          <h1>
+            <%= title %>
+          </h1>
 
-        <p>
-          <%- body %>
-        </p>
-      </div>
-<!-- /end Container -->
-
-<!-- Include Footer Here! -->
+		  <p>
+		    <span class="glyphicon glyphicon-time"></span>
+		    Posted on <%= date.date('MMM DD, YYYY') %></p>
+		  </p>
+          <p>
+            <%- body %>
+          </p>
+          <p>
+          	<a class="btn btn-primary readmore" href='/news'>
+          	  <span class="glyphicon glyphicon-chevron-left"></span>Back to News
+            </a>
+          </p>
+          <br/>
+        </div>
+      </div> <!-- /end Container -->
+<!-- END Page Content -->
+    <!-- Include Footer Here! -->
       <% include ../partials/footer %>
-<!-- /end Container-fluid -->
-    </div>
+</div><!-- END Container-fluid -->
     <% include ../partials/chat %>
-<!-- /end of the chat  -->
-
+    <!-- END of chat  -->
   </body>
-
 </html>
