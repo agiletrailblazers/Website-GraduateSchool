@@ -24,15 +24,6 @@ router.get('/course-search', function(req, res, next){
     }
   }, searchCriteria);
 });
-
-// Get the course details page
-router.get('/course-detail', function(req, res, next){
-  var courseId = req.query["id"];
-  console.log("Getting course details for course " + courseId);
-  //TODO - make a call to get course details and pass it to the view
-  res.render('course_detail', { title: 'Course Details', courseId : courseId });
-});
-
 // Get course details based off course code.
 router.get('/courses/:course_id', function(req, res, next){
   courseId = req.params.course_id;
@@ -93,7 +84,8 @@ router.get('/courses/:course_id', function(req, res, next){
 	    	courseId: content.class.id, courseCode: content.class.code, courseType: content.class.type,
 	    	courseDescription: striptags(content.class.description.formatted), courseCredit: content.class.credit,
 	    	courseLength: content.class.length.value, courseInterval: content.class.length.interval,
-	    	courseSchedule: content.class.schedule, sessions: content.session, courseOutline: content.syllabus});
+        courseObjective: content.class.objective, courseSchedule: content.class.schedule,
+        sessions: content.session, courseOutline: content.syllabus});
     }
     else {
     	//handle error
