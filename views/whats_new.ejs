@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>What's New</title>
+  <title><%= entry.pageTitle %></title>
   <% include partials/head %>
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
@@ -23,12 +23,12 @@
       <div class="col-lg-4 col-md-4 col-sm-12">
       <aside>
           <div class="clearfix">
-          <h1 class="box">Your success is our mission.</h1>
+          <h1 class="box"><%= entry.sidebarmainTitle %></h1>
           <h2 class="title"><%= entry.sidebarTitle %></h2>
           <blockquote cite="">
             <%= entry.sidebarQuote %>
           </blockquote>
-          <button type="button" name="button" class="quote pull-right">Register today</button>
+          <button type="button" name="button" class="quote pull-right"><%= entry.registerbuttonTitle %></button>
           </div>
         </aside>
 
@@ -42,20 +42,20 @@
       <tbody>
         <tr>
           <th>
-            <strong>Course Code</strong>
+            <strong><%= entry.classNumberTile %></strong>
           </th>
           <th>
-            <strong>Course Name</strong>
+            <strong><%= entry.classnameTitle %></strong>
           </th>
         </tr>
 
             <% for (var i=0; i < entry.sectionClasses.values.length; i++) { %>
                 <tr>
                   <td>
-                      <%= entry.sectionClasses.values[i]["classNumber"]%>
+                      <a href='/courses/<%=entry.sectionClasses.values[i]["classNumber"] %>'><%=entry.sectionClasses.values[i]["classNumber"] %></a>
                   </td>
                   <td>
-                  <h5><%= entry.sectionClasses.values[i]["className"] %></h5>
+                      <h5><a href='/courses/<%=entry.sectionClasses.values[i]["classNumber"] %>'><%= entry.sectionClasses.values[i]["className"] %></a></h5>
                   </td>
 
                 </tr>
