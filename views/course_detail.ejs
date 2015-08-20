@@ -174,8 +174,12 @@ ul {padding-left: 10px;}
             <h3>Learning outcomes</h3>
             <p>
               <ul>
-                <% for (var i = 0; i < courseOutcomes.length; i++) { %>
-                  <li><%= courseOutcomes[i] %></li>
+                <% if (courseOutcomes !== null) { %>
+                  <% for (var i = 0; i < courseOutcomes.length; i++) { %>
+                    <li><%= courseOutcomes[i] %></li>
+                  <% } %>
+                <% } else {%>
+                  <p>Learning objectives are currently not listed.</p>
                 <% } %>
               </ul>
             </p>
