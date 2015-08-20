@@ -84,7 +84,8 @@ router.get('/courses/:course_id', function(req, res, next){
 	    	courseId: content.class.id, courseCode: content.class.code, courseType: content.class.type,
 	    	courseDescription: striptags(content.class.description.formatted), courseCredit: content.class.credit,
 	    	courseLength: content.class.length.value, courseInterval: content.class.length.interval,
-	    	courseSchedule: content.class.schedule, sessions: content.session, courseOutline: content.syllabus});
+        courseObjective: content.class.objective, courseSchedule: content.class.schedule,
+        sessions: content.session, courseOutline: content.syllabus});
     }
     else {
     	//handle error
