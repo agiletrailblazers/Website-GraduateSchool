@@ -14,10 +14,8 @@ router.get('/whats-new', function(req, res, next) {
         content.class = response;
         content.class.cmsEntry.fields.topBanners.forEach(function(topBannersList){
           assetIdList +=topBannersList.sys.id+",";
-
         });
         callback();
-
       });
     },
     function(callback) {
