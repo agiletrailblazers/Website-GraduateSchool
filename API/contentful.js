@@ -64,6 +64,7 @@ module.exports = {
       return callback(posts);
     });
   },
+  // Pulls specific news detail (as an array).
   getNewsDetail: function(callback, slug) {
     request({
       method: 'GET',
