@@ -1,11 +1,14 @@
 var express = require('express');
 var contentful = require('../../API/contentful.js');
 var async = require('async');
+var prune = require('underscore.string/prune');
+var striptags = require('striptags');
 var router = express.Router();
 
 router.get('/news', function(req, res, next) {
   contentful.getNewsRecent(function(response) {
-    res.render('news/recent_entries', { posts: response.items });
+    res.render('news/recent_entries', { posts: response.items,
+      striptags: striptags, prune: prune });
   });
 });
 
