@@ -174,11 +174,13 @@ ul {padding-left: 10px;}
             <h3>Learning outcomes</h3>
             <p>
               <ul>
-                <li>Know the circumstances when Veterans' Preference applies</li>
-                <li>Identify the types of veterans' preference, including veteran, spouse, widow/widower, and mother</li>
-                <li>Correctly adjudicate veterans' preference claims</li>
-                <li>Apply veterans' preference to competitive and excepted service appointments</li>
-                <li>Apply special appointing authorities for veterans in the following: Veterans' Recruitment Appointments (VRA); 30 Percent or More Disabled Veterans; Disabled veterans enrolled in a VA training program; and Veterans Employment Opportunity Act of 1998</li>
+                <% if (courseOutcomes !== null) { %>
+                  <% for (var i = 0; i < courseOutcomes.length; i++) { %>
+                    <li><%= courseOutcomes[i] %></li>
+                  <% } %>
+                <% } else {%>
+                  <p>Learning objectives are currently not listed.</p>
+                <% } %>
               </ul>
             </p>
           </div>
