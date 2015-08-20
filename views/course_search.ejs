@@ -42,7 +42,7 @@
                     <div id="course-result">
                       <h3><a href="/courses/<%= result.courses[i].id %>"><%= result.courses[i].code %> - <%= result.courses[i].title %></a></h3>
                     </div>
-                    <div><%- result.courses[i].description.text %></div>
+                    <div><%= prune(striptags(result.courses[i].description.text), 300, "...") %></div>
                     <hr>
                   <% } %>
           <% } %>

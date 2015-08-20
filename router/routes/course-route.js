@@ -4,6 +4,7 @@ var async = require('async');
 var course = require("../../API/course.js");
 var striptags = require('striptags');
 var dateformat = require('date-format-lite');
+var prune = require('underscore.string/prune');
 var router = express.Router();
 
 
@@ -20,7 +21,7 @@ router.get('/course-search', function(req, res, next){
     }
     else {
       //display course search page
-      res.render('course_search', { title: 'Course Search', result: result });
+      res.render('course_search', { title: 'Course Search', result: result, striptags: striptags, prune: prune });
     }
   }, searchCriteria);
 });
