@@ -51,6 +51,7 @@ module.exports = {
       return callback(syllabus);
     });
   },
+  // Pulls all news entries from newest to oldest.
   getNewsRecent: function(callback) {
     request({
       method: 'GET',
@@ -60,7 +61,6 @@ module.exports = {
       }
     }, function(error, response, body) {
       posts = JSON.parse(body);
-      // console.log(posts);
       return callback(posts);
     });
   },
