@@ -41,6 +41,9 @@ router.get('/news/:news_slug', function(req, res, next) {
             break;
           }
         }
+      case null:
+        res.render('404');
+        break;
     }
   }, slug)
 });
