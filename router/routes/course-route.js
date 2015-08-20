@@ -63,7 +63,6 @@ router.get('/courses/:course_id', function(req, res, next){
       course.getSchedule(function(response, error, result) {
         if (result != null) {
           content.session = result.sort(compare);
-          console.log(content.session);
           // Changing dateFormat for all sessions.
           for (var i = 0; i < content.session.length; i++) {
             var iSession = content.session[i];
