@@ -29,8 +29,8 @@ test('course-search test-case 1', function(t) {
       course.performCourseSearch(function(response, error, result){
         expect(response.statusCode).to.eql(200);
       },'government');
-
-
+ });
+  test('course-search test-case 2', function(t) {
     //test a 500 internal server error
   var courseApiUrl = config("endpoint").courseApiUrl;
     var courseServer = nock(courseApiUrl)

@@ -9,7 +9,7 @@ var chai = require('chai');
 var expect = chai.expect;
 var test = require('tap').test;
 
-test('Routes', function() {
+test('Routes test case 1', function(t) {
       var req,res,spy;
 
       req = res = {};
@@ -17,11 +17,14 @@ test('Routes', function() {
 
       getRoutemocker.getHomepage(req, res);
       expect(spy.calledOnce).to.equal(true);
-
+      t.end();
+});
+test('Routes test case 2', function(t) {
       req = res = {};
       spy = res.send = sinon.spy();
 
       getRoutemocker.getWhatsNew(req, res);
       expect(spy.calledOnce).to.equal(true);
+      t.end();
 
 });
