@@ -20,23 +20,31 @@
           <label for="inputLastName">*Last Name:</label>
           <input type="text" class="form-control">
         </div>
+        <div class="communication-mode">
+          *Preferred mode of communication
+          <input type="radio" name="gender" id="gender_Male" value="Male">Email</>
+          <input type="radio" name="gender" id="gender_Female" value="Female">Phone</>
+        </div>
         <div class="form-group">
-          <label for="inputEmail">*Email:</label>
+          <label for="inputEmail">Email:</label>
           <input type="email" class="form-control">
         </div>
-        <p>*** Select a Phone checkbox Goes Here***</p>
         <div class="form-group">
-          <label for="inputPhone">*Daytime Phone Number:</label>
+          <label for="inputPhone">Daytime Phone Number:</label>
           <input type="text" class="form-control">
         </div>
-      </div>
-    </div>
-    <div id="subject-selection">
-      <p>*** Select a Subject Goes Here***</p>
-      <div class="form-inline">
         <div class="form-group">
-          <label for="inputOtherCourse">Other Course or Subject:</label>
-          <input type="text" class="form-control">
+          <label for="selectsubject">Select Subject line</label>
+          <select>
+            <option value="subject1">Subject Line 1</option>
+            <option value="subject2">Subject Line 2</option>
+            <option value="subject3">Subject Line 3</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="inputothersubject">Other:</label>
+          <textarea name="othersubject" rows="1" cols="40"></textarea>
         </div>
       </div>
     </div>
