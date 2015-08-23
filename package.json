@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "tap test && istanbul cover -- ./test/whatsnew-test.js /test/route-test.js /test/course-test.js /test/course-details.js"
+    "test": "tap test && istanbul cover node_modules/argg",
+    "cover": "istanbul cover node_modules/argg"
   },
   "dependencies": {
+    "argg": "^2.11.3",
     "async": "^1.4.0",
     "blanket": "^1.1.7",
     "body-parser": "~1.13.1",
