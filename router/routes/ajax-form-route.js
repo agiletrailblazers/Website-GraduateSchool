@@ -8,4 +8,8 @@ router.post('/mailer-contact-us', function(req, res, next) {
   res.send("You made it!");
 });
 
+router.post('/mailer-onsite-inquiry', function(req, res, next) {
+  res.send("You made it!");
+});
+
 module.exports = router;
