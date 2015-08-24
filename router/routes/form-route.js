@@ -8,6 +8,7 @@ var router = express.Router();
 router.get('/forms/onsite-inquiry', function(req, res, next) {
 	var fields;
 	var courses;
+	var locations;
 	async.series([
         function(callback) {
         	console.log('Get contentful fields');
@@ -22,13 +23,21 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
         		courses = result;
         		callback();
         	});
+        },
+        function(callback) {
+        	console.log('Get list of all locations'); 
+        	course.getLocations(function(response, error, result) {
+        		locations = result;
+        		callback();
+        	});
         }
     ], function(results) {
 		res.render('forms/courses/onsite_inquiry', {topParagraph: fields.topParagraph,
 			highlightedParagraph: fields.highlightedParagraph,
 			gsReference: fields.howDidYouHearAboutTraining,
 			prefix: fields.namePrefix,
-			courses: courses});
+			courses: courses, 
+			locations: locations});
 	});
 });
 

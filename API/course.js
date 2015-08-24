@@ -66,4 +66,20 @@ module.exports = {
       return callback(response, error, result);
     });
   }
+  ,
+  getLocations: function(callback) {
+    var courseApiUrl = config("endpoint").courseApiUrl;
+    request({
+      method: 'GET',
+      url: courseApiUrl + '/api/locations'
+    }, function (error, response, body) {
+      if (error != null || response == null || response.statusCode != 200) {
+        console.log("Exception occured getting all locations. " + error);
+        return callback(response, new Error("Exception occured getting all locations"), null);
+      }
+      console.log('Status:', response.statusCode);
+      result = JSON.parse(body);
+      return callback(response, error, result);
+    });
+  }
 };

@@ -92,11 +92,19 @@
       <div class="form-group">
         <label for="inputStudentCount">If you desire a classroom, WHERE would you like the course(s) to be delivered?</label>
         <br>
-        <input type="checkbox" name="" value=""> Graduate School USA facilities in (which location(s)):
+        <input type="checkbox" id="chkGSLocations" value=""> Graduate School USA facilities in (which location(s)):
+        <select class="form-control" id="selGSLocations" disabled>
+          <option value="">Select a Location</option>
+          <% for(i = 0; i < locations.length; i++) { %>
+          	  <option value="<%= locations[i].city %>/<%= locations[i].state %>"><%= locations[i].city %>, <%= locations[i].state %></option>
+          <% } %>
+        </select>
         <br>
-        <input type="checkbox" name="" value=""> On-site in your facilities in (which location(s)):
+        <input type="checkbox" id="chkYourLocations" value=""> On-site in your facilities in (which location(s)):
+        <input type="text" id="txtYourLocations" class="form-control" disabled>
         <br>
-        <input type="checkbox" name="" value=""> Other facilities in (which location(s)):
+        <input type="checkbox" id="chkOtherLocations" value=""> Other facilities in (which location(s)):
+        <input type="text" id="txtOtherLocations" class="form-control" disabled>
         <br>
       </div>
       <div class="form-inline">
