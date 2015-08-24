@@ -1,11 +1,19 @@
 $(document).ready(function() {
   $("#submitForm").click(function(e){
-    var data = $("contactForm").serialize();
-    console.log(data);
-    e.preventDefault;
+    e.preventDefault();
+    var data = {};
+    data.firstName = $("#first-name").val();
+    data.lastName = $("#last-name").val();
+    data.comEmail = $("radioPhone").val();
+    data.comPhone = $("radioEmail").val();
+    data.email = $("#email").val();
+    data.phone = $("#phone").val();
+    data.comments = $("#commentText").val();
     $.ajax({
       url: "/mailer-contact-us",
+      cache: false,
       method: "POST",
+      dataType: "json",
       data: data
     }).success(function(response){
       console.log(response);
