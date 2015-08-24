@@ -7,16 +7,5 @@ var router = express.Router();
 router.get('/registration/policy', function(req, res, next) {
     res.render('course-related-info/registration_policy');
 });
-// Bring this Course to Your Location
-router.get('/forms/onsite-inquiry', function(req, res, next) {
-  contentfulForms.getInquiryForm(function(response) {
-    fields = response.fields;
-    console.log(fields);
-    res.render('forms/courses/onsite_inquiry', {topParagraph: fields.topParagraph,
-      highlightedParagraph: fields.highlightedParagraph,
-      gsReference: fields.howDidYouHearAboutTraining,
-      prefix: fields.namePrefix });
-  });
-});
 
 module.exports = router;
