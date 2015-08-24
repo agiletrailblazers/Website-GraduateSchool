@@ -1,5 +1,5 @@
 var express = require('express');
-var contentful = require("../../API/contentful.js");
+var contentful = require("../../API/contentful_forms.js");
 var async = require('async');
 var router = express.Router();
 
