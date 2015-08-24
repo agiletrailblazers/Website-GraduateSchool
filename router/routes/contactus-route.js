@@ -7,7 +7,6 @@ var router = express.Router();
 router.get('/forms/contact-us', function(req, res, next) {
   var spaceId = "tz32dajhh9bn";
   contentful.getContactUs(function(response) {
-    console.log(response);
     res.render('forms/contact_us', {title: response.cmsEntry.fields.title});
   });
 });

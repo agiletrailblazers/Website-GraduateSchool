@@ -5,6 +5,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 
 router.post('/mailer-contact-us', function(req, res, next) {
+  console.log("Body:", req.body);
   res.send("You made it!");
 });
 

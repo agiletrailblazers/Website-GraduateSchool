@@ -4,7 +4,7 @@ $(document).ready(function() {
     $.ajax({
       url: "/mailer-onsite-inquiry'",
       method: "POST",
-      data: "Hello World",
+      data: "Hello World"
     }).success(function(response){
       console.log(response);
     }).fail(function(response){
