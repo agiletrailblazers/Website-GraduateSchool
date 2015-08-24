@@ -1,3 +1,11 @@
 {
-    "courseApiUrl": "TBD"
+    "courseApiUrl": "TBD",
+    "defaultEmailServerName": "smtp.office365.com",
+    "defaultEmailServerPort": "",
+    "defaultEmailUserName":"",
+    "defaultEmailUserPassword":"",
+    "defaultEmailToUserName":"",
+    "defaultEmailToUserName":"",
+    "defaultEmailSubject":"",
+    "defaultEmailText":""
 }
