@@ -18,7 +18,7 @@ module.exports = {
     }, function(error, response, body) {
       console.log('Status:', response.statusCode);
       cmsEntry = JSON.parse(body);
-      console.log(cmsEntry.fields.topBanners);
+    //  console.log(cmsEntry.fields.topBanners);
       return callback({
         cmsEntry: cmsEntry,
         statusCode: response.statusCode
