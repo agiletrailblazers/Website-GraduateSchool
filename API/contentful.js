@@ -68,7 +68,7 @@ module.exports = {
   getNewsDetail: function(callback, slug) {
     request({
       method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?access_token=a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e&content_type=2wKn6yEnZewu2SCCkus4as&fields.title%5Bmatch%5D=' + slug + '',
+      url: 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?access_token=a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e&content_type=2wKn6yEnZewu2SCCkus4as&fields.slug=' + slug + '',
       headers: {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
@@ -107,5 +107,22 @@ module.exports = {
       nav = JSON.parse(body);
       return callback(nav.fields.main);
     })
-  }
+  },
+  getContactUs: function(callback) {
+	    request({
+	      method: 'GET',
+	      url: 'https://cdn.contentful.com/spaces/tz32dajhh9bn/entries/6Av0MIjzZC2qIsGKUGyKS0?access_token=093001a794ab16e4bf8ec4f7bc6740de4f267bc49549020ea3befbd5164754af',
+	      headers: {
+	        'Authorization': 'Bearer 093001a794ab16e4bf8ec4f7bc6740de4f267bc49549020ea3befbd5164754af'
+	      }
+	    }, function(error, response, body) {
+	      console.log('Status:', response.statusCode);
+	      cmsEntry = JSON.parse(body);
+	      console.log(cmsEntry.fields.title);
+	      return callback({
+	        cmsEntry: cmsEntry,
+	        statusCode: response.statusCode
+	      });
+	    });
+	  }
 };
