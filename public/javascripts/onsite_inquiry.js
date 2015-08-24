@@ -11,4 +11,13 @@ $(document).ready(function() {
       console.log(response);
     });
   });
+  $("#chkGSLocations").click(function() {
+	   $("#selGSLocations").attr("disabled", !this.checked);
+  });
+  $("#chkYourLocations").click(function() {
+	   $("#txtYourLocations").attr("disabled", !this.checked);
+  });
+  $("#chkOtherLocations").click(function() {
+	   $("#txtOtherLocations").attr("disabled", !this.checked);
+  });
 });
