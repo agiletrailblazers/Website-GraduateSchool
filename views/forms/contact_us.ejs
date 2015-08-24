@@ -10,74 +10,99 @@
 
 <body>
   <div class="container">
-    <h1>
-      <%= title %>:</h1>
-    <div id="contact-information">
-      <form id="contactForm" class="form">
-        <div class="form-inline">
-          <div class="form-group">
-            <label for="inputFirstName">*First Name:</label>
-            <input id="first-name" name="firstName" type="text" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="inputLastName">*Last Name:</label>
-            <input id="last-name" name="lastName" type="text" class="form-control">
-          </div>
-          <div class="form-group, communication-mode">
-            *Preferred mode of communication
-            <input type="radio" name="communication" id="radioEmail" value="Email">Email
-            </>
-            <input type="radio" name="communication" id="radioPhone" value="Phone">Phone
-            </>
-          </div>
-          <div class="form-group">
-            <label for="inputEmail">Email:</label>
-            <input id="email" name="email" type="email" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="inputPhone">Daytime Phone Number:</label>
-            <input name="phone" type="text" class="form-control">
-          </div>
-
-          <div class="form-group">
-            <label for="selectsubject">Select Subject line</label>
-            <select>
-              <% for (var i=0; i < subjectLine.question.length; i++) { %>
-                <option>
-                  <%=subjectLine.question[i]["name"] %>
-                </option>
-                <br/>
-                <% } %>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="inputothersubject">Other:</label>
-            <textarea id="other" name="othersubject" rows="1" cols="40"></textarea>
-          </div>
-
-        </div>
-        <div class="comments">
-          <p>Comments or Questions:</p>
-          <textarea id="commentText" name="comments" rows="8" cols="40"></textarea>
-        </div>
-        <div id="captcha">
-          <p>Insert Captcha Here:</p>
-        </div>
-        <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
-        <button type="clear" name="clearForm" value="clearForm">Clear</button>
+    <div class="row nm header clearfix">
+      <title>
+        <%= title %>
+      </title>
+      <% include ../partials/header %>
+        <!-- /end Row Container -->
     </div>
-    </form>
-    <br>
-    <br>
-    <br>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1>
+            <%= title %>
+          </h1>
+          <!-- Accordion Container -->
+          <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">CONTACT INFORMATION</a>
+                </h4>
+              </div>
+              <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">
+                  <div id="contact-information">
+                    <div class="form-inline">
+                      <div class="form-group">
+                        <label for="inputFirstName">*First Name:</label>
+                        <input id="first-name" name="firstName" type="text" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="inputLastName">*Last Name:</label>
+                        <input id="last-name" name="lastName" type="text" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="communicationMode">*Preferred mode of communication</label>
+                      <input type="radio" name="communication" id="radioEmail" value="Email">Email
+                      </>
+                      <input type="radio" name="communication" id="radioPhone" value="Phone">Phone
+                      </>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputEmail">Email:</label>
+                      <input id="email" name="email" type="email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label for="inputPhone">Daytime Phone Number:</label>
+                      <input name="phone" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label for="selectsubject">Select Subject line</label>
+                      <select>
+                        <% for (var i=0; i < subjectLine.question.length; i++) { %>
+                          <option>
+                            <%=subjectLine.question[i]["name"] %>
+                          </option>
+                          <br/>
+                          <% } %>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputothersubject">Other:</label>
+                      <textarea id="other" name="othersubject" rows="1" cols="40"></textarea>
+                    </div>
+                    <div class="comments">
+                      <label>Comments or Questions:</label>
+                      <br>
+                      <textarea id="commentText" name="comments" rows="8" cols="40"></textarea>
+                    </div>
+                    <div id="captcha">
+                      <p>Insert Captcha Here:</p>
+                    </div>
+
+                  </div>
+                  <!-- contact information div -->
+                </div>
+              </div>
+            </div>
+            <br>
+            <br>
+            <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
+            <button type="clear" id="clearForm" name="clearForm" value="clearForm">Clear</button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
-  <!-- Container Div -->
   <!-- END Accordion Container -->
   <!-- END  Row -->
   <% include ../partials/chat %>
     <% include ../partials/footer %>
-      <script type="text/javascript" src="/javascripts/contact_us.js"></script>
       <script>
         $(function() {
           $('#ms').change(function() {
@@ -87,7 +112,6 @@
           });
         });
       </script>
-
 </body>
 
 </html>
