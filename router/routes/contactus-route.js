@@ -6,10 +6,10 @@ var router = express.Router();
 // Get Contact Us page.
 router.get('/forms/contact-us', function(req, res, next) {
   var spaceId = "tz32dajhh9bn";
-      contentful.getContactUs(function(response) {
-    	  console.log(response);
-          res.render('forms/contact_us', {title: response.cmsEntry.fields.title});
-        });
-    });
+  contentful.getContactUs(function(response) {
+    console.log(response);
+    res.render('forms/contact_us', {title: response.cmsEntry.fields.title});
+  });
+});
 
 module.exports = router;
