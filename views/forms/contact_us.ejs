@@ -31,25 +31,25 @@
                     <div class="form-inline">
                       <div class="form-group">
                         <label for="inputFirstName">*First Name:</label>
-                        <input type="text" class="form-control">
+                        <input id="first-name" name="firstName" type="text" class="form-control">
                       </div>
                       <div class="form-group">
                         <label for="inputLastName">*Last Name:</label>
-                        <input type="text" class="form-control">
+                        <input id="last-name" name="lastName" type="text" class="form-control">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="communicationMode">*Preferred mode of communication</label>
-                      <input type="radio" name="email" id="comm_email" value="Email">Email</>
-                      <input type="radio" name="phone" id="comm_phone" value="Phone">Phone</>
+            	     <input type="radio" name="communication" id="radioEmail" value="Email">Email</>
+			         <input type="radio" name="communication" id="radioPhone" value="Phone">Phone</>
                     </div>
                     <div class="form-group">
                       <label for="inputEmail">Email:</label>
-                      <input type="email" class="form-control">
+                      <input id="email" name="email" type="email" class="form-control">
                     </div>
                     <div class="form-group">
                       <label for="inputPhone">Daytime Phone Number:</label>
-                      <input type="text" class="form-control">
+                      <input name="phone" type="text" class="form-control">
                     </div>
                     <div class="form-group">
                       <label for="selectsubject">Select Subject line</label>
@@ -64,10 +64,13 @@
                       </div>
                       <div class="form-group">
                         <label for="inputothersubject">Other:</label>
-                        <textarea name="othersubject" rows="1" cols="40"></textarea>
+                        <textarea id="other" name="othersubject" rows="1" cols="40"></textarea>
                       </div>
-                      
-                      <div id="captcha">
+                      <div class="comments">
+      					 <label>Comments or Questions:</label><br>
+					      <textarea id="commentText" name="comments" rows="8" cols="40"></textarea>
+   					  </div>
+    	             <div id="captcha">
                			 <p>Insert Captcha Here:</p>
              		 </div>
              		 
@@ -76,8 +79,8 @@
                 </div>
               </div>
               <br><br>
-              <button type="submit" name="submitForm" value="submitForm">Submit</button>
-              <button type="clear" name="clearForm" value="clearForm">Clear</button>
+              <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
+              <button type="clear" id="clearForm" name="clearForm" value="clearForm">Clear</button>
 
             </div>
           </div>
