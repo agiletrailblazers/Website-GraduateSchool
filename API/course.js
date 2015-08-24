@@ -50,5 +50,20 @@ module.exports = {
       result = JSON.parse(body);
       return callback(response, error, result);
     });
+  },
+  getCourses: function(callback) {
+    var courseApiUrl = config("endpoint").courseApiUrl;
+    request({
+      method: 'GET',
+      url: courseApiUrl + '/api/courses'
+    }, function (error, response, body) {
+      if (error != null || response == null || response.statusCode != 200) {
+        console.log("Exception occured getting all courses. " + error);
+        return callback(response, new Error("Exception occured getting all courses"), null);
+      }
+      console.log('Status:', response.statusCode);
+      result = JSON.parse(body).courses;
+      return callback(response, error, result);
+    });
   }
 };

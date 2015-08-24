@@ -65,8 +65,17 @@
       </div>
     </div><!-- contact information div -->
     <div id="course-delivery-information">
-      <p>*** Select a Course Goes Here***</p>
       <div class="form-inline">
+        <div class="form-group">
+          <label for="selectCourses">Select Course or Courses:</label>
+          <select class="form-control">
+          	<option value="">Select a course/courses</option>
+          	<option value="OTHER">Other Course or Subject Area -Please Indicate Below</option>
+          	<% for(i = 0; i < courses.length; i++) { %>
+          	  <option value="<%= courses[i].id %>"><%= courses[i].title %> (<%= courses[i].code %>) - <%= courses[i].type %></option>
+          	<% } %>
+          </select>
+        </div>
         <div class="form-group">
           <label for="inputOtherCourse">Other Course or Subject:</label>
           <input type="text" class="form-control">
