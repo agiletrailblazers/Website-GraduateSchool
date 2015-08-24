@@ -8,7 +8,10 @@ router.get('/forms/contact-us', function(req, res, next) {
   var spaceId = "tz32dajhh9bn";
       contentful.getContactUs(function(response) {
     	  console.log(response);
-          res.render('forms/contact_us', {title: response.cmsEntry.fields.title});
+    	  console.log("Subject Line:", response.cmsEntry.fields.subjectLine);
+          res.render('forms/contact_us', {title: response.cmsEntry.fields.title,
+        	  subjectLine: response.cmsEntry.fields.subjectLine
+        	  });
         });
     });
 
