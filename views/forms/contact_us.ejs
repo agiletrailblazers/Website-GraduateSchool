@@ -11,27 +11,28 @@
   <div class="container">
     <h1><%= title %>:</h1>
     <div id="contact-information">
+      <form id="contactForm" class="form">
       <div class="form-inline">
         <div class="form-group">
           <label for="inputFirstName">*First Name:</label>
-          <input type="text" class="form-control">
+          <input name="firstName" type="text" class="form-control">
         </div>
         <div class="form-group">
           <label for="inputLastName">*Last Name:</label>
-          <input type="text" class="form-control">
+          <input name="lastName" type="text" class="form-control">
         </div>
         <div class="communication-mode">
           *Preferred mode of communication
-          <input type="radio" name="gender" id="gender_Male" value="Male">Email</>
-          <input type="radio" name="gender" id="gender_Female" value="Female">Phone</>
+          <input type="radio" name="communication" id="radioEmail" value="Male">Email</>
+          <input type="radio" name="communication" id="radioPhone" value="Female">Phone</>
         </div>
         <div class="form-group">
           <label for="inputEmail">Email:</label>
-          <input type="email" class="form-control">
+          <input name="email" type="email" class="form-control">
         </div>
         <div class="form-group">
           <label for="inputPhone">Daytime Phone Number:</label>
-          <input type="text" class="form-control">
+          <input name="phone" type="text" class="form-control">
         </div>
         <div class="form-group">
           <label for="selectsubject">Select Subject line</label>
@@ -57,6 +58,7 @@
     </div>
     <button id="submitForm" type="submit" value="submitForm">Submit</button>
     <button type="clear" value="clearForm">Clear</button>
+    </form>
     <br><br><br>
   </div><!-- Container Div -->
 </body>
