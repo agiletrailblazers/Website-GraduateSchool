@@ -1,3 +1,11 @@
 {
-    "courseApiUrl": "http://54.88.97.61:8080"
+    "courseApiUrl": "http://54.88.97.61:8080",
+    "defaultEmailServerName": "",
+    "defaultEmailServerPort": "",
+    "defaultEmailUserName":"",
+    "defaultEmailUserPassword":"",
+    "defaultEmailToUserName":"",
+    "defaultEmailToUserName":"",
+    "defaultEmailSubject":"",
+    "defaultEmailText":""
 }
