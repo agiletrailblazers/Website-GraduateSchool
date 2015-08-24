@@ -12,13 +12,13 @@ $(document).ready(function() {
     });
   });
   $("#chkGSLocations").click(function() {
-	   $("#selGSLocations").attr("disabled", !this.checked);
+	   $("#selGSLocations").toggle();
   });
   $("#chkYourLocations").click(function() {
-	   $("#txtYourLocations").attr("disabled", !this.checked);
+	   $("#txtYourLocations").toggle();
   });
   $("#chkOtherLocations").click(function() {
-	   $("#txtOtherLocations").attr("disabled", !this.checked);
+	   $("#txtOtherLocations").toggle();
   });
 });
 /**
