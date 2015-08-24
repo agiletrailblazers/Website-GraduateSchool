@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $("#submitForm").click(function(e){
+  $("#submitForm").click(function(e) {
     e.preventDefault();
     var data = {};
     data.firstName = $("#first-name").val();
@@ -15,9 +15,9 @@ $(document).ready(function() {
       method: "POST",
       dataType: "json",
       data: data
-    }).success(function(response){
+    }).success(function(response) {
       console.log(response);
-    }).fail(function(response){
+    }).fail(function(response) {
       console.log(response);
     });
   });
