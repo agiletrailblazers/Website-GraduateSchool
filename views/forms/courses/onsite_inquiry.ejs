@@ -4,128 +4,212 @@
   <meta charset="utf-8">
   <title>Contract for Training at Your Location Inquiry Form</title>
   <% include ../../partials/head %>
-  <script type="text/javascript" src="/javascripts/onsite_inquiry.js"></script>
+
   <link rel="stylesheet" href="/stylesheets/onsite_inquiry.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
   <div class="container">
-    <h1>Onsite Inquery Form Page</h1>
-    <div id="contact-information">
-      <div class="form-inline">
-        <div class="form-group">
-          <label for="inputFirstName">*First Name:</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="inputLastName">*Last Name:</label>
-          <input type="text" class="form-control">
-        </div>
+    <div class="row nm header clearfix">
+        <% include ../../partials/header %>
+      <!-- /end Row Container -->
       </div>
-      <div class="form-group">
-        <label for="inputOrganization">*Organization:</label>
-        <input type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="inputStreet">Street Address:</label>
-        <input type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="inputSuite">Suite, Mail Stop:</label>
-        <input type="text" class="form-control">
-      </div>
-      <div class="form-inline">
-        <div class="form-group">
-          <label for="inputCity">City:</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="inputState">State:</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="inputZip">Zip:</label>
-          <input type="text" class="form-control">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputCountry">Country (if not U.S.):</label>
-        <input type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="inputPhone">*Daytime Phone Number:</label>
-        <input type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="inputFax">Fax Number:</label>
-        <input type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="inputEmail">*Email:</label>
-        <input type="email" class="form-control">
-      </div>
-    </div><!-- contact information div -->
-    <div id="course-delivery-information">
-      <p>*** Select a Course Goes Here***</p>
-      <div class="form-inline">
-        <div class="form-group">
-          <label for="inputOtherCourse">Other Course or Subject:</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="inputStudentCount">*Approximate number of students:</label>
-          <input type="number" class="form-control">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputCustomization">If you require changes or customization for the course(s), please briefly describe the type of customization:</label>
-        <textarea name="costumization"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="inputStudentCount">If you desire a classroom, WHERE would you like the course(s) to be delivered?</label>
-        <br>
-        <input type="checkbox" name="" value=""> Graduate School USA facilities in (which location(s)):
-        <br>
-        <input type="checkbox" name="" value=""> On-site in your facilities in (which location(s)):
-        <br>
-        <input type="checkbox" name="" value=""> Other facilities in (which location(s)):
-        <br>
-      </div>
-      <div class="form-inline">
-        <div class="form-group">
-          <label for="inputToBeDelivered">WHEN would you like the course(s) to be delivered?</label>
-          <input type="date" name="deliveryDate">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputToBeDelivered">HOW would you like the course(s) to be delivered? (select one)</label>
-        <form>
-        <input type="radio" name="classroom" value=""> Classroom
-        <br>
-        <input type="radio" name="distant" value=""> Distance Education: (Web, CD-ROM, and other options)
-        <br>
-        <input type="radio" name="blended" value=""> Blended Learning (both classroom and distance education delivery methods)
-        </form>
-      </div>
-      <div class="form-inline">
-        <div class="form-group">
-          <label for="instructor">If you have a PREFERRED INSTRUCTOR(S), please list the name(s)?</label>
-          <input type="text" class="form-control">
-        </div>
-      </div>
-    </div>
-    <div class="training-ref">
-      <p>How did you hear about training at Graduate School USA?</p>
-      <p>Insert radio buttons</p>
-    </div>
-    <div class="comments">
-      <p>Comments or Questions:</p>
-      <textarea name="comments" rows="8" cols="40"></textarea>
-    </div>
-    <div id="captcha">
-      <p>Insert Captcha Here:</p>
-    </div>
-    <input type="submit" name="submitForm">
-    <br><br><br>
-  </div><!-- Container Div -->
+  <div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+      <h1>Onsite Inquiry Form Page</h1>
+          <!-- Accordion Container -->
+            <div class="panel-group" id="accordion">
+               <div class="panel panel-default">
+                 <div class="panel-heading">
+                   <h4 class="panel-title">
+                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">CONTACT INFORMATION</a>
+                   </h4>
+                 </div>
+                 <div id="collapse1" class="panel-collapse collapse in">
+                   <div class="panel-body">
+                         <div id="contact-information">
+                           <div class="form-inline">
+                             <div class="form-group">
+                               <label for="inputFirstName">*First Name:</label>
+                               <input type="text" class="form-control">
+                             </div>
+                             <div class="form-group">
+                               <label for="inputLastName">*Last Name:</label>
+                               <input type="text" class="form-control">
+                             </div>
+                           </div>
+                           <div class="form-group">
+                             <label for="inputOrganization">*Organization:</label>
+                             <input type="text" class="form-control">
+                           </div>
+                           <div class="form-group">
+                             <label for="inputStreet">Street Address:</label>
+                             <input type="text" class="form-control">
+                           </div>
+                           <div class="form-group">
+                             <label for="inputSuite">Suite, Mail Stop:</label>
+                             <input type="text" class="form-control">
+                           </div>
+                           <div class="form-inline">
+                             <div class="form-group">
+                               <label for="inputCity">City:</label>
+                               <input type="text" class="form-control">
+                             </div>
+                             <div class="form-group">
+                               <label for="inputState">State:</label>
+                              <select>
+                                <option value="MD">Maryland</option>
+                                <option value="VA">Virginia</option>
+                                <option value="DC">Washington, DC</option>
+                                <option value="IL">Illinois</option>
+                              </select>
+                             </div>
+                             <div class="form-group">
+                               <label for="inputZip">Zip:</label>
+                               <input type="text" class="form-control">
+                             </div>
+                           </div>
+                           <div class="form-group">
+                             <label for="inputCountry">Country (if not U.S.):</label>
+                             <input type="text" class="form-control">
+                           </div>
+                           <div class="form-group">
+                             <label for="inputPhone">*Daytime Phone Number:</label>
+                             <input type="text" class="form-control">
+                           </div>
+                           <div class="form-group">
+                             <label for="inputFax">Fax Number:</label>
+                             <input type="text" class="form-control">
+                           </div>
+                           <div class="form-group">
+                             <label for="inputEmail">*Email:</label>
+                             <input type="email" class="form-control">
+                           </div>
+                         </div><!-- contact information div -->
+                   </div>
+                 </div>
+               </div>
+               <div class="panel panel-default">
+                 <div class="panel-heading">
+                   <h4 class="panel-title">
+                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">COURSE DELIVERY INFORMATION</a>
+                   </h4>
+                 </div>
+                 <div id="collapse2" class="panel-collapse collapse">
+                   <div class="panel-body">
+                     <div id="course-delivery-information">
+                       <p>*** Select a Course Goes Here***</p>
+                       <label>Courses</label>
+                       <select id="ms" multiple="multiple">
+                           <option value="1">course 1</option>
+                           <option value="2">course 2</option>
+                           <option value="3">course 3</option>
+                           <option value="4">course 4</option>
+                           <option value="5">course 5</option>
+                           <option value="6">course 6</option>
+                           <option value="7">course 7</option>
+                           <option value="8">course 8</option>
+                           <option value="9">course 9</option>
+                           <option value="10">course 10</option>
+                           <option value="11">course 11</option>
+                           <option value="12">course 12</option>
+                       </select>
+
+
+                       <div class="form-inline">
+                         <div class="form-group">
+                           <label for="inputOtherCourse">Other Course or Subject:</label>
+                           <input type="text" class="form-control">
+                         </div>
+                         <div class="form-group">
+                           <label for="inputStudentCount">*Approximate number of students:</label>
+                           <input type="number" class="form-control">
+                         </div>
+                       </div>
+                       <div class="form-group">
+                         <label for="inputCustomization">If you require changes or customization for the course(s), please briefly describe the type of customization:</label>
+                         <textarea name="costumization"></textarea>
+                       </div>
+                       <div class="form-group">
+                         <label for="inputStudentCount">If you desire a classroom, WHERE would you like the course(s) to be delivered?</label>
+                         <br>
+                         <input type="checkbox" name="" value=""> Graduate School USA facilities in (which location(s)):
+                         <br>
+                         <input type="checkbox" name="" value=""> On-site in your facilities in (which location(s)):
+                         <br>
+                         <input type="checkbox" name="" value=""> Other facilities in (which location(s)):
+                         <br>
+                       </div>
+                       <div class="form-inline">
+                         <div class="form-group">
+                           <label for="inputToBeDelivered">WHEN would you like the course(s) to be delivered?</label>
+                           <input type="date" name="deliveryDate">
+                         </div>
+                       </div>
+                       <div class="form-group">
+                         <label for="inputToBeDelivered">HOW would you like the course(s) to be delivered? (select one)</label>
+                         <form>
+                         <input type="radio" name="classroom" value=""> Classroom
+                         <br>
+                         <input type="radio" name="distant" value=""> Distance Education: (Web, CD-ROM, and other options)
+                         <br>
+                         <input type="radio" name="blended" value=""> Blended Learning (both classroom and distance education delivery methods)
+                         </form>
+                       </div>
+                       <div class="form-inline">
+                         <div class="form-group">
+                           <label for="instructor">If you have a PREFERRED INSTRUCTOR(S), please list the name(s)?</label>
+                           <input type="text" class="form-control">
+                         </div>
+                       </div>
+                     </div>   <!-- END Course delivery -->
+                   </div>
+                 </div>
+               </div>
+               <div class="panel panel-default">
+                 <div class="panel-heading">
+                   <h4 class="panel-title">
+                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">FORM SUBMISSION</a>
+                   </h4>
+                 </div>
+                 <div id="collapse3" class="panel-collapse collapse">
+                   <div class="panel-body">
+                     <div class="training-ref">
+                       <p>How did you hear about training at Graduate School USA?</p>
+                       <p>Insert radio buttons</p>
+                     </div>
+                     <div class="comments">
+                       <p>Comments or Questions:</p>
+                       <textarea name="comments" rows="8" cols="40"></textarea>
+                     </div>
+                     <div id="captcha">
+                       <p>Insert Captcha Here:</p>
+                     </div>
+                     <input type="submit" name="submitForm">
+                     <br>
+                   </div>
+                 </div>
+               </div>
+             </div>
+          </div>
+          <!-- END Accordion Container -->
+
+          <div class="col-lg-4">
+          <h2>Related links</h2>
+    </div><!-- END  Row -->
+  </div> <!-- END Container  -->
+  </div><!-- END Container  -->
+  <% include ../../partials/chat %>
+  <% include ../../partials/footer %>
+  <script type="text/javascript" src="/javascripts/onsite_inquiry.js"></script>
+  <script>
+      $(function() {
+          $('#ms').change(function() {
+              console.log($(this).val());
+          }).multipleSelect({
+              width: '100%'
+          });
+      });
+  </script>
 </body>
 </html>
