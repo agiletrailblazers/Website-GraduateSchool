@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha && mocha test --require blanket --reporter html-cov > coverage.html"
+    "test": "tap test &&  npm run cover test/*",
+    "cover": "istanbul cover node_modules/argg"
   },
   "dependencies": {
+    "argg": "^0.0.2",
     "async": "^1.4.0",
     "blanket": "^1.1.7",
-    "body-parser": "~1.13.1",
+    "body-parser": "^1.13.3",
     "chai": "^3.0.0",
     "contentful": "^1.1.1",
     "cookie-parser": "~1.3.5",
@@ -22,7 +24,6 @@
     "flickr": "^0.2.0",
     "forever-monitor": "^1.5.2",
     "konphyg": "^1.4.0",
-    "mocha": "^2.2.5",
     "morgan": "~1.6.1",
     "nock": "^2.7.0",
     "passport-facebook": "^2.0.0",
@@ -35,19 +36,9 @@
     "supertest": "^1.0.1",
     "twitter": "^1.2.5",
     "underscore.string": "^3.1.1",
-    "youtube-api": "^1.0.1"
-  },
-  "config": {
-    "blanket": {
-      "pattern": [
-        "/router/",
-        "/router/routes/",
-        "/API/"
-      ],
-      "data-cover-never": "node_modules",
-      "data-cover-reporter-options": {
-        "shortnames": true
-      }
-    }
+    "youtube-api": "^1.0.1",
+    "tap": "^1.3.2",
+    "istanbul":"^0.3.18"
   }
+
 }

@@ -34,7 +34,7 @@ select::-moz-focus-inner, option::-moz-focus-inner {
 .list-unstyled ul { min-width: 120px }
 
 @media ( min-width: 767px ) {
-  .panel-group { width: 400px; }
+  .navbar .panel-group { width: 400px; }
   .thumbnail { margin: 0; }
 }
 

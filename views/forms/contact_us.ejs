@@ -2,61 +2,66 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Contact us to know more</title>
+  <title><%= title %></title>
   <% include ../partials/head %>
   <script type="text/javascript" src="/javascripts/contact_us.js"></script>
   <link rel="stylesheet" href="/stylesheets/contact_us.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
   <div class="container">
-    <h1>Contact Us Form:</h1>
+    <h1><%= title %>:</h1>
     <div id="contact-information">
+      <form id="contactForm" class="form">
       <div class="form-inline">
         <div class="form-group">
           <label for="inputFirstName">*First Name:</label>
-          <input type="text" class="form-control">
+          <input id="first-name" name="firstName" type="text" class="form-control">
         </div>
         <div class="form-group">
           <label for="inputLastName">*Last Name:</label>
-          <input type="text" class="form-control">
+          <input id="last-name" name="lastName" type="text" class="form-control">
         </div>
-        <div class="communication-mode">
+        <div class="form-group, communication-mode">
           *Preferred mode of communication
-          <input type="radio" name="gender" id="gender_Male" value="Male">Email</>
-          <input type="radio" name="gender" id="gender_Female" value="Female">Phone</>
+          <input type="radio" name="communication" id="radioEmail" value="Email">Email</>
+          <input type="radio" name="communication" id="radioPhone" value="Phone">Phone</>
         </div>
         <div class="form-group">
           <label for="inputEmail">Email:</label>
-          <input type="email" class="form-control">
+          <input id="email" name="email" type="email" class="form-control">
         </div>
         <div class="form-group">
           <label for="inputPhone">Daytime Phone Number:</label>
-          <input type="text" class="form-control">
+          <input name="phone" type="text" class="form-control">
         </div>
+
         <div class="form-group">
-          <label for="selectsubject">Select Subject line</label>
+        <label for="selectsubject">Select Subject line</label>
           <select>
-            <option value="subject1">Subject Line 1</option>
-            <option value="subject2">Subject Line 2</option>
-            <option value="subject3">Subject Line 3</option>
-            <option value="other">Other</option>
+           <% for (var i=0; i < subjectLine.question.length; i++) { %>
+           <option>
+  		   <%=subjectLine.question[i]["name"] %>
+  		   </option>
+  		   <br/>
+           <% } %>
           </select>
-        </div>
+		</div>
+
         <div class="form-group">
           <label for="inputothersubject">Other:</label>
-          <textarea name="othersubject" rows="1" cols="40"></textarea>
+          <textarea id="other" name="othersubject" rows="1" cols="40"></textarea>
         </div>
       </div>
     </div>
     <div class="comments">
       <p>Comments or Questions:</p>
-      <textarea name="comments" rows="8" cols="40"></textarea>
+      <textarea id="commentText" name="comments" rows="8" cols="40"></textarea>
     </div>
     <div id="captcha">
       <p>Insert Captcha Here:</p>
     </div>
-    <button type="submit" value="submitForm">Submit</button>
-    <button type="clear" value="clearForm">Clear</button>
+    <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
+    <button type="clear" name="clearForm" value="clearForm">Clear</button>
     <br><br><br>
   </div><!-- Container Div -->
 </body>

@@ -4,15 +4,16 @@ var nock = require('nock');
 var chai = require('chai');
 var expect = chai.expect;
 var config = require('konphyg')(__dirname + "/../config");
+var test = require('tap').test;
 
-describe ('course-search', function(){
 
+test('course-search test-case 1', function(t) {
   //use endpoing from config even for tests
   var courseApiUrl = config("endpoint").courseApiUrl;
 
   //test a 200 ok
   var courseServer = nock(courseApiUrl)
-        .get('/api/course?search=government')
+        .get('/api/courses?search=government')
         .reply(200, {
           "exactMatch": true,
           "courses": [
@@ -23,26 +24,26 @@ describe ('course-search', function(){
             }
           ]
     });
-    it("Calls course search API 200 OK", function(done) {
+
       courseServer;
       course.performCourseSearch(function(response, error, result){
         expect(response.statusCode).to.eql(200);
-        done();
       },'government');
-    });
-
+ });
+  test('course-search test-case 2', function(t) {
     //test a 500 internal server error
+  var courseApiUrl = config("endpoint").courseApiUrl;
     var courseServer = nock(courseApiUrl)
-          .get('/api/course?search=failureDFDDFDFFFGFGF')
+          .get('/api/courses?search=failure')
           .reply(500, {
       });
-      it.skip("Calls course search API 500 OK", function(done) {
         courseServer;
         course.performCourseSearch(function(response, error, result){
           expect(response.statusCode).to.eql(500);
           expect(result).to.equal(null);
-          done();
-        },'failure');
-      });
 
-});
+        },'failure');
+  t.end();
+  });
+
+
