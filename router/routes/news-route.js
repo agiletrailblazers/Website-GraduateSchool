@@ -17,13 +17,13 @@ router.get('/news/:news_slug', function(req, res, next) {
   contentful.getNewsDetail(function(response) {
     function renderNews(index) {
       res.render('news/news_details', {
-        title: response[index].fields.title,
-        body: response[index].fields.body,
-        featureImage: response[index].fields.featuredImage,
-        tags: response[index].fields.tags,
-        category: response[index].fields.category,
-        author: response[index].fields.author,
-        date: response[index].fields.date
+        title: response.[index].fields.title,
+        body: response.[index].fields.body,
+        featureImage: response.[index].fields.featuredImage,
+        tags: response.[index].fields.tags,
+        category: response.[index].fields.category,
+        author: response.[index].fields.author,
+        date: response.[index].fields.date
       });
     }
     switch (response.length) {
