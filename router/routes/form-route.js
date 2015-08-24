@@ -44,7 +44,7 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
 //Get Contact Us page.
 router.get('/forms/contact-us', function(req, res, next) {
   var spaceId = "tz32dajhh9bn";
-      contentful.getContactUs(function(response) {
+  contentfulForms.getContactUs(function(response) {
     	  console.log(response);
     	  console.log("Subject Line:", response.cmsEntry.fields.subjectLine);
           res.render('forms/contact_us', {title: response.cmsEntry.fields.title,
