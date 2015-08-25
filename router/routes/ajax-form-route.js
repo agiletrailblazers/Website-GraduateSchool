@@ -40,11 +40,13 @@ router.post('/mailer-contact-us', function(req, res, next) {
       break;
   }
   // Validate params.phone
-  if(params.phone.empty?) {
-    response.errors.phone = "Phone number is empty."
-  }
-  if(!params.phone.match(\d{3}-\d{3}-\d{4}|\d{10})) {
-    response.errors.phone = "Incorrect phone number."
+  switch(params.phone) {
+    case (!params.phone):
+      response.errors.phone = "Phone number is empty.";
+      break;
+    case (!params.phone.match(/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/)):
+      response.errors.phone = "Phone number is not in the correct format.";
+      break;
   }
   // Validate params.comments
 
