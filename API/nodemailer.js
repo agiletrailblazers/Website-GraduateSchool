@@ -18,22 +18,6 @@ var transporter = nodemailer.createTransport(smtpTransport({
 
 module.exports = {
 
-  // *** LEAVE FOR REFERENCE ***
-  // var mailOptions = {
-  //     from: config("endpoint").defaultEmailUserName,
-  //     to:  config("endpoint").defaultEmailToUserName,
-  //     subject: config("endpoint").defaultEmailSubject,
-  //     text: config("endpoint").defaultEmailText
-  // };
-
-  // transporter.sendMail(mailOptions, function(error, info){
-  //     if(error){
-  //         return console.log(error);
-  //     }
-  //     console.log('Message sent: ' + info.response);
-  //
-  // });
-
   sendContactUs: function(params) {
     var locals = {
       email: params.email,
