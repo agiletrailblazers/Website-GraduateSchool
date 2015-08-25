@@ -35,7 +35,7 @@ $(document).ready(function() {
     data.course.deliveryDate = $("#v").val();
     data.course.instructor = $("#txtInstructor").val();
     data.course.deliveryMethod = $("[name='radDeliveryMethod']:checked").val()
-    if ($("#selHearAbout").val() == "Other") {
+    if ($("#selHearAbout").val().startsWith("Other")) {
     	data.hearAbout = $("#txtHearAboutOther").val();	
   	} else if ($("#selHearAbout").val() !== null) {
   		data.hearAbout = $("#selHearAbout").val();
@@ -63,13 +63,14 @@ $(document).ready(function() {
 	   $("#txtOtherLocations").toggle();
   });
   $("#selHearAbout").change(function() {
-	   if (this.value == "Other") {
+	   if (this.value.startsWith("Other")) {
 	     $("#hearAboutOther").show();
+	     $("#txtHearAboutOther").focus();
 	   } else {
 		 $("#hearAboutOther").hide();
-		 $("#txtHearAboutOther").sel("");
+		 $("#txtHearAboutOther").val("");
 	   }
-  });
+ });
 });
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
