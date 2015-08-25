@@ -53,6 +53,7 @@ module.exports = {
         from: config("endpoint").defaultEmailToUserName,
         to: config("endpoint").defaultEmailToUserName,
         subject: params.subject,
+        text:  results.text,
         html:  results.html
       };
       transporter.sendMail(mailAttributes, function(error, info) {
