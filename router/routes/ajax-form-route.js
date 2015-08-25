@@ -8,7 +8,6 @@ var validator = require('validator');
 
 
 router.post('/mailer-contact-us', function(req, res, next) {
-  console.log("Body:", req.body);
   params = req.body;
   response = {};
   response.errors = {};
@@ -51,10 +50,19 @@ router.post('/mailer-contact-us', function(req, res, next) {
   }
   // Send email if there are no errors.
   if (Object.keys(response.errors).length === 0) {
-    console.log("Success");
-    mailer.sendContactUs(params);
+    mailer.sendContactUs(function(response) {
+      console.log("Node Mailer Response: " + response);
+      if (response == 200) {
+        //sent success to client
+        res.status(200).send();
+      }
+      else {
+        // Send error to client
+        res.status(500).send({"error":"Unexpected Exception Sending Mail"});
+      }
+    }, params);
   } else {
-  // send errors to client.
+    // send errors to client.
     console.log("Errors:", response.errors);
     res.status(400).send(response.errors);
   }
