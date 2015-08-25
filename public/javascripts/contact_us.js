@@ -21,4 +21,29 @@ $(document).ready(function() {
       console.log(response);
     });
   });
-});
+  $('input[name="communication"]:radio').change(function() {
+	  if (this.id == "radioEmail") {
+		  $("#phoneGroup").hide();
+		  $("#emailGroup").show();
+		  $("#email").focus();
+		  $("#email").setAttribute("required", "true");
+		  $("#phone").setAttribute("required", "false");
+	  } else {
+		  $("#emailGroup").hide();
+		  $("#phoneGroup").show();
+		  $("#phone").focus();
+		  $("#phone").setAttribute("required", "true");
+		  $("#email").setAttribute("required", "false");
+	  }
+  });
+  $('#inputSubject').change(function() {
+	  if (this.value == "Other") {
+		  $("#otherSubject").show();
+		  $("#inputOtherSubject").focus();
+	  }
+	  else {
+		  $("#otherSubject").hide();
+		  $("#inputOtherSubject").val("");
+	  }
+  });
+}); 
