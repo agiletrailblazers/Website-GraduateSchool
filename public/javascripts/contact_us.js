@@ -2,12 +2,12 @@ $(document).ready(function() {
   $("#submitForm").click(function(e) {
     e.preventDefault();
     var data = {};
-    data.firstName = $("#first-name").val();
-    data.lastName = $("#last-name").val();
+    data.firstName = $("#txtFirstName").val();
+    data.lastName = $("#txtLastName").val();
     data.comEmail = $("radioPhone").val();
     data.comPhone = $("radioEmail").val();
-    data.email = $("#email").val();
-    data.phone = $("#phone").val();
+    data.email = $("#txtEmail").val();
+    data.phone = $("#telPhone").val();
     data.comments = $("#commentText").val();
     $.ajax({
       url: "/mailer-contact-us",
@@ -25,15 +25,15 @@ $(document).ready(function() {
 	  if (this.id == "radioEmail") {
 		  $("#phoneGroup").hide();
 		  $("#emailGroup").show();
-		  $("#email").focus();
-		  $("#email").setAttribute("required", "true");
-		  $("#phone").setAttribute("required", "false");
+		  $("#txtEmail").focus();
+		  $("#txtEmail").setAttribute("required", "true");
+		  $("#telPhone").setAttribute("required", "false");
 	  } else {
 		  $("#emailGroup").hide();
 		  $("#phoneGroup").show();
 		  $("#phone").focus();
 		  $("#phone").setAttribute("required", "true");
-		  $("#email").setAttribute("required", "false");
+		  $("#txtEmail").setAttribute("required", "false");
 	  }
   });
   $('#inputSubject').change(function() {

@@ -1,4 +1,4 @@
-var contentful = require('contentful');
+ var contentful = require('contentful');
 var request = require('request');
 module.exports = {
   getInquiryForm: function(callback) {
