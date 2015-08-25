@@ -53,9 +53,9 @@ router.post('/mailer-contact-us', function(req, res, next) {
   // mailer.Mail.sendContactUs(params);
   } else {
   // send errors to client.
+    console.log("Errors:", response.errors);
     res.status(400).send(response.errors);
   }
-  res.send("You made it!");
 });
 
 router.post('/mailer-onsite-inquiry', function(req, res, next) {
