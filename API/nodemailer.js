@@ -18,7 +18,23 @@ var transporter = nodemailer.createTransport(smtpTransport({
 
 module.exports = {
 
-  sendContactUs: function(params) {
+  // *** LEAVE FOR REFERENCE ***
+  // var mailOptions = {
+  //     from: config("endpoint").defaultEmailUserName,
+  //     to:  config("endpoint").defaultEmailToUserName,
+  //     subject: config("endpoint").defaultEmailSubject,
+  //     text: config("endpoint").defaultEmailText
+  // };
+
+  // transporter.sendMail(mailOptions, function(error, info){
+  //     if(error){
+  //         return console.log(error);
+  //     }
+  //     console.log('Message sent: ' + info.response);
+  //
+  // });
+
+  sendContactUs: function(callback, params) {
     var locals = {
       email: params.email,
       name: {
@@ -29,9 +45,11 @@ module.exports = {
       comments: params.comments
     }
     // Rendering template with locals.
-    template.render(locals, function(err, resulsts) {
+    template.render(locals, function(err, results) {
+      console.log("Starting mail send");
       if (err) {
-        return console.error(err)
+        console.error(err);
+        return callback(500);
       }
       var mailAttributes = {
         from: config("endpoint").defaultEmailToUserName,
@@ -42,9 +60,11 @@ module.exports = {
       };
       transporter.sendMail(mailAttributes, function(error, info) {
         if (error) {
-          return console.log(error);
+          console.log(error);
+          return callback(500);
         }
         console.log('Message sent: ' + info.response);
+        return callback(200);
       });
     });
   }
