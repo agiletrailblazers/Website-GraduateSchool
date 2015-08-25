@@ -13,16 +13,17 @@ router.post('/mailer-contact-us', function(req, res, next) {
   response = {};
   response.errors = {};
   // Validate params.firstName
-  switch(params.firstName) {
-    case (!params.firstName):
+  switch(true) {
+    case (params.firstName.length === 0):
       response.errors.firstName = "First name is empty.";
       break;
     case (!validator.isLength(params.firstName, 3)):
+    console.log("Empty");
       response.errors.firstName = "First name must be at least 3 characters.";
-      break;
+      // break;
   }
   // Validate params.lastName
-  switch(params.lastName) {
+  switch(true) {
     case (!params.lastName):
       response.errors.lastName = "Last name is empty.";
       break;
@@ -31,7 +32,7 @@ router.post('/mailer-contact-us', function(req, res, next) {
       break;
   }
   // Validate params.email
-  switch(params.email) {
+  switch(true) {
     case (!params.email):
       response.errors.email = "Email is empty.";
       break;
@@ -40,7 +41,7 @@ router.post('/mailer-contact-us', function(req, res, next) {
       break;
   }
   // Validate params.phone
-  switch(params.phone) {
+  switch(true) {
     case (!params.phone):
       response.errors.phone = "Phone number is empty.";
       break;
@@ -50,7 +51,8 @@ router.post('/mailer-contact-us', function(req, res, next) {
   }
   // Send email if there are no errors.
   if (Object.keys(response.errors).length === 0) {
-  // mailer.Mail.sendContactUs(params);
+    console.log("Success");
+    // mailer.Mail.sendContactUs(params);
   } else {
   // send errors to client.
     console.log("Errors:", response.errors);
