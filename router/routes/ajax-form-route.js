@@ -53,6 +53,7 @@ router.post('/mailer-contact-us', function(req, res, next) {
   // mailer.Mail.sendContactUs(params);
   } else {
   // send errors to client.
+    res.status(400).send(response.errors);
   }
   res.send("You made it!");
 });
