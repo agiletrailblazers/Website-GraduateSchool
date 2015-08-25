@@ -61,7 +61,8 @@ router.post('/mailer-contact-us', function(req, res, next) {
 });
 
 router.post('/mailer-onsite-inquiry', function(req, res, next) {
-  res.send("You made it!");
+	console.log(req.body);
+    res.send(null);
 });
 
 module.exports = router;
