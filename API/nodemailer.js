@@ -34,7 +34,7 @@ var Mail = {
       from: "", // params.from goes here
       to: config("endpoint").defaultEmailToUserName,
       subject: "", // params.subject goes here
-      html: // HTML Goes here
+      html: ""// HTML Goes here
     }
     transporter.sendMail(mailAttributes, function(error, info) {
       if (error) {
