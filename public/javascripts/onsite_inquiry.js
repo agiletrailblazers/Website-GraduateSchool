@@ -36,12 +36,12 @@ $(document).ready(function() {
     data.course.instructor = $("#txtInstructor").val();
     data.course.deliveryMethod = $("[name='radDeliveryMethod']:checked").val()
     if ($("#selHearAbout").val() == "Other") {
-    	data.hearAbout = $("#txtHearAboutOther").val();	
+    	data.hearAbout = $("#txtHearAboutOther").val();
   	} else if ($("#selHearAbout").val() !== null) {
   		data.hearAbout = $("#selHearAbout").val();
   	}
     data.comments = $("#txtComments").val();
-    
+
     $.ajax({
       url: "/mailer-onsite-inquiry",
       method: "POST",

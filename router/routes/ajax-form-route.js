@@ -117,7 +117,9 @@ router.post('/mailer-onsite-inquiry', function(req, res, next) {
       break;
   }
   // Validate hear about.
-  // Code HERE
+  if (!params.hearAbout) {
+    response.errors.hearAbout = "Please tell us where you heard about Graduate School USA.";
+  }
   if (Object.keys(response.errors).length === 0) {
     console.log("Success");
     // mailer.sendContactUs(params);
