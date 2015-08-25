@@ -52,7 +52,7 @@ router.post('/mailer-contact-us', function(req, res, next) {
   // Send email if there are no errors.
   if (Object.keys(response.errors).length === 0) {
     console.log("Success");
-    // mailer.Mail.sendContactUs(params);
+    mailer.sendContactUs(params);
   } else {
   // send errors to client.
     console.log("Errors:", response.errors);
