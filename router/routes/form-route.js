@@ -11,7 +11,7 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
 	var courses;
 	var locations;
 	var states;
-	async.series([
+	async.parallel([
         function(callback) {
         	console.log('Get contentful fields');
         	contentfulForms.getInquiryForm(function(response) {
