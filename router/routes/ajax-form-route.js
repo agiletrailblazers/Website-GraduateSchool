@@ -48,9 +48,12 @@ router.post('/mailer-contact-us', function(req, res, next) {
       response.errors.phone = "Phone number is not in the correct format.";
       break;
   }
-  // Validate params.comments
-
+  // Send email if there are no errors.
+  if (Object.keys(response.errors).length === 0) {
   // mailer.Mail.sendContactUs(params);
+  } else {
+  // send errors to client.
+  }
   res.send("You made it!");
 });
 
