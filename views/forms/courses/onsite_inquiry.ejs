@@ -175,8 +175,9 @@
                        <label for="selHearAbout">How did you hear about training at Graduate School USA?</label>
                        <select id="selHearAbout" class="form-control">
                        	 <option id="N/A">Select One</option>
-                       	 <option id="Other">Other</option>
-                       	 <!-- add list from contentful -->
+                       	 <% for (i=0; i< hearAboutTraining.length; i++) { %>
+                       	   <option id="<%= hearAboutTraining[i].name %>"><%= hearAboutTraining[i].name %></option>
+                       	 <% } %>
                        </select>
                      </div>
                      <div id="hearAboutOther" class="form-group" style="display:none;">

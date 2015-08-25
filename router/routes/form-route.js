@@ -44,7 +44,7 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
 		res.render('forms/courses/onsite_inquiry', {title: fields.title, 
 			topParagraph: fields.topParagraph,
 			highlightedParagraph: fields.highlightedParagraph,
-			gsReference: fields.howDidYouHearAboutTraining,
+			hearAboutTraining: fields.howDidYouHearAboutTraining,
 			prefix: fields.namePrefix,
 			courses: courses, 
 			locations: locations, 
