@@ -8,7 +8,6 @@ module.exports = function (app) {
     app.use('/', require('./routes/whatsnew-route'));
     app.use('/', require('./routes/course-related-info-route'));
     app.use('/', require('./routes/news-route'));
-    app.use('/', require('./routes/contactus-route'));
     app.use('/', require('./routes/ajax-form-route'));
     app.use('/', require('./routes/form-route'));
 };
