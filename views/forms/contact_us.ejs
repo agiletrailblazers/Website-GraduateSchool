@@ -3,9 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <% include ../partials/head %>
-
-    <link rel="stylesheet" href="/stylesheets/onsite_inquiry.css" media="screen" title="no title" charset="utf-8">
+   <% include ../partials/head %>
+  <link rel="stylesheet" href="/stylesheets/onsite_inquiry.css" media="screen" title="no title" charset="utf-8">
 </head>
 
 <body>
@@ -37,45 +36,46 @@
                     <div class="form-inline">
                       <div class="form-group">
                         <label for="inputFirstName">*First Name:</label>
-                        <input id="first-name" name="firstName" type="text" class="form-control">
+                        <input id="first-name" name="firstName" type="text" class="form-control" required>
                       </div>
                       <div class="form-group">
                         <label for="inputLastName">*Last Name:</label>
-                        <input id="last-name" name="lastName" type="text" class="form-control">
+                        <input id="last-name" name="lastName" type="text" class="form-control" required>
                       </div>
                     </div>
                     <div class="form-group">
+                      <label for="communication">*Preferred mode of communication</label>
+            	      <input type="radio" name="communication" id="radioEmail" value="Email" checked/><label for="radioEmail">Email</label>
+			          <input type="radio" name="communication" id="radioPhone" value="Phone"/><label for="radioPhone">Phone</label>
+                    </div>
+                    <div id="emailGroup" class="form-group">
                       <label for="inputEmail">Email:</label>
-                      <input id="email" name="email" type="email" class="form-control">
+                      <input id="email" name="email" type="email" maxlength="255" required class="form-control">
                     </div>
-                    <div class="form-group">
+                    <div id="phoneGroup" class="form-group" style="display:none;">
                       <label for="inputPhone">Daytime Phone Number:</label>
-                      <input id="phone" name="phone" type="text" class="form-control">
+                      <input id="phone" name="phone" type="tel" placeholder="XXX-XXX-XXXX" pattern="\d{3}[\-]\d{3}[\-]\d{4}" maxlength="12" class="form-control">
                     </div>
                     <div class="form-group">
-                      <label for="communicationMode">*Preferred mode of communication</label>
-            	     <input type="radio" name="communication" id="radioEmail" value="Email">Email</>
-			         <input type="radio" name="communication" id="radioPhone" value="Phone">Phone</>
-                    </div>
-                    <div class="form-group">
-                      <label for="selectsubject">Select Subject line</label>
-                      <select>
+                      <label for="inputOtherSubject">*Subject:</label>
+                      <select class="form-control" id="inputSubject" name="inputSubject" required>
+                        <option id="">Select One</option>
                         <% for (var i=0; i < subjectLine.question.length; i++) { %>
-                          <option>
-                            <%=subjectLine.question[i]["name"] %>
+                          <option id="<%= subjectLine.question[i]["name"] %>">
+                            <%= subjectLine.question[i]["name"] %>
                           </option>
                           <br/>
-                          <% } %>
+                        <% } %>
                       </select>
                     </div>
-                    <div class="form-group">
-                      <label for="inputothersubject">Other:</label>
-                      <textarea id="other" name="othersubject" rows="1" cols="40"></textarea>
+                    <div id="otherSubject" class="form-group" style="display:none">
+                      <label for="inputOtherSubject">Other Subject:</label>
+                      <input type="text" id="inputOtherSubject" name="inputOtherSubject" rows="1" cols="40" class="form-control"></textarea>
                     </div>
                     <div class="comments">
-                      <label>Comments or Questions:</label>
+                      <label>*Comments or Question:</label>
                       <br>
-                      <textarea id="commentText" name="comments" rows="8" cols="40"></textarea>
+                      <textarea id="commentText" name="comments" rows="8" cols="40" class="form-control" required></textarea>
                     </div>
                     <div id="captcha">
                       <p>Insert Captcha Here:</p>
@@ -90,7 +90,6 @@
             <br>
             <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
             <button type="clear" id="clearForm" name="clearForm" value="clearForm">Clear</button>
-
           </div>
         </div>
       </div>
@@ -100,16 +99,8 @@
   <!-- END Accordion Container -->
   <!-- END  Row -->
   <% include ../partials/chat %>
-    <% include ../partials/footer %>
-      <script>
-        $(function() {
-          $('#ms').change(function() {
-            console.log($(this).val());
-          }).multipleSelect({
-            width: '100%'
-          });
-        });
-      </script>
+  <% include ../partials/footer %>
+  <script type="text/javascript" src="/javascripts/contact_us.js"></script>
 </body>
 
 </html>

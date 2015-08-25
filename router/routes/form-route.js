@@ -1,5 +1,6 @@
 var express = require('express');
 var contentfulForms = require('../../API/contentful_forms.js');
+var contentful = require('../../API/contentful.js');
 var course = require('../../API/course.js');
 var async = require('async');
 var router = express.Router();
@@ -9,7 +10,8 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
 	var fields;
 	var courses;
 	var locations;
-	async.series([
+	var states;
+	async.parallel([
         function(callback) {
         	console.log('Get contentful fields');
         	contentfulForms.getInquiryForm(function(response) {
@@ -30,14 +32,23 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
         		locations = result;
         		callback();
         	});
+        },
+        function(callback) {
+        	console.log("Get us states");
+        	contentful.getReferenceData('us-states', function(result) {
+        		states = result;
+        		callback();
+        	});
         }
     ], function(results) {
-		res.render('forms/courses/onsite_inquiry', {topParagraph: fields.topParagraph,
+		res.render('forms/courses/onsite_inquiry', {title: fields.title, 
+			topParagraph: fields.topParagraph,
 			highlightedParagraph: fields.highlightedParagraph,
 			gsReference: fields.howDidYouHearAboutTraining,
 			prefix: fields.namePrefix,
 			courses: courses, 
-			locations: locations});
+			locations: locations, 
+			states: states});
 	});
 });
 
