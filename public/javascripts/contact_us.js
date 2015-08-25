@@ -9,6 +9,7 @@ $(document).ready(function() {
     data.email = $("#txtEmail").val();
     data.phone = $("#telPhone").val();
     data.comments = $("#commentText").val();
+    data.subject = $("#selInputSubject option:selected").text();
     $.ajax({
       url: "/mailer-contact-us",
       cache: false,
