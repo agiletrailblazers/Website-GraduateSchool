@@ -17,7 +17,7 @@ router.post('/mailer-contact-us', function(req, res, next) {
     case (!params.firstName):
       response.errors.firstName = "First name is empty.";
       break;
-    case (validator.isLength(params.firstName, 3)):
+    case (!validator.isLength(params.firstName, 3)):
       response.errors.firstName = "First name must be at least 3 characters.";
       break;
   }
@@ -26,7 +26,7 @@ router.post('/mailer-contact-us', function(req, res, next) {
     case (!params.lastName):
       response.errors.lastName = "Last name is empty.";
       break;
-    case (validator.isLength(params.lastName, 3)):
+    case (!validator.isLength(params.lastName, 3)):
       response.errors.lastName = "Last name must be at lease 3 characters.";
       break;
   }
@@ -35,7 +35,7 @@ router.post('/mailer-contact-us', function(req, res, next) {
     case (!params.email):
       response.errors.email = "Email is empty.";
       break;
-    case (validator.isEmail(params.email)):
+    case (!validator.isEmail(params.email)):
       response.errors.email = "Email is in the wrong format."
       break;
   }
