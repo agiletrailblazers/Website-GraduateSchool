@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Contract for Training at Your Location Inquiry Form</title>
+  <title><%= title %></title>
   <% include ../../partials/head %>
 
   <link rel="stylesheet" href="/stylesheets/onsite_inquiry.css" media="screen" title="no title" charset="utf-8">
@@ -16,7 +16,7 @@
   <div class="container">
   <div class="row">
     <div class="col-lg-8">
-      <h1>Onsite Inquiry Form Page</h1>
+      <h1><%= title %></h1>
           <!-- Accordion Container -->
             <div class="panel-group" id="accordion">
                <div class="panel panel-default">
@@ -57,11 +57,11 @@
                              </div>
                              <div class="form-group">
                                <label for="inputState">State:</label>
-                              <select>
-                                <option value="MD">Maryland</option>
-                                <option value="VA">Virginia</option>
-                                <option value="DC">Washington, DC</option>
-                                <option value="IL">Illinois</option>
+                              <select class="form-control">
+                                <option value="">Choose One</option>
+                              	<% for (i=0; i < states.length; i++) { %>
+                              	  <option value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
+                              	<% } %>
                               </select>
                              </div>
                              <div class="form-group">

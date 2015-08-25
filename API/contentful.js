@@ -18,7 +18,6 @@ module.exports = {
     }, function(error, response, body) {
       console.log('Status:', response.statusCode);
       cmsEntry = JSON.parse(body);
-    //  console.log(cmsEntry.fields.topBanners);
       return callback({
         cmsEntry: cmsEntry,
         statusCode: response.statusCode
@@ -86,7 +85,6 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-
       if (error != null || response == null || response.statusCode != 200) {
         console.log("Exception occured in getting the images " + error);
         return callback(response, new Error("Exception occured in getting the images"), null);
@@ -104,8 +102,32 @@ module.exports = {
         'Authorization': 'Bearer db132f1da5cc75a00f487cce1c94143798d8e5d12c65c169b2fc04febdfae44d'
       }
     }, function(error, response, body) {
-      nav = JSON.parse(body);
-      return callback(nav.fields.main);
+    	if (error != null || response == null || response.statusCode != 200) {
+            console.log("Exception occured getting navigation " + error);
+            return callback(response, new Error("Exception occured getting navigation"), null);
+        }
+        nav = JSON.parse(body);
+        return callback(nav.fields.main);
     })
+  },
+  getReferenceData: function(slug, callback) {
+    request({
+      method: 'GET',
+      url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/?access_token=940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652&content_type=rrnJXELzeC4O8Mc8oQUqK&fields.slug=' + slug + '',
+      headers: {
+        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      }
+    }, function(error, response, body) {
+    	var states = {};
+        if (error != null || response == null || response.statusCode != 200) {
+            console.log("Exception occured getting reference data " + slug + " - " + error);
+            return callback(response, new Error("Exception occured getting reference data " + slug), null);
+        }
+        ref = JSON.parse(body);
+        if (ref.items && ref.items.length >= 1 && ref.items[0].fields && ref.items[0].fields.jsonContent) {
+        	states = ref.items[0].fields.jsonContent;
+        }
+        return callback(states);
+    });
   }
 };
