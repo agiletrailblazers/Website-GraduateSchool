@@ -142,7 +142,10 @@ ul {padding-left: 10px;}
           </tr>
           <tr>
             <th>Credit</th>
-            <td><% if(courseCredit) courseCredit.value %> <% if(courseCredit) courseCredit.type %></td>
+            <td><% if(courseCredit) { %> 
+            	<%= courseCredit.value %> <%=courseCredit.type %>
+            	<% } %>
+            	</td>
           </tr>
         </table>
 
