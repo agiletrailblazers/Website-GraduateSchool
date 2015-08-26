@@ -4,6 +4,7 @@ var async = require('async');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var mailer = require('../../API/nodemailer.js');
+var google = require('../../API/google.js');
 var validator = require('validator');
 
 
@@ -48,11 +49,20 @@ router.post('/mailer-contact-us', function(req, res, next) {
       response.errors.phone = "Phone number is not in the correct format.";
       break;
   }
+
   // Send email if there are no errors.
   if (Object.keys(response.errors).length === 0) {
-    mailer.sendContactUs(function(response) {
-      handleResponse(res, response);
-    }, params);
+    //verify captcha
+    google.verifyCaptcha(function(response) {
+        if (response.statusCode == 200) {
+          //send mail of success
+          mailer.sendContactUs(function(response) {
+            handleResponse(res, response);
+          }, params);
+        } else {
+          sendErrorResponse(res, response);
+        }
+    }, params.captchaResponse);
   } else {
     sendErrorResponse(res, response);
   }
