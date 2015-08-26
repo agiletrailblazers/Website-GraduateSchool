@@ -5,7 +5,5 @@
     "defaultEmailUserName":"",
     "defaultEmailUserPassword":"",
     "defaultEmailToUserName":"",
-    "defaultEmailToUserName":"",
-    "defaultEmailSubject":"",
-    "defaultEmailText":""
+    "onsiteInquiryEmailSubject":"Contract for Training at your Location Inquiry"
 }

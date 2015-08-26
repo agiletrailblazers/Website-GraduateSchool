@@ -51,91 +51,101 @@ router.post('/mailer-contact-us', function(req, res, next) {
   // Send email if there are no errors.
   if (Object.keys(response.errors).length === 0) {
     mailer.sendContactUs(function(response) {
-      console.log("Node Mailer Response: " + response);
-      if (response == 200) {
-        //sent success to client
-        res.status(200).send();
-      }
-      else {
-        // Send error to client
-        res.status(500).send({"error":"Unexpected Exception Sending Mail"});
-      }
+      handleResponse(res, response);
     }, params);
   } else {
-    // send errors to client.
-    console.log("Errors:", response.errors);
-    res.status(400).send(response.errors);
+    sendErrorResponse(res, response);
   }
 });
 
 router.post('/mailer-onsite-inquiry', function(req, res, next) {
-  console.log("Body:", req.body);
   params = req.body;
   response = {};
   response.errors = {};
+
   // Validate params.firstName
   switch(true) {
     case (params.address.firstName.length === 0):
-      response.errors.address.firstName = "First name is empty.";
+      response.errors.firstName = "First name is empty.";
       break;
     case (!validator.isLength(params.address.firstName, 3)):
-    console.log("Empty");
-      response.errors.address.firstName = "First name must be at least 3 characters.";
-      // break;
+      response.errors.firstName = "First name must be at least 3 characters.";
+      break;
   }
+
   // Validate params.lastName
   switch(true) {
     case (!params.address.lastName):
-      response.errors.address.lastName = "Last name is empty.";
+      response.errors.lastName = "Last name is empty.";
       break;
     case (!validator.isLength(params.address.lastName, 3)):
-      response.errors.address.lastName = "Last name must be at lease 3 characters.";
+      response.errors.lastName = "Last name must be at lease 3 characters.";
       break;
   }
   // Validate organization
   switch (true) {
     case (!validator.isLength(params.address.organization, 3)):
-      response.errors.address.organization = "Organization must be atleast 3 characters.";
+      response.errors.organization = "Organization must be atleast 3 characters.";
       break;
   }
   // Validate params.email
   switch(true) {
     case (!params.contact.email):
-      response.errors.contact.email = "Email is empty.";
+      response.errors.email = "Email is empty.";
       break;
     case (!validator.isEmail(params.contact.email)):
-      response.errors.contact.email = "Email is in the wrong format."
+      response.errors.email = "Email is in the wrong format."
       break;
   }
 
   // Validate params.phone
   switch(true) {
     case (!params.contact.phone):
-      response.errors.contact.phone = "Phone number is empty.";
+      response.errors.phone = "Phone number is empty.";
       break;
     case (!params.contact.phone.match(/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/)):
-      response.errors.contact.phone = "Phone number is not in the correct format.";
+      response.errors.phone = "Phone number is not in the correct format.";
       break;
   }
 
   // Validate student count.
   switch (true) {
     case (params.course.studentCount.length < 1):
-      response.errors.course.studentCount = "You must enter a number."
+      response.errors.studentCount = "You must enter a number."
       break;
   }
   // Validate hear about.
   if (!params.hearAbout) {
     response.errors.hearAbout = "Please tell us where you heard about Graduate School USA.";
   }
+
   if (Object.keys(response.errors).length === 0) {
     console.log("Success");
-    // mailer.sendContactUs(params);
+    mailer.sendOnsiteInquiry(function(response) {
+      handleResponse(res, response);
+    }, params);
   } else {
-  // send errors to client.
-    console.log("Errors:", response.errors);
-    res.status(400).send(response.errors);
+    sendErrorResponse(res, response);
   }
 });
+
+//send errors to client.
+function sendErrorResponse(res, response) {
+  console.log("Errors:", response.errors);
+  res.status(400).send(response.errors);
+}
+
+//shared response handling code
+function handleResponse(res, response) {
+  console.log("Node Mailer Response: " + response);
+  if (response == 200) {
+    //sent success to client
+    res.status(200).send();
+  }
+  else {
+    // Send error to client
+    res.status(500).send({"error":"Unexpected Exception Sending Mail"});
+  }
+}
 
 module.exports = router;
