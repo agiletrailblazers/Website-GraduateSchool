@@ -46,7 +46,9 @@ var _runValidation = function() {
   Validate.firstName();
   Validate.lastName();
   Validate.communication();
-  $("#alertError").slideDown("slow");
+  if ($("#alertError p").length) {
+    $("#alertError").slideDown("slow");
+  }
 }
 
 $(document).ready(function() {
@@ -72,6 +74,13 @@ $(document).ready(function() {
         .fail(function(xhr, textStatus, errorThrown) {
           alert("Failed");
           console.log(xhr.responseJSON);
+          var errors = xhr.responseJSON;
+          for (var key in errors) {
+            if (errors.hasOwnProperty(key)) {
+              $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] +"</p>");
+            }
+          }
+          $("#alertError").slideDown();
           //TODO: read data response and show some error/validation errors
         });
     }
@@ -100,7 +109,7 @@ $(document).ready(function() {
       $("#inputOtherSubject").val("");
     }
   });
-  $("#removeAlert").click(function(){
+  $("#removeAlert").click(function() {
     $("#alertError").slideUp();
     $("#alertError p").remove();
   });
