@@ -5,7 +5,9 @@ var config = require('konphyg')(__dirname + "/../config");
 var path = require('path');
 var EmailTemplate = require('email-templates').EmailTemplate;
 var templatesDir = path.resolve(__dirname, '..', 'templates');
-var template = new EmailTemplate(path.join(templatesDir, 'contactus-email'));
+var contactUsTemplate = new EmailTemplate(path.join(templatesDir, 'contactus-email'));
+var onsiteInquiryTemplate = new EmailTemplate(path.join(templatesDir, 'onsiteinquiry-email'));
+
 // Transporter
 var transporter = nodemailer.createTransport(smtpTransport({
   host: config("endpoint").defaultEmailServerName,
@@ -45,7 +47,7 @@ module.exports = {
       comments: params.comments
     }
     // Rendering template with locals.
-    template.render(locals, function(err, results) {
+    contactUsTemplate.render(locals, function(err, results) {
       console.log("Starting mail send");
       if (err) {
         console.error(err);
@@ -55,6 +57,31 @@ module.exports = {
         from: config("endpoint").defaultEmailToUserName,
         to: config("endpoint").defaultEmailToUserName,
         subject: params.subject,
+        text:  results.text,
+        html:  results.html
+      };
+      transporter.sendMail(mailAttributes, function(error, info) {
+        if (error) {
+          console.log(error);
+          return callback(500);
+        }
+        console.log('Message sent: ' + info.response);
+        return callback(200);
+      });
+    });
+  },
+  sendOnsiteInquiry: function(callback, params) {
+    // Rendering template with params.
+    onsiteInquiryTemplate.render(params, function(err, results) {
+      console.log("Starting mail send");
+      if (err) {
+        console.error(err);
+        return callback(500);
+      }
+      var mailAttributes = {
+        from: config("endpoint").defaultEmailToUserName,
+        to: config("endpoint").defaultEmailToUserName,
+        subject: config("endpoint").onsiteInquiryEmailSubject,
         text:  results.text,
         html:  results.html
       };
