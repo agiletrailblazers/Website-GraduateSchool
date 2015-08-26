@@ -10,17 +10,16 @@ $(document).ready(function() {
     data.phone = $("#telPhone").val();
     data.comments = $("#commentText").val();
     data.subject = $("#selInputSubject option:selected").text();
-    $.ajax({
-      url: "/mailer-contact-us",
-      cache: false,
-      method: "POST",
-      dataType: "json",
-      data: data
-    }).success(function(response) {
-      console.log(response);
-    }).fail(function(response) {
-      console.log(response);
-    });
+    $.post( "/mailer-contact-us", data )
+      .done(function(data) {
+        alert("Success");
+        //TODO: add a confirmation and actions
+      })
+      .fail(function(xhr, textStatus, errorThrown) {
+         alert("Failed");
+         console.log(xhr.responseJSON);
+         //TODO: read data response and show some error/validation errors
+      });
   });
   $('input[name="communication"]:radio').change(function() {
 	  if (this.id == "radioEmail") {

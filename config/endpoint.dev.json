@@ -3,9 +3,7 @@
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
     "defaultEmailUserName":"@agiletrailblazers.com",
-    "defaultEmailUserPassword":"",
+    "defaultEmailUserPassword":"Erctlr.1",
     "defaultEmailToUserName":"@agiletrailblazers.com",
-    "defaultEmailToUserName":"@agiletrailblazers.com",
-    "defaultEmailSubject":"Graduate School Contact Form",
-    "defaultEmailText":"Request to contact @graduateschoolusa.com"
+    "onsiteInquiryEmailSubject":"Contract for Training at your Location Inquiry"
 }
