@@ -67,6 +67,7 @@ $(document).ready(function() {
     data.phone = $("#telPhone").val();
     data.comments = $("#commentText").val();
     data.subject = $("#selInputSubject option:selected").text();
+    data.captchaResponse = $("#g-recaptcha-response").val();
     if (!$("#alertError p").length) {
       $.post("/mailer-contact-us", data)
         .done(function(data) {
