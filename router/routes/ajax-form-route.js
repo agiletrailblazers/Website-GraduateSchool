@@ -30,23 +30,28 @@ router.post('/mailer-contact-us', function(req, res, next) {
       break;
   }
   // Validate params.email
-  switch(true) {
-    case (!params.email):
-      response.errors.email = "Email is empty.";
-      break;
-    case (!validator.isEmail(params.email)):
-      response.errors.email = "Email is in the wrong format."
-      break;
+  if (params.communicationPref == 'Email') {
+    switch(true) {
+      case (!params.email):
+        response.errors.email = "Email is empty.";
+        break;
+      case (!validator.isEmail(params.email)):
+        response.errors.email = "Email is in the wrong format."
+        break;
+    }
   }
   // Validate params.phone
-  switch(true) {
-    case (!params.phone):
-      response.errors.phone = "Phone number is empty.";
-      break;
-    case (!params.phone.match(/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/)):
-      response.errors.phone = "Phone number is not in the correct format.";
-      break;
+  if (params.communicationPref == 'Phone') {
+    switch(true) {
+      case (!params.phone):
+        response.errors.phone = "Phone number is empty.";
+        break;
+      case (!params.phone.match(/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/)):
+        response.errors.phone = "Phone number is not in the correct format.";
+        break;
+    }
   }
+
   // Send email if there are no errors.
   if (Object.keys(response.errors).length === 0) {
     mailer.sendContactUs(function(response) {
