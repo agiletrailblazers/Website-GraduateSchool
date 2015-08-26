@@ -42,6 +42,7 @@ var Validate = {
 
 var _runValidation = function() {
   $("#alertError p").remove();
+  $("#alertError").slideDown("slow");
   Validate.firstName();
   Validate.lastName();
   Validate.communication();
@@ -66,11 +67,10 @@ $(document).ready(function() {
     if (!$("#alertError p").length) {
       $.post("/mailer-contact-us", data)
         .done(function(data) {
-          alert("Success");
-          //TODO: add a confirmation and actions
+          alertify.success("Email sent!")
         })
         .fail(function(xhr, textStatus, errorThrown) {
-          alert("Failed");
+          alertify.error("Email failed.")
           console.log(xhr.responseJSON);
           //TODO: read data response and show some error/validation errors
         });
