@@ -41,6 +41,7 @@ var Validate = {
 }
 
 var _runValidation = function() {
+  $("#alertError").slideUp();
   $("#alertError p").remove();
   Validate.firstName();
   Validate.lastName();
@@ -62,7 +63,6 @@ $(document).ready(function() {
     data.phone = $("#telPhone").val();
     data.comments = $("#commentText").val();
     data.subject = $("#selInputSubject option:selected").text();
-    console.log($("#alertError p").length);
     if (!$("#alertError p").length) {
       $.post("/mailer-contact-us", data)
         .done(function(data) {
