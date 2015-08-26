@@ -6,7 +6,7 @@ module.exports = {
     console.log("started captcha");
     request({
       method: 'POST',
-      url: 'https://www.google1.com/recaptcha/api/siteverify?secret=6Lfj4AsTAAAAAE0Bpvzcdxdg-dRvfAaS6ZI8_Duc&response=' + captchaResponse + ''
+      url: 'https://www.google.com/recaptcha/api/siteverify?secret=6Lfj4AsTAAAAAE0Bpvzcdxdg-dRvfAaS6ZI8_Duc&response=' + captchaResponse + ''
     }, function (error, response, body) {
       console.log("got captcha response");
       if (error != null || response == null || response.statusCode != 200) {
