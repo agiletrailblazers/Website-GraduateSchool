@@ -59,6 +59,7 @@ $(document).ready(function() {
     var data = {};
     data.firstName = $("#txtFirstName").val();
     data.lastName = $("#txtLastName").val();
+    data.communicationPref = $("[name='radCommunication']:checked").val()
     data.comEmail = $("#radioPhone").val();
     data.comPhone = $("#radioEmail").val();
     data.email = $("#txtEmail").val();
@@ -85,7 +86,7 @@ $(document).ready(function() {
         });
     }
   });
-  $('input[name="communication"]:radio').change(function() {
+  $('input[name="radCommunication"]:radio').change(function() {
     if (this.id == "radioEmail") {
       $("#phoneGroup").hide();
       $("#emailGroup").show();
