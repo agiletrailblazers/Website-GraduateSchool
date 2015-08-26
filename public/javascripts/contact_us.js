@@ -41,12 +41,15 @@ var Validate = {
 }
 
 var _runValidation = function() {
+  $("#alertError").slideUp();
   $("#alertError p").remove();
   $("#alertError").slideDown("slow");
   Validate.firstName();
   Validate.lastName();
   Validate.communication();
-  $("#alertError").slideDown("slow");
+  if ($("#alertError p").length) {
+    $("#alertError").slideDown("slow");
+  }
 }
 
 $(document).ready(function() {
@@ -57,13 +60,13 @@ $(document).ready(function() {
     var data = {};
     data.firstName = $("#txtFirstName").val();
     data.lastName = $("#txtLastName").val();
+    data.communicationPref = $("[name='radCommunication']:checked").val()
     data.comEmail = $("#radioPhone").val();
     data.comPhone = $("#radioEmail").val();
     data.email = $("#txtEmail").val();
     data.phone = $("#telPhone").val();
     data.comments = $("#commentText").val();
     data.subject = $("#selInputSubject option:selected").text();
-    console.log($("#alertError p").length);
     if (!$("#alertError p").length) {
       $.post("/mailer-contact-us", data)
         .done(function(data) {
@@ -72,11 +75,18 @@ $(document).ready(function() {
         .fail(function(xhr, textStatus, errorThrown) {
           alertify.error("Email failed.")
           console.log(xhr.responseJSON);
+          var errors = xhr.responseJSON;
+          for (var key in errors) {
+            if (errors.hasOwnProperty(key)) {
+              $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] +"</p>");
+            }
+          }
+          $("#alertError").slideDown();
           //TODO: read data response and show some error/validation errors
         });
     }
   });
-  $('input[name="communication"]:radio').change(function() {
+  $('input[name="radCommunication"]:radio').change(function() {
     if (this.id == "radioEmail") {
       $("#phoneGroup").hide();
       $("#emailGroup").show();
@@ -100,7 +110,7 @@ $(document).ready(function() {
       $("#inputOtherSubject").val("");
     }
   });
-  $("#removeAlert").click(function(){
+  $("#removeAlert").click(function() {
     $("#alertError").slideUp();
     $("#alertError p").remove();
   });

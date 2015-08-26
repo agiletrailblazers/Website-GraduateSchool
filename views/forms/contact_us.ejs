@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <% include ../partials/head %>
-  <link rel="stylesheet" href="/stylesheets/onsite_inquiry.css" media="screen" title="no title" charset="utf-8">
+
 </head>
 
 <body>
@@ -14,8 +14,8 @@
         <%= title %>
       </title>
       <% include ../partials/header %>
-      <!-- /end Row Container -->
-    </div>
+    </div><!-- END Row  -->
+
     <div class="container">
       <div class="row">
         <div class="col-lg-8">
@@ -26,16 +26,8 @@
           <div id="alertError" class="alert alert-danger" role="alert">
             <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
           </div>
-          <div class="panel-group" id="accordion">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">CONTACT INFORMATION</a>
-                </h4>
-              </div>
-              <div id="collapse1" class="panel-collapse collapse in">
-                <div class="panel-body">
                   <div id="contact-information">
+                    <form>
                     <div class="form-inline">
                       <div class="form-group">
                         <label for="inputFirstName">*First Name:</label>
@@ -48,9 +40,9 @@
                     </div>
                     <div class="form-group">
                       <label for="communication">*Preferred mode of communication</label>
-                      <input type="radio" name="communication" id="radioEmail" value="Email" checked/>
+                      <input type="radio" name="radCommunication" id="radioEmail" value="Email" checked/>
                       <label for="radioEmail">Email</label>
-                      <input type="radio" name="communication" id="radioPhone" value="Phone" />
+                      <input type="radio" name="radCommunication" id="radioPhone" value="Phone" />
                       <label for="radioPhone">Phone</label>
                     </div>
                     <div id="emailGroup" class="form-group">
@@ -72,8 +64,8 @@
                           <br/>
                           <% } %>
                         </select>
-                      </div>
-                      <div id="otherSubject" class="form-group" style="display:none">
+                      </span>
+                      <span id="otherSubject" class="form-group" style="display:none">
                         <label for="inputOtherSubject">Other Subject:</label>
                         <input type="text" id="inputOtherSubject" name="inputOtherSubject" rows="1" cols="40" class="form-control">
                       </textarea>
@@ -86,17 +78,14 @@
                     <div id="captcha">
                       <p>Insert Captcha Here:</p>
                     </div>
-
+                    <br>
+                    <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
+                    <button type="reset" id="clearForm" name="reset" value="reset">Clear</button>
+                    <br>
+                    <br>
+                  </form>
                   </div>
                   <!-- contact information div -->
-                </div>
-              </div>
-            </div>
-            <br>
-            <br>
-            <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
-            <button type="clear" id="clearForm" name="clearForm" value="clearForm">Clear</button>
-          </div>
         </div>
       </div>
     </div>
