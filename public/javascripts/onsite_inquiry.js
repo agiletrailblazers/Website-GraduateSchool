@@ -42,16 +42,16 @@ $(document).ready(function() {
   	}
     data.comments = $("#txtComments").val();
 
-    $.ajax({
-      url: "/mailer-onsite-inquiry",
-      method: "POST",
-      data: data
-    }).success(function(response){
-      alert("SUCCESS!!!");
-    }).fail(function(response){
-      console.log(response.statusCode);
-      alert("FAILURE!!!");
-    });
+    $.post( "/mailer-onsite-inquiry", data )
+      .done(function(data) {
+        alert("Success");
+        //TODO: add a confirmation and actions
+      })
+      .fail(function(xhr, textStatus, errorThrown) {
+         alert("Failed");
+         console.log(xhr.responseJSON);
+         //TODO: read data response and show some error/validation errors
+      });
   });
   $("#chkGSLocations").click(function() {
 	   $("#selGSLocations").toggle();
