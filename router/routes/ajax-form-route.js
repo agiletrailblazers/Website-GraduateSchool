@@ -56,8 +56,9 @@ router.post('/mailer-contact-us', function(req, res, next) {
   // Send email if there are no errors.
   if (Object.keys(response.errors).length === 0) {
     //verify captcha
+
     google.verifyCaptcha(function(response) {
-        if (response.statusCode == 200) {
+        if ((response!=null) && (response.statusCode == 200)) {
           //send mail of success
           mailer.sendContactUs(function(response) {
             handleResponse(res, response);
@@ -144,8 +145,13 @@ router.post('/mailer-onsite-inquiry', function(req, res, next) {
 
 //send errors to client.
 function sendErrorResponse(res, response) {
-  console.log("Errors:", response.errors);
-  res.status(400).send(response.errors);
+  if((response !=null) && (response.errors !=null)) {
+    console.log("Errors:", response.errors);
+    res.status(404).send(response.errors);
+  }else {
+    // Send error to client
+    res.status(500).send({"error":"Unexpected Exception Sending Mail"});
+  }
 }
 
 //shared response handling code
