@@ -56,7 +56,6 @@ router.post('/mailer-contact-us', function(req, res, next) {
   // Send email if there are no errors.
   if (Object.keys(response.errors).length === 0) {
     //verify captcha
-
     google.verifyCaptcha(function(response) {
         if ((response!=null) && (response.statusCode == 200)) {
           //send mail of success
