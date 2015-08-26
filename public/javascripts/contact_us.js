@@ -64,7 +64,6 @@ $(document).ready(function() {
     data.comments = $("#commentText").val();
     data.subject = $("#selInputSubject option:selected").text();
     data.captchaResponse = $("#g-recaptcha-response").val();
-<<<<<<< HEAD
 
     console.log($("#alertError p").length);
     if (!$("#alertError p").length) {
@@ -79,19 +78,6 @@ $(document).ready(function() {
           //TODO: read data response and show some error/validation errors
         });
     }
-
-=======
-    $.post( "/mailer-contact-us", data )
-      .done(function(data) {
-        alert("Success");
-        //TODO: add a confirmation and actions
-      })
-      .fail(function(xhr, textStatus, errorThrown) {
-         alert("Failed");
-         console.log(xhr.responseJSON);
-         //TODO: read data response and show some error/validation errors
-      });
->>>>>>> 736fa60184bc4e95845b66438bc05ec5e7491aa2
   });
   $('input[name="radCommunication"]:radio').change(function() {
     if (this.id == "radioEmail") {
