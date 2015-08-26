@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="lib" path="node_modules/cucumber/node_modules/cucumber-html/target/checkout/target/cucumber-html-0.2.3-sources.jar"/>
+	<classpathentry kind="lib" path="node_modules/cucumber/node_modules/cucumber-html/target/checkout/target/cucumber-html-0.2.3.jar"/>
+	<classpathentry kind="lib" path="node_modules/cucumber/node_modules/cucumber-html/target/cucumber-html-0.2.3-sources.jar"/>
+	<classpathentry kind="lib" path="node_modules/cucumber/node_modules/cucumber-html/target/cucumber-html-0.2.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
