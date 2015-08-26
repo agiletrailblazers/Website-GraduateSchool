@@ -74,7 +74,6 @@ $(document).ready(function() {
         })
         .fail(function(xhr, textStatus, errorThrown) {
           alertify.error("Email failed.")
-          console.log(xhr.responseJSON);
           var errors = xhr.responseJSON;
           for (var key in errors) {
             if (errors.hasOwnProperty(key)) {
