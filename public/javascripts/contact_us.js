@@ -41,6 +41,7 @@ var Validate = {
 }
 
 var _runValidation = function() {
+  $("#alertError p").remove();
   Validate.firstName();
   Validate.lastName();
   Validate.communication();
@@ -98,5 +99,9 @@ $(document).ready(function() {
       $("#otherSubject").hide();
       $("#inputOtherSubject").val("");
     }
+  });
+  $("#removeAlert").click(function(){
+    $("#alertError").slideUp();
+    $("#alertError p").remove();
   });
 });
