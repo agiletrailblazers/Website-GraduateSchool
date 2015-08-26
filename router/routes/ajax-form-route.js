@@ -124,7 +124,6 @@ router.post('/mailer-onsite-inquiry', function(req, res, next) {
   }
 
   if (Object.keys(response.errors).length === 0) {
-    console.log("Success");
     mailer.sendOnsiteInquiry(function(response) {
       handleResponse(res, response);
     }, params);
