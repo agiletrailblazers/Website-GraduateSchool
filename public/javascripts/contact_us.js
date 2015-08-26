@@ -86,10 +86,6 @@ $(document).ready(function() {
           //TODO: read data response and show some error/validation errors
         });
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> Rebased from contact_us_and_req_estimate
   });
   $('input[name="radCommunication"]:radio').change(function() {
     if (this.id == "radioEmail") {
