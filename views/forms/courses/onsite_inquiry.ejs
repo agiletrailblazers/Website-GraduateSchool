@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <title><%= title %></title>
   <% include ../../partials/head %>
-
   <link rel="stylesheet" href="/stylesheets/onsite_inquiry.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
+
   <div class="container">
     <div class="row nm header clearfix">
         <% include ../../partials/header %>
@@ -18,6 +18,7 @@
     <div class="col-lg-8">
       <h1><%= title %></h1>
           <!-- Accordion Container -->
+          <form class=""  method="post">
             <div class="panel-group" id="accordion">
                <div class="panel panel-default">
                  <div class="panel-heading">
@@ -27,7 +28,6 @@
                  </div>
                  <div id="collapse1" class="panel-collapse collapse in">
                    <div class="panel-body">
-                     <form class=""  method="post">
                          <div id="contact-information">
                            <div class="form-inline">
                              <span class="form-group">
@@ -201,8 +201,7 @@
                      <div id="captcha">
                        <p>Insert Captcha Here:</p>
                      </div>
-                     <input type="submit" id="submitForm" name="submitForm">
-
+                      <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
                      <br>
                    </div>
                  </div>
