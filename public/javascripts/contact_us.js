@@ -99,4 +99,8 @@ $(document).ready(function() {
       $("#inputOtherSubject").val("");
     }
   });
+  $("#removeAlert").click(function(){
+    $("#alertError").slideUp();
+    $("#alertError p").remove();
+  });
 });
