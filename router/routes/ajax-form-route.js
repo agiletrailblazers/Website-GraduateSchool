@@ -6,7 +6,6 @@ var bodyParser = require('body-parser');
 var mailer = require('../../API/nodemailer.js');
 var validator = require('validator');
 
-
 router.post('/mailer-contact-us', function(req, res, next) {
   console.log("Body:", req.body);
   params = req.body;
