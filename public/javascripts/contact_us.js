@@ -41,11 +41,15 @@ var Validate = {
 }
 
 var _runValidation = function() {
+  $("#alertError").slideUp();
   $("#alertError p").remove();
+  $("#alertError").slideDown("slow");
   Validate.firstName();
   Validate.lastName();
   Validate.communication();
-  $("#alertError").slideDown("slow");
+  if ($("#alertError p").length) {
+    $("#alertError").slideDown("slow");
+  }
 }
 
 $(document).ready(function() {
@@ -63,16 +67,20 @@ $(document).ready(function() {
     data.phone = $("#telPhone").val();
     data.comments = $("#commentText").val();
     data.subject = $("#selInputSubject option:selected").text();
-    console.log($("#alertError p").length);
     if (!$("#alertError p").length) {
       $.post("/mailer-contact-us", data)
         .done(function(data) {
-          alert("Success");
-          //TODO: add a confirmation and actions
+          alertify.success("Email sent!")
         })
         .fail(function(xhr, textStatus, errorThrown) {
-          alert("Failed");
-          console.log(xhr.responseJSON);
+          alertify.error("Email failed.")
+          var errors = xhr.responseJSON;
+          for (var key in errors) {
+            if (errors.hasOwnProperty(key)) {
+              $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] +"</p>");
+            }
+          }
+          $("#alertError").slideDown();
           //TODO: read data response and show some error/validation errors
         });
     }
@@ -101,7 +109,7 @@ $(document).ready(function() {
       $("#inputOtherSubject").val("");
     }
   });
-  $("#removeAlert").click(function(){
+  $("#removeAlert").click(function() {
     $("#alertError").slideUp();
     $("#alertError p").remove();
   });
