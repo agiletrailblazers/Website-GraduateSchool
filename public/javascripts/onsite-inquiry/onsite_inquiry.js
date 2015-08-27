@@ -32,13 +32,13 @@ var Validate = {
   captcha:function(){
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
-      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please select recaptcha</p>");
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>For security, please verify you are a real person below.</p>");
     }
   },
   studentCount: function() {
 	    var input = $("#txtStudentCount").val();
 	    if (input.length < 1) {
-	      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Student Count</strong> should be at least 3 characters.</p>");
+	      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Student Count</strong> should be at least 1 digit.</p>");
 	    }
 	  },
 }
