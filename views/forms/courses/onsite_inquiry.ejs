@@ -19,7 +19,10 @@
     <div class="col-lg-8">
       <h1><%= title %></h1>
           <!-- Accordion Container -->
-          <form class=""  method="post">
+          <div id="alertError" class="alert alert-danger" role="alert" style="display:hidden!important;">
+            <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+          </div>
+          <form>
             <div class="panel-group" id="accordion">
                <div class="panel panel-default">
                  <div class="panel-heading">
