@@ -47,7 +47,7 @@ router.post('/mailer-contact-us', function(req, res, next) {
       case (!params.phone):
         response.errors.phone = "Phone number is empty.";
         break;
-      case (!params.phone.match(/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/)):
+      case (!params.phone.match(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)):
         response.errors.phone = "Phone number is not in the correct format.";
         break;
     }
