@@ -37,6 +37,12 @@ var Validate = {
         Validate.phone(number);
         break;
     }
+  },
+  captcha:function(){
+    var googleResponse = $('#g-recaptcha-response').val();
+    if (!googleResponse) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please select recaptcha</p>");
+    }
   }
 }
 
@@ -47,6 +53,7 @@ var _runValidation = function() {
   Validate.firstName();
   Validate.lastName();
   Validate.communication();
+  Validate.captcha();
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
   }
@@ -67,6 +74,8 @@ $(document).ready(function() {
     data.phone = $("#telPhone").val();
     data.comments = $("#commentText").val();
     data.subject = $("#selInputSubject option:selected").text();
+    data.captchaResponse = $("#g-recaptcha-response").val();
+    console.log($("#alertError p").length);
     if (!$("#alertError p").length) {
       $.post("/mailer-contact-us", data)
         .done(function(data) {

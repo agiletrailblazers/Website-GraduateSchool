@@ -4,6 +4,7 @@ var async = require('async');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var mailer = require('../../API/nodemailer.js');
+var google = require('../../API/google.js');
 var validator = require('validator');
 
 router.post('/mailer-contact-us', function(req, res, next) {
@@ -51,12 +52,23 @@ router.post('/mailer-contact-us', function(req, res, next) {
         break;
     }
   }
+  if (!params.captchaResponse) {
+    response.errors.captchaResponse = "Please select recaptcha.";
+  }
 
   // Send email if there are no errors.
   if (Object.keys(response.errors).length === 0) {
-    mailer.sendContactUs(function(response) {
-      handleResponse(res, response);
-    }, params);
+    //verify captcha
+    google.verifyCaptcha(function(response) {
+        if ((response!=null) && (response.statusCode == 200)) {
+          //send mail of success
+          mailer.sendContactUs(function(response) {
+            handleResponse(res, response);
+          }, params);
+        } else {
+          sendErrorResponse(res, response);
+        }
+    }, params.captchaResponse);
   } else {
     sendErrorResponse(res, response);
   }
@@ -123,10 +135,25 @@ router.post('/mailer-onsite-inquiry', function(req, res, next) {
     response.errors.hearAbout = "Please tell us where you heard about Graduate School USA.";
   }
 
+  if (!params.onSiteInquirycaptchaResponse) {
+    response.errors.onSiteInquirycaptchaResponse = "Please select recaptcha.";
+  }
+
+
+  params
+
   if (Object.keys(response.errors).length === 0) {
-    mailer.sendOnsiteInquiry(function(response) {
-      handleResponse(res, response);
-    }, params);
+    //verify captcha
+    google.verifyCaptcha(function(response) {
+      if ((response!=null) && (response.statusCode == 200)) {
+        //send mail of success
+        mailer.sendOnsiteInquiry(function(response) {
+          handleResponse(res, response);
+        }, params);
+      } else {
+        sendErrorResponse(res, response);
+      }
+    }, params.onSiteInquirycaptchaResponse);
   } else {
     sendErrorResponse(res, response);
   }
@@ -134,8 +161,13 @@ router.post('/mailer-onsite-inquiry', function(req, res, next) {
 
 //send errors to client.
 function sendErrorResponse(res, response) {
-  console.log("Errors:", response.errors);
-  res.status(400).send(response.errors);
+  if((response !=null) && (response.errors !=null)) {
+    console.log("Errors:", response.errors);
+    res.status(404).send(response.errors);
+  }else {
+    // Send error to client
+    res.status(500).send({"error":"Unexpected Exception Sending Mail"});
+  }
 }
 
 //shared response handling code
