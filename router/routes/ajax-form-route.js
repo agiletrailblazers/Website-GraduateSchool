@@ -135,12 +135,9 @@ router.post('/mailer-onsite-inquiry', function(req, res, next) {
     response.errors.hearAbout = "Please tell us where you heard about Graduate School USA.";
   }
 
-  if (!params.onSiteInquirycaptchaResponse) {
-    response.errors.onSiteInquirycaptchaResponse = "Please select recaptcha.";
+  if (!params.captchaResponse) {
+    response.errors.captchaResponse = "Please select recaptcha.";
   }
-
-
-  params
 
   if (Object.keys(response.errors).length === 0) {
     //verify captcha
