@@ -52,11 +52,13 @@ router.post('/mailer-contact-us', function(req, res, next) {
         break;
     }
   }
+  if (!params.captchaResponse) {
+    response.errors.captchaResponse = "Please select recaptcha.";
+  }
 
   // Send email if there are no errors.
   if (Object.keys(response.errors).length === 0) {
     //verify captcha
-
     google.verifyCaptcha(function(response) {
         if ((response!=null) && (response.statusCode == 200)) {
           //send mail of success
@@ -133,11 +135,25 @@ router.post('/mailer-onsite-inquiry', function(req, res, next) {
     response.errors.hearAbout = "Please tell us where you heard about Graduate School USA.";
   }
 
+  if (!params.onSiteInquirycaptchaResponse) {
+    response.errors.onSiteInquirycaptchaResponse = "Please select recaptcha.";
+  }
+
+
+  params
+
   if (Object.keys(response.errors).length === 0) {
-    console.log("Success");
-    mailer.sendOnsiteInquiry(function(response) {
-      handleResponse(res, response);
-    }, params);
+    //verify captcha
+    google.verifyCaptcha(function(response) {
+      if ((response!=null) && (response.statusCode == 200)) {
+        //send mail of success
+        mailer.sendOnsiteInquiry(function(response) {
+          handleResponse(res, response);
+        }, params);
+      } else {
+        sendErrorResponse(res, response);
+      }
+    }, params.onSiteInquirycaptchaResponse);
   } else {
     sendErrorResponse(res, response);
   }

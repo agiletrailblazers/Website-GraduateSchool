@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title><%= title %></title>
   <% include ../../partials/head %>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
   <link rel="stylesheet" href="/stylesheets/onsite_inquiry.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
@@ -198,14 +199,15 @@
                        <textarea name="comments" id="txtComments" rows="8" cols="40"></textarea>
                      </div>
                       <br>
-                     <div id="captcha">
-                       <p>Insert Captcha Here:</p>
-                     </div>
+                       <div id="onSiteInguiryCaptcha">
+                           <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
+                       </div>
                       <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
                      <br>
                    </div>
-                 </div>
                </div>
+               </div>
+            </div>
                </form> <!-- END Form -->
              </div>
           </div>

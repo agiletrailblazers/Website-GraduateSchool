@@ -21,6 +21,7 @@ $(document).ready(function() {
     data.location.gs = $("#selGSLocations").val();
     data.location.customer = $("#txtYourLocations").val();
     data.location.other = $("#txtOtherLocations").val();
+    data.onSiteInquirycaptchaResponse = $("#g-recaptcha-response").val();
     var courseNames = "";
     if ($("[name='selCourses']").val() !== null && $("[name='selCourses']").val() !== "") {
     	courseNames = "" + $("[name='selCourses']").val();
