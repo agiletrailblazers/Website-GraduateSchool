@@ -23,12 +23,6 @@ var Validate = {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Email</strong> address is incorrect.</p>");
     }
   },
-  phone: function() {
-    var pattern = new RegExp(/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/);
-    if (!pattern.test("#txtPhone")) {
-      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Phone</strong> number is incorrect.</p>");
-    }
-  },
   captcha:function(){
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
@@ -76,7 +70,6 @@ $("#submitForm").click(function(e) {
     data.address.state = $("#selState").val();
     data.address.zip = $("#txtZip").val();
     data.address.country = $("#txtCountry").val();
-    data.contact.phone = $("#txtPhone").val();
     data.contact.fax = $("#txtFax").val();
     data.contact.email = $("#txtEmail").val();
     data.location.gs = $("#selGSLocations").val();
