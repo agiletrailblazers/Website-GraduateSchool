@@ -541,7 +541,7 @@
         name: '',
         isOpen: false,
         placeholder: '',
-        selectAll: true,
+        selectAll: false,
         selectAllText: 'Select all',
         selectAllDelimiter: ['[', ']'],
         allSelected: 'All selected',
