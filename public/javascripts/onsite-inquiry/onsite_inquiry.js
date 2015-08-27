@@ -48,7 +48,6 @@ var Validate = {
 var _runValidation = function() {
   $("#alertError").slideUp();
   $("#alertError p").remove();
-//  $("#alertError").slideDown("slow");
   Validate.firstName();
   Validate.lastName();
   Validate.organization();
@@ -58,7 +57,6 @@ var _runValidation = function() {
   Validate.captcha();
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
-    console.log($("#alertError p").length);
   }
 }
 
@@ -108,13 +106,11 @@ $("#submitForm").click(function(e) {
   	}
     data.comments = $("#txtComments").val();
     data.captchaResponse = $("#g-recaptcha-response").val();
-    console.log($("#alertError p").length);
 
     if (!$("#alertError p").length) {
       $.post("/mailer-onsite-inquiry", data)
         .done(function(data) {
           alertify.success("Email sent!");
-          console.log(data);
         })
         .fail(function(xhr, textStatus, errorThrown) {
           alertify.error("Email failed.")
@@ -125,7 +121,6 @@ $("#submitForm").click(function(e) {
             }
           }
           $("#alertError").slideDown();
-          //TODO: read data response and show some error/validation errors
         });
     }
   });
