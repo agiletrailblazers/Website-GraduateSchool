@@ -42,6 +42,15 @@ var Validate = {
     if (!googleResponse) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>For security, please verify you are a real person below.</p>");
     }
+  },
+  courses: function() {
+	var inputSelCourses = $("[name='selCourses']").val();
+	var inputOtherCourse = $("#txtOtherCourse").val();
+	if (inputSelCourses == null) {
+		if(inputOtherCourse.length < 3){
+		$("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please select or enter a course.</p>");
+	  }
+	}
   }
 }
 
@@ -54,6 +63,7 @@ var _runValidation = function() {
   Validate.email();
   Validate.phone();
   Validate.studentCount();
+  Validate.courses();
   Validate.captcha();
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
