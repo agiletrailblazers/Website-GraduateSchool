@@ -125,6 +125,9 @@ $(document).ready(function() {
             }
           }
           $("#alertError").slideDown();
+          $("html, body").animate({
+            scrollTop: 0
+          }, "slow");
         });
     }
   });
