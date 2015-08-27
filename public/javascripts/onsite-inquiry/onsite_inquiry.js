@@ -105,16 +105,23 @@ $("#submitForm").click(function(e) {
     data.captchaResponse = $("#g-recaptcha-response").val();
     console.log($("#alertError p").length);
 
-    $.post( "/mailer-onsite-inquiry", data )
-      .done(function(data) {
-        alertify.success("Email sent successfully.");
-        //TODO: add a confirmation and actions
-      })
-      .fail(function(xhr, textStatus, errorThrown) {
-        alertify.failure("Email has failed.");
-         console.log(xhr.responseJSON);
-         //TODO: read data response and show some error/validation errors
-      });
+    if (!$("#alertError p").length) {
+      $.post("/mailer-onsite-inquiry", data)
+        .done(function(data) {
+          alertify.success("Email sent!")
+        })
+        .fail(function(xhr, textStatus, errorThrown) {
+          alertify.error("Email failed.")
+          var errors = xhr.responseJSON;
+          for (var key in errors) {
+            if (errors.hasOwnProperty(key)) {
+              $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] +"</p>");
+            }
+          }
+          $("#alertError").slideDown();
+          //TODO: read data response and show some error/validation errors
+        });
+    }
   });
   $("#chkGSLocations").click(function() {
 	   $("#selGSLocations").toggle();
