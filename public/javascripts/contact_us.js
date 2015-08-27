@@ -93,7 +93,9 @@ $(document).ready(function() {
             }
           }
           $("#alertError").slideDown();
-          //TODO: read data response and show some error/validation errors
+          $("html, body").animate({
+            scrollTop: 0
+          }, "slow");
         });
     }
   });
