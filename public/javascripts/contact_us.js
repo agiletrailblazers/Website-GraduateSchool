@@ -49,7 +49,6 @@ var Validate = {
 var _runValidation = function() {
   $("#alertError").slideUp();
   $("#alertError p").remove();
-  $("#alertError").slideDown("slow");
   Validate.firstName();
   Validate.lastName();
   Validate.communication();
