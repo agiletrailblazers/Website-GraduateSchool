@@ -59,6 +59,7 @@ var _runValidation = function() {
 }
 
 $(document).ready(function() {
+  $(".loading").hide();
   $("#alertError").hide();
   $("#submitForm").click(function(e) {
     e.preventDefault();
@@ -76,11 +77,14 @@ $(document).ready(function() {
     data.captchaResponse = $("#g-recaptcha-response").val();
     console.log($("#alertError p").length);
     if (!$("#alertError p").length) {
+      $(".loading").show();
       $.post("/mailer-contact-us", data)
         .done(function(data) {
+          $(".loading").hide();
           alertify.success("Email sent!")
         })
         .fail(function(xhr, textStatus, errorThrown) {
+          $(".loading").hide();
           alertify.error("Email failed.")
           var errors = xhr.responseJSON;
           for (var key in errors) {
