@@ -19,21 +19,38 @@
   }
 
   a {
-    color: #00B7FF;
+    color: #337AB7;
     text-decoration:none;
     outline: none;
   }
 
   h1 {
-      color: maroon;
-      margin-left: 40px;
+      color: #337AB7;
+      font-size: 24px;
   }
-  </style>
+
+  h2 {
+      color: #337AB7;
+      font-size: 18px;
+      padding: 10px 0 5px 0;
+  }
+
+p.footer {
+  color: #DDD;
+  font-size: 11px;
+
+}
+
+</style>
 
 
 </head>
 <body>
-<h1>The following is a request for information on on-site training:</h1>
+
+
+<h1>
+ The following is a request for information on on-site training:
+</h1>
 
 <h2>Name and Address</h2>
 <p>First Name: <strong> <%= address.firstName %></strong></p>
@@ -48,10 +65,12 @@
 
 <hr>
 
-<h2>Contact</h2>
+<h2>Contact Information</h2>
 <p>Telephone Number: <strong><%= contact.phone %></strong></p>
 <p>Fax Number: <strong><%= contact.fax %></strong></p>
 <p>Email Address: <strong><%= contact.email %></strong></p>
+
+<hr>
 
 <h2>Location</h2>
 <p>GS Location: v<%= location.gs %></strong></p>
@@ -60,7 +79,7 @@
 
 <hr>
 
-<h2>Course Delivery Information </h2>
+<h2>Course Delivery Information</h2>
 <p>Course Names: <strong><%= course.names %></strong></p>
 <p>Student Count: <strong><%= course.studentCount %></strong></p>
 <p>Customization: <strong><%= course.customization %></strong></p>
@@ -69,9 +88,12 @@
 <hr>
 
 <h2>Additional</h2>
-<p>How did you hear about us: <%= hearAbout %></strong></p>
+<p>How did you hear about us: <strong><%= hearAbout %></strong></p>
 <p>Comments: <strong><%= comments %></strong></p>
 
 <hr>
+<br>
+<p class="footer">Sent from GraduateSchool.edu - Request for Estimate form.</p>
+</div>
 </body>
 </html>
