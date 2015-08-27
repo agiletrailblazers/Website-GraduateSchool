@@ -73,6 +73,22 @@ var _runValidation = function() {
 $(document).ready(function() {
   $(".loading").hide();
   $("#alertError").hide();
+  // Click through form.
+  $("#toCDIButton").click(function() {
+    $("#collapse2Link").trigger('click');
+  });
+  $("#toFormSubButton").click(function() {
+    $("#collapse3Link").trigger('click');
+  });
+  $("#toContactButton").click(function() {
+    $("#collapse1Link").trigger('click');
+  });
+  $("#backToCDIButton").click(function() {
+    $("#collapse2Link").trigger('click');
+  });
+
+  BackToCDIButton
+  //
   $("#submitForm").click(function(e) {
     e.preventDefault();
     _runValidation();
