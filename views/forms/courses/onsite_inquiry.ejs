@@ -29,7 +29,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">CONTACT INFORMATION</a>
+                    <a id="collapse1Link" data-toggle="collapse" data-parent="#accordion" href="#collapse1">CONTACT INFORMATION</a>
                   </h4>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse in">
@@ -97,12 +97,13 @@
                         </div>
                       </div><!-- contact information div -->
                     </div>
+                    <button type="button" name="toCDI" id="toCDIButton">Next</button>
                   </div>
                 </div>
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">COURSE DELIVERY INFORMATION</a>
+                      <a id="collapse2Link" data-toggle="collapse" data-parent="#accordion" href="#collapse2">COURSE DELIVERY INFORMATION</a>
                     </h4>
                   </div>
                   <div id="collapse2" class="panel-collapse collapse">
@@ -175,12 +176,14 @@
                             </div>
                           </div>   <!-- END Course delivery -->
                         </div>
+                        <button type="button" name="toCDI" id="toFormSubButton">Next</button>
+                        <button type="button" name="toContact" id="toContactButton">Previous</button>
                       </div>
                     </div>
                     <div class="panel panel-default">
                       <div class="panel-heading">
                         <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">FORM SUBMISSION</a>
+                          <a id="collapse3Link" data-toggle="collapse" data-parent="#accordion" href="#collapse3">FORM SUBMISSION</a>
                         </h4>
                       </div>
                       <div id="collapse3" class="panel-collapse collapse">
@@ -209,6 +212,7 @@
                             </div>
                             <br>
                             <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
+                            <button type="button" name="toCDI" id="backToCDIButton">Previous</button>
                             <br>
                           </div>
                         </div>
