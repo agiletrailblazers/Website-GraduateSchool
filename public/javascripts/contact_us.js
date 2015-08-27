@@ -18,7 +18,7 @@ var Validate = {
     }
   },
   phone: function(phone) {
-    var pattern = new RegExp(/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/);
+    var pattern = new RegExp(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/);
     if (!pattern.test(phone)) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Phone number is incorrect.</p>");
     }
