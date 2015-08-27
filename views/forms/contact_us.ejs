@@ -34,8 +34,6 @@
                       <div class="form-group">
                         <label for="inputFirstName">*First Name:</label>
                         <input id="txtFirstName" name="firstName" type="text" class="form-control" required>
-                      </div>
-                      <div class="form-group">
                         <label for="inputLastName">*Last Name:</label>
                         <input id="txtLastName" name="lastName" type="text" class="form-control" required>
                       </div>
@@ -46,14 +44,15 @@
                       <label for="radioEmail">Email</label>
                       <input type="radio" name="radCommunication" id="radioPhone" value="Phone" />
                       <label for="radioPhone">Phone</label>
-                    </div>
-                    <div id="emailGroup" class="form-group">
+
+                    <div id="emailGroup">
                       <label for="inputEmail">Email:</label>
                       <input id="txtEmail" name="email" type="email" maxlength="255" required class="form-control">
                     </div>
-                    <div id="phoneGroup" class="form-group" style="display:none;">
+                    <div id="phoneGroup"  style="display:none;">
                       <label for="inputPhone">Daytime Phone Number:</label>
                       <input id="telPhone" name="phone" type="tel" placeholder="XXX-XXX-XXXX" pattern="\d{3}[\-]\d{3}[\-]\d{4}" maxlength="12" class="form-control">
+                    </div>
                     </div>
                     <div class="form-group">
                       <label for="inputOtherSubject">*Subject:</label>
@@ -76,6 +75,7 @@
                       <br>
                       <textarea id="commentText" name="comments" rows="8" cols="40" class="form-control" required></textarea>
                     </div>
+                    <br>
                     <div id="captcha">
                       <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
                     </div>
@@ -96,6 +96,7 @@
   <% include ../partials/chat %>
   <% include ../partials/footer %>
   <script type="text/javascript" src="/javascripts/contact_us.js"></script>
+
 </body>
 
 </html>
