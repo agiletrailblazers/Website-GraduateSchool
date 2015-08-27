@@ -7,5 +7,6 @@
     "defaultEmailToUserName":"",
     "defaultEmailToUserName":"",
     "defaultEmailSubject":"",
-    "defaultEmailText":""
+    "defaultEmailText":"",
+    "googleAnalyticsId":"UA-66851185-2"
 }
