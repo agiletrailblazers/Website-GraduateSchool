@@ -19,9 +19,8 @@ module.exports = {
     	      response.errors.firstName = "First name is empty.";
     	      break;
     	    case (!validator.isLength(params.firstName, 3)):
-    	    console.log("Empty");
     	      response.errors.firstName = "First name must be at least 3 characters.";
-    	      // break;
+    	       break;
     	  }
     	  // Validate params.lastName
     	  switch(true) {
