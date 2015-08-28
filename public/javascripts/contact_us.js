@@ -47,7 +47,7 @@ var Validate = {
   subject: function() {
     var option = $("#selInputSubject").find(":selected").text();
     var customOption = $("#inputOtherSubject").val();
-    if (!option || !customOption) {
+    if (!option && !customOption) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Select or type a <strong>subject</strong> or choose other.</p>");
     }
   },
