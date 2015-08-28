@@ -35,6 +35,7 @@
     "node-sass": "^3.2.0",
     "nodemailer": "^1.4.0",
     "nodemailer-smtp-transport": "^1.0.3",
+    "nodemailer-stub-transport": "^1.0.0",
     "passport-facebook": "^2.0.0",
     "request": "^2.58.0",
     "selenium-webdriver": "^2.46.1",
