@@ -38,7 +38,20 @@ var Validate = {
         break;
     }
   },
-  captcha:function(){
+  comments: function() {
+    var input = $("#commentText").val();
+    if (input.length < 3) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Comments</strong> should have at least 3 characters.</p>");
+    }
+  },
+  subject: function() {
+    var option = $("#selInputSubject").find(":selected").text();
+    var customOption = $("#inputOtherSubject").val();
+    if (!option && !customOption) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Select or type a <strong>subject</strong> or choose other.</p>");
+    }
+  },
+  captcha: function(){
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> For security, please verify you are a real person below</p>");
@@ -52,6 +65,8 @@ var _runValidation = function() {
   Validate.firstName();
   Validate.lastName();
   Validate.communication();
+  Validate.comments();
+  Validate.subject();
   Validate.captcha();
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
@@ -61,6 +76,10 @@ var _runValidation = function() {
 $(document).ready(function() {
   $(".loading").hide();
   $("#alertError").hide();
+  $("#commentText").click(function(e) {
+    $("#commentText").css("border", "1px solid #ccc");
+  });
+
   $("#submitForm").click(function(e) {
     e.preventDefault();
     _runValidation();
@@ -114,7 +133,7 @@ $(document).ready(function() {
       $("#txtEmail").setAttribute("required", "false");
     }
   });
-  $('#inputSubject').change(function() {
+  $('#selInputSubject').change(function() {
     if (this.value == "Other") {
       $("#otherSubject").show();
       $("#inputOtherSubject").focus();
