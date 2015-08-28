@@ -1,6 +1,5 @@
 var express = require('express');
 var contentful = require('../../API/contentful.js');
-var async = require('async');
 var router = express.Router();
 
 router.get('/content/:content_slug', function(req, res, next) {
