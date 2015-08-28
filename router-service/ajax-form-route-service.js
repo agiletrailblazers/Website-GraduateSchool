@@ -10,8 +10,7 @@ var validator = require('validator');
 
 
 module.exports = {
-    validateContactUsfields: function(callback,params,res) {
-    	  params = req.body;
+    validateContactUsfields: function(callback,params) {
     	  response = {};
     	  response.errors = {};
     	  // Validate params.firstName
@@ -60,8 +59,7 @@ module.exports = {
     	  }
         callback(response);
     },
-    validateOnsiteInquiryfields: function(callback,params,res) {
-    	  params = req.body;
+    validateOnsiteInquiryfields: function(callback,params) {
     	  response = {};
     	  response.errors = {};
 

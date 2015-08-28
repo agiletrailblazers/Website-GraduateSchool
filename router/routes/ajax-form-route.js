@@ -28,7 +28,7 @@ router.post('/mailer-contact-us', function(req, res, next) {
   } else {
     sendErrorResponse(res, response);
    }
-  },params,req);
+  },params);
 });
 
 router.post('/mailer-onsite-inquiry', function(req, res, next) {
@@ -51,7 +51,7 @@ router.post('/mailer-onsite-inquiry', function(req, res, next) {
   } else {
     sendErrorResponse(res, response);
    }
-  },params,req); 
+  },params); 
 });
 
 //send errors to client.
