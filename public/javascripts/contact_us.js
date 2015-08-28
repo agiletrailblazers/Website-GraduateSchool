@@ -77,9 +77,14 @@ $(document).ready(function() {
   $(".loading").hide();
   $("#alertError").hide();
   $("#commentText").click(function(e) {
+    e.preventDefault();
     $("#commentText").css("border", "1px solid #ccc");
   });
-
+  $("#removeAlert").css('cursor', 'pointer');
+  // $("#removeAlert").hover(function(e){
+  //   e.preventDefault();
+  //
+  // });
   $("#submitForm").click(function(e) {
     e.preventDefault();
     _runValidation();

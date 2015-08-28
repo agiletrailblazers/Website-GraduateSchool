@@ -73,6 +73,7 @@ var _runValidation = function() {
 $(document).ready(function() {
   $(".loading").hide();
   $("#alertError").hide();
+  $("#removeAlert").css('cursor', 'pointer');
   // Click through form.
   $("#toCDIButton").click(function() {
     $("#collapse2Link").trigger('click');
