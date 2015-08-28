@@ -6,7 +6,7 @@ var should = require("should");
 var test = require('tap').test;
 
 test('test for google capticha', function(t) {
-    var googleRecaptchaServer = nock('https://www.google.com')
+    var googleRecaptchaServer = nock('https://www.google.com',{allowUnmocked: true})
         .get('https://www.google.com/recaptcha/api/siteverify?secret=6Lfj4AsTAAAAAE0Bpvzcdxdg-dRvfAaS6ZI8_Duc&response=')
         .reply(200, {
         },'');
