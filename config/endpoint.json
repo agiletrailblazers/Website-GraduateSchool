@@ -2,12 +2,10 @@
     "courseApiUrl": "http://54.174.123.251:8080",
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
-    "defaultEmailUserName":"@agiletrailblazers.com",
+    "defaultEmailUserName":"",
     "defaultEmailUserPassword":"",
-    "defaultEmailToUserName":"@agiletrailblazers.com",
-    "defaultEmailToUserName":"@agiletrailblazers.com",
+    "defaultEmailToUserName":"",
     "defaultEmailSubject":"Graduate School Contact Form",
     "defaultEmailText":"Request to contact @graduateschoolusa.com",
     "googleAnalyticsId":"UA-66851185-2"
-
 }
