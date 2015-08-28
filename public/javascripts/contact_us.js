@@ -129,7 +129,7 @@ $(document).ready(function() {
       $("#txtEmail").setAttribute("required", "false");
     }
   });
-  $('#inputSubject').change(function() {
+  $('#selInputSubject').change(function() {
     if (this.value == "Other") {
       $("#otherSubject").show();
       $("#inputOtherSubject").focus();
