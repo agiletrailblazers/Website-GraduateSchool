@@ -1,105 +1,103 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
+  <script src='https://www.google.com/recaptcha/api.js'></script>
   <% include ../partials/head %>
-
-  <link rel="stylesheet" href="/stylesheets/onsite_inquiry.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/stylesheets/library/spinners.css">
 </head>
+
 <body>
   <div class="container">
     <div class="row nm header clearfix">
-      <title><%= title %></title>
+      <title>
+        <%= title %>
+      </title>
       <% include ../partials/header %>
-      <!-- /end Row Container -->
     </div>
+    <!-- END Row  -->
+
     <div class="container">
+      <div class="loading"></div>
       <div class="row">
         <div class="col-lg-8">
-          <h1><%= title %></h1>
+          <h1>
+            <%= title %>
+          </h1>
           <!-- Accordion Container -->
-          <div class="panel-group" id="accordion">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">CONTACT INFORMATION</a>
-                </h4>
-              </div>
-              <div id="collapse1" class="panel-collapse collapse in">
-                <div class="panel-body">
-                  <div id="contact-information">
-                    <div class="form-inline">
-                      <div class="form-group">
-                        <label for="inputFirstName">*First Name:</label>
-                        <input id="first-name" name="firstName" type="text" class="form-control">
-                      </div>
-                      <div class="form-group">
-                        <label for="inputLastName">*Last Name:</label>
-                        <input id="last-name" name="lastName" type="text" class="form-control">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="inputEmail">Email:</label>
-                      <input id="email" name="email" type="email" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label for="inputPhone">Daytime Phone Number:</label>
-                      <input name="phone" type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label for="communicationMode">*Preferred mode of communication</label>
-            	     <input type="radio" name="communication" id="radioEmail" value="Email">Email</>
-			         <input type="radio" name="communication" id="radioPhone" value="Phone">Phone</>
-                    </div>
-                    <div class="form-group">
-                      <label for="selectsubject">Select Subject line</label>
-                      <select>
-                        <% for (var i=0; i < subjectLine.question.length; i++) { %>
-                          <option>
-                            <%=subjectLine.question[i]["name"] %>
-                          </option>
-                          <br/>
-                          <% } %>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="inputothersubject">Other:</label>
-                        <textarea id="other" name="othersubject" rows="1" cols="40"></textarea>
-                      </div>
-                      <div class="comments">
-      					 <label>Comments or Questions:</label><br>
-					      <textarea id="commentText" name="comments" rows="8" cols="40"></textarea>
-   					  </div>
-    	             <div id="captcha">
-               			 <p>Insert Captcha Here:</p>
-             		 </div>
-
-                    </div><!-- contact information div -->
-                  </div>
+          <div id="alertError" class="alert alert-danger" role="alert">
+            <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+          </div>
+          <div id="contact-information">
+            <form>
+              <div class="form-inline">
+                <div class="form-group">
+                  <label for="inputFirstName">*First Name:</label>
+                  <input id="txtFirstName" name="firstName" type="text" class="form-control" required>
+                  <label for="inputLastName">*Last Name:</label>
+                  <input id="txtLastName" name="lastName" type="text" class="form-control" required>
                 </div>
               </div>
-              <br><br>
+              <div class="form-group">
+                <label for="communication">*Preferred mode of communication</label>
+                <input type="radio" name="radCommunication" id="radioEmail" value="Email" checked/>
+                <label for="radioEmail">Email</label>
+                <input type="radio" name="radCommunication" id="radioPhone" value="Phone" />
+                <label for="radioPhone">Phone</label>
+
+                <div id="emailGroup">
+                  <label for="inputEmail">Email:</label>
+                  <input id="txtEmail" name="email" type="email" maxlength="255" required class="form-control">
+                </div>
+                <div id="phoneGroup" style="display:none;">
+                  <label for="inputPhone">Daytime Phone Number:</label>
+                  <input id="telPhone" name="phone" type="tel" placeholder="XXX-XXX-XXXX" pattern="\d{3}[\-]\d{3}[\-]\d{4}" maxlength="12" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputOtherSubject">*Subject:</label>
+                <select class="form-control" id="selInputSubject" name="inputSubject" required>
+                  <option id="noSelect" disabled selected>Select One</option>
+                  <% for (var i=0; i < subjectLine.question.length; i++) { %>
+                    <option id="<%= subjectLine.question[i][" name "] %>">
+                      <%= subjectLine.question[i]["name"] %>
+                    </option>
+                    <br/>
+                    <% } %>
+                </select>
+                </span>
+                <span id="otherSubject" class="form-group" style="display:none">
+                  <label for="inputOtherSubject">Other Subject:</label>
+                  <input type="text" id="inputOtherSubject" name="inputOtherSubject" rows="1" cols="40" class="form-control">
+              </div>
+              <div class="comments">
+                <label>*Comments or Question:</label>
+                <br>
+                <textarea id="commentText" name="comments" rows="8" cols="40" class="form-control" required></textarea>
+              </div>
+              <br>
+              <div id="captcha">
+                <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
+              </div>
+              <br>
               <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
-              <button type="clear" id="clearForm" name="clearForm" value="clearForm">Clear</button>
-
-            </div>
+              <button type="reset" id="clearForm" name="reset" value="reset">Clear</button>
+              <br>
+              <br>
+            </form>
           </div>
+          <!-- contact information div -->
         </div>
-
       </div>
     </div>
-    <!-- END Accordion Container -->
-<!-- END  Row -->
-<% include ../partials/chat %>
-<% include ../partials/footer %>
-<script>
-$(function() {
-  $('#ms').change(function() {
-    console.log($(this).val());
-  }).multipleSelect({
-    width: '100%'
-  });
-});
-</script>
+  </div>
+  <!-- END Accordion Container -->
+  <!-- END  Row -->
+  <% include ../partials/chat %>
+    <% include ../partials/footer %>
+      <script type="text/javascript" src="/javascripts/contact_us.js"></script>
+
 </body>
+
 </html>

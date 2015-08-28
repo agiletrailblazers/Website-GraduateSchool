@@ -1,26 +1,4 @@
-$(document).ready(function() {
-  $("#submitForm").click(function(e){
-    e.preventDefault;
-    $.ajax({
-      url: "/mailer-onsite-inquiry'",
-      method: "POST",
-      data: "Hello World"
-    }).success(function(response){
-      console.log(response);
-    }).fail(function(response){
-      console.log(response);
-    });
-  });
-  $("#chkGSLocations").click(function() {
-	   $("#selGSLocations").toggle();
-  });
-  $("#chkYourLocations").click(function() {
-	   $("#txtYourLocations").toggle();
-  });
-  $("#chkOtherLocations").click(function() {
-	   $("#txtOtherLocations").toggle();
-  });
-});
+
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
  * @version 1.1.0
@@ -563,7 +541,7 @@ $(document).ready(function() {
         name: '',
         isOpen: false,
         placeholder: '',
-        selectAll: true,
+        selectAll: false,
         selectAllText: 'Select all',
         selectAllDelimiter: ['[', ']'],
         allSelected: 'All selected',

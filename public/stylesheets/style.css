@@ -13,7 +13,9 @@ html {
 body {
   padding: 50px;
   height: 100%;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 14px;
+
 }
 
 a {
@@ -254,9 +256,36 @@ a:link, a:visited{
 
  }
 
-
-
 /* END What's new temporary styles   */
+
+
+/* FORMS   */
+
+label, input, select, textarea, button {
+  padding:10px 0;
+}
+/*
+label {
+  display: block;
+}
+ */
+form button, form button:visited {
+  background-color: #0F5A9D;
+  padding: 7px 15px;
+  color: #FFF;
+  border: none;
+  outline-style: none;
+}
+
+form button:hover, form button:active {
+  background-color: #be0f34;
+}
+
+
+
+
+/* END FORMS   */
+
 
 
 /* FIXES   */

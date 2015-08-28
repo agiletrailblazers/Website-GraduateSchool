@@ -1,4 +1,4 @@
-var contentful = require('contentful');
+ var contentful = require('contentful');
 var request = require('request');
 module.exports = {
   getInquiryForm: function(callback) {
@@ -21,9 +21,7 @@ module.exports = {
 	        'Authorization': 'Bearer 093001a794ab16e4bf8ec4f7bc6740de4f267bc49549020ea3befbd5164754af'
 	      }
 	    }, function(error, response, body) {
-	      console.log('Status:', response.statusCode);
 	      cmsEntry = JSON.parse(body);
-	      console.log(cmsEntry.fields.title);
 	      return callback({
 	        cmsEntry: cmsEntry,
 	        statusCode: response.statusCode
