@@ -129,5 +129,18 @@ module.exports = {
         }
         return callback(states);
     });
+  },
+  getContentPage: function(slug, callback) {
+    request({
+      method: 'GET',
+      url: 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?access_token=a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0&content_type=2wKn6yEnZewu2SCCkus4as&fields.slug=' + slug + '',
+      headers: {
+        'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
+      }
+    }, function(error, response, body) {
+      contentPage = JSON.parse(body);
+      contentPage = contentPage.items;
+      return callback(contentPage);
+    });
   }
 };
