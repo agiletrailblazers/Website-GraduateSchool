@@ -5,5 +5,8 @@
     "defaultEmailUserName":"",
     "defaultEmailUserPassword":"",
     "defaultEmailToUserName":"",
-    "onsiteInquiryEmailSubject":"Contract for Training at your Location Inquiry"
+    "defaultEmailToUserName":"",
+    "defaultEmailSubject":"",
+    "defaultEmailText":"",
+    "googleAnalyticsId":"UA-66851185-1"
 }

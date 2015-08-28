@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var contentful = require('./API/contentful.js');
+var config = require('konphyg')("./config");
 
 var app = express();
 
@@ -22,8 +23,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
 	//load the main nav on every request
 	contentful.getMainNav(function(response) {
+		var googleAnalyticsId = config("endpoint").googleAnalyticsId;
 		if (response) {
-			res.locals = {nav: response};
+			res.locals = {nav: response, googleAnalyticsId: googleAnalyticsId};
 		}
 		next();
 	});

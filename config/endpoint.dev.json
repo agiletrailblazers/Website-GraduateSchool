@@ -5,5 +5,8 @@
     "defaultEmailUserName":"@agiletrailblazers.com",
     "defaultEmailUserPassword":"Erctlr.1",
     "defaultEmailToUserName":"@agiletrailblazers.com",
-    "onsiteInquiryEmailSubject":"Contract for Training at your Location Inquiry"
+    "defaultEmailToUserName":"@agiletrailblazers.com",
+    "defaultEmailSubject":"Graduate School Contact Form",
+    "defaultEmailText":"Request to contact @graduateschoolusa.com",
+    "googleAnalyticsId":"UA-66851185-2"
 }

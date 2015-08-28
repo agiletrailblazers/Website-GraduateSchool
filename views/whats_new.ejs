@@ -13,12 +13,13 @@
           <%
           var whatsnewheaderImageURLs= whatsnewheaderImageURLList.split(',');
           for (var i=0; i <whatsnewheaderImageURLs.length;i++) {
+              if (whatsnewheaderImageURLs[i] !="") {
           %>
+                 <img src="<%= whatsnewheaderImageURLs[i] %>" alt=""  class="img"/>
 
-
-          <img src="<%= whatsnewheaderImageURLs[i] %>" alt=""  class="img"/>
-
-          <% } %>
+          <%
+               }
+          } %>
        </header>
       <div class="col-lg-4 col-md-4 col-sm-12">
       <aside>
