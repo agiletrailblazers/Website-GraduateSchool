@@ -8,8 +8,14 @@ var router = express.Router();
 router.get('/content/:content_slug', function(req, res, next) {
   slug = req.params.content_slug;
   contentful.getContentPage(function(response) {
-    // render page here.
-  }, slug)
+    res.render('/generic/generic_detail', {
+      title: response.fields.title,
+      slug: response.fields.slug,
+      intro: response.fields.intro,
+      subIntro: response.fields.subIntro,
+      body: response.fields.body
+    });
+  }, slug);
 });
 
 module.exports = router;
