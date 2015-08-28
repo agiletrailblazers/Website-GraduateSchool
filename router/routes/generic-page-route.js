@@ -12,10 +12,10 @@ router.get('/content/:content_slug', function(req, res, next) {
       intro: response[0].fields.intro,
       subIntro: response[0].fields.subIntro,
       sections: [ response[0].fields.section1, response[0].fields.section2,
-              response[0].fields.section3, response[0].fields.section4,
-              response[0].fields.section5, response[0].fields.section6,
-              response[0].fields.section7, response[0].fields.section8,
-              response[0].fields.section9, response[0].fields.section10 ]
+                  response[0].fields.section3, response[0].fields.section4,
+                  response[0].fields.section5, response[0].fields.section6,
+                  response[0].fields.section7, response[0].fields.section8,
+                  response[0].fields.section9, response[0].fields.section10 ]
     });
   }, slug);
 });
