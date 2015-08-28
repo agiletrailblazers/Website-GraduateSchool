@@ -6,16 +6,17 @@ var router = express.Router();
 router.get('/content/:content_slug', function(req, res, next) {
   slug = req.params.content_slug;
   contentful.getContentPage(function(response) {
-    res.render('/generic/generic_detail', {
-      title: response.fields.title,
-      slug: response.fields.slug,
-      intro: response.fields.intro,
-      subIntro: response.fields.subIntro,
-      sections: [ response.fields.section1, response.fields.section2,
-              response.fields.section3, response.fields.section4,
-              response.fields.section5, response.fields.section6,
-              response.fields.section7, response.fields.section8,
-              response.fields.section9, response.fields.section10 ]
+    console.log(response[0].fields);
+    res.render('generic/generic_detail', {
+      title: response[0].fields.title,
+      slug: response[0].fields.slug,
+      intro: response[0].fields.intro,
+      subIntro: response[0].fields.subIntro,
+      sections: [ response[0].fields.section1, response[0].fields.section2,
+              response[0].fields.section3, response[0].fields.section4,
+              response[0].fields.section5, response[0].fields.section6,
+              response[0].fields.section7, response[0].fields.section8,
+              response[0].fields.section9, response[0].fields.section10 ]
     });
   }, slug);
 });
