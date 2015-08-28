@@ -4,7 +4,7 @@
     "defaultEmailServerPort": "25",
     "defaultEmailUserName":"",
     "defaultEmailUserPassword":"",
-    "defaultEmailToUserName":"webrequest@graduateschool.edu",
+    "defaultEmailToUserName":"joe@agiletrailblazers.com",
     "defaultEmailSubject":"Graduate School Contact Form",
     "defaultEmailText":"Request to contact @graduateschoolusa.com",
     "googleAnalyticsId":"UA-66851185-2"
