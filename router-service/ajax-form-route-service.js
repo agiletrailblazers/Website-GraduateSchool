@@ -82,7 +82,10 @@ module.exports = {
     	      break;
     	  }
     	  // Validate organization
-    	  switch (true) {
+    	  switch(true) {
+  	    	case (!params.address.organization):
+  	    		response.errors.organization = "Organization is empty.";
+  	    		break;
     	    case (!validator.isLength(params.address.organization, 3)):
     	      response.errors.organization = "Organization must be atleast 3 characters.";
     	      break;
