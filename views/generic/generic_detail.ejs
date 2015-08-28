@@ -3,8 +3,28 @@
   <head>
     <meta charset="utf-8">
     <title><%= title %></title>
+    <% include ../partials/head %>
   </head>
   <body>
-
-  </body>
-</html>
+<!--  Header include -->
+    <div class="container-fluid">
+      <div class="container">
+        <div class="row nm header clearfix">
+          <% include ../partials/header %>
+        </div>
+<!-- /end Row Container -->
+      </div>
+<!-- /end Header include -->
+      <div class="container">
+        <% for (var i = 0; i < sections.length; i++) { %>
+          <% if (sections[i]) { %>
+            <div class="section section<%= i %>">
+              <%- sections[i] %>
+            </div>
+          <% } %>
+        <%  } %>
+      </div>
+      <% include ../partials/chat %>
+      <% include ../partials/footer %>
+    </body>
+  </html>
