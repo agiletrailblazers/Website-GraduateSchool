@@ -86,9 +86,6 @@ $(document).ready(function() {
   $("#backToCDIButton").click(function() {
     $("#collapse2Link").trigger('click');
   });
-
-  BackToCDIButton
-  //
   $("#submitForm").click(function(e) {
     e.preventDefault();
     _runValidation();
