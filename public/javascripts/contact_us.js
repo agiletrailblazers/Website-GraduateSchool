@@ -76,6 +76,10 @@ var _runValidation = function() {
 $(document).ready(function() {
   $(".loading").hide();
   $("#alertError").hide();
+  $("#commentText").click(function(e) {
+    $("#commentText").css("border", "1px solid #ccc");
+  });
+
   $("#submitForm").click(function(e) {
     e.preventDefault();
     _runValidation();
