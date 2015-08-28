@@ -58,7 +58,7 @@
               <div class="form-group">
                 <label for="inputOtherSubject">*Subject:</label>
                 <select class="form-control" id="selInputSubject" name="inputSubject" required>
-                  <option id="">Select One</option>
+                  <option id="noSelect">Select One</option>
                   <% for (var i=0; i < subjectLine.question.length; i++) { %>
                     <option id="<%= subjectLine.question[i][" name "] %>">
                       <%= subjectLine.question[i]["name"] %>
