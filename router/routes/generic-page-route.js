@@ -13,7 +13,11 @@ router.get('/content/:content_slug', function(req, res, next) {
       slug: response.fields.slug,
       intro: response.fields.intro,
       subIntro: response.fields.subIntro,
-      body: response.fields.body
+      sections: [ response.fields.section1, response.fields.section2,
+              response.fields.section3, response.fields.section4,
+              response.fields.section5, response.fields.section6,
+              response.fields.section7, response.fields.section8,
+              response.fields.section9, response.fields.section10 ]
     });
   }, slug);
 });
