@@ -21,7 +21,6 @@ var contentfulformServer = nock('https://cdn.contentful.com')
 contentfulformServer;
 contentful_forms.getInquiryForm(function(response){
     hearAboutTrainingString = 'From a GS training officer.';
-    console.log(response.fields.title);
     expect(response.fields.howDidYouHearAboutTraining[0].name).to.equal(hearAboutTrainingString);
     expect(response).to.be.a('object');
 });
