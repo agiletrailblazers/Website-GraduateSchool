@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= courseTitle %></title>
+  <title><%= content.pageTitle %></title>
   <% include partials/head %>
   <script type="text/javascript" src="/javascripts/course_detail.js"></script>
   <link rel="stylesheet" href="/stylesheets/course_detail.css">
@@ -50,7 +50,7 @@ ul {padding-left: 10px;}
 
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-12">
-    <h3><%= courseTitle %> - <%= courseCode %></h3>
+    <h3><%= courseData.class.title %> - <%= courseData.class.code %></h3>
   </div>
   <div class="col-lg-6 col-md-6 col-sm-12">
     <button type="button" name="button" id="close-map">Close Map</button>
@@ -62,173 +62,150 @@ ul {padding-left: 10px;}
     <table class="table table-striped schedule">
       <thead>
         <tr>
-          <th>Session Schedule</th>
-          <th>Location</th>
-          <th>Price</th>
-          <th>Status</th>
+          <th><%= content.sessionTable[0] %></th>
+          <th><%= content.sessionTable[1] %></th>
+          <th><%= content.sessionTable[2] %></th>
+          <th><%= content.sessionTable[3] %></th>
           <th></th>
         </tr>
-<% if (sessions.status === 404) { %>
-<tr><td> There are no sessions scheduled for this course at the time. Please stop by later. </td></tr>
-
-<% } else { %>
-
-    <% for (var i=0; i < sessions.length; i++) { %>
-      <tr>
-        <td> <%= sessions[i]["startDate"].slice(0,-6) %> - <%= sessions[i]["endDate"]%> <br/>
-            <% if (sessions[i]["startTime"] !== null || sessions[i]["endTime"] !== null) { %>
-              <%= sessions[i]["startTime"]%> - <%= sessions[i]["endTime"]%>   %>
-            <% } %>
-            <% if (sessions[i]["days"] !== null) { %>
-            , <%= sessions[i]["days"] %>
-            <% } %>
-        </td>
-
-        <td><%= sessions[i].location["city"]%>, <%= sessions[i].location["state"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
-        <td> $<%= sessions[i]["tuition"]%></td>
-        <td class="statusData">
-          <% if (sessions[i]["status"] === "C")  {%>
-            <% if (sessions[i]["scheduleAvailable"] === sessions[i]["scheduleMaximum"]) { %>
-              <span class="label label-warning">Closed</span>
-            <% } else { %>
-            <span class="label label-success">G2G</span>
-            <% } %>
-          <% } else { %>
-            <span class="label label-info">Open</span>
-          <% } %>
-        </td>
-      <% if (sessions[i]["status"] === 'S') { %>
-        <td><button type="button" name="button">Register</button></td>
-      <% } else if (sessions[i]["status"] === 'C' && sessions[i]["scheduleAvailable"] === sessions[i]["scheduleMaximum"]) { %>
-        <td></td>
-      <% } else { %>
-        <td><button type="button" name="button">Register</button></td>
-      <% } %>
-      </tr>
-    <% } %>
-<% } %>
-      </thead>
-          <tbody>
-
-          </tbody>
-        </table>
-      </div>
-    </div> <!-- End of row -->
-    <div id="map-canvas"></div>
-    <br/>
-    <br/>
-
-    <div class="row">
-      <div class="col-lg-4 col-md-4 col-sm-12">
-        <table class="table table-striped">
-          <h3>Course details</h3>
+        <% if (courseData.session.status === 404) { %>
+          <tr><td colspan="5"><%= content.noSessionsError %></td></tr>
+        <% } else { %>
+        <% courseData.session.forEach(function(session) { %>
           <tr>
-            <th>Code</th>
-            <td><%= courseCode %></td>
-          </tr>
-          <tr>
-            <th>Type</th>
-            <td><%= courseType %></td>
-          </tr>
-          <tr>
-            <th>Length</th>
-            <td>
-            	<% if (courseLength==0 || courseInterval=='Variable') { %>
-					<%= courseInterval %>
-				<% } else { %>
-            		<%= courseLength %> <%= courseInterval %>(s)
-            	<% } %>
+            <td> <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br/>
+                <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
+                  <%= session["startTime"]%> - <%= session["endTime"]%>   %>
+                <% } %>
+                <% if (session["days"] !== null) { %>
+                , <%= session["days"] %>
+                <% } %>
             </td>
-          </tr>
-          <tr>
-            <th>Credit</th>
-            <td><% if(courseCredit) { %> 
-            	<%= courseCredit.value %> <%=courseCredit.type %>
-            	<% } %>
-            	</td>
-          </tr>
-        </table>
 
-            <div class="course_related_information">
-              <h4>Related information</h4>
-              <nav>
-                <ul>
-                  <li><a href="#">View Our Registration Policies</a></li>
-                  <li><a href='mailto:customersupport@graduateschool.edu?subject=Question about Course <%= courseCode %>'>Ask a Question About This Course</a></li>
-                  <li><a href="#">Bring This Course To Your Location</a></li>
-                </ul>
-              </nav>
-            </div>
+            <td><%= session.location["city"]%>, <%= session.location["state"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
+            <td> $<%= session["tuition"]%></td>
+            <td class="statusData">
+              <% if (session["status"] === "C")  {%>
+                <% if (session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
+                  <span class="label label-warning">Closed</span>
+                <% } else { %>
+                <span class="label label-success">G2G</span>
+                <% } %>
+              <% } else { %>
+                <span class="label label-info">Open</span>
+              <% } %>
+            </td>
+            <% if (session["status"] === 'S') { %>
+              <td><button type="button" name="button"><%= content.registerButton %></button></td>
+            <% } else if (session["status"] === 'C' && session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
+              <td></td>
+            <% } else { %>
+              <td><button type="button" name="button"><%= content.registerButton %></button></td>
+            <% } %>
+          </tr>
+        <% }); %>
+      <% } %>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div> <!-- End of row -->
+<div id="map-canvas"></div>
+<br/>
+<br/>
+
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <table class="table table-striped">
+        <h3><%= content.courseDetailSectionTitle %></h3>
+        <tr>
+          <th><%= content.courseDetailTitles[0] %></th>
+          <td><%= courseData.class.code %></td>
+        </tr>
+        <tr>
+          <th><%= content.courseDetailTitles[1] %></th>
+          <td><%= courseData.class.type %></td>
+        </tr>
+        <tr>
+          <th><%= content.courseDetailTitles[2] %></th>
+          <td>
+          	<% if (courseData.class.length.value==0 || courseData.class.length.interval=='Variable') { %>
+				      <%= courseData.class.interval %>
+			      <% } else { %>
+          		<%= courseData.class.length.value %> <%= courseData.class.length.interval %>(s)
+          	<% } %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= content.courseDetailTitles[3] %></th>
+          <td><% if(courseData.class.credit) { %>
+          	<%= courseData.class.credit.value %> <%=courseData.class.credit.type %>
+          	<% } %>
+          	</td>
+        </tr>
+      </table>
+      <div class="course_related_information">
+        <h4><%= content.linksSectionTitle %></h4>
+        <nav>
+          <ul>
+            <% content.linksSection.forEach(function(link) { %>
+              <li><a href="<%= link.url %>"><%= link.name %></a></li>
+            <% }); %>
+          </ul>
+        </nav>
       </div>
-      <div class="col-lg-8 col-md-8 col-sm-12">
-        <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#home">Course overview</a></li>
-          <li><a data-toggle="tab" href="#menu1">Who should attend?</a></li>
-          <li><a data-toggle="tab" href="#menu2">Learning outcomes</a></li>
-          <% if ( courseOutline &&  courseOutline.fields &&  courseOutline.fields.syllabusContent ) { %>
-          	<li><a data-toggle="tab" href="#menu3">Course outline</a></li>
-          <% } %>
-        </ul>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-12">
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home"><%= content.courseInfoTitles[0] %></a></li>
+        <li><a data-toggle="tab" href="#menu1"><%= content.courseInfoTitles[1] %></a></li>
+        <% if (courseData.class.outcomes !== null && courseData.class.outcomes.length > 0) { %>
+          <li><a data-toggle="tab" href="#menu2"><%= content.courseInfoTitles[2] %></a></li>
+        <% } %>
+        <% if ( courseData.syllabus &&  courseData.syllabus.fields &&  courseData.syllabus.fields.syllabusContent ) { %>
+        	<li><a data-toggle="tab" href="#menu3"><%= content.courseInfoTitles[3] %></a></li>
+        <% } %>
+      </ul>
 
-        <div class="tab-content">
-          <div id="home" class="tab-pane fade in active">
-            <h3>Course overview</h3>
-            <p><%- courseDescription %></p>
-          </div>
-          <div id="menu1" class="tab-pane fade">
-            <h3>Who should attend?</h3>
-            <p><%- courseObjective %></p>
-          </div>
+      <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+          <h3><%= content.courseInfoTitles[0] %></h3>
+          <p><%- courseData.class.description.formatted %></p>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+          <h3><%= content.courseInfoTitles[1] %></h3>
+          <p><%- courseData.class.objective %></p>
+        </div>
+        <% if (courseData.class.outcomes !== null) { %>
           <div id="menu2" class="tab-pane fade">
-            <h3>Learning outcomes</h3>
+            <h3><%= content.courseInfoTitles[2] %></h3>
             <p>
               <ul>
-                <% if (courseOutcomes !== null) { %>
-                  <% for (var i = 0; i < courseOutcomes.length; i++) { %>
-                    <li><%= courseOutcomes[i] %></li>
-                  <% } %>
-                <% } else {%>
-                  <p>Learning objectives are currently not listed.</p>
+                <% if (courseData.class.outcomes !== null && courseData.class.outcomes.length > 0) { %>
+                  <% courseData.class.outcomes.forEach(function(outcome) { %>
+                    <li><%= outcome %></li>
+                  <% }); %>
                 <% } %>
               </ul>
             </p>
           </div>
-          <% if ( courseOutline &&  courseOutline.fields &&  courseOutline.fields.syllabusContent ) { %>
-            <div id="menu3" class="tab-pane fade">
-              <h3>Course outline</h3>
-              <%- courseOutline.fields.syllabusContent %>
-		      <% } %>
-          </div>
-        </div>
-
-      </div>
-
-    </div> <!--/#row -->
-  </div><!--/#container-fulid -->
-<br/><br/> <!--/# spacer to be removed -->
-  <% include partials/chat %>
-  <% include partials/footer %>
-
-  <!-- Modal dialog -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Instructor Bio - Ann Martick</h4>
-        </div>
-        <div class="modal-body">
-        <p><strong>Ann J. Martick</strong> an Industrial Security expert, is a certified ISP (Industrial Security Professional) and an FSO (Facility Security Officer). She has 20+ years experience serving variously as Security Manager, Facility Security Officer, Contractor Information System Security Manager, and Project Administrator. She's developed comprehensive security policies, procedures, and training for managing secure communications, document control, and classified information systems.</p>
-
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <% } %>
+        <% if ( courseData.syllabus &&  courseData.syllabus.fields &&  courseData.syllabus.fields.syllabusContent ) { %>
+          <div id="menu3" class="tab-pane fade">
+            <h3><%= content.courseInfoTitles[3] %></h3>
+            <%- courseData.syllabus.fields.syllabusContent %>
+	      <% } %>
         </div>
       </div>
+
     </div>
-  </div>
-<!-- END - Modal dialog -->
+  </div> <!--/#row -->
+</div><!--/#container-fulid -->
+<br/><br/> <!--/# spacer to be removed -->
+
+<% include partials/chat %>
+<% include partials/footer %>
 
 </body>
 </html>
