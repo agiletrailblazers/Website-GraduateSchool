@@ -41,9 +41,9 @@ module.exports = {
   getSyllabus: function(entry, callback) {
     request({
       method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/' + entry + '?access_token=940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652',
+      url: 'https://cdn.contentful.com/spaces/0rlhdagwnyoo/entries/' + entry + '?access_token=d60cc07cb9754202a1483b9e4758b9a38dae4823d6891676b7ac1640daaf09f8',
       headers: {
-        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+        'Authorization': 'Bearer d60cc07cb9754202a1483b9e4758b9a38dae4823d6891676b7ac1640daaf09f8'
       }
     }, function(error, response, body) {
       syllabus = JSON.parse(body);
