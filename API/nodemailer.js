@@ -13,6 +13,8 @@ var onsiteInquiryTemplate = new EmailTemplate(path.join(templatesDir, 'onsiteinq
 var transporter = nodemailer.createTransport(smtpTransport({
   host: config("endpoint").defaultEmailServerName,
   port: config("endpoint").defaultEmailServerPort,
+  secureConnection: config("endpoint").emailSecureConnection,
+  requiresAuth: config("endpoint").emailRequiresAuth,
   auth: {
     user: config("endpoint").defaultEmailUserName,
     pass: config("endpoint").defaultEmailUserPassword
