@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= title %></title>
+  <title><%= content.pageTitle %></title>
   <% include partials/head %>
   <link rel='stylesheet' href='/stylesheets/course_search.css' />
 
   <!-- Style fix for Link color - to be removed after -->
   <style media="screen">
-  a:link, a:visited{
-    color: #337AB7;
-    text-decoration: none;
-  }
-  a:hover, a:active{
-    color: #000;
-    text-decoration: none;
-    background-color: transparent;
-  }
-
+    a:link, a:visited{
+      color: #337AB7;
+      text-decoration: none;
+    }
+    a:hover, a:active{
+      color: #000;
+      text-decoration: none;
+      background-color: transparent;
+    }
+    a.button:link,
+    a.button:visited {
+      color: #FFF;
+      background-position: 0px 15px;
+    }
+    a.button:hover,
+    a.button:active {
+      color: #FFF;
+      background-position: 0px 15px;
+      border: 1px solid transparent;
+    }
   </style>
 </head>
   <body>
@@ -27,7 +37,7 @@
     <!-- /end Row Container -->
     </div>
     <div class="container">
-      <h1>Course Search Results</h1>
+      <h1><%= content.resultsSectionTitle %></h1>
       <% if (result == null || result.courses == null || result.courses.length == 0) { %>
         <div class="alert alert-danger" role="alert">
           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -47,6 +57,14 @@
                   <% } %>
           <% } %>
         <% } %>
+        <p>
+          <a class="btn btn-primary button" href=''>
+            <span class="glyphicon glyphicon-chevron-left"></span><%= content.previousButton %>
+          </a>
+          <a class="btn btn-primary button" href=''>
+            <%= content.nextButton %><span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+        </p>
     </div>
       <% include partials/chat %>
     <% include partials/footer %>
