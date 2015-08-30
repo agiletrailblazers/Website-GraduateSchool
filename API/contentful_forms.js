@@ -1,5 +1,6 @@
- var contentful = require('contentful');
 var request = require('request');
+var logger = require('../logger');
+
 module.exports = {
   getInquiryForm: function(callback) {
     request({
@@ -9,6 +10,7 @@ module.exports = {
         'Authorization': 'Bearer 093001a794ab16e4bf8ec4f7bc6740de4f267bc49549020ea3befbd5164754af'
       }
     }, function(error, response, body) {
+      logger.debug("Forms Get Inquiry Contentful: " + response.statusCode);
       form = JSON.parse(body);
       return callback(form);
     });
@@ -21,6 +23,7 @@ module.exports = {
 	        'Authorization': 'Bearer 093001a794ab16e4bf8ec4f7bc6740de4f267bc49549020ea3befbd5164754af'
 	      }
 	    }, function(error, response, body) {
+        logger.debug("Forms Contact Us Contentful: " + response.statusCode);
 	      cmsEntry = JSON.parse(body);
 	      return callback({
 	        cmsEntry: cmsEntry,

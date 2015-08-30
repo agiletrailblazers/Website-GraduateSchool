@@ -1,6 +1,7 @@
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var config = require('konphyg')(__dirname + "/../config");
+var logger = require('../logger');
 // Email Templates
 var path = require('path');
 var EmailTemplate = require('email-templates').EmailTemplate;
@@ -32,9 +33,9 @@ module.exports = {
     }
     // Rendering template with locals.
     contactUsTemplate.render(locals, function(err, results) {
-      console.log("Starting mail send");
+      logger.info("Starting mail send");
       if (err) {
-        console.error(err);
+        logger.error(err);
         return callback(500);
       }
       var mailAttributes = {
@@ -46,10 +47,10 @@ module.exports = {
       };
       transporter.sendMail(mailAttributes, function(error, info) {
         if (error) {
-          console.log(error);
+          logger.error(error);
           return callback(500);
         }
-        console.log('Message sent: ' + info.response);
+        logger.info('Message sent: ' + info.response);
         return callback(200);
       });
     });
@@ -57,9 +58,9 @@ module.exports = {
   sendOnsiteInquiry: function(callback, params) {
     // Rendering template with params.
     onsiteInquiryTemplate.render(params, function(err, results) {
-      console.log("Starting mail send");
+      logger.info("Starting mail send");
       if (err) {
-        console.error(err);
+        logger.error(err);
         return callback(500);
       }
       var mailAttributes = {
@@ -71,10 +72,10 @@ module.exports = {
       };
       transporter.sendMail(mailAttributes, function(error, info) {
         if (error) {
-          console.log(error);
+          logger.error(error);
           return callback(500);
         }
-        console.log('Message sent: ' + info.response);
+        logger.info('Message sent: ' + info.response);
         return callback(200);
       });
     });

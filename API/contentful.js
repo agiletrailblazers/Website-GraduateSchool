@@ -1,4 +1,5 @@
 var request = require('request');
+var logger = require('../logger');
 
 module.exports = {
   getWhatsNew: function(callback) {
@@ -9,6 +10,7 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
+      logger.debug("What's New Contentful: " + response.statusCode);
       cmsEntry = JSON.parse(body);
       return callback({
         cmsEntry: cmsEntry,
@@ -25,6 +27,7 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
+      logger.debug("Get Asset Contentful: " + response.statusCode);
       asset = JSON.parse(body);
       return callback(asset);
     });
@@ -37,6 +40,7 @@ module.exports = {
         'Authorization': 'Bearer d60cc07cb9754202a1483b9e4758b9a38dae4823d6891676b7ac1640daaf09f8'
       }
     }, function(error, response, body) {
+      logger.debug("Syllabus Contentful: " + response.statusCode);
       syllabus = JSON.parse(body);
       return callback(syllabus);
     });
@@ -50,6 +54,7 @@ module.exports = {
         'Authorization': 'Bearer a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e'
       }
     }, function(error, response, body) {
+      logger.debug("Recent News Contentful: " + response.statusCode);
       posts = JSON.parse(body);
       return callback(posts);
     });
@@ -63,6 +68,7 @@ module.exports = {
         'Authorization': 'Bearer a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e'
       }
     }, function(error, response, body) {
+      logger.debug("News Post Contentful: " + response.statusCode);
       newsPost = JSON.parse(body);
       newsPost = newsPost.items;
       return callback(newsPost);
@@ -76,11 +82,11 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-      if (error != null || response == null || response.statusCode != 200) {
-        console.log("Exception occured in getting the images " + error);
+      logger.debug("Get Content Asset Contentful: " + response.statusCode);
+      if (error != null || response.statusCode != 200) {
+        logger.error("Exception occured in getting the images " + error);
         return callback(response, new Error("Exception occured in getting the images"), null);
       }
-      console.log('Status:', response.statusCode);
       result = JSON.parse(body);
       return callback(response, error, result);
     });
@@ -93,8 +99,9 @@ module.exports = {
         'Authorization': 'Bearer db132f1da5cc75a00f487cce1c94143798d8e5d12c65c169b2fc04febdfae44d'
       }
     }, function(error, response, body) {
+      logger.debug("Main Nav Contentful: " + response.statusCode);
     	if (error != null || response == null || response.statusCode != 200) {
-            console.log("Exception occured getting navigation " + error);
+            logger.error("Exception occured getting navigation " + error);
             return callback(response, new Error("Exception occured getting navigation"), null);
         }
         nav = JSON.parse(body);
@@ -109,9 +116,10 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
+      logger.debug("Reference Data Contentful: " + response.statusCode);
     	var states = {};
         if (error != null || response == null || response.statusCode != 200) {
-            console.log("Exception occured getting reference data " + slug + " - " + error);
+            logger.error("Exception occured getting reference data " + slug + " - " + error);
             return callback(response, new Error("Exception occured getting reference data " + slug), null);
         }
         ref = JSON.parse(body);
@@ -129,6 +137,7 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
+      logger.debug("Course Search Contentful: " + response.statusCode);
       cmsEntry = JSON.parse(body);
       return callback(cmsEntry.fields);
     });
@@ -141,6 +150,7 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
+      logger.debug("Course Details Contentful: " + response.statusCode);
       cmsEntry = JSON.parse(body);
       return callback(cmsEntry.fields);
     });

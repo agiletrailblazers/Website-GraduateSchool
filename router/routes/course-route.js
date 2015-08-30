@@ -6,7 +6,7 @@ var striptags = require('striptags');
 var dateformat = require('date-format-lite');
 var prune = require('underscore.string/prune');
 var router = express.Router();
-
+var logger = require('../../logger');
 
 // Search for a course.  If there is only one exact match redirect to the course details page
 //  otherwise show the search results page.
@@ -30,12 +30,12 @@ router.get('/course-search', function(req, res, next){
     ], function(results) {
       if (result && result.exactMatch) {
         //redirect to course details
-        console.log("Exact course match found for " + result.courses[0].id + " - Redirecting.")
+        logger.debug("Exact course match found for " + result.courses[0].id + " - Redirecting.")
         res.redirect('courses/' + result.courses[0].id);
       }
       else {
         //display course search page
-        console.log(content);
+        logger.debug(content);
         res.render('course_search', { result: result, striptags: striptags, prune: prune, content: content });
       }
     });
@@ -49,11 +49,11 @@ router.get('/courses/:course_id', function(req, res, next){
     function(callback) {
       course.performExactCourseSearch(function(response, error, result) {
     	if (error || result == null) {
-    		console.log("Course not found")
+    		logger.error("Course not found")
     		courseData.session = {status: 404, text: "No courses found."}
     	}
     	else {
-    		console.log(result);
+    		logger.debug(result);
     		courseData.class = result;
     	}
         callback();
@@ -78,6 +78,7 @@ router.get('/courses/:course_id', function(req, res, next){
           }
           callback();
         } else {
+          logger.error("No course sessions found for course: " + courseId);
           courseData.session = {status: 404, text: "No courses found."}
           callback();
         }
@@ -109,6 +110,7 @@ router.get('/courses/:course_id', function(req, res, next){
     }
     else {
     	//handle error
+      logger.error("Course not found: " + courseId)
     	res.render('error', { message: 'Sorry, course not found.', error: null });
     }
   });
