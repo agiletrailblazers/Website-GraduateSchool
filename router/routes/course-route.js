@@ -6,40 +6,55 @@ var striptags = require('striptags');
 var dateformat = require('date-format-lite');
 var prune = require('underscore.string/prune');
 var router = express.Router();
-
+var logger = require('../../logger');
 
 // Search for a course.  If there is only one exact match redirect to the course details page
 //  otherwise show the search results page.
 router.get('/course-search', function(req, res, next){
   var searchCriteria = req.query["search"];
-  course.performCourseSearch(function(response, error, result){
-    //TODO: how do we globally handle error's and send to an error page?
-    if (result && result.exactMatch) {
-      //redirect to course details
-      console.log("Exact course match found for " + result.courses[0].id + " - Redirecting.")
-      res.redirect('courses/' + result.courses[0].id);
+  var searchResult;
+  var content;
+  async.parallel([
+    function(callback) {
+      course.performCourseSearch(function(response, error, result){
+        searchResult = result;
+        callback();
+      }, searchCriteria);
+    },
+    function(callback) {
+      contentful.getCourseSearch(function(fields) {
+        content = fields;
+        callback();
+      });
     }
-    else {
-      //display course search page
-      res.render('course_search', { title: 'Course Search', result: result, striptags: striptags, prune: prune });
-    }
-  }, searchCriteria);
+    ], function(results) {
+      if (result && result.exactMatch) {
+        //redirect to course details
+        logger.debug("Exact course match found for " + result.courses[0].id + " - Redirecting.")
+        res.redirect('courses/' + result.courses[0].id);
+      }
+      else {
+        //display course search page
+        logger.debug(content);
+        res.render('course_search', { result: result, striptags: striptags, prune: prune, content: content });
+      }
+    });
 });
 // Get course details based off course code.
 router.get('/courses/:course_id', function(req, res, next){
-  courseId = req.params.course_id;
-  content = {};
-  var spaceId = "jzmztwi1xqvn";
-  async.series([
+  var courseId = req.params.course_id;
+  var courseData = {};
+  var content;
+  async.parallel([
     function(callback) {
       course.performExactCourseSearch(function(response, error, result) {
     	if (error || result == null) {
-    		console.log("Course not found")
-    		content.session = {status: 404, text: "No courses found."}
+    		logger.error("Course not found")
+    		courseData.session = {status: 404, text: "No courses found."}
     	}
     	else {
-    		console.log(result);
-    		content.class = result;
+    		logger.debug(result);
+    		courseData.class = result;
     	}
         callback();
       }, courseId);
@@ -54,16 +69,17 @@ router.get('/courses/:course_id', function(req, res, next){
       }
       course.getSchedule(function(response, error, result) {
         if (result != null) {
-          content.session = result.sort(compare);
+          courseData.session = result.sort(compare);
           // Changing dateFormat for all sessions.
-          for (var i = 0; i < content.session.length; i++) {
-            var iSession = content.session[i];
-            iSession["startDate"] = content.session[i]["startDate"].date('MMM DD, YYYY');
-            iSession["endDate"] = content.session[i]["endDate"].date('MMM DD, YYYY');
+          for (var i = 0; i < courseData.session.length; i++) {
+            var iSession = courseData.session[i];
+            iSession["startDate"] = courseData.session[i]["startDate"].date('MMM DD, YYYY');
+            iSession["endDate"] = courseData.session[i]["endDate"].date('MMM DD, YYYY');
           }
           callback();
         } else {
-          content.session = {status: 404, text: "No courses found."}
+          logger.error("No course sessions found for course: " + courseId);
+          courseData.session = {status: 404, text: "No courses found."}
           callback();
         }
       }, courseId);
@@ -71,25 +87,30 @@ router.get('/courses/:course_id', function(req, res, next){
     function(callback) {
       var entryName = courseId.toLowerCase().slice(0,-3);
       contentful.getSyllabus(entryName, function(response, error, result) {
-        content.syllabus = response;
+        courseData.syllabus = response;
+        callback();
+      });
+    },
+    function(callback) {
+      contentful.getCourseDetails(function(fields) {
+        content = fields;
         callback();
       });
     }
   ], function(results) {
-    if (content && content.class) {
-    	if (content.class.code === null) {
-    		code = content.class.id.slice(0,-3);
-    		content.class.code = code;
+    if (courseData && courseData.class) {
+    	if (courseData.class.code === null) {
+    		code = courseData.class.id.slice(0,-3);
+    		courseData.class.code = code;
     	}
-	    res.render('course_detail', { courseTitle: content.class.title,
-	    	courseId: content.class.id, courseCode: content.class.code, courseType: content.class.type,
-	    	courseDescription: content.class.description.formatted, courseCredit: content.class.credit,
-	    	courseLength: content.class.length.value, courseInterval: content.class.length.interval,
-        courseObjective: content.class.objective, courseSchedule: content.class.schedule,
-        courseOutcomes: content.class.outcomes, sessions: content.session, courseOutline: content.syllabus});
+      content.linksSection.forEach(function(link) {
+        link.url = link.url.replace('[courseCode]',courseData.class.code);
+      });
+	    res.render('course_detail', { content: content, courseData: courseData });
     }
     else {
     	//handle error
+      logger.error("Course not found: " + courseId)
     	res.render('error', { message: 'Sorry, course not found.', error: null });
     }
   });

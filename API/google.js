@@ -1,19 +1,19 @@
 var request = require('request');
 var async = require('async');
+var logger = require('../logger');
 
 module.exports = {
   verifyCaptcha: function(callback, captchaResponse) {
-    console.log("started captcha");
+    logger.debug("Started captcha");
     request({
       method: 'POST',
       url: 'https://www.google.com/recaptcha/api/siteverify?secret=6Lfj4AsTAAAAAE0Bpvzcdxdg-dRvfAaS6ZI8_Duc&response=' + captchaResponse + ''
     }, function (error, response, body) {
-      console.log("got captcha response");
-      if (error != null || response == null || response.statusCode != 200) {
-        console.log("Exception occured verifying captcha: " + error);
+      logger.debug('Got captcha response: ' + response.statusCode);
+      if (error != null || response.statusCode != 200) {
+        logger.error("Exception occured verifying captcha: " + error);
         return callback(response, new Error("Exception occured verifying captcha"), null);
       }
-      console.log('Captcha Status: ' + response.statusCode);
       return callback(response);
     })
   }

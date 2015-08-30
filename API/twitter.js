@@ -1,4 +1,5 @@
 var Twitter = require('twitter');
+var logger = require('../logger');
 
 var client = new Twitter({
   consumer_key: '',
@@ -10,6 +11,6 @@ var client = new Twitter({
 var params = {screen_name: 'nodejs'};
 client.get('statuses/user_timeline', params, function(error, tweets, response){
   if (!error) {
-    console.log(tweets);
+    logger.debug(tweets);
   }
 });
