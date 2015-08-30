@@ -1,6 +1,6 @@
 {
     "courseApiUrl": "http://54.174.123.251:8080",
-    "defaultEmailServerName": "10.0.0.156",
+    "defaultEmailServerName": "10.0.0.240",
     "defaultEmailServerPort": "25",
     "defaultEmailUserName":"",
     "defaultEmailUserPassword":"",
