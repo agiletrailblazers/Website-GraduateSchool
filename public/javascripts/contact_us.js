@@ -99,7 +99,6 @@ $(document).ready(function() {
     data.comments = $("#commentText").val();
     data.subject = $("#selInputSubject option:selected").text();
     data.captchaResponse = $("#g-recaptcha-response").val();
-    console.log($("#alertError p").length);
     if (!$("#alertError p").length) {
       $(".loading").show();
       $.post("/mailer-contact-us", data)
