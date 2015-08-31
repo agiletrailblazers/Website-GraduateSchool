@@ -27,7 +27,7 @@ var transporter = nodemailer.createTransport(smtpTransport(smtp));
 module.exports = {
 
   sendContactUs: function(callback, params) {
-    logger.debug(smtp);
+    logger.debug("SMTP sending to: " + smtp);
     var locals = {
       email: params.email,
       name: {
@@ -62,7 +62,7 @@ module.exports = {
     });
   },
   sendOnsiteInquiry: function(callback, params) {
-    // Rendering template with params.
+    logger.debug("SMTP sending to: " + smtp);
     onsiteInquiryTemplate.render(params, function(err, results) {
       logger.info("Starting mail send");
       if (err) {
