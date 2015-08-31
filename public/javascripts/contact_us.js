@@ -105,6 +105,8 @@ $(document).ready(function() {
         .done(function(data) {
           $(".loading").hide();
           alertify.success("Email sent!")
+          $("#contact-information").toggle();
+          $("#alertSuccess").toggle();
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();
