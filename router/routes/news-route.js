@@ -16,30 +16,43 @@ router.get('/news', function(req, res, next) {
 router.get('/news/:news_slug', function(req, res, next) {
   slug = req.params.news_slug;
   contentful.getNewsDetail(function(response) {
-    function renderNews(index) {
+    function renderNews(index,featureImageURL) {
       res.render('news/news_details', {
-        title: response[index].fields.title,
-        body: response[index].fields.body,
-        featureImage: response[index].fields.featuredImage,
-        tags: response[index].fields.tags,
-        category: response[index].fields.category,
-        author: response[index].fields.author,
-        date: response[index].fields.date
+        title: response.items[index].fields.title,
+        body: response.items[index].fields.body,
+        featureImage: response.items[index].fields.featuredImage,
+        featureImageURL: featureImageURL,
+        tags: response.items[index].fields.tags,
+        category: response.items[index].fields.category,
+        author: response.items[index].fields.author,
+        date: response.items[index].fields.date
       });
     }
-    switch (response.length) {
+    switch (response.items.length) {
       case 0:
         logger.error('News item not found: ' + slug);
         res.render('404');
         break;
       case 1:
-        renderNews(0);
+        featureImageURL ="";
+        if ((response.includes != null) && (null != response.includes.Asset) && (response.includes.Asset.length>0) &&
+          (null != response.includes.Asset[0].fields)  &&  (null != response.includes.Asset[0].fields.file) &&
+          (null != response.includes.Asset[0].fields.file)) {
+           featureImageURL = response.includes.Asset[0].fields.file.url;
+        }
+        renderNews(0,featureImageURL);
         break;
-      case (response.length > 1):
-        for (var i = 0; i < response.length; i++) {
-          var newSlug = response[i].slug;
+      case (response.items.length > 1):
+        for (var i = 0; i < response.items.length; i++) {
+          featureImageURL ="";
+          var newSlug = response.items[i].slug;
           if (newSlug === slug) {
-            renderNews(i);
+            if ((response.includes != null) && (null != response.includes.Asset) && (response.includes.Asset.length>0) &&
+              (null != response.includes.Asset[index].fields)  &&  (null != response.includes.Asset[index].fields.file) &&
+              (null != response.includes.Asset[index].fields.file)) {
+                featureImageURL = response.includes.Asset[index].fields.file.url;
+            }
+            renderNews(i,featureImageURL);
             break;
           } else {
             logger.error('News item not found: ' + slug);
