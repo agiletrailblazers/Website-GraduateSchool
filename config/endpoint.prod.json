@@ -1,14 +1,14 @@
 {
     "courseApiUrl": "TBD",
+
     "defaultEmailServerName": "smtp.office365.com",
-    "defaultEmailServerPort": "",
+    "defaultEmailServerPort": "587",
     "defaultEmailUserName":"",
     "defaultEmailUserPassword":"",
-    "defaultEmailToUserName":"",
-    "defaultEmailToUserName":"",
-    "defaultEmailSubject":"",
-    "defaultEmailText":"",
+    "defaultEmailToUserName":"GSWebsiteForm@graduateschool.edu",
+
     "googleAnalyticsId":"UA-66851185-1",
+
     "contactUsFirstNameEmptyCheckMessage":"First name is empty.",
     "contactUsFirstNameLengthCheckMessage":"First name must be at least 3 characters.",
     "contactUsLastNameEmptyCheckMessage":"Last name is empty.",

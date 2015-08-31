@@ -9,21 +9,25 @@ var templatesDir = path.resolve(__dirname, '..', 'templates');
 var contactUsTemplate = new EmailTemplate(path.join(templatesDir, 'contactus-email'));
 var onsiteInquiryTemplate = new EmailTemplate(path.join(templatesDir, 'onsiteinquiry-email'));
 
-// Transporter
-var transporter = nodemailer.createTransport(smtpTransport({
+var smtp = {
   host: config("endpoint").defaultEmailServerName,
   port: config("endpoint").defaultEmailServerPort,
-  secureConnection: config("endpoint").emailSecureConnection,
-  requiresAuth: config("endpoint").emailRequiresAuth,
-  auth: {
+  tls: {
+    rejectUnauthorized: false
+  }
+};
+if (config("endpoint").defaultEmailUserName != "") {
+  smtp.auth = {
     user: config("endpoint").defaultEmailUserName,
     pass: config("endpoint").defaultEmailUserPassword
-  }
-}));
+  };
+}
+var transporter = nodemailer.createTransport(smtpTransport(smtp));
 
 module.exports = {
 
   sendContactUs: function(callback, params) {
+    logger.debug(smtp);
     var locals = {
       email: params.email,
       name: {
