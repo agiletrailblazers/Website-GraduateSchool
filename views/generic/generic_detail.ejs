@@ -23,9 +23,11 @@
           <div class="col-lg-8">
             <% for (var i = 0; i < sections.length; i++) { %>
               <% if (sections[i]) { %>
-                <div class="section section<%= i %>">
-                  <%- sections[i] %>
-                </div>
+                  <section>
+                    <article id="<%= i %>" class="genericArticle">
+                      <%- sections[i] %>
+                    </article>
+                  </section>
               <% } %>
             <%  } %>
           </div>
