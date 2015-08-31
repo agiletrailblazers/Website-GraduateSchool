@@ -1,13 +1,14 @@
 var request = require('request');
 var logger = require('../logger');
+var config = require('konphyg')(__dirname + "/../config");
 
 module.exports = {
   getInquiryForm: function(callback) {
     request({
       method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/tz32dajhh9bn/entries/80IOLAFnVuYGk6U4ocooC',
+      url: 'https://cdn.contentful.com/spaces/'+ config("endpoint").contentfulSpace_Main +'/entries/' + config("endpoint").contentfulEntry_InquiryForm,
       headers: {
-        'Authorization': 'Bearer 093001a794ab16e4bf8ec4f7bc6740de4f267bc49549020ea3befbd5164754af'
+        'Authorization': 'Bearer ' + config("endpoint").contentfulAuthKey_Main
       }
     }, function(error, response, body) {
       logger.debug("Forms Get Inquiry Contentful: " + response.statusCode);
@@ -18,9 +19,9 @@ module.exports = {
   getContactUs: function(callback) {
 	    request({
 	      method: 'GET',
-	      url: 'https://cdn.contentful.com/spaces/tz32dajhh9bn/entries/6Av0MIjzZC2qIsGKUGyKS0',
+	      url: 'https://cdn.contentful.com/spaces/'+ config("endpoint").contentfulSpace_Main +'/entries/' + config("endpoint").contentfulEntry_ContactUs,
 	      headers: {
-	        'Authorization': 'Bearer 093001a794ab16e4bf8ec4f7bc6740de4f267bc49549020ea3befbd5164754af'
+	        'Authorization': 'Bearer ' + config("endpoint").contentfulAuthKey_Main
 	      }
 	    }, function(error, response, body) {
         logger.debug("Forms Contact Us Contentful: " + response.statusCode);
