@@ -20,11 +20,10 @@ test('generic-page:financial-aid:success', function(t) {
       subIntro: 'FINANCIAL AID CAN ONLY BE APPLIED TOWARD  ACADEMIC PROGRAMS DEGREE AND CERTIFICATE PROGRAMS.'
     });
     contentfulServer;
-  contentful.getContentPage(function(response) {
-    var goodStatus = 200;
-    expect(response.statusCode).to.eql(goodStatus);
-    done()
-  }, 'financial-aid')
+    contentful.getContentPage(function(contentPage) {
+    expect(contentPage.slug).to.equal('financial-aid');
+  }, 'financial-aid');
+  t.end();
 });
 
 test('generic-page:financial-aid:data', function(t) {
