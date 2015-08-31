@@ -6,6 +6,7 @@
     "defaultEmailUserName":"",
     "defaultEmailUserPassword":"",
     "defaultEmailToUserName":"GSWebsiteForm@graduateschool.edu",
+    "onsiteInquiryEmailSubject":"Request for Training",
 
     "googleAnalyticsId":"UA-66851185-1",
 

@@ -6,6 +6,7 @@
     "defaultEmailUserName":"",
     "defaultEmailUserPassword":"",
     "defaultEmailToUserName":"eric@agiletrailblazers.com",
+    "onsiteInquiryEmailSubject":"Request for Training",
 
     "googleAnalyticsId":"UA-66851185-2",
 
