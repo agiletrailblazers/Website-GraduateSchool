@@ -1,12 +1,20 @@
 var Validate = {
   firstName: function() {
     var input = $("#txtFirstName").val();
+    var noNumbersPattern = new RegExp(/^[^0-9]+$/);
+    if (!noNumbersPattern.test(input)) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>First Name</strong> should not have numbers.</p>");
+    }
     if (input.length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>First Name</strong> should be at least 3 characters.</p>");
     }
   },
   lastName: function() {
     var input = $("#txtLastName").val();
+    var noNumbersPattern = new RegExp(/^[^0-9]+$/);
+    if (!noNumbersPattern.test(input)) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Last Name</strong> should not have numbers.</p>");
+    }
     if (input.length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Last Name</strong> should be at least 3 characters.</p>");
     }
