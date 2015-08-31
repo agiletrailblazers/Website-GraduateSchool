@@ -70,7 +70,7 @@ module.exports = {
     }, function(error, response, body) {
       logger.debug("News Post Contentful: " + response.statusCode);
       newsPost = JSON.parse(body);
-      newsPost = newsPost.items;
+      newsPost = newsPost;
       return callback(newsPost);
     });
   },
