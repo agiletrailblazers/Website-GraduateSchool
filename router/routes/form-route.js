@@ -60,7 +60,8 @@ router.get('/forms/contact-us', function(req, res, next) {
     	  logger.debug(response);
     	  logger.debug("Subject Line:", response.cmsEntry.fields.subjectLine);
           res.render('forms/contact_us', {title: response.cmsEntry.fields.title,
-        	  subjectLine: response.cmsEntry.fields.subjectLine
+        	  subjectLine: response.cmsEntry.fields.subjectLine,
+						topParagraph: response.cmsEntry.fields.topParagraph,
         	  });
         });
     });
