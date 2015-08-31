@@ -100,12 +100,12 @@ module.exports = {
       }
     }, function(error, response, body) {
       logger.debug("Main Nav Contentful: " + response.statusCode);
-    	if (error != null || response == null || response.statusCode != 200) {
-            logger.error("Exception occured getting navigation " + error);
-            return callback(response, new Error("Exception occured getting navigation"), null);
-        }
-        nav = JSON.parse(body);
-        return callback(nav.fields.main);
+      if (error != null || response == null || response.statusCode != 200) {
+        logger.error("Exception occured getting navigation " + error);
+        return callback(response, new Error("Exception occured getting navigation"), null);
+      }
+      nav = JSON.parse(body);
+      return callback(nav.fields.main);
     })
   },
   getReferenceData: function(slug, callback) {
@@ -117,16 +117,28 @@ module.exports = {
       }
     }, function(error, response, body) {
       logger.debug("Reference Data Contentful: " + response.statusCode);
-    	var states = {};
-        if (error != null || response == null || response.statusCode != 200) {
-            logger.error("Exception occured getting reference data " + slug + " - " + error);
-            return callback(response, new Error("Exception occured getting reference data " + slug), null);
-        }
-        ref = JSON.parse(body);
-        if (ref.items && ref.items.length >= 1 && ref.items[0].fields && ref.items[0].fields.jsonContent) {
-        	states = ref.items[0].fields.jsonContent;
-        }
-        return callback(states);
+      var states = {};
+      if (error != null || response == null || response.statusCode != 200) {
+        logger.error("Exception occured getting reference data " + slug + " - " + error);
+        return callback(response, new Error("Exception occured getting reference data " + slug), null);
+      }
+      ref = JSON.parse(body);
+      if (ref.items && ref.items.length >= 1 && ref.items[0].fields && ref.items[0].fields.jsonContent) {
+        states = ref.items[0].fields.jsonContent;
+      }
+      return callback(states);
+    });
+  },
+  getContentPage: function(callback, slug) {
+    request({
+      method: 'GET',
+      url: 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries/?content_type=4oNvURz39SeMw6EaS84gIM&fields.slug=' + slug + '',
+      headers: {
+        'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
+      }
+    }, function(error, response, body) {
+      contentPage = JSON.parse(body);
+      return callback(contentPage);
     });
   },
   getCourseSearch: function(callback) {
