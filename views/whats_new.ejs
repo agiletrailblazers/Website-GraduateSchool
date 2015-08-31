@@ -53,7 +53,7 @@
             <% for (var i=0; i < entry.sectionClasses.values.length; i++) { %>
                 <tr>
                   <td>
-                      <a href='/courses/<%=entry.sectionClasses.values[i]["classNumber"] %>'><%=entry.sectionClasses.values[i]["classNumber"].slice(0,-3); %></a>
+                      <a href='/courses/<%=entry.sectionClasses.values[i]["classNumber"] %>'><%=entry.sectionClasses.values[i]["classNumber"].slice(0,-3) %></a>
                   </td>
                   <td>
                       <h5><a href='/courses/<%=entry.sectionClasses.values[i]["classNumber"] %>'><%= entry.sectionClasses.values[i]["className"] %></a></h5>

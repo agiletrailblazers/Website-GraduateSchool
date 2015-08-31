@@ -1,12 +1,20 @@
 var Validate = {
   firstName: function() {
     var input = $("#txtFirstName").val();
+    var noNumbersPattern = new RegExp(/^[^0-9]+$/);
+    if (!noNumbersPattern.test(input)) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>First Name</strong> should not have numbers.</p>");
+    }
     if (input.length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>First Name</strong> should be at least 3 characters.</p>");
     }
   },
   lastName: function() {
     var input = $("#txtLastName").val();
+    var noNumbersPattern = new RegExp(/^[^0-9]+$/);
+    if (!noNumbersPattern.test(input)) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Last Name</strong> should not have numbers.</p>");
+    }
     if (input.length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Last Name</strong> should be at least 3 characters.</p>");
     }
@@ -120,7 +128,7 @@ $(document).ready(function() {
     }
     data.course.names = courseNames;
     data.course.studentCount = $("#txtStudentCount").val();
-    data.course.customizaiton = $("#txtCustomization").val();
+    data.course.customization = $("#txtCustomization").val();
     data.course.deliveryDate = $("#v").val();
     data.course.instructor = $("#txtInstructor").val();
     data.course.deliveryMethod = $("[name='radDeliveryMethod']:checked").val()

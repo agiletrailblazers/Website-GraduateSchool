@@ -42,7 +42,7 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
         	});
         }
     ], function(results) {
-		res.render('forms/courses/onsite_inquiry', {title: fields.title,
+		res.render('forms/onsite_inquiry', {title: fields.title,
 			topParagraph: fields.topParagraph,
 			highlightedParagraph: fields.highlightedParagraph,
 			hearAboutTraining: fields.howDidYouHearAboutTraining,

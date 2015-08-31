@@ -1,12 +1,20 @@
 var Validate = {
   firstName: function() {
     var input = $("#txtFirstName").val();
+    var noNumbersPattern = new RegExp(/^[^0-9]+$/);
+    if (!noNumbersPattern.test(input)) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>First Name</strong> should not have numbers.</p>");
+    }
     if (input.length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>First Name</strong> should be at least 3 characters.</p>");
     }
   },
   lastName: function() {
     var input = $("#txtLastName").val();
+    var noNumbersPattern = new RegExp(/^[^0-9]+$/);
+    if (!noNumbersPattern.test(input)) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Last Name</strong> should not have numbers.</p>");
+    }
     if (input.length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Last Name</strong> should be at least 3 characters.</p>");
     }
@@ -46,8 +54,9 @@ var Validate = {
   },
   subject: function() {
     var option = $("#selInputSubject").find(":selected").text();
+    noSelectId = $("#selInputSubject").find(":selected").attr('id');
     var customOption = $("#inputOtherSubject").val();
-    if (!option && !customOption) {
+    if ((!option && !customOption) || (noSelectId === "noSelect")) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Select or type a <strong>subject</strong> or choose other.</p>");
     }
   },
@@ -74,8 +83,8 @@ var _runValidation = function() {
 }
 
 $(document).ready(function() {
-  $(".loading").hide();
   $("#alertError").hide();
+  $(".loading").hide();
   $("#commentText").click(function(e) {
     e.preventDefault();
     $("#commentText").css("border", "1px solid #ccc");
@@ -97,7 +106,11 @@ $(document).ready(function() {
     data.email = $("#txtEmail").val();
     data.phone = $("#telPhone").val();
     data.comments = $("#commentText").val();
-    data.subject = $("#selInputSubject option:selected").text();
+    if($("#Other").is(':selected')) {
+      data.subject = $("#inputOtherSubject").val();
+    } else {
+      data.subject = $("#selInputSubject option:selected").text();
+    }
     data.captchaResponse = $("#g-recaptcha-response").val();
     if (!$("#alertError p").length) {
       $(".loading").show();

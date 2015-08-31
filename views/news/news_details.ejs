@@ -49,6 +49,11 @@
           <%- body %>
         </p>
         <p>
+          <% if (featureImageURL !="") { %>
+            <img src="<%=featureImageURL %>" alt=""  class=""/>
+          <%}%>
+        </p>
+        <p>
           <a class="btn btn-primary readmore" href='/news'>
             <span class="glyphicon glyphicon-chevron-left"></span>Back to News
           </a>

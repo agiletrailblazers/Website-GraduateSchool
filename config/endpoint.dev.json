@@ -5,7 +5,7 @@
     "defaultEmailServerPort": "25",
     "defaultEmailUserName":"",
     "defaultEmailUserPassword":"",
-    "defaultEmailToUserName":"eric@agiletrailblazers.com",
+    "defaultEmailToUserName":"gs@agiletrailblazers.com",
     "onsiteInquiryEmailSubject":"Request for Training",
 
     "googleAnalyticsId":"UA-66851185-2",
