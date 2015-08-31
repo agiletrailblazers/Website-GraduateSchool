@@ -74,8 +74,8 @@ var _runValidation = function() {
 }
 
 $(document).ready(function() {
-  $(".loading").hide();
   $("#alertError").hide();
+  $(".loading").hide();
   $("#commentText").click(function(e) {
     e.preventDefault();
     $("#commentText").css("border", "1px solid #ccc");
@@ -97,7 +97,12 @@ $(document).ready(function() {
     data.email = $("#txtEmail").val();
     data.phone = $("#telPhone").val();
     data.comments = $("#commentText").val();
-    data.subject = $("#selInputSubject option:selected").text();
+    console.log($("#selInputSubject option:selected").text());
+    if($("#Other").is(':selected')) {
+      data.subject = $("#inputOtherSubject").val();
+    } else {
+      data.subject = $("#selInputSubject option:selected").text();
+    }
     data.captchaResponse = $("#g-recaptcha-response").val();
     if (!$("#alertError p").length) {
       $(".loading").show();
