@@ -41,7 +41,7 @@ var Validate = {
   },
   studentCount: function() {
     var input = $("#txtStudentCount").val();
-    if (input.length < 1) {
+    if (parseInt(input) < 1) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Student Count</strong> should be at least 1 digit.</p>");
     }
   },
