@@ -139,7 +139,6 @@ module.exports = {
       }
     }, function(error, response, body) {
       contentPage = JSON.parse(body);
-      contentPage = contentPage.items;
       return callback(contentPage);
     });
   },
