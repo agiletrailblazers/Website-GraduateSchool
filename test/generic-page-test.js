@@ -1,5 +1,3 @@
-var course = require('../API/course.js');
-var request = require('request');
 var nock = require('nock');
 var chai = require('chai');
 var expect = chai.expect;
