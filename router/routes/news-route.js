@@ -4,6 +4,7 @@ var async = require('async');
 var prune = require('underscore.string/prune');
 var striptags = require('striptags');
 var router = express.Router();
+var logger = require('../../logger');
 
 router.get('/news', function(req, res, next) {
   contentful.getNewsRecent(function(response) {
@@ -28,6 +29,7 @@ router.get('/news/:news_slug', function(req, res, next) {
     }
     switch (response.length) {
       case 0:
+        logger.error('News item not found: ' + slug);
         res.render('404');
         break;
       case 1:
@@ -40,11 +42,13 @@ router.get('/news/:news_slug', function(req, res, next) {
             renderNews(i);
             break;
           } else {
+            logger.error('News item not found: ' + slug);
             render('404');
             break;
           }
         }
       case null:
+        logger.error('News item not found: ' + slug);
         res.render('404');
         break;
     }

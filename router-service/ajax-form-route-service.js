@@ -10,8 +10,7 @@ var validator = require('validator');
 
 
 module.exports = {
-    validateContactUsfields: function(callback,params,res) {
-    	  params = req.body;
+    validateContactUsfields: function(callback,params) {
     	  response = {};
     	  response.errors = {};
     	  // Validate params.firstName
@@ -19,18 +18,17 @@ module.exports = {
     	    case (params.firstName.length === 0):
     	      response.errors.firstName = "First name is empty.";
     	      break;
-    	    case (!validator.isLength(params.firstName, 3)):
-    	    console.log("Empty");
+    	    case (!validator.isLength(params.firstName.trim(), 3)):
     	      response.errors.firstName = "First name must be at least 3 characters.";
-    	      // break;
+    	       break;
     	  }
     	  // Validate params.lastName
     	  switch(true) {
     	    case (!params.lastName):
     	      response.errors.lastName = "Last name is empty.";
     	      break;
-    	    case (!validator.isLength(params.lastName, 3)):
-    	      response.errors.lastName = "Last name must be at lease 3 characters.";
+    	    case (!validator.isLength(params.lastName.trim(), 3)):
+    	      response.errors.lastName = "Last name must be at least 3 characters.";
     	      break;
     	  }
     	  // Validate params.email
@@ -39,7 +37,7 @@ module.exports = {
     	      case (!params.email):
     	        response.errors.email = "Email is empty.";
     	        break;
-    	      case (!validator.isEmail(params.email)):
+    	      case (!validator.isEmail(params.email.trim())):
     	        response.errors.email = "Email is in the wrong format."
     	        break;
     	    }
@@ -60,8 +58,7 @@ module.exports = {
     	  }
         callback(response);
     },
-    validateOnsiteInquiryfields: function(callback,params,res) {
-    	  params = req.body;
+    validateOnsiteInquiryfields: function(callback,params) {
     	  response = {};
     	  response.errors = {};
 
@@ -85,7 +82,10 @@ module.exports = {
     	      break;
     	  }
     	  // Validate organization
-    	  switch (true) {
+    	  switch(true) {
+  	    	case (!params.address.organization):
+  	    		response.errors.organization = "Organization is empty.";
+  	    		break;
     	    case (!validator.isLength(params.address.organization, 3)):
     	      response.errors.organization = "Organization must be atleast 3 characters.";
     	      break;

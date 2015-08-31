@@ -124,6 +124,7 @@ $(document).ready(function() {
     data.course.deliveryDate = $("#v").val();
     data.course.instructor = $("#txtInstructor").val();
     data.course.deliveryMethod = $("[name='radDeliveryMethod']:checked").val()
+    data.course.helpWithEnrollment = $("#chkHelpWithEnrollment").is(':checked');
     if ($("#selHearAbout").val().startsWith("Other")) {
       data.hearAbout = $("#txtHearAboutOther").val();
     } else if ($("#selHearAbout").val() !== null) {
@@ -138,6 +139,8 @@ $(document).ready(function() {
         .done(function(data) {
           $(".loading").hide();
           alertify.success("Email sent!");
+          $("#accordion").toggle();
+          $("#alertSuccess").toggle();
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();

@@ -1,6 +1,7 @@
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var config = require('konphyg')(__dirname + "/../config");
+var logger = require('../logger');
 // Email Templates
 var path = require('path');
 var EmailTemplate = require('email-templates').EmailTemplate;
@@ -8,19 +9,25 @@ var templatesDir = path.resolve(__dirname, '..', 'templates');
 var contactUsTemplate = new EmailTemplate(path.join(templatesDir, 'contactus-email'));
 var onsiteInquiryTemplate = new EmailTemplate(path.join(templatesDir, 'onsiteinquiry-email'));
 
-// Transporter
-var transporter = nodemailer.createTransport(smtpTransport({
+var smtp = {
   host: config("endpoint").defaultEmailServerName,
   port: config("endpoint").defaultEmailServerPort,
-  auth: {
+  tls: {
+    rejectUnauthorized: false
+  }
+};
+if (config("endpoint").defaultEmailUserName != "") {
+  smtp.auth = {
     user: config("endpoint").defaultEmailUserName,
     pass: config("endpoint").defaultEmailUserPassword
-  }
-}));
+  };
+}
+var transporter = nodemailer.createTransport(smtpTransport(smtp));
 
 module.exports = {
 
   sendContactUs: function(callback, params) {
+    logger.debug("SMTP sending to: " + smtp);
     var locals = {
       email: params.email,
       name: {
@@ -32,9 +39,9 @@ module.exports = {
     }
     // Rendering template with locals.
     contactUsTemplate.render(locals, function(err, results) {
-      console.log("Starting mail send");
+      logger.info("Starting mail send");
       if (err) {
-        console.error(err);
+        logger.error(err);
         return callback(500);
       }
       var mailAttributes = {
@@ -46,20 +53,20 @@ module.exports = {
       };
       transporter.sendMail(mailAttributes, function(error, info) {
         if (error) {
-          console.log(error);
+          logger.error(error);
           return callback(500);
         }
-        console.log('Message sent: ' + info.response);
+        logger.info('Message sent: ' + info.response);
         return callback(200);
       });
     });
   },
   sendOnsiteInquiry: function(callback, params) {
-    // Rendering template with params.
+    logger.debug("SMTP sending to: " + smtp);
     onsiteInquiryTemplate.render(params, function(err, results) {
-      console.log("Starting mail send");
+      logger.info("Starting mail send");
       if (err) {
-        console.error(err);
+        logger.error(err);
         return callback(500);
       }
       var mailAttributes = {
@@ -71,10 +78,10 @@ module.exports = {
       };
       transporter.sendMail(mailAttributes, function(error, info) {
         if (error) {
-          console.log(error);
+          logger.error(error);
           return callback(500);
         }
-        console.log('Message sent: ' + info.response);
+        logger.info('Message sent: ' + info.response);
         return callback(200);
       });
     });
