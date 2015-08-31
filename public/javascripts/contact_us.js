@@ -97,7 +97,6 @@ $(document).ready(function() {
     data.email = $("#txtEmail").val();
     data.phone = $("#telPhone").val();
     data.comments = $("#commentText").val();
-    console.log($("#selInputSubject option:selected").text());
     if($("#Other").is(':selected')) {
       data.subject = $("#inputOtherSubject").val();
     } else {
