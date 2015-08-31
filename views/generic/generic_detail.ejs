@@ -16,17 +16,26 @@
         </div>
 <!-- /end Row Container -->
       </div>
+    </div>
 <!-- /end Header include -->
       <div id="main-container" class="container">
-        <% for (var i = 0; i < sections.length; i++) { %>
-          <% if (sections[i]) { %>
-            <div class="section section<%= i %>">
-              <%- sections[i] %>
-            </div>
-          <% } %>
-        <%  } %>
+        <div class="row">
+          <div class="col-lg-8">
+            <% for (var i = 0; i < sections.length; i++) { %>
+              <% if (sections[i]) { %>
+                <div class="section section<%= i %>">
+                  <%- sections[i] %>
+                </div>
+              <% } %>
+            <%  } %>
+          </div>
+          <div class="col-lg-4">
+            <h2>Related links</h2>
+          </div>
+        </div>
       </div>
+
       <% include ../partials/chat %>
       <% include ../partials/footer %>
-    </body>
-  </html>
+  </body>
+</html>
