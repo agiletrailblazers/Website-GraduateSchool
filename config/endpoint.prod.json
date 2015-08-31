@@ -6,17 +6,6 @@
     "defaultEmailUserName":"",
     "defaultEmailUserPassword":"",
     "defaultEmailToUserName":"GSWebsiteForm@graduateschool.edu",
-    "onsiteInquiryEmailSubject":"Request for Training",
 
-    "googleAnalyticsId":"UA-66851185-1",
-
-    "contactUsFirstNameEmptyCheckMessage":"First name is empty.",
-    "contactUsFirstNameLengthCheckMessage":"First name must be at least 3 characters.",
-    "contactUsLastNameEmptyCheckMessage":"Last name is empty.",
-    "contactUsLastNameLengthCheckMessage":"Last name must be at least 3 characters.",
-    "contactUsEmailEmptyCheckMessage":"Email is empty.",
-    "contactUsEmailWrongFormatMessage":"Email is in the wrong format.",
-    "contactUsPhoneEmptyCheckMessage":"Phone number is empty.",
-    "contactUsPhoneWrongFormatMessage":"Phone number is not in the correct format.",
-    "contactUsRecaptchaEmptyCheckMessage":"Please select recaptcha."
+    "googleAnalyticsId":"UA-66851185-1"
 }
