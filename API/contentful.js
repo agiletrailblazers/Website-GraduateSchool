@@ -132,7 +132,7 @@ module.exports = {
   getContentPage: function(callback, slug) {
     request({
       method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries?access_token=a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0&content_type=4oNvURz39SeMw6EaS84gIM&fields.slug=' + slug + '',
+      url: 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries/?content_type=4oNvURz39SeMw6EaS84gIM&fields.slug=' + slug + '',
       headers: {
         'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
       }
