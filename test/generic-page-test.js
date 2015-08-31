@@ -2,7 +2,6 @@ var nock = require('nock');
 var chai = require('chai');
 var expect = chai.expect;
 var contentful = require('../API/contentful.js');
-var config = require('konphyg')(__dirname + "/../config");
 var test = require('tap').test;
 
 test('generic-page:financial-aid:success', function(t) {
