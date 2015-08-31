@@ -120,7 +120,7 @@ $(document).ready(function() {
     }
     data.course.names = courseNames;
     data.course.studentCount = $("#txtStudentCount").val();
-    data.course.customizaiton = $("#txtCustomization").val();
+    data.course.customization = $("#txtCustomization").val();
     data.course.deliveryDate = $("#v").val();
     data.course.instructor = $("#txtInstructor").val();
     data.course.deliveryMethod = $("[name='radDeliveryMethod']:checked").val()
