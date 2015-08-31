@@ -104,7 +104,7 @@ router.get('/courses/:course_id', function(req, res, next){
     		courseData.class.code = code;
     	}
       content.linksSection.forEach(function(link) {
-        link.url = link.url.replace('[courseCode]',courseData.class.code);
+        link.url = link.url.replace('[courseCode]', courseData.class.code);
       });
 	    res.render('course_detail', { content: content, courseData: courseData });
     }
