@@ -124,6 +124,7 @@ $(document).ready(function() {
     data.course.deliveryDate = $("#v").val();
     data.course.instructor = $("#txtInstructor").val();
     data.course.deliveryMethod = $("[name='radDeliveryMethod']:checked").val()
+    data.course.helpWithEnrollment = $("#chkHelpWithEnrollment").is(':checked');
     if ($("#selHearAbout").val().startsWith("Other")) {
       data.hearAbout = $("#txtHearAboutOther").val();
     } else if ($("#selHearAbout").val() !== null) {
