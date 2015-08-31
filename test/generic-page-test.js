@@ -19,8 +19,7 @@ test('generic-page:financial-aid:success', function(t) {
       intro: 'Welcome to the Financial Aid Office',
       subIntro: 'FINANCIAL AID CAN ONLY BE APPLIED TOWARD  ACADEMIC PROGRAMS DEGREE AND CERTIFICATE PROGRAMS.'
     });
-    contentfulServer;
-    contentful.getContentPage(function(contentPage) {
+  contentful.getContentPage(function(contentPage) {
     expect(contentPage.slug).to.equal('financial-aid');
   }, 'financial-aid');
   t.end();
@@ -38,8 +37,8 @@ test('generic-page:financial-aid:data', function(t) {
       intro: 'Welcome to the Financial Aid Office',
       subIntro: 'FINANCIAL AID CAN ONLY BE APPLIED TOWARD  ACADEMIC PROGRAMS DEGREE AND CERTIFICATE PROGRAMS.'
     });
-    contentfulServer;
-  contentful.getContentPage(function(response) {
-    // expect
-  });
+  contentful.getContentPage(function(contentPage) {
+    expect(contentPage.title).to.equal('Financial Aid');
+  }, 'financial-aid');
+  t.end();
 });
