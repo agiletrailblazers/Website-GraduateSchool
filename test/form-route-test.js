@@ -8,9 +8,9 @@ var test = require('tap').test;
 test('form route test for inquiry form', function(t) {
   var contentfulformServer = nock('https://cdn.contentful.com', {
         reqheaders: {
-            'Authorization': 'Bearer 093001a794ab16e4bf8ec4f7bc6740de4f267bc49549020ea3befbd5164754af'
+            'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
         }
-    }).get('/spaces/tz32dajhh9bn/entries/80IOLAFnVuYGk6U4ocooC')
+    }).get('/spaces/jzmztwi1xqvn/entries/80IOLAFnVuYGk6U4ocooC')
       .reply(200, {
         'accept': 'application/json', "fields": {
                 "howDidYouHearAboutTraining": [
@@ -33,9 +33,9 @@ test('form route test for inquiry form', function(t) {
 test('form route test for Contact us', function(t) {
   var contentfulformServer = nock('https://cdn.contentful.com', {
         reqheaders: {
-            'Authorization': 'Bearer 093001a794ab16e4bf8ec4f7bc6740de4f267bc49549020ea3befbd5164754af'
+            'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
         }
-    }).get('/spaces/tz32dajhh9bn/entries/6Av0MIjzZC2qIsGKUGyKS0')
+    }).get('/spaces/jzmztwi1xqvn/entries/6Av0MIjzZC2qIsGKUGyKS0')
       .reply(200, {
         'accept': 'application/json',
         "fields": {
