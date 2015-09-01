@@ -10,6 +10,7 @@ router.get('/content/:content_slug', function(req, res, next) {
       slug: response.items[0].fields.slug,
       intro: response.items[0].fields.intro,
       subIntro: response.items[0].fields.subIntro,
+      relatedLinks: response.items[0].fields.relatedLinks,
       sections: [ response.items[0].fields.section1, response.items[0].fields.section2,
                   response.items[0].fields.section3, response.items[0].fields.section4,
                   response.items[0].fields.section5, response.items[0].fields.section6,
