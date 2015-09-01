@@ -5,7 +5,7 @@ var logger = require('../logger');
 // Email Templates
 var path = require('path');
 var EmailTemplate = require('email-templates').EmailTemplate;
-var templatesDir = path.resolve(__dirname, '..', 'templates');
+var templatesDir = path.resolve(__dirname, '..', 'views/templates');
 var contactUsTemplate = new EmailTemplate(path.join(templatesDir, 'contactus-email'));
 var onsiteInquiryTemplate = new EmailTemplate(path.join(templatesDir, 'onsiteinquiry-email'));
 
