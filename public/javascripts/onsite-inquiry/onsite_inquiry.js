@@ -92,7 +92,7 @@ $(document).ready(function() {
     var code = e.keyCode || e.which;
     if (code === 9) {
       $( "button, a" ).focus(function() {
-        if(this.id === "collapse1Link" || this.id === "collapse2Link" || this.id === "collapse3Link" || $(this).prop('tagName') === "BUTTON") {
+        if ($(this).prop('tagName') === "BUTTON") {
           $(this).css('border', '1px dotted #be0f34');
           $(this).trigger('click');
         }
