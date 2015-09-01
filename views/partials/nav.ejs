@@ -19,7 +19,7 @@
 
 	      	  <li class="dropdown gs-fw"><a href="<%= nav.value %>" class=""><%= nav.name %></a></li>
 
-	      	<%# Sub Nav with Sections %>
+	      	<%# Sub Nav with Multiple Sections %>
 	        <% } else if (nav.type=='sub-section') { %>
 
 	          <li class="dropdown gs-fw"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle"><%= nav.name %><b class="caret"></b></a>
@@ -50,9 +50,30 @@
 		        </ul>
 		      </li>
 
+					<%# Sub Nav with Single Sections %>
+					<% } else if (nav.type=='single-section') { %>
+
+							<li class="dropdown gs-fw"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle"><%= nav.name %><b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li class="grid-demo">
+									<div class="row">
+									  <div class="col-sm-4">
+										  <ul>
+										    <% nav.value.forEach(function(subNav) { %>
+														<li>
+															<a href="<%= subNav.value %>"><%= subNav.name %></a>
+														</li>
+												<% }); %>
+											</ul>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</li>
+
+					<%# Basic List %>
 	        <% } else if (nav.type=='sub-list') { %>
 
-	            <%# Basic List %>
 	            <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle"><%= nav.name %><b class="caret"></b></a>
                 <ul role="menu" class="dropdown-menu">
 
