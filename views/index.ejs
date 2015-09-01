@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>
-      <%= title %>
-    </title>
-      <% include partials/head %>
-  </head>
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <% include partials/head %>
+</head>
 <body>
   <!--  Header include -->
-    <% include partials/nav_top %>
+  <% include partials/nav_top %>
 
-      <div class="container">
-        <div class="row header clearfix">
-          <% include partials/header %>
-        </div> <!-- /end Row Container -->
-      </div>
-      <div class="container">
-        <div class="row  clearfix">
-          <% include partials/nav %>
-        </div> <!-- /end Row Container -->
-      </div>
+  <div class="container">
+    <div class="row header clearfix">
+      <% include partials/header %>
+    </div> <!-- /end Row Container -->
+  </div>
+  <div class="container">
+    <div class="row  clearfix">
+      <% include partials/nav %>
+    </div> <!-- /end Row Container -->
+  </div>
   <!-- /end Header include -->
   <% include partials/banner %>
   <!-- User Types  -->
@@ -31,15 +31,15 @@
 
 
   <!-- Include Footer Here! -->
-    <% include partials/footer %>
+  <% include partials/footer %>
 
   <% include partials/chat %>
   <!-- END of chat  -->
 
   <script type="text/javascript">
-    $(document).on('click', '.gs .dropdown-menu', function(e) {
-      e.stopPropagation()
-    })
+  $(document).on('click', '.gs .dropdown-menu', function(e) {
+    e.stopPropagation()
+  })
   </script>
 </body>
 
