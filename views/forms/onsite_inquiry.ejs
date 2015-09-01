@@ -77,8 +77,8 @@
                           <label for="selState">State</label>
                           <select id="selState" class="form-control"  tabindex="7">
                             <option value="">Select One</option>
-                            <% for (i=0; i < states.length; i++) { %>
-                              <option value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
+                              <% for (i=0; i < states.length; i++) { %>
+                                <option value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
                               <% } %>
                             </select>
                           </span>
@@ -208,10 +208,10 @@
                         <div class="panel-body">
                           <span class="form-group">
                             <label for="selHearAbout">*How did you hear about training at Graduate School USA?</label>
-                            <select id="selHearAbout" class="form-control" tabindex="32">
-                              <option id="N/A">Select One</option>
-                              <% for (i=0; i< hearAboutTraining.length; i++) { %>
-                                <option id="<%= hearAboutTraining[i].name %>"><%= hearAboutTraining[i].name %></option>
+                            <select id="selHearAbout" class="form-control">
+                              <option id="">Select One</option>
+                                <% for (i=0; i< hearAboutTraining.length; i++) { %>
+                                  <option id="<%= hearAboutTraining[i].name %>"><%= hearAboutTraining[i].name %></option>
                                 <% } %>
                               </select>
                             </span>
