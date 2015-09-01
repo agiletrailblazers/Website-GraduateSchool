@@ -1,4 +1,4 @@
-var service = require("../router-service/ajax-form-route-service.js");
+var service = require("../helpers/ajax-form-route-service.js");
 var test = require('tap').test;
 
 
