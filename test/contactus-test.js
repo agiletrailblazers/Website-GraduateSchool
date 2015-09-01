@@ -1,4 +1,4 @@
-var ajaxformrouteservice = require('../router-service/ajax-form-route-service.js');
+var ajaxformrouteservice = require('../helpers/ajax-form-route-service.js');
 var chai = require('chai');
 var expect = chai.expect;
 var config = require('konphyg')(__dirname + "/../config");
