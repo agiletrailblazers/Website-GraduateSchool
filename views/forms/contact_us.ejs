@@ -36,9 +36,9 @@
               </div>
               <div class="form-inline">
                 <div class="form-group">
-                  <label for="inputFirstName">*First Name:</label>
+                  <label for="inputFirstName">*First Name</label>
                   <input id="txtFirstName" name="firstName" type="text" class="form-control" required>
-                  <label for="inputLastName">*Last Name:</label>
+                  <label for="inputLastName">*Last Name</label>
                   <input id="txtLastName" name="lastName" type="text" class="form-control" required>
                 </div>
               </div>
@@ -50,16 +50,16 @@
                 <label for="radioPhone">Phone</label>
 
                 <div id="emailGroup">
-                  <label for="inputEmail">Email:</label>
+                  <label for="inputEmail">Email</label>
                   <input id="txtEmail" name="email" type="email" maxlength="255" required class="form-control">
                 </div>
                 <div id="phoneGroup" style="display:none;">
-                  <label for="inputPhone">Daytime Phone Number:</label>
+                  <label for="inputPhone">Daytime Phone Number</label>
                   <input id="telPhone" name="phone" type="tel" placeholder="XXX-XXX-XXXX" pattern="\d{3}[\-]\d{3}[\-]\d{4}" maxlength="12" class="form-control">
                 </div>
               </div>
               <div class="form-group">
-                <label for="inputOtherSubject">*Subject:</label>
+                <label for="inputOtherSubject">*Subject</label>
                 <select class="form-control" id="selInputSubject" name="inputSubject" required>
                   <option id="noSelect" disabled selected>Select One</option>
                   <% for (var i=0; i < subjectLine.question.length; i++) { %>
@@ -71,11 +71,11 @@
                 </select>
                 </span>
                 <span id="otherSubject" class="form-group" style="display:none">
-                  <label for="inputOtherSubject">Other Subject:</label>
+                  <label for="inputOtherSubject">Other Subject</label>
                   <input type="text" id="inputOtherSubject" name="inputOtherSubject" rows="1" cols="40" class="form-control">
               </div>
               <div class="comments">
-                <label>*Comments or Question:</label>
+                <label>*Comments or Question</label>
                 <br>
                 <textarea id="commentText" name="comments" rows="8" cols="40" class="form-control" required></textarea>
               </div>
