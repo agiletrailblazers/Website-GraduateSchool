@@ -128,7 +128,7 @@
                           <select id="ms" name="selCourses" multiple="multiple">
                             <option value="OTHER">Other Courses or Subject Area- Please Indicate Below</option>
                             <% for(i = 0; i < courses.length; i++) { %>
-                              <option value="<%= courses[i].id %>"><%= courses[i].title %> (<%= courses[i].code %>) - <%= courses[i].type %></option>
+                              <option value="<%= courses[i].id + " -- "+courses[i].title %>"><%= courses[i].title %> (<%= courses[i].code %>) - <%= courses[i].type %></option>
                               <% } %>
                             </select>
                           </div>
@@ -139,7 +139,7 @@
                               <input type="text" id="txtOtherCourse" class="form-control">
                             </span>
                             <span class="form-group">
-                              <label for="txtStudentCount">*Approximate number of students:</label>
+                              <label for="txtStudentCount">*Approximate number of students</label>
                               <input type="text" pattern="^[0-9]*$" id="txtStudentCount" class="form-control">
                             </span>
                             <span class="form-group">
