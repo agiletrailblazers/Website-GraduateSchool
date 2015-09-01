@@ -54,30 +54,26 @@ select::-moz-focus-inner, option::-moz-focus-inner {
   }
 
 
-/* Nav-top */
-
   #nav-top {
-  	background-color:#01467F;
-  	position:relative;
-  	width:100%;
-  }
-  #nav-top .npanel { display:none; padding: 0; }
-  #nav-top .toggle {
-  	cursor:pointer;
-  	position:absolute;
-  	right:30px;
+    	background-color:#01467F;
+    	position:relative;
+    	width:100%;
+    }
+    #nav-top .npanel { display:none; padding: 0; }
+    #nav-top .toggle {
+    	cursor:pointer;
+    	position:absolute;
+    	right:30px;
+    }
+    #nav-top .toggle a {
+    	content: '';
 
-  }
-  #nav-top .toggle a {
-  	content: '';
+    }
+    #nav-top .hide-panel a {
 
-  }
-  #nav-top .hide-panel a {
-
-  }
-  #nav-top .toggle:hover a { top: 10px; }
-  #nav-top .toggle.hide-panel:hover a { top: 8px; }
-
+    }
+    #nav-top .toggle:hover a { top: 10px; }
+    #nav-top .toggle.hide-panel:hover a { top: 8px; }
 
 
   #nav-top h4 {	margin-bottom:17px;	font-size:18px; border-bottom: 1px solid #E7E7E7; line-height:46px }
@@ -97,7 +93,7 @@ select::-moz-focus-inner, option::-moz-focus-inner {
 
 
 .left-panel {
-  background-color: #D81251 !important;
+  background-color: transparent !important;
 
 }
 
@@ -110,8 +106,9 @@ select::-moz-focus-inner, option::-moz-focus-inner {
 }
 
   #nav-top ul.nav li {
-    background-color: #D81251 !important;
+    background-color: transparent  !important;
     color: #FFF  !important;
+    border-bottom: 1px solid #4979A1;
     -webkit-transition: background-color 300ms linear;
     -moz-transition: background-color 300ms linear;
     -o-transition: background-color 300ms linear;
@@ -120,7 +117,7 @@ select::-moz-focus-inner, option::-moz-focus-inner {
   }
 
   .nav-pills > li.active > a {
-  background-color: #01467F !important;
+  background-color: #D81251 !important;
   color: #FFFFFF  !important;
   -webkit-transition: background-color 300ms linear;
   -moz-transition: background-color 300ms linear;
@@ -133,12 +130,17 @@ select::-moz-focus-inner, option::-moz-focus-inner {
   color: #FFFFFF  !important;
  }
  .nav-pills > li > a:hover {
-   background-color: #4279B3 !important;
+   background-color: #D81251 !important;
   color: #FFFFFF  !important;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
  }
 
   #nav-top ul.nav li.active {
-    background-color: #01467F !important;
+    background-color: #D81251 !important;
     color: #FFF  !important;
     -webkit-transition: background-color 300ms linear;
     -moz-transition: background-color 300ms linear;
