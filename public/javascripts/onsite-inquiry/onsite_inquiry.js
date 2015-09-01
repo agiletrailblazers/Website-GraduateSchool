@@ -5,7 +5,7 @@ var Validate = {
     if (!noNumbersPattern.test(input)) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>First Name</strong> should not have numbers.</p>");
     }
-    if (input.length < 3) {
+    if ((input.trim()).length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>First Name</strong> should be at least 3 characters.</p>");
     }
   },
@@ -15,13 +15,13 @@ var Validate = {
     if (!noNumbersPattern.test(input)) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Last Name</strong> should not have numbers.</p>");
     }
-    if (input.length < 3) {
+    if ((input.trim()).length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Last Name</strong> should be at least 3 characters.</p>");
     }
   },
   organization: function() {
     var input = $("#txtOrganizaiton").val();
-    if (input.length < 3) {
+    if ((input.trim()).length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Organization</strong> should be at least 3 characters.</p>");
     }
   },
