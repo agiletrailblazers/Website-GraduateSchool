@@ -67,7 +67,7 @@ module.exports = {
     	    case (params.address.firstName.length === 0):
     	      response.errors.firstName = "First name is empty.";
     	      break;
-    	    case (!validator.isLength(params.address.firstName, 3)):
+    	    case (!validator.isLength(params.address.firstName.trim(), 3)):
     	      response.errors.firstName = "First name must be at least 3 characters.";
     	      break;
     	  }
@@ -77,7 +77,7 @@ module.exports = {
     	    case (!params.address.lastName):
     	      response.errors.lastName = "Last name is empty.";
     	      break;
-    	    case (!validator.isLength(params.address.lastName, 3)):
+    	    case (!validator.isLength(params.address.lastName.trim(), 3)):
     	      response.errors.lastName = "Last name must be at lease 3 characters.";
     	      break;
     	  }
@@ -86,7 +86,7 @@ module.exports = {
   	    	case (!params.address.organization):
   	    		response.errors.organization = "Organization is empty.";
   	    		break;
-    	    case (!validator.isLength(params.address.organization, 3)):
+    	    case (!validator.isLength(params.address.organization.trim(), 3)):
     	      response.errors.organization = "Organization must be atleast 3 characters.";
     	      break;
     	  }
