@@ -139,6 +139,8 @@ $(document).ready(function() {
     data.course.helpWithEnrollment = $("#chkHelpWithEnrollment").is(':checked');
     if ($("#selHearAbout").val().startsWith("Other")) {
       data.hearAbout = $("#txtHearAboutOther").val();
+    } else if ($("#selHearAbout").val().startsWith("Select One")) {
+      data.hearAbout = "";
     } else if ($("#selHearAbout").val() !== null) {
       data.hearAbout = $("#selHearAbout").val();
     }
