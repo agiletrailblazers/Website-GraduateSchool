@@ -77,8 +77,8 @@
                           <label for="selState">State</label>
                           <select id="selState" class="form-control"  tabindex="7">
                             <option value="">Select One</option>
-                              <% for (i=0; i < states.length; i++) { %>
-                                <option value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
+                            <% for (i=0; i < states.length; i++) { %>
+                              <option value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
                               <% } %>
                             </select>
                           </span>
@@ -210,8 +210,8 @@
                             <label for="selHearAbout">*How did you hear about training at Graduate School USA?</label>
                             <select id="selHearAbout" class="form-control">
                               <option id="">Select One</option>
-                                <% for (i=0; i< hearAboutTraining.length; i++) { %>
-                                  <option id="<%= hearAboutTraining[i].name %>"><%= hearAboutTraining[i].name %></option>
+                              <% for (i=0; i< hearAboutTraining.length; i++) { %>
+                                <option id="<%= hearAboutTraining[i].name %>"><%= hearAboutTraining[i].name %></option>
                                 <% } %>
                               </select>
                             </span>
@@ -251,12 +251,12 @@
           <script type="text/javascript" src="/javascripts/onsite-inquiry/onsite_inquiry.js"></script>
           <script type="text/javascript" src="/javascripts/onsite-inquiry/multi-select.js"></script>
           <script>
-            $(function() {
-              $('#ms').change(function() {
-              }).multipleSelect({
-                width: '100%'
-              });
+          $(function() {
+            $('#ms').change(function() {
+            }).multipleSelect({
+              width: '100%'
             });
+          });
           </script>
         </body>
         </html>

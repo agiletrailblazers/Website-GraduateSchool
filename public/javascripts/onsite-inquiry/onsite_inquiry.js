@@ -56,13 +56,13 @@ var Validate = {
     }
   },
   courses: function() {
-	var inputSelCourses = $("[name='selCourses']").val();
-	var inputOtherCourse = $("#txtOtherCourse").val();
-	if (inputSelCourses == null) {
-		if(inputOtherCourse.length < 3){
-		$("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please select or enter a course.</p>");
-	  }
-	}
+    var inputSelCourses = $("[name='selCourses']").val();
+    var inputOtherCourse = $("#txtOtherCourse").val();
+    if (inputSelCourses == null) {
+      if(inputOtherCourse.length < 3){
+        $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please select or enter a course.</p>");
+      }
+    }
   }
 }
 
@@ -86,6 +86,21 @@ $(document).ready(function() {
   $(".loading").hide();
   $("#alertError").hide();
   $("#removeAlert").css('cursor', 'pointer');
+
+  // If tab button is pressed and there is a focus.
+  $("form").keydown(function(e) {
+    var code = e.keyCode || e.which;
+    if (code === 9) {
+      $( "button, a" ).focus(function() {
+        if ($(this).prop('tagName') === "BUTTON") {
+          $(this).css('border', '1px dotted #be0f34');
+          $(this).trigger('click');
+        }
+      }).focusout(function(event) {
+        $(this).css('border', 'none');
+      });
+    }
+  });
   // Click through form.
   $("#toCDIButton").click(function() {
     $("#collapse2Link").trigger('click');
@@ -150,26 +165,26 @@ $(document).ready(function() {
     if (!$("#alertError p").length) {
       $(".loading").show();
       $.post("/mailer-onsite-inquiry", data)
-        .done(function(data) {
-          $(".loading").hide();
-          alertify.success("Email sent!");
-          $("#accordion").toggle();
-          $("#alertSuccess").toggle();
-        })
-        .fail(function(xhr, textStatus, errorThrown) {
-          $(".loading").hide();
-          alertify.error("Email failed.")
-          var errors = xhr.responseJSON;
-          for (var key in errors) {
-            if (errors.hasOwnProperty(key)) {
-              $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] + "</p>");
-            }
+      .done(function(data) {
+        $(".loading").hide();
+        alertify.success("Email sent!");
+        $("#accordion").toggle();
+        $("#alertSuccess").toggle();
+      })
+      .fail(function(xhr, textStatus, errorThrown) {
+        $(".loading").hide();
+        alertify.error("Email failed.")
+        var errors = xhr.responseJSON;
+        for (var key in errors) {
+          if (errors.hasOwnProperty(key)) {
+            $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] + "</p>");
           }
-          $("#alertError").slideDown();
-          $("html, body").animate({
-            scrollTop: 0
-          }, "slow");
-        });
+        }
+        $("#alertError").slideDown();
+        $("html, body").animate({
+          scrollTop: 0
+        }, "slow");
+      });
     }
   });
   $("#chkGSLocations").click(function() {
