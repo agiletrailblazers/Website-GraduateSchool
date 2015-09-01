@@ -87,7 +87,6 @@ $(document).ready(function() {
   $(".loading").hide();
   $("#alertError").hide();
   $("#removeAlert").css('cursor', 'pointer');
-  $("#txtComments, #txtCustomization").css("border", "1px solid #ccc");
   // Click through form.
   $("#toCDIButton").click(function() {
     $("#collapse2Link").trigger('click');

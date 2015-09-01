@@ -85,10 +85,6 @@ var _runValidation = function() {
 $(document).ready(function() {
   $("#alertError").hide();
   $(".loading").hide();
-  $("#commentText").click(function(e) {
-    e.preventDefault();
-    $("#commentText").css("border", "1px solid #ccc");
-  });
   $("#removeAlert").css('cursor', 'pointer');
   $("#submitForm").click(function(e) {
     e.preventDefault();

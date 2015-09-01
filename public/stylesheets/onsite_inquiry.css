@@ -1,3 +1,12 @@
+
+#commentText{
+  border: 1px solid #ccc;
+}
+
+#txtComments, #txtCustomization{
+  border: 1px solid #ccc;
+}
+
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
  */
