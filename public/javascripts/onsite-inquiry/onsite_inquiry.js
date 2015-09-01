@@ -88,7 +88,7 @@ $(document).ready(function() {
   $("#removeAlert").css('cursor', 'pointer');
 
   // If tab button is pressed and there is a focus.
-  $(document).keydown(function(e) {
+  $("form").keydown(function(e) {
     var code = e.keyCode || e.which;
     if (code === 9) {
       $( "button, a" ).focus(function() {
