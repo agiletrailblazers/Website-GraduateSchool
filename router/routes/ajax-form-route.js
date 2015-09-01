@@ -1,6 +1,6 @@
 var express = require('express');
 var contentfulForms= require('../../API/contentful_forms.js');
-var routerService= require('../../router-service/ajax-form-route-service.js');
+var routerService= require('../../helpers/ajax-form-route-service.js');
 var async = require('async');
 var router = express.Router();
 var bodyParser = require('body-parser');
