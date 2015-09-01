@@ -41,7 +41,6 @@ var Validate = {
   },
   studentCount: function() {
     var studentCount = $("#txtStudentCount").val();
-    console.log("Student Count;", studentCount);
     digits = new RegExp(/^[0-9]*$/);
     if(!digits.test(studentCount)) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please enter a number in <strong>Student Count</strong>.</p>");
