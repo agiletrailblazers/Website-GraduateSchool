@@ -87,18 +87,11 @@ $(document).ready(function() {
   $("#alertError").hide();
   $("#removeAlert").css('cursor', 'pointer');
 
-  $(window).keyup(function (e) {
-      var code = (e.keyCode ? e.keyCode : e.which);
-      if (code == '9' && $('#detect:focus').length) {
-          alert('I was tabbed!');
-      }
-  });
-// If tab button is pressed and there is a focus.
-$(document).keydown(function(e) {
+  // If tab button is pressed and there is a focus.
+  $(document).keydown(function(e) {
     var code = e.keyCode || e.which;
     if (code === 9) {
       $( "button, a" ).focus(function() {
-        console.log($(this).prop('tagName'));
         if(this.id === "collapse1Link" || this.id === "collapse2Link" || this.id === "collapse3Link" || $(this).prop('tagName') === "BUTTON") {
           $(this).css('border', '1px dotted #be0f34');
           $(this).trigger('click');
@@ -107,7 +100,7 @@ $(document).keydown(function(e) {
         $(this).css('border', 'none');
       });
     }
-});
+  });
   // Click through form.
   $("#toCDIButton").click(function() {
     $("#collapse2Link").trigger('click');
