@@ -8,38 +8,31 @@
   </head>
 <body>
   <!--  Header include -->
-  <div class="container-fluid">
+    <% include partials/nav_top %>
+
       <div class="container">
-        <div class="row nm header clearfix">
+        <div class="row header clearfix">
           <% include partials/header %>
         </div> <!-- /end Row Container -->
-  </div>
+      </div>
+      <div class="container">
+        <div class="row  clearfix">
+          <% include partials/nav %>
+        </div> <!-- /end Row Container -->
+      </div>
   <!-- /end Header include -->
+  <% include partials/banner %>
+  <!-- User Types  -->
+  <div class="user-types">
+    <% include partials/user_types %>
 
-  <div class="row t_officer center b_bottom">
-    <div class="container-fluid">
-      <img src="/images/01.jpg" alt="" class="img full-width" />
-    </div>
   </div>
-  <!-- /end Row Training officer -->
+  <!-- END User Types  -->
 
-  <div class="row student center b_bottom">
-    <div class="container-fluid">
-      <img src="/images/02.jpg" alt="" class="img full-width" />
-    </div>
-  </div>
-  <!-- /end Row Student -->
-
-  <div class="row search b_bottom">
-    <div class="container center">
-      <img src="/images/03.png" alt="" style="max-height:241px; width:100%; max-width:512px;" />
-    </div>
-  </div>
-  <!-- /end Row search -->
 
   <!-- Include Footer Here! -->
     <% include partials/footer %>
-  </div><!-- END Container-fluid -->
+
   <% include partials/chat %>
   <!-- END of chat  -->
 

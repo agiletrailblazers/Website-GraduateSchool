@@ -5,11 +5,11 @@
   <title><%= title %></title>
   <% include ../partials/head %>
   <script src='https://www.google.com/recaptcha/api.js'></script>
-  <link rel="stylesheet" href="/stylesheets/onsite_inquiry.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="/stylesheets/onsite_inquiry.css" media="screen">
   <link rel="stylesheet" href="/stylesheets/library/spinners.css">
 </head>
 <body>
-
+  <% include ../partials/nav_top %>
   <div class="container">
     <div class="row nm header clearfix">
       <% include ../partials/header %>
@@ -248,8 +248,8 @@
           </div><!-- END Container  -->
           <% include ../partials/chat %>
           <% include ../partials/footer %>
-          <script type="text/javascript" src="/javascripts/onsite-inquiry/multi-select.js"></script>
           <script type="text/javascript" src="/javascripts/onsite-inquiry/onsite_inquiry.js"></script>
+          <script type="text/javascript" src="/javascripts/onsite-inquiry/multi-select.js"></script>
           <script>
             $(function() {
               $('#ms').change(function() {

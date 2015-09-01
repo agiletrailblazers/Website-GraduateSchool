@@ -1,16 +1,48 @@
-<div class="row footer">
+<div class="container-fluid footer">
+  <div class="bar"></div>
+  <footer>
   <div class="container">
-    <footer class="center">
-      <p class="copy"> &copy; 2015 Graduate School USA </p>
-      <nav class="social_media">
+    <div class="row clearfix">
+      <div class="col-lg-3 col-md-3 col-sm-4">
+        <img src="/images/gs-logo-gray.png" alt="" />
+
+        <ul class="customer-support footer">
+          <li><a href="#" ><img alt="" src="/images/email-bw.png" class=""> Customer Support</a></li>
+          <li><a href="#" ><img alt="" src="/images/phone-bw.png" class=""> (888) 744-GRAD</a></li>
+        </ul>
+      </div>
+      <% navigation.footer.forEach(function(nav) { %>
+        <% if (nav.type=='link') { %>
+
+        <% } else if (nav.type=='sub-section') { %>
+          <div class="col-lg-2 col-md-2 col-sm-4">
+            <h3><%= nav.name %></h3>
+            <ul class="footer">
+              <% nav.value.forEach(function(subNav) { %>
+                <li><a href="<%= subNav.value %>"><%= subNav.name %></a></li>
+              <% }); %>
+            </ul>
+          </div>
+        <% } %>
+      <% }); %>
+      <div class="col-lg-1 col-md-1 col-sm-4">
+        <img src="/images/networks.png" alt="" class="networks" />
+
+      </div>
+    </div><!-- END row  -->
+
+    <div class="row">
+      <p class="copy center"> &copy; 2015 Graduate School USA </p>
+    </div>
+      <%# <nav class="social_media">
         <ul>
           <li><a href="http://www.facebook.com/GraduateSchoolUSA" target="_blank">Facebook</a></li>
           <li><a href="http://twitter.com/thegradschool" target="_blank">Twitter</a></li>
           <li><a href="http://www.youtube.com/user/TheGradSchool" target="_blank">Youtube</a></li>
           <li><a href="http://www.flickr.com/photos/thegradschool" target="_blank">Flickr</a></li>
         </ul>
-      </nav>
-    </footer>
+      </nav>%>
+  </footer>
   </div>
 </div>
 <script>

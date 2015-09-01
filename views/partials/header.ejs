@@ -1,103 +1,36 @@
 <header>
-	<div class="row nm clearfix">
-    <div class="col-lg-8 col-md-6 col-sm-12 pull-left">
-          <a href="/" class="homepage">
-            <img alt="Graduate School" src="/images/logo.jpg" class="img logo">
-          </a>
-        </div>
-        <div class="col-lg-4 col-md-6  col-sm-12">
-          <div id="home-search" class="col-lg-4 col-md-6 col-sm-12 col-xs-4 p20">
-            <form id="search-form" action="javascript:performCourseSearch();">
-              <div class="input-group">
-                <input type="text" id="searchCriteria" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                  <button id="course-search-button" class="btn btn-default" type="submit">
-                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                  </button>
-                </span>
-              </div>
-            </form>
-            <div id="searchWarn" class="alert alert-warning" role="alert">You must have at least 3 characters.</div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-12 col-xs-4 p20">
-            <a href="#" class="homepage" target="_blank">
-              <img alt="Register" src="/images/register.png" class="" style="width:110px;">
-            </a>
-          </div>
-        </div>
-      </div>
-  </div><!-- /end of the first Row  -->
+	<div class="row clearfix">
+		<div class="col-lg-4">
+			<a href="/" class="homepage">
+				<img alt="Graduate School" src="/images/logo.jpg" class="img logo">
+			</a>
+		</div>
+		<div class="col-lg-5">
+			<ul class="quick-links">
+				<li><a href="#" class="underline"><img alt="" src="/images/register.png" class=""> Register</a></li>
+				<li><a href="#" class="underline"><img alt="" src="/images/bookstore.png" class=""> Bookstore</a></li>
+				<li><a href="#" class="underline"><img alt="" src="/images/finance.png" class=""> Financial Aid</a></li>
+			</ul>
+		</div>
+		<div class="col-lg-3 ">
+			<ul class="customer-support">
+				<li><a href="#" ><img alt="" src="/images/email.png" class=""> Customer Support</a></li>
+				<li><a href="#" ><img alt="" src="/images/phone.png" class=""> (888) 744-GRAD</a></li>
+			</ul>
 
-
-<!-- Navigation -->
-	<div class="row">
-	  <div class="navbar navbar-default gs">
-
-	  <div class="navbar-header">
-        <button type="button" data-toggle="collapse" data-target="#navbar-collapse-grid" class="navbar-toggle">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-
-	  <div id="navbar-collapse-grid" class="navbar-collapse collapse">
-	    <ul class="nav navbar-nav">
-	      <% for (var i=0; i < nav.length; i++) { %>
-
-	        <%# Individual Link %>
-	        <% if (nav[i].type=='link') { %>
-
-	      	  <li class="dropdown gs-fw"><a href="<%= nav[i].value %>" class=""><%= nav[i].name %></a></li>
-
-	      	<%# Sub Nav with Sections %>
-	        <% } else if (nav[i].type=='sub-section') { %>
-
-	          <li class="dropdown gs-fw"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle"><%= nav[i].name %><b class="caret"></b></a>
-		        <ul class="dropdown-menu">
-		          <li class="grid-demo">
-		            <div class="row">
-		              <% for (j=0; j < nav[i].value.length; j++) { %>
-
-                    <%# Sections %>
-		                <% if (nav[i].value[j].type=='section') { %>
-
-			                <div class="col-sm-4">
-			                  <h4><%= nav[i].value[j].name %></h4>
-			                  <ul>
-			                    <% for (k=0; k < nav[i].value[j].value.length; k++) { %>
-				                    <li>
-				                      <a href="<%= nav[i].value[j].value[k].value %>"><%= nav[i].value[j].value[k].name %></a>
-				                    </li>
-				                 <% } %>
-			                  </ul>
-			                </div>
-		                <% } %>
-		                <%# End Sections %>
-
-		              <% } %>
-		            </div>
-		          </li>
-		        </ul>
-		      </li>
-
-	        <% } else if (nav[i].type=='sub-list') { %>
-
-	            <%# Basic List %>
-	            <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle"><%= nav[i].name %><b class="caret"></b></a>
-                <ul role="menu" class="dropdown-menu">
-
-	                <% for (j=0; j < nav[i].value.length; j++) { %>
-			              <li><a tabindex="-1" href="<%= nav[i].value[j].value %>"><%= nav[i].value[j].name %></a></li>
-			            <% } %>
-			          </ul>
-			        </li>
-
-	          <% } %>
-	        <% } %>
-        </ul>
-      </div>
-    </div>
-  </div><!-- / END of row -->
-	<!-- Navigation ENDS -->
-</header><!-- / END of header -->
+			<div id="home-search">
+				<form id="search-form" action="javascript:performCourseSearch();">
+					<div class="input-group">
+						<input type="text" id="searchCriteria" class="form-control" placeholder="" pattern=".{3,}" required title="3 characters minimum">
+						<span class="input-group-btn">
+							<button id="course-search-button" class="btn btn-default" type="submit">
+								<img alt="" src="/images/search.png" class="">
+							</button>
+						</span>
+					</div>
+				</form>
+				<%# <div id="searchWarn" class="alert alert-warning" role="alert">You must have at least 3 characters.</div>%>
+			</div>
+		</div>
+	</div><!-- END row  -->
+</header><!-- END header -->
