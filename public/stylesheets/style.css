@@ -207,9 +207,6 @@ form button:hover, form button:active {
   background-color: #be0f34;
 }
 
-
-
-
 /* END FORMS   */
 
 
@@ -400,6 +397,21 @@ ul.customer-support li a:hover {
   position: absolute;
   left: 0px;
   bottom: -20px;
+  width: 0;
+  height: 3px;
+  background-color: #E21264;
+  content: "";
+  -webkit-transition: all 0.7s;
+  -moz-transition: all 0.7s;
+  -o-transition: all 0.7s;
+  transition: all 0.7s;
+}
+
+ a.underline-n:after {
+  display: block;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
   width: 0;
   height: 3px;
   background-color: #E21264;
