@@ -12,58 +12,58 @@
 
 	  <div id="navbar-collapse-grid" class="navbar-collapse collapse">
 	    <ul class="nav navbar-nav">
-	      <% for (var i=0; i < nav.length; i++) { %>
+	      <% navigation.main.forEach(function(nav) { %>
 
 	        <%# Individual Link %>
-	        <% if (nav[i].type=='link') { %>
+	        <% if (nav.type=='link') { %>
 
-	      	  <li class="dropdown gs-fw"><a href="<%= nav[i].value %>" class=""><%= nav[i].name %></a></li>
+	      	  <li class="dropdown gs-fw"><a href="<%= nav.value %>" class=""><%= nav.name %></a></li>
 
 	      	<%# Sub Nav with Sections %>
-	        <% } else if (nav[i].type=='sub-section') { %>
+	        <% } else if (nav.type=='sub-section') { %>
 
-	          <li class="dropdown gs-fw"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle"><%= nav[i].name %><b class="caret"></b></a>
+	          <li class="dropdown gs-fw"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle"><%= nav.name %><b class="caret"></b></a>
 		        <ul class="dropdown-menu">
 		          <li class="grid-demo">
 		            <div class="row">
-		              <% for (j=0; j < nav[i].value.length; j++) { %>
+									<% nav.value.forEach(function(subNav) { %>
 
                     <%# Sections %>
-		                <% if (nav[i].value[j].type=='section') { %>
+		                <% if (subNav.type=='section') { %>
 
 			                <div class="col-sm-4">
-			                  <h4><%= nav[i].value[j].name %></h4>
+			                  <h4><%= subNav.name %></h4>
 			                  <ul>
-			                    <% for (k=0; k < nav[i].value[j].value.length; k++) { %>
+													<% subNav.value.forEach(function(subSubNav) { %>
 				                    <li>
-				                      <a href="<%= nav[i].value[j].value[k].value %>"><%= nav[i].value[j].value[k].name %></a>
+				                      <a href="<%= subSubNav.value %>"><%= subSubNav.name %></a>
 				                    </li>
-				                 <% } %>
+				                 <% }); %>
 			                  </ul>
 			                </div>
 		                <% } %>
 		                <%# End Sections %>
 
-		              <% } %>
+		              <% }); %>
 		            </div>
 		          </li>
 		        </ul>
 		      </li>
 
-	        <% } else if (nav[i].type=='sub-list') { %>
+	        <% } else if (nav.type=='sub-list') { %>
 
 	            <%# Basic List %>
-	            <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle"><%= nav[i].name %><b class="caret"></b></a>
+	            <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle"><%= nav.name %><b class="caret"></b></a>
                 <ul role="menu" class="dropdown-menu">
 
-	                <% for (j=0; j < nav[i].value.length; j++) { %>
-			              <li><a tabindex="-1" href="<%= nav[i].value[j].value %>"><%= nav[i].value[j].name %></a></li>
-			            <% } %>
+									<% nav.value.forEach(function(subNav) { %>
+			              <li><a tabindex="-1" href="<%= subNav.value %>"><%= subNav.name %></a></li>
+			            <% }); %>
 			          </ul>
 			        </li>
 
 	          <% } %>
-	        <% } %>
+	        <% }); %>
         </ul>
       </div>
     </div>

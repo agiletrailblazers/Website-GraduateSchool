@@ -91,10 +91,10 @@ module.exports = {
       return callback(response, error, result);
     });
   },
-  getMainNav: function(callback) {
+  getNav: function(callback) {
     request({
       method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/5tnto6ug3qkh/entries/6A8kbegf6Me6aKKeCECiQE',
+      url: 'https://cdn.contentful.com/spaces/5tnto6ug3qkh/entries',
       headers: {
         'Authorization': 'Bearer db132f1da5cc75a00f487cce1c94143798d8e5d12c65c169b2fc04febdfae44d'
       }
@@ -105,7 +105,7 @@ module.exports = {
         return callback(response, new Error("Exception occured getting navigation"), null);
       }
       nav = JSON.parse(body);
-      return callback(nav.fields.main);
+      return callback(nav.items);
     })
   },
   getReferenceData: function(slug, callback) {
