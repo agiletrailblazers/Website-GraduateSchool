@@ -4,6 +4,7 @@ var contentful_forms = require("../API/contentful_forms.js");
 var nock = require('nock');
 var should = require("should");
 var test = require('tap').test;
+var config = require('konphyg')(__dirname + "/../config");
 
 test('form route test for inquiry form', function(t) {
   var contentfulformServer = nock('https://cdn.contentful.com', {
