@@ -5,7 +5,6 @@ var nock = require('nock');
 var should = require("should");
 var test = require('tap').test;
 
-
 test('what new page testcase 1', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
         reqheaders: {
