@@ -23,15 +23,24 @@
           <div class="col-lg-8">
             <% for (var i = 0; i < sections.length; i++) { %>
               <% if (sections[i]) { %>
-                <div class="section section<%= i %>">
-                  <%- sections[i] %>
-                </div>
+                  <section>
+                    <article id="<%= i %>" class="genericArticle">
+                      <%- sections[i] %>
+                    </article>
+                  </section>
               <% } %>
             <%  } %>
           </div>
+          <% if (relatedLinks.length > 0) { %>
           <div class="col-lg-4">
             <h2>Related links</h2>
+            <ul>
+            <% relatedLinks.forEach(function(link) { %>
+              <li><a href="<%= link.url %>"><%= link.name %></a></li>
+            <% }); %>
+            </ul>
           </div>
+          <% } %>
         </div>
       </div>
 

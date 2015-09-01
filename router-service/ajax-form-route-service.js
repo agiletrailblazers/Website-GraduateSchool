@@ -61,7 +61,6 @@ module.exports = {
     validateOnsiteInquiryfields: function(callback,params) {
     	  response = {};
     	  response.errors = {};
-
     	  // Validate params.firstName
     	  switch(true) {
     	    case (params.address.firstName.length === 0):
@@ -111,11 +110,15 @@ module.exports = {
     	  }
 
     	  // Validate student count.
-    	  switch (true) {
-    	    case (params.course.studentCount.length < 1):
-    	      response.errors.studentCount = "You must enter a number."
-    	      break;
-    	  }
+        if (parseInt(params.course.studentCount) !== undefined) {
+      	  switch (true) {
+      	    case (parseInt(params.course.studentCount) < 1):
+      	      response.errors.studentCount = "Please provide a number of students."
+      	      break;
+      	  }
+        } else {
+          response.errors.studentCount = "Please provide a number of students."
+        }
     	  // Validate hear about.
     	  if (!params.hearAbout) {
     	    response.errors.hearAbout = "Please tell us where you heard about Graduate School USA.";
@@ -129,4 +132,3 @@ module.exports = {
     }
 
 };
-
