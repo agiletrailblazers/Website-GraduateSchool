@@ -5,7 +5,7 @@ var Validate = {
     if (!noNumbersPattern.test(input)) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>First Name</strong> should not have numbers.</p>");
     }
-    if (input.length < 3) {
+    if ((input.trim()).length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>First Name</strong> should be at least 3 characters.</p>");
     }
   },
@@ -15,13 +15,13 @@ var Validate = {
     if (!noNumbersPattern.test(input)) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Last Name</strong> should not have numbers.</p>");
     }
-    if (input.length < 3) {
+    if ((input.trim()).length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Last Name</strong> should be at least 3 characters.</p>");
     }
   },
   organization: function() {
     var input = $("#txtOrganizaiton").val();
-    if (input.length < 3) {
+    if ((input.trim()).length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Organization</strong> should be at least 3 characters.</p>");
     }
   },
@@ -41,7 +41,6 @@ var Validate = {
   },
   studentCount: function() {
     var studentCount = $("#txtStudentCount").val();
-    console.log("Student Count;", studentCount);
     digits = new RegExp(/^[0-9]*$/);
     if(!digits.test(studentCount)) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please enter a number in <strong>Student Count</strong>.</p>");
@@ -87,7 +86,6 @@ $(document).ready(function() {
   $(".loading").hide();
   $("#alertError").hide();
   $("#removeAlert").css('cursor', 'pointer');
-  $("#txtComments, #txtCustomization").css("border", "1px solid #ccc");
   // Click through form.
   $("#toCDIButton").click(function() {
     $("#collapse2Link").trigger('click');
