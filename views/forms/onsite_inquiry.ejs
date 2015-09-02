@@ -10,12 +10,30 @@
 </head>
 <body>
   <% include ../partials/header %>
+  <!-- Title Section -->
+  <div class="container-fluid title">
+    <div class="container">
+      <div class="col-lg-10">
+        <h1><%= title %></h1>
+        <p> <img src="../images/homepage.png" alt="" /> Home / Forms </p>
+      </div>
+      <div class="col-lg-2">
+        <div class="util">
+          <ul>
+            <li><a href="#"><img src="../images/print.png" alt="" /></a></li>
+            <li><a href="#"><img src="../images/email-me.png" alt="" /></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END Title Section -->
   <div class="container">
     <div class="container">
       <div class="loading" style="display:none;"></div>
       <div class="row">
         <div class="col-lg-8">
-          <h1><%= title %></h1>
+
           <!-- Accordion Container -->
           <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
             <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
@@ -27,7 +45,7 @@
           <form>
             <div class="panel-group" id="accordion">
               <div class="form-inline">
-                <div class="form-group"><%= topParagraph %></div>
+                <div class="form-group"><p><%= topParagraph %></p></div>
               </div>
               <div class="panel panel-default">
                 <div class="panel-heading">
