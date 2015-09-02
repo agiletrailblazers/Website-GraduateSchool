@@ -40,15 +40,15 @@ var Validate = {
     }
   },
   studentCount: function() {
-    var studentCount = $("#txtStudentCount").val();
-    digits = new RegExp(/^[0-9]*$/);
-    if(!digits.test(studentCount)) {
-      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please enter a number in <strong>Student Count</strong>.</p>");
-    }
-    if (parseInt(studentCount) < 1) {
-      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Student Count</strong> should be at least 1 digit.</p>");
-    }
-  },
+	    var studentCount = $("#txtStudentCount").val();
+	    digits = new RegExp(/^[0-9]*$/);
+	    if(!digits.test(studentCount)) {
+	      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please enter a number in <strong>Student Count</strong>.</p>");
+	    }
+	    if (parseInt(studentCount) < 1) {
+	      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Student Count</strong> should be at least 1 digit.</p>");
+	    }
+	  },
   captcha: function() {
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
