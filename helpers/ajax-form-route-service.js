@@ -112,6 +112,10 @@ module.exports = {
     	  // Validate student count.
         if (parseInt(params.course.studentCount) !== undefined) {
       	  switch (true) {
+      	  	case (!validator.isLength(params.course.studentCount.trim(), 1)):
+      	  	  response.errors.studentCount = "Please provide a number of students.";
+      	  	  break;
+  	      
       	    case (parseInt(params.course.studentCount) < 1):
       	      response.errors.studentCount = "Please provide a number of students."
       	      break;

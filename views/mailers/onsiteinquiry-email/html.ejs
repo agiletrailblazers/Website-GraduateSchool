@@ -52,16 +52,17 @@
     The following is a request for information on on-site training:
   </h1>
 
-  <h2>Name and Address</h2>
-  <p>First Name: <strong> <%= address.firstName %></strong></p>
-  <p>Last Name: <strong><%= address.lastName %></strong></p>
-  <p>Organization: <strong><%= address.organization %></strong></p>
-  <p>Street: <strong><%= address.street %></strong></p>
-  <p>Suite: <strong><%= address.suite %></strong></p>
-  <p>City: <strong><%= address.city %></strong></p>
-  <p>State: <strong><%= address.state %></strong></p>
-  <p>Zip Code: <strong><%= address.zip %></strong></p>
-  <p>Country: <strong><%= address.country %></strong></p>
+<h2>Name and Address</h2>
+<p>Prefix: <strong> <%= address.prefix %></strong></p>
+<p>First Name: <strong> <%= address.firstName %></strong></p>
+<p>Last Name: <strong><%= address.lastName %></strong></p>
+<p>Organization: <strong><%= address.organization %></strong></p>
+<p>Street: <strong><%= address.street %></strong></p>
+<p>Suite: <strong><%= address.suite %></strong></p>
+<p>City: <strong><%= address.city %></strong></p>
+<p>State: <strong><%= address.state %></strong></p>
+<p>Zip Code: <strong><%= address.zip %></strong></p>
+<p>Country: <strong><%= address.country %></strong></p>
 
   <hr>
 
@@ -79,12 +80,14 @@
 
   <hr>
 
-  <h2>Course Delivery Information</h2>
-  <p>Course Names: <strong><%= course.names %></strong></p>
-  <p>Student Count: <strong><%= course.studentCount %></strong></p>
-  <p>Customization: <strong><%= course.customization %></strong></p>
-  <p>Instructor: <strong><%= course.instructor %></strong></p>
-  <p>Help Building Enrollment: <strong><%= course.helpWithEnrollment %></strong></p>
+<h2>Course Delivery Information</h2>
+<p>Course Names: <strong><%= course.names %></strong></p>
+<p>Student Count: <strong><%= course.studentCount %></strong></p>
+<p>Customization: <strong><%= course.customization %></strong></p>
+<p>Course Delivery Date: <strong><%= course.deliveryDate %></strong></p>
+<p>Course Delivery Method: <strong><%= course.deliveryMethod %></strong></p>
+<p>Instructor: <strong><%= course.instructor %></strong></p>
+<p>Help Building Enrollment: <strong><%= course.helpWithEnrollment %></strong></p>
 
   <hr>
 

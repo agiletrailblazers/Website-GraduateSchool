@@ -7,6 +7,8 @@
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <link rel="stylesheet" href="/stylesheets/onsite_inquiry.css" media="screen">
   <link rel="stylesheet" href="/stylesheets/library/spinners.css">
+  <link rel="stylesheet" href="/stylesheets/library/jquery-ui.css">
+  <script src="/stylesheets/library/jquery-ui.min.js"></script>
 </head>
 <body>
   <% include ../partials/header %>
@@ -57,6 +59,17 @@
                   <div class="panel-body">
                     <div id="contact-information">
                       <div class="form-inline">
+                        <span class="form-group">
+                          <label for="prefix">prefix</label>
+                         <select id="prefix" class="form-control">
+                           <option value="">Select One</option>
+                           <option value="Mr.">Mr.</option>
+                           <option value="Mrs.">Mrs.</option>
+                           <option value="Miss">Miss</option>
+                           <option value="Ms.">Ms.</option>
+                           <option value="Dr.">Dr.</option>
+                         </select>
+                        </span>
                         <span class="form-group">
                           <label for="txtFirstName">*First Name</label>
                           <input type="text" id="txtFirstName" class="form-control" tabindex="1">
@@ -182,7 +195,8 @@
                             <div class="form-inline">
                               <span class="form-group">
                                 <label for="txtDeliveryDate">WHEN would you like the course(s) to be delivered?</label>
-                                <input type="date" id="txtDeliveryDate" name="txtDeliveryDate" placeholder="MM/DD/YYYY" tabindex="22">
+                                <input type="date" id="txtDeliveryDate"  name="txtDeliveryDate" placeholder="MM/DD/YYYY" tabindex="22">
+
                               </span>
 
                               <span class="form-group">
@@ -279,5 +293,11 @@
             });
           });
           </script>
+          <script>
+          $(function() {
+            $( "#txtDeliveryDate" ).datepicker();
+          });
+          </script>
+
         </body>
         </html>

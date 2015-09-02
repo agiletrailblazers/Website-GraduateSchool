@@ -5,6 +5,7 @@ var async = require('async');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var mailer = require('../../API/nodemailer.js');
+var dateformat = require('date-format-lite');
 var google = require('../../API/google.js');
 var validator = require('validator');
 var logger = require('../../logger');
@@ -34,6 +35,9 @@ router.post('/mailer-contact-us', function(req, res, next) {
 
 router.post('/mailer-onsite-inquiry', function(req, res, next) {
   params = req.body;
+  if (null != params.course["deliveryDate"]&&  params.course["deliveryDate"] !='') {
+    params.course["deliveryDate"] = params.course["deliveryDate"].date('MMM DD, YYYY');
+  }
   //move code to router service
   routerService.validateOnsiteInquiryfields(function(response){
   if (Object.keys(response.errors).length === 0) {
