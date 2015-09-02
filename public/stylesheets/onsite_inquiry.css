@@ -198,3 +198,8 @@
 .ms-drop .ms-no-results {
     display: none;
 }
+
+
+.ui-datepicker-calendar td, .ui-datepicker-calendar th {
+  padding: 0 !important;
+}
