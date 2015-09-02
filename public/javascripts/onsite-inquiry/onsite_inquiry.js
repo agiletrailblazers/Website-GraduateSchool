@@ -116,7 +116,6 @@ $(document).ready(function() {
   $("#backToCDIButton").click(function() {
     $("#collapse2Link").trigger('click');
   });
-  $("#txtOtherCourse").attr({"disabled":"disabled"});
   $("#submitForm").click(function(e) {
     e.preventDefault();
     _runValidation();
@@ -216,10 +215,12 @@ $(document).ready(function() {
   $("#ms").change(function() {
     if (($("[name='selCourses']").val() !== null) && ($("[name='selCourses']").val() !== "")&&
       (($("[name='selCourses']").val()).indexOf("OTHER")>-1)) {
-      $("#txtOtherCourse").removeAttr("disabled");
+      $("#txtOtherCourse").toggle();
+      $('[for="txtOtherCourse"]').toggle();
     } else {
+      $("#txtOtherCourse").hide();
+      $('[for="txtOtherCourse"]').hide();
       $("#txtOtherCourse").val("");
-      $("#txtOtherCourse").attr({"disabled":"disabled"});
     }
   });
   $("#removeAlert").click(function() {
