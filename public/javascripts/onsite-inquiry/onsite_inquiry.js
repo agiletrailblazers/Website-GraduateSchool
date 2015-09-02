@@ -88,7 +88,6 @@ $(document).ready(function() {
   $("#removeAlert").css('cursor', 'pointer');
 
   $("form").keyup(function(e) {
-    console.log($(":focus"));
     var code = e.keyCode || e.which;
     if (code === 9) {
       selectedInput = $(":focus");
