@@ -154,6 +154,11 @@ $(document).ready(function() {
     data.course.instructor = $("#txtInstructor").val();
     data.course.deliveryMethod = $("[name='radDeliveryMethod']:checked").val()
     data.course.helpWithEnrollment = $("#chkHelpWithEnrollment").is(':checked');
+    if ($("#chkHelpWithEnrollment").is(':checked')){
+      data.course.helpWithEnrollment = 'Yes';
+    } else {
+      data.course.helpWithEnrollment = 'No';
+    }
     if ($("#selHearAbout").val().startsWith("Other")) {
       data.hearAbout = $("#txtHearAboutOther").val();
     } else if ($("#selHearAbout").val().startsWith("Select One")) {
@@ -205,6 +210,17 @@ $(document).ready(function() {
     } else {
       $("#hearAboutOther").hide();
       $("#txtHearAboutOther").val("");
+    }
+  });
+  $("#ms").change(function() {
+    if (($("[name='selCourses']").val() !== null) && ($("[name='selCourses']").val() !== "")&&
+      (($("[name='selCourses']").val()).indexOf("OTHER")>-1)) {
+      $("#txtOtherCourse").toggle();
+      $('[for="txtOtherCourse"]').toggle();
+    } else {
+      $("#txtOtherCourse").hide();
+      $('[for="txtOtherCourse"]').hide();
+      $("#txtOtherCourse").val("");
     }
   });
   $("#removeAlert").click(function() {
