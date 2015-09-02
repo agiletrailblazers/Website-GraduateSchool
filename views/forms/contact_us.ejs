@@ -9,15 +9,7 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="row nm header clearfix">
-      <title>
-        <%= title %>
-      </title>
-      <% include ../partials/header %>
-    </div>
-    <!-- END Row  -->
-
+    <% include ../partials/header %>
     <div class="container">
       <div class="loading" style="display:none;"></div>
       <div class="row">
@@ -96,15 +88,27 @@
           </div>
           <!-- contact information div -->
         </div>
+
+        <% if (relatedLinks && relatedLinks.length > 0) { %>
+        <div class="col-lg-4">
+          <h2>Related links</h2>
+          <ul>
+          <% relatedLinks.forEach(function(link) { %>
+            <li><a href="<%= link.url %>"><%= link.name %></a></li>
+          <% }); %>
+          </ul>
+        </div>
+        <% } %>
+
       </div>
     </div>
   </div>
   <!-- END Accordion Container -->
   <!-- END  Row -->
-  <% include ../partials/chat %>
-    <% include ../partials/footer %>
-      <script type="text/javascript" src="/javascripts/contact_us.js"></script>
+
+<% include ../partials/chat %>
+<% include ../partials/footer %>
+<script type="text/javascript" src="/javascripts/contact_us.js"></script>
 
 </body>
-
 </html>

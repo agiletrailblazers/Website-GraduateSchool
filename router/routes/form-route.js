@@ -46,6 +46,7 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
 			topParagraph: fields.topParagraph,
 			highlightedParagraph: fields.highlightedParagraph,
 			hearAboutTraining: fields.howDidYouHearAboutTraining,
+			relatedLinks: fields.relatedLinks,
 			prefix: fields.namePrefix,
 			courses: courses,
 			locations: locations,
@@ -62,6 +63,7 @@ router.get('/forms/contact-us', function(req, res, next) {
           res.render('forms/contact_us', {title: response.cmsEntry.fields.title,
         	  subjectLine: response.cmsEntry.fields.subjectLine,
 						topParagraph: response.cmsEntry.fields.topParagraph,
+						relatedLinks: response.cmsEntry.fields.relatedLinks
         	  });
         });
     });
