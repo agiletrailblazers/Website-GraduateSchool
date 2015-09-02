@@ -94,7 +94,9 @@ $(document).ready(function() {
       $( "button, a" ).focus(function() {
         if ($(this).prop('tagName') === "BUTTON") {
           $(this).css('border', '1px dotted #be0f34');
-          $(this).trigger('click');
+          if($(this).attr('class') === "next-button") {
+            $(this).trigger('click');
+          }
         }
       }).focusout(function(event) {
         $(this).css('border', 'none');
