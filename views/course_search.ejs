@@ -30,12 +30,7 @@
   </style>
 </head>
   <body>
-    <div class="container">
-      <div class="row nm header clearfix">
-        <% include partials/header %>
-      </div>
-    <!-- /end Row Container -->
-    </div>
+    <% include partials/header %>
     <div class="container">
       <h1><%= content.resultsSectionTitle %></h1>
       <% if (result == null || result.courses == null || result.courses.length == 0) { %>
