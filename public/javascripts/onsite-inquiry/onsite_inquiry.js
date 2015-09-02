@@ -87,22 +87,20 @@ $(document).ready(function() {
   $("#alertError").hide();
   $("#removeAlert").css('cursor', 'pointer');
 
-  // If tab button is pressed and there is a focus.
-  $("form").keydown(function(e) {
+  $("form").keyup(function(e) {
+    console.log($(":focus"));
     var code = e.keyCode || e.which;
     if (code === 9) {
-      $( "button, a" ).focus(function() {
-        if ($(this).prop('tagName') === "BUTTON") {
-          $(this).css('border', '1px dotted #be0f34');
-          if($(this).attr('class') === "next-button") {
-            $(this).trigger('click');
-          }
-        }
-      }).focusout(function(event) {
-        $(this).css('border', 'none');
-      });
+      selectedInput = $(":focus");
+      if (selectedInput.attr('type') === "button") {
+        $(selectedInput).css('border', '1px dotted #be0f34').blur(function(event) {
+          $(selectedInput).css('border', '');
+        });
+      }
+
     }
   });
+
   // Click through form.
   $("#toCDIButton").click(function() {
     $("#collapse2Link").trigger('click');

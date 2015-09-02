@@ -131,7 +131,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a id="collapse2Link" data-toggle="collapse" data-parent="#accordion" href="#collapse2"  tabindex="14">COURSE DELIVERY INFORMATION</a>
+                      <a id="collapse2Link" data-toggle="collapse" data-parent="#accordion" href="#collapse2">COURSE DELIVERY INFORMATION</a>
                     </h4>
                   </div>
                   <div id="collapse2" class="panel-collapse collapse">
@@ -139,7 +139,7 @@
                       <div id="course-delivery-information">
                         <div class="form-inline">
                           <label for="txtCourses">*Choose Course(s)</label>
-                          <select id="ms" name="selCourses" multiple="multiple"  tabindex="15">
+                          <select id="ms" name="selCourses" multiple="multiple"  tabindex="14">
                             <option value="OTHER">Other Courses or Subject Area- Please Indicate Below</option>
                             <% for(i = 0; i < courses.length; i++) { %>
                               <option value="<%= courses[i].id + " -- "+courses[i].title %>"><%= courses[i].title %> (<%= courses[i].code %>) - <%= courses[i].type %></option>
@@ -150,31 +150,31 @@
                           <div class="form-inline">
                             <span class="form-group">
                               <label for="txtOtherCourse" style="display:none;">Other Course or Subject</label>
-                              <input type="text" id="txtOtherCourse" class="form-control"  tabindex="16" style="display:none;">
+                              <input type="text" id="txtOtherCourse" class="form-control"  tabindex="15" style="display:none;">
                             </span>
                             <span class="form-group">
                               <label for="txtStudentCount">*Approximate number of students</label>
-                              <input type="text" pattern="^[0-9]*$" id="txtStudentCount" class="form-control" tabindex="17">
+                              <input type="text" pattern="^[0-9]*$" id="txtStudentCount" class="form-control" tabindex="16">
                             </span>
                             <span class="form-group">
                               <label for="txtCustomization">If you require changes or customization for the course(s), please briefly describe the type of customization</label>
-                              <textarea id="txtCustomization" name="txtCustomization" style="width: 100%;" tabindex="18"></textarea>
+                              <textarea id="txtCustomization" name="txtCustomization" style="width: 100%;" tabindex="17"></textarea>
                             </span>
-                            <span class="form-group">
+                            <span id="checkboxes" class="form-group">
                               <label>If you desire a classroom, WHERE would you like the course(s) to be delivered?</label>
                               <br>
-                              <input type="checkbox" id="chkGSLocations" value="" tabindex="19"> Graduate School USA facilities in (which location(s))
-                              <select class="form-control" id="selGSLocations" style="display:none;" tabindex="20">
+                              <input type="checkbox" id="chkGSLocations" value="" tabindex="18"> Graduate School USA facilities in (which location(s))
+                              <select class="form-control" id="selGSLocations" style="display:none;" tabindex="19">
                                 <option value="">Select One</option>
                                 <% for(i = 0; i < locations.length; i++) { %>
                                   <option value="<%= locations[i].city %>, <%= locations[i].state %>"><%= locations[i].city %>, <%= locations[i].state %></option>
                                   <% } %>
                                 </select>
                                 <br>
-                                <input type="checkbox" id="chkYourLocations" value="" tabindex="21"> On-site in your facilities in (which location(s))
+                                <input type="checkbox" id="chkYourLocations" value="" tabindex="20"> On-site in your facilities in (which location(s))
                                 <input type="text" id="txtYourLocations" style="display:none;">
                                 <br>
-                                <input type="checkbox" id="chkOtherLocations" value="" tabindex="22"> Other facilities in (which location(s))
+                                <input type="checkbox" id="chkOtherLocations" value="" tabindex="21"> Other facilities in (which location(s))
                                 <input type="text" id="txtOtherLocations" style="display:none;">
                                 <br>
                               </span>
@@ -182,40 +182,40 @@
                             <div class="form-inline">
                               <span class="form-group">
                                 <label for="txtDeliveryDate">WHEN would you like the course(s) to be delivered?</label>
-                                <input type="date" id="txtDeliveryDate" name="txtDeliveryDate" placeholder="MM/DD/YYYY" tabindex="23">
+                                <input type="date" id="txtDeliveryDate" name="txtDeliveryDate" placeholder="MM/DD/YYYY" tabindex="22">
                               </span>
 
                               <span class="form-group">
                                 <label for="radDeliveryMethod">HOW would you like the course(s) to be delivered? (select one)</label>
                                 <br>
                                 <form>
-                                  <input type="radio" id="radClassroom" name="radDeliveryMethod" value="Classroom" tabindex="24"> Classroom
+                                  <input type="radio" id="radClassroom" name="radDeliveryMethod" value="Classroom" tabindex="23"> Classroom
                                   <br>
-                                  <input type="radio" id="radDistance" name="radDeliveryMethod" value="Distance Education" tabindex="25"> Distance Education (Web, CD-ROM, and other options)
+                                  <input type="radio" id="radDistance" name="radDeliveryMethod" value="Distance Education" tabindex="24"> Distance Education (Web, CD-ROM, and other options)
                                   <br>
-                                  <input type="radio" id="radBlended" name="radDeliveryMethod" value="Blended Learning" tabindex="26"> Blended Learning (both classroom and distance education delivery methods)
+                                  <input type="radio" id="radBlended" name="radDeliveryMethod" value="Blended Learning" tabindex="25"> Blended Learning (both classroom and distance education delivery methods)
                                 </form>
                               </span>
 
                               <span class="form-group">
                                 <label for="txtInstructor">If you have a PREFERRED INSTRUCTOR(S), please list the name(s)?</label>
-                                <input type="text" id="txtInstructor" class="form-control" tabindex="27">
+                                <input type="text" id="txtInstructor" class="form-control" tabindex="26">
                               </span>
 
                               <span class="form-group">
-                                <input type="checkbox" id="chkHelpWithEnrollment" value="" tabindex="28"> <label for="chkHelpWithEnrollment"> Would like our help with building enrollment?</label>
+                                <input type="checkbox" id="chkHelpWithEnrollment" value="" tabindex="27"> <label for="chkHelpWithEnrollment"> Would like our help with building enrollment?</label>
                               </span>
                             </div>
                           </div>   <!-- END Course delivery -->
                         </div>
-                        <button type="button" name="toCDI" id="toFormSubButton" tabindex="29" class="next-button">Next</button>
-                        <button type="button" name="toContact" id="toContactButton" tabindex="30">Previous</button>
+                        <button type="button" name="toCDI" id="toFormSubButton" tabindex="28" class="next-button">Next</button>
+                        <button type="button" name="toContact" id="toContactButton" tabindex="29">Previous</button>
                       </div>
                     </div>
                     <div class="panel panel-default">
                       <div class="panel-heading">
                         <h4 class="panel-title">
-                          <a id="collapse3Link" data-toggle="collapse" data-parent="#accordion" href="#collapse3" tabindex="31">FORM SUBMISSION</a>
+                          <a id="collapse3Link" data-toggle="collapse" data-parent="#accordion" href="#collapse3" tabindex="30">FORM SUBMISSION</a>
                         </h4>
                       </div>
                       <div id="collapse3" class="panel-collapse collapse">
@@ -231,20 +231,20 @@
                             </span>
                             <span id="hearAboutOther" class="form-group" style="display:none;">
                               <label for="txtHearAboutOther">Other</label>
-                              <input type="text" id="txtHearAboutOther" class="form-control" tabindex="33"/>
+                              <input type="text" id="txtHearAboutOther" class="form-control" tabindex="31"/>
                             </span>
                             <div class="comments">
                               <label for="txtComments">Comments or Questions</label>
                               <br>
-                              <textarea name="comments" id="txtComments" rows="8" style="width: 100%;" tabindex="34"></textarea>
+                              <textarea name="comments" id="txtComments" rows="8" style="width: 100%;" tabindex="32"></textarea>
                             </div>
                             <br>
                             <div id="onSiteInguiryCaptcha">
-                              <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh" tabindex="35"></div>
+                              <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh" tabindex="33"></div>
                             </div>
                             <br>
-                            <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="36">Submit Request</button>
-                            <button type="button" name="toCDI" id="backToCDIButton" tabindex="37">Previous</button>
+                            <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="34">Submit Request</button>
+                            <button type="button" name="toCDI" id="backToCDIButton" tabindex="35">Previous</button>
                             <br>
                           </div>
                         </div>
