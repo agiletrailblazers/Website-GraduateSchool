@@ -1,8 +1,8 @@
 {
     "courseApiUrl": "http://54.88.97.61:8080",
 
-    "defaultEmailServerName": "",
-    "defaultEmailServerPort": "",
+    "defaultEmailServerName": "10.0.0.179",
+    "defaultEmailServerPort": "25",
     "defaultEmailUserName":"",
     "defaultEmailUserPassword":"",
     "defaultEmailToUserName":"GSWebsiteForm@graduateschool.edu",
