@@ -49,6 +49,8 @@ a:hover, a:active {
     outline: none;
 }
 
+
+
 /* Homepage - demo - temporary code */
 
 
@@ -449,6 +451,59 @@ ul.customer-support li a:hover {
   background-color: transparent;
 
 }
+
+/* Title bar */
+
+.title {
+  position: relative;
+  left: 0;
+  width: 100%;
+  height: 110px;
+  /* background-image: linear-gradient(to bottom, #01386C 0px, #4172A4 100%);*/
+  /* background: #3375B2 url('../images/title-bar.png') no-repeat left; */
+  padding: 0 20px;
+  margin-bottom: 30px;
+  /* Safari 4-5, Chrome 1-9 */  background: -webkit-gradient(linear, left top, right top, from(#01386C), to(#01386C));
+
+  /* Safari 5.1, Chrome 10+ */ background: -webkit-linear-gradient(left, #4172A4, #01386C);
+
+   /* Firefox 3.6+ */ background: -moz-linear-gradient(left, #4172A4, #01386C);
+
+   /* IE 10 */ background: -ms-linear-gradient(left, #4172A4, #01386C);
+
+   /* Opera 11.10+ */ background: -o-linear-gradient(left, #4172A4, #01386C);
+}
+
+.title h1 {
+  font-size: 28px;
+  font-weight: 300;
+  color: #FFF;
+  padding: 0;
+}
+
+.title p {
+  font-size: 16px;
+  color: #FFF;
+  padding: 0 0 10px 0;
+}
+
+.title .util {
+  position: relative;
+  display: inline;
+  float: right;
+  top: 75px;
+  clear: right;
+}
+.title .util  ul li {
+  display: inline;
+  list-style: none;
+}
+
+.util  ul li a:hover {
+  background-color: transparent !important;
+
+}
+
 
 
 
