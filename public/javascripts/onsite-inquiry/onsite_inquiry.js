@@ -116,6 +116,7 @@ $(document).ready(function() {
   $("#backToCDIButton").click(function() {
     $("#collapse2Link").trigger('click');
   });
+  $("#txtOtherCourse").attr({"disabled":"disabled"});
   $("#submitForm").click(function(e) {
     e.preventDefault();
     _runValidation();
@@ -154,6 +155,11 @@ $(document).ready(function() {
     data.course.instructor = $("#txtInstructor").val();
     data.course.deliveryMethod = $("[name='radDeliveryMethod']:checked").val()
     data.course.helpWithEnrollment = $("#chkHelpWithEnrollment").is(':checked');
+    if ($("#chkHelpWithEnrollment").is(':checked')){
+      data.course.helpWithEnrollment = 'Yes';
+    } else {
+      data.course.helpWithEnrollment = 'No';
+    }
     if ($("#selHearAbout").val().startsWith("Other")) {
       data.hearAbout = $("#txtHearAboutOther").val();
     } else if ($("#selHearAbout").val().startsWith("Select One")) {
@@ -205,6 +211,15 @@ $(document).ready(function() {
     } else {
       $("#hearAboutOther").hide();
       $("#txtHearAboutOther").val("");
+    }
+  });
+  $("#ms").change(function() {
+    if (($("[name='selCourses']").val() !== null) && ($("[name='selCourses']").val() !== "")&&
+      (($("[name='selCourses']").val()).indexOf("OTHER")>-1)) {
+      $("#txtOtherCourse").removeAttr("disabled");
+    } else {
+      $("#txtOtherCourse").val("");
+      $("#txtOtherCourse").attr({"disabled":"disabled"});
     }
   });
   $("#removeAlert").click(function() {
