@@ -150,7 +150,7 @@ $(document).ready(function() {
     data.course.names = courseNames;
     data.course.studentCount = $("#txtStudentCount").val();
     data.course.customization = $("#txtCustomization").val();
-    data.course.deliveryDate = $("#v").val();
+    data.course.deliveryDate = $("#txtDeliveryDate").val();
     data.course.instructor = $("#txtInstructor").val();
     data.course.deliveryMethod = $("[name='radDeliveryMethod']:checked").val()
     data.course.helpWithEnrollment = $("#chkHelpWithEnrollment").is(':checked');
