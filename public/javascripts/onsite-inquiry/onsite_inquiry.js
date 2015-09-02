@@ -124,6 +124,7 @@ $(document).ready(function() {
     data.location = {};
     data.contact = {};
     data.course = {};
+    data.address.prefix = $("#prefix").val();
     data.address.firstName = $("#txtFirstName").val();
     data.address.lastName = $("#txtLastName").val();
     data.address.organization = $("#txtOrganizaiton").val();
