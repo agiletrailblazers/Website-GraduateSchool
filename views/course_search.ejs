@@ -31,8 +31,29 @@
 </head>
   <body>
     <% include partials/header %>
+    <!-- Title Section -->
+    <div class="container-fluid title">
+      <div class="container">
+        <div class="row clearfix">
+          <div class="col-lg-8 col-md-8 col-sm-8">
+            <h1 id="results-for">Results for </h1>
+            <p> <img src="../images/homepage.png" alt="" /> Home / Search Results </p>
+          </div>
+          <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
+
+              <ul>
+                <li><a href="#"><img src="../images/print.png" alt="" /></a></li>
+                <li><a href="#"><img src="../images/email-me.png" alt="" /></a></li>
+              </ul>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- END Title Section -->
+    <!-- <h1><%= content.resultsSectionTitle %></h1> -->
     <div class="container">
-      <h1><%= content.resultsSectionTitle %></h1>
       <% if (result == null || result.courses == null || result.courses.length == 0) { %>
         <div class="alert alert-danger" role="alert">
           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -40,27 +61,57 @@
           No matches
         </div>
         <% } else { %>
-          <% for(var i=0; i<result.courses.length; i++) { %>
-
-                  <% if ( result.courses[i].description.text !== null ) { %>
-                    <% if (result.courses[i].code === null) { result.courses[i].code = result.courses[i].id.slice(0, -3); }%>
-                    <div id="course-result">
-                      <h3><a href="/courses/<%= result.courses[i].id %>"><%= result.courses[i].code %> - <%= result.courses[i].title %></a></h3>
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-4">
+              <div class="filters">
+                <div class="panel-group">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#refine-results" >Refine Results</a>
+                      </h4>
                     </div>
-                    <div><%= prune(striptags(result.courses[i].description.text), 300, "...") %></div>
-                    <hr>
+                    <div id="refine-results" class="panel-collapse collapse in">
+                      <div class="panel-body">Panel Body</div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-8">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h4>Showing 1 of 100 Results</h4></div>
+              <div class="panel-body">
+                  <% for(var i=0; i<result.courses.length; i++) { %>
+
+                          <% if ( result.courses[i].description.text !== null ) { %>
+                            <% if (result.courses[i].code === null) { result.courses[i].code = result.courses[i].id.slice(0, -3); }%>
+                            <div id="course-result">
+                              <h3><a href="/courses/<%= result.courses[i].id %>"><%= result.courses[i].code %> - <%= result.courses[i].title %></a></h3>
+                            </div>
+                            <div><%= prune(striptags(result.courses[i].description.text), 300, "...") %></div>
+                            <hr>
+                          <% } %>
                   <% } %>
-          <% } %>
-        <% } %>
-        <p>
-          <a class="btn btn-primary button" href=''>
-            <span class="glyphicon glyphicon-chevron-left"></span><%= content.previousButton %>
-          </a>
-          <a class="btn btn-primary button" href=''>
-            <%= content.nextButton %><span class="glyphicon glyphicon-chevron-right"></span>
-          </a>
-        </p>
-    </div>
+                <% } %>
+                <p>
+                  <a class="btn btn-primary button" href=''>
+                    <span class="glyphicon glyphicon-chevron-left"></span><%= content.previousButton %>
+                  </a>
+                  <a class="btn btn-primary button" href=''>
+                    <%= content.nextButton %><span class="glyphicon glyphicon-chevron-right"></span>
+                  </a>
+                </p>
+              </div>
+            </div>
+            </div>
+          </div>
+     </div> <!-- END container -->
+
+     <script type="text/javascript">
+
+     </script>
       <% include partials/chat %>
     <% include partials/footer %>
   </body>
