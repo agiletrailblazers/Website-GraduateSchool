@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/stylesheets/onsite_inquiry.css" media="screen">
   <link rel="stylesheet" href="/stylesheets/library/spinners.css">
   <link rel="stylesheet" href="/stylesheets/library/jquery-ui.css">
-  <script src="/stylesheets/library/jquery-ui.min.js"></script>
+  <script src="/javascripts/library/jquery-ui.min.js"></script>
 </head>
 <body>
   <% include ../partials/header %>
@@ -60,9 +60,8 @@
                     <div id="contact-information">
                       <div class="form-inline">
                         <span class="form-group">
-                          <label for="prefix">prefix</label>
                          <select id="prefix" class="form-control">
-                           <option value="">Select One</option>
+                           <option value="">Prefix</option>
                            <option value="Mr.">Mr.</option>
                            <option value="Mrs.">Mrs.</option>
                            <option value="Miss">Miss</option>
@@ -155,7 +154,7 @@
                           <select id="ms" name="selCourses" multiple="multiple"  tabindex="14">
                             <option value="OTHER">Other Courses or Subject Area- Please Indicate Below</option>
                             <% for(i = 0; i < courses.length; i++) { %>
-                              <option value="<%= courses[i].id + " -- "+courses[i].title %>"><%= courses[i].title %> (<%= courses[i].code %>) - <%= courses[i].type %></option>
+                              <option value="<%= courses[i].code + " -- "+courses[i].title %>"><%= courses[i].title %> (<%= courses[i].code %>) - <%= courses[i].type %></option>
                               <% } %>
                             </select>
                           </div>
@@ -285,19 +284,17 @@
           <% include ../partials/footer %>
           <script type="text/javascript" src="/javascripts/onsite-inquiry/onsite_inquiry.js"></script>
           <script type="text/javascript" src="/javascripts/onsite-inquiry/multi-select.js"></script>
-          <script>
+          <script type="text/javascript">
           $(function() {
             $('#ms').change(function() {
             }).multipleSelect({
               width: '100%'
             });
           });
-          </script>
-          <script>
+
           $(function() {
             $( "#txtDeliveryDate" ).datepicker();
           });
           </script>
-
         </body>
         </html>
