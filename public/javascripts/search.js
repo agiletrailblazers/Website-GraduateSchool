@@ -12,6 +12,7 @@ var App = {
     if (matches) {
       var match = matches[1];
       $("#results-for").append(match);
+      $("#results-for-alert").append(match);
       }
     }
 }
