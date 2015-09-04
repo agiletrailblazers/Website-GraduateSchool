@@ -126,8 +126,11 @@ color: #FFF !important;
 }
 
 #refine-results input[type="checkbox"] {
-  order: 2px solid #87ACCE;
+  border: 2px solid #87ACCE;
   border-radius: 0;
+  padding: 5px;
+  width: 20px;
+  height: 20px;
 }
 
 #pagination nav {
@@ -143,8 +146,10 @@ color: #FFF !important;
 }
 
 .spacer {
-  margin: 30px 0px !important;
+  margin: 20px 0px !important;
 }
+
+
 
 .control-label {
   padding: 7px 0 0 0;
