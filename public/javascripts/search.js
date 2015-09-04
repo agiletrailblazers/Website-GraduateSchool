@@ -3,6 +3,7 @@ function performCourseSearch() {
   location.href = "/course-search?search=" + document.getElementById("searchCriteria").value;
 }
 
+// Retrieve Search criteria term that user has search for and prints it out on the title section
 var App = {
   getSearchParamater: function() {
     var url = window.location.href;
@@ -15,20 +16,22 @@ var App = {
     }
 }
 
-
 $(document).ready(function(){
     App.getSearchParamater();
 
 
-    $(window).bind('resize load', function() {
-        if ($(this).width() < 767) {
-            $('#refine-results').removeClass('in');
-            $('#refine-results').addClass('out');
-        } else {
-            $('#refine-results').removeClass('out');
-            $('#refine-results').addClass('in');
-        }
-    });
+// control collapse/expand function for Refine results -  mobile vs desktop
+$(window).bind('resize load', function() {
+    if ($(this).width() < 767) {
+        $('#refine-results').removeClass('in');
+        $('#refine-results').addClass('out');
+    } else {
+        $('#refine-results').removeClass('out');
+        $('#refine-results').addClass('in');
+    }
+});
+
+
 //   $("#searchWarn").hide();
 //   // Validating search on front-end.
 //   $("#course-search-button").click(function(e){
