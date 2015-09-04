@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/stylesheets/onsite_inquiry.css" media="screen">
   <link rel="stylesheet" href="/stylesheets/library/spinners.css">
   <link rel="stylesheet" href="/stylesheets/library/jquery-ui.css">
-  <script src="/stylesheets/library/jquery-ui.min.js"></script>
+  <script src="/javascripts/library/jquery-ui.min.js"></script>
 </head>
 <body>
   <% include ../partials/header %>
@@ -284,19 +284,17 @@
           <% include ../partials/footer %>
           <script type="text/javascript" src="/javascripts/onsite-inquiry/onsite_inquiry.js"></script>
           <script type="text/javascript" src="/javascripts/onsite-inquiry/multi-select.js"></script>
-          <script>
+          <script type="text/javascript">
           $(function() {
             $('#ms').change(function() {
             }).multipleSelect({
               width: '100%'
             });
           });
-          </script>
-          <script>
+
           $(function() {
             $( "#txtDeliveryDate" ).datepicker();
           });
           </script>
-
         </body>
         </html>
