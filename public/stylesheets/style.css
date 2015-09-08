@@ -56,7 +56,8 @@ a:hover, a:active {
 
 .header {
   background-color: #FFFFFF;
-  padding: 30px 0;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .search {
@@ -883,9 +884,33 @@ img.networks {
     border: none;
 }
 
+.padding {
+  padding: 0 15px !important;
+}
+
 .nopadding {
    padding: 0 !important;
    margin: 0 !important;
+}
+
+.padding-l {
+  padding-left: 15px;
+}
+
+.padding-r {
+  padding-right: 15px;
+}
+
+.nopadding-l {
+  padding-left: 0 !important;
+}
+
+.nopadding-r {
+  padding-right: 0 !important;
+}
+
+.margin-reset {
+ margin: 0;
 }
 
 /*for FireFox*/

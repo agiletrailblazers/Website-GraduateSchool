@@ -20,7 +20,23 @@
       }
 
       .title .util {
-        padding-right: 0 !important;
+      padding-right: 0 !important;
+      }
+
+      .padding-l {
+      padding-left: 0 !important;
+      }
+
+      .padding-r {
+      padding-right: 0 !important;
+      }
+
+      .nopadding-l {
+      padding-left: 15px !important;
+      }
+
+      .nopadding-r {
+      padding-right: 15px !important;
       }
 
     }
