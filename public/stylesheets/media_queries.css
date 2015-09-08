@@ -19,6 +19,8 @@
         display: none;
       }
 
+
+      /* fixes */
       .padding-l {
       padding-left: 0 !important;
       }
@@ -36,7 +38,6 @@
       }
 
       /* fix MAIN Nav menu items width on mobile */
-
       .w1 {
         width: 100% !important;
       }
