@@ -1,3 +1,5 @@
+/*==========  Graduate School Styles  ==========*/
+
 html {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -214,7 +216,7 @@ form button:hover, form button:active {
 
 
 
-/* NAV Top section  */
+/* TOP NAVIGATION  */
 
 .fix {
   padding-top: 30px;
@@ -235,7 +237,6 @@ form button:hover, form button:active {
   padding: 0;
   top:0;
 }
-
 
 
 a.nav-top-button  {
@@ -302,7 +303,10 @@ a.nav-top-button  {
   text-decoration: underline;
 }
 
-/* Header section  */
+
+
+/* HEADER  */
+
 header {
   margin-top: -10px;
 }
@@ -341,7 +345,10 @@ ul.customer-support li a:hover {
 
 
 
-/*  Search  */
+
+
+/*  SEARCH  */
+
 #course-search-button.btn-default {
   background-color: transparent;
   background-image: none;
@@ -368,7 +375,9 @@ ul.customer-support li a:hover {
 }
 
 
-/* Underline animation  */
+
+
+/* UNDERLINE animation  */
 .underline {
   position: relative;
   color: #ff3296;
@@ -424,6 +433,8 @@ ul.customer-support li a:hover {
   -o-transition: all 0.7s;
   transition: all 0.7s;
 }
+
+
 
 
 /* Banner */

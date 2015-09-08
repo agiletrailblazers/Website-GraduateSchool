@@ -39,6 +39,30 @@
       padding-right: 15px !important;
       }
 
+      /* fix MAIN Nav menu items width on mobile */
+
+      .w1 {
+        width: 100% !important;
+      }
+      .w2 {
+        width: 100% !important;
+      }
+      .w3 {
+        width: 100% !important;
+      }
+      .w4 {
+        width: 100% !important;
+      }
+      .w5 {
+        width: 100% !important;
+      }
+      .w6 {
+        width: 100% !important;
+      }
+      .w7 {
+        width: 100% !important;
+      }
+
     }
 
     /* Extra Small Devices, Phones */

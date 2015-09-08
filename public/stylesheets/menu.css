@@ -1,3 +1,6 @@
+
+/*==========  Menu Styles  ==========*/
+
 .gs .nav,
 .gs .collapse,
 .gs .dropup,
@@ -278,7 +281,6 @@ select::-moz-focus-inner, option::-moz-focus-inner {
   #nav-top ul.nav li:hover {
 
   }
-
 
   /* Underline animation  */
   .underlined {
