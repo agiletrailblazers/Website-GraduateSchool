@@ -493,6 +493,7 @@ ul.customer-support li a:hover {
   float: right;
   top: 75px;
   clear: right;
+  padding-right: 15px;
 }
 .title .util  ul li {
   display: inline;
@@ -880,6 +881,11 @@ img.networks {
 *:focus {
     outline: 0 !important;
     border: none;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
 }
 
 /*for FireFox*/
