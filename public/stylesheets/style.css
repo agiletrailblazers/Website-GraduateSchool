@@ -505,8 +505,8 @@ ul.customer-support li a:hover {
   float: right;
   top: 75px;
   clear: right;
-  padding-right: 15px;
 }
+
 .title .util  ul li {
   display: inline;
   list-style: none;
@@ -516,8 +516,6 @@ ul.customer-support li a:hover {
   background-color: transparent !important;
 
 }
-
-
 
 
 /* User Types */
@@ -560,7 +558,6 @@ ul.customer-support li a:hover {
   width: 100%;
   margin: 0 auto 20px auto;
   text-align: center;
-
 }
 
 .user-type div a {
