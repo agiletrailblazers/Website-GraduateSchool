@@ -47,14 +47,12 @@ select::-moz-focus-inner, option::-moz-focus-inner {
 
 
 /* MENU item styles */
-
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .open > a {
     background-image: linear-gradient(to bottom, #B2B2B2 0px, #8E8E8E 100%);
     background-repeat: repeat-x;
     font-size: 14px !important;
     font-weight: normal !important;
     color: #fff !important;
-
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -113,7 +111,6 @@ select::-moz-focus-inner, option::-moz-focus-inner {
   margin:0;
 }
 
-
 .border-between > [class*='col-']:before {
  background: #e3e3e3;
  bottom: 0;
@@ -126,6 +123,7 @@ select::-moz-focus-inner, option::-moz-focus-inner {
 .border-between > [class*='col-']:first-child:before {
  display: none;
 }
+
 
 /* Width fixes  */
 .w1 {
@@ -172,8 +170,8 @@ select::-moz-focus-inner, option::-moz-focus-inner {
   text-align: left;
   line-height: 2;
   background-color: transparent;
-
 }
+
 
 /* TOP NAV */
 #nav-top {
@@ -215,7 +213,6 @@ select::-moz-focus-inner, option::-moz-focus-inner {
 
 .left-panel {
   background-color: transparent !important;
-
 }
 
 #left-panel-fix {
