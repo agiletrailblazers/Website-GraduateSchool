@@ -17,7 +17,11 @@
       /* remove "CLEAR ALL" button from refine search sidebar on smaller res */
       .refine {
         display: none;
-      } 
+      }
+
+      .title .util {
+        padding-right: 0 !important;
+      }
 
     }
 
