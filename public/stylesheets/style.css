@@ -56,7 +56,6 @@ a:hover, a:active {
 }
 
 
-
 h1.box {
 font-size: 30px;
 border-left: 20px solid #993;
@@ -135,8 +134,6 @@ form button, form button:visited {
 form button:hover, form button:active {
   background-color: #be0f34;
 }
-
-
 
 
 /* TOP NAVIGATION  */
@@ -227,14 +224,13 @@ a.nav-top-button  {
   height: 30px;
 }
 
-/* HEADER  */
 
+/* HEADER  */
 .header {
   background-color: #FFFFFF;
   padding-top: 30px;
   padding-bottom: 30px;
 }
-
 
 header {
   margin-top: -10px;
@@ -294,8 +290,6 @@ ul.customer-support li a:hover {
   border-radius: 2px !important;
   width: 100%;
 }
-
-
 
 
 /* BANNER */
@@ -411,7 +405,6 @@ ul.customer-support li a:hover {
   font-size: 28px;
   font-weight: normal;
 }
-
 
 .user-type h2, .user-type div a {
   text-align: center;
