@@ -78,7 +78,7 @@ color: #FFF !important;
   color: #FFF !important;
   font-size: 18px;
   font-weight: 400 !important;
-  padding-top: 10px;
+  padding: 10px 0;
 }
 .panel .gs a, .panel .gs a:link, .panel .gs a:visited  {
   color: #FFF !important;
