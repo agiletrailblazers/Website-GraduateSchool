@@ -557,6 +557,122 @@ img.networks {
 }
 
 
+/* SLIDER */
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 20px !important;
+    right: 30px !important;
+    z-index: 15;
+    width: 90%;
+    padding-left: 0px;
+    margin-left: 0 !important;
+    text-align: center;
+    list-style: outside none none;
+    float: right;
+    clear: both;
+}
+
+.carousel-indicators li {
+    display: inline-block;
+    width: 15px !important;
+    height: 15px !important;
+    margin: 1px 3px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #FFF !important;
+    border: 0 ;
+    border-radius: 10px;
+}
+
+.carousel-indicators .active {
+    width: 15px !important;
+    height: 15px !important;
+    margin: 1px 3px;
+    background-color: #DE1258 !important;
+}
+
+
+.carousel-caption {
+    left: 30px !important;
+    padding-bottom: 0;
+    position: absolute;
+    bottom: 20px;
+    left: 15%;
+    z-index: 10;
+    padding-top: 20px;
+    color: #FFF;
+    text-align: left !important;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.carousel-caption p {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.carousel-caption p.btn {
+  margin: 10px 0 15px 0;
+  padding:0;
+}
+.carousel-caption a, .carousel-caption a:visited {
+    padding: 10px 20px;
+    background-color: #D9124E;
+    color: #FFF;
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0px auto;
+    transition: background-color 300ms linear 0s;
+}
+
+.carousel-caption a:hover {
+    padding: 10px 20px;
+    background-color: #195181;
+    color: #FFF;
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0px auto;
+    transition: background-color 300ms linear 0s;
+}
+
+.carousel-control.left {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0px, transparent 100%);
+    background-repeat: repeat-x;
+    transition: background-color 300ms linear 0s;
+}
+
+.carousel-control.right {
+    right: 0px;
+    left: auto;
+    background-image: linear-gradient(to right, transparent 0px, rgba(0, 0, 0, 0.5) 100%);
+    background-repeat: repeat-x;
+    transition: background-color 300ms linear 0s;
+}
+
+.carousel-control:focus, .carousel-control:hover {
+    color: #FFF;
+    text-decoration: none;
+    outline: 0px none;
+    opacity: 0.3 !important;
+    transition: background-color 300ms linear 0s;
+}
+
+.carousel-control:focus, .carousel-control:hover {
+    color: #FFF;
+    text-decoration: none;
+    outline: 0px none;
+    opacity: 0.3 !important;
+    transition: background-color 300ms linear 0s;
+}
+
+.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right {
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    font-size: 40px;
+    color: #fff;
+    opacity: 0.8;
+}
 
 /* CHAT */
 #chat {
@@ -596,7 +712,7 @@ img.networks {
 }
 
 .padding {
-  padding: 0 15px !important;
+  padding: 0 30px !important;
 }
 
 .nopadding {
