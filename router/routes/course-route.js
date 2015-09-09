@@ -38,7 +38,7 @@ router.get('/course-search', function(req, res, next){
       else {
         //display course search page
         logger.debug(content);
-        res.render('course_search', { result: result, striptags: striptags, prune: prune, content: content,locationFacets:locationFacets });
+        res.render('course_search', { result: result, striptags: striptags, prune: prune, content: content, locationFacets: locationFacets });
       }
     });
 });

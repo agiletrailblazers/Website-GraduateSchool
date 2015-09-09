@@ -85,7 +85,6 @@
                         <select id="selLocation" class="form-control" >
                           <option value="">City, State</option>
                           <%
-                          if(null !=locationFacets)  {
                             locationFacetsKeys = Object.keys(locationFacets);
                             locationFacetsKeysLength = locationFacetsKeys.length;
                             locationFacetsKeys.sort();
@@ -94,7 +93,6 @@
                           %>
                           <option value=""><%= locationFacetsKey%>  <%= "("+locationFacets[locationFacetsKey]+")"%></option>
                           <%
-                            }
                           }
                           %>
                           </select>
