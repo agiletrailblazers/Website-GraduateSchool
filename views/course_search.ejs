@@ -84,6 +84,19 @@
                         <p>Location <a href="#" class="checkbox-clear">clear</a></p>
                         <select id="selLocation" class="form-control" >
                           <option value="">City, State</option>
+                          <%
+                          if(null !=locationFacets)  {
+                            locationFacetsKeys = Object.keys(locationFacets);
+                            locationFacetsKeysLength = locationFacetsKeys.length;
+                            locationFacetsKeys.sort();
+                            for (locationFacetsKeyCounter = 0; locationFacetsKeyCounter < locationFacetsKeysLength; locationFacetsKeyCounter++) {
+                              locationFacetsKey = locationFacetsKeys[locationFacetsKeyCounter];
+                          %>
+                          <option value=""><%= locationFacetsKey%>  <%= "("+locationFacets[locationFacetsKey]+")"%></option>
+                          <%
+                            }
+                          }
+                          %>
                           </select>
                       </span>
                       <hr>
@@ -110,7 +123,8 @@
             </div>
             <div class="col-lg-9 col-md-9 col-sm-8">
             <div class="panel panel-default gs">
-              <div class="panel-heading gs"><h4>Showing 1 of 100 Results</h4></div>
+              <div class="panel-heading gs"><h4>Showing 1 of <%= result.totalPages%> Results</h4></div>
+
               <div class="panel-body">
                 <% if (result == null || result.courses == null || result.courses.length == 0) { %>
                   <h3>No matches for <span id="results-for-alert"></span>.</h3>
