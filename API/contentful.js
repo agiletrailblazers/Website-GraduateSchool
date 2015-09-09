@@ -166,5 +166,34 @@ module.exports = {
       cmsEntry = JSON.parse(body);
       return callback(cmsEntry.fields);
     });
+  },
+  getHomepageSlider: function(callback) {
+    request({
+      method: 'GET',
+      url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=2Ak0RNhLwIwSGaiukUsCku',
+      headers: {
+        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      }
+    }, function(error, response, body) {
+      logger.debug("Homepage slider: " + response.statusCode);
+      content = JSON.parse(body);
+      var sliders = [];
+      var itemCount = 0;
+      if (content && content.items) {
+        content.items.forEach(function(item) {
+          sliders[itemCount] = item.fields;
+          if (itemCount == 0) {
+            sliders[itemCount].status = "active";
+          }
+          content.includes.Asset.forEach(function(asset) {
+            if (item.fields.slideImage.sys.id === asset.sys.id) {
+              sliders[itemCount].imageAsset = asset.fields;
+            }
+          });
+          itemCount++;
+        });
+      }
+      return callback(sliders);
+    });
   }
 };
