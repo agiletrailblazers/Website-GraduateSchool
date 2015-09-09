@@ -380,30 +380,35 @@ ul.customer-support li a:hover {
 
 
 /* NEWS & EVENTS */
-.testimonial, .news-and-event {
+.testimonial, .news-and-events {
 margin: 35px 0;
 }
 
 .testimonial {
-  background-image: url(../images/testimonial.png);
   width: 100%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: ;
 }
 
-
+.testimonial img {
+  position: relative;
+}
 
 blockquote {
+  width: 45%;
   font-size: 30px !important;
-  padding-top: 22px;
+  padding-top: 5px;
   margin: 5px;
   background-image: url(../images/openquote.png);
   background-position: top left;
   background-repeat: no-repeat;
-  text-indent: 65px;
+  text-indent: 35px;
+  position: absolute;
+  top:60px;
+  left:20px;
+  border: none !important;
+  font-style: italic;
+  font-weight: lighter;
   }
+
   blockquote span {
     display: block;
     background-image: url(../images/closequote.png);
@@ -411,6 +416,105 @@ blockquote {
     background-position: bottom right;
 }
 
+.news {
+  margin-bottom: 30px;
+}
+
+
+.news-entry {
+margin: 20px 0;
+}
+
+.news-and-events a, .news-entry a {
+color: #035A95;
+background-color: transparent !important;
+-webkit-transition: background-color 300ms linear;
+-moz-transition: background-color 300ms linear;
+-o-transition: background-color 300ms linear;
+-ms-transition: background-color 300ms linear;
+transition: background-color 300ms linear;
+}
+
+.news-and-events a:hover, .news-entry a:hover {
+  color: #000;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+.news-entry hr {
+  margin: 30px 0 -10px 0;
+}
+
+.news-and-events h3 {
+  font-size: 20px;
+}
+
+.news-and-events h3 > img{
+  padding: 0 0 7px 0;
+}
+
+.news-and-events a > h5 {
+  text-align: left;
+  color: #000;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+.news-and-events a > h5:hover {
+  color: #1C578A;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+.news-date {
+  background-image: url(../images/news-date.png);
+  background-repeat: no-repeat;
+  background-color: transparent;
+  width: 54px;
+  height: 54px;
+  float: left;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+  clear: both;
+  margin-top: 10px;
+}
+
+span.month {
+  position: relative;
+  color: #FFF;
+  font-size: 12px;
+  font-weight: normal;
+  top: -3px;
+}
+
+span.day {
+  position: relative;
+  color: #000;
+  font-size: 25px;
+  font-weight: bold;
+  top: -5px;
+}
+
+
+
+img.news-date {
+  margin: 10px 0 0 -15px;
+}
+
+.news-excerpt p {
+  padding-top: 10px;
+}
 
 
 
