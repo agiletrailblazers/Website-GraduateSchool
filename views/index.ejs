@@ -7,34 +7,29 @@
   <% include partials/head %>
 </head>
 <body>
-
+  <!-- Header -->
   <% include partials/header %>
+  <!-- END Header -->
 
-  <!-- /end Header include -->
+  <!-- Banner  -->
   <% include partials/banner %>
-  <div class="container">
-      <img src="images/slider.png" alt="" class="responsive" />
-  </div>
+  <!-- END Banner  -->
+
+  <!-- Slider  -->
+  <% include partials/slider %>
+  <!-- END Slider  -->
 
   <!-- User Types  -->
-  <div class="user-types">
     <% include partials/user_types %>
-
-  </div>
   <!-- END User Types  -->
 
-
-  <!-- Include Footer Here! -->
+  <!-- Footer -->
   <% include partials/footer %>
+  <!-- END Footer  -->
 
+  <!-- Chat  -->
   <% include partials/chat %>
-  <!-- END of chat  -->
+  <!-- END of Chat  -->
 
-  <script type="text/javascript">
-  $(document).on('click', '.gs .dropdown-menu', function(e) {
-    e.stopPropagation()
-  })
-  </script>
 </body>
-
 </html>

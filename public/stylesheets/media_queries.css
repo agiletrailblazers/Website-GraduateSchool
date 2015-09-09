@@ -19,8 +19,45 @@
         display: none;
       }
 
-      .title .util {
-        padding-right: 0 !important;
+
+      /* fixes */
+      .padding-l {
+      padding-left: 0 !important;
+      }
+
+      .padding-r {
+      padding-right: 0 !important;
+      }
+
+      .nopadding-l {
+      padding-left: 15px !important;
+      }
+
+      .nopadding-r {
+      padding-right: 15px !important;
+      }
+
+      /* fix MAIN Nav menu items width on mobile */
+      .w1 {
+        width: 100% !important;
+      }
+      .w2 {
+        width: 100% !important;
+      }
+      .w3 {
+        width: 100% !important;
+      }
+      .w4 {
+        width: 100% !important;
+      }
+      .w5 {
+        width: 100% !important;
+      }
+      .w6 {
+        width: 100% !important;
+      }
+      .w7 {
+        width: 100% !important;
       }
 
     }

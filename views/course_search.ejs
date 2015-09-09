@@ -35,7 +35,7 @@
     <div class="container-fluid title">
       <div class="container">
         <div class="row clearfix">
-          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 nopadding">
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
             <h1 id="results-for">Results for </h1>
             <p> <img src="../images/homepage.png" alt="" /> Home / Search Results </p>
           </div>
@@ -52,9 +52,10 @@
       </div>
     </div>
     <!-- END Title Section -->
-    <!-- <h1><%= content.resultsSectionTitle %></h1> -->
-    <div class="container">
 
+    <!-- <h1><%= content.resultsSectionTitle %></h1> -->
+
+    <div class="container">
           <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-4">
               <div class="filters">
@@ -80,6 +81,14 @@
 
                         <hr>
                       <span class="form-group">
+                        <p>Location <a href="#" class="checkbox-clear">clear</a></p>
+                        <select id="selLocation" class="form-control" >
+                          <option value="">City, State</option>
+                          </select>
+                      </span>
+                      <hr>
+                      <!--
+                     <span class="form-group">
                         <p>Subject Area   <a href="#" class="checkbox-clear">clear</a> </p>
                         <select id="subjectArea" class="form-control" >
                           <option value="">All areas</option>
@@ -92,21 +101,7 @@
                           <option value="">All methods</option>
                           </select>
                       </span>
-                      <hr>
-                      <span class="form-group">
-                        <p>State <a href="#" class="checkbox-clear">clear</a></p>
-                        <select id="selState" class="form-control" >
-                          <option value="">All States</option>
-                          </select>
-                      </span>
-                      <hr>
-                      <span class="form-group">
-                        <p>Cities <a href="#" class="checkbox-clear">clear</a></p>
-                        <select id="cities" class="form-control" >
-                          <option value="">All Cities</option>
-                          </select>
-                      </span>
-                      <hr>
+                      <hr> -->
                       </div>
                     </div>
                   </div>
@@ -118,13 +113,7 @@
               <div class="panel-heading gs"><h4>Showing 1 of 100 Results</h4></div>
               <div class="panel-body">
                 <% if (result == null || result.courses == null || result.courses.length == 0) { %>
-                  <!-- <div class="alert alert-danger" role="alert">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Error:</span>
-                    No matches
-                  </div> -->
-                  <h3 id="results-for-alert">
-                     No matches for </h3>
+                  <h3>No matches for <span id="results-for-alert"></span>.</h3>
                   <h3>Please try again.</h3>
 
                   <% } else { %>
@@ -192,14 +181,8 @@
 
             </div>
           </div>
-
      </div> <!-- END container -->
-<style media="screen">
 
-</style>
-     <script type="text/javascript">
-
-     </script>
       <% include partials/chat %>
     <% include partials/footer %>
   </body>

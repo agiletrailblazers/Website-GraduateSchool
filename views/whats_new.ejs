@@ -1,12 +1,16 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= entry.pageTitle %></title>
+  <title>
+    <%= entry.pageTitle %>
+  </title>
   <% include partials/head %>
-  <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 <body>
+
   <% include partials/header %>
+
   <div class="container">
     <div class="row">
       <header>
@@ -68,8 +72,15 @@
         </section>
       </div> <!--/#col -->
     </div> <!--/#row -->
-    <% include partials/footer %>
-  </div><!--/#container-fulid -->
+  </div><!--/#container -->
+  
+  <!-- Footer -->
+  <% include partials/footer %>
+  <!-- END Footer  -->
+
+  <!-- Chat  -->
   <% include partials/chat %>
+  <!-- END of Chat  -->
+
 </body>
 </html>

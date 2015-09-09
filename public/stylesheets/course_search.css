@@ -1,4 +1,5 @@
 
+/*==========  Course Search Styles  ==========*/
 
 .course-id {
   margin: 10px 0;
@@ -152,7 +153,6 @@ color: #FFF !important;
 }
 
 
-
 .control-label {
   padding: 7px 0 0 0;
   margin-left: 0;
@@ -179,4 +179,8 @@ color: #FFF !important;
     cursor: default;
     background-color: #337AB7;
     border-color: #337AB7 !important;
+}
+
+#results-for-alert {
+  text-decoration: underline;
 }
