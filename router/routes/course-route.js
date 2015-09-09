@@ -14,10 +14,12 @@ router.get('/course-search', function(req, res, next){
   var searchCriteria = req.query["search"];
   var searchResult;
   var content;
+  var locationFacets={};
   async.parallel([
     function(callback) {
       course.performCourseSearch(function(response, error, result){
         searchResult = result;
+        locationFacets = result.locationFacets;
         callback();
       }, searchCriteria);
     },
@@ -36,7 +38,7 @@ router.get('/course-search', function(req, res, next){
       else {
         //display course search page
         logger.debug(content);
-        res.render('course_search', { result: result, striptags: striptags, prune: prune, content: content });
+        res.render('course_search', { result: result, striptags: striptags, prune: prune, content: content, locationFacets: locationFacets });
       }
     });
 });
