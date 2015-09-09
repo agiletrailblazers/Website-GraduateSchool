@@ -3,12 +3,9 @@
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
     					<!-- Indicators -->
     					<ol class="carousel-indicators">
-              <% for(i=0; i<slider.length; i++) { %>
+                <% for(i=0; i<slider.length; i++) { %>
                   <li data-target="#myCarousel" data-slide-to="<%= i %>" class="<%= slider.status %>"></li>
-    					<% } %>
-                <li data-target="#myCarousel" data-slide-to="0" class=""></li>
-    						<li class="" data-target="#myCarousel" data-slide-to="1"></li>
-    						<li class="active" data-target="#myCarousel" data-slide-to="2"></li>
+    					  <% } %>
     					</ol>
 
     					<div class="carousel-inner">
@@ -24,39 +21,6 @@
       							</div>
       						</div>
                 <% }); %>
-                <!--
-    						<div class="item">
-    							<img src="/images/slider00.png" style="width:100%" data-src="" alt=" ">
-    							<div class="container">
-    								<div class="carousel-caption">
-    									<h1>Government Training <br> and Professional Development</h1>
-    										<p class="btn"><a class="" href="#" role="button">Read More <img src="/images/arrow.png" alt=""></a>  </p>
-                      <p>Strengthen your skills as you work to build a quality organization.</p>
-    								</div>
-    							</div>
-    						</div>
-    						<div class="item">
-                <img src="/images/slider00.png" style="width:100%" data-src="" alt=" ">
-    							<div class="container">
-                    <div class="carousel-caption">
-    									<h1>Government Training <br> and Professional Development</h1>
-    									<p class="btn"><a class="" href="#" role="button">Read More <img src="/images/arrow.png" alt=""></a>  </p>
-                      <p>Strengthen your skills as you work to build a quality organization.</p>
-    								</div>
-    							</div>
-    						</div>
-    						<div class="item active">
-                <img src="/images/slider00.png" style="width:100%" data-src="" alt=" ">
-    							<div class="container">
-                    <div class="carousel-caption">
-    									<h1>Government Training <br> and Professional Development</h1>
-    										<p class="btn"><a class="" href="#" role="button">Read More <img src="/images/arrow.png" alt=""></a>  </p>
-                      <p>Strengthen your skills as you work to build a quality organization.</p>
-    								</div>
-    							</div>
-    						</div>
-    					</div>
-              -->
     					<a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
     					<a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
     				</div>

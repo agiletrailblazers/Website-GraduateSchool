@@ -179,18 +179,20 @@ module.exports = {
       content = JSON.parse(body);
       var sliders = [];
       var itemCount = 0;
-      content.items.forEach(function(item) {
-        sliders[itemCount] = item.fields;
-        if (itemCount == 0) {
-          sliders[itemCount].status = "active";
-        }
-        content.includes.Asset.forEach(function(asset) {
-          if (item.fields.slideImage.sys.id === asset.sys.id) {
-            sliders[itemCount].imageAsset = asset.fields;
+      if (content && content.items) {
+        content.items.forEach(function(item) {
+          sliders[itemCount] = item.fields;
+          if (itemCount == 0) {
+            sliders[itemCount].status = "active";
           }
+          content.includes.Asset.forEach(function(asset) {
+            if (item.fields.slideImage.sys.id === asset.sys.id) {
+              sliders[itemCount].imageAsset = asset.fields;
+            }
+          });
+          itemCount++;
         });
-        itemCount++;
-      });
+      }
       return callback(sliders);
     });
   }
