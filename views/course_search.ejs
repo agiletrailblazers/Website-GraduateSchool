@@ -81,6 +81,14 @@
 
                         <hr>
                       <span class="form-group">
+                        <p>Location <a href="#" class="checkbox-clear">clear</a></p>
+                        <select id="selLocation" class="form-control" >
+                          <option value="">City, State</option>
+                          </select>
+                      </span>
+                      <hr>
+                      <!--
+                     <span class="form-group">
                         <p>Subject Area   <a href="#" class="checkbox-clear">clear</a> </p>
                         <select id="subjectArea" class="form-control" >
                           <option value="">All areas</option>
@@ -93,21 +101,7 @@
                           <option value="">All methods</option>
                           </select>
                       </span>
-                      <hr>
-                      <span class="form-group">
-                        <p>State <a href="#" class="checkbox-clear">clear</a></p>
-                        <select id="selState" class="form-control" >
-                          <option value="">All States</option>
-                          </select>
-                      </span>
-                      <hr>
-                      <span class="form-group">
-                        <p>Cities <a href="#" class="checkbox-clear">clear</a></p>
-                        <select id="cities" class="form-control" >
-                          <option value="">All Cities</option>
-                          </select>
-                      </span>
-                      <hr>
+                      <hr> -->
                       </div>
                     </div>
                   </div>
@@ -119,13 +113,7 @@
               <div class="panel-heading gs"><h4>Showing 1 of 100 Results</h4></div>
               <div class="panel-body">
                 <% if (result == null || result.courses == null || result.courses.length == 0) { %>
-                  <!-- <div class="alert alert-danger" role="alert">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Error:</span>
-                    No matches
-                  </div> -->
-                  <h3 id="results-for-alert">
-                     No matches for </h3>
+                  <h3>No matches for <span id="results-for-alert"></span>.</h3>
                   <h3>Please try again.</h3>
 
                   <% } else { %>

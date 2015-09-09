@@ -180,3 +180,7 @@ color: #FFF !important;
     background-color: #337AB7;
     border-color: #337AB7 !important;
 }
+
+#results-for-alert {
+  text-decoration: underline;
+}
