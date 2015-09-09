@@ -366,6 +366,7 @@ ul.customer-support li a:hover {
   float: right;
   top: 75px;
   clear: right;
+  padding-right: 15px;
 }
 
 .title .util  ul li {
