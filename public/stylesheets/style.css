@@ -379,6 +379,41 @@ ul.customer-support li a:hover {
 }
 
 
+/* NEWS & EVENTS */
+.testimonial, .news-and-event {
+margin: 35px 0;
+}
+
+.testimonial {
+  background-image: url(../images/testimonial.png);
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: ;
+}
+
+
+
+blockquote {
+  font-size: 30px !important;
+  padding-top: 22px;
+  margin: 5px;
+  background-image: url(../images/openquote.png);
+  background-position: top left;
+  background-repeat: no-repeat;
+  text-indent: 65px;
+  }
+  blockquote span {
+    display: block;
+    background-image: url(../images/closequote.png);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+}
+
+
+
+
 /* USER TYPES */
 .user-types {
   background-color: #E7EBF1;
