@@ -91,22 +91,81 @@ module.exports = {
       return callback(response, error, result);
     });
   },
-  getNav: function(callback) {
+  getNavigation: function(callback) {
+    var MAX_LINKS = 20;
+    var MAX_GROUPS = 7;
     request({
       method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/5tnto6ug3qkh/entries',
+      url: 'https://cdn.contentful.com/spaces/5tnto6ug3qkh/entries?include=2&content_type=47TLz18cmI6WaeC0KWgOIo',
       headers: {
         'Authorization': 'Bearer db132f1da5cc75a00f487cce1c94143798d8e5d12c65c169b2fc04febdfae44d'
       }
     }, function(error, response, body) {
       logger.debug("Main Nav Contentful: " + response.statusCode);
-      if (error != null || response == null || response.statusCode != 200) {
+      if (error != null || response.statusCode != 200) {
         logger.error("Exception occured getting navigation " + error);
         return callback(response, new Error("Exception occured getting navigation"), null);
       }
-      nav = JSON.parse(body);
-      return callback(nav.items);
+      content = JSON.parse(body);
+      var nav = {};
+      if (content && content.items) {
+        content.items.forEach(function(navEntry) {
+          var groups = [];
+          for(i=1; i<=MAX_GROUPS; i++) {
+            createGroup(navEntry, groups, i);
+          }
+          if (navEntry.fields.title === 'Main Nav') {
+            nav.main = groups;
+          } else if (navEntry.fields.title === 'Footer') {
+            nav.footer = groups;
+          } else if (navEntry.fields.title === 'Top Nav') {
+              nav.top = groups;
+          }
+        });
+      }
+      return callback(nav);
     })
+    function createGroup(navEntry, groups, groupCount) {
+      if (navEntry.fields['sectionTitle'+groupCount]) {
+        var group = {};
+        group.active = '';
+        group.title = navEntry.fields['sectionTitle'+groupCount];
+        group.key = navEntry.fields['sectionKey'+groupCount];
+        if (groupCount == 1) {
+          group.active = 'active';
+        }
+        if (navEntry.fields['section'+groupCount]) {
+          var sections = [];
+          navEntry.fields['section'+groupCount].forEach(function(sectionEntry) {
+            createSection(sections, sectionEntry);
+          });
+          group.sections = sections;
+        }
+        groups.push(group);
+      }
+    }
+    function createSection(sections, sectionEntry) {
+        var section = {};
+        section.links = [];
+        content.includes.Entry.forEach(function(linkEntry) {
+          if (linkEntry.sys.id===sectionEntry.sys.id) {
+            for(k=1; k<=MAX_LINKS; k++) {
+              createLink(section, linkEntry, k);
+            }
+          }
+      });
+      sections.push(section);
+    }
+    function createLink(section, linkEntry, linkCount) {
+      section.title = linkEntry.fields.title;
+      section.startNewColumn = linkEntry.fields.startNewColumn;
+      if (linkEntry.fields['link'+linkCount]) {
+        var link = {};
+        link.title = linkEntry.fields['link'+linkCount][0];
+        link.url = linkEntry.fields['link'+linkCount][1];
+        section.links.push(link);
+      }
+    }
   },
   getReferenceData: function(slug, callback) {
     request({
@@ -182,7 +241,7 @@ module.exports = {
       if (content && content.items) {
         content.items.forEach(function(item) {
           sliders[itemCount] = item.fields;
-          if (itemCount == 0) {
+          if (itemCount === 0) {
             sliders[itemCount].status = "active";
           }
           content.includes.Asset.forEach(function(asset) {

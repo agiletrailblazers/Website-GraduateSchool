@@ -12,6 +12,27 @@
         </ul>
       </div>
       <% navigation.footer.forEach(function(nav) { %>
+        <div class="col-lg-2 col-md-2 col-sm-4">
+          <h3><%= nav.title %></h3>
+          <ul class="footer">
+            <% if (nav.sections) { %>
+              <% if (nav.sections.length == 1) { %>
+                <% nav.sections[0].links.forEach(function(link) { %>
+                  <li><a href="<%= link.url %>"><%= link.title %></a></li>
+                <% }); %>
+              <% } else { %>
+                <% nav.sections.forEach(function(subNav) { %>
+                  <% nav.sections[0].links.forEach(function(link) { %>
+                    <li><a href="<%= link.url %>"><%= link.title %></a></li>
+                  <% }); %>
+                <% }); %>
+              <% } %>
+            <% } %>
+          </ul>
+        </div>
+      <% }); %>
+
+      <% navigation.footer.forEach(function(nav) { %>
         <% if (nav.type=='link') { %>
 
         <% } else if (nav.type=='sub-section') { %>

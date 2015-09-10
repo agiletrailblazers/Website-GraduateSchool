@@ -127,27 +127,17 @@ select::-moz-focus-inner, option::-moz-focus-inner {
 
 /* Width fixes  */
 .w1 {
-  width: 12%;
+  width: 20%;
 }
 .w2 {
-  width: 12%;
+  width: 30%;
 }
 .w3 {
-  width: 12%;
+  width: 20%;
 }
 .w4 {
-  width: 26%;
+  width: 20%;
 }
-.w5 {
-  width: 14%;
-}
-.w6 {
-  width: 14%;
-}
-.w7 {
-  width: 10%;
-}
-
 
 /* menu styes */
 .list-unstyled,
