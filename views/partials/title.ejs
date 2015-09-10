@@ -1,10 +1,15 @@
-<% if ( typeof homepage == 'undefined' ) { %>
+<% if ( typeof homepage == 'undefined' )  {  %>
   <div class="container-fluid title">
     <div class="container">
       <div class="row clearfix">
         <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 ">
-          <h1 id="title"><%= title %></h1>
-          <p> <img src="../images/homepage.png" alt="" class="home"/> <a href="/" class="breadcrumbs">Home</a> / <%= title %> </p>
+          <% if ( typeof title == 'undefined'){ %>  
+            <h1 id="title"><%= courseData.class.title %></h1>
+            <p> <img src="../images/homepage.png" alt="" class="home"/> <a href="/" class="breadcrumbs">Home</a> / <%= courseData.class.title %> </p>
+            <%  } else {%>
+            <h1 id="title"><%= title %></h1>
+            <p> <img src="../images/homepage.png" alt="" class="home"/> <a href="/" class="breadcrumbs">Home</a> / <%= title %> </p>
+            <%  } %>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 pull-right">
           <div class="util">
