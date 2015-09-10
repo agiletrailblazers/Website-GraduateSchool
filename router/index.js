@@ -11,4 +11,5 @@ module.exports = function (app) {
     app.use('/', require('./routes/ajax-form-route'));
     app.use('/', require('./routes/form-route'));
     app.use('/', require('./routes/generic-page-route'));
+    app.use('/', require('./routes/ajax-course-search'));
 };

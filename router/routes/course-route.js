@@ -11,17 +11,21 @@ var logger = require('../../logger');
 // Search for a course.  If there is only one exact match redirect to the course details page
 //  otherwise show the search results page.
 router.get('/course-search', function(req, res, next){
-  var searchCriteria = req.query["search"];
+    var params={};
+    params.searchCriteria = req.query["search"];
+    params.numRequested   = req.query["numRequested"] ;
+    params.cityState      = req.query["cityState"] ;
   var searchResult;
   var content;
   var locationFacets={};
+
   async.parallel([
     function(callback) {
       course.performCourseSearch(function(response, error, result){
         searchResult = result;
         locationFacets = result.locationFacets;
         callback();
-      }, searchCriteria);
+      }, params);
     },
     function(callback) {
       contentful.getCourseSearch(function(fields) {
