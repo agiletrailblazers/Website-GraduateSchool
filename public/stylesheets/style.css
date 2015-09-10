@@ -30,6 +30,7 @@ img.responsive {
   height: auto;
 }
 
+/* LINKS */
 a {
   color: #00B7FF;
 }
@@ -93,9 +94,29 @@ a.red:hover {
 }
 
 
+a.breadcrumbs, a.breadcrumbs:visited {
+  color: #FFF;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+a.breadcrumbs:hover,a.breadcrumbs:active  {
+  color: #FFF;
+  text-decoration: underline;
+  font-weight: normal;
+  background-color: transparent;
+}
 
 
 /* What's new temporary styles */
+
+.util ul {
+  padding: 0 !important;
+}
+
+img.home {
+  margin-top: -3px;
+}
 
 .img {
   width: 100%;
@@ -377,7 +398,8 @@ ul.customer-support li a:hover {
   position: relative;
   left: 0;
   width: 100%;
-  height: 110px;
+  height: auto;
+  min-height: 100px;
   /* background-image: linear-gradient(to bottom, #01386C 0px, #4172A4 100%);*/
   /* background: #3375B2 url('../images/title-bar.png') no-repeat left; */
   padding: 0 20px;
@@ -411,7 +433,7 @@ ul.customer-support li a:hover {
   float: right;
   top: 75px;
   clear: right;
-  padding-right: 15px;
+  padding-right: 0;
 }
 
 .title .util  ul li {
