@@ -707,16 +707,26 @@ footer ul li {
 
  ul.footer li a:hover {
   color: #3A6799;
+
  }
 
-ul .networks {
-  display: block;
+
+ul.networks img {
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
-ul .networks li {
-  list-style: none;
-  display: inline-block;
+ul.networks img:hover {
+  width: 26px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
 }
+
+
 
 
 /* SLIDER */
