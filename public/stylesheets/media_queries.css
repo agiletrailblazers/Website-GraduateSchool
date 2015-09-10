@@ -1,0 +1,73 @@
+
+/*==========  MEDIA QUERIES  ==========*/
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (max-width : 1200px) {
+
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (max-width : 992px) {
+
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (max-width : 768px) {
+
+      /* remove "CLEAR ALL" button from refine search sidebar on smaller res */
+      .refine {
+        display: none;
+      }
+
+
+      /* fixes */
+      .padding-l {
+      padding-left: 0 !important;
+      }
+
+      .padding-r {
+      padding-right: 0 !important;
+      }
+
+      .nopadding-l {
+      padding-left: 15px !important;
+      }
+
+      .nopadding-r {
+      padding-right: 15px !important;
+      }
+
+      /* fix MAIN Nav menu items width on mobile */
+      .w1 {
+        width: 100% !important;
+      }
+      .w2 {
+        width: 100% !important;
+      }
+      .w3 {
+        width: 100% !important;
+      }
+      .w4 {
+        width: 100% !important;
+      }
+      .w5 {
+        width: 100% !important;
+      }
+      .w6 {
+        width: 100% !important;
+      }
+      .w7 {
+        width: 100% !important;
+      }
+
+    }
+
+    /* Extra Small Devices, Phones */
+    @media only screen and (max-width : 480px) {
+
+    }
+
+    /* Custom, iPhone Retina */
+    @media only screen and (max-width : 320px) {
+
+    }

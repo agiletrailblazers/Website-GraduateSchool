@@ -1,0 +1,186 @@
+
+/*==========  Course Search Styles  ==========*/
+
+.course-id {
+  margin: 10px 0;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.checkbox-clear, .checkbox-clear a {
+  float:right;
+  clear: both;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: normal !important;
+  color: #DB0F4E !important;
+}
+
+.checkbox-clear:hover, .checkbox-clear a:hover {
+  color: #002F5F !important;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+
+.form-control:focus{
+	border-color:#87ACCE;
+	outline:0;
+	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 4px rgba(102,175,233,.6) !important;
+	box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 4px rgba(102,175,233,.6)!important;
+}
+
+#refine-results p {
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+}
+
+p.clear {
+  text-align: center;
+  margin: 0 auto;
+  color: #FFF;
+}
+
+p.clear {
+  text-align: center;
+  margin: 0 auto;
+  color: #FFF;
+}
+
+div.refine p {
+color: #FFF !important;
+}
+
+.panel .gs {
+  margin-bottom: 0;
+  background-color: #FFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 2px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.panel > .panel-heading.gs {
+    background-image: none !important;
+    /*background-image: linear-gradient(to bottom, #F5F5F5 0px, #E8E8E8 100%);*/
+    background-color: #427EB4 !important;
+
+}
+.panel-heading.gs h4, .panel-heading.gs a {
+    color: #FFF !important;
+    font-weight: 400 !important;
+
+}
+
+.panel .gs h4.panel-title {
+  color: #FFF !important;
+  font-size: 18px;
+  font-weight: 400 !important;
+  padding: 10px 0;
+}
+.panel .gs a, .panel .gs a:link, .panel .gs a:visited  {
+  color: #FFF !important;
+}
+
+.panel .gs a:hover, div.refine p:hover {
+  color: #002F5F !important;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+#course-result h3 a, #course-result h3 a:visited {
+  color: #01356B;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#course-result h3 a:hover  {
+  color: #427EB4;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#refine-results select, #pagination select {
+  -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+  background: url('../images/arrow-down.png') 95% / 20px no-repeat;
+}
+
+#refine-results select::-ms-expand, #pagination select::-ms-expand { /* for IE 11 */
+    display: none;
+}
+
+
+
+#refine-results select,  #refine-results input[type="checkbox"], #pagination select {
+  border: 2px solid #87ACCE;
+  border-radius: 0;
+}
+
+#pagination select {
+  width: auto;
+  padding: 5px 20px 5px 5px;
+}
+
+#refine-results input[type="checkbox"] {
+  border: 2px solid #87ACCE;
+  border-radius: 0;
+  padding: 5px;
+  width: 20px;
+  height: 20px;
+}
+
+#pagination nav {
+  float:right;
+  clear: both;
+}
+
+#pagination nav .pagination {
+    display: inline-block;
+    padding-left: 0px;
+    margin: 0px !important;
+    border-radius: 0 !important;
+}
+
+.spacer {
+  margin: 20px 0px !important;
+}
+
+
+.control-label {
+  padding: 7px 0 0 0;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: 400;
+}
+
+.pagination > li > a, .pagination > li > span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: 4px !important;
+    line-height: 1.42857;
+    color: #063D72 !important;
+    text-decoration: none;
+    background-color: #FFF;
+    border: 2px solid #87ACCE !important;
+    border-radius: 0;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    z-index: 2;
+    color: #FFF !important;
+    cursor: default;
+    background-color: #337AB7;
+    border-color: #337AB7 !important;
+}
+
+#results-for-alert {
+  text-decoration: underline;
+}
