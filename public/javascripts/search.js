@@ -21,16 +21,15 @@ var App = {
 $(document).ready(function(){
     App.getSearchParamater();
 
-
 // control collapse/expand function for Refine results -  mobile vs desktop
-    $(window).bind('resize load', function() {
-        if ($(this).width() < 767) {
-            $('#refine-results').removeClass('in');
-            $('#refine-results').addClass('out');
-        } else {
-            $('#refine-results').removeClass('out');
-            $('#refine-results').addClass('in');
-        }
-    });
+  $(window).bind('resize load', function() {
+      if ($(this).width() < 767) {
+          $('#refine-results').removeClass('in');
+          $('#refine-results').addClass('out');
+      } else {
+          $('#refine-results').removeClass('out');
+          $('#refine-results').addClass('in');
+      }
+  });
 
 });

@@ -11,7 +11,6 @@ module.exports = {
     } else {
       courseApiUrl = courseApiUrl + '/api/courses?search=' + params.searchCriteria + '&numRequested='+ params.numRequested + '&filter=city_state:' + params.cityState
     }
-    logger.debug(courseApiUrl);
     request({
       method: 'GET',
       url: courseApiUrl
