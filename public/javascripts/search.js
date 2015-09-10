@@ -11,7 +11,8 @@ var App = {
     var matches = url.match(regex);
     if (matches) {
       var match = matches[1];
-      $("#results-for").append(match);
+      $("#title").text("Results for ");
+      $("#title").append(match);
       $("#results-for-alert").append(match);
       }
     }
