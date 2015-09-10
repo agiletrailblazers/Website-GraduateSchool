@@ -61,6 +61,7 @@
                         <p>Location <a href="#" class="checkbox-clear">clear</a></p>
                         <select id="selLocation" class="form-control" >
                           <option value="">City, State</option>
+                          <option value="all">All</option>
                           <%
                             locationFacetsKeys = Object.keys(locationFacets);
                             locationFacetsKeysLength = locationFacetsKeys.length;
@@ -68,7 +69,7 @@
                             for (locationFacetsKeyCounter = 0; locationFacetsKeyCounter < locationFacetsKeysLength; locationFacetsKeyCounter++) {
                               locationFacetsKey = locationFacetsKeys[locationFacetsKeyCounter];
                           %>
-                          <option value=""><%= locationFacetsKey%>  <%= "("+locationFacets[locationFacetsKey]+")"%></option>
+                          <option value="<%= locationFacetsKey%>"><%= locationFacetsKey%>  <%= "("+locationFacets[locationFacetsKey]+")"%></option>
                           <%
                           }
                           %>
@@ -144,10 +145,10 @@
                             <label class="control-label col-md-5 col-xs-3" for="itemsPerPage"> Items per page:</label>
                             <div class="col-md-4 col-xs-2 ">
                               <select id="itemsPerPage" class="form-control">
-                                <option value="">100</option>
-                                <option value="">50</option>
-                                <option value="">20</option>
-                                <option value="">10</option>
+                                <option value="100">100</option>
+                                <option value="50">50</option>
+                                <option value="20">20</option>
+                                <option value="10">10</option>
                               </select>
                             </div>
                       </div>
@@ -178,5 +179,6 @@
 
       <% include partials/chat %>
     <% include partials/footer %>
+    <script type="text/javascript" src="/javascripts/course_search.js"></script>
   </body>
 </html>
