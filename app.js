@@ -24,24 +24,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
 	//load the main nav on every request
-	contentful.getNav(function(navItems) {
+	contentful.getNavigation(function(nav) {
+		console.log(nav);
 		var googleAnalyticsId = config("endpoint").googleAnalyticsId;
-		var nav = {};
-		if (navItems) {
-			navItems.forEach(function(navItem) {
-				switch(navItem.fields.slug) {
-    	    case('main'):
-						nav.main = navItem.fields.main;
-						break;
-					case('footer'):
-					  nav.footer = navItem.fields.main;
-						break;
-					case('top'):
-					  nav.top = navItem.fields.main;
-					  break;
-				}
-			});
-		}
 		res.locals = {navigation: nav, googleAnalyticsId: googleAnalyticsId};
 		next();
 	});
