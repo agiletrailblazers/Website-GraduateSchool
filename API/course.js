@@ -4,12 +4,18 @@ var config = require('konphyg')(__dirname + "/../config");
 var logger = require('../logger');
 
 module.exports = {
-  performCourseSearch: function(callback, searchCriteria) {
+  performCourseSearch: function(callback, params) {
     var courseApiUrl = config("endpoint").courseApiUrl;
+      if ((params.cityState ==null)||(params.cityState=='all') ) {
+          courseApiUrl =courseApiUrl + '/api/courses?search=' + params.searchCriteria + '&numRequested=' + params.numRequested
+      } else {
+          courseApiUrl  = courseApiUrl + '/api/courses?search=' + params.searchCriteria + '&numRequested='+params.numRequested +'&filter=city_state:'+params.cityState
+      }
     logger.debug(courseApiUrl);
-    request({
+      request({
       method: 'GET',
-      url: courseApiUrl + '/api/courses?search=' + searchCriteria + ''
+      url: courseApiUrl
+
     }, function (error, response, body) {
       if (error != null || response == null || response.statusCode != 200) {
         logger.error("Exception occured performing course search. " + error);
