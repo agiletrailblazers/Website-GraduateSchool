@@ -50,6 +50,51 @@ a:hover, a:active {
 
 
 
+a.blue, a.blue:visited  {
+    padding: 8px 20px;
+    background-color: #195181;
+    color: #FFF;
+    font-size: 15px;
+    font-weight: normal;
+    margin: 0px auto;
+    transition: background-color 300ms linear 0s;
+}
+
+a.blue:hover {
+    padding: 8px 20px;
+    background-color: #D9124E;
+    color: #FFF;
+    font-size: 15px;
+    font-weight: normal;
+    margin: 0px auto;
+    transition: background-color 300ms linear 0s;
+    z-index: 9999;
+}
+
+a.red, a.red:visited {
+    padding: 8px 20px;
+    background-color: #D9124E;
+    color: #FFF;
+    font-size: 15px;
+    font-weight: normal;
+    margin: 0px auto;
+    transition: background-color 300ms linear 0s;
+}
+
+a.red:hover {
+    padding: 8px 20px;
+    background-color: #195181;
+    color: #FFF;
+    font-size: 15px;
+    font-weight: normal;
+    margin: 0px auto;
+    transition: background-color 300ms linear 0s;
+    z-index: 9999;
+}
+
+
+
+
 /* What's new temporary styles */
 
 .img {
@@ -911,6 +956,15 @@ a.underline-n:after {
   margin: 0 auto;
 }
 
+.right {
+  text-align: right;
+  margin: 0 auto;
+}
+
+.left {
+  text-align: left;
+  margin: 0 auto;
+}
 
 /*for FireFox*/
     input[type="submit"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner
