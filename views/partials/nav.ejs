@@ -16,7 +16,7 @@
 			<ul class="nav navbar-nav">
 			  <% columnCount = 1; %>
 			  <% navigation.main.forEach(function(nav) { %>
-					<li class="dropdown gs-fw w<%= columnCount %>"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle underlined"><div class="icon"><img src="images/about-us.png" alt="" /></div><div ><%= nav.title %></div></a>
+					<li class="dropdown gs-fw w<%= columnCount %>"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle underlined"><div class="icon"><img src="<%= nav.icon.file.url %>" alt="" /></div><div ><%= nav.title %></div></a>
 						<ul class="dropdown-menu">
 							<li class="grid-demo">
 								<div class="row border-between">
