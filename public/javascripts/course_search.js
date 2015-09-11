@@ -12,6 +12,10 @@ $(document).ready(function() {
     reloadSearchResults();
   });
 
+   $('#G2G').click(function() {
+     reloadSearchResults();
+    });
+
   $("#clearLocation").click(function() {
     $("#selLocation").val("all");
     reloadSearchResults();
@@ -21,7 +25,8 @@ $(document).ready(function() {
     $(".loading").show();
     $.get("/course-search?partial=true&search=" + $("#txtSearchCriteria").val()
         + "&numRequested=" + $("#itemsPerPage").val()
-        + "&cityState=" + $("#selLocation").val())
+        + "&cityState=" + $("#selLocation").val()
+        + "&selectedG2G=" + $('#G2G').prop('checked') )
     .done(function(data) {
       $("#searchResults").replaceWith(data);
       $(".loading").hide();
