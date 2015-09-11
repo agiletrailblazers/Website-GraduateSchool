@@ -1,0 +1,64 @@
+<div id="searchResults" class="col-lg-9 col-md-9 col-sm-8">
+<div class="panel panel-default gs">
+  <% if (result && result.courses && result.courses.length > 0) { %>
+    <div class="panel-heading gs"><h4>Showing <%= (result.start + 1) %> to <%= result.courses.length %> of <%= result.numFound%> Results</h4></div>
+  <% } %>
+
+  <div class="panel-body">
+    <% if (result == null || result.courses == null || result.courses.length == 0) { %>
+      <% if (params.cityState != null) { %>
+        <h3>No matches for '<%= params.searchCriteria %>' in '<%= params.cityState %>'. Please try again.</h3>
+      <% } else { %>
+        <h3>No matches for '<%= params.searchCriteria %>'. Please try again.</h3>
+      <% } %>
+    <% } else { %>
+      <% for(var i=0; i<result.courses.length; i++) { %>
+        <% if ( result.courses[i].description.text !== null ) { %>
+          <% if (result.courses[i].code === null) { result.courses[i].code = result.courses[i].id.slice(0, -3); }%>
+          <div id="course-result">
+            <h3><a href="/courses/<%= result.courses[i].id %>"><%= result.courses[i].code %> - <%= result.courses[i].title %></a></h3>
+          </div>
+          <div><%= prune(striptags(result.courses[i].description.text), 300, "...") %></div>
+          <div class="course-id"> <img src="../images/course-id-icon.png" alt="" /> Code: <strong><%= result.courses[i].code %></strong> </div>
+          <hr>
+        <% } %>
+      <% } %>
+    <% } %>
+  </div>
+  </div>
+    <div id="pagination">
+      <div class="row clearfix">
+        <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 spacer pull-left">
+         <div class="form-group">
+                <label class="control-label col-md-5 col-xs-3" for="itemsPerPage"> Items per page:</label>
+                <div class="col-md-4 col-xs-2 ">
+                  <select id="itemsPerPage" class="form-control">
+                    <option value="100" <% if (params.numRequested==100) { %> selected <% } %>>100</option>
+                    <option value="50" <% if (params.numRequested==50) { %> selected <% } %>>50</option>
+                    <option value="20"<% if (params.numRequested==20) { %> selected <% } %>>20</option>
+                    <option value="10" <% if (params.numRequested==10) { %> selected <% } %>>10</option>
+                  </select>
+                </div>
+          </div>
+        </div>
+        <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12 spacer pull-right ">
+          <nav>
+            <ul class="pagination">
+              <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true"> &#60; Previous</span></a></li>
+              <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li>
+                <a href="#" aria-label="Next">
+                  <span aria-hidden="true"> Next &#62; </span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+</div>
