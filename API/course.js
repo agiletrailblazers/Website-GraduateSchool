@@ -6,11 +6,15 @@ var logger = require('../logger');
 module.exports = {
   performCourseSearch: function(callback, params) {
     var courseApiUrl = config("endpoint").courseApiUrl;
-    if ((params.cityState == null) || (params.cityState == 'all')) {
-      courseApiUrl = courseApiUrl + '/api/courses?search=' + params.searchCriteria + '&numRequested=' + params.numRequested
-    } else {
-      courseApiUrl = courseApiUrl + '/api/courses?search=' + params.searchCriteria + '&numRequested='+ params.numRequested + '&filter=city_state:' + params.cityState
+    var courseApiUrl = config("endpoint").courseApiUrl;
+    courseApiUrl =courseApiUrl + '/api/courses?search=' + params.searchCriteria;
+    if (params.numRequested != '' && params.numRequested != null && typeof(params.numRequested) != 'undefined'){
+      courseApiUrl =courseApiUrl + '&numRequested=' + params.numRequested;
     }
+    if (params.cityState != '' && params.cityState != null && typeof(params.cityState) != 'undefined'){
+      courseApiUrl =courseApiUrl + '&filter=city_state:' + params.cityState;
+     }
+
     logger.debug(courseApiUrl);
     request({
       method: 'GET',
