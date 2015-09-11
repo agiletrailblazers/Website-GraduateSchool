@@ -5,6 +5,18 @@ $(document).ready(function() {
       reloadSearchResults();
   });
 
+  $(".refine").click(function() {
+    $("#itemsPerPage").val("100");
+    $("#selLocation").val("all");
+    $('#G2G').prop('checked', false);
+    reloadSearchResults();
+  });
+
+  $("#clearLocation").click(function() {
+    $("#selLocation").val("all");
+    reloadSearchResults();
+  });
+
   function reloadSearchResults() {
     $(".loading").show();
     $.get("/course-search?partial=true&search=" + $("#txtSearchCriteria").val()
