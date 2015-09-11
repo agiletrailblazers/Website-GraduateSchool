@@ -51,6 +51,12 @@ a:hover, a:active {
 
 
 
+
+
+
+
+
+
 a.blue, a.blue:visited  {
     padding: 8px 20px;
     background-color: #195181;
@@ -701,15 +707,29 @@ footer ul li {
 
  ul.footer li a:hover {
   color: #3A6799;
+
  }
 
-img.networks {
-  padding-top: 20px;
+
+ul.networks img {
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+ul.networks img:hover {
+  width: 26px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 
-/* SLIDER */
 
+
+/* SLIDER */
 .carousel-indicators {
     position: absolute;
     bottom: 15px !important;
