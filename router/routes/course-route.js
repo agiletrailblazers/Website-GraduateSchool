@@ -11,17 +11,22 @@ var logger = require('../../logger');
 // Search for a course.  If there is only one exact match redirect to the course details page
 //  otherwise show the search results page.
 router.get('/course-search', function(req, res, next){
-  var searchCriteria = req.query["search"];
+  var params = {};
+  params.partial = (req.query["partial"] == "true");
+  params.searchCriteria = (typeof(req.query["search"])!='undefined' ? req.query["search"] : null);
+  params.numRequested = (typeof(req.query["numRequested"])!='undefined' ? req.query["numRequested"] : null);
+  params.cityState = (typeof(req.query["cityState"])!='undefined' ? req.query["cityState"] : null);
   var searchResult;
   var content;
-  var locationFacets={};
+  var locationFacets = {};
+
   async.parallel([
     function(callback) {
       course.performCourseSearch(function(response, error, result){
         searchResult = result;
         locationFacets = result.locationFacets;
         callback();
-      }, searchCriteria);
+      }, params);
     },
     function(callback) {
       contentful.getCourseSearch(function(fields) {
@@ -37,11 +42,24 @@ router.get('/course-search', function(req, res, next){
       }
       else {
         //display course search page
-        logger.debug(content);
-        res.render('course_search', { result: result, striptags: striptags, prune: prune, content: content, locationFacets: locationFacets, title: 'Search Results' });
+        var render = { result: result,
+          striptags: striptags,
+          prune: prune,
+          content: content,
+          locationFacets: locationFacets,
+          params: params,
+          title: 'Search Results' };
+
+        if (params.partial && params.partial === true) {
+          res.render('partials/course_search_detail', render);
+        }
+        else {
+          res.render('course_search', render);
+        }
       }
     });
 });
+
 // Get course details based off course code.
 router.get('/courses/:course_id', function(req, res, next){
   var courseId = req.params.course_id;
