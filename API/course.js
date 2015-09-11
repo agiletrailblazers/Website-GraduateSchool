@@ -10,7 +10,7 @@ module.exports = {
     if (params.numRequested != '' && params.numRequested != null && typeof(params.numRequested) != 'undefined'){
       courseApiUrl = courseApiUrl + '&numRequested=' + params.numRequested;
     }
-    if (params.cityState != '' && params.cityState != null && typeof(params.cityState) != 'undefined'){
+    if (params.cityState != '' && params.cityState != null && typeof(params.cityState) != 'undefined' && params.cityState != 'all'){
       courseApiUrl = courseApiUrl + '&filter=city_state:' + params.cityState;
     }
     request({
