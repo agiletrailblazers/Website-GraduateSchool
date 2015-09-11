@@ -6,7 +6,6 @@ var logger = require('../logger');
 module.exports = {
   performCourseSearch: function(callback, params) {
     var courseApiUrl = config("endpoint").courseApiUrl;
-    var courseApiUrl = config("endpoint").courseApiUrl;
     courseApiUrl = courseApiUrl + '/api/courses?search=' + params.searchCriteria;
     if (params.numRequested != '' && params.numRequested != null && typeof(params.numRequested) != 'undefined'){
       courseApiUrl = courseApiUrl + '&numRequested=' + params.numRequested;
