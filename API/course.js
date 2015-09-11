@@ -13,7 +13,7 @@ module.exports = {
     if (params.cityState != '' && params.cityState != null && typeof(params.cityState) != 'undefined' && params.cityState != 'all'){
       courseApiUrl = courseApiUrl + '&filter=city_state:' + params.cityState;
     }
-    if (params.selectedG2G == "true" ){
+    if (params.selectedG2G == "true" ) {
       courseApiUrl = courseApiUrl + '&filter=status:C';
     }
     request({
