@@ -19,22 +19,22 @@
               <div class="row nopadding">
                 <div class="col-lg-2 nopadding">
                   <div class="news-date">
-                    <span class="month">Aug</span> <br>
-                    <span class="day">28</span>
+                    <span class="month"><%= news[0].fields.date.date('MMM') %></span> <br>
+                    <span class="day"><%= news[0].fields.date.date('DD') %></span>
                   </div>
                 </div>
                 <div class="col-lg-10">
-                  <a href="#"><h5>Social Security Administration’s ODAR/OAO Wins Deming Award for 2nd Time</h5></a>
+                <a href="/news/<%= news[0].fields.slug %>"><h5><%= news[0].fields.title %></h5></a>
                 </div>
               </div>
             </div>
             <div class="row news-excerpt nopadding">
               <p>
-                For Immediate Release: Employee development leaders at the US Social Security Administration’s Office of Disability Adjudication and Review, Office of Appellate Operations (ODAR/OAO) in Washington,...
+                <%= prune(striptags(news[0].fields.body), 250, "...") %>
               </p>
             </div>
             <div class="row clearfix pull-right nopadding">
-                <a href="#">Read More <img src="/images/arrow-blue.png" alt="" /></a>
+                <a href="/news/<%= news[0].fields.slug %>">Read More <img src="/images/arrow-blue.png" alt="" /></a>
             </div>
             <hr>
           </div>
@@ -46,29 +46,29 @@
               <div class="row nopadding">
                 <div class="col-lg-2 nopadding">
                   <div class="news-date">
-                    <span class="month">Aug</span> <br>
-                    <span class="day">7</span>
+                    <span class="month"><%= news[1].fields.date.date('MMM') %></span> <br>
+                    <span class="day"><%= news[1].fields.date.date('DD') %></span>
                   </div>
 
                 </div>
                 <div class="col-lg-10">
-                    <a href="#"><h5>Social Security Administration’s ODAR/OAO Wins Deming Award for 2nd Time</h5></a>
+                    <a href="/news/<%= news[1].fields.slug %>"><h5><%= news[1].fields.title %></h5></a>
                 </div>
               </div>
             </div>
             <div class="row news-excerpt nopadding">
               <p>
-                For Immediate Release: Employee development leaders at the US Social Security Administration’s Office of Disability Adjudication and Review, Office of Appellate Operations (ODAR/OAO) in Washington,...
+                <%= prune(striptags(news[1].fields.body), 250, "...") %>
               </p>
             </div>
             <div class="row clearfix pull-right nopadding">
-                <a href="#">Read More <img src="/images/arrow-blue.png" alt="" /></a>
+                <a href="/news/<%= news[1].fields.slug %>">Read More <img src="/images/arrow-blue.png" alt="" /></a>
             </div>
             <hr>
           </div>
           <!-- END News Entry  -->
           <div class="row clearfix pull-left nopadding">
-            <a href="#">View all News &amp; Events</a>
+            <a href="/news">View all News &amp; Events</a>
           </div>
         </div>
        </div>
