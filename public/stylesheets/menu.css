@@ -50,19 +50,33 @@ select::-moz-focus-inner, option::-moz-focus-inner {
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .open > a {
     background-image: linear-gradient(to bottom, #B2B2B2 0px, #8E8E8E 100%);
     background-repeat: repeat-x;
-    font-size: 14px !important;
+    font-size: 13px !important;
     font-weight: normal !important;
     color: #fff !important;
+    line-height: 18px;
 }
 
 .navbar-default .navbar-nav > li > a {
     color: #444444;
-    font-size: 14px !important;
+    font-size: 13px !important;
     font-weight: normal !important;
     white-space:normal !important;
     word-wrap:break-word;
     display: inline-block;
+    line-height: 18px;
+    text-transform: uppercase;
+    text-align: left;
 }
+
+div.icon {
+  display: inline;
+  height: 30px !important;
+  padding: 5px 10px 5px 0px;
+  float:left;
+  clear: both;
+  margin: 0;
+}
+
 
 .navbar-nav > li > a {
     padding-top: 10px;
@@ -127,16 +141,16 @@ select::-moz-focus-inner, option::-moz-focus-inner {
 
 /* Width fixes  */
 .w1 {
-  width: 20%;
+  width: 18%;
 }
 .w2 {
-  width: 30%;
+  width: 33%;
 }
 .w3 {
-  width: 20%;
+  width: 22%;
 }
 .w4 {
-  width: 20%;
+  width: 23%;
 }
 
 /* menu styes */
