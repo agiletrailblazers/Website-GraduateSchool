@@ -134,6 +134,14 @@ module.exports = {
         if (groupCount == 1) {
           group.active = 'active';
         }
+        var icon = navEntry.fields['sectionIcon'+groupCount];
+        if (icon) {
+          content.includes.Asset.forEach(function(asset) {
+            if (icon.sys.id === asset.sys.id) {
+              group.icon = asset.fields;
+            }
+          });
+        }
         if (navEntry.fields['section'+groupCount]) {
           var sections = [];
           navEntry.fields['section'+groupCount].forEach(function(sectionEntry) {

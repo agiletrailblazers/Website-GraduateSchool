@@ -25,7 +25,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
 	//load the main nav on every request
 	contentful.getNavigation(function(nav) {
-		console.log(nav);
 		var googleAnalyticsId = config("endpoint").googleAnalyticsId;
 		res.locals = {navigation: nav, googleAnalyticsId: googleAnalyticsId};
 		next();
