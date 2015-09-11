@@ -49,6 +49,19 @@ a:hover, a:active {
     outline: none;
 }
 
+a.readmore:link,
+a.readmore:visited {
+  color: #fff;
+  background-position: 0 15px;
+}
+
+a.readmore:hover,
+a.readmore:active {
+  color: #fff;
+  background-position: 0 15px;
+  border: 1px solid transparent;
+}
+
 
 
 
