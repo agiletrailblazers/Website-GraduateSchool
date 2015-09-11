@@ -3,13 +3,13 @@
     <div class="container">
       <div class="row clearfix">
         <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 ">
-          <% if ( typeof title == 'undefined'){ %>  
-            <h1 id="title"><%= courseData.class.title %></h1>
-            <p> <img src="../images/homepage.png" alt="" class="home"/> <a href="/" class="breadcrumbs">Home</a> / <%= courseData.class.title %> </p>
-            <%  } else {%>
+          <% if (typeof(title) !== 'undefined') { %>
             <h1 id="title"><%= title %></h1>
             <p> <img src="../images/homepage.png" alt="" class="home"/> <a href="/" class="breadcrumbs">Home</a> / <%= title %> </p>
-            <%  } %>
+          <%  } else {%>
+            <h1 id="title">&nbsp;<!--No title defined? Too bad.--></h1>
+            <p> <img src="../images/homepage.png" alt="" class="home"/> <a href="/" class="breadcrumbs">Home</a> / <!--No title defined? Too bad.--> </p>
+          <%  } %>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 pull-right">
           <div class="util">
@@ -22,4 +22,4 @@
       </div>
     </div>
   </div>
-<%  } %>
+<% } %>

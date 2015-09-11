@@ -9,7 +9,7 @@ var logger = require('../../logger');
 router.get('/news', function(req, res, next) {
   contentful.getNewsRecent(function(response) {
     res.render('news/recent_entries', { posts: response.items,
-      striptags: striptags, prune: prune });
+      striptags: striptags, prune: prune, title: 'News' });
   });
 });
 
