@@ -19,13 +19,11 @@ router.get('/course-search', function(req, res, next){
   params.selectedG2G = (typeof(req.query["selectedG2G"])!='undefined' ? req.query["selectedG2G"] : null);
   var searchResult;
   var content;
-  var locationFacets = {};
 
   async.parallel([
     function(callback) {
       course.performCourseSearch(function(response, error, result){
         searchResult = result;
-        locationFacets = result.locationFacets;
         callback();
       }, params);
     },
@@ -42,12 +40,12 @@ router.get('/course-search', function(req, res, next){
         res.redirect('courses/' + result.courses[0].id);
       }
       else {
+        console.log(searchResult);
         //display course search page
         var render = { result: result,
           striptags: striptags,
           prune: prune,
           content: content,
-          locationFacets: locationFacets,
           params: params,
           title: 'Search Results' };
 
