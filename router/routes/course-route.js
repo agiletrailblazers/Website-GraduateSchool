@@ -40,7 +40,6 @@ router.get('/course-search', function(req, res, next){
         res.redirect('courses/' + result.courses[0].id);
       }
       else {
-        console.log(searchResult);
         //display course search page
         var render = { result: result,
           striptags: striptags,
