@@ -21,12 +21,17 @@ $(document).ready(function() {
     reloadSearchResults();
   });
 
-  function reloadSearchResults() {
+  $(document).on("click",".pagination a",function(event){
+    reloadSearchResults($(this).attr("name"));
+  });
+
+  function reloadSearchResults(pageNum) {
     $(".loading").show();
     $.get("/course-search?partial=true&search=" + $("#txtSearchCriteria").val()
         + "&numRequested=" + $("#itemsPerPage").val()
         + "&cityState=" + $("#selLocation").val()
-        + "&selectedG2G=" + $('#G2G').prop('checked') )
+        + "&selectedG2G=" + $('#G2G').prop('checked')
+        + "&page=" + pageNum )
     .done(function(data) {
       $("#searchResults").replaceWith(data);
       $(".loading").hide();
