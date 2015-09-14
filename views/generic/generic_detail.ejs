@@ -12,11 +12,17 @@
     <div id="main-container" class="container">
         <div class="row">
           <div class="col-lg-9 col-md-9 ">
+            <h1><%= intro %></h1>
+            <h2><%= subIntro %></h2>
             <% for (var i = 0; i < sections.length; i++) { %>
               <% if (sections[i]) { %>
                   <section>
+                    <% if (sections[i].title) { %>
+                      <h2><%= sections[i].title %></h2>
+                      <% if (sections[i].collapse) { %>[EXPAND/COLLAPSE]<% } %>
+                    <% } %>
                     <article id="<%= i %>" class="genericArticle">
-                      <%- sections[i] %>
+                      <%- sections[i].content %>
                     </article>
                   </section>
               <% } %>
