@@ -20,13 +20,11 @@ router.get('/course-search', function(req, res, next){
   params.page = (typeof(req.query["page"])!='undefined' ? req.query["page"] : null);
   var searchResult;
   var content;
-  var locationFacets = {};
 
   async.parallel([
     function(callback) {
       course.performCourseSearch(function(response, error, result){
         searchResult = result;
-        locationFacets = result.locationFacets;
         callback();
       }, params);
     },
@@ -48,7 +46,6 @@ router.get('/course-search', function(req, res, next){
           striptags: striptags,
           prune: prune,
           content: content,
-          locationFacets: locationFacets,
           params: params,
           title: 'Search Results' };
 
