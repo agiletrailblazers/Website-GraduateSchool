@@ -81,7 +81,7 @@ test('course-search with government search  criteria,numRequested and cityState'
   var params ={searchCriteria:"government",numRequested:"100",cityState:"Washington, DC"};
     //test a 200 ok
   var courseServer = nock(courseApiUrl)
-    .get('/api/courses?search=government&numRequested=100&filter=city_state:Washington,%20DC')
+    .get('/api/courses?search=government&numRequested=100&filter=%7Bfacet-countall%7Dcity_state:Washington,%20DC')
       .reply(200, {
          "exactMatch": true,
          "numRequested":"100",
@@ -109,7 +109,7 @@ test('course-search with government search  criteria,numRequested,cityState and 
   var params ={searchCriteria:"government",numRequested:"100",cityState:"Washington, DC",selectedG2G:"true"};
     //test a 200 ok
   var courseServer = nock(courseApiUrl)
-    .get('/api/courses?search=government&numRequested=100&filter=city_state:Washington,%20DC&filter=status:C')
+    .get('/api/courses?search=government&numRequested=100&filter=%7Bfacet-countall%7Dcity_state:Washington,%20DC&filter=status:C')
       .reply(200, {
          "exactMatch": true,
          "numRequested":"100",
@@ -130,4 +130,3 @@ test('course-search with government search  criteria,numRequested,cityState and 
   },params);
   t.end();
 });
-

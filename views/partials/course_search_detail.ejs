@@ -1,77 +1,162 @@
-<div id="searchResults" class="col-lg-9 col-md-9 col-sm-8">
-<div class="panel panel-default gs">
-  <% if (result && result.courses && result.courses.length > 0) { %>
-    <div class="panel-heading gs"><h4>Showing <%= (((result.currentPage-1)*(result.numRequested))+1) %> to <%= (result.currentPage*result.numRequested > result.numFound) ? result.numFound:(result.currentPage*result.numRequested) %> of <%= result.numFound%> Results</h4></div>
-  <% } %>
-
-  <div class="panel-body">
-    <% if (result == null || result.courses == null || result.courses.length == 0) { %>
-      <% if (params.cityState != null) { %>
-        <h3>No matches for '<%= params.searchCriteria %>' in '<%= params.cityState %>'. Please try again.</h3>
-      <% } else { %>
-        <h3>No matches for '<%= params.searchCriteria %>'. Please try again.</h3>
-      <% } %>
-    <% } else { %>
-      <% for(var i=0; i<result.courses.length; i++) { %>
-        <% if ( result.courses[i].description.text !== null ) { %>
-          <% if (result.courses[i].code === null) { result.courses[i].code = result.courses[i].id.slice(0, -3); }%>
-          <div id="course-result">
-            <h3><a href="/courses/<%= result.courses[i].id %>"><%= result.courses[i].code %> - <%= result.courses[i].title %></a></h3>
-          </div>
-          <div><%= prune(striptags(result.courses[i].description.text), 300, "...") %></div>
-          <div class="course-id"> <img src="../images/course-id-icon.png" alt="" /> Code: <strong><%= result.courses[i].code %></strong> </div>
-          <hr>
-        <% } %>
-      <% } %>
-    <% } %>
-  </div>
-  </div>
-    <div id="pagination">
-      <div class="row clearfix">
-        <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 spacer pull-left">
-         <div class="form-group">
-                <label class="control-label col-md-5 col-xs-3" for="itemsPerPage"> Items per page:</label>
-                <div class="col-md-4 col-xs-2 ">
-                  <select id="itemsPerPage" class="form-control">
-                    <option value="100" <% if (params.numRequested==100) { %> selected <% } %>>100</option>
-                    <option value="50" <% if (params.numRequested==50) { %> selected <% } %>>50</option>
-                    <option value="20"<% if (params.numRequested==20) { %> selected <% } %>>20</option>
-                    <option value="10" <% if (params.numRequested==10) { %> selected <% } %>>10</option>
-                  </select>
+<div id="searchResults" class="row">
+  <div class="col-lg-3 col-md-3 col-sm-4">
+    <div class="filters">
+      <div class="panel-group">
+        <div class="panel panel-default gs">
+          <div class="panel-heading gs">
+            <div class="row clearfix">
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 pull-left">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#refine-results"> Refine Results</a>
+                </h4>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="refine">
+                  <a href="#"><p class="clear">X<br>clear all</p></a>
                 </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12 spacer pull-right ">
-          <nav>
-            <ul class="pagination" id="paginationNum">
-             <% if (result.previousPage == 0) { %>
-               <li class="disabled"><a href="#"  name="<%= result.previousPage %>" aria-label="Previous"><span aria-hidden="true"> &#60; Previous</span></a></li>
-             <%} else {%>
-                <li><a href="#"  name="<%= result.previousPage %>" aria-label="Previous"><span aria-hidden="true"> &#60; Previous</span></a></li>
-             <% } %>
-              <% for(var pageCounter=0;pageCounter<result.pageNavRange.length;pageCounter++) {  %>
-                <% if ( result.pageNavRange[pageCounter]== result.currentPage ) { %>
-                  <li class="active"><a  href="#"  name=<%= result.pageNavRange[pageCounter] %>><%= result.pageNavRange[pageCounter] %> <span class="sr-only">(current)</span></a></li>
-                <% } else { %>
-                  <li><a href="#" class="pageNumLink" name="<%= result.pageNavRange[pageCounter] %>"><%= result.pageNavRange[pageCounter] %></a></li>
-                <%  } %>
-	      <% } %>
-             <% if (result.nextPage == 0) { %>
-               <li class="disabled">
-                 <a href="#" name="<%= result.nextPage %>"aria-label="Next">
-                 <span aria-hidden="true"> Next &#62; </span> </a>
-               </li>
-             <%} else {%>
-               <li >
-                 <a href="#" name="<%= result.nextPage %>"aria-label="Next">
-                 <span aria-hidden="true"> Next &#62; </span> </a>
-               </li>
-            <% }%>
-            </ul>
-
-          </nav>
+          <div id="refine-results" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <%
+              var g2gFacetCount = 0;
+              var g2gChecked = "";
+              var g2gDisabled = "";
+              if (result && result.statusFacets) {
+                var statusKeys = Object.keys(result.statusFacets);
+                for (i=0; i < statusKeys.length; i++) {
+                  if (statusKeys[i] === 'C') {
+                    g2gFacetCount = result.statusFacets[statusKeys[i]];
+                  }
+                }
+                if (params.selectedG2G === 'true') {
+                  g2gChecked = "checked";
+                }
+                if (g2gFacetCount == 0) {
+                  g2gDisabled = "disabled";
+                }
+              }
+              %>
+              <input type="checkbox" id="G2G" name="G2G" value="" <%= g2gChecked %> <%= g2gDisabled %> /><label for="G2G"><strong>Guaranteed To Go</strong>&nbsp;(<%= g2gFacetCount %>) </label><br>
+              <hr>
+              <span class="form-group">
+                <p>Location <a id="clearLocation" href="#" class="checkbox-clear">clear</a></p>
+                <select id="selLocation" class="form-control">
+                  <option value="all">All</option>
+                    <%
+                      if (result && result.locationFacets) {
+                        var locationFacetsKeys = Object.keys(result.locationFacets);
+                        locationFacetsKeys.sort();
+                        for (j = 0; j < locationFacetsKeys.length; j++) {
+                          locationFacetsKey = locationFacetsKeys[j];
+                          locationFacetCount = result.locationFacets[locationFacetsKey];
+                          locationSelected = "";
+                          if (locationFacetsKey === params.cityState) {
+                            locationSelected = "selected";
+                          }
+                          if (locationFacetCount > 0) {
+                            %>
+                            <option value="<%= locationFacetsKey%>" <%= locationSelected %>><%= locationFacetsKey%>&nbsp;<%= "("+result.locationFacets[locationFacetsKey]+")"%></option>
+                            <%
+                          }
+                        }
+                      }
+                    %>
+                  </select>
+              </span>
+            <hr>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="col-lg-9 col-md-9 col-sm-8">
+    <div class="panel panel-default gs">
+    <% if (result && result.courses && result.courses.length > 0) { %>
+      <div class="panel-heading gs"><h4>Showing <%= (((result.currentPage-1)*(result.numRequested))+1) %> to <%= (result.currentPage*result.numRequested > result.numFound) ? result.numFound:(result.currentPage*result.numRequested) %> of <%= result.numFound%> Results</h4></div>
+    <% } %>
 
+    <div class="panel-body">
+      <% if (result == null || result.courses == null || result.courses.length == 0) { %>
+        <% if (params.cityState != null) { %>
+          <h3>No matches for '<%= params.searchCriteria %>' in '<%= params.cityState %>'. Please try again.</h3>
+        <% } else { %>
+          <h3>No matches for '<%= params.searchCriteria %>'. Please try again.</h3>
+        <% } %>
+      <% } else { %>
+        <% for(var i=0; i<result.courses.length; i++) { %>
+          <% if ( result.courses[i].description.text !== null ) { %>
+            <% if (result.courses[i].code === null) { result.courses[i].code = result.courses[i].id.slice(0, -3); }%>
+            <div id="course-result">
+              <h3><a href="/courses/<%= result.courses[i].id %>"><%= result.courses[i].code %> - <%= result.courses[i].title %></a></h3>
+            </div>
+            <div><%= prune(striptags(result.courses[i].description.text), 300, "...") %></div>
+            <div class="course-id"> <img src="../images/course-id-icon.png" alt="" /> Code: <strong><%= result.courses[i].code %></strong> </div>
+            <hr>
+          <% } %>
+        <% } %>
+      <% } %>
+    </div>
+    </div>
+      <div id="pagination">
+        <div class="row clearfix">
+          <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 spacer pull-left">
+           <div class="form-group">
+                  <label class="control-label col-md-5 col-xs-3" for="itemsPerPage"> Items per page:</label>
+                  <div class="col-md-4 col-xs-2 ">
+                    <select id="itemsPerPage" class="form-control">
+                      <option value="100" <% if (params.numRequested==100) { %> selected <% } %>>100</option>
+                      <option value="50" <% if (params.numRequested==50) { %> selected <% } %>>50</option>
+                      <option value="20"<% if (params.numRequested==20) { %> selected <% } %>>20</option>
+                      <option value="10" <% if (params.numRequested==10) { %> selected <% } %>>10</option>
+                    </select>
+                  </div>
+            </div>
+          </div>
+          <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12 spacer pull-right ">
+            <nav>
+              <% if (result && result.currentPage > 0 & result.pageNavRange !== null) { %>
+                <input type="hidden" id="txtCurrentPage" value="<%= result.currentPage %>" />
+                <ul class="pagination" id="paginationNum">
+                  <% if (result.previousPage == 0) { %>
+                    <li class="disabled">
+                      <span aria-hidden="true"> &#60; Previous</span></a>
+                    </li>
+                  <%} else {%>
+                   <li>
+                     <a href="#"  name="<%= result.previousPage %>" aria-label="Previous">
+                     <span aria-hidden="true"> &#60; Previous</span></a>
+                   </li>
+                  <% } %>
+                  <% for(var pageCounter=0;pageCounter<result.pageNavRange.length;pageCounter++) { %>
+                    <% if ( result.pageNavRange[pageCounter]== result.currentPage ) { %>
+                      <li class="active">
+                        <a href="#"  name=<%= result.pageNavRange[pageCounter] %>><%= result.pageNavRange[pageCounter] %> <span class="sr-only">(current)</span></a>
+                      </li>
+                    <% } else { %>
+                      <li>
+                        <a href="#" class="pageNumLink" name="<%= result.pageNavRange[pageCounter] %>">
+                        <%= result.pageNavRange[pageCounter] %></a>
+                      </li>
+                    <%  } %>
+                  <% } %>
+                  <% if (result.nextPage == 0) { %>
+                    <li class="disabled">
+                      <span aria-hidden="true"> Next &#62; </span> </a>
+                    </li>
+                  <%} else {%>
+                    <li>
+                      <a href="#" name="<%= result.nextPage %>"aria-label="Next">
+                      <span aria-hidden="true"> Next &#62; </span> </a>
+                    </li>
+                  <% }%>
+                </ul>
+            <% } %>
+            </nav>
+          </div>
+        </div>
+      </div>
+  </div>
 </div>
