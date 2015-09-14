@@ -57,7 +57,7 @@ select::-moz-focus-inner, option::-moz-focus-inner {
 }
 
 .navbar-default .navbar-nav > li > a {
-    color: #444444;
+    color: #666666;
     font-size: 13px !important;
     font-weight: normal !important;
     white-space:normal !important;
