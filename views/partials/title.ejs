@@ -4,7 +4,7 @@
       <div class="row clearfix">
         <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 ">
           <% if (typeof(title) !== 'undefined') { %>
-            <h1 id="title"><%= title %></h1>
+            <h1 id="title"><%= typeof topTitle!='undefined' ? topTitle : title %></h1>
             <p> <img src="../images/homepage.png" alt="" class="home"/> <a href="/" class="breadcrumbs">Home</a> / <%= title %> </p>
           <%  } else {%>
             <h1 id="title">&nbsp;<!--No title defined? Too bad.--></h1>

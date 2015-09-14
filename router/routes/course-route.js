@@ -47,7 +47,8 @@ router.get('/course-search', function(req, res, next){
           prune: prune,
           content: content,
           params: params,
-          title: 'Search Results' };
+          title: 'Search Results',
+          topTitle: 'Results for ' + params.searchCriteria };
 
         if (params.partial && params.partial === true) {
           res.render('partials/course_search_detail', render);
@@ -125,7 +126,10 @@ router.get('/courses/:course_id', function(req, res, next){
       content.linksSection.forEach(function(link) {
         link.url = link.url.replace('[courseCode]', courseData.class.code);
       });
-	    res.render('course_detail', { content: content, courseData: courseData, title: courseData.class.title });
+	    res.render('course_detail', { content: content,
+        courseData: courseData,
+        title: 'Course Details',
+        topTitle: courseData.class.title });
     }
     else {
     	//handle error
