@@ -1,18 +1,32 @@
 var express = require('express');
 var contentful = require('../../API/contentful.js');
 var router = express.Router();
+var logger = require('../../logger');
 
 router.get('/content/:content_slug', function(req, res, next) {
   slug = req.params.content_slug;
   contentful.getContentPage(function(response) {
+    if (!response || !response.items || !response.items[0] || !response.items[0].fields ) {
+      //handle error
+      logger.error("Page not found: " + slug)
+    	res.render('error', { message: 'Sorry, page not found.', error: null });
+    }
     var content = response.items[0].fields;
-    console.log(content);
+    var imageUrl = null;
+    if (content.featureImage) {
+       response.includes.Asset.forEach(function(asset) {
+         if (content.featureImage.sys.id === asset.sys.id) {
+           imageUrl = asset.fields.file.url;
+         }
+       });
+    }
     res.render('generic/generic_detail', {
       title: content.title,
       slug: content.slug,
       intro: content.intro,
       subIntro: content.subIntro,
       relatedLinks: content.relatedLinks,
+      imageUrl: imageUrl,
       sections: [
       { title: content.sectionTitle1, content: content.section1, collapse: content.sectionCollapse1 },
       { title: content.sectionTitle2, content: content.section2, collapse: content.sectionCollapse2 },
