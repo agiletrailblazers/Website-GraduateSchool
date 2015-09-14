@@ -5,33 +5,30 @@ $(document).ready(function() {
       reloadSearchResults();
   });
 
-  $(".refine").click(function() {
+  $(document).on("click",".refine",function(event){
     $("#itemsPerPage").val("100");
     $("#selLocation").val("all");
     $('#G2G').prop('checked', false);
     reloadSearchResults();
   });
 
-   $('#G2G').click(function() {
-     reloadSearchResults();
-    });
-
-  $("#clearLocation").click(function() {
+  $(document).on("click","#clearLocation",function(event){
     $("#selLocation").val("all");
     reloadSearchResults();
   });
 
-  $(document).on("click",".pagination a",function(event){
+  $(document).on("click",".pagination a, #G2G",function(event){
     reloadSearchResults($(this).attr("name"));
   });
 
-  function reloadSearchResults(pageNum) {
+  function reloadSearchResults() {
     $(".loading").show();
-    $.get("/course-search?partial=true&search=" + $("#txtSearchCriteria").val()
+    var urlParams = "search=" + $("#txtSearchCriteria").val()
         + "&numRequested=" + $("#itemsPerPage").val()
         + "&cityState=" + $("#selLocation").val()
-        + "&selectedG2G=" + $('#G2G').prop('checked')
-        + "&page=" + pageNum )
+        + "&selectedG2G=" + $('#G2G').prop('checked');
+    history.pushState({state:1}, "", "?" + urlParams);
+    $.get("/course-search?partial=true&" + urlParams)
     .done(function(data) {
       $("#searchResults").replaceWith(data);
       $(".loading").hide();

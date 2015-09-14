@@ -35,14 +35,14 @@ router.get('/course-search', function(req, res, next){
       });
     }
     ], function(results) {
-      if (result && result.exactMatch) {
+      if (searchResult && searchResult.exactMatch) {
         //redirect to course details
-        logger.debug("Exact course match found for " + result.courses[0].id + " - Redirecting.")
-        res.redirect('courses/' + result.courses[0].id);
+        logger.debug("Exact course match found for " + searchResult.courses[0].id + " - Redirecting.")
+        res.redirect('courses/' + searchResult.courses[0].id);
       }
       else {
         //display course search page
-        var render = { result: result,
+        var render = { result: searchResult,
           striptags: striptags,
           prune: prune,
           content: content,
