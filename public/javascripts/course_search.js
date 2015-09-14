@@ -12,16 +12,26 @@ $(document).ready(function() {
     reloadSearchResults();
   });
 
+   $('#G2G').click(function() {
+     reloadSearchResults();
+    });
+
   $("#clearLocation").click(function() {
     $("#selLocation").val("all");
     reloadSearchResults();
   });
 
-  function reloadSearchResults() {
+  $(document).on("click",".pagination a",function(event){
+    reloadSearchResults($(this).attr("name"));
+  });
+
+  function reloadSearchResults(pageNum) {
     $(".loading").show();
     $.get("/course-search?partial=true&search=" + $("#txtSearchCriteria").val()
         + "&numRequested=" + $("#itemsPerPage").val()
-        + "&cityState=" + $("#selLocation").val())
+        + "&cityState=" + $("#selLocation").val()
+        + "&selectedG2G=" + $('#G2G').prop('checked')
+        + "&page=" + pageNum )
     .done(function(data) {
       $("#searchResults").replaceWith(data);
       $(".loading").hide();

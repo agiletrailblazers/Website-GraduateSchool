@@ -16,6 +16,8 @@ router.get('/course-search', function(req, res, next){
   params.searchCriteria = (typeof(req.query["search"])!='undefined' ? req.query["search"] : null);
   params.numRequested = (typeof(req.query["numRequested"])!='undefined' ? req.query["numRequested"] : null);
   params.cityState = (typeof(req.query["cityState"])!='undefined' ? req.query["cityState"] : null);
+  params.selectedG2G = (typeof(req.query["selectedG2G"])!='undefined' ? req.query["selectedG2G"] : null);
+  params.page = (typeof(req.query["page"])!='undefined' ? req.query["page"] : null);
   var searchResult;
   var content;
   var locationFacets = {};

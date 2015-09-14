@@ -13,6 +13,12 @@ module.exports = {
     if (params.cityState != '' && params.cityState != null && typeof(params.cityState) != 'undefined' && params.cityState != 'all'){
       courseApiUrl = courseApiUrl + '&filter=city_state:' + params.cityState;
     }
+    if (params.page != '' && params.page != null && typeof(params.page) != 'undefined'){
+      courseApiUrl = courseApiUrl + '&page='+ params.page;
+    }
+    if (params.selectedG2G == "true" ) {
+      courseApiUrl = courseApiUrl + '&filter=status:C';
+    }
     request({
       method: 'GET',
       url: courseApiUrl
