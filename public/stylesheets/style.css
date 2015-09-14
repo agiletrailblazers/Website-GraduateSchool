@@ -874,6 +874,7 @@ ul.networks img:hover {
 .carousel-caption p {
   font-size: 18px;
   font-weight: 400;
+  color: #FFF !important;
 }
 
 .carousel-caption p.btn {
