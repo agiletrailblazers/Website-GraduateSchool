@@ -45,8 +45,8 @@ module.exports = {
         return callback(500);
       }
       var mailAttributes = {
-        from: config("endpoint").defaultEmailToUserName,
-        to: config("endpoint").defaultEmailToUserName,
+        from: config("endpoint").defaultEmailFromUserName,
+        to: config("endpoint").contactUsToUserName,
         subject: params.subject,
         text:  results.text,
         html:  results.html
@@ -70,8 +70,8 @@ module.exports = {
         return callback(500);
       }
       var mailAttributes = {
-        from: config("endpoint").defaultEmailToUserName,
-        to: config("endpoint").defaultEmailToUserName,
+        from: config("endpoint").defaultEmailFromUserName,
+        to: config("endpoint").onsiteInquiryToUserName,
         subject: config("endpoint").onsiteInquiryEmailSubject,
         text:  results.text,
         html:  results.html

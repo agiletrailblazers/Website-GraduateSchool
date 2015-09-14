@@ -5,7 +5,9 @@
     "defaultEmailServerPort": "25",
     "defaultEmailUserName":"",
     "defaultEmailUserPassword":"",
-    "defaultEmailToUserName":"gs@agiletrailblazers.com",
+    "defaultEmailFromUserName":"gs@agiletrailblazers.com",
+    "contactUsToUserName":"gs@agiletrailblazers.com",
+    "onsiteInquiryToUserName":"gs@agiletrailblazers.com",
 
     "googleAnalyticsId":"UA-66851185-2"
 }
