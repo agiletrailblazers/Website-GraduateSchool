@@ -24,7 +24,12 @@ Customer Location: <%= location.customer %>
 Other Location: <%= location.other %>
 
 Course Delivery Information
-Course Names: <%= course.names %>
+Course Names:
+<%
+  var courseArray = course.names.split(",");
+  courseArray.forEach(function(course) { %>
+    <%= course %></strong>
+<% }); %>
 Student Count: <%= course.studentCount %>
 Customization: <%= course.customization %>
 Course DeliveryDate: <%= course.deliveryDate %>
