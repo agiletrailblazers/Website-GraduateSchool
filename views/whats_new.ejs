@@ -25,20 +25,8 @@
                }
           } %>
        </header>
-      <div class="col-lg-4 col-md-4 col-sm-12">
-      <aside>
-          <div class="clearfix">
-          <h1 class="box"><%= entry.sidebarmainTitle %></h1>
-          <h2 class="title"><%= entry.sidebarTitle %></h2>
-          <blockquote cite="">
-            <%= entry.sidebarQuote %>
-          </blockquote>
-          <button type="button" name="button" class="quote pull-right"><%= entry.registerbuttonTitle %></button>
-          </div>
-        </aside>
 
-      </div>
-      <div class="col-lg-8 col-md-8 col-sm-12">
+      <div class="col-lg-9 col-md-9 col-sm-12">
         <section>
           <p>
             <%= entry.sectionSummary %>
@@ -70,10 +58,23 @@
       </table>
 
         </section>
-      </div> <!--/#col -->
-    </div> <!--/#row -->
-  </div><!--/#container -->
-  
+      </div> <!--END of left column -->
+      <div class="col-lg-3 col-md-3 col-sm-12">
+      <aside>
+          <div>
+          <h1><%= entry.sidebarmainTitle %></h1>
+          <h4><%= entry.sidebarTitle %></h4>
+          <blockquote cite="" id="whats-new">
+            <span><%= entry.sidebarQuote %></span>
+          </blockquote>
+          <a href="#" class="blue pull-right"><%= entry.registerbuttonTitle %></a>
+          </div>
+        </aside>
+      </div> <!--END of right column -->
+    </div> <!--END row -->
+    <div class="spacer"></div>
+  </div><!--END container -->
+
   <!-- Footer -->
   <% include partials/footer %>
   <!-- END Footer  -->
