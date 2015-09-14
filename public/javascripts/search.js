@@ -4,7 +4,6 @@ function performCourseSearch() {
 }
 
 $(document).ready(function(){
-    App.getSearchParamater();
 
 // control collapse/expand function for Refine results -  mobile vs desktop
   $(window).bind('resize load', function() {
