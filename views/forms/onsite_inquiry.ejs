@@ -12,13 +12,14 @@
 </head>
 <body>
   <% include ../partials/header %>
-  
+
   <div class="container">
-    <div class="container">
       <div class="loading" style="display:none;"></div>
       <div class="row">
-        <div class="col-lg-8">
-
+        <div class="col-lg-9 col-md-9 col-sm-12">
+          <h1>
+            <%= title %>
+          </h1>
           <!-- Accordion Container -->
           <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
             <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
@@ -251,7 +252,7 @@
                 <!-- END Accordion Container -->
 
                 <% if (relatedLinks && relatedLinks.length > 0) { %>
-                <div class="col-lg-4">
+                <div class="col-lg-3 col-md-3 col-sm-12" id="sidebar">
                   <h2>Related links</h2>
                   <ul>
                   <% relatedLinks.forEach(function(link) { %>
@@ -262,7 +263,6 @@
                 <% } %>
               </div><!-- END  Row -->
             </div> <!-- END Container  -->
-          </div><!-- END Container  -->
           <% include ../partials/chat %>
           <% include ../partials/footer %>
           <script type="text/javascript" src="/javascripts/onsite-inquiry/onsite_inquiry.js"></script>
