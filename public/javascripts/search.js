@@ -3,21 +3,6 @@ function performCourseSearch() {
     location.href = "/course-search?search=" + document.getElementById("searchCriteria").value;
 }
 
-// Retrieve Search criteria term that user has search for and prints it out on the title section
-var App = {
-  getSearchParamater: function() {
-    var url = window.location.href;
-    var regex = /=(.+)/;
-    var matches = url.match(regex);
-    if (matches) {
-      var match = matches[1];
-      $("#title").text("Results for ");
-      $("#title").append(match);
-      $("#results-for-alert").append(match);
-      }
-    }
-}
-
 $(document).ready(function(){
     App.getSearchParamater();
 
