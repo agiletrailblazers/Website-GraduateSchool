@@ -32,7 +32,16 @@
                     </div>
                     <div id="refine-results" class="panel-collapse collapse in">
                       <div class="panel-body">
-                        <input type="checkbox" id="G2G" name="G2G" value="" /> <strong>Guaranteed To Go</strong> <br>
+                        <%
+                        var g2gFacetCount = 0;
+                        var statusKeys = Object.keys(result.statusFacets);
+                        for (i=0; i < statusKeys.length; i++) {
+                          if (statusKeys[i] === 'C') {
+                            g2gFacetCount = result.statusFacets[statusKeys[i]];
+                          }
+                        }
+                        %>
+                        <input type="checkbox" id="G2G" name="G2G" value="" /><strong>Guaranteed To Go</strong>&nbsp;(<%= g2gFacetCount %>) <br>
 
                         <hr>
                       <span class="form-group">
@@ -40,15 +49,17 @@
                         <select id="selLocation" class="form-control" >
                           <option value="all">All</option>
                           <%
-                            locationFacetsKeys = Object.keys(locationFacets);
-                            locationFacetsKeysLength = locationFacetsKeys.length;
+                            locationFacetsKeys = Object.keys(result.locationFacets);
                             locationFacetsKeys.sort();
-                            for (locationFacetsKeyCounter = 0; locationFacetsKeyCounter < locationFacetsKeysLength; locationFacetsKeyCounter++) {
-                              locationFacetsKey = locationFacetsKeys[locationFacetsKeyCounter];
-                          %>
-                          <option value="<%= locationFacetsKey%>"><%= locationFacetsKey%>  <%= "("+locationFacets[locationFacetsKey]+")"%></option>
-                          <%
-                          }
+                            for (j = 0; j < locationFacetsKeys.length; j++) {
+                              locationFacetsKey = locationFacetsKeys[j];
+                              locationFacetCount = result.locationFacets[locationFacetsKey];
+                              if (locationFacetCount > 0) {
+                                %>
+                                <option value="<%= locationFacetsKey%>"><%= locationFacetsKey%>&nbsp;<%= "("+result.locationFacets[locationFacetsKey]+")"%></option>
+                                <%
+                              }
+                            }
                           %>
                           </select>
                       </span>
