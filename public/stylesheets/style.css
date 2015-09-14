@@ -22,13 +22,25 @@ body {
   padding: 0px;
   margin: 0;
   overflow-x: hidden;
-  color: #363636;
+  color: #444;
 }
 
 img.responsive {
   width : 100%;
   max-width: 100%;
   height: auto;
+}
+
+
+p {
+  font-size: 15px;
+  color: #444444;
+  padding: 10px 0 !important;
+}
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 /* LINKS */
@@ -161,11 +173,7 @@ h4 {
   line-height: 1.3;
 }
 
-p {
-  font-size: 15px;
-  color: #444444;
-  padding: 10px 0 !important;
-}
+
 
 #sidebar {
 background-color: #E9EEF3;
@@ -282,6 +290,18 @@ label, input, select, textarea, button {
   padding:10px 0;
 }
 
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 500 !important;
+    padding-right: 15px !important;
+}
+
+input {
+  margin-right: 10px !important;
+
+}
 /*
 label {
   display: block;
@@ -293,12 +313,25 @@ form button, form button:visited {
   color: #FFF;
   border: none;
   outline-style: none;
+  transition: background-color 300ms linear 0s;
 }
 
 form button:hover, form button:active {
   background-color: #be0f34;
+  transition: background-color 300ms linear 0s;
 }
 
+.form-control:focus {
+    border-color: #66AFE9;
+    outline: 0px none;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+    transition: box-shadow 300ms linear 0s;
+}
+
+
+#contact-information {
+  width: 80%;
+}
 
 /* TOP NAVIGATION  */
 .fix {
@@ -519,7 +552,7 @@ ul.customer-support li a:hover {
 .title p {
   font-size: 16px;
   color: #FFF;
-  padding: 0 0 10px 0;
+  padding: 0 0 10px 0 !important;
 }
 
 .title .util {
@@ -1110,6 +1143,16 @@ a.underline-n:after {
   height: 40px !important;
 
 }
+
+.tab-content p {
+  font-size: 15px;
+  color: #444444;
+  margin: 10px 0 !important;
+  padding: 0 !important;
+}
+
+
+
 
 /*for FireFox*/
     input[type="submit"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner
