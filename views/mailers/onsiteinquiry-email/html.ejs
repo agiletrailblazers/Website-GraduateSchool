@@ -81,7 +81,12 @@ p.footer {
   <hr>
 
 <h2>Course Delivery Information</h2>
-<p>Course Names: <strong><%= course.names %></strong></p>
+<p>Course Names(s): </p>
+<%
+  var courseArray = course.names.split(",");
+  courseArray.forEach(function(course) { %>
+    <strong><%= course %></strong></p>
+<% }); %>
 <p>Student Count: <strong><%= course.studentCount %></strong></p>
 <p>Customization: <strong><%= course.customization %></strong></p>
 <p>Course Delivery Date: <strong><%= course.deliveryDate %></strong></p>
