@@ -19,6 +19,7 @@ module.exports = {
     if (params.selectedG2G == "true" ) {
       courseApiUrl = courseApiUrl + '&filter=status:C';
     }
+    logger.debug(courseApiUrl);
     request({
       method: 'GET',
       url: courseApiUrl

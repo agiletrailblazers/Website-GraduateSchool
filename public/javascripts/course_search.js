@@ -2,23 +2,32 @@ $(document).ready(function() {
 
   //Important to use live events since we dynamically update page content
   $(document).on('change', 'select#itemsPerPage, select#selLocation', function() {
-      reloadSearchResults();
+    $('#txtCurrentPage').val(1);
+    reloadSearchResults();
   });
 
   $(document).on("click",".refine",function(event){
     $("#itemsPerPage").val("100");
     $("#selLocation").val("all");
     $('#G2G').prop('checked', false);
+    $('#txtCurrentPage').val(1);
     reloadSearchResults();
   });
 
   $(document).on("click","#clearLocation",function(event){
     $("#selLocation").val("all");
+    $('#txtCurrentPage').val(1);
     reloadSearchResults();
   });
 
-  $(document).on("click",".pagination a, #G2G",function(event){
-    reloadSearchResults($(this).attr("name"));
+  $(document).on("click","#G2G",function(event){
+    $('#txtCurrentPage').val(1);
+    reloadSearchResults();
+  });
+
+  $(document).on("click",".pagination a",function(event){
+    $('#txtCurrentPage').val($(this).attr("name"));
+    reloadSearchResults();
   });
 
   function reloadSearchResults() {
@@ -26,7 +35,8 @@ $(document).ready(function() {
     var urlParams = "search=" + $("#txtSearchCriteria").val()
         + "&numRequested=" + $("#itemsPerPage").val()
         + "&cityState=" + $("#selLocation").val()
-        + "&selectedG2G=" + $('#G2G').prop('checked');
+        + "&selectedG2G=" + $('#G2G').prop('checked')
+        + "&page=" + $('#txtCurrentPage').val();
     history.pushState({state:1}, "", "?" + urlParams);
     $.get("/course-search?partial=true&" + urlParams)
     .done(function(data) {
