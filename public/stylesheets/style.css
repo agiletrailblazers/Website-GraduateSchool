@@ -136,8 +136,7 @@ a.breadcrumbs:hover,a.breadcrumbs:active  {
 }
 
 
-/* Generic Content Page */
-
+/* GENERIC CONTENT TEMPLATE */
 section, article {
   padding: 10px 0;
 }
@@ -182,8 +181,6 @@ a.expand-section:active {
   color: #D7124D !important;
   transition: background-color 300ms linear 0s;
 }
-
-
 
 
 h1 {
@@ -328,12 +325,14 @@ background-color: #E9EEF3;
 }
 
 
+
+
 /* ACCORDION PANEL - FORMS */
 
 .panel .gs {
   margin-bottom: 0;
   background-color: #FFF;
-  border: 1px solid #DDDDDD;
+  border: none;
   border-radius: 2px;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
 }
@@ -388,6 +387,10 @@ background-color: #E9EEF3;
     content: "\e080";    /* adjust as needed, taken from bootstrap.css */
 }
 
+.panel-group .panel {
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
 
 
 /* ALERTS */
@@ -506,8 +509,8 @@ label {
 } */
 
 form button, form button:visited {
-  background-color: #0F5A9D;
-  padding: 7px 15px;
+  background-color: #427EB4;
+  padding: 7px 20px;
   color: #FFF;
   border: none;
   outline-style: none;
@@ -526,10 +529,42 @@ form button:hover, form button:active {
     transition: box-shadow 300ms linear 0s;
 }
 
+textarea:focus {
+    border-color: #66AFE9;
+    outline: 0px none;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+    transition: box-shadow 300ms linear 0s;
+}
+
+/*#ms:focus{
+  border-color: #66AFE9;
+  outline: 0px none;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+  transition: box-shadow 300ms linear 0s;
+}
+
+.ms-parent:focus {
+  border-color: #66AFE9;
+  outline: 0px none;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+  transition: box-shadow 300ms linear 0s;
+}
+
+.ms-choice:focus {
+  border-color: #66AFE9;
+  outline: 0px none;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+  transition: box-shadow 300ms linear 0s;
+}*/
 
 #contact-information {
   width: 80%;
 }
+
+.panel-body {
+  padding: 25px 20px;
+}
+
 
 /* TOP NAVIGATION  */
 .fix {
@@ -898,7 +933,6 @@ span.day {
   font-weight: bold;
   top: -5px;
 }
-
 
 
 img.news-date {

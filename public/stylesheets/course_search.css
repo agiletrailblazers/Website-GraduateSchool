@@ -60,7 +60,7 @@ color: #FFF !important;
 .panel .gs {
   margin-bottom: 0;
   background-color: #FFF;
-  border: 1px solid #DDDDDD;
+  border: none;
   border-radius: 2px;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
 }
