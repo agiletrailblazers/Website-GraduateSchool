@@ -229,7 +229,6 @@ h4 {
 }
 
 
-
 /*
 
 #sidebar {
@@ -381,13 +380,15 @@ background-color: #E9EEF3;
     font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
     content: "\e114";    /* adjust as needed, taken from bootstrap.css */
     float: right;        /* adjust as needed */
-    color: grey;         /* adjust as needed */
+    color: #FFF;         /* adjust as needed */
     margin-top: -25px;
 }
 .panel-heading .accordion-toggle.collapsed:after {
     /* symbol for "collapsed" panels */
     content: "\e080";    /* adjust as needed, taken from bootstrap.css */
 }
+
+
 
 /* ALERTS */
 .alert {
