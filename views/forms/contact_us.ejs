@@ -24,7 +24,9 @@
           <div id="contact-information">
             <form>
               <div class="form-inline">
-                <div class="form-group"><%= topParagraph %></div>
+                <div class="form-group"> <p>
+                  <%= topParagraph %>
+                </p></div>
               </div>
               <div class="form-inline">
                 <div class="form-group">
@@ -91,20 +93,33 @@
 
         <% if (relatedLinks && relatedLinks.length > 0) { %>
         <div class="col-lg-3 col-md-3 col-sm-12" id="sidebar">
-          <h2>Related links</h2>
-          <ul>
-          <% relatedLinks.forEach(function(link) { %>
-            <li><a href="<%= link.url %>"><%= link.name %></a></li>
-          <% }); %>
-          </ul>
+          <div class="panel-group">
+            <div class="panel panel-default related-links">
+          <div class="panel-heading related-links">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#related-links">Related links</a>
+                </h4>
+          </div>
+          <div id="related-links" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <ul>
+              <% relatedLinks.forEach(function(link) { %>
+                <li><a href="<%= link.url %>"><%= link.name %></a></li>
+                <hr>
+              <% }); %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
         </div>
         <% } %>
 
+      </div><!-- END  Row -->
+      <div class="spacer"></div>
       </div>
-    </div>
-  </div>
-  <!-- END Accordion Container -->
-  <!-- END  Row -->
+    </div>  <!-- END Container -->
+
 
 <% include ../partials/chat %>
 <% include ../partials/footer %>

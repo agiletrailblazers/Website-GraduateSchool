@@ -91,9 +91,9 @@
             <% if (result.courses[i].code === null) { result.courses[i].code = result.courses[i].id.slice(0, -3); }%>
             <div id="course-result">
               <h3><a href="/courses/<%= result.courses[i].id %>"><%= result.courses[i].code %> - <%= result.courses[i].title %></a></h3>
-            </div>
             <div><%= prune(striptags(result.courses[i].description.text), 300, "...") %></div>
             <div class="course-id"> <img src="../images/course-id-icon.png" alt="" /> Code: <strong><%= result.courses[i].code %></strong> </div>
+            </div>
             <hr>
           <% } %>
         <% } %>

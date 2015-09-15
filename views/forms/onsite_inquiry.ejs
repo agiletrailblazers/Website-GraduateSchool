@@ -34,14 +34,14 @@
                 <div class="form-group"><p><%= topParagraph %></p></div>
               </div>
               <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-                    <a id="collapse1Link" data-toggle="collapse" data-parent="#accordion" href="#collapse1">CONTACT INFORMATION</a>
-                  </h4>
+                <div class="panel-heading gs">
+                    <a class="accordion-toggle" id="collapse1Link" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                      <h4 class="panel-title">CONTACT INFORMATION </h4>
+                    </a>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    <div id="contact-information">
+                    <div id="form-wrap">
                       <div class="form-inline">
                         <span class="form-group">
                          <select id="prefix" class="form-control">
@@ -120,19 +120,21 @@
                           </span>
                         </div>
                       </div><!-- contact information div -->
-                    </div>
-                    <button type="button" name="toCDI" id="toCDIButton"  tabindex="13" class="next-button">Next</button>
+                        <br>
+                        <button type="button" name="toCDI" id="toCDIButton"  tabindex="13" class="next-button">Next</button>
+
+                    </div><!-- END Panel-body -->
                   </div>
                 </div>
                 <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a id="collapse2Link" data-toggle="collapse" data-parent="#accordion" href="#collapse2">COURSE DELIVERY INFORMATION</a>
-                    </h4>
+                  <div class="panel-heading gs">
+                      <a class="accordion-toggle" id="collapse2Link" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                        <h4 class="panel-title">COURSE DELIVERY INFORMATION</h4>
+                      </a>
                   </div>
                   <div id="collapse2" class="panel-collapse collapse">
                     <div class="panel-body">
-                      <div id="course-delivery-information">
+                      <div id="form-wrap">
                         <div class="form-inline">
                           <label for="txtCourses">*Choose Course(s)</label>
                           <select id="ms" name="selCourses" multiple="multiple"  tabindex="14">
@@ -204,19 +206,22 @@
                               </span>
                             </div>
                           </div>   <!-- END Course delivery -->
-                        </div>
-                        <button type="button" name="toCDI" id="toFormSubButton" tabindex="28" class="next-button">Next</button>
-                        <button type="button" name="toContact" id="toContactButton" tabindex="29">Previous</button>
+                          <br>
+                          <button type="button" name="toContact" id="toContactButton" tabindex="29">Previous</button>
+                          <button type="button" name="toCDI" id="toFormSubButton" tabindex="28" class="next-button">Next</button>
+                        </div><!-- END Panel-body -->
+
                       </div>
                     </div>
                     <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a id="collapse3Link" data-toggle="collapse" data-parent="#accordion" href="#collapse3" tabindex="30">FORM SUBMISSION</a>
-                        </h4>
+                      <div class="panel-heading gs">
+                          <a class="accordion-toggle" id="collapse3Link" data-toggle="collapse" data-parent="#accordion" href="#collapse3" tabindex="30">
+                              <h4 class="panel-title">FORM SUBMISSION</h4>
+                          </a>
                       </div>
                       <div id="collapse3" class="panel-collapse collapse">
                         <div class="panel-body">
+                          <div id="form-wrap">
                           <span class="form-group">
                             <label for="selHearAbout">*How did you hear about training at Graduate School USA?</label>
                             <select id="selHearAbout" class="form-control">
@@ -240,10 +245,10 @@
                               <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh" tabindex="33"></div>
                             </div>
                             <br>
-                            <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="34">Submit Request</button>
                             <button type="button" name="toCDI" id="backToCDIButton" tabindex="35">Previous</button>
-                            <br>
-                          </div>
+                            <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="34">Submit Request</button>
+                          </div> <!-- END Panel-body -->
+                         </div>
                         </div>
                       </div>
                     </div>
@@ -253,15 +258,29 @@
 
                 <% if (relatedLinks && relatedLinks.length > 0) { %>
                 <div class="col-lg-3 col-md-3 col-sm-12" id="sidebar">
-                  <h2>Related links</h2>
-                  <ul>
-                  <% relatedLinks.forEach(function(link) { %>
-                    <li><a href="<%= link.url %>"><%= link.name %></a></li>
-                  <% }); %>
-                  </ul>
+                  <div class="panel-group">
+                    <div class="panel panel-default related-links">
+                  <div class="panel-heading related-links">
+                          <a data-toggle="collapse" href="#related-links">
+                            <h4 class="panel-title">Related links</h4>
+                          </a>
+                  </div>
+                  <div id="related-links" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                      <ul>
+                      <% relatedLinks.forEach(function(link) { %>
+                        <li><a href="<%= link.url %>"><%= link.name %></a></li>
+                        <hr>
+                      <% }); %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
                 </div>
                 <% } %>
               </div><!-- END  Row -->
+              <div class="spacer"></div>
             </div> <!-- END Container  -->
           <% include ../partials/chat %>
           <% include ../partials/footer %>
