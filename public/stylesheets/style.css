@@ -715,13 +715,23 @@ img.news-date {
 
 /* USER TYPES */
 .user-types {
-  background-color: #E7EBF1;
+  background-color: #F5F7F9;
 }
+
+.user-types h2 {
+  color: #383F3F !important;
+  font-weight: 300 !important;
+  font-size: 28px !important;
+  padding-bottom: 20px !important;
+  margin: 5px 0 !important;
+}
+
 .user-type {
-  background-color: #FFFFFF;
+  background-color: #E6EBF1;
   margin: 35px 0;
   padding-bottom: 20px;
   height: auto;
+  border: 1px solid #CCCCCC;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
