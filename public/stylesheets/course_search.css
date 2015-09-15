@@ -50,6 +50,7 @@ p.clear {
   text-align: center;
   margin: 0 auto;
   color: #FFF;
+  padding: 0 !important;
 }
 
 div.refine p {
@@ -59,7 +60,7 @@ color: #FFF !important;
 .panel .gs {
   margin-bottom: 0;
   background-color: #FFF;
-  border: 1px solid #DDDDDD;
+  border: none;
   border-radius: 2px;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
 }
@@ -70,17 +71,22 @@ color: #FFF !important;
     background-color: #427EB4 !important;
 
 }
-.panel-heading.gs h4, .panel-heading.gs a {
+ .panel-heading.gs a {
     color: #FFF !important;
     font-weight: 400 !important;
+}
 
+.panel-heading.gs h4 {
+  color: #FFF !important;
+  font-weight: 400 !important;
+  margin: 10px 0px !important;
 }
 
 .panel .gs h4.panel-title {
   color: #FFF !important;
   font-size: 18px;
   font-weight: 400 !important;
-  padding: 10px 0;
+  padding: 0;
 }
 .panel .gs a, .panel .gs a:link, .panel .gs a:visited  {
   color: #FFF !important;
@@ -101,6 +107,10 @@ color: #FFF !important;
   color: #01356B;
   font-size: 20px;
   font-weight: bold;
+}
+
+#course-result {
+margin: 20px 0;
 }
 
 #course-result h3 a:hover  {
@@ -159,7 +169,7 @@ color: #FFF !important;
 
 
 .control-label {
-  padding: 7px 0 0 0;
+  padding: 7px 0 0 0 !important;
   margin-left: 0;
   margin-right: 0;
   font-weight: 400;

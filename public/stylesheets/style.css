@@ -22,13 +22,25 @@ body {
   padding: 0px;
   margin: 0;
   overflow-x: hidden;
-  color: #363636;
+  color: #444;
 }
 
 img.responsive {
   width : 100%;
   max-width: 100%;
   height: auto;
+}
+
+
+p {
+  font-size: 15px;
+  color: #444444;
+  padding: 10px 0 !important;
+}
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 /* LINKS */
@@ -124,7 +136,52 @@ a.breadcrumbs:hover,a.breadcrumbs:active  {
 }
 
 
-/* Generic Content Page */
+/* GENERIC CONTENT TEMPLATE */
+section, article {
+  padding: 10px 0;
+}
+
+article.nested {
+   padding: 10px;
+ }
+
+section h2 {
+  margin: 5px 0;
+}
+
+a.expand-section:link {
+  font-size: 17px;
+  color: #327EBC;
+  background: none;
+  border-color: none;
+  text-decoration: underline;
+  transition: background-color 300ms linear 0s;
+}
+
+a.expand-section:visited {
+  font-size: 17px;
+  color: #327EBC;
+  background: none;
+  border-color: none;
+  text-decoration: underline;
+  transition: background-color 300ms linear 0s;
+}
+
+a.expand-section:hover {
+  color: #D7124D;
+  transition: background-color 300ms linear 0s;
+}
+
+a.expand-section:focus {
+  color: #D7124D;
+  transition: background-color 300ms linear 0s;
+}
+
+a.expand-section:active {
+  color: #D7124D !important;
+  transition: background-color 300ms linear 0s;
+}
+
 
 h1 {
   color: #00508A;
@@ -132,6 +189,7 @@ h1 {
   font-weight: bold;
   text-align: left;
   line-height: 1.3;
+
 }
 
 h2 {
@@ -160,25 +218,15 @@ h4 {
   line-height: 1.3;
 }
 
-p {
-  font-size: 15px;
-  color: #444444;
+.glyphicon {
+  font-size: 18px;
+  color: #327EBC;
+  top: 4px;
+  margin-right: 5px;
 }
 
-#sidebar {
-background-color: #E9EEF3;
 
-}
-
-#sidebar h2 {
-  color: #D7124D;
-  border-bottom: 1px solid #BBBBBB;
-  font-size: 24px;
-  font-weight: bold;
-  width: auto;
-  display:inline-block;
-}
-
+/* SIDEBAR PANEL - RELATED LINKS */
 #sidebar ul {
   margin: 0;
   padding: 0;
@@ -191,21 +239,137 @@ background-color: #E9EEF3;
   margin-bottom: 7px;
 }
 
-#sidebar ul li a {
-  font-size: 18px;
-  font-weight: lighter;
-  color: #00508A;
 
-}
-
-#sidebar ul li a:hover {
-  color: #000;
-  text-decoration: underline;
+.panel-body ul li a {
+  font-size: 15px;
+  color: #555555;
+  font-weight: bold;
   transition: background-color 300ms linear 0s;
-  background-color: transparent;
-  box-shadow: none;
 }
 
+.panel-body ul li a:hover {
+  font-size: 15px;
+  color: #000;
+  font-weight: bold;
+  transition: background-color 300ms linear 0s;
+}
+
+.panel > .panel-heading.related-links {
+    background-image: none !important;
+    background-color: #427EB4 !important;
+    border-radius: 0 !important;
+}
+
+.panel .related-links h4.panel-title {
+    color: #FFF !important;
+    font-size: 18px;
+    font-weight: 400 !important;
+    padding: 5px 0px;
+}
+
+.panel .related-links a, .panel .related-links a:link, .panel .related-links a:visited {
+    color: #FFF !important;
+    background-color: transparent !important;
+}
+
+.panel-heading.related-links a {
+    color: #FFF !important;
+    font-weight: 400 !important;
+}
+
+
+
+
+/* ACCORDION PANEL - FORMS */
+
+.panel .gs {
+  margin-bottom: 0;
+  background-color: #FFF;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.panel > .panel-heading.gs {
+    background-image: none !important;
+    /*background-image: linear-gradient(to bottom, #F5F5F5 0px, #E8E8E8 100%);*/
+    background-color: #427EB4 !important;
+
+}
+ .panel-heading.gs a {
+    color: #FFF !important;
+    font-weight: 400 !important;
+}
+
+.panel-heading.gs h4 {
+  color: #FFF !important;
+  font-weight: 400 !important;
+  margin: 5px 0px !important;
+}
+
+.panel .gs h4.panel-title {
+  color: #FFF !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  padding: 0;
+}
+.panel .gs a, .panel .gs a:link, .panel .gs a:visited  {
+  color: #FFF !important;
+  background-color: transparent !important;
+}
+
+.panel .gs a:hover {
+  background-color: transparent !important;
+  color: #000 !important;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: #FFF;         /* adjust as needed */
+    margin-top: -25px;
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+
+.panel-group .panel {
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+
+/* ALERTS */
+.alert {
+    padding: 15px;
+    margin: 20px 0;
+    border: 1px solid transparent;
+    border-radius: 0px;
+}
+
+.alert-danger {
+    color: #A94442;
+    background-color: #F2DEDE;
+    border-color: #eee;
+}
+
+.alert {
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.25) inset, 0px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.alert-danger {
+    background-image: linear-gradient(to bottom, #ECF2F7  0px, #D7E3EE 80%);
+    background-repeat: repeat-x;
+    border-color: #D7E3EE;
+}
 
 /* What's new temporary styles */
 
@@ -280,21 +444,78 @@ label, input, select, textarea, button {
   padding:10px 0;
 }
 
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 500 !important;
+    padding-right: 15px !important;
+}
+
+input {
+  margin-right: 10px !important;
+
+}
 /*
 label {
   display: block;
 } */
 
 form button, form button:visited {
-  background-color: #0F5A9D;
-  padding: 7px 15px;
+  background-color: #427EB4;
+  padding: 7px 20px;
   color: #FFF;
   border: none;
   outline-style: none;
+  transition: background-color 300ms linear 0s;
 }
 
 form button:hover, form button:active {
   background-color: #be0f34;
+  transition: background-color 300ms linear 0s;
+}
+
+.form-control:focus {
+    border-color: #66AFE9;
+    outline: 0px none;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+    transition: box-shadow 300ms linear 0s;
+}
+
+textarea:focus {
+    border-color: #66AFE9;
+    outline: 0px none;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+    transition: box-shadow 300ms linear 0s;
+}
+
+/*#ms:focus{
+  border-color: #66AFE9;
+  outline: 0px none;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+  transition: box-shadow 300ms linear 0s;
+}
+
+.ms-parent:focus {
+  border-color: #66AFE9;
+  outline: 0px none;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+  transition: box-shadow 300ms linear 0s;
+}
+
+.ms-choice:focus {
+  border-color: #66AFE9;
+  outline: 0px none;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+  transition: box-shadow 300ms linear 0s;
+}*/
+
+#contact-information {
+  width: 80%;
+}
+
+.panel-body {
+  padding: 25px 20px;
 }
 
 
@@ -517,7 +738,7 @@ ul.customer-support li a:hover {
 .title p {
   font-size: 16px;
   color: #FFF;
-  padding: 0 0 10px 0;
+  padding: 0 0 10px 0 !important;
 }
 
 .title .util {
@@ -667,7 +888,6 @@ span.day {
 }
 
 
-
 img.news-date {
   margin: 10px 0 0 -15px;
 }
@@ -680,13 +900,23 @@ img.news-date {
 
 /* USER TYPES */
 .user-types {
-  background-color: #E7EBF1;
+  background-color: #F5F7F9;
 }
+
+.user-types h2 {
+  color: #383F3F !important;
+  font-weight: 300 !important;
+  font-size: 28px !important;
+  padding-bottom: 20px !important;
+  margin: 5px 0 !important;
+}
+
 .user-type {
-  background-color: #FFFFFF;
+  background-color: #E6EBF1;
   margin: 35px 0;
   padding-bottom: 20px;
   height: auto;
+  border: 1px solid #CCCCCC;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
@@ -1108,6 +1338,16 @@ a.underline-n:after {
   height: 40px !important;
 
 }
+
+.tab-content p {
+  font-size: 15px;
+  color: #444444;
+  margin: 10px 0 !important;
+  padding: 0 !important;
+}
+
+
+
 
 /*for FireFox*/
     input[type="submit"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner
