@@ -169,7 +169,10 @@ a.expand-section:hover {
   transition: background-color 300ms linear 0s;
 }
 
-
+a.expand-section:focus {
+  color: #D7124D;
+  transition: background-color 300ms linear 0s;
+}
 
 a.expand-section:active {
   color: #D7124D !important;
