@@ -21,13 +21,28 @@
               <% if (sections[i]) { %>
                   <section>
                     <% if (sections[i].title) { %>
+                  
+                      <% if (sections[i].collapse) { %>
+                        <a href="#<%= i %>" class="btn btn-info" data-toggle="collapse"><%= sections[i].title %></a>
+                        <div id="<%= i %>" class="collapse">
+                          <%- sections[i].content %>
+                        </div>
+                        <% } else { %>
+                        <div id="<%= i %>" class="genericArticle">
+                          <%- sections[i].content %>
+                        </div>
+                    <% } } %>
+
+                  </section>
+                  <!-- <section>
+                    <% if (sections[i].title) { %>
                       <h2><%= sections[i].title %></h2>
                       <% if (sections[i].collapse) { %>[EXPAND/COLLAPSE]<% } %>
                     <% } %>
                     <article id="<%= i %>" class="genericArticle">
                       <%- sections[i].content %>
                     </article>
-                  </section>
+                  </section> -->
               <% } %>
             <%  } %>
           </div>
