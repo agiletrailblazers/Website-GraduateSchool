@@ -221,7 +221,7 @@ h4 {
   line-height: 1.3;
 }
 
-
+/*
 
 #sidebar {
 background-color: #E9EEF3;
@@ -263,6 +263,59 @@ background-color: #E9EEF3;
   background-color: transparent;
   box-shadow: none;
 }
+
+*/
+
+#sidebar ul {
+  margin: 0;
+  padding: 0;
+}
+
+#sidebar ul li {
+  list-style: none;
+  line-height: 25px;
+  padding-left: 15px;
+  margin-bottom: 7px;
+}
+
+
+.panel-body ul li a {
+  font-size: 15px;
+  color: #555555;
+  font-weight: bold;
+  transition: background-color 300ms linear 0s;
+}
+
+.panel-body ul li a:hover {
+  font-size: 15px;
+  color: #000;
+  font-weight: bold;
+  transition: background-color 300ms linear 0s;
+}
+
+.panel > .panel-heading.related-links {
+    background-image: none !important;
+    background-color: #427EB4 !important;
+    border-radius: 0 !important;
+}
+
+.panel .related-links h4.panel-title {
+    color: #FFF !important;
+    font-size: 18px;
+    font-weight: 400 !important;
+    padding: 5px 0px;
+}
+
+.panel .related-links a, .panel .related-links a:link, .panel .related-links a:visited {
+    color: #FFF !important;
+    background-color: transparent !important;
+}
+
+.panel-heading.related-links a {
+    color: #FFF !important;
+    font-weight: 400 !important;
+}
+
 
 
 /* What's new temporary styles */

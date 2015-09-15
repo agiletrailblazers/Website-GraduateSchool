@@ -45,12 +45,32 @@
           </div>
           <% if (relatedLinks && relatedLinks.length > 0) { %>
           <div class="col-lg-3 col-md-3" id="sidebar">
-            <h2>Related links</h2>
+            <!-- <h2>Related links</h2>
             <ul>
             <% relatedLinks.forEach(function(link) { %>
               <li><a href="<%= link.url %>"><%= link.name %></a></li>
             <% }); %>
-            </ul>
+            </ul> -->
+            <div class="panel-group">
+              <div class="panel panel-default related-links">
+            <div class="panel-heading related-links">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#related-links">Related links</a>
+                  </h4>
+            </div>
+            <div id="related-links" class="panel-collapse collapse in">
+              <div class="panel-body">
+                <ul>
+                <% relatedLinks.forEach(function(link) { %>
+                  <li><a href="<%= link.url %>"><%= link.name %></a></li>
+                  <hr>
+                <% }); %>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+        </div>
           </div>
           <% } %>
         </div>
