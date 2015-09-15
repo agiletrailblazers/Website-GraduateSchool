@@ -12,11 +12,6 @@
   border-radius: 4px;
 }
 
-
-/**
- * @author zhixin wen <wenzhixin2010@gmail.com>
- */
-
 .ms-parent {
     display: inline-block;
     position: relative;
@@ -67,7 +62,7 @@
 
 .ms-choice > div {
     position: absolute;
-    top: 0;
+    top: 5px;
     right: 0;
     width: 20px;
     height: 25px;
