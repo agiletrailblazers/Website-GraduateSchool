@@ -138,6 +138,47 @@ a.breadcrumbs:hover,a.breadcrumbs:active  {
 
 /* Generic Content Page */
 
+section, article {
+  padding: 10px 0;
+}
+
+article.nested {
+   padding: 10px;
+ }
+
+a.expand-section:link {
+  font-size: 17px;
+  color: #327EBC;
+  background: none;
+  border-color: none;
+  text-decoration: underline;
+  transition: background-color 300ms linear 0s;
+}
+
+a.expand-section:visited {
+  font-size: 17px;
+  color: #327EBC;
+  background: none;
+  border-color: none;
+  text-decoration: underline;
+  transition: background-color 300ms linear 0s;
+}
+
+a.expand-section:hover {
+  color: #D7124D;
+  transition: background-color 300ms linear 0s;
+}
+
+
+
+a.expand-section:active {
+  color: #D7124D !important;
+  transition: background-color 300ms linear 0s;
+}
+
+
+
+
 h1 {
   color: #00508A;
   font-size: 25px !important;

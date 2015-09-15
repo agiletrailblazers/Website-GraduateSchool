@@ -19,17 +19,29 @@
             <h2><%= subIntro %></h2>
             <% for (var i = 0; i < sections.length; i++) { %>
               <% if (sections[i]) { %>
-                  <section>
-                    <% if (sections[i].title) { %>
-                      <h2><%= sections[i].title %></h2>
-                      <% if (sections[i].collapse) { %>[EXPAND/COLLAPSE]<% } %>
-                    <% } %>
-                    <article id="<%= i %>" class="genericArticle">
-                      <%- sections[i].content %>
-                    </article>
-                  </section>
+
+                <section>
+                  <% if (sections[i].collapse && sections[i].title){ %>
+                    <a href="#<%= i %>" class="expand-section" data-toggle="collapse"><%= sections[i].title %></a>
+
+                          <article id="<%= i %>" class="collapse nested">
+                            <%- sections[i].content %>
+                          </article>
+                     <% } else if (sections[i].title) { %>
+                       <h2><%= sections[i].title %></h2>
+                       <article id="<%= i %>" class="genericArticle">
+                         <%- sections[i].content %>
+                       </article>
+                  <%   } else { %>
+
+                       <article id="<%= i %>" class="genericArticle">
+                         <%- sections[i].content %>
+                       </article>
+                  <%  } %>
+              <%  } %>
+                </section>
+
               <% } %>
-            <%  } %>
           </div>
           <% if (relatedLinks && relatedLinks.length > 0) { %>
           <div class="col-lg-3 col-md-3" id="sidebar">
