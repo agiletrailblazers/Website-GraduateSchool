@@ -2,28 +2,28 @@
   <div class="container">
     <div class="news row clearfix ">
       <div class="">
-        <div class="col-lg-8 col-md-7 col-sm-12">
+        <div class="col-lg-8 col-md-12 col-sm-12">
           <div class="testimonial">
-            <img src="/images/testimonial.png" alt="" />
+            <img src="/images/testimonial.png" alt=""  width="100%"/>
             <blockquote cite="">
               <span>Graduate School? Imi, aut assit, od que prenti consequ ossundae et unt atur modignat landam, que voluptae. Imi que consequidus.</span>
             </blockquote>
           </div>
         </div>
-        <div class="col-lg-4 col-md-5 col-sm-12">
+        <div class="col-lg-4 col-md-12 col-sm-12">
           <div class="news-and-events">
           <h3><img src="/images/news-icon.png" alt="" /> News & Events</h3>
           <!-- News Entry  -->
           <div class="news-entry">
             <div class="news-entry-header">
               <div class="row nopadding">
-                <div class="col-lg-2 nopadding">
+                <div class="col-lg-2  col-md-1 col-sm-1 nopadding">
                   <div class="news-date">
                     <span class="month"><%= news[0].fields.date.date('MMM') %></span> <br>
                     <span class="day"><%= news[0].fields.date.date('DD') %></span>
                   </div>
                 </div>
-                <div class="col-lg-10">
+                <div class="col-lg-10 col-md-11 col-sm-11">
                 <a href="/news/<%= news[0].fields.slug %>"><h5><%= news[0].fields.title %></h5></a>
                 </div>
               </div>
@@ -44,14 +44,14 @@
             <div class="news-entry-header">
 
               <div class="row nopadding">
-                <div class="col-lg-2 nopadding">
+                <div class="col-lg-2  col-md-1 col-sm-1 nopadding">
                   <div class="news-date">
                     <span class="month"><%= news[1].fields.date.date('MMM') %></span> <br>
                     <span class="day"><%= news[1].fields.date.date('DD') %></span>
                   </div>
 
                 </div>
-                <div class="col-lg-10">
+                <div class="col-lg-10 col-md-11 col-sm-11">
                     <a href="/news/<%= news[1].fields.slug %>"><h5><%= news[1].fields.title %></h5></a>
                 </div>
               </div>
