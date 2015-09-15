@@ -146,6 +146,10 @@ article.nested {
    padding: 10px;
  }
 
+section h2 {
+  margin: 5px 0;
+}
+
 a.expand-section:link {
   font-size: 17px;
   color: #327EBC;
