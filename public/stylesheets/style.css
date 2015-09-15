@@ -226,53 +226,6 @@ h4 {
 }
 
 
-/*
-
-#sidebar {
-background-color: #E9EEF3;
-
-}
-
-#sidebar h2 {
-  color: #D7124D;
-  border-bottom: 1px solid #BBBBBB;
-  font-size: 24px;
-  font-weight: bold;
-  width: auto;
-  display:inline-block;
-}
-
-#sidebar ul {
-  margin: 0;
-  padding: 0;
-}
-
-#sidebar ul li {
-  list-style: none;
-  line-height: 25px;
-  padding-left: 15px;
-  margin-bottom: 7px;
-}
-
-#sidebar ul li a {
-  font-size: 18px;
-  font-weight: lighter;
-  color: #00508A;
-
-}
-
-#sidebar ul li a:hover {
-  color: #000;
-  text-decoration: underline;
-  transition: background-color 300ms linear 0s;
-  background-color: transparent;
-  box-shadow: none;
-}
-
-*/
-
-
-
 /* SIDEBAR PANEL - RELATED LINKS */
 #sidebar ul {
   margin: 0;
