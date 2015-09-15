@@ -221,6 +221,15 @@ h4 {
   line-height: 1.3;
 }
 
+.glyphicon {
+  font-size: 18px;
+  color: #327EBC;
+  top: 4px;
+  margin-right: 5px;
+}
+
+
+
 /*
 
 #sidebar {
@@ -319,6 +328,66 @@ background-color: #E9EEF3;
     font-weight: 400 !important;
 }
 
+
+/* ACCORDION PANEL - FORMS */
+
+.panel .gs {
+  margin-bottom: 0;
+  background-color: #FFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 2px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.panel > .panel-heading.gs {
+    background-image: none !important;
+    /*background-image: linear-gradient(to bottom, #F5F5F5 0px, #E8E8E8 100%);*/
+    background-color: #427EB4 !important;
+
+}
+ .panel-heading.gs a {
+    color: #FFF !important;
+    font-weight: 400 !important;
+}
+
+.panel-heading.gs h4 {
+  color: #FFF !important;
+  font-weight: 400 !important;
+  margin: 5px 0px !important;
+}
+
+.panel .gs h4.panel-title {
+  color: #FFF !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  padding: 0;
+}
+.panel .gs a, .panel .gs a:link, .panel .gs a:visited  {
+  color: #FFF !important;
+  background-color: transparent !important;
+}
+
+.panel .gs a:hover {
+  background-color: transparent !important;
+  color: #000 !important;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+    margin-top: -25px;
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
 
 /* ALERTS */
 .alert {
