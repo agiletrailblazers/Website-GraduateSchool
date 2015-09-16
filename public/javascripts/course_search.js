@@ -7,7 +7,7 @@ $(document).ready(function() {
   });
 
   $(document).on("click",".refine",function(event){
-    $("#itemsPerPage").val("100");
+    $("#itemsPerPage").val("10");
     $("#selLocation").val("all");
     $('#G2G').prop('checked', false);
     $('#txtCurrentPage').val(1);
