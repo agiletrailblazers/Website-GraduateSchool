@@ -11,6 +11,7 @@ $(document).ready(function() {
     $("#selLocation").val("all");
     $('#G2G').prop('checked', false);
     $('#txtCurrentPage').val(1);
+    $("#txtSearchCriteria").val("");
     reloadSearchResults();
   });
 
@@ -20,9 +21,30 @@ $(document).ready(function() {
     reloadSearchResults();
   });
 
+  $(document).on("click","#clearKeyword",function(event){
+    $("#txtSearchCriteria").val("");
+    $('#txtCurrentPage').val(1);
+    $('#G2G').prop('checked', false);
+    reloadSearchResults();
+  });
+
   $(document).on("click","#G2G",function(event){
     $('#txtCurrentPage').val(1);
     reloadSearchResults();
+  });
+
+  $(document).on("keydown","#txtSearchCriteria",function(event){
+    if(event.which == 13) {
+      $('#txtCurrentPage').val(1);
+      $('#G2G').prop('checked', false);
+      reloadSearchResults();
+    }
+  });
+
+  $(document).on("click","#btnSearchCriteria",function(event){
+      $('#txtCurrentPage').val(1);
+      $('#G2G').prop('checked', false);
+      reloadSearchResults();
   });
 
   $(document).on("click",".pagination a",function(event){
@@ -32,6 +54,7 @@ $(document).ready(function() {
 
   function reloadSearchResults() {
     $(".loading").show();
+    $("#title").text("Results for " + $("#txtSearchCriteria").val());
     var urlParams = "search=" + $("#txtSearchCriteria").val()
         + "&numRequested=" + $("#itemsPerPage").val()
         + "&cityState=" + $("#selLocation").val()

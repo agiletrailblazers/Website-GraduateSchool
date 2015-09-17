@@ -19,6 +19,14 @@
           </div>
           <div id="refine-results" class="panel-collapse collapse in">
             <div class="panel-body">
+              <span class="form-group">
+                <p>Keyword<a id="clearKeyword" href="#" class="checkbox-clear">clear</a></p>
+                <span>
+                  <input type="text" id="txtSearchCriteria" class="form-control" pattern=".{3,}" value="<%= params.searchCriteria %>" style="display:inherit; width:72%" />
+                  <a id="btnSearchCriteria" class="btn btn-primary readmore" href='#'>GO</a>
+                <span/>
+              </span>
+              <hr>
               <%
               var g2gFacetCount = 0;
               var g2gChecked = "";
@@ -47,17 +55,26 @@
                     <%
                       if (result && result.locationFacets) {
                         var locationFacetsKeys = Object.keys(result.locationFacets);
-                        locationFacetsKeys.sort();
-                        for (j = 0; j < locationFacetsKeys.length; j++) {
-                          locationFacetsKey = locationFacetsKeys[j];
-                          locationFacetCount = result.locationFacets[locationFacetsKey];
-                          locationSelected = "";
-                          if (locationFacetsKey === params.cityState) {
-                            locationSelected = "selected";
+                        if (locationFacetsKeys.length > 0) {
+                          locationFacetsKeys.sort();
+                          for (j = 0; j < locationFacetsKeys.length; j++) {
+                            locationFacetsKey = locationFacetsKeys[j];
+                            locationFacetCount = result.locationFacets[locationFacetsKey];
+                            locationSelected = "";
+                            if (locationFacetsKey === params.cityState) {
+                              locationSelected = "selected";
+                            }
+                            if (locationFacetCount > 0) {
+                              %>
+                              <option value="<%= locationFacetsKey%>" <%= locationSelected %>><%= locationFacetsKey%>&nbsp;<%= "("+result.locationFacets[locationFacetsKey]+")"%></option>
+                              <%
+                            }
                           }
-                          if (locationFacetCount > 0) {
+                        }
+                        else {
+                          if (params.cityState && params.cityState != 'all') {
                             %>
-                            <option value="<%= locationFacetsKey%>" <%= locationSelected %>><%= locationFacetsKey%>&nbsp;<%= "("+result.locationFacets[locationFacetsKey]+")"%></option>
+                              <option value="<%= params.cityState %>" selected><%= params.cityState %>&nbsp;(0)</option>
                             <%
                           }
                         }
@@ -80,10 +97,12 @@
 
     <div class="panel-body">
       <% if (result == null || result.courses == null || result.courses.length == 0) { %>
-        <% if (params.cityState != null) { %>
-          <h3>No matches for '<%= params.searchCriteria %>' in '<%= params.cityState %>'. Please try again.</h3>
+        <% if (params.cityState != null && params.selectedG2G == true) { %>
+          <h3>No matches for '<%= params.searchCriteria %>' with selected filters.</h3>
+        <% } else if (params.cityState != null && params.cityState != 'all') { %>
+          <h3>No matches for '<%= params.searchCriteria %>' in '<%= params.cityState %>'.</h3>
         <% } else { %>
-          <h3>No matches for '<%= params.searchCriteria %>'. Please try again.</h3>
+          <h3>No matches for '<%= params.searchCriteria %>'.</h3>
         <% } %>
       <% } else { %>
         <% for(var i=0; i<result.courses.length; i++) { %>
@@ -99,11 +118,12 @@
         <% } %>
       <% } %>
     </div>
-    </div>
+  </div>
+  <% if (result && result.currentPage > 0 & result.pageNavRange !== null) { %>
       <div id="pagination">
         <div class="row clearfix">
           <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 spacer pull-left">
-           <div class="form-group">
+            <div class="form-group">
                   <label class="control-label col-md-5 col-xs-3" for="itemsPerPage"> Items per page:</label>
                   <div class="col-md-4 col-xs-2 ">
                     <select id="itemsPerPage" class="form-control">
@@ -117,7 +137,6 @@
           </div>
           <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12 spacer pull-right ">
             <nav>
-              <% if (result && result.currentPage > 0 & result.pageNavRange !== null) { %>
                 <input type="hidden" id="txtCurrentPage" value="<%= result.currentPage %>" />
                 <ul class="pagination" id="paginationNum">
                   <% if (result.previousPage == 0) { %>
@@ -153,10 +172,10 @@
                     </li>
                   <% }%>
                 </ul>
-            <% } %>
             </nav>
           </div>
         </div>
-      </div>
+      <% } %>
+    </div>
   </div>
 </div>
