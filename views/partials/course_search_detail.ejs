@@ -96,7 +96,12 @@
     <% } %>
 
     <div class="panel-body">
-      <% if (result == null || result.courses == null || result.courses.length == 0) { %>
+      <% if (noSearch) { %>
+        <div>
+          <!-- TODO: Boris to come up with the style and content for this -->
+          <h3>Welcome to the search page.  Go ahead and start searching!</h3>
+        </div>
+      <% } else if (result == null || result.courses == null || result.courses.length == 0) { %>
         <% if (params.cityState != null && params.selectedG2G == true) { %>
           <h3>No matches for '<%= params.searchCriteria %>' with selected filters.</h3>
         <% } else if (params.cityState != null && params.cityState != 'all') { %>
