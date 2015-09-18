@@ -29,6 +29,7 @@ test('nodemailer-test:contact-us:success', function(t) {
    params.contact = {};
    params.location = {};
    params.course = {};
+   params.course.names = "";
    params.hearAbout = {};
    params.comments = {};
    response = null;
