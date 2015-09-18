@@ -1,22 +1,21 @@
-var express = require('express');
-var contentful = require("../../API/contentful.js");
-var async = require('async');
-var router = express.Router();
-
-// Get What's new page.
-router.get('/forms', function(req, res, next) {
-arrayOfContent=[];
+  var express = require('express');
+  var contentful = require("../../API/contentful.js");
+  var async = require('async');
+  var router = express.Router();
+  // Get Forms page.
+  router.get('/forms', function(req, res, next) {
+  arrayOfContent=[];
   async.series([
     function(callback) {
       contentful.getForms(function(response) {
         response.cmsEntry.forEach(function(cmsEntryAsset) {
           content = {};
-          content.sectionTitle=  cmsEntryAsset.fields.sectionTitle1;
-          content.sectionColumn=  cmsEntryAsset.fields.sectionColumn1;
-          content.sectionOrder=  cmsEntryAsset.fields.sectionOrder1;
+          content.sectionTitle=  cmsEntryAsset.fields.sectionTitle;
+          content.sectionColumn=  cmsEntryAsset.fields.sectionColumn;
+          content.sectionOrder=  cmsEntryAsset.fields.sectionOrder;
           arrayofAssetObj =[];
-          if(typeof(cmsEntryAsset.fields.sectionFiles1) !='undefined') {
-            cmsEntryAsset.fields.sectionFiles1.forEach(function (sectionFile) {
+          if(typeof(cmsEntryAsset.fields.sectionFiles) !='undefined') {
+            cmsEntryAsset.fields.sectionFiles.forEach(function (sectionFile) {
               response.cmsAsset.forEach(function (asset) {
                 if (asset.sys.id == sectionFile.sys.id) {
                   assetObj = {};
@@ -27,8 +26,8 @@ arrayOfContent=[];
               });
             });
           }
-          if(typeof(cmsEntryAsset.fields.sectionLink1) !='undefined') {
-            cmsEntryAsset.fields.sectionLink1.forEach(function (sectionLink) {
+          if(typeof(cmsEntryAsset.fields.sectionLink) !='undefined') {
+            cmsEntryAsset.fields.sectionLink.forEach(function (sectionLink) {
               assetObj = {};
               assetObj.title = sectionLink.name;
               assetObj.url = sectionLink.url;
@@ -49,4 +48,4 @@ arrayOfContent=[];
       });
     });
   });
-module.exports = router;
+  module.exports = router;

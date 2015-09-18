@@ -11,27 +11,27 @@
   <header>
   <div class="container">
   <div class="row">
-
-    <div class="col-lg-6">
-
-    </div>
-    <div class="col-lg-6">
-
-    </div>
-
-
-    <%
-    for (var entryCounter=0; entryCounter <entry.length;entryCounter++) {
-    %>
-      <p><b><%= entry[entryCounter].sectionTitle%></b></p>
-    <%
-      for (assetCounter=0;assetCounter<entry[entryCounter].assetList.length;assetCounter++) {
-    %>
-      <p><a href=<%= entry[entryCounter].assetList[assetCounter].url %>><%= entry[entryCounter].assetList[assetCounter].title %></a></p>
-    <%
+    <div class="col-lg-6" id="col1">
+    <% entry.forEach(function(entrySection) {
+      if (entrySection.sectionColumn==1) { %>
+        <p><b><%= entrySection.sectionTitle %></b></p>
+        <% entrySection.assetList.forEach(function(asset) { %>
+          <p><a href=<%= asset.url %>><%= asset.title %></a></p>
+        <% });
       }
-    }
-  %>
+    });%>
+    </div>
+    <div class="col-lg-6" id="col2">
+    <% entry.forEach(function(entrySection) {
+      if (entrySection.sectionColumn==2) { %>
+        <p><b><%= entrySection.sectionTitle %></b></p>
+        <% entrySection.assetList.forEach(function(asset) { %>
+          <p><a href=<%= asset.url %>><%= asset.title %></a></p>
+        <% });
+      }
+    });%>
+    </div>
+
 </div> <!--END of Row-->
   </div> <!--END of Container-->
   </header>
