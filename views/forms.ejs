@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+    </title>
+    <% include partials/head %>
+</head>
+<body>
+  <% include partials/header %>
+  <header>
+  <div class="container">
+  <div class="row">
+    <%
+    for (var entryCounter=0; entryCounter <entry.length;entryCounter++) {
+    %>
+      <p><b><%= entry[entryCounter].sectionTitle +  entry[entryCounter].sectionOrder%></b></p>
+    <%
+      for (assetCounter=0;assetCounter<entry[entryCounter].assetList.length;assetCounter++) {
+    %>
+      <p><a href=<%= entry[entryCounter].assetList[assetCounter].url %>><%= entry[entryCounter].assetList[assetCounter].title %></a></p>
+    <%
+      }
+    }
+  %>
+  </div> <!--END of right column -->
+  </div>
+  </header>
+<!-- Footer -->
+  <% include partials/footer %>
+<!-- END Footer  -->
+<!-- Chat  -->
+  <% include partials/chat %>
+<!-- END of Chat  -->
+
+  </body>
+</html>
