@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+    </title>
+    <% include partials/head %>
+</head>
+<body>
+  <% include partials/header %>
+  <header>
+  <div class="container">
+  <div class="row">
+    <div class="col-lg-6" id="col1">
+    <% entry.forEach(function(entrySection) {
+      if (entrySection.sectionColumn==1) { %>
+        <p><b><%= entrySection.sectionTitle %></b></p>
+        <% entrySection.assetList.forEach(function(asset) { %>
+          <p><a href=<%= asset.url %>><%= asset.title %></a></p>
+        <% });
+      }
+    });%>
+    </div>
+    <div class="col-lg-6" id="col2">
+    <% entry.forEach(function(entrySection) {
+      if (entrySection.sectionColumn==2) { %>
+        <p><b><%= entrySection.sectionTitle %></b></p>
+        <% entrySection.assetList.forEach(function(asset) { %>
+          <p><a href=<%= asset.url %>><%= asset.title %></a></p>
+        <% });
+      }
+    });%>
+    </div>
+
+</div> <!--END of Row-->
+  </div> <!--END of Container-->
+  </header>
+<!-- Footer -->
+  <% include partials/footer %>
+<!-- END Footer  -->
+<!-- Chat  -->
+  <% include partials/chat %>
+<!-- END of Chat  -->
+
+  </body>
+</html>
