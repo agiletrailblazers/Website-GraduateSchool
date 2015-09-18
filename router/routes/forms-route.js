@@ -21,6 +21,7 @@
                   assetObj = {};
                   assetObj.title = asset.fields.title;
                   assetObj.url = asset.fields.file.url;
+                  assetObj.type = asset.fields.file.contentType;
                   arrayofAssetObj.push(assetObj);
                 }
               });
@@ -31,6 +32,7 @@
               assetObj = {};
               assetObj.title = sectionLink.name;
               assetObj.url = sectionLink.url;
+              assetObj.type = "application/link";
               arrayofAssetObj.push(assetObj);
             });
           }
