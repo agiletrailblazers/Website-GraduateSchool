@@ -23,6 +23,11 @@ router.get('/course-search', function(req, res, next){
 
   async.parallel([
     function(callback) {
+      //if no search criteria param included, skip search
+      if (params.searchCriteria === null) {
+        callback();
+        return;
+      }
       course.performCourseSearch(function(response, error, result){
         searchResult = result;
         callback();
@@ -41,14 +46,24 @@ router.get('/course-search', function(req, res, next){
         res.redirect('courses/' + searchResult.courses[0].id);
       }
       else {
+        var noSearch = false;
+        if (typeof(searchResult) == 'undefined') {
+          //no search criteria given, this is a special case
+          noSearch = true;
+        }
+        var topTitle = "Search";
+        if (params.searchCriteria != null) {
+          topTitle = 'Results for ' + params.searchCriteria;
+        }
         //display course search page
         var render = { result: searchResult,
+          noSearch: noSearch,
           striptags: striptags,
           prune: prune,
           content: content,
           params: params,
           title: 'Search Results',
-          topTitle: 'Results for ' + params.searchCriteria };
+          topTitle: topTitle};
 
         if (params.partial && params.partial === true) {
           res.render('partials/course_search_detail', render);
