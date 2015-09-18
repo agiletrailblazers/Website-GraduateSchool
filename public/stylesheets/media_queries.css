@@ -44,6 +44,25 @@
             padding-bottom: 10px;
         }
 
+        #form-filters ul {
+          display: block;
+          margin: 10px 0 !important;
+          padding: 5px  !important;
+        }
+
+        #form-filters ul li {
+          display: inline-block;
+          list-style: none;
+          padding: 3px 7px;
+        }
+
+        #form-filters span {
+          font-size: 18px;
+        }
+
+        #form-filters ul li a {
+          font-size: 16px;
+        }
 
     }
 
@@ -109,6 +128,27 @@
         visibility: hidden;
       }
 
+      #form-filters {
+        padding: 15px 20px;
+      }
+
+      #form-filters ul li {
+        display: block;
+        list-style: none;
+        padding: 3px 7px;
+      }
+
+      #form-filters ul {
+        display: block;
+        margin: 10px 0 !important;
+        padding: 5px  !important;
+      }
+
+      #form-filters ul li+li {
+         border-left: none;
+       }
+
+
     }
 
     /* Extra Small Devices, Phones */
@@ -127,6 +167,23 @@
       .util ul li a img {
        margin-bottom: 10px;
      }
+
+     #form-filters ul li {
+       display: block;
+       list-style: none;
+       padding: 5px 7px;
+     }
+
+     #form-filters ul li+li {
+        border-left: none;
+      }
+
+      #form-filters ul {
+        display: block;
+        margin: 10px 0 !important;
+        padding: 10px !important;
+      }
+
 
 
     }
