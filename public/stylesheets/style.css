@@ -922,13 +922,13 @@ img.news-date {
  }
 
 #form-filters span {
-  font-size: 18px;
+  font-size: 16px;
   color: #333333;
   font-weight: normal;
 }
 
 #form-filters ul li a {
-  font-size: 18px;
+  font-size: 15px;
   color: #333333;
   font-weight: normal;
   -webkit-transition: background-color 300ms linear;
