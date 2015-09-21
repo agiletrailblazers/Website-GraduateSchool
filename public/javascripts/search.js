@@ -1,8 +1,12 @@
 function performCourseSearch() {
-    if (document.getElementById("searchCriteria").value.trim().length >= 3) {
-      location.href = "/course-search?search=" + document.getElementById("searchCriteria").value;
-    }
+  if ($("#searchCriteria").val().trim().length >= 3) {
+    location.href = "/course-search?search=" + $("#searchCriteria").val().trim();
+  }
 }
+
+$(document).on('change', '#selSearchLocation', function() {
+  location.href = "/course-search?search=" + $("#searchCriteria").val().trim() + "&cityState=" + $("#selSearchLocation").val();
+});
 
 // control collapse/expand function for Refine results -  mobile vs desktop
 $(document).ready(function(){

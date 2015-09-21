@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var contentful = require('./API/contentful.js');
 var config = require('konphyg')("./config");
 var logger = require('./logger');
+var async = require('async');
+var course = require("./API/course.js");
 
 var app = express();
 
@@ -23,12 +25,29 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
-	//load the main nav on every request
-	contentful.getNavigation(function(nav) {
-		var googleAnalyticsId = config("endpoint").googleAnalyticsId;
-		res.locals = {navigation: nav, googleAnalyticsId: googleAnalyticsId};
-		next();
-	});
+	var googleAnalyticsId = config("endpoint").googleAnalyticsId;
+	var navigation = {};
+	var locations = {};
+	async.parallel([
+    function(callback) {
+			//load the main nav on every request
+			contentful.getNavigation(function(nav) {
+				navigation = nav;
+				callback();
+			});
+		},
+		function(callback) {
+			course.getLocations(function(response, error, result) {
+				locations = result;
+				callback();
+			});
+		}
+		], function() {
+			res.locals = {navigation: navigation,
+				locations: locations,
+				googleAnalyticsId: googleAnalyticsId};
+			next();
+		});
 });
 
 //app.use('/', require('./routes'));

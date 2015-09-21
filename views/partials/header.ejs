@@ -35,10 +35,11 @@
 							</div>
 							<div class="locations">
 									<span>Or find a course by:</span>
-										<select id="selLocation" class="form-control">
+										<select id="selSearchLocation" class="form-control">
 												<option value="">Locations</option>
-												<option value="">Location 1</option>
-												<option value="">Location 2</option>
+												<% locations.forEach(function(location) { %>
+													<option value="<%= location.city %>, <%= location.state %>"><%= location.city %>, <%= location.state %></option>
+												<% }); %>
 										</select>
 							</div>
 						</form>
