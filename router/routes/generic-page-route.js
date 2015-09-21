@@ -10,6 +10,7 @@ router.get('/content/:content_slug', function(req, res, next) {
       //handle error
       logger.error("Page not found: " + slug)
     	res.render('error', { message: 'Sorry, page not found.', error: null });
+      return;
     }
     var content = response.items[0].fields;
     var imageUrl = null;
