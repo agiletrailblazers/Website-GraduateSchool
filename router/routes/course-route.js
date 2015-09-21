@@ -40,7 +40,7 @@ router.get('/course-search', function(req, res, next){
       });
     }
     ], function(results) {
-      if (searchResult && searchResult.exactMatch) {
+      if (searchResult && searchResult.exactMatch && !params.partial) {
         //redirect to course details
         logger.debug("Exact course match found for " + searchResult.courses[0].id + " - Redirecting.")
         res.redirect('courses/' + searchResult.courses[0].id);

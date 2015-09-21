@@ -94,8 +94,8 @@
         <div class="col-lg-6 col-md-6 col-sm-6 nopadding">
           <div id="searchResults">
             <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#course-search-results">Course Search Results</a></li>
-              <li><a data-toggle="tab" href="#site-search-results">Site Search Results</a></li>
+              <li class="active"><a data-toggle="tab" href="#course-search-results">Course Search Results (<%= result.numFound %>)</a></li>
+              <li><a data-toggle="tab" href="#site-search-results">Site Search Results (0)</a></li>
             </ul>
           </div>
         </div> <!-- END left column -->
@@ -126,45 +126,49 @@
               <% } %>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
-              <div id="pagination">
-              <nav>
-                  <input type="hidden" id="txtCurrentPage" value="<%= result.currentPage %>" />
-                  <ul class="pagination" id="paginationNum">
-                    <% if (result.previousPage == 0) { %>
-                      <li class="disabled">
-                        <span aria-hidden="true"> &#60; Previous</span></a>
-                      </li>
-                    <%} else {%>
-                     <li>
-                       <a href="#"  name="<%= result.previousPage %>" aria-label="Previous">
-                       <span aria-hidden="true"> &#60; Previous</span></a>
-                     </li>
-                    <% } %>
-                    <% for(var pageCounter=0;pageCounter<result.pageNavRange.length;pageCounter++) { %>
-                      <% if ( result.pageNavRange[pageCounter]== result.currentPage ) { %>
-                        <li class="active">
-                          <a href="#"  name=<%= result.pageNavRange[pageCounter] %>><%= result.pageNavRange[pageCounter] %> <span class="sr-only">(current)</span></a>
+              <% if (result.numFound > 0) { %>
+                <div id="pagination">
+                  <nav>
+                    <input type="hidden" id="txtCurrentPage" value="<%= result.currentPage %>" />
+                    <ul class="pagination" id="paginationNum">
+                      <% if (result.previousPage == 0) { %>
+                        <li class="disabled">
+                          <span aria-hidden="true"> &#60; Previous</span></a>
                         </li>
-                      <% } else { %>
+                      <%} else {%>
+                       <li>
+                         <a href="#"  name="<%= result.previousPage %>" aria-label="Previous">
+                         <span aria-hidden="true"> &#60; Previous</span></a>
+                       </li>
+                      <% } %>
+                      <% if (result.pageNavRange) { %>
+                        <% for (var pageCounter=0;pageCounter<result.pageNavRange.length;pageCounter++) { %>
+                          <% if ( result.pageNavRange[pageCounter]== result.currentPage ) { %>
+                            <li class="active">
+                              <a href="#"  name=<%= result.pageNavRange[pageCounter] %>><%= result.pageNavRange[pageCounter] %> <span class="sr-only">(current)</span></a>
+                            </li>
+                          <% } else { %>
+                            <li>
+                              <a href="#" class="pageNumLink" name="<%= result.pageNavRange[pageCounter] %>">
+                              <%= result.pageNavRange[pageCounter] %></a>
+                            </li>
+                          <%  } %>
+                        <% } %>
+                      <% } %>
+                      <% if (result.nextPage == 0) { %>
+                        <li class="disabled">
+                          <span aria-hidden="true"> Next &#62; </span> </a>
+                        </li>
+                      <%} else {%>
                         <li>
-                          <a href="#" class="pageNumLink" name="<%= result.pageNavRange[pageCounter] %>">
-                          <%= result.pageNavRange[pageCounter] %></a>
+                          <a href="#" name="<%= result.nextPage %>"aria-label="Next">
+                          <span aria-hidden="true"> Next &#62; </span> </a>
                         </li>
-                      <%  } %>
-                    <% } %>
-                    <% if (result.nextPage == 0) { %>
-                      <li class="disabled">
-                        <span aria-hidden="true"> Next &#62; </span> </a>
-                      </li>
-                    <%} else {%>
-                      <li>
-                        <a href="#" name="<%= result.nextPage %>"aria-label="Next">
-                        <span aria-hidden="true"> Next &#62; </span> </a>
-                      </li>
-                    <% }%>
-                  </ul>
-              </nav>
-            </div> <!-- END Pagination -->
+                      <% }%>
+                    </ul>
+                  </nav>
+                </div> <!-- END Pagination -->
+              <% } %>
             </div>
           </div>
         <div class="panel-body">
@@ -220,45 +224,49 @@
                 <% } %>
             </div><!-- END left column-->
             <div class="col-lg-6 col-md-6 col-sm-6 pull-right">
-              <div id="pagination">
-              <nav>
-                  <input type="hidden" id="txtCurrentPage" value="<%= result.currentPage %>" />
-                  <ul class="pagination" id="paginationNum">
-                    <% if (result.previousPage == 0) { %>
-                      <li class="disabled">
-                        <span aria-hidden="true"> &#60; Previous</span></a>
-                      </li>
-                    <%} else {%>
-                     <li>
-                       <a href="#"  name="<%= result.previousPage %>" aria-label="Previous">
-                       <span aria-hidden="true"> &#60; Previous</span></a>
-                     </li>
-                    <% } %>
-                    <% for(var pageCounter=0;pageCounter<result.pageNavRange.length;pageCounter++) { %>
-                      <% if ( result.pageNavRange[pageCounter]== result.currentPage ) { %>
-                        <li class="active">
-                          <a href="#"  name=<%= result.pageNavRange[pageCounter] %>><%= result.pageNavRange[pageCounter] %> <span class="sr-only">(current)</span></a>
+              <% if (result.numFound > 0) { %>
+                <div id="pagination">
+                  <nav>
+                    <input type="hidden" id="txtCurrentPage" value="<%= result.currentPage %>" />
+                    <ul class="pagination" id="paginationNum">
+                      <% if (result.previousPage == 0) { %>
+                        <li class="disabled">
+                          <span aria-hidden="true"> &#60; Previous</span></a>
                         </li>
-                      <% } else { %>
+                      <%} else {%>
+                       <li>
+                         <a href="#"  name="<%= result.previousPage %>" aria-label="Previous">
+                         <span aria-hidden="true"> &#60; Previous</span></a>
+                       </li>
+                      <% } %>
+                      <% if (result.pageNavRange) { %>
+                        <% for(var pageCounter=0;pageCounter<result.pageNavRange.length;pageCounter++) { %>
+                          <% if ( result.pageNavRange[pageCounter]== result.currentPage ) { %>
+                            <li class="active">
+                              <a href="#"  name=<%= result.pageNavRange[pageCounter] %>><%= result.pageNavRange[pageCounter] %> <span class="sr-only">(current)</span></a>
+                            </li>
+                          <% } else { %>
+                            <li>
+                              <a href="#" class="pageNumLink" name="<%= result.pageNavRange[pageCounter] %>">
+                              <%= result.pageNavRange[pageCounter] %></a>
+                            </li>
+                          <%  } %>
+                        <% } %>
+                      <% } %>
+                      <% if (result.nextPage == 0) { %>
+                        <li class="disabled">
+                          <span aria-hidden="true"> Next &#62; </span> </a>
+                        </li>
+                      <%} else {%>
                         <li>
-                          <a href="#" class="pageNumLink" name="<%= result.pageNavRange[pageCounter] %>">
-                          <%= result.pageNavRange[pageCounter] %></a>
+                          <a href="#" name="<%= result.nextPage %>"aria-label="Next">
+                          <span aria-hidden="true"> Next &#62; </span> </a>
                         </li>
-                      <%  } %>
-                    <% } %>
-                    <% if (result.nextPage == 0) { %>
-                      <li class="disabled">
-                        <span aria-hidden="true"> Next &#62; </span> </a>
-                      </li>
-                    <%} else {%>
-                      <li>
-                        <a href="#" name="<%= result.nextPage %>"aria-label="Next">
-                        <span aria-hidden="true"> Next &#62; </span> </a>
-                      </li>
-                    <% }%>
-                  </ul>
-              </nav>
-            </div> <!-- END Pagination -->
+                      <% }%>
+                    </ul>
+                </nav>
+              </div> <!-- END Pagination -->
+            <% } %>
           </div><!-- END right column-->
           </div><!-- END Row-->
         </div> <!-- END Panel-body -->
