@@ -41,16 +41,16 @@
 }
 
 p.clear {
-  text-align: center;
-  margin: 0 auto;
-  color: #FFF;
-}
-
-p.clear {
+  font-size: 12px;
   text-align: center;
   margin: 0 auto;
   color: #FFF;
   padding: 0 !important;
+}
+
+p.clear > span {
+  font-size: 15px;
+  padding: 0px;
 }
 
 div.refine p {
@@ -120,27 +120,28 @@ margin: 20px 0;
   font-weight: bold;
 }
 
-#refine-results select, #pagination select {
+#refine-results select, #pagination select, #number-of-items select {
   -webkit-appearance: none;
    -moz-appearance: none;
    appearance: none;
-  background: url('../images/arrow-down.png') 95% / 20px no-repeat;
+  background: #FFF url('../images/arrow-down.png') 95% / 20px no-repeat;
 }
 
-#refine-results select::-ms-expand, #pagination select::-ms-expand { /* for IE 11 */
+#refine-results select::-ms-expand, #number-of-items select::-ms-expand, #pagination select::-ms-expand { /* for IE 11 */
     display: none;
 }
 
 
 
-#refine-results select,  #refine-results input[type="checkbox"], #pagination select {
+#refine-results select,  #refine-results input[type="checkbox"], #pagination select, #number-of-items select {
   border: 2px solid #87ACCE;
   border-radius: 0;
 }
 
-#pagination select {
+#number-of-items select, #pagination select {
   width: auto;
   padding: 5px 20px 5px 5px;
+  display: inline-block;
 }
 
 #refine-results input[type="checkbox"] {
@@ -149,6 +150,10 @@ margin: 20px 0;
   padding: 5px;
   width: 20px;
   height: 20px;
+}
+
+#pagination {
+  padding-top: 2px;
 }
 
 #pagination nav {
@@ -163,13 +168,26 @@ margin: 20px 0;
     border-radius: 0 !important;
 }
 
+#number-of-items.top {
+  text-align: right;
+  padding: 10px 15px 0 0;
+}
+
+#number-of-items.bottom {
+  text-align: left;
+  padding: 0;
+}
+
+.white {
+  color: #FFF !important;
+}
+
 .spacer {
   margin: 20px 0px !important;
 }
 
-
 .control-label {
-  padding: 7px 0 0 0 !important;
+  padding: 5px 5px 0 0 !important;
   margin-left: 0;
   margin-right: 0;
   font-weight: 400;
@@ -178,7 +196,7 @@ margin: 20px 0;
 .pagination > li > a, .pagination > li > span {
     position: relative;
     float: left;
-    padding: 6px 12px;
+    padding: 4px 8px;
     margin-left: 4px !important;
     line-height: 1.42857;
     color: #063D72 !important;
@@ -186,6 +204,7 @@ margin: 20px 0;
     background-color: #FFF;
     border: 2px solid #87ACCE !important;
     border-radius: 0;
+    font-size: 13px !important;
 }
 
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
@@ -198,4 +217,95 @@ margin: 20px 0;
 
 #results-for-alert {
   text-decoration: underline;
+}
+
+.tabs {
+  background-image: none !important;
+  background-color: #427EB4 !important;
+  margin-bottom: 0px;
+  border: none;
+  border-radius: 2px;
+  margin: 0;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.row .results-header {
+  padding: 20px 15px 0 15px;
+}
+
+.row .results-footer {
+  padding: 20px 0 0 0;
+}
+
+#searchResults .nav {
+    padding-left: 0px;
+    margin-bottom: 0px;
+    list-style: outside none none;
+    height: 60px;
+}
+
+#searchResults .nav-tabs {
+    border-bottom: none;
+}
+
+#searchResults .nav-tabs > li {
+    float: left;
+    margin-bottom: -1px;
+}
+
+#searchResults .nav > li {
+    position: relative;
+    display: block;
+}
+
+#searchResults .nav-tabs > li > a {
+  border: solid 2px transparent;
+  color: #FFF;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+#searchResults .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+  color: #000;
+  cursor: default;
+  background-image: linear-gradient(to bottom, #F2F2F2 0px, #FFF 100%);
+  border: solid 2px #DDD;
+  -moz-border-top-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  border-image: none;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+#searchResults .nav-tabs > li > a:hover {
+  color: #000;
+  border: solid 2px #DDD;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+
+#searchResults .nav-tabs > li > a {
+  border: solid 2px transparent;
+  margin-right: 2px;
+  line-height: 1.42857;
+  border-radius:  0;
+}
+
+#searchResults .nav > li > a {
+  position: relative;
+  display: block;
+  padding: 21px 20px;
+  margin-top: -3px;
 }
