@@ -23,7 +23,7 @@
                 <p>Keyword<a id="clearKeyword" href="#" class="checkbox-clear">clear</a></p>
                 <span>
                   <input type="text" id="txtSearchCriteria" class="form-control" pattern=".{3,}" value="<%= params.searchCriteria %>" style="display:inherit; width:72%" />
-                  <a id="btnSearchCriteria" class="btn btn-primary readmore" href='#'>GO</a>
+                  <a id="btnSearchCriteria" class="go-button" href='#'>GO</a>
                 <span/>
               </span>
               <hr>
@@ -98,16 +98,25 @@
     <div class="panel-body">
       <% if (noSearch) { %>
         <div class="center">
-          <h3 class="light">Welcome to the search page.  Go ahead and start searching!</h3>
+          <h3 class="light">Welcome to the search page. Go ahead and start searching!</h3>
           <img class="search" src="../../images/search-icon.png" alt="" />
         </div>
       <% } else if (result == null || result.courses == null || result.courses.length == 0) { %>
         <% if (params.cityState != null && params.selectedG2G == true) { %>
-          <h3>No matches for '<%= params.searchCriteria %>' with selected filters.</h3>
+          <div class="center">
+            <h3 class="light">No matches for '<%= params.searchCriteria %>' with selected filters.</h3>
+            <img class="search" src="../../images/search-icon.png" alt="" />
+          </div>
         <% } else if (params.cityState != null && params.cityState != 'all') { %>
-          <h3>No matches for '<%= params.searchCriteria %>' in '<%= params.cityState %>'.</h3>
+          <div class="center">
+            <h3 class="light">No matches for '<%= params.searchCriteria %>' in '<%= params.cityState %>'.</h3>
+            <img class="search" src="../../images/search-icon.png" alt="" />
+          </div>
         <% } else { %>
-          <h3>No matches for '<%= params.searchCriteria %>'.</h3>
+          <div class="center">
+            <h3 class="light">No matches for '<%= params.searchCriteria %>'.</h3>
+            <img class="search" src="../../images/search-icon.png" alt="" />
+          </div>
         <% } %>
       <% } else { %>
         <% for(var i=0; i<result.courses.length; i++) { %>
