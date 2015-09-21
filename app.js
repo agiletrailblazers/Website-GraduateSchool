@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
 	var googleAnalyticsId = config("endpoint").googleAnalyticsId;
 	var navigation = {};
-	var locations = {};
+	var locations = [];
 	async.parallel([
     function(callback) {
 			//load the main nav on every request
@@ -38,7 +38,10 @@ app.use(function (req, res, next) {
 		},
 		function(callback) {
 			course.getLocations(function(response, error, result) {
-				locations = result;
+				result.forEach(function(location) {
+					 locations.push(location.city + ", " + location.state);
+				});
+				locations.sort();
 				callback();
 			});
 		}
