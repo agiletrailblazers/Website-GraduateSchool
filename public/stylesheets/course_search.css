@@ -309,3 +309,12 @@ margin: 20px 0;
   padding: 21px 20px;
   margin-top: -3px;
 }
+
+
+#searchResults .nav > li > a.disabled, #searchResults .nav > li > a.disabled:hover {
+  color: #AAA !important;
+  background: transparent !important;
+  border: none !important;
+  pointer-events: none;
+  cursor: default;
+}
