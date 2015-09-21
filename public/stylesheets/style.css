@@ -705,13 +705,19 @@ img.search {
 .locations select, .locations input[type="checkbox"], locations select {
     border: 2px solid #87ACCE;
     border-radius: 0px;
-    padding: 6px 18px 6px 8px;
+    padding: 6px 16px 6px 7px;
     margin: 0 5px;
 }
 
 .locations select, .locations select {
     -moz-appearance: none;
     background: #FFF url("../images/arrow-down.png") no-repeat scroll 95% center / 20px auto;
+}
+
+.locations span {
+  color: #666666;
+  display: inline-block;
+  font-size: 14px;
 }
 
 a.go-button, a.go-button:visited {
