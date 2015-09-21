@@ -675,6 +675,21 @@ ul.customer-support li a:hover {
 
 
 
+h3.light {
+  font-size: 22px !important;
+  font-weight: 200;
+  margin: 0 !important;
+  color: #555555;
+}
+
+img.search {
+  padding: 80px 20px;
+  text-align: center;
+  margin: 15px auto;
+}
+
+
+
 /* BANNER */
 .banner {
   position: relative;
