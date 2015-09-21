@@ -97,9 +97,10 @@
 
     <div class="panel-body">
       <% if (noSearch) { %>
-        <div>
+        <div class="center">
           <!-- TODO: Boris to come up with the style and content for this -->
-          <h3>Welcome to the search page.  Go ahead and start searching!</h3>
+          <h3 class="light">Welcome to the search page.  Go ahead and start searching!</h3>
+          <img class="search" src="../../images/search-icon.png" alt="" />
         </div>
       <% } else if (result == null || result.courses == null || result.courses.length == 0) { %>
         <% if (params.cityState != null && params.selectedG2G == true) { %>
