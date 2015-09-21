@@ -23,16 +23,23 @@
 						<li><a href="#" ><img alt="" src="/images/email.png" class=""> Customer Support</a></li>
 						<li><a href="#" ><img alt="" src="/images/phone.png" class=""> (888) 744-GRAD</a></li>
 					</ul>
-
 					<div id="home-search">
 						<form id="search-form" action="javascript:performCourseSearch();">
 							<div class="input-group">
-								<input type="text" id="searchCriteria" class="form-control" placeholder="" pattern=".{3,}" required title="3 characters minimum">
+								<input type="text" id="searchCriteria" name="searchCriteria" class="form-control" placeholder="course, course ID, content" pattern=".{3,}" required title="3 characters minimum">
 								<span class="input-group-btn">
 									<button id="course-search-button" class="btn btn-default" type="submit">
 										<img alt="" src="/images/search.png" class="">
 									</button>
 								</span>
+							</div>
+							<div class="locations">
+									<span>Or find a course by:</span>
+										<select id="selLocation" class="form-control">
+												<option value="">Locations</option>
+												<option value="">Location 1</option>
+												<option value="">Location 2</option>
+										</select>
 							</div>
 						</form>
 						<%# <div id="searchWarn" class="alert alert-warning" role="alert">You must have at least 3 characters.</div>%>
