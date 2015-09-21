@@ -5,36 +5,6 @@
   <% include partials/head %>
   <script type="text/javascript" src="/javascripts/course_detail.js"></script>
   <link rel="stylesheet" href="/stylesheets/course_detail.css">
-  <!-- Style fix - to be removed after -->
-  <style media="screen">
- a:link, a:visited{
-    color: #337AB7;
-
-  }
-
-  a:hover, a:active {
-    color: #000;
-    background: #EEE;
-
-  }
-
- table.schedule  tr {
-    background-color: #F9F9F9;
-  }
-table.schedule tr:nth-child(even) {
-    background-color: #FFFFFF;
-  }
-
-ul {padding-left: 10px;}
-
-.course_related_information nav ul li {list-style: none; padding: 5px;}
-
-.course_related_information {
-  border: 1px solid #EEE;
-  padding: 10px;
-}
-  </style>
-    <!-- END Style fix - to be removed after -->
 </head>
 <body>
 <% include partials/header %>
@@ -73,7 +43,7 @@ ul {padding-left: 10px;}
                 <% } %>
             </td>
 
-            <td><%= session.location["city"]%>, <%= session.location["state"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
+            <td><%= session.location["city"]%>, <%= session.location["state"]%> <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#myModal" aria-hidden='true'> </td>
             <td> $<%= session["tuition"]%></td>
             <td class="statusData">
               <% if (session["status"] === "C")  {%>
@@ -105,7 +75,6 @@ ul {padding-left: 10px;}
 <div id="map-canvas"></div>
 <br/>
 <br/>
-
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-12">
       <table class="table table-striped">
@@ -193,7 +162,28 @@ ul {padding-left: 10px;}
     </div>
   </div> <!--/#row -->
 </div><!--/#container-fulid -->
-<br/><br/> <!--/# spacer to be removed -->
+<div class="spacer"></div>
+<div class="spacer"></div>
+
+<!-- Modal dialog -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Instructor Bio</h4>
+      </div>
+      <div class="modal-body">
+      <p>    Ann J. Martick, an Industrial Security expert, is a certified ISP (Industrial Security Professional) and an FSO (Facility Security Officer). She has 20+ years experience serving variously as Security Manager, Facility Security Officer, Contractor Information System Security Manager, and Project Administrator. She's developed comprehensive security policies, procedures, and training for managing secure communications, document control, and classified information systems.</p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END - Modal dialog -->
 
 <% include partials/chat %>
 <% include partials/footer %>
