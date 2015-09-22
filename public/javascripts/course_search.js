@@ -61,7 +61,7 @@ $(document).ready(function() {
         + "&selectedG2G=" + $('#G2G').prop('checked')
         + "&page=" + $('#txtCurrentPage').val();
     history.pushState({state:1}, "", "?" + urlParams);
-    $.get("/course-search?partial=true&" + urlParams)
+    $.get("/search?partial=true&" + urlParams)
     .done(function(data) {
       $("#searchResults").replaceWith(data);
       $(".loading").hide();
