@@ -1,65 +1,20 @@
-<!-- COURSE SEARCH RESULTS -->
-<div id="course-search-results" class="tab-pane fade in active">
+
   <div class="panel panel-default gs">
     <div class="row results-header">
       <div class="col-lg-6 col-md-6 col-sm-6">
-        <% if (result && result.courses && result.courses.length > 0) { %>
-        <h5>Showing <%= (((result.currentPage-1)*(result.numRequested))+1) %> to <%= (result.currentPage*result.numRequested > result.numFound) ? result.numFound:(result.currentPage*result.numRequested) %> of <%= result.numFound%> Results</h5>
+        <% if (courseResult && courseResult.courses && courseResult.courses.length > 0) { %>
+        <h5>Showing <%= (((courseResult.currentPage-1)*(courseResult.numRequested))+1) %> to <%= (courseResult.currentPage * courseResult.numRequested > courseResult.numFound) ? courseResult.numFound:(courseResult.currentPage * courseResult.numRequested) %> of <%= courseResult.numFound%> Results</h5>
         <% } %>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-6">
-        <% if (result && result.numFound > 0) { %>
-          <div id="pagination">
-            <nav>
-              <input type="hidden" id="txtCurrentPage" value="<%= result.currentPage %>" />
-              <ul class="pagination" id="paginationNum">
-                <% if (result.previousPage == 0) { %>
-                  <li class="disabled">
-                    <span aria-hidden="true"> &#60; Previous</span></a>
-                  </li>
-                <%} else {%>
-                 <li>
-                   <a href="#"  name="<%= result.previousPage %>" aria-label="Previous">
-                   <span aria-hidden="true"> &#60; Previous</span></a>
-                 </li>
-                <% } %>
-                <% if (result.pageNavRange) { %>
-                  <% for (var pageCounter=0;pageCounter<result.pageNavRange.length;pageCounter++) { %>
-                    <% if ( result.pageNavRange[pageCounter]== result.currentPage ) { %>
-                      <li class="active">
-                        <a href="#"  name=<%= result.pageNavRange[pageCounter] %>><%= result.pageNavRange[pageCounter] %> <span class="sr-only">(current)</span></a>
-                      </li>
-                    <% } else { %>
-                      <li>
-                        <a href="#" class="pageNumLink" name="<%= result.pageNavRange[pageCounter] %>">
-                        <%= result.pageNavRange[pageCounter] %></a>
-                      </li>
-                    <%  } %>
-                  <% } %>
-                <% } %>
-                <% if (result.nextPage == 0) { %>
-                  <li class="disabled">
-                    <span aria-hidden="true"> Next &#62; </span> </a>
-                  </li>
-                <%} else {%>
-                  <li>
-                    <a href="#" name="<%= result.nextPage %>"aria-label="Next">
-                    <span aria-hidden="true"> Next &#62; </span> </a>
-                  </li>
-                <% }%>
-              </ul>
-            </nav>
-          </div> <!-- END Pagination -->
-        <% } %>
-      </div>
-    </div>
+      <% include navigation %>
+  </div>
   <div class="panel-body">
     <% if (noSearch) { %>
       <div class="center">
         <h3 class="light">Welcome to the search page. Go ahead and start searching!</h3>
         <img class="search" src="../../images/search-icon.png" alt="" />
       </div>
-    <% } else if (result == null || result.courses == null || result.courses.length == 0) { %>
+    <% } else if (courseResult == null || courseResult.courses == null || courseResult.courses.length == 0) { %>
       <% if (params.cityState != null && params.selectedG2G == true) { %>
         <div class="center">
           <h3 class="light">No matches for '<%= params.searchCriteria %>' with selected filters.</h3>
@@ -77,13 +32,13 @@
         </div>
       <% } %>
     <% } else { %>
-      <% for(var i=0; i<result.courses.length; i++) { %>
-        <% if ( result.courses[i].description.text !== null ) { %>
-          <% if (result.courses[i].code === null) { result.courses[i].code = result.courses[i].id.slice(0, -3); }%>
+      <% for(var i=0; i<courseResult.courses.length; i++) { %>
+        <% if ( courseResult.courses[i].description.text !== null ) { %>
+          <% if (courseResult.courses[i].code === null) { courseResult.courses[i].code = courseResult.courses[i].id.slice(0, -3); }%>
           <div id="course-result">
-            <h3><a href="/courses/<%= result.courses[i].id %>"><%= result.courses[i].code %> - <%= result.courses[i].title %></a></h3>
-          <div><%= prune(striptags(result.courses[i].description.text), 300, "...") %></div>
-          <div class="course-id"> <img src="../images/course-id-icon.png" alt="" /> Code: <strong><%= result.courses[i].code %></strong> </div>
+            <h3><a href="/courses/<%= courseResult.courses[i].id %>"><%= courseResult.courses[i].code %> - <%= courseResult.courses[i].title %></a></h3>
+          <div><%= prune(striptags(courseResult.courses[i].description.text), 300, "...") %></div>
+          <div class="course-id"> <img src="../images/course-id-icon.png" alt="" /> Code: <strong><%= courseResult.courses[i].code %></strong> </div>
           </div>
           <hr>
         <% } %>
@@ -91,66 +46,22 @@
     <% } %>
     <div class="row results-footer">
       <div class="col-lg-4 col-md-4 col-sm-4 pull-left">
-      <% if (result && result.currentPage > 0 & result.pageNavRange !== null) { %>
+      <% if (courseResult && courseResult.currentPage > 0 & courseResult.pageNavRange !== null) { %>
           <div  id="number-of-items" class="bottom">
            <div class="form-group">
               <label class="control-label" for="itemsPerPage"> Items per page:</label>
                 <select id="itemsPerPage" class="form-control">
-                  <option value="10" <% if (result.numRequested==10 || params.numRequested==10) { %> selected <% } %>>10</option>
-                  <option value="20"<% if (result.numRequested==20 || params.numRequested==20) { %> selected <% } %>>20</option>
-                  <option value="50" <% if (result.numRequested==50 || params.numRequested==50) { %> selected <% } %>>50</option>
-                  <option value="100" <% if (result.numRequested==100 || params.numRequested==100) { %> selected <% } %>>100</option>
+                  <option value="10" <% if (courseResult.numRequested==10 || params.numRequested==10) { %> selected <% } %>>10</option>
+                  <option value="20"<% if (courseResult.numRequested==20 || params.numRequested==20) { %> selected <% } %>>20</option>
+                  <option value="50" <% if (courseResult.numRequested==50 || params.numRequested==50) { %> selected <% } %>>50</option>
+                  <option value="100" <% if (courseResult.numRequested==100 || params.numRequested==100) { %> selected <% } %>>100</option>
                 </select>
            </div>
           </div>
           <% } %>
       </div><!-- END left column-->
-      <div class="col-lg-6 col-md-6 col-sm-6 pull-right">
-        <% if (result && result.numFound > 0) { %>
-          <div id="pagination">
-            <nav>
-              <input type="hidden" id="txtCurrentPage" value="<%= result.currentPage %>" />
-              <ul class="pagination" id="paginationNum">
-                <% if (result.previousPage == 0) { %>
-                  <li class="disabled">
-                    <span aria-hidden="true"> &#60; Previous</span></a>
-                  </li>
-                <%} else {%>
-                 <li>
-                   <a href="#"  name="<%= result.previousPage %>" aria-label="Previous">
-                   <span aria-hidden="true"> &#60; Previous</span></a>
-                 </li>
-                <% } %>
-                <% if (result.pageNavRange) { %>
-                  <% for(var pageCounter=0;pageCounter<result.pageNavRange.length;pageCounter++) { %>
-                    <% if ( result.pageNavRange[pageCounter]== result.currentPage ) { %>
-                      <li class="active">
-                        <a href="#"  name=<%= result.pageNavRange[pageCounter] %>><%= result.pageNavRange[pageCounter] %> <span class="sr-only">(current)</span></a>
-                      </li>
-                    <% } else { %>
-                      <li>
-                        <a href="#" class="pageNumLink" name="<%= result.pageNavRange[pageCounter] %>">
-                        <%= result.pageNavRange[pageCounter] %></a>
-                      </li>
-                    <%  } %>
-                  <% } %>
-                <% } %>
-                <% if (result.nextPage == 0) { %>
-                  <li class="disabled">
-                    <span aria-hidden="true"> Next &#62; </span> </a>
-                  </li>
-                <%} else {%>
-                  <li>
-                    <a href="#" name="<%= result.nextPage %>"aria-label="Next">
-                    <span aria-hidden="true"> Next &#62; </span> </a>
-                  </li>
-                <% }%>
-              </ul>
-          </nav>
-        </div> <!-- END Pagination -->
-      <% } %>
+      <% include navigation %>
     </div><!-- END right column-->
     </div><!-- END Row-->
   </div> <!-- END Panel-body -->
 </div><!-- END Panel -->
-</div><!-- END Course Search Results tab content -->

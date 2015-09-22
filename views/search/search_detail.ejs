@@ -5,32 +5,47 @@
         <div class="col-lg-8 col-md-8 col-sm-8 nopadding">
           <div id="searchResults">
             <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#course-search-results">Course Search Results (<%= (result) ? result.numFound : 0 %>)</a></li>
-              <li><a data-toggle="tab" href="#site-search-results" class="disabled">Site Search Results (0)</a></li> <!-- Class disabled when 0 resutls -->
+              <li class="active">
+                <a data-toggle="tab" href="#course-search-results">Course Search Results (<%= (courseResult) ? courseResult.numFound : 0 %>)</a>
+              </li>
+              <li>
+                <a data-toggle="tab" href="#site-search-results" class="disabled">Site Search Results (0)</a>
+              </li> <!-- Class disabled when 0 resutls -->
             </ul>
           </div>
         </div> <!-- END left column -->
         <div class="col-lg-4 col-md-4 col-sm-4 nopadding">
-        <% if (result && result.currentPage > 0 & result.pageNavRange !== null) { %>
-            <div  id="number-of-items" class="top">
+          <%
+            var numRequested = -1;
+            if (courseResult && courseResult.numRequested) {
+              numRequested = courseResult.numRequested;
+            }
+            //TODO: add check for siteResuls numRequested;
+          %>
+          <div  id="number-of-items" class="top">
              <div class="form-group">
                 <label class="control-label white" for="itemsPerPage"> Items per page:</label>
                   <select id="itemsPerPage" class="form-control">
-                    <option value="10" <% if (result.numRequested==10 || params.numRequested==10) { %> selected <% } %>>10</option>
-                    <option value="20"<% if (result.numRequested==20 || params.numRequested==20) { %> selected <% } %>>20</option>
-                    <option value="50" <% if (result.numRequested==50 || params.numRequested==50) { %> selected <% } %>>50</option>
-                    <option value="100" <% if (result.numRequested==100 || params.numRequested==100) { %> selected <% } %>>100</option>
+                    <option value="10" <% if (numRequested==10 || params.numRequested==10) { %> selected <% } %>>10</option>
+                    <option value="20"<% if (numRequested==20 || params.numRequested==20) { %> selected <% } %>>20</option>
+                    <option value="50" <% if (numRequested==50 || params.numRequested==50) { %> selected <% } %>>50</option>
+                    <option value="100" <% if (numRequested==100 || params.numRequested==100) { %> selected <% } %>>100</option>
                   </select>
-             </div>
+              </div>
             </div>
-            <% } %>
         </div><!-- END right column -->
     </div> <!-- END Tabs Nav -->
     <div class="tab-content">
 
+      <!-- COURSE SEARCH RESULTS -->
+      <div id="course-search-results" class="tab-pane fade in active">
         <% include course_search %>
+      </div><!-- END Course Search Results tab content -->
 
+      <!-- SITE SEARCH RESULTS -->
+      <div id="site-search-results" class="tab-pane fade">
         <% include site_search %>
+      </div><!-- END Site Search Results -->
 
       </div> <!-- END Search Results tab content -->
     </div> <!-- END tab content -->

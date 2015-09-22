@@ -30,11 +30,11 @@
             var g2gFacetCount = 0;
             var g2gChecked = "";
             var g2gDisabled = "";
-            if (result && result.statusFacets) {
-              var statusKeys = Object.keys(result.statusFacets);
+            if (courseResult && courseResult.statusFacets) {
+              var statusKeys = Object.keys(courseResult.statusFacets);
               for (i=0; i < statusKeys.length; i++) {
                 if (statusKeys[i] === 'C') {
-                  g2gFacetCount = result.statusFacets[statusKeys[i]];
+                  g2gFacetCount = courseResult.statusFacets[statusKeys[i]];
                 }
               }
               if (params.selectedG2G === 'true') {
@@ -52,20 +52,20 @@
               <select id="selLocation" class="form-control">
                 <option value="all">All</option>
                   <%
-                    if (result && result.locationFacets) {
-                      var locationFacetsKeys = Object.keys(result.locationFacets);
+                    if (courseResult && courseResult.locationFacets) {
+                      var locationFacetsKeys = Object.keys(courseResult.locationFacets);
                       if (locationFacetsKeys.length > 0) {
                         locationFacetsKeys.sort();
                         for (j = 0; j < locationFacetsKeys.length; j++) {
                           locationFacetsKey = locationFacetsKeys[j];
-                          locationFacetCount = result.locationFacets[locationFacetsKey];
+                          locationFacetCount = courseResult.locationFacets[locationFacetsKey];
                           locationSelected = "";
                           if (locationFacetsKey === params.cityState) {
                             locationSelected = "selected";
                           }
                           if (locationFacetCount > 0) {
                             %>
-                            <option value="<%= locationFacetsKey%>" <%= locationSelected %>><%= locationFacetsKey%>&nbsp;<%= "("+result.locationFacets[locationFacetsKey]+")"%></option>
+                            <option value="<%= locationFacetsKey%>" <%= locationSelected %>><%= locationFacetsKey%>&nbsp;<%= "("+courseResult.locationFacets[locationFacetsKey]+")"%></option>
                             <%
                           }
                         }

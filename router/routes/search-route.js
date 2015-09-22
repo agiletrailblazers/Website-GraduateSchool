@@ -18,7 +18,7 @@ router.get('/search', function(req, res, next){
   params.cityState = (typeof(req.query["cityState"])!='undefined' ? req.query["cityState"] : null);
   params.selectedG2G = (typeof(req.query["selectedG2G"])!='undefined' ? req.query["selectedG2G"] : null);
   params.page = (typeof(req.query["page"])!='undefined' ? req.query["page"] : null);
-  var searchResult;
+  var courseResult;
   var content;
 
   async.parallel([
@@ -29,7 +29,7 @@ router.get('/search', function(req, res, next){
         return;
       }
       course.performCourseSearch(function(response, error, result){
-        searchResult = result;
+        courseResult = result;
         callback();
       }, params);
     },
@@ -40,23 +40,25 @@ router.get('/search', function(req, res, next){
       });
     }
     ], function(results) {
-      if (searchResult && searchResult.exactMatch && !params.partial) {
+      if (courseResult && courseResult.exactMatch && !params.partial) {
         //redirect to course details
-        logger.debug("Exact course match found for " + searchResult.courses[0].id + " - Redirecting.")
-        res.redirect('courses/' + searchResult.courses[0].id);
+        logger.debug("Exact course match found for " + courseResult.courses[0].id + " - Redirecting.")
+        res.redirect('courses/' + courseResult.courses[0].id);
       }
       else {
+        //no search criteria given, this is a special case
         var noSearch = false;
-        if (typeof(searchResult) == 'undefined') {
-          //no search criteria given, this is a special case
+        if (typeof(courseResult) == 'undefined') {
           noSearch = true;
         }
+        //update title of page
         var topTitle = "Search";
         if (params.searchCriteria != null) {
           topTitle = 'Results for ' + params.searchCriteria;
         }
-        //display course search page
-        var render = { result: searchResult,
+        //display search results page
+        var render = { courseResult: courseResult,
+          tab: params.tab,
           noSearch: noSearch,
           striptags: striptags,
           prune: prune,
@@ -64,7 +66,6 @@ router.get('/search', function(req, res, next){
           params: params,
           title: 'Search Results',
           topTitle: topTitle};
-
         if (params.partial && params.partial === true) {
           res.render('search/search_detail', render);
         }
