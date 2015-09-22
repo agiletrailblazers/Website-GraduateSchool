@@ -1,0 +1,90 @@
+<div class="col-lg-3 col-md-3 col-sm-4">
+  <div class="filters">
+    <div class="panel-group">
+      <div class="panel panel-default gs">
+        <div class="panel-heading gs">
+          <div class="row clearfix">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 pull-left">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" href="#refine-results"> Refine Results</a>
+              </h4>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <div class="refine">
+                <a href="#"><p class="clear"><span>X</span><br>clear all</p></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="refine-results" class="panel-collapse collapse in">
+          <div class="panel-body">
+            <span class="form-group">
+              <p>Keyword<a id="clearKeyword" href="#" class="checkbox-clear">clear</a></p>
+              <span>
+                <input type="text" id="txtSearchCriteria" class="form-control" pattern=".{3,}" value="<%= params.searchCriteria %>" style="display:inherit; width:72%" />
+                <a id="btnSearchCriteria" class="go-button" href='#'>GO</a>
+              <span/>
+            </span>
+            <hr>
+            <%
+            var g2gFacetCount = 0;
+            var g2gChecked = "";
+            var g2gDisabled = "";
+            if (result && result.statusFacets) {
+              var statusKeys = Object.keys(result.statusFacets);
+              for (i=0; i < statusKeys.length; i++) {
+                if (statusKeys[i] === 'C') {
+                  g2gFacetCount = result.statusFacets[statusKeys[i]];
+                }
+              }
+              if (params.selectedG2G === 'true') {
+                g2gChecked = "checked";
+              }
+              if (g2gFacetCount == 0) {
+                g2gDisabled = "disabled";
+              }
+            }
+            %>
+            <input type="checkbox" id="G2G" name="G2G" value="" <%= g2gChecked %> <%= g2gDisabled %> /><label for="G2G"><strong>Guaranteed To Go</strong>&nbsp;(<%= g2gFacetCount %>) </label><br>
+            <hr>
+            <span class="form-group">
+              <p>Location <a id="clearLocation" href="#" class="checkbox-clear">clear</a></p>
+              <select id="selLocation" class="form-control">
+                <option value="all">All</option>
+                  <%
+                    if (result && result.locationFacets) {
+                      var locationFacetsKeys = Object.keys(result.locationFacets);
+                      if (locationFacetsKeys.length > 0) {
+                        locationFacetsKeys.sort();
+                        for (j = 0; j < locationFacetsKeys.length; j++) {
+                          locationFacetsKey = locationFacetsKeys[j];
+                          locationFacetCount = result.locationFacets[locationFacetsKey];
+                          locationSelected = "";
+                          if (locationFacetsKey === params.cityState) {
+                            locationSelected = "selected";
+                          }
+                          if (locationFacetCount > 0) {
+                            %>
+                            <option value="<%= locationFacetsKey%>" <%= locationSelected %>><%= locationFacetsKey%>&nbsp;<%= "("+result.locationFacets[locationFacetsKey]+")"%></option>
+                            <%
+                          }
+                        }
+                      }
+                      else {
+                        if (params.cityState && params.cityState != 'all') {
+                          %>
+                            <option value="<%= params.cityState %>" selected><%= params.cityState %>&nbsp;(0)</option>
+                          <%
+                        }
+                      }
+                    }
+                  %>
+                </select>
+            </span>
+          <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
