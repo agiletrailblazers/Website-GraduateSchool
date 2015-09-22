@@ -13,60 +13,59 @@
 
   <div  class="container">
     <div class="row">
-      <header>
-          <%
-          var whatsnewheaderImageURLs= whatsnewheaderImageURLList.split(',');
-          for (var i=0; i <whatsnewheaderImageURLs.length;i++) {
-              if (whatsnewheaderImageURLs[i] !="") {
-          %>
-                 <img src="<%= whatsnewheaderImageURLs[i] %>" alt=""  class="img"/>
 
-          <%
-               }
-          } %>
-       </header>
 
       <div class="col-lg-9 col-md-9 col-sm-12">
+        <header>
+            <% var whatsnewheaderImageURLs= whatsnewheaderImageURLList.split(',');
+            for (var i=0; i <whatsnewheaderImageURLs.length;i++) {
+                if (whatsnewheaderImageURLs[i] !="") {
+            %>
+                   <img src="<%= whatsnewheaderImageURLs[i] %>" alt=""  class="img"/>
+            <%
+                 }
+            } %>
+
+            <h1>Graduate School USA</h1>
+            <h3>New and updated courses designed to meet changing requirements.</h3>
+         </header>
         <section>
-          <p>
-            <%= entry.sectionSummary %>
-          </p>
-    <table>
-      <tbody>
-        <tr>
-          <th>
-            <strong><%= entry.classNumberTile %></strong>
-          </th>
-          <th>
-            <strong><%= entry.classnameTitle %></strong>
-          </th>
-        </tr>
-
-            <% for (var i=0; i < entry.sectionClasses.values.length; i++) { %>
-                <tr>
-                  <td>
-                      <a href='/courses/<%=entry.sectionClasses.values[i]["classNumber"] %>'><%=entry.sectionClasses.values[i]["classNumber"].slice(0,-3) %></a>
-                  </td>
-                  <td>
-                      <h5><a href='/courses/<%=entry.sectionClasses.values[i]["classNumber"] %>'><%= entry.sectionClasses.values[i]["className"] %></a></h5>
-                  </td>
-
-                </tr>
-
-            <% } %>
-          </tbody>
-      </table>
-
-        </section>
+          <p><%= entry.sectionSummary %></p>
+          <table>
+          <tbody>
+            <tr>
+              <th>
+                <strong><%= entry.classNumberTile %></strong>
+              </th>
+              <th>
+                <strong><%= entry.classnameTitle %></strong>
+              </th>
+            </tr>
+                <% for (var i=0; i < entry.sectionClasses.values.length; i++) { %>
+                    <tr>
+                      <td>
+                          <a href='/courses/<%=entry.sectionClasses.values[i]["classNumber"] %>'><%=entry.sectionClasses.values[i]["classNumber"].slice(0,-3) %></a>
+                      </td>
+                      <td>
+                          <h5><a href='/courses/<%=entry.sectionClasses.values[i]["classNumber"] %>'><%= entry.sectionClasses.values[i]["className"] %></a></h5>
+                      </td>
+                    </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </section>
       </div> <!--END of left column -->
       <div class="col-lg-3 col-md-3 col-sm-12">
-      <aside>
+        <aside>
           <div>
           <h1><%= entry.sidebarmainTitle %></h1>
           <h4><%= entry.sidebarTitle %></h4>
+          <hr>
           <blockquote cite="" id="whats-new">
-            <span><%= entry.sidebarQuote %></span>
+          <span><%= entry.sidebarQuote %></span>
           </blockquote>
+          <hr>
+          <br>
           <a href="#" class="blue pull-right"><%= entry.registerbuttonTitle %></a>
           </div>
         </aside>
