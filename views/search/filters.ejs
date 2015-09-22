@@ -16,7 +16,9 @@
             </div>
           </div>
         </div>
-        <div id="refine-results" class="panel-collapse collapse in">
+
+        <!-- START course filters -->
+        <div id="refine-results" name="courseFiltes" class="panel-collapse collapse in <%= (params.tab != 'course') ? 'hidden' : '' %>">
           <div class="panel-body">
             <span class="form-group">
               <p>Keyword<a id="clearKeyword" href="#" class="checkbox-clear">clear</a></p>
@@ -84,6 +86,23 @@
           <hr>
           </div>
         </div>
+        <!-- END course filters-->
+
+        <!-- START site filters -->
+        <div id="refine-results" name="siteFiltes" class="panel-collapse collapse in <%= (params.tab != 'site') ? 'hidden' : '' %>">
+          <div class="panel-body">
+            <span class="form-group">
+              <p>Keyword<a id="clearKeyword" href="#" class="checkbox-clear">clear</a></p>
+              <span>
+                <input type="text" id="txtSearchCriteria" class="form-control" pattern=".{3,}" value="<%= params.searchCriteria %>" style="display:inherit; width:72%" />
+                <a id="btnSearchCriteria" class="go-button" href='#'>GO</a>
+              <span/>
+            </span>
+            <hr>
+          </div>
+        </div>
+        <!-- END site filters-->
+
       </div>
     </div>
   </div>

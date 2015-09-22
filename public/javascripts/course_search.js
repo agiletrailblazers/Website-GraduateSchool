@@ -52,15 +52,28 @@ $(document).ready(function() {
     reloadSearchResults();
   });
 
-  function reloadSearchResults() {
-    $(".loading").show();
-    $("#title").text("Results for " + $("#txtSearchCriteria").val());
+  $(document).on("click",".nav-tabs a",function(event){
+    $('#txtSelectedTab').val($(this).attr('rel'));
+    $('div[name="siteFiltes"]').toggleClass('hidden');
+    $('div[name="courseFiltes"]').toggleClass('hidden');
+    pushBrowserHistory();
+  });
+
+  function pushBrowserHistory() {
     var urlParams = "search=" + $("#txtSearchCriteria").val()
         + "&numRequested=" + $("#itemsPerPage").val()
         + "&cityState=" + $("#selLocation").val()
         + "&selectedG2G=" + $('#G2G').prop('checked')
-        + "&page-course=" + $('#txtPageCourse').val();
+        + "&page-course=" + $('#txtPageCourse').val()
+        + "&tab=" + $('#txtSelectedTab').val();
     history.pushState({state:1}, "", "?" + urlParams);
+    return urlParams;
+  }
+
+  function reloadSearchResults() {
+    $(".loading").show();
+    $("#title").text("Results for " + $("#txtSearchCriteria").val());
+    var urlParams = pushBrowserHistory();
     $.get("/search?partial=true&" + urlParams)
     .done(function(data) {
       $("#searchResults").replaceWith(data);

@@ -5,13 +5,14 @@
         <div class="col-lg-8 col-md-8 col-sm-8 nopadding">
           <div id="searchResults">
             <ul class="nav nav-tabs">
-              <li class="active">
-                <a data-toggle="tab" href="#course-search-results">Course Search Results (<%= (courseResult) ? courseResult.numFound : 0 %>)</a>
+              <li class="<%= (params.tab == 'course') ? 'active' : '' %>">
+                <a data-toggle="tab" href="#course-search-results" rel="course" class="<%= (courseResult && courseResult.numFound > 0) ? '' : 'disabled' %>">Course Search Results (<%= (courseResult && courseResult.numFound) ? courseResult.numFound : 0 %>)</a>
               </li>
-              <li>
-                <a data-toggle="tab" href="#site-search-results" class="disabled">Site Search Results (0)</a>
+              <li class="<%= (params.tab == 'site') ? 'active' : '' %>">
+                <a data-toggle="tab" href="#site-search-results" rel="site" class="<%= (siteResult && siteResult.numFound > 0) ? '' : 'disabled' %>">Site Search Results (<%= (siteResult && siteResult.numFound) ? siteResult.numFound : 0 %>)</a>
               </li> <!-- Class disabled when 0 resutls -->
             </ul>
+            <input type="hidden" id="txtSelectedTab" value="<%= params.tab %>" />
           </div>
         </div> <!-- END left column -->
         <div class="col-lg-4 col-md-4 col-sm-4 nopadding">
@@ -19,8 +20,9 @@
             var numRequested = -1;
             if (courseResult && courseResult.numRequested) {
               numRequested = courseResult.numRequested;
+            } else if (siteResult && siteResult.numRequested) {
+              numRequested = siteResult.numRequested;
             }
-            //TODO: add check for siteResuls numRequested;
           %>
           <div  id="number-of-items" class="top">
              <div class="form-group">
@@ -38,12 +40,12 @@
     <div class="tab-content">
 
       <!-- COURSE SEARCH RESULTS -->
-      <div id="course-search-results" class="tab-pane fade in active">
+      <div id="course-search-results" class="tab-pane fade <%= (params.tab == 'course') ? 'in active' : '' %>">
         <% include course_search %>
       </div><!-- END Course Search Results tab content -->
 
       <!-- SITE SEARCH RESULTS -->
-      <div id="site-search-results" class="tab-pane fade">
+      <div id="site-search-results" class="tab-pane fade <%= (params.tab == 'site') ? 'in active' : '' %>">
         <% include site_search %>
       </div><!-- END Site Search Results -->
 
