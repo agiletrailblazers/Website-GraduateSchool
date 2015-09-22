@@ -73,7 +73,7 @@ ul {padding-left: 10px;}
                 <% } %>
             </td>
 
-            <td><%= session.location["city"]%>, <%= session.location["state"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true'> </td>
+            <td><%= session.location["city"]%>, <%= session.location["state"]%> <span class="glyphicon glyphicon-map-marker pull-right" aria-hidden='true' data-address='<%= session.location["address2"] %> <%= session.location["address2"] %> <%= session.location["city"] %> <%= session.location["state"] %>'> </td>
             <td> $<%= session["tuition"]%></td>
             <td class="statusData">
               <% if (session["status"] === "C")  {%>
