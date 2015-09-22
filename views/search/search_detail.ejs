@@ -94,7 +94,7 @@
         <div class="col-lg-8 col-md-8 col-sm-8 nopadding">
           <div id="searchResults">
             <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#course-search-results">Course Search Results (<%= result.numFound %>)</a></li>
+              <li class="active"><a data-toggle="tab" href="#course-search-results">Course Search Results (<%= (result) ? result.numFound : 0 %>)</a></li>
               <li><a data-toggle="tab" href="#site-search-results" class="disabled">Site Search Results (0)</a></li> <!-- Class disabled when 0 resutls -->
             </ul>
           </div>
@@ -126,7 +126,7 @@
               <% } %>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
-              <% if (result.numFound > 0) { %>
+              <% if (result && result.numFound > 0) { %>
                 <div id="pagination">
                   <nav>
                     <input type="hidden" id="txtCurrentPage" value="<%= result.currentPage %>" />
@@ -224,7 +224,7 @@
                 <% } %>
             </div><!-- END left column-->
             <div class="col-lg-6 col-md-6 col-sm-6 pull-right">
-              <% if (result.numFound > 0) { %>
+              <% if (result && result.numFound > 0) { %>
                 <div id="pagination">
                   <nav>
                     <input type="hidden" id="txtCurrentPage" value="<%= result.currentPage %>" />
