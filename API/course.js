@@ -13,7 +13,7 @@ module.exports = {
     if (params.cityState != '' && params.cityState != null && typeof(params.cityState) != 'undefined' && params.cityState != 'all'){
       courseApiUrl = courseApiUrl + '&filter={facet-countall}city_state:' + params.cityState;
     }
-    if (params.page.course != '' && params.page.course != null && typeof(params.page.course) != 'undefined'){
+    if (params.page && params.page.course != '' && params.page.course != null && typeof(params.page.course) != 'undefined'){
       courseApiUrl = courseApiUrl + '&page='+ params.page.course;
     }
     if (params.selectedG2G == "true" ) {
