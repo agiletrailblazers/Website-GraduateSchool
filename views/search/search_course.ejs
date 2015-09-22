@@ -5,7 +5,7 @@
         <h5>Showing <%= (((courseResult.currentPage-1)*(courseResult.numRequested))+1) %> to <%= (courseResult.currentPage * courseResult.numRequested > courseResult.numFound) ? courseResult.numFound:(courseResult.currentPage * courseResult.numRequested) %> of <%= courseResult.numFound%> Results</h5>
       <% } %>
     </div>
-    <% include course_pagination %>
+    <% include pagination_course %>
   </div>
   <div class="panel-body">
     <% if (noSearch) { %>
@@ -59,7 +59,7 @@
           </div>
         <% } %>
       </div><!-- END left column-->
-      <% include course_pagination %>
+      <% include pagination_course %>
     </div><!-- END row-->
   </div><!-- END Panel-body -->
 </div>

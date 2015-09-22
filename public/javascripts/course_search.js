@@ -53,9 +53,10 @@ $(document).ready(function() {
   });
 
   $(document).on("click",".nav-tabs a",function(event){
-    $('#txtSelectedTab').val($(this).attr('rel'));
-    $('div[name="siteFiltes"]').toggleClass('hidden');
-    $('div[name="courseFiltes"]').toggleClass('hidden');
+    var tab = $(this).attr("data-tab");
+    $('#txtSelectedTab').val(tab);
+    $("span[data-showfor~='" + tab + "']").removeClass('hidden');
+    $("span[data-hidefor~='" + tab + "']").addClass('hidden');
     pushBrowserHistory();
   });
 
