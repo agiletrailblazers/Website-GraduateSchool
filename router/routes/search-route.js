@@ -12,14 +12,19 @@ var logger = require('../../logger');
 //  otherwise show the search results page.
 router.get('/search', function(req, res, next){
   var params = {};
+  params.page = {};
   params.partial = (req.query["partial"] == "true");
   params.searchCriteria = (typeof(req.query["search"])!='undefined' ? req.query["search"] : null);
   params.numRequested = (typeof(req.query["numRequested"])!='undefined' ? req.query["numRequested"] : null);
   params.cityState = (typeof(req.query["cityState"])!='undefined' ? req.query["cityState"] : null);
   params.selectedG2G = (typeof(req.query["selectedG2G"])!='undefined' ? req.query["selectedG2G"] : null);
-  params.page = (typeof(req.query["page"])!='undefined' ? req.query["page"] : null);
+  params.page.course = (typeof(req.query["page-course"])!='undefined' ? req.query["page-course"] : null);
+  params.page.site = (typeof(req.query["page-site"])!='undefined' ? req.query["page-site"] : null);
+
   var courseResult;
+  var siteResult = {"currentPage":1,"totalPages":3,"nextPage":2,"previousPage":0,"pageNavRange":[1,2,3],"pageSize":10,"numRequested":10,"numFound":22,"pages":null,"sites":[{"id":"http://ec2-52-3-249-243.compute-1.amazonaws.com/","title":"Graduate School","url":"http://ec2-52-3-249-243.compute-1.amazonaws.com/","content":"page content"}]};
   var content;
+console.log(siteResult);
 
   async.parallel([
     function(callback) {
@@ -48,7 +53,7 @@ router.get('/search', function(req, res, next){
       else {
         //no search criteria given, this is a special case
         var noSearch = false;
-        if (typeof(courseResult) == 'undefined') {
+        if (typeof(courseResult) == 'undefined' && typeof(siteResult) == 'undefined') {
           noSearch = true;
         }
         //update title of page
@@ -58,7 +63,7 @@ router.get('/search', function(req, res, next){
         }
         //display search results page
         var render = { courseResult: courseResult,
-          tab: params.tab,
+          siteResult: siteResult,
           noSearch: noSearch,
           striptags: striptags,
           prune: prune,

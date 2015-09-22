@@ -2,7 +2,7 @@ $(document).ready(function() {
 
   //Important to use live events since we dynamically update page content
   $(document).on('change', 'select#itemsPerPage, select#selLocation', function() {
-    $('#txtCurrentPage').val(1);
+    $('#txtPageCourse').val(1);
     reloadSearchResults();
   });
 
@@ -10,45 +10,45 @@ $(document).ready(function() {
     $("#itemsPerPage").val("10");
     $("#selLocation").val("all");
     $('#G2G').prop('checked', false);
-    $('#txtCurrentPage').val(1);
+    $('#txtPageCourse').val(1);
     $("#txtSearchCriteria").val("");
     reloadSearchResults();
   });
 
   $(document).on("click","#clearLocation",function(event){
     $("#selLocation").val("all");
-    $('#txtCurrentPage').val(1);
+    $('#txtPageCourse').val(1);
     reloadSearchResults();
   });
 
   $(document).on("click","#clearKeyword",function(event){
     $("#txtSearchCriteria").val("");
-    $('#txtCurrentPage').val(1);
+    $('#txtPageCourse').val(1);
     $('#G2G').prop('checked', false);
     reloadSearchResults();
   });
 
   $(document).on("click","#G2G",function(event){
-    $('#txtCurrentPage').val(1);
+    $('#txtPageCourse').val(1);
     reloadSearchResults();
   });
 
   $(document).on("keydown","#txtSearchCriteria",function(event){
     if(event.which == 13) {
-      $('#txtCurrentPage').val(1);
+      $('#txtPageCourse').val(1);
       $('#G2G').prop('checked', false);
       reloadSearchResults();
     }
   });
 
   $(document).on("click","#btnSearchCriteria",function(event){
-      $('#txtCurrentPage').val(1);
+      $('#txtPageCourse').val(1);
       $('#G2G').prop('checked', false);
       reloadSearchResults();
   });
 
   $(document).on("click",".pagination a",function(event){
-    $('#txtCurrentPage').val($(this).attr("name"));
+    $('#txtPageCourse').val($(this).attr("name"));
     reloadSearchResults();
   });
 
@@ -59,7 +59,7 @@ $(document).ready(function() {
         + "&numRequested=" + $("#itemsPerPage").val()
         + "&cityState=" + $("#selLocation").val()
         + "&selectedG2G=" + $('#G2G').prop('checked')
-        + "&page=" + $('#txtCurrentPage').val();
+        + "&page-course=" + $('#txtPageCourse').val();
     history.pushState({state:1}, "", "?" + urlParams);
     $.get("/search?partial=true&" + urlParams)
     .done(function(data) {
