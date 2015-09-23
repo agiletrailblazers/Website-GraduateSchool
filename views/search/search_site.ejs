@@ -5,7 +5,7 @@
         <h5>Showing <%= (((siteResult.currentPage-1)*(siteResult.numRequested))+1) %> to <%= (siteResult.currentPage * siteResult.numRequested > siteResult.numFound) ? siteResult.numFound:(siteResult.currentPage * siteResult.numRequested) %> of <%= siteResult.numFound%> Results</h5>
       <% } %>
     </div>
-
+    <% include pagination %>
   </div>
   <div class="panel-body">
     <% if (noSearch) { %>
@@ -43,7 +43,7 @@
           </div>
         <% } %>
       </div><!-- END left column-->
-
+      <% include pagination %>
     </div><!-- END row-->
   </div><!-- END Panel-body -->
 </div>

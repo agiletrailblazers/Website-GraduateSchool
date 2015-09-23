@@ -40,11 +40,15 @@
     <div class="tab-content">
 
       <!-- COURSE SEARCH RESULTS -->
+      <% result = courseResult; %>
+      <input type="hidden" id="txtPageCourse" value="<%= courseResult.currentPage %>" />
       <div id="course-search-results" class="tab-pane fade <%= (params.tab == 'course') ? 'in active' : '' %>">
         <% include search_course %>
       </div><!-- END Course Search Results tab content -->
 
       <!-- SITE SEARCH RESULTS -->
+      <% result = siteResult; %>
+      <input type="hidden" id="txtPageSite" value="<%= siteResult.currentPage %>" />
       <div id="site-search-results" class="tab-pane fade <%= (params.tab == 'site') ? 'in active' : '' %>">
         <% include search_site %>
       </div><!-- END Site Search Results -->
