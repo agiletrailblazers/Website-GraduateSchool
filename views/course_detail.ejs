@@ -40,7 +40,7 @@
                 <% } %>
             </td>
 
-            <td><%= session.location["city"]%>, <%= session.location["state"]%> <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#myModal" aria-hidden='true' data-address='<%= session.location["address2"] %> <%= session.location["address2"] %> <%= session.location["city"] %> <%= session.location["state"] %>'> </td>
+            <td><%= session.location["city"]%>, <%= session.location["state"]%> <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-address='<%= session.location["address2"] %> <%= session.location["address2"] %> <%= session.location["city"] %> <%= session.location["state"] %>'> </td>
             <td> $<%= session["tuition"]%></td>
             <td class="statusData">
               <% if (session["status"] === "C")  {%>
@@ -162,12 +162,12 @@
 <div class="spacer"></div>
 
 <!-- Modal dialog -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Instructor Bio</h4>
+        <h4 class="modal-title" id="mapModalLabel">Instructor Bio</h4>
       </div>
       <div class="modal-body">
         <div id="map-canvas"></div>

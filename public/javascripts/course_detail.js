@@ -34,7 +34,7 @@ $(document).ready(function() {
     google.maps.event.addListenerOnce(map, 'idle', function() {
       google.maps.event.trigger(map, 'resize');
     });
-    $("#myModal").on("shown.bs.modal", function() {
+    $("#mapModal").on("shown.bs.modal", function() {
       mapApp.codeAddress(address);
       google.maps.event.trigger(map, "resize");
     });
