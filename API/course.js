@@ -13,8 +13,8 @@ module.exports = {
     if (params.cityState != '' && params.cityState != null && typeof(params.cityState) != 'undefined' && params.cityState != 'all'){
       courseApiUrl = courseApiUrl + '&filter={facet-countall}city_state:' + params.cityState;
     }
-    if (params.page != '' && params.page != null && typeof(params.page) != 'undefined'){
-      courseApiUrl = courseApiUrl + '&page='+ params.page;
+    if (params.page && params.page.course != '' && params.page.course != null && typeof(params.page.course) != 'undefined'){
+      courseApiUrl = courseApiUrl + '&page='+ params.page.course;
     }
     if (params.selectedG2G == "true" ) {
       courseApiUrl = courseApiUrl + '&filter=status:C';
@@ -93,5 +93,28 @@ module.exports = {
       result = JSON.parse(body);
       return callback(response, error, result);
     });
+  },
+  performSiteSearch: function(callback, params) {
+      var siteApiUrl = config("endpoint").courseApiUrl;
+      siteApiUrl = siteApiUrl + '/api/site?search=' + params.searchCriteria;
+      if (params.numRequested != '' && params.numRequested != null && typeof(params.numRequested) != 'undefined'){
+          siteApiUrl = siteApiUrl + '&numRequested=' + params.numRequested;
+      }
+       if (params.page && params.page.site != '' && params.page.site != null && typeof(params.page.site) != 'undefined'){
+           siteApiUrl = siteApiUrl + '&page='+ params.page.site;
+      }
+      logger.debug(siteApiUrl);
+      request({
+          method: 'GET',
+          url: siteApiUrl
+      }, function (error, response, body) {
+          if (error != null || response == null || response.statusCode != 200) {
+              logger.error("Exception occured performing course search. " + error);
+              return callback(response, new Error("Exception occured performing Site search"), null);
+          }
+          logger.debug('Status:', response.statusCode);
+          result = JSON.parse(body);
+          return callback(response, error, result);
+      })
   }
 };

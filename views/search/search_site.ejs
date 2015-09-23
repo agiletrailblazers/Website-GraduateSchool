@@ -1,0 +1,49 @@
+<div class="panel panel-default gs">
+  <div class="row results-header">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <% if (siteResult && siteResult.pages && siteResult.pages.length > 0) { %>
+        <h5>Showing <%= (((siteResult.currentPage-1)*(siteResult.numRequested))+1) %> to <%= (siteResult.currentPage * siteResult.numRequested > siteResult.numFound) ? siteResult.numFound:(siteResult.currentPage * siteResult.numRequested) %> of <%= siteResult.numFound%> Results</h5>
+      <% } %>
+    </div>
+    <% include pagination %>
+  </div>
+  <div class="panel-body">
+    <% if (noSearch) { %>
+      <div class="center">
+        <h3 class="light">Welcome to the search page. Go ahead and start searching!</h3>
+        <img class="search" src="../../images/search-icon.png" alt="" />
+      </div>
+    <% } else if (siteResult == null || siteResult.pages == null || siteResult.pages.length == 0) { %>
+      <div class="center">
+        <h3 class="light">No matches for '<%= params.searchCriteria %>'.</h3>
+        <img class="search" src="../../images/search-icon.png" alt="" />
+      </div>
+    <% } else { %>
+      <% for(var i=0; i<siteResult.pages.length; i++) { %>
+        <div id="site-result">
+          <h3><a href="<%= siteResult.pages[i].url %>"><%= siteResult.pages[i].title %></a></h3>
+          <div><%= prune(striptags(siteResult.pages[i].content), 300, "...") %></div>
+        </div>
+        <hr>
+      <% } %>
+    <% } %>
+    <div class="row results-footer">
+      <div class="col-lg-4 col-md-4 col-sm-4 pull-left">
+        <% if (siteResult && siteResult.currentPage > 0 & siteResult.pageNavRange !== null) { %>
+          <div id="number-of-items" class="bottom">
+            <div class="form-group">
+              <label class="control-label" for="itemsPerPage"> Items per page:</label>
+              <select id="itemsPerPage" class="form-control">
+                <option value="10" <% if (siteResult.numRequested==10 || params.numRequested==10) { %> selected <% } %>>10</option>
+                <option value="20"<% if (siteResult.numRequested==20 || params.numRequested==20) { %> selected <% } %>>20</option>
+                <option value="50" <% if (siteResult.numRequested==50 || params.numRequested==50) { %> selected <% } %>>50</option>
+                <option value="100" <% if (siteResult.numRequested==100 || params.numRequested==100) { %> selected <% } %>>100</option>
+              </select>
+            </div>
+          </div>
+        <% } %>
+      </div><!-- END left column-->
+      <% include pagination %>
+    </div><!-- END row-->
+  </div><!-- END Panel-body -->
+</div>

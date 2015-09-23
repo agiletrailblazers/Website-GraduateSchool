@@ -13,7 +13,7 @@
 				</div>
 				<div class="col-lg-5 col-md-5 col-sm-5 mob-rem">
 					<ul class="quick-links">
-						<li><a href="/course-search" class="underline"><img alt="" src="/images/register.png" class=""> Register</a></li>
+						<li><a href="/search" class="underline"><img alt="" src="/images/register.png" class=""> Register</a></li>
 						<li><a href="http://graduateschool.textbookx.com/" target="_blank" class="underline"><img alt="" src="/images/bookstore.png" class=""> Bookstore</a></li>
 						<li><a href="/content/financial-aid" class="underline"><img alt="" src="/images/finance.png" class=""> Financial Aid</a></li>
 					</ul>
@@ -23,16 +23,24 @@
 						<li><a href="#" ><img alt="" src="/images/email.png" class=""> Customer Support</a></li>
 						<li><a href="#" ><img alt="" src="/images/phone.png" class=""> (888) 744-GRAD</a></li>
 					</ul>
-
 					<div id="home-search">
 						<form id="search-form" action="javascript:performCourseSearch();">
 							<div class="input-group">
-								<input type="text" id="searchCriteria" class="form-control" placeholder="" pattern=".{3,}" required title="3 characters minimum">
+								<input type="text" id="searchCriteria" name="searchCriteria" class="form-control" placeholder="course, course ID, content" pattern=".{3,}" required title="3 characters minimum">
 								<span class="input-group-btn">
 									<button id="course-search-button" class="btn btn-default" type="submit">
 										<img alt="" src="/images/search.png" class="">
 									</button>
 								</span>
+							</div>
+							<div class="locations">
+									<span>Or find a course by:</span>
+										<select id="selSearchLocation" class="form-control">
+												<option value="">Locations</option>
+												<% locations.forEach(function(location) { %>
+													<option value="<%= location %>"><%= location %></option>
+												<% }); %>
+										</select>
 							</div>
 						</form>
 						<%# <div id="searchWarn" class="alert alert-warning" role="alert">You must have at least 3 characters.</div>%>
