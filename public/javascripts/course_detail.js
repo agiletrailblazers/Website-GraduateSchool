@@ -3,10 +3,6 @@ mapApp = {
   start: function() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
       zoom: 15,
-      center: {
-        lat: 38.8859870,
-        lng: -77.0212
-      }
     });
     geocoder = new google.maps.Geocoder();
   },
