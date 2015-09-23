@@ -2,7 +2,7 @@ var map, geocoder;
 mapApp = {
   start: function() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
-      zoom: 8,
+      zoom: 15,
       center: {
         lat: 38.8859870,
         lng: -77.0212
