@@ -13,9 +13,6 @@
   <div class="col-lg-6 col-md-6 col-sm-12">
     <h3><%= courseData.class.title %> - <%= courseData.class.code %></h3>
   </div>
-  <div class="col-lg-6 col-md-6 col-sm-12">
-    <button type="button" name="button" id="close-map">Close Map</button>
-  </div>
 </div> <!--/#row -->
 
 <div class="row">
@@ -72,7 +69,6 @@
     </table>
   </div>
 </div> <!-- End of row -->
-<div id="map-canvas"></div>
 <br/>
 <br/>
 <div class="row">
@@ -173,9 +169,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Instructor Bio</h4>
       </div>
-      <div class="modal-body">
-      <p>    Ann J. Martick, an Industrial Security expert, is a certified ISP (Industrial Security Professional) and an FSO (Facility Security Officer). She has 20+ years experience serving variously as Security Manager, Facility Security Officer, Contractor Information System Security Manager, and Project Administrator. She's developed comprehensive security policies, procedures, and training for managing secure communications, document control, and classified information systems.</p>
-
+      <div class="modal-body" style="height: 450px">
+        <div id="map-canvas"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
