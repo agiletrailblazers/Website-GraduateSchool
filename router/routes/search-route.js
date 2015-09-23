@@ -12,15 +12,19 @@ var logger = require('../../logger');
 //  otherwise show the search results page.
 router.get('/search', function(req, res, next){
   var params = {};
+  params.page = {};
   params.partial = (req.query["partial"] == "true");
   params.searchCriteria = (typeof(req.query["search"])!='undefined' ? req.query["search"] : null);
   params.numRequested = (typeof(req.query["numRequested"])!='undefined' ? req.query["numRequested"] : null);
   params.cityState = (typeof(req.query["cityState"])!='undefined' ? req.query["cityState"] : null);
   params.selectedG2G = (typeof(req.query["selectedG2G"])!='undefined' ? req.query["selectedG2G"] : null);
-  params.page = (typeof(req.query["page"])!='undefined' ? req.query["page"] : null);
-  var courseResult;
-  var content;
+  params.page.course = (typeof(req.query["page-course"])!='undefined' ? req.query["page-course"] : null);
+  params.page.site = (typeof(req.query["page-site"])!='undefined' ? req.query["page-site"] : null);
+  params.tab = (typeof(req.query["tab"])!='undefined' ? req.query["tab"] : null);
 
+  var courseResult = {};
+  var siteResult ={};
+  var content = {};
   async.parallel([
     function(callback) {
       //if no search criteria param included, skip search
@@ -38,6 +42,17 @@ router.get('/search', function(req, res, next){
         content = fields;
         callback();
       });
+    },
+    function(callback) {
+    //if no search criteria param included, skip search
+      if (params.searchCriteria === null) {
+        callback();
+          return;
+      }
+      course.performSiteSearch(function(response, error, result){
+        siteResult = result;
+        callback();
+      }, params);
     }
     ], function(results) {
       if (courseResult && courseResult.exactMatch && !params.partial) {
@@ -48,7 +63,7 @@ router.get('/search', function(req, res, next){
       else {
         //no search criteria given, this is a special case
         var noSearch = false;
-        if (typeof(courseResult) == 'undefined') {
+        if (typeof(courseResult) == 'undefined' && typeof(siteResult) == 'undefined') {
           noSearch = true;
         }
         //update title of page
@@ -56,9 +71,17 @@ router.get('/search', function(req, res, next){
         if (params.searchCriteria != null) {
           topTitle = 'Results for ' + params.searchCriteria;
         }
+        //handle current tab scenarios
+        if ((courseResult.numFound == 0 || typeof(courseResult.numFound) == 'undefined') && siteResult.numFound > 0) {
+          params.tab = 'site';
+        } else if (params.tab == 'site' && typeof(siteResult.numFound) == 'undefined') {
+          params.tab = 'course';
+        } else if (params.tab == null || params.tab == '') {
+          params.tab = 'course';
+        }
         //display search results page
         var render = { courseResult: courseResult,
-          tab: params.tab,
+          siteResult: siteResult,
           noSearch: noSearch,
           striptags: striptags,
           prune: prune,

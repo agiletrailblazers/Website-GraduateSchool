@@ -18,36 +18,38 @@
         </div>
         <div id="refine-results" class="panel-collapse collapse in">
           <div class="panel-body">
-            <span class="form-group">
+            <span class="form-group" data-showfor="course">
               <p>Keyword<a id="clearKeyword" href="#" class="checkbox-clear">clear</a></p>
               <span>
                 <input type="text" id="txtSearchCriteria" class="form-control" pattern=".{3,}" value="<%= params.searchCriteria %>" style="display:inherit; width:72%" />
                 <a id="btnSearchCriteria" class="go-button" href='#'>GO</a>
-              <span/>
+              </span>
+              <hr>
             </span>
-            <hr>
-            <%
-            var g2gFacetCount = 0;
-            var g2gChecked = "";
-            var g2gDisabled = "";
-            if (courseResult && courseResult.statusFacets) {
-              var statusKeys = Object.keys(courseResult.statusFacets);
-              for (i=0; i < statusKeys.length; i++) {
-                if (statusKeys[i] === 'C') {
-                  g2gFacetCount = courseResult.statusFacets[statusKeys[i]];
+            <span class="form-group <%= (params.tab != 'course') ? 'hidden' : '' %>" data-showfor="course" data-hidefor="site">
+              <%
+              var g2gFacetCount = 0;
+              var g2gChecked = "";
+              var g2gDisabled = "";
+              if (courseResult && courseResult.statusFacets) {
+                var statusKeys = Object.keys(courseResult.statusFacets);
+                for (i=0; i < statusKeys.length; i++) {
+                  if (statusKeys[i] === 'C') {
+                    g2gFacetCount = courseResult.statusFacets[statusKeys[i]];
+                  }
+                }
+                if (params.selectedG2G === 'true') {
+                  g2gChecked = "checked";
+                }
+                if (g2gFacetCount == 0) {
+                  g2gDisabled = "disabled";
                 }
               }
-              if (params.selectedG2G === 'true') {
-                g2gChecked = "checked";
-              }
-              if (g2gFacetCount == 0) {
-                g2gDisabled = "disabled";
-              }
-            }
-            %>
-            <input type="checkbox" id="G2G" name="G2G" value="" <%= g2gChecked %> <%= g2gDisabled %> /><label for="G2G"><strong>Guaranteed To Go</strong>&nbsp;(<%= g2gFacetCount %>) </label><br>
-            <hr>
-            <span class="form-group">
+              %>
+              <input type="checkbox" id="G2G" name="G2G" value="" <%= g2gChecked %> <%= g2gDisabled %> /><label for="G2G"><strong>Guaranteed To Go</strong>&nbsp;(<%= g2gFacetCount %>) </label><br>
+              <hr>
+            </span>
+            <span class="form-group <%= (params.tab != 'course') ? 'hidden' : '' %>" data-showfor="course" data-hidefor="site">
               <p>Location <a id="clearLocation" href="#" class="checkbox-clear">clear</a></p>
               <select id="selLocation" class="form-control">
                 <option value="all">All</option>
@@ -80,10 +82,11 @@
                     }
                   %>
                 </select>
+                <hr>
             </span>
-          <hr>
           </div>
         </div>
+
       </div>
     </div>
   </div>

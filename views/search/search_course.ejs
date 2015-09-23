@@ -1,12 +1,11 @@
-
-  <div class="panel panel-default gs">
-    <div class="row results-header">
-      <div class="col-lg-6 col-md-6 col-sm-6">
-        <% if (courseResult && courseResult.courses && courseResult.courses.length > 0) { %>
+<div class="panel panel-default gs">
+  <div class="row results-header">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <% if (courseResult && courseResult.courses && courseResult.courses.length > 0) { %>
         <h5>Showing <%= (((courseResult.currentPage-1)*(courseResult.numRequested))+1) %> to <%= (courseResult.currentPage * courseResult.numRequested > courseResult.numFound) ? courseResult.numFound:(courseResult.currentPage * courseResult.numRequested) %> of <%= courseResult.numFound%> Results</h5>
-        <% } %>
-      </div>
-      <% include navigation %>
+      <% } %>
+    </div>
+    <% include pagination_course %>
   </div>
   <div class="panel-body">
     <% if (noSearch) { %>
@@ -37,8 +36,8 @@
           <% if (courseResult.courses[i].code === null) { courseResult.courses[i].code = courseResult.courses[i].id.slice(0, -3); }%>
           <div id="course-result">
             <h3><a href="/courses/<%= courseResult.courses[i].id %>"><%= courseResult.courses[i].code %> - <%= courseResult.courses[i].title %></a></h3>
-          <div><%= prune(striptags(courseResult.courses[i].description.text), 300, "...") %></div>
-          <div class="course-id"> <img src="../images/course-id-icon.png" alt="" /> Code: <strong><%= courseResult.courses[i].code %></strong> </div>
+            <div><%= prune(striptags(courseResult.courses[i].description.text), 300, "...") %></div>
+            <div class="course-id"> <img src="../images/course-id-icon.png" alt="" /> Code: <strong><%= courseResult.courses[i].code %></strong> </div>
           </div>
           <hr>
         <% } %>
@@ -46,22 +45,21 @@
     <% } %>
     <div class="row results-footer">
       <div class="col-lg-4 col-md-4 col-sm-4 pull-left">
-      <% if (courseResult && courseResult.currentPage > 0 & courseResult.pageNavRange !== null) { %>
-          <div  id="number-of-items" class="bottom">
-           <div class="form-group">
+        <% if (courseResult && courseResult.currentPage > 0 & courseResult.pageNavRange !== null) { %>
+          <div id="number-of-items" class="bottom">
+            <div class="form-group">
               <label class="control-label" for="itemsPerPage"> Items per page:</label>
-                <select id="itemsPerPage" class="form-control">
-                  <option value="10" <% if (courseResult.numRequested==10 || params.numRequested==10) { %> selected <% } %>>10</option>
-                  <option value="20"<% if (courseResult.numRequested==20 || params.numRequested==20) { %> selected <% } %>>20</option>
-                  <option value="50" <% if (courseResult.numRequested==50 || params.numRequested==50) { %> selected <% } %>>50</option>
-                  <option value="100" <% if (courseResult.numRequested==100 || params.numRequested==100) { %> selected <% } %>>100</option>
-                </select>
-           </div>
+              <select id="itemsPerPage" class="form-control">
+                <option value="10" <% if (courseResult.numRequested==10 || params.numRequested==10) { %> selected <% } %>>10</option>
+                <option value="20"<% if (courseResult.numRequested==20 || params.numRequested==20) { %> selected <% } %>>20</option>
+                <option value="50" <% if (courseResult.numRequested==50 || params.numRequested==50) { %> selected <% } %>>50</option>
+                <option value="100" <% if (courseResult.numRequested==100 || params.numRequested==100) { %> selected <% } %>>100</option>
+              </select>
+            </div>
           </div>
-          <% } %>
+        <% } %>
       </div><!-- END left column-->
-      <% include navigation %>
-    </div><!-- END right column-->
-    </div><!-- END Row-->
-  </div> <!-- END Panel-body -->
-</div><!-- END Panel -->
+      <% include pagination_course %>
+    </div><!-- END row-->
+  </div><!-- END Panel-body -->
+</div>

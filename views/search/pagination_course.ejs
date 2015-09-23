@@ -2,7 +2,7 @@
   <% if (courseResult && courseResult.numFound > 0) { %>
     <div id="pagination">
       <nav>
-        <input type="hidden" id="txtCurrentPage" value="<%= courseResult.currentPage %>" />
+        <input type="hidden" id="txtPageCourse" value="<%= courseResult.currentPage %>" />
         <ul class="pagination" id="paginationNum">
           <% if (courseResult.previousPage == 0) { %>
             <li class="disabled">
@@ -34,11 +34,12 @@
             </li>
           <%} else {%>
             <li>
-              <a href="#" name="<%= courseResult.nextPage %>"aria-label="Next">
+              <a href="#" name="<%= courseResult.nextPage %> "aria-label="Next">
               <span aria-hidden="true"> Next &#62; </span> </a>
             </li>
           <% }%>
         </ul>
     </nav>
   </div> <!-- END Pagination -->
-<% } %>
+  <% } %>
+</div>
