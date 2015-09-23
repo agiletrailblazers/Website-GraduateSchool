@@ -48,7 +48,13 @@ $(document).ready(function() {
   });
 
   $(document).on("click",".pagination a",function(event){
-    $('#txtPageCourse').val($(this).attr("name"));
+    var tab = $('#txtSelectedTab').val();
+    if (tab == 'course') {
+      $('#txtPageCourse').val($(this).attr("name"));
+    }
+    else if (tab == 'site') {
+      $('#txtPageSite').val($(this).attr("name"));
+    }
     reloadSearchResults();
   });
 
@@ -66,6 +72,7 @@ $(document).ready(function() {
         + "&cityState=" + $("#selLocation").val()
         + "&selectedG2G=" + $('#G2G').prop('checked')
         + "&page-course=" + $('#txtPageCourse').val()
+        + "&page-site=" + $('#txtPageSite').val().trim()
         + "&tab=" + $('#txtSelectedTab').val();
     history.pushState({state:1}, "", "?" + urlParams);
     return urlParams;
