@@ -1,5 +1,4 @@
-var map;
-var geocoder;
+var map, geocoder;
 mapApp = {
   start: function() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -9,6 +8,7 @@ mapApp = {
         lng: -77.0212
       }
     });
+    geocoder = new google.maps.Geocoder();
   },
   codeAddress: function(address) {
     geocoder.geocode({
@@ -27,8 +27,6 @@ mapApp = {
   }
 }
 $(document).ready(function() {
-  $('#map-canvas').hide();
-  $('#close-map').hide();
   $('.glyphicon-map-marker').click(function(e) {
     e.preventDefault();
     mapApp.start();
@@ -36,8 +34,8 @@ $(document).ready(function() {
     google.maps.event.addListenerOnce(map, 'idle', function() {
       google.maps.event.trigger(map, 'resize');
     });
-    // mapApp.codeAddress(address);
     $("#myModal").on("shown.bs.modal", function() {
+      mapApp.codeAddress(address);
       google.maps.event.trigger(map, "resize");
     });
   });
