@@ -17,7 +17,7 @@ mapApp = {
           position: results[0].geometry.location
         });
       } else {
-        alert("Sorry, unable to find address. Error: " + status);
+        $("#mapModalLabel").append('<div id="mapAlert" class="alert alert-danger" style="display:none;"> Sorry, unable to find address. Error: ' + status + '</div>').slideDown();
       }
     });
   }
@@ -38,6 +38,6 @@ $(document).ready(function() {
     });
   });
   $('#mapModal').on('hidden.bs.modal', function() {
-    $('#modalSessionLocationSpan').remove();
+    $("#modalSessionLocationSpan, #mapAlert").remove();
   });
 });
