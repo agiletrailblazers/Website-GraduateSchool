@@ -30,7 +30,7 @@ $(document).ready(function() {
   $('.glyphicon-map-marker').click(function(e) {
     e.preventDefault();
     var cityState = $(this).data('city');
-    $("#mapModalLabel").append(cityState);
+    $("#mapModalLabel").append('<span id="modalSessionLocationSpan">' + cityState + '</span>');
     mapApp.start();
     var address = $(this).data('address');
     google.maps.event.addListenerOnce(map, 'idle', function() {
@@ -40,5 +40,8 @@ $(document).ready(function() {
       mapApp.codeAddress(address);
       google.maps.event.trigger(map, "resize");
     });
+  });
+  $('#mapModal').on('hidden.bs.modal', function() {
+    $('#modalSessionLocationSpan').remove();
   });
 });
