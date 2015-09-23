@@ -29,6 +29,8 @@ mapApp = {
 $(document).ready(function() {
   $('.glyphicon-map-marker').click(function(e) {
     e.preventDefault();
+    var cityState = $(this).data('city');
+    $("#mapModalLabel").append(cityState);
     mapApp.start();
     var address = $(this).data('address');
     google.maps.event.addListenerOnce(map, 'idle', function() {
