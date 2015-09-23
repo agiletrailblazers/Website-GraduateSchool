@@ -64,6 +64,30 @@
           font-size: 15px;
         }
 
+        blockquote {
+          width: 50%;
+          font-size:24px !important;
+          padding: 10px 15px;
+          margin: 5px;
+          text-indent: 30px;
+          position: absolute;
+          top:40px;
+          left:20px;
+          background-image: url(../images/openquote.png);
+          background-position: top left;
+          background-repeat: no-repeat;
+          background-size: 40px;
+        }
+
+        blockquote span {
+          color: #FFF;
+          display: block;
+          background-image: url(../images/closequote.png);
+          background-repeat: no-repeat;
+          background-position: right bottom;
+          background-size: 40px;
+        }
+
     }
 
     /* Small Devices, Tablets */
@@ -148,7 +172,40 @@
          border-left: none;
        }
 
+       blockquote {
+         display: block;
+         width: 100%;
+         font-size: 20px !important;
+         padding-top: 5px;
+         margin: 0px;
+         text-indent: 30px;
+         position: relative;
+         top:10px;
+         left:0px;
+         background-image: url(../images/openquote.png);
+         background-position: top left;
+         background-repeat: no-repeat;
+         background-size: 30px;
+       }
 
+       blockquote span {
+         color: #000;
+         display: block;
+         background-image: url(../images/closequote.png);
+         background-repeat: no-repeat;
+         background-position: right bottom;
+         background-size: 30px;
+       }
+
+       img.testimonial-bg {
+         display: none;
+         visibility: hidden;
+       }
+
+       .mobile {
+         display: block;
+         visibility: visible;
+       }
     }
 
     /* Extra Small Devices, Phones */
@@ -183,7 +240,7 @@
         margin: 10px 0 !important;
         padding: 10px !important;
       }
-      
+
     }
 
 

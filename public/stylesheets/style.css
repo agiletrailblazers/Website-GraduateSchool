@@ -830,6 +830,7 @@ margin: 35px 0;
 }
 
 .testimonial {
+  display: block;
   width: 100%;
 }
 
@@ -838,8 +839,8 @@ margin: 35px 0;
 }
 
 blockquote {
-  width: 45%;
-  font-size: 30px !important;
+  width: 50%;
+  font-size: 26px !important;
   padding-top: 5px;
   margin: 5px;
   background-image: url(../images/openquote.png);
@@ -855,10 +856,15 @@ blockquote {
   }
 
   blockquote span {
+    color: #FFF;
     display: block;
     background-image: url(../images/closequote.png);
     background-repeat: no-repeat;
-    background-position: bottom right;
+    background-position: right bottom;
+  }
+
+img.testimonial {
+
 }
 
 .news {
@@ -1517,6 +1523,11 @@ a.underline-n:after {
   padding: 0 !important;
 }
 
+/* display only on mobile */
+.mobile {
+  display: none;
+  visibility: hidden;
+}
 
 
 
