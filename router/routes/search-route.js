@@ -74,7 +74,7 @@ router.get('/search', function(req, res, next){
         //handle current tab scenarios
         if ((courseResult.numFound == 0 || typeof(courseResult.numFound) == 'undefined') && siteResult.numFound > 0) {
           params.tab = 'site';
-        } else if (params.tab == 'site' && typeof(siteResult.numFound) == 'undefined') {
+        } else if (params.tab == 'site' && siteResult && typeof(siteResult.numFound) == 'undefined') {
           params.tab = 'course';
         } else if (params.tab == null || params.tab == '') {
           params.tab = 'course';
