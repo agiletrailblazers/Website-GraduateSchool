@@ -21,10 +21,10 @@ router.get('/search', function(req, res, next){
   params.page.course = (typeof(req.query["page-course"])!='undefined' ? req.query["page-course"] : null);
   params.page.site = (typeof(req.query["page-site"])!='undefined' ? req.query["page-site"] : null);
   params.tab = (typeof(req.query["tab"])!='undefined' ? req.query["tab"] : null);
-  var courseResult = {};
-  var siteResult = {"currentPage":1,"totalPages":3,"nextPage":2,"previousPage":0,"pageNavRange":[1,2,3],"pageSize":10,"numRequested":10,"numFound":22,"pages":[{"id":"http://ec2-52-3-249-243.compute-1.amazonaws.com/","title":"Graduate School","url":"http://ec2-52-3-249-243.compute-1.amazonaws.com/","content":"page content"}]};
-  var content = {};
 
+  var courseResult = {};
+  var siteResult ={};
+  var content = {};
   async.parallel([
     function(callback) {
       //if no search criteria param included, skip search
@@ -42,6 +42,17 @@ router.get('/search', function(req, res, next){
         content = fields;
         callback();
       });
+    },
+    function(callback) {
+    //if no search criteria param included, skip search
+      if (params.searchCriteria === null) {
+        callback();
+          return;
+      }
+      course.performSiteSearch(function(response, error, result){
+        siteResult = result;
+        callback();
+      }, params);
     }
     ], function(results) {
       if (courseResult && courseResult.exactMatch && !params.partial) {
