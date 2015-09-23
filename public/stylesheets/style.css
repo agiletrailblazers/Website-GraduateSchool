@@ -14,6 +14,10 @@ html {
   box-sizing: inherit;
 }
 
+#printPage{
+  cursor:pointer;
+}
+
 body {
   height: 100%;
   width: 100%;
@@ -673,8 +677,6 @@ ul.customer-support li a:hover {
   box-shadow:none !important;
 }
 
-
-
 h3.light {
   font-size: 22px !important;
   font-weight: 200;
@@ -688,7 +690,58 @@ img.search {
   margin: 15px auto;
 }
 
+.locations{
+  position: absolute;
+  width: 260px;
+  margin: 1px 0 0 0;
+  padding: 10px;
+  background-image: linear-gradient(to bottom, #FFF 0px, #F4F4F4 100%);
+  overflow: hidden;
+  z-index: 9999999;
+  box-shadow: 0px 1px 1px rgba(000, 000, 000, 0.25) inset, 0px 1px 1px rgba(0, 0, 0, 0.25);
+}
 
+.locations .form-control {
+  display: inline-block !important;
+  width: 100px !important;
+}
+
+.locations select, .locations input[type="checkbox"]{
+    border: 2px solid #87ACCE;
+    border-radius: 0px;
+    padding: 6px 16px 6px 7px;
+    margin: 0 5px;
+}
+
+.locations select{
+    -webkit-appearance: none;
+    appearance: none;
+    -moz-appearance: none;
+    background: #FFF url("../images/arrow-down.png") no-repeat scroll 95% center / 20px auto;
+}
+
+.locations span {
+  color: #666666;
+  display: inline-block;
+  font-size: 14px;
+}
+
+a.go-button, a.go-button:visited {
+    height: 34px !important;
+    margin: 0;
+    background-color: #427EB4;
+    padding: 7px 10px;
+    color: #FFF;
+    border: medium none;
+    outline-style: none;
+    transition: background-color 300ms linear 0s;
+    border-radius: 2px;
+}
+
+a.go-button:hover, a.go-button:active {
+  background-color: #be0f34;
+  transition: background-color 300ms linear 0s;
+}
 
 /* BANNER */
 .banner {
@@ -781,6 +834,7 @@ margin: 35px 0;
 }
 
 .testimonial {
+  display: block;
   width: 100%;
 }
 
@@ -789,8 +843,8 @@ margin: 35px 0;
 }
 
 blockquote {
-  width: 45%;
-  font-size: 30px !important;
+  width: 50%;
+  font-size: 26px !important;
   padding-top: 5px;
   margin: 5px;
   background-image: url(../images/openquote.png);
@@ -806,10 +860,15 @@ blockquote {
   }
 
   blockquote span {
+    color: #FFF;
     display: block;
     background-image: url(../images/closequote.png);
     background-repeat: no-repeat;
-    background-position: bottom right;
+    background-position: right bottom;
+  }
+
+img.testimonial {
+
 }
 
 .news {
@@ -1468,6 +1527,11 @@ a.underline-n:after {
   padding: 0 !important;
 }
 
+/* display only on mobile */
+.mobile {
+  display: none;
+  visibility: hidden;
+}
 
 
 

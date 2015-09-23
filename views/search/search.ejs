@@ -2,20 +2,20 @@
 <html>
 <head>
   <title><%= content.pageTitle %></title>
-  <% include partials/head %>
+  <% include ../partials/head %>
   <link rel='stylesheet' href='/stylesheets/course_search.css' />
   <link rel="stylesheet" href="/stylesheets/library/spinners.css">
 </head>
   <body>
-    <% include partials/header %>
+    <% include ../partials/header %>
 
-    <div class="container">
+    <div id="printable" class="container">
       <div class="loading" style="display:none;"></div>
-      <% include partials/course_search_detail %>
+      <% include search_detail %>
     </div> <!-- END container -->
 
-     <% include partials/chat %>
-     <% include partials/footer %>
+     <% include ../partials/chat %>
+     <% include ../partials/footer %>
      <script type="text/javascript" src="/javascripts/course_search.js"></script>
 
   </body>

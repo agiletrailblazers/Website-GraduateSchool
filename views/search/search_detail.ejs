@@ -1,0 +1,58 @@
+<div id="searchResults" class="row">
+  <% include filters %>
+  <div class="col-lg-9 col-md-9 col-sm-8">
+    <div class="row tabs">
+        <div class="col-lg-8 col-md-8 col-sm-8 nopadding">
+          <div id="searchResults">
+            <ul class="nav nav-tabs">
+              <li class="<%= (params.tab == 'course') ? 'active' : '' %>">
+                <a data-toggle="tab" href="#course-search-results" data-tab="course" class="<%= (courseResult && courseResult.numFound > 0) ? '' : 'disabled' %>">Course Search Results (<%= (courseResult && courseResult.numFound) ? courseResult.numFound : 0 %>)</a>
+              </li>
+              <li class="<%= (params.tab == 'site') ? 'active' : '' %>">
+                <a data-toggle="tab" href="#site-search-results" data-tab="site" class="<%= (siteResult && siteResult.numFound > 0) ? '' : 'disabled' %>">Site Search Results (<%= (siteResult && siteResult.numFound) ? siteResult.numFound : 0 %>)</a>
+              </li> <!-- Class disabled when 0 resutls -->
+            </ul>
+            <input type="hidden" id="txtSelectedTab" value="<%= params.tab %>" />
+          </div>
+        </div> <!-- END left column -->
+        <div class="col-lg-4 col-md-4 col-sm-4 nopadding">
+          <%
+            var numRequested = -1;
+            if (courseResult && courseResult.numRequested) {
+              numRequested = courseResult.numRequested;
+            } else if (siteResult && siteResult.numRequested) {
+              numRequested = siteResult.numRequested;
+            }
+          %>
+          <div  id="number-of-items" class="top">
+             <div class="form-group">
+                <label class="control-label white" for="itemsPerPage"> Items per page:</label>
+                  <select id="itemsPerPage" class="form-control">
+                    <option value="10" <% if (numRequested==10 || params.numRequested==10) { %> selected <% } %>>10</option>
+                    <option value="20"<% if (numRequested==20 || params.numRequested==20) { %> selected <% } %>>20</option>
+                    <option value="50" <% if (numRequested==50 || params.numRequested==50) { %> selected <% } %>>50</option>
+                    <option value="100" <% if (numRequested==100 || params.numRequested==100) { %> selected <% } %>>100</option>
+                  </select>
+              </div>
+            </div>
+        </div><!-- END right column -->
+    </div> <!-- END Tabs Nav -->
+    <div class="tab-content">
+
+      <!-- COURSE SEARCH RESULTS -->
+      <% result = courseResult; %>
+      <input type="hidden" id="txtPageCourse" value="<%= courseResult.currentPage %>" />
+      <div id="course-search-results" class="tab-pane fade <%= (params.tab == 'course') ? 'in active' : '' %>">
+        <% include search_course %>
+      </div><!-- END Course Search Results tab content -->
+
+      <!-- SITE SEARCH RESULTS -->
+      <% result = siteResult; %>
+      <input type="hidden" id="txtPageSite" value="<%= siteResult.currentPage %>" />
+      <div id="site-search-results" class="tab-pane fade <%= (params.tab == 'site') ? 'in active' : '' %>">
+        <% include search_site %>
+      </div><!-- END Site Search Results -->
+
+    </div> <!-- END tab content -->
+  </div> <!-- END right column -->
+</div> <!-- END row -->
