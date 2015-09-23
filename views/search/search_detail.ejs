@@ -6,10 +6,10 @@
           <div id="searchResults">
             <ul class="nav nav-tabs">
               <li class="<%= (params.tab == 'course') ? 'active' : '' %>">
-                <a data-toggle="tab" href="#course-search-results" rel="course" class="<%= (courseResult && courseResult.numFound > 0) ? '' : 'disabled' %>">Course Search Results (<%= (courseResult && courseResult.numFound) ? courseResult.numFound : 0 %>)</a>
+                <a data-toggle="tab" href="#course-search-results" data-tab="course" class="<%= (courseResult && courseResult.numFound > 0) ? '' : 'disabled' %>">Course Search Results (<%= (courseResult && courseResult.numFound) ? courseResult.numFound : 0 %>)</a>
               </li>
               <li class="<%= (params.tab == 'site') ? 'active' : '' %>">
-                <a data-toggle="tab" href="#site-search-results" rel="site" class="<%= (siteResult && siteResult.numFound > 0) ? '' : 'disabled' %>">Site Search Results (<%= (siteResult && siteResult.numFound) ? siteResult.numFound : 0 %>)</a>
+                <a data-toggle="tab" href="#site-search-results" data-tab="site" class="<%= (siteResult && siteResult.numFound > 0) ? '' : 'disabled' %>">Site Search Results (<%= (siteResult && siteResult.numFound) ? siteResult.numFound : 0 %>)</a>
               </li> <!-- Class disabled when 0 resutls -->
             </ul>
             <input type="hidden" id="txtSelectedTab" value="<%= params.tab %>" />
@@ -41,12 +41,12 @@
 
       <!-- COURSE SEARCH RESULTS -->
       <div id="course-search-results" class="tab-pane fade <%= (params.tab == 'course') ? 'in active' : '' %>">
-        <% include course_search %>
+        <% include search_course %>
       </div><!-- END Course Search Results tab content -->
 
       <!-- SITE SEARCH RESULTS -->
       <div id="site-search-results" class="tab-pane fade <%= (params.tab == 'site') ? 'in active' : '' %>">
-        <% include site_search %>
+        <% include search_site %>
       </div><!-- END Site Search Results -->
 
     </div> <!-- END tab content -->
