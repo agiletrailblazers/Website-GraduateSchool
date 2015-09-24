@@ -21,9 +21,8 @@ router.get('/search', function(req, res, next){
   params.page.course = (typeof(req.query["page-course"])!='undefined' ? req.query["page-course"] : null);
   params.page.site = (typeof(req.query["page-site"])!='undefined' ? req.query["page-site"] : null);
   params.tab = (typeof(req.query["tab"])!='undefined' ? req.query["tab"] : null);
-
   var courseResult = {};
-  var siteResult ={};
+  var siteResult = {};
   var content = {};
   async.parallel([
     function(callback) {
@@ -63,7 +62,7 @@ router.get('/search', function(req, res, next){
       else {
         //no search criteria given, this is a special case
         var noSearch = false;
-        if (typeof(courseResult) == 'undefined' && typeof(siteResult) == 'undefined') {
+        if (typeof(courseResult.numFound) == 'undefined' && typeof(siteResult.numFound) == 'undefined') {
           noSearch = true;
         }
         //update title of page
