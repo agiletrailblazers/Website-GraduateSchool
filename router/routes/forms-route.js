@@ -33,6 +33,7 @@
               assetObj = {};
               assetObj.title = sectionLink.name;
               assetObj.url = sectionLink.url;
+              assetObj.description = sectionLink.description;
               assetObj.type = "application/link";
               arrayofAssetObj.push(assetObj);
             });
