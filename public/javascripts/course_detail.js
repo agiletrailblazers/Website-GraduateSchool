@@ -38,11 +38,11 @@ tableApp = {
       }
     });
     $('#showLess').click(function() {
-      x = (x - 5 < 0) ? 3 : x - 5;
+      x = (x - 5 < 0) ? limit : x - 5;
       $('.courseDetailSessionRow').not(':lt(' + x + ')').hide();
       $('#loadMore').show();
       $('#showLess').show();
-      if (x == 3) {
+      if (x == limit) {
         $('#showLess').hide();
       }
     });
