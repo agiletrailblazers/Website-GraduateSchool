@@ -20,6 +20,7 @@
                 if (asset.sys.id == sectionFile.sys.id) {
                   assetObj = {};
                   assetObj.title = asset.fields.title;
+                  assetObj.description = asset.fields.description;
                   assetObj.url = asset.fields.file.url;
                   assetObj.type = asset.fields.file.contentType;
                   arrayofAssetObj.push(assetObj);
