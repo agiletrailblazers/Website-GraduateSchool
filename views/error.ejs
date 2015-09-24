@@ -1,9 +1,11 @@
+<!--nutch_noindex-->
 <h1><%= message %></h1>
 <% if (error) { %>
 	<% if (error.status) { %>
 		<h2><%= error.status %></h2>
 	<% } %>
-	<% if (error.stack) { %>		
+	<% if (error.stack) { %>
 		<pre><%= error.stack %></pre>
-	<% } %>		
+	<% } %>
 <% } %>
+<!--/nutch_noindex-->
