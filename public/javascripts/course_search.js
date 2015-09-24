@@ -1,8 +1,10 @@
 $(document).ready(function() {
 
   //Important to use live events since we dynamically update page content
-  $(document).on('change', 'select#itemsPerPage, select#selLocation', function() {
+  $(document).on('change', 'select.itemsPerPage, select#selLocation', function() {
+    $('.itemsPerPage').val($(this).val());
     $('#txtPageCourse').val(1);
+    $('#txtPageSite').val(1);
     reloadSearchResults();
   });
 
@@ -11,6 +13,7 @@ $(document).ready(function() {
     $("#selLocation").val("all");
     $('#G2G').prop('checked', false);
     $('#txtPageCourse').val(1);
+    $('#txtPageSite').val(1);
     $("#txtSearchCriteria").val("");
     reloadSearchResults();
   });
@@ -18,24 +21,28 @@ $(document).ready(function() {
   $(document).on("click","#clearLocation",function(event){
     $("#selLocation").val("all");
     $('#txtPageCourse').val(1);
+    $('#txtPageSite').val(1);
     reloadSearchResults();
   });
 
   $(document).on("click","#clearKeyword",function(event){
     $("#txtSearchCriteria").val("");
     $('#txtPageCourse').val(1);
+    $('#txtPageSite').val(1);
     $('#G2G').prop('checked', false);
     reloadSearchResults();
   });
 
   $(document).on("click","#G2G",function(event){
     $('#txtPageCourse').val(1);
+    $('#txtPageSite').val(1);
     reloadSearchResults();
   });
 
   $(document).on("keydown","#txtSearchCriteria",function(event){
     if(event.which == 13) {
       $('#txtPageCourse').val(1);
+      $('#txtPageSite').val(1);
       $('#G2G').prop('checked', false);
       reloadSearchResults();
     }
@@ -43,6 +50,7 @@ $(document).ready(function() {
 
   $(document).on("click","#btnSearchCriteria",function(event){
       $('#txtPageCourse').val(1);
+      $('#txtPageSite').val(1);
       $('#G2G').prop('checked', false);
       reloadSearchResults();
   });
@@ -68,7 +76,7 @@ $(document).ready(function() {
 
   function pushBrowserHistory() {
     var urlParams = "search=" + $("#txtSearchCriteria").val()
-        + "&numRequested=" + $("#itemsPerPage").val()
+        + "&numRequested=" + $(".itemsPerPage").val()
         + "&cityState=" + $("#selLocation").val()
         + "&selectedG2G=" + $('#G2G').prop('checked')
         + "&page-course=" + $('#txtPageCourse').val()
