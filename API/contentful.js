@@ -166,7 +166,7 @@ module.exports = {
     }
     function createLink(section, linkEntry, linkCount) {
       section.title = linkEntry.fields.title;
-      section.startNewColumn = linkEntry.fields.startNewColumn;
+      section.startNewColumn = typeof(linkEntry.fields.startNewColumn)=='undefined' ? true : linkEntry.fields.startNewColumn;
       if (linkEntry.fields['link'+linkCount]) {
         var link = {};
         link.title = linkEntry.fields['link'+linkCount][0];

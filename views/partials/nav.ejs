@@ -21,8 +21,14 @@
 							<li class="grid-demo">
 								<div class="row border-between">
 									<% if (nav.sections) { %>
+										<% var subNavCount = 0; %>
 							  		<% nav.sections.forEach(function(subNav) { %>
-											<div class="col-sm-3">
+											<% if (subNav.startNewColumn) { %>
+												<% if (subNavCount > 0) { %>
+													</div>  <%#-- close out last column (but never on first column) %>
+												<% } %>
+												<div class="col-sm-3">
+											<% } %>
 												<h4><%= subNav.title %></h4>
 												<ul>
 												  <% subNav.links.forEach(function(link) { %>
@@ -31,8 +37,9 @@
 													  </li>
 													<% }); %>
 												</ul>
-											</div>
+												<% subNavCount++; %>
 										<% }); %>
+										</div> <%#-- close out last column %>
 									<% } %>
 								</div>
 							</li>
