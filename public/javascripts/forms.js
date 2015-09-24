@@ -8,6 +8,8 @@ $(document).ready(function() {
         contentTypeArray = $(this).data('contenttype').split(',');
         if (jQuery.inArray(name, contentTypeArray) === -1) {
           $(this).hide();
+        } else {
+          $(this).show();
         }
       });
     } else {
