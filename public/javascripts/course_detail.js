@@ -24,9 +24,10 @@ mapApp = {
 }
 
 tableApp = {
-  limitTable: function() {
+  limitTable: function(limit) {
+    $(".courseDetailSessionRow").hide();
     courseSessionLength = $("#courseSessionTable").data('totaltr');
-    x = 10;
+    x = limit;
     $('.courseDetailSessionRow:lt(' + x + ')').show();
     $('#loadMore').click(function() {
       x = (x + 5 <= courseSessionLength) ? x + 5 : courseSessionLength;
@@ -49,8 +50,7 @@ tableApp = {
 }
 
 $(document).ready(function() {
-  $(".courseDetailSessionRow").hide();
-  tableApp.limitTable();
+  tableApp.limitTable(10);
   $('.glyphicon-map-marker').click(function(e) {
     e.preventDefault();
     var cityState = $(this).data('city');
