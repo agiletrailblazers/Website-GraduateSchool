@@ -1,6 +1,9 @@
 /*==========  GRADUATE SCHOOL Styles  ==========*/
 /*==============================================*/
 
+@media print {
+  #header, #footer, #chat {display: none !important;}
+}
 
 html {
   -webkit-box-sizing: border-box;
