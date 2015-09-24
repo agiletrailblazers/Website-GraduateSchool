@@ -5,6 +5,7 @@
     <title>
     </title>
     <% include partials/head %>
+    <script src="/javascripts/forms.js" type="text/javascript"></script>
 </head>
 <body>
   <% include partials/header %>
@@ -15,11 +16,11 @@
       <div class="container">
         <div class="col-lg-12 col-md-12 col-sm-12" id="form-filters">
             <span>Filter forms:</span>
-              <ul>
-                <li><a href="#">All forms</a></li>
-                <li><a href="#">Training Officers</a></li>
-                <li><a href="#">Current/Returning Students</a></li>
-                <li><a href="#">Prospective Students</a></li>
+              <ul id="filterForms">
+                <li name="all"><a href="#">All forms</a></li>
+                <li name="to"><a href="#">Training Officers</a></li>
+                <li name="cs"><a href="#">Current/Returning Students</a></li>
+                <li name="ps"><a href="#">Prospective Students</a></li>
               </ul>
         </div>
       </div>
@@ -30,7 +31,7 @@
         <section id="assets">
           <h3><%= entrySection.sectionTitle %></h3>
         <% entrySection.assetList.forEach(function(asset) { %>
-          <p class="asset"><a href=<%= asset.url %> target="_blank" <% if (asset.type == "application/pdf") {%>onclick="ga('send', 'event', 'PDF', 'Download', this.href);<%}%>"><% if (asset.type == "application/pdf") {%> <span><img src="/images/pdf.png"/></span> <% } else { %> <span><img src="/images/link.png"/></span> <% } %><%= asset.title %></a></p>
+          <p class="asset" data-contenttype="<%= asset.description %>"><a href=<%= asset.url %> target="_blank" <% if (asset.type == "application/pdf") {%>onclick="ga('send', 'event', 'PDF', 'Download', this.href);<%}%>"><% if (asset.type == "application/pdf") {%> <span><img src="/images/pdf.png"/></span> <% } else { %> <span><img src="/images/link.png"/></span> <% } %><%= asset.title %></a></p>
           <% });
         } %>
         </section>
@@ -42,7 +43,7 @@
         <section id="assets">
         <h3><%= entrySection.sectionTitle %></h3>
         <% entrySection.assetList.forEach(function(asset) { %>
-          <p class="asset"><a href=<%= asset.url %> target="_blank" <% if (asset.type == "application/pdf") {%>onclick="ga('send', 'event', 'PDF', 'Download', this.href);<%}%>"><% if (asset.type == "application/pdf") {%> <span><img src="/images/pdf.png"/></span> <% } else { %> <span><img src="/images/link.png"/></span> <% } %><%= asset.title %></a></p>
+          <p class="asset" data-contentType="<%= asset.description %>"><a href=<%= asset.url %> target="_blank" <% if (asset.type == "application/pdf") {%>onclick="ga('send', 'event', 'PDF', 'Download', this.href);<%}%>"><% if (asset.type == "application/pdf") {%> <span><img src="/images/pdf.png"/></span> <% } else { %> <span><img src="/images/link.png"/></span> <% } %><%= asset.title %></a></p>
         <% });
       } %>
       </section>

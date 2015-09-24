@@ -20,6 +20,7 @@
                 if (asset.sys.id == sectionFile.sys.id) {
                   assetObj = {};
                   assetObj.title = asset.fields.title;
+                  assetObj.description = asset.fields.description;
                   assetObj.url = asset.fields.file.url;
                   assetObj.type = asset.fields.file.contentType;
                   arrayofAssetObj.push(assetObj);
@@ -32,6 +33,7 @@
               assetObj = {};
               assetObj.title = sectionLink.name;
               assetObj.url = sectionLink.url;
+              assetObj.description = sectionLink.description;
               assetObj.type = "application/link";
               arrayofAssetObj.push(assetObj);
             });
