@@ -5,7 +5,7 @@ $(document).ready(function() {
     if (name !== "all") {
       var assets = $("p.asset");
       assets.each(function(index) {
-        contentTypeArray = $(this).data('contenttype').split(',');
+        contentTypeArray = $(this).data('contenttype').replace(/ /g,'').split(',');
         if (jQuery.inArray(name, contentTypeArray) === -1) {
           $(this).hide();
         } else {
