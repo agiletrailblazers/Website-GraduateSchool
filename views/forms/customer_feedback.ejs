@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <% include ../partials/header %>
+    <div class="container">
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="pwd">Name:</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="name" placeholder="Enter name" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="email">Email:</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="email" placeholder="Enter email" type="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="findInfo">Where you able to find the information you needed quickly?</label><br>
+          <div class="radio">
+            <label class="radio-inline"><input name="optradio" type="radio">Yes</label>
+            <label class="radio-inline"><input name="optradio" type="radio">No</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="findSiteInfo">Were there any problems finding information on our website? What were you trying to find?</label>
+          <textarea class="form-control" cols="25" name="findSiteInfo" rows="8"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="generalComments">General Comments:</label>
+          <textarea class="form-control" cols="25" name="generalComments" rows="8"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+  </div>
+  <!--END Container-->
+<!-- Footer -->
+<% include ../partials/footer %>
+<!-- END Footer  -->
+<!-- Chat  -->
+<% include ../partials/chat %>
+<!-- END of Chat  -->
+
+</body>
+</html>

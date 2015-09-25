@@ -163,7 +163,7 @@ router.get('/forms/certificate-program-application', function (req, res, next) {
   });
 });
 	router.get('/forms/feedback', function(req, res, next) {
-		res.render('forms/customer_feedback');
+		res.render('forms/customer_feedback', {title: 'Customer Feedback'});
 	});
 
 	module.exports = router;
