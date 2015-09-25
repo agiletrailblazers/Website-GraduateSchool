@@ -16,18 +16,6 @@ td.statusData {
   text-align: center !important;
 }
 
-
-a:link, a:visited{
-   color: #337AB7;
-
- }
-
- a:hover, a:active {
-   color: #000;
-   background: #EEE;
-
- }
-
 table.schedule  tr {
    background-color: #F9F9F9;
  }
@@ -42,4 +30,14 @@ ul {padding-left: 10px;}
 .course_related_information {
  border: 1px solid #EEE;
  padding: 10px;
+}
+
+
+span.courseInformation {
+width: 30%;
+font-weight: bold;
+}
+
+span.courseData {
+  width: 70%;
 }
