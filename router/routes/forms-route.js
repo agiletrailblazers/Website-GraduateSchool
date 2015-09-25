@@ -48,7 +48,7 @@
       });
     } ], function(results) {
       res.render('forms', {
-        entry: arrayOfContent
+        entry: arrayOfContent, title: "Forms"
       });
     });
   });
