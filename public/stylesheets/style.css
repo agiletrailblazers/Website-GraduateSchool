@@ -681,6 +681,19 @@ ul.customer-support li a:hover {
   box-shadow:none !important;
 }
 
+#moreSearchOptions {
+  text-align: right;
+  padding: 10px 5px 0 0;
+  font-weight: normal !important;
+  color: #01467F;
+  font-size: 14px;
+}
+
+#moreSearchOptions:hover {
+  color: #000;
+  cursor: pointer;
+}
+
 h3.light {
   font-size: 22px !important;
   font-weight: 200;

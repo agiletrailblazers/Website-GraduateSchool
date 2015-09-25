@@ -33,3 +33,16 @@ $('#searchCriteria').focus(function() {
 });
 $('div.locations').hide();
 });
+
+// advanced search > display locations dropdown on MoreSearchOptions click
+$(document).ready(function(){
+$('#moreSearchOptions').click(function() {
+    $('div.locations').show();
+    $(document).bind('focusin.locations click.locations',function(e) {
+        if ($(e.target).closest('.locations, #moreSearchOptions').length) return;
+        $(document).unbind('.locations');
+        $('div.locations').fadeOut('medium');
+    });
+});
+$('div.locations').hide();
+});
