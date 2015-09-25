@@ -206,6 +206,9 @@
          display: block;
          visibility: visible;
        }
+       #searchResults .nav > li {
+         width: 100% !important;
+       }
     }
 
     /* Extra Small Devices, Phones */

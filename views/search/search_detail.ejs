@@ -2,7 +2,7 @@
   <% include filters %>
   <div class="col-lg-9 col-md-9 col-sm-8">
     <div class="row tabs">
-        <div class="col-lg-8 col-md-8 col-sm-8 nopadding">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding">
           <div id="searchResults">
             <ul class="nav nav-tabs">
               <li class="<%= (params.tab == 'course') ? 'active' : '' %>">
@@ -15,7 +15,7 @@
             <input type="hidden" id="txtSelectedTab" value="<%= params.tab %>" />
           </div>
         </div> <!-- END left column -->
-        <div class="col-lg-4 col-md-4 col-sm-4 nopadding">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding">
           <%
             var numRequested = -1;
             if (courseResult && courseResult.numRequested) {

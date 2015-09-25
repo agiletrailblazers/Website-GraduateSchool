@@ -298,7 +298,7 @@ margin: 20px 0;
 
 #searchResults .nav-tabs > li > a {
   border: solid 2px transparent;
-  margin-right: 2px;
+  margin-right: 0 !important;
   line-height: 1.42857;
   border-radius:  0;
 }
@@ -317,4 +317,8 @@ margin: 20px 0;
   border: none !important;
   pointer-events: none;
   cursor: default;
+}
+
+#searchResults .nav > li {
+  width: 50%;
 }
