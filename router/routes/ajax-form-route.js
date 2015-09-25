@@ -10,6 +10,10 @@ var google = require('../../API/google.js');
 var validator = require('validator');
 var logger = require('../../logger');
 
+router.post('/mailer-customer-feedback', function(req, res, next) {
+  params = req.body;
+});
+
 router.post('/mailer-contact-us', function(req, res, next) {
   params = req.body;
   //move code to router service
