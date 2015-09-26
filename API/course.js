@@ -7,13 +7,13 @@ module.exports = {
   performCourseSearch: function(callback, params) {
     var courseApiUrl = config("endpoint").courseApiUrl;
     courseApiUrl = courseApiUrl + '/api/courses?search=' + params.searchCriteria;
-    if (params.numRequested != '' && params.numRequested != null && typeof(params.numRequested) != 'undefined'){
+    if (isNotEmpty(params.numRequested)) {
       courseApiUrl = courseApiUrl + '&numRequested=' + params.numRequested;
     }
-    if (params.cityState != '' && params.cityState != null && typeof(params.cityState) != 'undefined' && params.cityState != 'all'){
+    if (isNotEmpty(params.cityState) && params.cityState != 'all') {
       courseApiUrl = courseApiUrl + '&filter={facet-countall}city_state:' + params.cityState;
     }
-    if (params.page && params.page.course != '' && params.page.course != null && typeof(params.page.course) != 'undefined'){
+    if (params.page && isNotEmpty(params.page.course)) {
       courseApiUrl = courseApiUrl + '&page='+ params.page.course;
     }
     if (params.selectedG2G == "true" ) {
@@ -77,8 +77,7 @@ module.exports = {
       result = JSON.parse(body).courses;
       return callback(response, error, result);
     });
-  }
-  ,
+  },
   getLocations: function(callback) {
     var courseApiUrl = config("endpoint").courseApiUrl;
     request({
@@ -95,26 +94,45 @@ module.exports = {
     });
   },
   performSiteSearch: function(callback, params) {
-      var siteApiUrl = config("endpoint").courseApiUrl;
-      siteApiUrl = siteApiUrl + '/api/site?search=' + params.searchCriteria;
-      if (params.numRequested != '' && params.numRequested != null && typeof(params.numRequested) != 'undefined'){
-          siteApiUrl = siteApiUrl + '&numRequested=' + params.numRequested;
-      }
-       if (params.page && params.page.site != '' && params.page.site != null && typeof(params.page.site) != 'undefined'){
-           siteApiUrl = siteApiUrl + '&page='+ params.page.site;
-      }
-      logger.debug(siteApiUrl);
-      request({
-          method: 'GET',
-          url: siteApiUrl
-      }, function (error, response, body) {
-          if (error != null || response == null || response.statusCode != 200) {
-              logger.error("Exception occured performing course search. " + error);
-              return callback(response, new Error("Exception occured performing Site search"), null);
-          }
-          logger.debug('Status:', response.statusCode);
-          result = JSON.parse(body);
-          return callback(response, error, result);
-      })
+    //skip search if result would be all pages
+    if (isEmpty(params.searchCriteria) && (isEmpty(params.cityState) ||  params.cityState == 'all')) {
+      return callback(null, null, {});
+    }
+    var siteApiUrl = config("endpoint").courseApiUrl;
+    siteApiUrl = siteApiUrl + '/api/site?search=' + params.searchCriteria
+    if (isNotEmpty(params.cityState) && params.cityState != 'all') {
+      siteApiUrl = siteApiUrl + '&filter=content:' + params.cityState;
+    }
+    if (isNotEmpty(params.numRequested)) {
+        siteApiUrl = siteApiUrl + '&numRequested=' + params.numRequested;
+    }
+    if (params.page && isNotEmpty(params.page.site)) {
+         siteApiUrl = siteApiUrl + '&page='+ params.page.site;
+    }
+    logger.debug(siteApiUrl);
+    request({
+        method: 'GET',
+        url: siteApiUrl
+    }, function (error, response, body) {
+        if (error != null || response == null || response.statusCode != 200) {
+            logger.error("Exception occured performing course search. " + error);
+            return callback(response, new Error("Exception occured performing Site search"), null);
+        }
+        logger.debug('Status:', response.statusCode);
+        result = JSON.parse(body);
+        return callback(response, error, result);
+    });
   }
 };
+
+//-- check if value is NOT empty
+function isNotEmpty(val) {
+  if (val != '' && val != null && typeof(val) != 'undefined') {
+    return true;
+  }
+  return false;
+}
+//-- check if value is empty
+function isEmpty(val) {
+  return !isNotEmpty(val);
+}

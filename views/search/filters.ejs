@@ -49,7 +49,7 @@
               <input type="checkbox" id="G2G" name="G2G" value="" <%= g2gChecked %> <%= g2gDisabled %> /><label for="G2G"><strong>Guaranteed To Go</strong>&nbsp;(<%= g2gFacetCount %>) </label><br>
               <hr>
             </span>
-            <span class="form-group <%= (params.tab != 'course') ? 'hidden' : '' %>" data-showfor="course" data-hidefor="site">
+            <span class="form-group" data-showfor="course">
               <p>Location <a id="clearLocation" href="#" class="checkbox-clear">clear</a></p>
               <select id="selLocation" class="form-control">
                 <option value="all">All</option>
