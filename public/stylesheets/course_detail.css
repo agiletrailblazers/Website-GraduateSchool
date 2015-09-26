@@ -268,9 +268,61 @@ color: #888 !important;
 /* Session Schedule Mobile */
 
 .session-schedule-mob {
+  padding: 0;
+  margin: 0;
+  border: none !important;
+}
 
+table.session-schedule-mob, table.session-schedule-mob tr, table.session-schedule-mob td, table.session-schedule-mob th  {
+border: none !important;
+}
+
+
+table.session-schedule-mob tr {
+  border-bottom: 1px solid #EEE !important;
+}
+
+th.mob-header {
+  text-transform: uppercase;
+}
+
+td.statusData-mob {
+  text-align: left;
+}
+
+table.session-schedule-mob th {
+  padding:  12px 10px !important;
+}
+
+h4.session-schedule-mob {
+  color: #545454;
+  font-size: 14px !important;
+  font-weight: normal !important;
+  line-height: 1.4;
 }
 
 #session-schedule-mob {
-  
+
+}
+
+div.register-button {
+  padding: 20px 10px !important;
+  float:right;
+  clear: both;
+}
+
+button.register-mob, button.register-mob:visited {
+    color: #FFF;
+    background-color: #67C067;
+    padding: 7px 15px;
+    box-shadow: none;
+    border: medium none;
+    border-radius: 2px;
+    transition: background-color 300ms linear 0s;
+    font-size: 16px !important;
+}
+
+.single-session {
+  border-radius: 0 !important;
+  margin: 0 !important;
 }
