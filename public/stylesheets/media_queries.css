@@ -9,6 +9,10 @@
           margin-left: 5px;
       }
 
+      #course-information .nav-tabs > li > a {
+      font-size: 14px !important;
+      padding: 15px 5px !important;
+
     }
 
     /* Medium Devices, Desktops */
@@ -87,6 +91,11 @@
           background-position: right bottom;
           background-size: 40px;
         }
+
+        #course-information .nav-tabs > li > a {
+        font-size: 14px !important;
+        padding: 15px 5px !important;
+}
 
     }
 

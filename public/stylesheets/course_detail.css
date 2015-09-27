@@ -88,6 +88,7 @@ table.session-schedule tr:nth-child(even) {
    background-color: #FFFFFF;
  }
 
+
 table.session-schedule td {
   text-align: center;
   padding: 15px !important;
@@ -247,23 +248,49 @@ button.register:hover {
 
 /* Legend */
 
+span.legend-title {
+    padding: 5px;
+    font-size: 13px;
+}
+
 .legend {
 color: #888 !important;
 }
 
 .legend ul {
   display: inline-block;
+  padding: 5px 0;
 }
 
 .legend ul li {
     display: inline-block;
-    padding-left: 15px;
+    padding-left: 10px;
+    font-size: 13px;
 }
 
 .legend ul li span {
   margin: 0 8px 0 5px;
 }
 
+
+.legend-mobile {
+color: #888 !important;
+}
+
+.legend-mobile ul {
+  display: inline-block;
+  padding: 5px 0;
+}
+
+.legend-mobile ul li {
+    display: inline-block;
+    padding: 5px 0 0 10px;
+    font-size: 13px;
+}
+
+.legend-mobile ul li span {
+  margin: 0 8px 0 5px;
+}
 
 /* Session Schedule Mobile */
 
