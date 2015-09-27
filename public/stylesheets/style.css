@@ -1517,6 +1517,10 @@ a.underline-n:after {
   padding-right: 0 !important;
 }
 
+.padding20 {
+  padding: 20px !important;
+}
+
 .margin-reset {
  margin: 0 !important;
 }
