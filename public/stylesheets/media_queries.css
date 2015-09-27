@@ -235,6 +235,11 @@
          width: 100% !important;
        }
 
+       .nopadding-mobile {
+          padding: 0 !important;
+          margin: 0 !important;
+       }
+
     }
 
     /* Extra Small Devices, Phones */

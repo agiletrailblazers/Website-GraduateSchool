@@ -1501,6 +1501,10 @@ a.underline-n:after {
    margin: 0 !important;
 }
 
+.padding0 {
+  padding:0 !important;
+}
+
 .padding-l {
   padding-left: 15px;
 }
