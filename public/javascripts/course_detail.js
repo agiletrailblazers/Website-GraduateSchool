@@ -49,8 +49,35 @@ tableApp = {
   }
 }
 
+tablemobApp = {
+  limitSessions: function(limit) {
+    $(".mob-courseDetailSessionRow").hide();
+    courseSessionLength = $("#mob-courseSessionTable").data('totaltr');
+    x = limit;
+    $('.mob-courseDetailSessionRow:lt(' + x + ')').show();
+    $('#mob-showAll').click(function() {
+      x = (x + 5 <= courseSessionLength) ? x + 5 : courseSessionLength;
+      $('.mob-courseDetailSessionRow:lt(' + x + ')').show();
+      $('#mob-showLess').show();
+      if (x == courseSessionLength) {
+        $('#mob-showAll').hide();
+      }
+    });
+    $('#mob-showLess').click(function() {
+      x = (x - 5 < 0) ? limit : 5;
+      $('.mob-courseDetailSessionRow').not(':lt(' + x + ')').hide();
+      $('#mob-showAll').show();
+      $('#mob-showLess').show();
+      if (x == limit) {
+        $('#mob-showLess').hide();
+      }
+    });
+  }
+}
+
 $(document).ready(function() {
   tableApp.limitTable(10);
+  tablemobApp.limitSessions(5);
   $('.glyphicon-map-marker').click(function(e) {
     e.preventDefault();
     var cityState = $(this).data('city');
