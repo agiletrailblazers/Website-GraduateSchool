@@ -390,6 +390,19 @@ h4 {
   left: 0 !important;
 }
 
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+    background-color: #FDFDFD;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle !important;
+  text-align: left;
+}
+
+ blockquote#whats-new span {
+  color: #000;
+}
+
 .util ul {
   padding: 0 !important;
 }
@@ -401,6 +414,10 @@ img.home {
 .img {
   width: 100%;
   max-width: 1000px;
+}
+
+.imga {
+  display: inline-block;
 }
 
 
@@ -442,6 +459,16 @@ table h5 {
     padding: 0;
 }
 
+table.generic th {
+  background-color: #427EB4 !important;
+  padding: 20px !important;
+  color: #FFF;
+  font-size: 14px;
+}
+
+table.generic td {
+  padding: 5px 20px !important;
+}
 
 
 /* END What's new temporary styles   */
