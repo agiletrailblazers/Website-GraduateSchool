@@ -226,7 +226,7 @@
                           <div class="panel-group session-schedule-mob mobile" id="accordion">
                               <div class="panel panel-default single-session mob-courseDetailSessionRow">
                                   <div class="panel-heading" id="session-title<%= i+1 %>">
-                                          <a data-toggle="collapse" href="#session-title<%= i+1 %>" class=" sessionExpand" data-target="#session<%= i+1 %>">
+                                          <a data-toggle="collapse" href="#session-title<%= i+1 %>" class="accordion-toggle sessionExpand collapsed" data-target="#session<%= i+1 %>">
                                             <h4 class="panel-title session-schedule-mob">
                                               <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br>
                                                  <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
