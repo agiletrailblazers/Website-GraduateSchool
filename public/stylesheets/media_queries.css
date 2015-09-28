@@ -9,6 +9,10 @@
           margin-left: 5px;
       }
 
+      #course-information .nav-tabs > li > a {
+      font-size: 14px !important;
+      padding: 15px 5px !important;
+
     }
 
     /* Medium Devices, Desktops */
@@ -88,10 +92,30 @@
           background-size: 40px;
         }
 
+        #course-information .nav-tabs > li > a {
+        font-size: 14px !important;
+        padding: 15px 5px !important;
+}
+
     }
 
     /* Small Devices, Tablets */
     @media only screen and (max-width : 768px) {
+
+      .mobile {
+        display: block;
+        visibility: visible;
+      }
+
+      .non-mobile {
+        display:none;
+        visibility: hidden;
+      }
+
+      .mobile-nopadding {
+        padding: 0 !important;
+      }
+
 
       /* remove "CLEAR ALL" button from refine search sidebar on smaller res */
       .refine {
@@ -202,13 +226,20 @@
          visibility: hidden;
        }
 
-       .mobile {
-         display: block;
-         visibility: visible;
+
+       #related-links .panel-body {
+         padding: 15px 5px;
        }
+
        #searchResults .nav > li {
          width: 100% !important;
        }
+
+       .nopadding-mobile {
+          padding: 0 !important;
+          margin: 0 !important;
+       }
+
     }
 
     /* Extra Small Devices, Phones */

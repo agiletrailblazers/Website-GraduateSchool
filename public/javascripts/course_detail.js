@@ -22,7 +22,62 @@ mapApp = {
     });
   }
 }
+
+tableApp = {
+  limitTable: function(limit) {
+    $(".courseDetailSessionRow, #loadMore, #showLess").hide();
+    courseSessionLength = $("#courseSessionTable").data('totaltr');
+    $('.courseDetailSessionRow:lt(' + limit + ')').show();
+    if(courseSessionLength > limit) {
+      $("#loadMore").show();
+    }
+  },
+  showAll: function() {
+    $(".courseDetailSessionRow").fadeIn();
+    $("#loadMore").fadeOut();
+    $("#showLess").fadeIn();
+  },
+  hideAll: function() {
+    $("#loadMore").fadeIn();
+    $("#showLess").fadeOut();
+  }
+}
+
+tablemobApp = {
+  limitSessions: function(limit) {
+    $(".mob-courseDetailSessionRow, #mob-loadMore, #mob-showLess").hide();
+    courseSessionLength = $("#mob-courseSessionTable").data('totaltr');
+    $('.mob-courseDetailSessionRow:lt(' + limit + ')').show();
+    if(courseSessionLength > limit) {
+      $("#mob-showAll").show();
+    }
+    $('#mob-showAll').click(function() {
+      $('.mob-courseDetailSessionRow').show();
+      $('#mob-showLess').show();
+      $('#mob-showAll').hide();
+    });
+    $('#mob-showLess').click(function() {
+      $('.mob-courseDetailSessionRow').not(':lt(' + limit + ')').hide();
+      $('#mob-showAll').show();
+      $('#mob-showLess').hide();
+    });
+  }
+}
+
 $(document).ready(function() {
+  tableApp.limit = 10;
+  tableApp.limitTable(tableApp.limit);
+  $("#loadMore").click(function(e) {
+    e.preventDefault();
+    tableApp.showAll();
+  });
+  $("#showLess").click(function(e) {
+    e.preventDefault();
+    $('.courseDetailSessionRow:gt(' + (tableApp.limit - 1) + ')').fadeOut();
+    tableApp.hideAll();
+  });
+
+  tablemobApp.limitSessions(5);
   $('.glyphicon-map-marker').click(function(e) {
     e.preventDefault();
     var cityState = $(this).data('city');
@@ -43,4 +98,6 @@ $(document).ready(function() {
   $('#mapModal').on('hidden.bs.modal', function() {
     $("#modalSessionLocationSpan, #mapAlert").remove();
   });
+
+  $(".sessionExpand").eq(0).removeClass('collapsed');
 });

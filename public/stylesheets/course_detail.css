@@ -6,6 +6,95 @@
   width: 100%;
   margin: 0 auto;
 }
+
+
+ul {padding-left: 10px;}
+
+.course_related_information nav ul li {list-style: none; padding: 5px;}
+
+.course_related_information {
+ border: 1px solid #EEE;
+ padding: 10px;
+}
+
+/* Course Detail left panel */
+table.details, table.details th, table.details tr, table.details td {
+  border: none !important;
+  color: #555555;
+  font-size: 15px;
+}
+
+table.details tr {
+  border-bottom: 1px solid #EEE !important;
+}
+
+table.details th {
+  width: 27%;
+}
+
+table.details td {
+  width: 73%;
+  padding: 5px !important;
+}
+
+.panel > .panel-heading.course-detail {
+    background-image: none !important;
+    background-color: #427EB4 !important;
+    border-radius: 0 !important;
+}
+
+.panel .course-detail h4.panel-title {
+    color: #FFF !important;
+    font-size: 18px;
+    font-weight: 400 !important;
+    padding: 5px 0px;
+}
+
+.panel-heading.course-detail a {
+    color: #FFF !important;
+    font-weight: 400 !important;
+}
+
+
+/* Course Detail Sessions Schedule table */
+
+table.session-schedule, table.session-schedule th, table.session-schedule tr, table.session-schedule td {
+  border: none !important;
+  color: #545454;
+  font-size: 14px;
+}
+table.session-schedule {
+  border: 1px solid #CCD8E3 !important;
+}
+
+table.session-schedule th {
+  background-image: none !important;
+  background-color: #427EB4 !important;
+  border-radius: 0px !important;
+  color: #FFF;
+  padding: 15px !important;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: normal;
+  text-align: center;
+}
+
+table.session-schedule tr {
+  background-color: #FDFDFD;
+  border-bottom: 1px solid #CCD8E3 !important;
+}
+
+table.session-schedule tr:nth-child(even) {
+   background-color: #FFFFFF;
+ }
+
+
+table.session-schedule td {
+  text-align: center;
+  padding: 15px !important;
+  vertical-align: middle !important;
+}
+
 td.g2gData {
   margin: 0 auto;
   text-align: center !important;
@@ -17,29 +106,258 @@ td.statusData {
 }
 
 
-a:link, a:visited{
-   color: #337AB7;
+/* Tabs section */
 
- }
+.tabs {
+    background-image: none !important;
+    background-color: #427EB4 !important;
+    border: medium none;
+    border-radius: 2px;
+    margin: 0px;
+    box-shadow: none;
+}
 
- a:hover, a:active {
-   color: #000;
-   background: #EEE;
+#course-information .nav {
 
- }
+}
 
-table.schedule  tr {
-   background-color: #F9F9F9;
- }
-table.schedule tr:nth-child(even) {
-   background-color: #FFFFFF;
- }
+#course-information .nav-tabs {
+  border: none;
+}
 
-ul {padding-left: 10px;}
+#course-information .nav-tabs > li {
 
-.course_related_information nav ul li {list-style: none; padding: 5px;}
+}
 
-.course_related_information {
- border: 1px solid #EEE;
- padding: 10px;
+#course-information .nav > li {
+    position: relative;
+    display: block;
+}
+
+#course-information .nav-tabs > li > a {
+  font-size: 15px;
+  padding: 15px;
+  border: solid 1px transparent;
+  color: #444444;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+#course-information .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+  color: #444444;
+  cursor: default;
+  background-image: linear-gradient(to bottom, #F2F2F2 0px, #FFF 100%);
+  border-top: solid 1px #DDD;
+  border-bottom: solid 1px #FFF;
+  border-left:solid 1px #DDD;
+  border-right:solid 1px #DDD;
+  -moz-border-top-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  border-image: none;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+#course-information .nav-tabs > li > a:hover {
+  color: #444444;
+  border-top: solid 1px #DDD;
+  border-bottom: solid 1px #FFF;
+  border-left:solid 1px #DDD;
+  border-right:solid 1px #DDD;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+#course-information .nav-tabs > li > a {
+  border-radius:  0;
+}
+
+#course-information .nav > li > a {
+  position: relative;
+  display: block;
+}
+
+#course-information .nav > li > a.disabled, #course-information .nav > li > a.disabled:hover {
+  color: #AAA !important;
+  background: transparent !important;
+  border: none !important;
+  pointer-events: none;
+  cursor: default;
+}
+#course-information .nav-tabs > li > a > img, #mob-course-information .nav-tabs > li > a > img {
+  padding: 0 5px 0 5px;
+  margin-top: -5px;
+}
+
+#course-information-content {
+  padding: 20px;
+  border: 1px solid #DDDDDD;
+}
+
+h4.panel-title {
+    color: #444;
+}
+
+h4.panel-title > img {
+  margin: -3px 10px 0 0;
+
+}
+
+.mob-course-information {
+
+}
+
+
+button.register, button.register:visited {
+  color: #FFF;
+  background-color: #67C067;
+  padding: 5px 15px;
+  box-shadow: none;
+  border: none;
+  border-radius: 2px;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+button.register:hover {
+  color: #FFF;
+  background-color: #008C23;
+  padding: 5px 15px;
+  box-shadow: none;
+  border: none;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+/* Legend */
+
+span.legend-title {
+    padding: 5px;
+    font-size: 13px;
+}
+
+.legend {
+color: #888 !important;
+}
+
+.legend ul {
+  display: inline-block;
+  padding: 5px 0;
+}
+
+.legend ul li {
+    display: inline-block;
+    padding-left: 10px;
+    font-size: 13px;
+}
+
+.legend ul li span {
+  margin: 0 8px 0 5px;
+}
+
+
+.legend-mobile {
+color: #888 !important;
+}
+
+.legend-mobile ul {
+  display: inline-block;
+  padding: 5px 0;
+}
+
+.legend-mobile ul li {
+    display: inline-block;
+    padding: 5px 0 0 10px;
+    font-size: 13px;
+}
+
+.legend-mobile ul li span {
+  margin: 0 8px 0 5px;
+}
+
+/* Session Schedule Mobile */
+
+.session-schedule-mob {
+  padding: 0;
+  margin: 0;
+  border: none !important;
+}
+
+table.session-schedule-mob, table.session-schedule-mob tr, table.session-schedule-mob td, table.session-schedule-mob th  {
+border: none !important;
+}
+
+
+table.session-schedule-mob tr {
+  border-bottom: 1px solid #EEE !important;
+}
+
+th.mob-header {
+  text-transform: uppercase;
+}
+
+td.statusData-mob {
+  text-align: left;
+}
+
+table.session-schedule-mob th {
+  padding:  12px 10px !important;
+}
+
+h4.session-schedule-mob {
+  color: #545454;
+  font-size: 14px !important;
+  font-weight: normal !important;
+  line-height: 1.4;
+}
+
+#session-schedule-mob {
+
+}
+
+.table-nav {
+  padding-top: 5px;
+}
+
+a#showLess, a#loadMore, a#mob-showAll, a#mob-showLess {
+ padding-left: 10px;
+}
+
+div.register-button {
+  padding: 20px 10px !important;
+  float:right;
+  clear: both;
+}
+
+button.register-mob, button.register-mob:visited {
+    color: #FFF;
+    background-color: #67C067;
+    padding: 7px 15px;
+    box-shadow: none;
+    border: medium none;
+    border-radius: 2px;
+    transition: background-color 300ms linear 0s;
+    font-size: 16px !important;
+}
+
+.single-session {
+  border-radius: 0 !important;
+  margin: 0 !important;
 }
