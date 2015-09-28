@@ -97,4 +97,6 @@ $(document).ready(function() {
   $('#mapModal').on('hidden.bs.modal', function() {
     $("#modalSessionLocationSpan, #mapAlert").remove();
   });
+
+  $(".sessionExpand").eq(0).removeClass('collapsed');
 });
