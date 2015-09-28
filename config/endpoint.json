@@ -1,5 +1,5 @@
 {
-    "courseApiUrl": "http://54.174.123.251:8080",
+    "courseApiUrl": "http://ec2-54-174-123-251.compute-1.amazonaws.com",
 
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
@@ -7,7 +7,7 @@
     "defaultEmailUserPassword":"",
     "defaultEmailFromUserName":"",
     "contactUsToUserName":"",
-    "onsiteInquiryToUserName":"",  
+    "onsiteInquiryToUserName":"",
     "onsiteInquiryEmailSubject":"Request for Training",
 
     "googleAnalyticsId":"UA-66851185-2",
