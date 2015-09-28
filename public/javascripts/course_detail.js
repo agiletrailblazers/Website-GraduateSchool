@@ -25,9 +25,7 @@ mapApp = {
 
 tableApp = {
   limitTable: function(limit) {
-    $("#loadMore").hide();
-    $("#showLess").hide();
-    $(".courseDetailSessionRow").hide();
+    $(".courseDetailSessionRow, #loadMore, #showLess").hide();
     courseSessionLength = $("#courseSessionTable").data('totaltr');
     $('.courseDetailSessionRow:lt(' + limit + ')').show();
     if(courseSessionLength > limit) {
@@ -47,7 +45,7 @@ tableApp = {
 
 tablemobApp = {
   limitSessions: function(limit) {
-    $(".mob-courseDetailSessionRow").hide();
+    $(".mob-courseDetailSessionRow, #mob-loadMore, #mob-showLess").hide();
     courseSessionLength = $("#mob-courseSessionTable").data('totaltr');
     $('.mob-courseDetailSessionRow:lt(' + limit + ')').show();
     if(courseSessionLength > limit) {
