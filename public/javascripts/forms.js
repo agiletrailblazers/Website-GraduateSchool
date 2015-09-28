@@ -41,6 +41,7 @@ $(document).ready(function () {
   var navuserArray = ["to", "ps", "cs"];
   if (navuser && typeof(navuser != 'undefined') && (navuserArray.indexOf(navuser.toLowerCase()) > -1)) {
     $('[name="' + navuser.toLowerCase() + '"]').trigger('click');
+    $('[name="' + navuser.toLowerCase() + '"] > a').focus();
   }
 
 });
