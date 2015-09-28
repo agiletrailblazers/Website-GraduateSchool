@@ -1,5 +1,5 @@
 {
-    "courseApiUrl": "http://54.174.123.251:8080",
+    "courseApiUrl": "http://ec2-54-174-123-251.compute-1.amazonaws.com",
 
     "defaultEmailServerName": "10.0.0.240",
     "defaultEmailServerPort": "25",
