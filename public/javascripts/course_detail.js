@@ -49,24 +49,19 @@ tablemobApp = {
   limitSessions: function(limit) {
     $(".mob-courseDetailSessionRow").hide();
     courseSessionLength = $("#mob-courseSessionTable").data('totaltr');
-    x = limit;
-    $('.mob-courseDetailSessionRow:lt(' + x + ')').show();
+    $('.mob-courseDetailSessionRow:lt(' + limit + ')').show();
+    if(courseSessionLength > limit) {
+      $("#mob-showAll").show();
+    }
     $('#mob-showAll').click(function() {
-      x = (x + 5 <= courseSessionLength) ? x + 5 : courseSessionLength;
-      $('.mob-courseDetailSessionRow:lt(' + x + ')').show();
+      $('.mob-courseDetailSessionRow').show();
       $('#mob-showLess').show();
-      if (x == courseSessionLength) {
-        $('#mob-showAll').hide();
-      }
+      $('#mob-showAll').hide();
     });
     $('#mob-showLess').click(function() {
-      x = (x - 5 < 0) ? limit : 5;
-      $('.mob-courseDetailSessionRow').not(':lt(' + x + ')').hide();
+      $('.mob-courseDetailSessionRow').not(':lt(' + limit + ')').hide();
       $('#mob-showAll').show();
-      $('#mob-showLess').show();
-      if (x == limit) {
-        $('#mob-showLess').hide();
-      }
+      $('#mob-showLess').hide();
     });
   }
 }
