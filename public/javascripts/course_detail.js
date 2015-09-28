@@ -25,27 +25,23 @@ mapApp = {
 
 tableApp = {
   limitTable: function(limit) {
+    $("#loadMore").hide();
+    $("#showLess").hide();
     $(".courseDetailSessionRow").hide();
     courseSessionLength = $("#courseSessionTable").data('totaltr');
-    x = limit;
-    $('.courseDetailSessionRow:lt(' + x + ')').show();
-    $('#loadMore').click(function() {
-      x = (x + 5 <= courseSessionLength) ? x + 5 : courseSessionLength;
-      $('.courseDetailSessionRow:lt(' + x + ')').show();
-      $('#showLess').show();
-      if (x == courseSessionLength) {
-        $('#loadMore').hide();
-      }
-    });
-    $('#showLess').click(function() {
-      x = (x - 5 < 0) ? limit : x - 5;
-      $('.courseDetailSessionRow').not(':lt(' + x + ')').hide();
-      $('#loadMore').show();
-      $('#showLess').show();
-      if (x == limit) {
-        $('#showLess').hide();
-      }
-    });
+    $('.courseDetailSessionRow:lt(' + limit + ')').show();
+    if(courseSessionLength > limit) {
+      $("#loadMore").show();
+    }
+  },
+  showAll: function() {
+    $(".courseDetailSessionRow").fadeIn();
+    $("#loadMore").fadeOut();
+    $("#showLess").fadeIn();
+  },
+  hideAll: function() {
+    $("#loadMore").fadeIn();
+    $("#showLess").fadeOut();
   }
 }
 
@@ -76,7 +72,18 @@ tablemobApp = {
 }
 
 $(document).ready(function() {
-  tableApp.limitTable(10);
+  tableApp.limit = 10;
+  tableApp.limitTable(tableApp.limit);
+  $("#loadMore").click(function(e) {
+    e.preventDefault();
+    tableApp.showAll();
+  });
+  $("#showLess").click(function(e) {
+    e.preventDefault();
+    $('.courseDetailSessionRow:gt(' + (tableApp.limit - 1) + ')').fadeOut();
+    tableApp.hideAll();
+  });
+
   tablemobApp.limitSessions(5);
   $('.glyphicon-map-marker').click(function(e) {
     e.preventDefault();
