@@ -29,11 +29,14 @@ $(document).ready(function() {
     $("#mapModalLabel").append('<span id="modalSessionLocationSpan">' + cityState + '</span>');
     mapApp.start();
     var address = $(this).data('address');
+    var destination = address.replace(/ /g, '+');
+    var directionsUrl = "http://maps.google.com?saddr=Current+Location&daddr=" + destination + "";
     google.maps.event.addListenerOnce(map, 'idle', function() {
       google.maps.event.trigger(map, 'resize');
     });
     $("#mapModal").on("shown.bs.modal", function() {
       mapApp.codeAddress(address);
+      $("#getDirections").attr("href", directionsUrl);
       google.maps.event.trigger(map, "resize");
     });
   });
