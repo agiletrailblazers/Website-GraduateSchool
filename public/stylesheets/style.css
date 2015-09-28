@@ -2,7 +2,7 @@
 /*==============================================*/
 
 @media print {
-  #header, #footer, #chat, .util {display: none !important;  }
+  #header, #footer, #chat, .util, .ms-drop {display: none !important;  }
     *{
         filter: grayscale(100%);
         -webkit-filter: grayscale(100%);
