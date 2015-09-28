@@ -2,72 +2,50 @@
   <div class="container">
     <div class="news row clearfix ">
       <div class="">
-        <div class="col-lg-8 col-md-12 col-sm-12">
-          <div class="testimonial">
-            <hr class="mobile">
-            <img src="/images/testimonial.jpg" alt=""  width="100%" class="testimonial-bg"/>
-            <blockquote cite="">
-              <span>What I’ve learned is that great leaders are great learners. They’re continually learning, and what leading is all about is learning. We’re always on this journey. This experience was just a great example of what a great leader should be doing.</span>
-            </blockquote>
-            <hr class="mobile">
+        <% testimonial.forEach(function(testimony) { %>
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="testimonial">
+              <hr class="mobile">
+              <img src="<%= testimony.imageAsset.file.url %>" alt="<%= testimony.marketingImageText %>"  width="100%" class="testimonial-bg"/>
+              <blockquote cite="">
+                <span><%= testimony.marketingImageText %></span>
+              </blockquote>
+              <hr class="mobile">
+            </div>
           </div>
-        </div>
+        <% }); %>
         <div class="col-lg-4 col-md-12 col-sm-12">
           <div class="news-and-events">
           <h3><img src="/images/news-icon.png" alt="" /> News & Events</h3>
           <!-- News Entry  -->
-          <div class="news-entry">
-            <div class="news-entry-header">
-              <div class="row nopadding">
-                <div class="col-lg-2  col-md-1 col-sm-1 nopadding">
-                  <div class="news-date">
-                    <span class="month"><%= news[0].fields.date.date('MMM') %></span> <br>
-                    <span class="day"><%= news[0].fields.date.date('DD') %></span>
+          <% if (news) { %>
+            <% for(i=0; i<=1; i++) { %>
+              <div class="news-entry">
+                <div class="news-entry-header">
+                  <div class="row nopadding">
+                    <div class="col-lg-2  col-md-1 col-sm-1 nopadding">
+                      <div class="news-date">
+                        <span class="month"><%= news[i].fields.date.date('MMM') %></span> <br>
+                        <span class="day"><%= news[i].fields.date.date('DD') %></span>
+                      </div>
+                    </div>
+                    <div class="col-lg-10 col-md-11 col-sm-11">
+                    <a href="/news/<%= news[i].fields.slug %>"><h5><%= news[i].fields.title %></h5></a>
+                    </div>
                   </div>
                 </div>
-                <div class="col-lg-10 col-md-11 col-sm-11">
-                <a href="/news/<%= news[0].fields.slug %>"><h5><%= news[0].fields.title %></h5></a>
+                <div class="row news-excerpt nopadding">
+                  <p>
+                    <%= prune(striptags(news[i].fields.body), 250, "...") %>
+                  </p>
                 </div>
+                <div class="row clearfix pull-right nopadding">
+                    <a href="/news/<%= news[i].fields.slug %>">Read More <img src="/images/arrow-blue.png" alt="" /></a>
+                </div>
+                <hr>
               </div>
-            </div>
-            <div class="row news-excerpt nopadding">
-              <p>
-                <%= prune(striptags(news[0].fields.body), 250, "...") %>
-              </p>
-            </div>
-            <div class="row clearfix pull-right nopadding">
-                <a href="/news/<%= news[0].fields.slug %>">Read More <img src="/images/arrow-blue.png" alt="" /></a>
-            </div>
-            <hr>
-          </div>
-          <!-- END News Entry  -->
-          <!-- News Entry  -->
-          <div class="news-entry">
-            <div class="news-entry-header">
-
-              <div class="row nopadding">
-                <div class="col-lg-2  col-md-1 col-sm-1 nopadding">
-                  <div class="news-date">
-                    <span class="month"><%= news[1].fields.date.date('MMM') %></span> <br>
-                    <span class="day"><%= news[1].fields.date.date('DD') %></span>
-                  </div>
-
-                </div>
-                <div class="col-lg-10 col-md-11 col-sm-11">
-                    <a href="/news/<%= news[1].fields.slug %>"><h5><%= news[1].fields.title %></h5></a>
-                </div>
-              </div>
-            </div>
-            <div class="row news-excerpt nopadding">
-              <p>
-                <%= prune(striptags(news[1].fields.body), 250, "...") %>
-              </p>
-            </div>
-            <div class="row clearfix pull-right nopadding">
-                <a href="/news/<%= news[1].fields.slug %>">Read More <img src="/images/arrow-blue.png" alt="" /></a>
-            </div>
-            <hr>
-          </div>
+            <% } %>
+          <% } %>
           <!-- END News Entry  -->
           <div class="row clearfix pull-left nopadding">
             <a href="/news">View all News &amp; Events</a>
