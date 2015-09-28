@@ -21,9 +21,22 @@ router.get('/', function(req, res, next) {
         data.news = response.items;
         callback();
      });
-   }
+   },
+   function(callback) {
+     contentful.getTestimonial(function(response) {
+       data.testimonial = response;
+       callback();
+    });
+   },
  ], function(results) {
-   res.render('index', { title: 'Graduate School', name: 'Home Page', slider: data.slider, news: data.news, striptags: striptags, prune: prune, homepage:true });
+   res.render('index', { title: 'Graduate School',
+    name: 'Home Page',
+    slider: data.slider,
+    news: data.news,
+    testimonial: data.testimonial,
+    striptags: striptags,
+    prune: prune,
+    homepage:true });
  });
 });
 
