@@ -2,8 +2,19 @@
 /*==============================================*/
 
 @media print {
-  #header, #footer, #chat {display: none !important;}
-  @page { margin: 0 }
+  #header, #footer, #chat, .util {display: none !important;  }
+    *{
+        filter: grayscale(100%);
+        -webkit-filter: grayscale(100%);
+    }
+
+    a[href]:after {
+      content: none !important;
+    }
+
+  @page {
+    margin: 75px;
+  }
 }
 
 html {
