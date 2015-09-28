@@ -37,6 +37,7 @@ router.get('/whats-new', function(req, res, next) {
     },
   ], function(results) {
     res.render('whats_new', {
+      title: 'What\'s new',
       entry: content.class.cmsEntry.fields,
       whatsnewheaderImageURLList: content.whatsnewheaderImageURLList
     });
