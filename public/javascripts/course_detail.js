@@ -100,4 +100,11 @@ $(document).ready(function() {
   });
 
   $(".sessionExpand").eq(0).removeClass('collapsed');
+
+  $("[data-parent='#accordion2']").click(function(event) {
+    var thisId = $(this).attr("id");
+    $('html, body').animate({
+        scrollTop: $("#"+thisId+"").offset().top
+    }, 2000);
+  });
 });
