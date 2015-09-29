@@ -301,7 +301,7 @@
       <div class="panel-group mob-course-information mobile" id="accordion2">
               <div class="panel panel-default margin-reset nopadding">
                   <div class="panel-heading">
-                          <a data-toggle="collapse" data-parent="#accordion2" href="#acc-course-overview"><h4 class="panel-title"><img src="../images/course-overview.png" alt="" /><%= content.courseInfoTitles[0] %></h4></a>
+                          <a data-toggle="collapse" id="accordion1" data-parent="#accordion2" href="#acc-course-overview"><h4 class="panel-title"><img src="../images/course-overview.png" alt="" /><%= content.courseInfoTitles[0] %></h4></a>
                   </div>
                   <div id="acc-course-overview" class="panel-collapse collapse in">
                       <div class="panel-body">
@@ -311,7 +311,7 @@
               </div>
               <div class="panel panel-default margin-reset nopadding">
                   <div class="panel-heading">
-                      <a data-toggle="collapse" data-parent="#accordion2" href="#acc-who-should-attend"><h4 class="panel-title"><img src="../images/who-should-attend.png" alt="" /><%= content.courseInfoTitles[1] %></h4></a>
+                      <a data-toggle="collapse" id="accordion2" data-parent="#accordion2" href="#acc-who-should-attend"><h4 class="panel-title"><img src="../images/who-should-attend.png" alt="" /><%= content.courseInfoTitles[1] %></h4></a>
                   </div>
                   <div id="acc-who-should-attend" class="panel-collapse collapse">
                       <div class="panel-body">
@@ -322,7 +322,7 @@
               <% if (courseData.class.outcomes !== null) { %>
               <div class="panel panel-default margin-reset nopadding">
                   <div class="panel-heading">
-                        <a data-toggle="collapse" data-parent="#accordion2" href="#acc-learning-outcomes"><h4 class="panel-title"><img src="../images/learning-outcomes.png" alt="" /><%= content.courseInfoTitles[2] %></h4></a>
+                        <a data-toggle="collapse" id="accordion3" data-parent="#accordion2" href="#acc-learning-outcomes"><h4 class="panel-title"><img src="../images/learning-outcomes.png" alt="" /><%= content.courseInfoTitles[2] %></h4></a>
                   </div>
                   <div id="acc-learning-outcomes" class="panel-collapse collapse">
                       <div class="panel-body">
@@ -342,7 +342,7 @@
               <% if ( courseData.syllabus &&  courseData.syllabus.fields &&  courseData.syllabus.fields.syllabusContent ) { %>
               <div class="panel panel-default margin-reset nopadding">
                   <div class="panel-heading">
-                        <a data-toggle="collapse" data-parent="#accordion2" href="#acc-course-outline"><h4 class="panel-title"><img src="../images/course-outline.png" alt="" /><%= content.courseInfoTitles[3] %></h4></a>
+                        <a data-toggle="collapse" id="accordion4" data-parent="#accordion2" href="#acc-course-outline"><h4 class="panel-title"><img src="../images/course-outline.png" alt="" /><%= content.courseInfoTitles[3] %></h4></a>
                   </div>
                   <div id="acc-course-outline" class="panel-collapse collapse">
                       <div class="panel-body">
