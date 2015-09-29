@@ -361,3 +361,7 @@ button.register-mob, button.register-mob:visited {
   border-radius: 0 !important;
   margin: 0 !important;
 }
+
+.panel-heading .accordion-toggle.sessionExpand::after {
+    color: #999;
+}

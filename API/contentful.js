@@ -279,6 +279,32 @@ module.exports = {
         statusCode: response.statusCode
       });
     });
+  },
+  getTestimonial: function(callback) {
+    request({
+      method: 'GET',
+      url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=6xOVVkV7wc8ecwKqCaSwyW',
+      headers: {
+        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      }
+    }, function(error, response, body) {
+      logger.debug("Marketing testimonial: " + response.statusCode);
+      content = JSON.parse(body);
+      var testimonial = [];
+      var itemCount = 0;
+      if (content && content.items) {
+        content.items.forEach(function(item) {
+          testimonial[itemCount] = item.fields;
+          content.includes.Asset.forEach(function(asset) {
+            if (item.fields.marketingImage.sys.id === asset.sys.id) {
+              testimonial[itemCount].imageAsset = asset.fields;
+            }
+          });
+          itemCount++;
+        });
+      }
+      return callback(testimonial);
+    });
   }
 
 };

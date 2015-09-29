@@ -1,8 +1,13 @@
 /*==========  GRADUATE SCHOOL Styles  ==========*/
 /*==============================================*/
 
+*[id^='glyphicon'] {
+  color: white !important;
+}
+
+
 @media print {
-  #header, #footer, #chat, .util {display: none !important;  }
+  #header, #footer, #chat, .util, .ms-drop {display: none !important;  }
     *{
         filter: grayscale(100%);
         -webkit-filter: grayscale(100%);
@@ -397,7 +402,7 @@ h4 {
 /* What's new temporary styles */
 
 #whats-new {
-  font-size: 18px !important;
+  font-size: 22px !important;
   display: block;
   width: 100%;
   position: relative !important;
@@ -1284,7 +1289,16 @@ ul.networks img:hover {
 }
 
 
+ul.networks-mobile {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0 10px;
+}
 
+ul.networks-mobile li {
+  display: inline-block;
+}
 
 /* SLIDER */
 .carousel-caption h1 {

@@ -1,5 +1,5 @@
 {
-    "courseApiUrl": "http://54.88.97.61:8080",
+    "courseApiUrl": "http://ec2-54-88-97-61.compute-1.amazonaws.com",
 
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
