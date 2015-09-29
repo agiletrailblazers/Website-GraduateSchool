@@ -1,6 +1,11 @@
 /*==========  GRADUATE SCHOOL Styles  ==========*/
 /*==============================================*/
 
+*[id^='glyphicon'] {
+  color: white !important;
+}
+
+
 @media print {
   #header, #footer, #chat, .util {display: none !important;  }
     *{
