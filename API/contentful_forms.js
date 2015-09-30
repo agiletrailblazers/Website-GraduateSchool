@@ -40,7 +40,7 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-      logger.debug("News Post Contentful: " + response.statusCode);
+      logger.debug("get Duplicate Forms Contentful Response Code: " + response.statusCode);
       cmsEntry = JSON.parse(body);
       console.log(cmsEntry);
       return callback({
