@@ -134,6 +134,8 @@ module.exports = {
 
         callback(response);
     },
-    validateRequestDuplicate(callback, params)
+    validateRequestDuplicate: function(callback, params) {
+
+    }
 
 };

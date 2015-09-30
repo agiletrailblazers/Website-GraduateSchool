@@ -69,7 +69,7 @@ router.get('/forms/contact-us', function(req, res, next) {
     });
 
 //Get Request duplicate Form Page
-router.get('/forms/request_duplicate_form', function (req, res, next) {
+router.get('/forms/request-duplicate-form', function (req, res, next) {
   var fields;
   var states;
   async.parallel([
