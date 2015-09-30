@@ -89,7 +89,7 @@ module.exports = {
   },
   sendOnRequestDuplicate: function(callback, params) {
     logger.debug("SMTP sending to: " + smtp);
-    onsiteInquiryTemplate.render(params, function(err, results) {
+    requestduplicateTemplate.render(params, function(err, results) {
       logger.info("Starting mail send");
       if (err) {
         logger.error(err);
