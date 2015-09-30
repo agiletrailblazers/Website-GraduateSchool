@@ -75,7 +75,7 @@ router.get('/forms/request_duplicate_form', function(req, res, next) {
       sectionTitle: response.sectionTitle,
       sectionHeaderDescription:response.sectionHeaderDescription,
       sectionFooterDescription:response.sectionFooterDescription,
-      title:"Request duplicate Form",
+      title:"Request Duplicate Form",
     });
   })
 });
