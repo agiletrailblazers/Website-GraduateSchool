@@ -69,15 +69,33 @@ router.get('/forms/contact-us', function(req, res, next) {
     });
 
 //Get Request duplicate Form Page
-router.get('/forms/request_duplicate_form', function(req, res, next) {
-  contentful.getDuplicateForms(function(response) {
+router.get('/forms/request_duplicate_form', function (req, res, next) {
+  var fields;
+  var states;
+  async.parallel([
+    function (callback) {
+      logger.debug('Get contentful fields');
+      contentful.getDuplicateForms(function (response) {
+        fields = response;
+        callback();
+      });
+    },
+    function (callback) {
+      logger.debug("Get us states");
+      contentful.getReferenceData('us-states', function (result) {
+        states = result;
+        callback();
+      });
+    }
+  ], function (results) {
     res.render('forms/request_duplicate_form', {
-      sectionTitle: response.sectionTitle,
-      sectionHeaderDescription:response.sectionHeaderDescription,
-      sectionFooterDescription:response.sectionFooterDescription,
-      title:"Request Duplicate Form",
+      sectionTitle: fields.sectionTitle,
+      sectionHeaderDescription: fields.sectionHeaderDescription,
+      sectionFooterDescription: fields.sectionFooterDescription,
+      title: "Request Duplicate Form",
+      states: states
     });
-  })
+  });
 });
 
 module.exports = router;
