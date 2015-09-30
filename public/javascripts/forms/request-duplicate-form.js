@@ -55,9 +55,8 @@ $(document).ready(function() {
   $("#alertError").hide();
   $(".loading").hide();
   $("#removeAlert").css('cursor', 'pointer');
-  $("#submitForm").click(function(event) {
+  $("requestDuplicateForm").submit(function(event) {
     event.preventDefault();
-    _runValidation;
     formData = {};
     formData.firstName = $("#txtFirstName").val();
     formData.lastName = $("#txtLastName").val();
@@ -70,29 +69,30 @@ $(document).ready(function() {
     formData.fax = $("#txtFax").val();
     formData.email = $("#txtEmail").val();
     formData.captchaResponse = $("#g-recaptcha-response").val();
+    _runValidation();
     if (!$("#alertError p").length) {
       $(".loading").show();
       $.post("/mailer-request-duplicate", formData)
-        .done(function(data) {
-          $(".loading").hide();
-          alertify.success("Email sent!")
-          $("#contact-information").toggle();
-          $("#alertSuccess").toggle();
-        })
-        .fail(function(xhr, textStatus, errorThrown) {
-          $(".loading").hide();
-          alertify.error("Email failed.")
-          var errors = xhr.responseJSON;
-          for (var key in errors) {
-            if (errors.hasOwnProperty(key)) {
-              $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] +"</p>");
-            }
+      .done(function(data) {
+        $(".loading").hide();
+        alertify.success("Email sent!")
+        $("#contact-information").toggle();
+        $("#alertSuccess").toggle();
+      })
+      .fail(function(xhr, textStatus, errorThrown) {
+        $(".loading").hide();
+        alertify.error("Email failed.")
+        var errors = xhr.responseJSON;
+        for (var key in errors) {
+          if (errors.hasOwnProperty(key)) {
+            $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] +"</p>");
           }
-          $("#alertError").slideDown();
-          $("html, body").animate({
-            scrollTop: 0
-          }, "slow");
-        });
+        }
+        $("#alertError").slideDown();
+        $("html, body").animate({
+          scrollTop: 0
+        }, "slow");
+      });
     }
   });
 });
