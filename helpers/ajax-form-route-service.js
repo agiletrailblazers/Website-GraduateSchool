@@ -133,6 +133,54 @@ module.exports = {
     	  }
 
         callback(response);
+    },
+  validaterequestDuplicateFields: function(callback,params) {
+    response = {};
+    response.errors = {};
+    // Validate params.firstName
+    switch(true) {
+      case (params.firstName.length === 0):
+        response.errors.firstName = "First name is empty.";
+        break;
+      case (!validator.isLength(params.firstName.trim(), 3)):
+        response.errors.firstName = "First name must be at least 3 characters.";
+        break;
     }
+    // Validate params.lastName
+    switch(true) {
+      case (!params.lastName):
+        response.errors.lastName = "Last name is empty.";
+        break;
+      case (!validator.isLength(params.lastName.trim(), 3)):
+        response.errors.lastName = "Last name must be at least 3 characters.";
+        break;
+    }
+    // Validate params.email
+    if (params.communicationPref == 'Email') {
+      switch(true) {
+        case (!params.email):
+          response.errors.email = "Email is empty.";
+          break;
+        case (!validator.isEmail(params.email.trim())):
+          response.errors.email = "Email is in the wrong format."
+          break;
+      }
+    }
+    // Validate params.phone
+    if (params.communicationPref == 'Phone') {
+      switch(true) {
+        case (!params.phone):
+          response.errors.phone = "Phone number is empty.";
+          break;
+        case (!params.phone.match(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)):
+          response.errors.phone = "Phone number is not in the correct format.";
+          break;
+      }
+    }
+    if (!params.captchaResponse) {
+      response.errors.captchaResponse = "Please select recaptcha.";
+    }
+    callback(response);
+  }
 
 };
