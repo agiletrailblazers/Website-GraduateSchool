@@ -75,7 +75,7 @@ router.get('/forms/request_duplicate_form', function (req, res, next) {
   async.parallel([
     function (callback) {
       logger.debug('Get contentful fields');
-      contentful.getDuplicateForms(function (response) {
+      contentfulForms.getDuplicateForms(function (response) {
         fields = response;
         callback();
       });
