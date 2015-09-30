@@ -13,5 +13,4 @@ module.exports = function (app) {
     app.use('/', require('./routes/form-route'));
     app.use('/', require('./routes/generic-page-route'));
     app.use('/', require('./routes/forms-route'));
-    app.use('/', require('./routes/duplicateRequestForm-route.js'));
 };
