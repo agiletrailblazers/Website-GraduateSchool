@@ -28,6 +28,7 @@ Validate = {
   },
   phone: function() {
     var pattern = new RegExp(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/);
+    var phone = $("#telPhone").val();
     if (!pattern.test(phone)) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Phone number is incorrect.</p>");
     }
@@ -48,15 +49,21 @@ var _runValidation = function() {
   Validate.email();
   Validate.phone();
   Validate.captcha();
+  if ($("#alertError p").length) {
+    $("#alertError").slideDown("slow");
+  }
 }
 
 
 $(document).ready(function() {
-  $("#alertError").hide();
-  $(".loading").hide();
   $("#removeAlert").css('cursor', 'pointer');
-  $("requestDuplicateForm").submit(function(event) {
+  $("#removeAlert").click(function() {
+    $("#alertError").slideUp();
+    $("#alertError p").remove();
+  });
+  $("#submitForm").click(function(event) {
     event.preventDefault();
+    _runValidation();
     formData = {};
     formData.firstName = $("#txtFirstName").val();
     formData.lastName = $("#txtLastName").val();
@@ -69,7 +76,6 @@ $(document).ready(function() {
     formData.fax = $("#txtFax").val();
     formData.email = $("#txtEmail").val();
     formData.captchaResponse = $("#g-recaptcha-response").val();
-    _runValidation();
     if (!$("#alertError p").length) {
       $(".loading").show();
       $.post("/mailer-request-duplicate", formData)
