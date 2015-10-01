@@ -94,7 +94,6 @@ module.exports = {
     if(params.courseType=="Official Grade Report") {
       requestDuplicateToEmail=config("endpoint").requestDuplicateOfficialGradeReportToUserName;
     }
-
     requestduplicateTemplate.render(params, function(err, results) {
       logger.info("Starting mail send");
       if (err) {
@@ -103,7 +102,7 @@ module.exports = {
       }
       var mailAttributes = {
         from: config("endpoint").defaultEmailFromUserName,
-        to: config("endpoint").requestDuplicateToEmail,
+        to: requestDuplicateToEmail,
         subject: requestDuplicateEmailSubject,
         text:  results.text,
         html:  results.html
