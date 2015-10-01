@@ -192,7 +192,7 @@ module.exports = {
     }
     // Validate Course Title
     switch (true) {
-      case (!params.courseTitle.):
+      case (!params.courseTitle):
         response.errors.courseTitle = "Course title is empty."
         break;
       case (!validator.isLength(params.courseTitle.trim(), 3)):
