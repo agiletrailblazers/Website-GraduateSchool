@@ -8,9 +8,8 @@
     "defaultEmailFromUserName":"gs@agiletrailblazers.com",
     "contactUsToUserName":"gs@agiletrailblazers.com",
     "onsiteInquiryToUserName":"gs@agiletrailblazers.com",
-    "requestDuplicateFormToUserName":"gs@agiletrailblazers.com",
-    "requestDuplicateCourseCompletionCertificateToUserName":"",
-    "requestDuplicateOfficialGradeReportToUserName":"",
+    "requestDuplicateCourseCompletionCertificateToUserName":"gs@agiletrailblazers.com",
+    "requestDuplicateOfficialGradeReportToUserName":"gs@agiletrailblazers.com",
 
     "googleAnalyticsId":"UA-66851185-2"
 }
