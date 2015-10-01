@@ -41,12 +41,12 @@ Validate = {
   },
   courseCode: function() {
     var code = $("#txtCourseNumber").val();
-    if (instructor.length < 4) {
+    if (code.length < 4) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Code must be atleast 4 characters.</p>");
     }
   },
   courseTitle: function() {
-    var title = $("txtCourseTitle").val();
+    var title = $("#txtCourseTitle").val();
     if (title.length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Course title must be at least 3 characters.</p>");
     }
@@ -91,16 +91,15 @@ $(document).ready(function() {
     formData.street = $("#txtStreet").val();
     formData.suite = $("#txtSuite").val();
     formData.city = $("#txtCity").val();
+    formData.state = $("#selState").val();
     formData.zip = $("#txtZip").val();
-    formData.country = $("#txtCountry").val();
     formData.phone = $("#telPhone").val();
-    formData.fax = $("#txtFax").val();
     formData.email = $("#txtEmail").val();
     formData.instructor = $("#txtInstructor").val();
     formData.courseCode = $("#txtCourseNumber").val();
     formData.courseTitle = $("#txtCourseTitle").val();
     formData.startDate = $("#dateStart").val();
-    formData.endDate = $("#endDate").val();
+    formData.endDate = $("#dateEnd").val();
     formData.courseLocation = $("#txtCourseLocation").val();
     formData.captchaResponse = $("#g-recaptcha-response").val();
     if (!$("#alertError p").length) {
