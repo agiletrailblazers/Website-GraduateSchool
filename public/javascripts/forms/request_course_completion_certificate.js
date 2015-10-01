@@ -28,6 +28,7 @@ Validate = {
   },
   phone: function() {
     var pattern = new RegExp(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/);
+    var phone = $("#telPhone").val();
     if (!pattern.test(phone)) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Phone number is incorrect.</p>");
     }
@@ -48,16 +49,21 @@ var _runValidation = function() {
   Validate.email();
   Validate.phone();
   Validate.captcha();
+  if ($("#alertError p").length) {
+    $("#alertError").slideDown("slow");
+  }
 }
 
 
 $(document).ready(function() {
-  $("#alertError").hide();
-  $(".loading").hide();
   $("#removeAlert").css('cursor', 'pointer');
+  $("#removeAlert").click(function() {
+    $("#alertError").slideUp();
+    $("#alertError p").remove();
+  });
   $("#submitForm").click(function(event) {
     event.preventDefault();
-    _runValidation;
+    _runValidation();
     formData = {};
     formData.firstName = $("#txtFirstName").val();
     formData.lastName = $("#txtLastName").val();
@@ -73,26 +79,26 @@ $(document).ready(function() {
     if (!$("#alertError p").length) {
       $(".loading").show();
       $.post("/mailer-request-duplicate", formData)
-        .done(function(data) {
-          $(".loading").hide();
-          alertify.success("Email sent!")
-          $("#contact-information").toggle();
-          $("#alertSuccess").toggle();
-        })
-        .fail(function(xhr, textStatus, errorThrown) {
-          $(".loading").hide();
-          alertify.error("Email failed.")
-          var errors = xhr.responseJSON;
-          for (var key in errors) {
-            if (errors.hasOwnProperty(key)) {
-              $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] +"</p>");
-            }
+      .done(function(data) {
+        $(".loading").hide();
+        alertify.success("Email sent!")
+        $("#contact-information").toggle();
+        $("#alertSuccess").toggle();
+      })
+      .fail(function(xhr, textStatus, errorThrown) {
+        $(".loading").hide();
+        alertify.error("Email failed.")
+        var errors = xhr.responseJSON;
+        for (var key in errors) {
+          if (errors.hasOwnProperty(key)) {
+            $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] +"</p>");
           }
-          $("#alertError").slideDown();
-          $("html, body").animate({
-            scrollTop: 0
-          }, "slow");
-        });
+        }
+        $("#alertError").slideDown();
+        $("html, body").animate({
+          scrollTop: 0
+        }, "slow");
+      });
     }
   });
 });
