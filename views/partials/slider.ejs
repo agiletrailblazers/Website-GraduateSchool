@@ -1,9 +1,10 @@
 <div class="container-fluid">
   <div class="container">
     <% if (alert) { %>
-      <div>
+      <div id="alert">
         <%= alert.alertType %>
         <%- alert.alertContent %>
+        <span id="alertDismiss" data-slug="<%= alert.slug %>">X [Dismiss]</span>
       </div>
     <% } %>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
