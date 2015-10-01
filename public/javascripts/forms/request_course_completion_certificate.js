@@ -103,6 +103,7 @@ $(document).ready(function() {
     formData.endDate = $("#endDate").val();
     formData.courseLocation = $("#txtCourseLocation").val();
     formData.captchaResponse = $("#g-recaptcha-response").val();
+    formData.courseType = $("#requestDuplicate input[type='radio']:checked").val();
     if (!$("#alertError p").length) {
       $(".loading").show();
       $.post("/mailer-request-duplicate", formData)
