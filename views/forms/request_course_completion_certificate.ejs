@@ -34,6 +34,15 @@
           <div id="requestDuplicateForm">
             <form>
               <div class="form-inline">
+                <div class="form-group" id="requestDuplicate">
+                  <label for="Request">Request a Duplicate for:</label><br>
+                  <input type="radio" name="reqestDuplicate" id="radioCertificate" value="Completion Certificate" checked/>
+                  <label for="radioCertificate"><strong>Course Completion Certificate </strong></label>
+                  <input type="radio" name="reqestDuplicate" id="radioGradeReport" value="Official Grade Report" />
+                  <label for="radioGradeReport"><strong>Official Grade Report </strong></label>
+                </div>
+              </div>
+              <div class="form-inline">
                 <div class="form-group">
                   <label for="inputFirstName">*First Name</label>
                   <input id="txtFirstName" name="firstName" type="text" class="form-control" tabindex="1" required>
@@ -171,6 +180,7 @@
     $("#dateStart").datepicker();
     $("#dateEnd").datepicker();
   });
+
   </script>
 </body>
 </html>
