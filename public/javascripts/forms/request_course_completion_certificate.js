@@ -96,6 +96,12 @@ $(document).ready(function() {
     formData.phone = $("#telPhone").val();
     formData.fax = $("#txtFax").val();
     formData.email = $("#txtEmail").val();
+    formData.instructor = $("#txtInstructor").val();
+    formData.courseCode = $("#txtCourseNumber").val();
+    formData.courseTitle = $("#txtCourseTitle").val();
+    formData.startDate = $("#dateStart").val();
+    formData.endDate = $("#endDate").val();
+    formData.courseLocation = $("#txtCourseLocation").val();
     formData.captchaResponse = $("#g-recaptcha-response").val();
     if (!$("#alertError p").length) {
       $(".loading").show();
