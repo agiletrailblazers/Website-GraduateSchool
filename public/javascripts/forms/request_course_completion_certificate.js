@@ -91,6 +91,7 @@ $(document).ready(function() {
     formData.street = $("#txtStreet").val();
     formData.suite = $("#txtSuite").val();
     formData.city = $("#txtCity").val();
+    formData.state = $("#selState").val();
     formData.zip = $("#txtZip").val();
     formData.phone = $("#telPhone").val();
     formData.email = $("#txtEmail").val();
