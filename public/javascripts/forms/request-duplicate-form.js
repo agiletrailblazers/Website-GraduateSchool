@@ -33,6 +33,12 @@ Validate = {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Phone number is incorrect.</p>");
     }
   },
+  instructor: function() {
+    var instructor = $("#txtInstructor").val();
+    if (instructor.length < 3) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please enter a valid instructor.</p>");
+    }
+  },
   captcha: function(){
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
@@ -48,6 +54,7 @@ var _runValidation = function() {
   Validate.lastName();
   Validate.email();
   Validate.phone();
+  // Validate.instructor();
   Validate.captcha();
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
