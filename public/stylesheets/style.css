@@ -507,7 +507,7 @@ label {
     padding-right: 15px !important;
 }
 
-input {
+select, input {
   margin-right: 10px !important;
 
 }
@@ -573,6 +573,9 @@ textarea:focus {
   padding: 25px 20px;
 }
 
+.ui-datepicker-calendar td, .ui-datepicker-calendar th {
+  padding: 0 !important;
+}
 
 /* TOP NAVIGATION  */
 .fix {
