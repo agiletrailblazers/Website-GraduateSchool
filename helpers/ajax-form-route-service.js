@@ -204,7 +204,6 @@ module.exports = {
       response.errors.captchaResponse = "Please select recaptcha.";
     }
     callback(response);
-
   }
 
 };
