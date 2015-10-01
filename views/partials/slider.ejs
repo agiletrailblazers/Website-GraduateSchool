@@ -1,10 +1,18 @@
 <div class="container-fluid">
   <div class="container">
     <% if (alert) { %>
-      <div id="alert">
-        <%= alert.alertType %>
-        <%- alert.alertContent %>
+      <div id="alertError" class="alert alert-danger" role="alert" style="display: block;">
+          <span style="cursor: pointer;" id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+        <h3>
+          <%= alert.alertType %>
+        </h3>
+        <p>
+            <%- alert.alertContent %>
+        </p>
+
+
         <span id="alertDismiss" data-slug="<%= alert.slug %>">X [Dismiss]</span>
+
       </div>
     <% } %>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -34,3 +42,19 @@
   </div>
   </div>
 </div> <!-- END Container-fluid -->
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".loading").hide();
+  $("#alertError").hide();
+  $("#removeAlert").css('cursor', 'pointer');
+}
+});
+
+$("#removeAlert").click(function(e) {
+  e.preventDefault();
+  alert("Made it.");
+  $("#alertError").slideUp();
+  $("#alertError p").remove();
+});
+</script>
