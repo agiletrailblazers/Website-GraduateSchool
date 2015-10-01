@@ -186,6 +186,14 @@ module.exports = {
         response.errors.instructor = "Instructor field must be greater than 3 characters."
         break;
     }
+    // Validate Course Code
+    if (!validator.isLength(params.courseCode.trim(), 3)) {
+      response.errors.courseCode = "Course code must be greater than 3 characters."
+    }
+    // Validate Course Title
+    if (!validator.isLength(params.courseTitle.trim(), 3)) {
+      response.errors.courseTitle = "Course title must be greater than 3 characters."
+    }
     // Validate Captcha
     if (!params.captchaResponse) {
       response.errors.captchaResponse = "Please select recaptcha.";
