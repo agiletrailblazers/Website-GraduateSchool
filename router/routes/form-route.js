@@ -69,7 +69,7 @@ router.get('/forms/contact-us', function(req, res, next) {
     });
 
 //Get Request duplicate Form Page
-router.get('/forms/request_duplicate_form', function (req, res, next) {
+router.get('/forms/request-course-completion-certificate', function (req, res, next) {
   var fields;
   var states;
   async.parallel([
@@ -88,11 +88,12 @@ router.get('/forms/request_duplicate_form', function (req, res, next) {
       });
     }
   ], function (results) {
-    res.render('forms/request_duplicate_form', {
+    res.render('forms/request_course_completion_certificate', {
       sectionTitle: fields.sectionTitle,
       sectionHeaderDescription: fields.sectionHeaderDescription,
       sectionFooterDescription: fields.sectionFooterDescription,
-      title: "Request Duplicate Form",
+      title: "Request Course Completion Certificate",
+			relatedLinks: fields.relatedLinks,
       states: states
     });
   });
