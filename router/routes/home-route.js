@@ -3,6 +3,7 @@ var contentful = require('../../API/contentful.js');
 var async = require('async');
 var prune = require('underscore.string/prune');
 var striptags = require('striptags');
+var moment = require('moment');
 var router = express.Router();
 var logger = require('../../logger');
 
@@ -27,13 +28,27 @@ router.get('/', function(req, res, next) {
        data.testimonial = response;
        callback();
     });
-   },
+  },
+  function(callback) {
+    contentful.getAlerts(function(items) {
+      data.alert = null;
+      if (items) {
+        items.forEach(function(item) {
+          if(moment().isBetween(new Date(item.fields.startDateTime), new Date(item.fields.endDateTime))) {
+            data.alert = item.fields;
+          }
+        });
+      }
+      callback();
+   });
+  }
  ], function(results) {
    res.render('index', { title: 'Graduate School',
     name: 'Home Page',
     slider: data.slider,
     news: data.news,
     testimonial: data.testimonial,
+    alert: data.alert,
     striptags: striptags,
     prune: prune,
     homepage:true });
