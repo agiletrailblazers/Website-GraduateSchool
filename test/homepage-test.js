@@ -171,3 +171,59 @@ test('homepage testimonial contentful test:failure', function(t) {
     });
     t.end();
 });
+
+test('homepage alert contentful test:success', function(t) {
+  var contentfulServer = nock('https://cdn.contentful.com', {
+        reqheaders: {
+            'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+        }
+    }).get('/spaces/jzmztwi1xqvn/entries?content_type=22JH0IRqc0iEqM2uMgMyyy')
+      .reply(200, {
+        "sys": {
+          "type": "Array"
+        },
+        "total": 1,
+        "skip": 0,
+        "limit": 100,
+        "items": [
+          {
+            "sys": {
+              "space": {
+                "sys": {
+                  "type": "Link",
+                  "linkType": "Space",
+                  "id": "jzmztwi1xqvn"
+                }
+              },
+              "type": "Entry",
+              "contentType": {
+                "sys": {
+                  "type": "Link",
+                  "linkType": "ContentType",
+                  "id": "22JH0IRqc0iEqM2uMgMyyy"
+                }
+              },
+              "id": "3MNrguPDhY4qgkaQeIsaoU",
+              "revision": 5,
+              "createdAt": "2015-09-30T19:15:36.265Z",
+              "updatedAt": "2015-09-30T21:12:23.359Z",
+              "locale": "en-US"
+            },
+            "fields": {
+              "title": "Pope Francis Visit",
+              "startDateTime": "2015-09-30T17:11:00-04:00",
+              "endDateTime": "2015-10-31T23:00:00-04:00",
+              "alertContent": "Graduate School USA will conduct its Government Training and Academic Classes as scheduled during Pope Francis' visit to Washington, DC September 22-24, 2015.  Evening Program classes have been rescheduled to being the week of September 28, 2015.\n<br/>For more more information <a href=\"#\">Click Here</a>.",
+              "alertType": "ANNOUNCEMENT"
+            }
+          }
+        ]
+      });
+    contentfulServer;
+    contentful.getAlerts(function(alerts) {
+      console.log(alerts[0].alertType);
+      expect(alerts[0].fields.alertType).to.equal('ANNOUNCEMENT');
+      expect(alerts[0].fields.title).to.equal('Pope Francis Visit');
+    });
+    t.end();
+});
