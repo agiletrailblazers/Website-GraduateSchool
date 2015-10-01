@@ -90,8 +90,8 @@ module.exports = {
   sendOnRequestDuplicate: function(callback, params) {
     logger.debug("SMTP sending to: " + smtp);
     var requestDuplicateToEmail=config("endpoint").requestDuplicateCourseCompletionCertificateToUserName;
-    var requestDuplicateEmailSubject =config("endpoint").requestDuplicateFormEmailSubject+" "+params.type;
-    if(params.type=="Official Grade Report") {
+    var requestDuplicateEmailSubject =config("endpoint").requestDuplicateFormEmailSubject+" "+params.courseType;
+    if(params.courseType=="Official Grade Report") {
       requestDuplicateToEmail=config("endpoint").requestDuplicateOfficialGradeReportToUserName;
     }
 
