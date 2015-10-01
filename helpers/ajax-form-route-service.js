@@ -177,6 +177,16 @@ module.exports = {
         break;
       }
     }
+    // Validate Instructor
+    switch (true) {
+      case (!params.instructor):
+        response.errors.instructor = "Instructor field is empty."
+        break;
+      case (!validator.isLength(params.instructor.trim(), 3)):
+        response.errors.instructor = "Instructor field must be greater than 3 characters."
+        break;
+    }
+    // Validate Captcha
     if (!params.captchaResponse) {
       response.errors.captchaResponse = "Please select recaptcha.";
     }
