@@ -97,8 +97,8 @@ module.exports = {
       }
       var mailAttributes = {
         from: config("endpoint").defaultEmailFromUserName,
-        to: config("endpoint").defaultEmailToUserName,
-        subject: config("endpoint").onsiteInquiryEmailSubject,
+        to: config("endpoint").requestDuplicateFormToUserName,
+        subject: config("endpoint").requestDuplicateFormEmailSubject,
         text:  results.text,
         html:  results.html
       };
