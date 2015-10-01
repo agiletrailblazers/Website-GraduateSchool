@@ -9,8 +9,9 @@
     "contactUsToUserName":"",
     "onsiteInquiryToUserName":"",
     "onsiteInquiryEmailSubject":"Request for Training",
-    "requestDuplicateFormToUserName":"",
-    "requestDuplicateFormEmailSubject":"Request for Duplicate Form",
+    "requestDuplicateFormEmailSubject":"Request a Duplicate",
+    "requestDuplicateCourseCompletionCertificateToUserName":"",
+    "requestDuplicateOfficialGradeReportToUserName":"",
 
     "googleAnalyticsId":"UA-66851185-2",
 

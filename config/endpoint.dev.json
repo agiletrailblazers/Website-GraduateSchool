@@ -9,7 +9,8 @@
     "contactUsToUserName":"gs@agiletrailblazers.com",
     "onsiteInquiryToUserName":"gs@agiletrailblazers.com",
     "requestDuplicateFormToUserName":"gs@agiletrailblazers.com",
-    "requestDuplicateFormEmailSubject":"Request for Duplicate Form",
+    "requestDuplicateCourseCompletionCertificateToUserName":"",
+    "requestDuplicateOfficialGradeReportToUserName":"",
 
     "googleAnalyticsId":"UA-66851185-2"
 }
