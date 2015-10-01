@@ -70,7 +70,6 @@ module.exports = {
       response.errors.firstName = "First name must be at least 3 characters.";
       break;
     }
-
     // Validate params.lastName
     switch(true) {
       case (!params.address.lastName):
@@ -161,7 +160,7 @@ module.exports = {
         response.errors.email = "Email is empty.";
         break;
         case (!validator.isEmail(params.email.trim())):
-        response.errors.email = "Email is in the wrong format."
+        response.errors.email = "Email is in the wrong format.";
         break;
       }
     // Validate params.phone
@@ -176,26 +175,35 @@ module.exports = {
     // Validate Instructor
     switch (true) {
       case (!params.instructor):
-        response.errors.instructor = "Instructor field is empty."
+        response.errors.instructor = "Instructor field is empty.";
         break;
       case (!validator.isLength(params.instructor.trim(), 3)):
-        response.errors.instructor = "Instructor field must be greater than 3 characters."
+        response.errors.instructor = "Instructor field must be greater than 3 characters.";
         break;
     }
     // Validate Course Code
-    if (!validator.isLength(params.courseCode.trim(), 3)) {
-      response.errors.courseCode = "Course code must be greater than 3 characters."
+    switch (true) {
+      case (!params.courseCode):
+        response.errors.courseCode = "Course code field is empty.";
+        break;
+      case (!validator.isLength(params.courseCode.trim(), 3)):
+        response.errors.courseCode = "Course code must be greater than 3 characters.";
+        break;
     }
     // Validate Course Title
-    if (!validator.isLength(params.courseTitle.trim(), 3)) {
-      response.errors.courseTitle = "Course title must be greater than 3 characters."
+    switch (true) {
+      case (!params.courseTitle):
+        response.errors.courseTitle = "Course title is empty."
+        break;
+      case (!validator.isLength(params.courseTitle.trim(), 3)):
+        response.errors.courseTitle = "Course title must be greater than 3 characters."
+        break;
     }
     // Validate Captcha
     if (!params.captchaResponse) {
       response.errors.captchaResponse = "Please select recaptcha.";
     }
     callback(response);
-
   }
 
 };
