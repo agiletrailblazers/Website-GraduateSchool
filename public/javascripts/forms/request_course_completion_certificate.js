@@ -39,6 +39,18 @@ Validate = {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please enter a valid instructor.</p>");
     }
   },
+  courseCode: function() {
+    var code = $("#txtCourseNumber").val();
+    if (instructor.length < 4) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Code must be atleast 4 characters.</p>");
+    }
+  },
+  courseTitle: function() {
+    var title = $("txtCourseTitle").val();
+    if (title.length < 3) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Course title must be at least 3 characters.</p>");
+    }
+  },
   captcha: function(){
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
@@ -54,7 +66,9 @@ var _runValidation = function() {
   Validate.lastName();
   Validate.email();
   Validate.phone();
-  // Validate.instructor();
+  Validate.instructor();
+  Validate.courseCode();
+  Validate.courseTitle();
   Validate.captcha();
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
