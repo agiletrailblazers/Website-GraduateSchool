@@ -128,4 +128,19 @@ $(document).ready(function() {
       });
     }
   });
+  function getQueryString() {
+    var result = {}, queryString = location.search.slice(1),
+      re = /([^&=]+)=([^&]*)/g, m;
+    while (m = re.exec(queryString)) {
+      result[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+    }
+    return result;
+  }
+
+  var navuser = getQueryString()["coursetype"];
+  if (navuser && typeof(navuser != 'undefined') && ("ogr".indexOf(navuser.toLowerCase().trim()) > -1) ) {
+    $("#radioGradeReport").prop("checked", true);
+  } else {
+    $("#radioCertificate").prop("checked", true);
+  }
 });
