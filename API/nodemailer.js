@@ -89,6 +89,12 @@ module.exports = {
   },
   sendOnRequestDuplicate: function(callback, params) {
     logger.debug("SMTP sending to: " + smtp);
+    var requestDuplicateToEmail=config("endpoint").requestDuplicateCourseCompletionCertificateToUserName;
+    var requestDuplicateEmailSubject =config("endpoint").requestDuplicateFormEmailSubject+" "+params.courseType;
+    if(params.courseType=="Official Grade Report") {
+      requestDuplicateToEmail=config("endpoint").requestDuplicateOfficialGradeReportToUserName;
+    }
+
     requestduplicateTemplate.render(params, function(err, results) {
       logger.info("Starting mail send");
       if (err) {
@@ -97,8 +103,8 @@ module.exports = {
       }
       var mailAttributes = {
         from: config("endpoint").defaultEmailFromUserName,
-        to: config("endpoint").requestDuplicateFormToUserName,
-        subject: config("endpoint").requestDuplicateFormEmailSubject,
+        to: config("endpoint").requestDuplicateToEmail,
+        subject: requestDuplicateEmailSubject,
         text:  results.text,
         html:  results.html
       };
