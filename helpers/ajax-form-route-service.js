@@ -156,7 +156,6 @@ module.exports = {
       break;
     }
     // Validate params.email
-    if (params.communicationPref == 'Email') {
       switch(true) {
         case (!params.email):
         response.errors.email = "Email is empty.";
@@ -165,9 +164,7 @@ module.exports = {
         response.errors.email = "Email is in the wrong format."
         break;
       }
-    }
     // Validate params.phone
-    if (params.communicationPref == 'Phone') {
       switch(true) {
         case (!params.phone):
         response.errors.phone = "Phone number is empty.";
@@ -176,7 +173,24 @@ module.exports = {
         response.errors.phone = "Phone number is not in the correct format.";
         break;
       }
+    // Validate Instructor
+    switch (true) {
+      case (!params.instructor):
+        response.errors.instructor = "Instructor field is empty."
+        break;
+      case (!validator.isLength(params.instructor.trim(), 3)):
+        response.errors.instructor = "Instructor field must be greater than 3 characters."
+        break;
     }
+    // Validate Course Code
+    if (!validator.isLength(params.courseCode.trim(), 3)) {
+      response.errors.courseCode = "Course code must be greater than 3 characters."
+    }
+    // Validate Course Title
+    if (!validator.isLength(params.courseTitle.trim(), 3)) {
+      response.errors.courseTitle = "Course title must be greater than 3 characters."
+    }
+    // Validate Captcha
     if (!params.captchaResponse) {
       response.errors.captchaResponse = "Please select recaptcha.";
     }
