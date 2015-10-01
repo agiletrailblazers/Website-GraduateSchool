@@ -32,10 +32,14 @@ router.get('/', function(req, res, next) {
   function(callback) {
     contentful.getAlerts(function(items) {
       data.alert = null;
+      var alertCookie = req.cookies.gsalert;
       if (items) {
         items.forEach(function(item) {
-          if(moment().isBetween(new Date(item.fields.startDateTime), new Date(item.fields.endDateTime))) {
-            data.alert = item.fields;
+          //check if this alerts has been dismissed by the user this session
+          if (alertCookie != item.fields.slug) {
+            if(moment().isBetween(new Date(item.fields.startDateTime), new Date(item.fields.endDateTime))) {
+              data.alert = item.fields;
+            }
           }
         });
       }
@@ -53,6 +57,19 @@ router.get('/', function(req, res, next) {
     prune: prune,
     homepage:true });
  });
+});
+
+//used to write a cookie to prevent the alert from showing again
+router.get('/alert-dismiss', function(req, res, next) {
+  var slug = req.query["slug"];
+  if (typeof(slug) != 'undefined') {
+    //write cookie so we don't show it for the rest of the session
+    res.cookie('gsalert', slug, {});
+    res.status(200).send();
+  }
+  else {
+    res.status(404).send('{"error":"parameter of slug not provided"}');
+  }
 });
 
 module.exports = router;
