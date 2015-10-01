@@ -62,14 +62,14 @@ router.post('/mailer-onsite-inquiry', function(req, res, next) {
 router.post('/mailer-request-duplicate', function(req, res, next) {
   params = req.body;
   //move code to router service
-  routerService.validaterequestDuplicateFields(function(response){
+  routerService.validateRequestDuplicate(function(response){
     // Send email if there are no errors.
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
       google.verifyCaptcha(function(response) {
         if ((response!=null) && (response.statusCode == 200)) {
           //send mail of success
-          mailer.sendContactUs(function(response) {
+          mailer.sendOnRequestDuplicate(function(response) {
             handleResponse(res, response);
           }, params);
         } else {
