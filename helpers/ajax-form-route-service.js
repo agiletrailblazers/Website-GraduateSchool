@@ -156,7 +156,6 @@ module.exports = {
       break;
     }
     // Validate params.email
-    if (params.communicationPref == 'Email') {
       switch(true) {
         case (!params.email):
         response.errors.email = "Email is empty.";
@@ -165,9 +164,7 @@ module.exports = {
         response.errors.email = "Email is in the wrong format."
         break;
       }
-    }
     // Validate params.phone
-    if (params.communicationPref == 'Phone') {
       switch(true) {
         case (!params.phone):
         response.errors.phone = "Phone number is empty.";
@@ -176,7 +173,6 @@ module.exports = {
         response.errors.phone = "Phone number is not in the correct format.";
         break;
       }
-    }
     // Validate Instructor
     switch (true) {
       case (!params.instructor):
