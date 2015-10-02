@@ -5,7 +5,7 @@ $(document).ready(function() {
     $.get("/alert-dismiss?slug=" + slug)
       .done(function(data) {
         //hide it
-        $('#alert').hide();
+        $('#alert').fadeOut();
       })
       .fail(function(xhr, textStatus, errorThrown) {
         console.log("Failed to record alert dismisal");
