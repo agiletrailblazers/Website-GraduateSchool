@@ -42,11 +42,10 @@ module.exports = {
     }, function(error, response, body) {
       logger.debug("Get Duplicate Forms Contentful Response Code: " + response.statusCode);
       cmsEntry = JSON.parse(body);
-      console.log(cmsEntry);
       return callback({
         sectionTitle: cmsEntry.fields.sectionTitle,
-        sectionHeaderDescription:cmsEntry.fields.sectionHeaderDescription,
-        sectionFooterDescription:cmsEntry.fields.sectionFooterDescription,
+        sectionHeaderDescription: cmsEntry.fields.sectionHeaderDescription,
+        sectionFooterDescription: cmsEntry.fields.sectionFooterDescription,
         statusCode: response.statusCode
       });
     });
@@ -61,11 +60,10 @@ module.exports = {
     }, function(error, response, body) {
       logger.debug("Get Proctoring Request Form Contentful Response Code: " + response.statusCode);
       cmsEntry = JSON.parse(body);
-      console.log(cmsEntry);
       return callback({
         sectionTitle: cmsEntry.fields.sectionTitle,
-        sectionHeaderDescription:cmsEntry.fields.sectionHeaderDescription,
-        sectionFooterDescription:cmsEntry.fields.sectionFooterDescription,
+        sectionHeaderDescription: cmsEntry.fields.sectionHeaderDescription,
+        sectionFooterDescription: cmsEntry.fields.sectionFooterDescription,
         statusCode: response.statusCode
       });
     });
