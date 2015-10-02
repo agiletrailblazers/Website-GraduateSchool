@@ -1,18 +1,22 @@
 <div class="container-fluid">
-  <div class="container">
+<div class="container padding">
+<div id="slider">
     <% if (alert) { %>
-      <div id="alertError" class="alert alert-danger" role="alert" style="display: block;">
-          <span style="cursor: pointer;" id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-        <h3>
-          <%= alert.alertType %>
-        </h3>
-        <p>
-            <%- alert.alertContent %>
-        </p>
-
-
-        <span id="alertDismiss" data-slug="<%= alert.slug %>">X [Dismiss]</span>
-
+      <div id="alert" class="alert alert-danger" role="alert" style="display: block;">
+          <span id="alertDismiss" data-slug="<%= alert.slug %>"  class="glyphicon glyphicon-remove pull-right" style="cursor: pointer;"></span>
+          <div class="row">
+            <div class="col-lg-2">
+              <h5>
+                <img src="images/alert-icon.png" data-src="" alt=" ">
+                <%= alert.alertType %>
+              </h5>
+            </div>
+            <div class="col-lg-10">
+              <p>
+                  <%- alert.alertContent %>
+              </p>
+            </div>
+          </div>
       </div>
     <% } %>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -40,21 +44,6 @@
     					<a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
     				</div>
   </div>
-  </div>
+</div><!-- END Slider -->
+</div><!-- END Container -->
 </div> <!-- END Container-fluid -->
-
-<script type="text/javascript">
-$(document).ready(function() {
-  $(".loading").hide();
-  $("#alertError").hide();
-  $("#removeAlert").css('cursor', 'pointer');
-}
-});
-
-$("#removeAlert").click(function(e) {
-  e.preventDefault();
-  alert("Made it.");
-  $("#alertError").slideUp();
-  $("#alertError p").remove();
-});
-</script>

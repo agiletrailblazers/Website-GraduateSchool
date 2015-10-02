@@ -95,8 +95,8 @@
         #course-information .nav-tabs > li > a {
         font-size: 14px !important;
         padding: 15px 5px !important;
-}
-
+        }
+      
     }
 
     /* Small Devices, Tablets */
@@ -282,4 +282,21 @@
     /* Custom, iPhone Retina */
     @media only screen and (max-width : 320px) {
 
+    }
+
+
+    @media print {
+      #header, #footer, #chat, .util, .ms-drop {display: none !important;  }
+        *{
+            filter: grayscale(100%);
+            -webkit-filter: grayscale(100%);
+        }
+
+        a[href]:after {
+          content: none !important;
+        }
+
+      @page {
+        margin: 75px;
+      }
     }
