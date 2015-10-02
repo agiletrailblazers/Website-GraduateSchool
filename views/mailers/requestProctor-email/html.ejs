@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title> Graduate School USA | </title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+
+  <style type="text/css">
+  body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 14px;
+  }
+
+  a {
+    color: #337AB7;
+    text-decoration:none;
+    outline: none;
+  }
+
+  h1 {
+    color: #337AB7;
+    font-size: 24px;
+  }
+
+  h2 {
+    color: #337AB7;
+    font-size: 18px;
+    padding: 10px 0 5px 0;
+  }
+
+  p.footer {
+    color: #DDD;
+    font-size: 11px;
+
+  }
+
+  </style>
+
+
+</head>
+<body>
+
+  <h1>Request  a Proctor</h1>
+
+  <h2>Student Information</h2>
+  <p>First Name : <strong><%= student.firstName %> </strong> </p>
+  <p>Last Name : <strong><%= student.lastName %> </strong></p>
+  <p>Street: <strong><%= student.street %></strong></p>
+  <p>Suite: <strong> <%= student.suite %> </strong></p>
+  <p>City: <strong> <%= student.city %> </strong></p>
+  <p>State: <strong> <%= student.state %> </strong></p>
+  <p>Zip: <strong> <%= student.zip %> </strong></p>
+  <p>Day Phone: <strong>  <%= student.phone.day %> </strong></p>
+  <p>Home Phone: <strong>  <%= student.phone.home %> </strong></p>
+  <p>Email: <strong>  <%= student.email %></strong></p>
+  <p>Course Code: <strong> <%= student.courseNumber %> </strong></p>
+  <p>Course Title: <strong> <%= student.courseTitle %> </strong></p>
+  <p>Instructor: <strong><%= student.instructor %> </strong> </p>
+  <hr>
+  <h2>Proctor Information</h2>
+  <p>Frist Name: <strong><%= proctor.firstName %> </strong> </p>
+  <p>last Name: <strong><%= proctor.lastName %> </strong> </p>
+  <p>Employment Location: <strong><%= proctor.employmentLocation %> </strong> </p>
+  <p>Profession: <strong><%= proctor.profession %> </strong> </p>
+  <p>Student Relationship: <strong><%= proctor.studentRelationship %> </strong> </p>
+  <p>Email: <strong><%= proctor.email %> </strong> </p>
+  <p>Work Phone: <strong><%= proctor.phone.work %> </strong> </p>
+  <p>Work Fax: <strong><%= proctor.phone.fax %> </strong> </p>
+  <hr>
+  <h2>Additional Information</h2>
+  <p>Email To: <strong><%= proctor.emailTo %> </strong> </p>
+  <p>Organization Name: <strong><%= proctor.organizationName %> </strong> </p>
+  <p>AttentionName: <strong><%= proctor.attentionName %> </strong> </p>
+  <p>Street: <strong><%= proctor.street %> </strong> </p>
+  <p>Suite: <strong><%= proctor.suite %> </strong> </p>
+  <p>City: <strong><%= proctor.city %> </strong> </p>
+  <p>State: <strong><%= proctor.state %> </strong> </p>
+  <p>Zip: <strong><%= proctor.zip %> </strong> </p>
+
+  <hr>
+  <br>
+  <p class="footer">Sent from GraduateSchool.edu - Request for Proctor.</p>
+</div>
+</body>
+</html>
