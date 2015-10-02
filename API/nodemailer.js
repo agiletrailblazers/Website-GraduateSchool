@@ -8,6 +8,7 @@ var EmailTemplate = require('email-templates').EmailTemplate;
 var templatesDir = path.resolve(__dirname, '..', 'views/mailers');
 var contactUsTemplate = new EmailTemplate(path.join(templatesDir, 'contactus-email'));
 var onsiteInquiryTemplate = new EmailTemplate(path.join(templatesDir, 'onsiteinquiry-email'));
+var requestduplicateTemplate = new EmailTemplate(path.join(templatesDir, 'requestduplicate-email'));
 
 var smtp = {
   host: config("endpoint").defaultEmailServerName,
@@ -73,6 +74,36 @@ module.exports = {
         from: config("endpoint").defaultEmailFromUserName,
         to: config("endpoint").onsiteInquiryToUserName,
         subject: config("endpoint").onsiteInquiryEmailSubject,
+        text:  results.text,
+        html:  results.html
+      };
+      transporter.sendMail(mailAttributes, function(error, info) {
+        if (error) {
+          logger.error(error);
+          return callback(500);
+        }
+        logger.info('Message sent: ' + info.response);
+        return callback(200);
+      });
+    });
+  },
+  sendOnRequestDuplicate: function(callback, params) {
+    logger.debug("SMTP sending to: " + smtp);
+    var requestDuplicateToEmail=config("endpoint").requestDuplicateCourseCompletionCertificateToUserName;
+    var requestDuplicateEmailSubject =config("endpoint").requestDuplicateFormEmailSubject+" "+params.courseType;
+    if(params.courseType=="Official Grade Report") {
+      requestDuplicateToEmail=config("endpoint").requestDuplicateOfficialGradeReportToUserName;
+    }
+    requestduplicateTemplate.render(params, function(err, results) {
+      logger.info("Starting mail send");
+      if (err) {
+        logger.error(err);
+        return callback(500);
+      }
+      var mailAttributes = {
+        from: config("endpoint").defaultEmailFromUserName,
+        to: requestDuplicateToEmail,
+        subject: requestDuplicateEmailSubject,
         text:  results.text,
         html:  results.html
       };

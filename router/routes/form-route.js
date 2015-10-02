@@ -68,4 +68,35 @@ router.get('/forms/contact-us', function(req, res, next) {
         });
     });
 
+//Get Request duplicate Form Page
+router.get('/forms/request-duplicate-form', function (req, res, next) {
+  var fields;
+  var states;
+  async.parallel([
+    function (callback) {
+      logger.debug('Get contentful fields');
+      contentfulForms.getDuplicateForms(function (response) {
+        fields = response;
+        callback();
+      });
+    },
+    function (callback) {
+      logger.debug("Get us states");
+      contentful.getReferenceData('us-states', function (result) {
+        states = result;
+        callback();
+      });
+    }
+  ], function (results) {
+    res.render('forms/request_course_completion_certificate', {
+      sectionTitle: fields.sectionTitle,
+      sectionHeaderDescription: fields.sectionHeaderDescription,
+      sectionFooterDescription: fields.sectionFooterDescription,
+      title: "Request Course Completion Certificate",
+			relatedLinks: fields.relatedLinks,
+      states: states
+    });
+  });
+});
+
 module.exports = router;

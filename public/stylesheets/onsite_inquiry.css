@@ -200,9 +200,6 @@
     display: none;
 }
 
-.ui-datepicker-calendar td, .ui-datepicker-calendar th {
-  padding: 0 !important;
-}
 
 .ms-choice:focus {
     border-color: #66AFE9;
