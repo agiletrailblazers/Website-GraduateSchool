@@ -8,8 +8,9 @@
     "defaultEmailFromUserName":"GSWebsiteForm@graduateschool.edu",
     "contactUsToUserName":"GSWebsiteForm@graduateschool.edu",
     "onsiteInquiryToUserName":"GSWebsiteForm@graduateschool.edu",
-    "requestDuplicateFormToUserName":"GSWebsiteForm@graduateschool.edu",
     "requestDuplicateFormEmailSubject":"Request for Duplicate Form",
+    "requestDuplicateCourseCompletionCertificateToUserName":"GSWebsiteForm@graduateschool.edu",
+    "requestDuplicateOfficialGradeReportToUserName":"GSWebsiteForm@graduateschool.edu",
 
     "googleAnalyticsId":"UA-66851185-2"
   }
