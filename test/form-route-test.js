@@ -60,6 +60,7 @@ test('form route test for Request Duplicate Form', function (t) {
   }).get('/spaces/jzmztwi1xqvn/entries/mlBs5OCiQgW84oiMm4k2s')
     .reply(200, {
       'accept': 'application/json',
+      "sys" :
         {
           "fields": {
             "sectionTitle": "Duplicate Request Forms",
@@ -87,6 +88,7 @@ test('form route test for Request Duplicate Form Internal Error', function (t) {
   }).get('/spaces/jzmztwi1xqvn/entries/mlBs5OCiQgW84oiMm4k2s')
     .reply(500, {
       'accept': 'application/json',
+      "sys" :
         {
           "fields": {
             "sectionTitle": "",
@@ -112,6 +114,7 @@ test('Form route test for Proctor Request Form', function (t) {
   }).get('/spaces/jzmztwi1xqvn/entries/JgpDPSNoe4kQGWIkImKAM')
     .reply(200, {
       'accept': 'application/json',
+      "sys" :
         {
           "fields": {
             "sectionTitle": "Proctor Request Form",
@@ -122,8 +125,8 @@ test('Form route test for Proctor Request Form', function (t) {
     });
   contentfulformServer;
 
-  contentful_forms.getDuplicateForms(function (response) {
-    fieldsTitle = "Duplicate Request Forms";
+  contentful_forms.getProctoringRequestForm(function (response) {
+    fieldsTitle = "Proctor Request Form";
     var goodStatus = 200;
     expect(response.statusCode).to.equal(goodStatus);
     expect(response.sectionTitle).to.equal(fieldsTitle);
@@ -139,6 +142,7 @@ test('Form route test for Proctor Request Form Internal Error', function (t) {
   }).get('/spaces/jzmztwi1xqvn/entries/JgpDPSNoe4kQGWIkImKAM')
     .reply(500, {
       'accept': 'application/json',
+      "sys" :
         {
           "fields": {
             "sectionTitle": "",
@@ -149,7 +153,7 @@ test('Form route test for Proctor Request Form Internal Error', function (t) {
     });
   contentfulformServer;
 
-  contentful_forms.getDuplicateForms(function (response) {
+  contentful_forms.getProctoringRequestForm(function (response) {
     var internalErrorStatusCode = 500;
     expect(response.statusCode).to.equal(internalErrorStatusCode);
   });

@@ -43,9 +43,9 @@ module.exports = {
       logger.debug("Get Duplicate Forms Contentful Response Code: " + response.statusCode);
       cmsEntry = JSON.parse(body);
       return callback({
-        sectionTitle: cmsEntry.fields.sectionTitle,
-        sectionHeaderDescription: cmsEntry.fields.sectionHeaderDescription,
-        sectionFooterDescription: cmsEntry.fields.sectionFooterDescription,
+        sectionTitle: cmsEntry.sys.fields.sectionTitle,
+        sectionHeaderDescription: cmsEntry.sys.fields.sectionHeaderDescription,
+        sectionFooterDescription: cmsEntry.sys.fields.sectionFooterDescription,
         statusCode: response.statusCode
       });
     });
@@ -61,9 +61,9 @@ module.exports = {
       logger.debug("Get Proctoring Request Form Contentful Response Code: " + response.statusCode);
       cmsEntry = JSON.parse(body);
       return callback({
-        sectionTitle: cmsEntry.fields.sectionTitle,
-        sectionHeaderDescription: cmsEntry.fields.sectionHeaderDescription,
-        sectionFooterDescription: cmsEntry.fields.sectionFooterDescription,
+        sectionTitle: cmsEntry.sys.fields.sectionTitle,
+        sectionHeaderDescription: cmsEntry.sys.fields.sectionHeaderDescription,
+        sectionFooterDescription: cmsEntry.sys.fields.sectionFooterDescription,
         statusCode: response.statusCode
       });
     });
