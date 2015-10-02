@@ -171,10 +171,13 @@
             <h3><%= content.courseInfoTitles[0] %></h3>
             <p><%- courseData.class.description.formatted %></p>
           </div>
-          <div id="who-should-attend" class="tab-pane fade">
-            <h3><%= content.courseInfoTitles[1] %></h3>
-            <p><%- courseData.class.objective %></p>
-          </div>
+          >>> <%= courseData.class.objective %>
+          <% if (courseData.class.objective !== null) { %>
+            <div id="who-should-attend" class="tab-pane fade">
+              <h3><%= content.courseInfoTitles[1] %></h3>
+              <p><%- courseData.class.objective %></p>
+            </div>
+          <% } %>
           <% if (courseData.class.outcomes !== null) { %>
             <div id="learning-outcomes" class="tab-pane fade">
               <h3><%= content.courseInfoTitles[2] %></h3>
