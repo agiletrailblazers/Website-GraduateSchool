@@ -99,4 +99,35 @@ router.get('/forms/request-duplicate-form', function (req, res, next) {
   });
 });
 
+//Get Request duplicate Form Page
+router.get('/forms/proctor-request-form', function (req, res, next) {
+  var fields;
+  var states;
+  async.parallel([
+    function (callback) {
+      logger.debug('Get contentful fields');
+      contentfulForms.getProctoringRequestForm(function (response) {
+        fields = response;
+        callback();
+      });
+    },
+    function (callback) {
+      logger.debug("Get us states");
+      contentful.getReferenceData('us-states', function (result) {
+        states = result;
+        callback();
+      });
+    }
+  ], function (results) {
+    res.render('forms/proctor_request_form', {
+      sectionTitle: fields.sectionTitle,
+      sectionHeaderDescription: fields.sectionHeaderDescription,
+      sectionFooterDescription: fields.sectionFooterDescription,
+      title: "Proctor Request Form",
+			relatedLinks: fields.relatedLinks,
+      states: states
+    });
+  });
+});
+
 module.exports = router;
