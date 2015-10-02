@@ -64,48 +64,37 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
 		});
 	});
 
-	//Get Request duplicate Form Page
-	router.get('/forms/request-duplicate-form', function (req, res, next) {
-		var fields, states, pageTitle;
-		var getQuery = new RegExp(/\?(.*)/);
-		var query = getQuery.exec(req.originalUrl);
-		if (query) {
-			if (query[1] === 'coursetype=cc') {
-				pageTitle = "Request Course Completion Certificate";
-			} else if(query[1] === 'coursetype=og') {
-				pageTitle = "Request Official Grade Report";
-			} else {
-				pageTitle = "Request Course Completion Certificate";
-			}
-		} else {
-			pageTitle = "Request Course Completion Certificate";
-		}
-		async.parallel([
-			function (callback) {
-				logger.debug('Get contentful fields');
-				contentfulForms.getDuplicateForms(function (response) {
-					fields = response;
-					callback();
-				});
-			},
-			function (callback) {
-				logger.debug("Get us states");
-				contentful.getReferenceData('us-states', function (result) {
-					states = result;
-					callback();
-				});
-			}
-		], function (results) {
-			res.render('forms/request_course_completion_certificate', {
-				sectionTitle: fields.sectionTitle,
-				sectionHeaderDescription: fields.sectionHeaderDescription,
-				sectionFooterDescription: fields.sectionFooterDescription,
-				title: pageTitle,
-				relatedLinks: fields.relatedLinks,
-				states: states
-			});
-		});
-	});
+//Get Request duplicate Form Page
+router.get('/forms/request-duplicate-form', function (req, res, next) {
+  var fields, states;
+	var entryId	= "mlBs5OCiQgW84oiMm4k2s";
+  async.parallel([
+    function (callback) {
+      logger.debug('Get contentful fields');
+      contentfulForms.getFormWithHeaderAndFooter(function (response, entryId) {
+        fields = response;
+        callback();
+      });
+    },
+    function (callback) {
+      logger.debug("Get us states");
+      contentful.getReferenceData('us-states', function (result) {
+        states = result;
+        callback();
+      });
+    }
+  ], function (results) {
+    res.render('forms/request_course_completion_certificate', {
+      sectionTitle: fields.sectionTitle,
+      sectionHeaderDescription: fields.sectionHeaderDescription,
+      sectionFooterDescription: fields.sectionFooterDescription,
+      title: fields.sectionTitle,
+			relatedLinks: fields.relatedLinks,
+      states: states
+    });
+  });
+});
+
 //Get Request duplicate Form Page
 router.get('/forms/proctor-request-form', function (req, res, next) {
   var fields, states;
@@ -139,13 +128,12 @@ router.get('/forms/proctor-request-form', function (req, res, next) {
 
 router.get('/forms/certificate-program-application', function (req, res, next) {
   var fields, states;
-	var entryId = "KbQb89jHMWceeoKIGsSgw";
+	var entryId = "JgpDPSNoe4kQGWIkImKAM";
   async.parallel([
     function (callback) {
-      logger.debug('Get contentful fields:');
-      contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
+      logger.debug('Get contentful fields');
+      contentfulForms.getFormWithHeaderAndFooter(function(response, entryId) {
         fields = response;
-				console.log(fields);
         callback();
       });
     },
