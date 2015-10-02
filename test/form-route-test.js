@@ -90,8 +90,8 @@ test('form route test for Request Duplicate Form Internal Error', function (t) {
         {
           "fields": {
             "sectionTitle": "",
-            "sectionFooterDescription": "",
-            "sectionHeaderDescription": ""
+            "sectionHeaderDescription": "",
+            "sectionFooterDescription": ""
           }
         }
     });
