@@ -35,7 +35,7 @@ module.exports = {
   getDuplicateForms: function(callback) {
     request({
       method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=6XkrlHCU9ysmKsCYGUckAC',
+      url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/mlBs5OCiQgW84oiMm4k2s',
       headers: {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
