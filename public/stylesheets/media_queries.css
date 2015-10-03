@@ -96,7 +96,7 @@
         font-size: 14px !important;
         padding: 15px 5px !important;
         }
-      
+
     }
 
     /* Small Devices, Tablets */
@@ -150,6 +150,10 @@
         width: 100% !important;
       }
       .w4 {
+        width: 100% !important;
+      }
+
+      .w5 {
         width: 100% !important;
       }
 
@@ -238,6 +242,13 @@
        .nopadding-mobile {
           padding: 0 !important;
           margin: 0 !important;
+       }
+
+       .alertonmobile {
+         display: block;
+         position: relative !important;
+         margin: -10px -10px 20px -10px !important;
+         background: rgba(58,117,175,  0.1) !important;
        }
 
     }
