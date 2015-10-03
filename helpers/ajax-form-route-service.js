@@ -271,10 +271,37 @@ module.exports = {
         response.errors.courseTitle = "Course title must be greater than 3 characters."
         break;
     }
-    // Validate Captcha
-    if (!params.captchaResponse) {
-      response.errors.captchaResponse = "Please select recaptcha.";
+    // Validate Proctors First Name
+    switch (true) {
+      case (!params.proctor.firstName):
+        response.errors.proctorFirstName = "Proctor's first name is empty."
+        break;
+      case (!validator.isLength(params.proctor.firstName.trim(), 3)):
+        response.errors.proctorFirstName = "Proctor's first name must be greater than 3 characters."
+        break;
     }
-    callback(response);
+    // Validate Proctors Last Name
+    switch (true) {
+      case (!params.proctor.lastName):
+        response.errors.proctorLastName = "Proctor's first name is empty."
+        break;
+      case (!validator.isLength(params.proctor.lastName.trim(), 3)):
+        response.errors.proctorLastName = "Proctor's first name must be greater than 3 characters."
+        break;
+    }
+  // Validate Proctors Email
+  switch(true) {
+    case (!params.proctor.email):
+      response.errors.proctorEmail = "Proctor's email is empty.";
+      break;
+    case (!validator.isEmail(params.proctor.email.trim())):
+      response.errors.proctorEmail = "Proctor's email is in the wrong format.";
+      break;
   }
+  // Validate Captcha
+  if (!params.captchaResponse) {
+    response.errors.captchaResponse = "Please select recaptcha.";
+  }
+  callback(response);
+}
 };
