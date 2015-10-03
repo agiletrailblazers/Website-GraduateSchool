@@ -51,6 +51,33 @@ Validate = {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Course title must be at least 3 characters.</p>");
     }
   },
+  proctorFirstName: function() {
+    var input = $("#txtProctorFirstName").val();
+    var noNumbersPattern = new RegExp(/^[^0-9]+$/);
+    if (!noNumbersPattern.test(input)) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Proctor's First Name</strong> should not have numbers.</p>");
+    }
+    if ((input.trim()).length < 3) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Proctor's First Name</strong> should be at least 3 characters.</p>");
+    }
+  },
+  proctorLastName: function() {
+    var input = $("#txtProctorLastName").val();
+    var noNumbersPattern = new RegExp(/^[^0-9]+$/);
+    if (!noNumbersPattern.test(input)) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Proctor's Last Name</strong> should not have numbers.</p>");
+    }
+    if ((input.trim()).length < 3) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Proctor's Last Name</strong> should be at least 3 characters.</p>");
+    }
+  },
+  proctorEmail: function() {
+    var email = $("#txtProctorEmail").val();
+    var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+    if (!pattern.test(email)) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Proctor's Email address is incorrect.</p>");
+    }
+  },
   captcha: function(){
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
@@ -69,6 +96,9 @@ var _runValidation = function() {
   Validate.instructor();
   Validate.courseCode();
   Validate.courseTitle();
+  Validate.proctorFirstName();
+  Validate.proctorLastName();
+  Validate.proctorEmail();
   Validate.captcha();
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
