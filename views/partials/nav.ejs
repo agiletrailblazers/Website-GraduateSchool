@@ -33,7 +33,7 @@
 													<ul>
 													  <% subNav.links.forEach(function(link) { %>
 														  <li>
-															  <a href="<%= link.url %>"><%= link.title %></a>
+															  <a href="<%= link.url %>" target="<%= (link.newWindow) ? '_blank' : '' %>"><%= link.title %></a>
 														  </li>
 														<% }); %>
 													</ul>
