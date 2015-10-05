@@ -41,7 +41,7 @@ ul.dropdown-menu li ul li {
 
 ul.dropdown-menu li ul li a, ul.dropdown-menu li ul li:active, ul.dropdown-menu li ul li:focus,
 select::-moz-focus-inner, option::-moz-focus-inner {
-  padding: 0;
+  padding: 0 !important;
   outline: 0 !important;
   border: none !important;
 }
@@ -95,7 +95,6 @@ div.icon img {
 
 ul.dropdown-menu li a {
   text-align: left;
-  padding: 3px 30px 3px 25px;
 }
 
 .gs .dropdown.gs-fw .dropdown-menu {
