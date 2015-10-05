@@ -319,3 +319,9 @@ margin: 20px 0;
 #searchResults .nav > li {
   width: 50%;
 }
+
+.g2g-checkbox {
+  margin-top: -8px !important;
+  padding: 10px 10px 0 0 !important;
+  position: absolute;
+}
