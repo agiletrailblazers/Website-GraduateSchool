@@ -195,6 +195,10 @@ a.breadcrumbs:hover,a.breadcrumbs:active  {
   z-index: 999;
 }
 
+.alert-icon {
+  padding: 0 5px 0 0;
+}
+
 /* GENERIC CONTENT TEMPLATE */
 section, article {
   padding: 10px 0;
