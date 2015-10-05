@@ -25,9 +25,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
-	var googleAnalyticsId = config("endpoint").googleAnalyticsId;
+	var googleAnalyticsId = config("properties").googleAnalyticsId;
+	var chatPages = config("properties").chatPages;
 	var navigation = {};
 	var locations = [];
+	var currentUrl = req.url.split("?",1)[0];
+	var pattern = new RegExp(chatPages);
+	var showChat = pattern.test(currentUrl);
 	async.parallel([
     function(callback) {
 			//load the main nav on every request
@@ -48,7 +52,8 @@ app.use(function (req, res, next) {
 		], function() {
 			res.locals = {navigation: navigation,
 				locations: locations,
-				googleAnalyticsId: googleAnalyticsId};
+				googleAnalyticsId: googleAnalyticsId,
+				showChat: showChat};
 			next();
 		});
 });

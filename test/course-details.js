@@ -12,7 +12,7 @@ var config = require('konphyg')(__dirname + "/../config");
 // HTTP request to an external service.
 
 test('course-detail testcase 1', function(t) {
-  var courseApiUrl = config("endpoint").courseApiUrl;
+  var courseApiUrl = config("properties").courseApiUrl;
   var server = nock(courseApiUrl)
       .get('/api/courses/AUDT8002G001')
       .reply(200, {
@@ -35,7 +35,7 @@ test('course-detail testcase 1', function(t) {
 });
 
 test('course-detail testcase 2', function(t) {
-  var courseApiUrl = config("endpoint").courseApiUrl;
+  var courseApiUrl = config("properties").courseApiUrl;
   var server = nock(courseApiUrl)
       .get('/api/courses/AUDT8002G001')
       .reply(200, {
@@ -58,7 +58,7 @@ test('course-detail testcase 2', function(t) {
 });
 
 test('course-detail testcase 3', function(t) {
-  var courseApiUrl = config("endpoint").courseApiUrl;
+  var courseApiUrl = config("properties").courseApiUrl;
   var server = nock(courseApiUrl)
       .get('/api/courses/AUDT8002G001')
       .reply(200, {
@@ -81,7 +81,7 @@ test('course-detail testcase 3', function(t) {
 });
 
 test('course-detail testcase 4', function(t) {
-  var courseApiUrl = config("endpoint").courseApiUrl;
+  var courseApiUrl = config("properties").courseApiUrl;
   var server = nock(courseApiUrl)
         .get('/api/courses/AUDT8002G001')
         .reply(200, {
@@ -104,7 +104,7 @@ test('course-detail testcase 4', function(t) {
   });
 
 test('course-detail testcase 5', function(t) {
-  var courseApiUrl = config("endpoint").courseApiUrl;
+  var courseApiUrl = config("properties").courseApiUrl;
   var server = nock(courseApiUrl)
     .get('/api/courses/AUDT8002G001')
     .reply(200, {
@@ -127,7 +127,7 @@ test('course-detail testcase 5', function(t) {
 });
 
 test('course-detail testcase 6', function(t) {
-  var courseApiUrl = config("endpoint").courseApiUrl;
+  var courseApiUrl = config("properties").courseApiUrl;
   var server = nock(courseApiUrl)
     .get('/api/courses/AUDT8002G001')
     .reply(200, {
@@ -150,7 +150,7 @@ test('course-detail testcase 6', function(t) {
 });
 
 test('course-detail testcase 7', function(t) {
-  var courseApiUrl = config("endpoint").courseApiUrl;
+  var courseApiUrl = config("properties").courseApiUrl;
   var server = nock(courseApiUrl)
     .get('/api/courses/AUDT8002G001')
     .reply(200, {

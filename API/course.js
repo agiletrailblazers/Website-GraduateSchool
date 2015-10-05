@@ -5,7 +5,7 @@ var logger = require('../logger');
 
 module.exports = {
   performCourseSearch: function(callback, params) {
-    var courseApiUrl = config("endpoint").courseApiUrl;
+    var courseApiUrl = config("properties").courseApiUrl;
     courseApiUrl = courseApiUrl + '/api/courses?search=' + params.searchCriteria;
     if (isNotEmpty(params.numRequested)) {
       courseApiUrl = courseApiUrl + '&numRequested=' + params.numRequested;
@@ -34,7 +34,7 @@ module.exports = {
     })
   },
   performExactCourseSearch: function(callback, courseId) {
-    var courseApiUrl = config("endpoint").courseApiUrl;
+    var courseApiUrl = config("properties").courseApiUrl;
     request({
       method: 'GET',
       url: courseApiUrl + '/api/courses/' + courseId + ''
@@ -49,7 +49,7 @@ module.exports = {
     });
   },
   getSchedule: function(callback, courseId) {
-    var courseApiUrl = config("endpoint").courseApiUrl;
+    var courseApiUrl = config("properties").courseApiUrl;
     request({
       method: 'GET',
       url: courseApiUrl + '/api/courses/' + courseId + '/sessions'
@@ -64,7 +64,7 @@ module.exports = {
     });
   },
   getCourses: function(callback) {
-    var courseApiUrl = config("endpoint").courseApiUrl;
+    var courseApiUrl = config("properties").courseApiUrl;
     request({
       method: 'GET',
       url: courseApiUrl + '/api/courses'
@@ -79,7 +79,7 @@ module.exports = {
     });
   },
   getLocations: function(callback) {
-    var courseApiUrl = config("endpoint").courseApiUrl;
+    var courseApiUrl = config("properties").courseApiUrl;
     request({
       method: 'GET',
       url: courseApiUrl + '/api/locations'
@@ -98,7 +98,7 @@ module.exports = {
     if (isEmpty(params.searchCriteria) && (isEmpty(params.cityState) ||  params.cityState == 'all')) {
       return callback(null, null, {});
     }
-    var siteApiUrl = config("endpoint").courseApiUrl;
+    var siteApiUrl = config("properties").courseApiUrl;
     siteApiUrl = siteApiUrl + '/api/site?search=' + params.searchCriteria
     if (isNotEmpty(params.cityState) && params.cityState != 'all') {
       siteApiUrl = siteApiUrl + '&filter=content:' + params.cityState;
