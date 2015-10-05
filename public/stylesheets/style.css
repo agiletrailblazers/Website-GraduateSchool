@@ -1345,6 +1345,9 @@ footer ul li {
 
  }
 
+ul.networks {
+  padding: 15px 10px;
+}
 
 ul.networks img {
   -webkit-transition: all 0.5s;
