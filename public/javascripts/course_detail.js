@@ -86,6 +86,7 @@ $(document).ready(function() {
     var address = $(this).data('address');
     var destination = address.replace(/ /g, '+');
     var directionsUrl = "http://maps.google.com?saddr=Current+Location&daddr=" + destination + "";
+    $("#map-address").html(address);
     google.maps.event.addListenerOnce(map, 'idle', function() {
       google.maps.event.trigger(map, 'resize');
     });
@@ -100,7 +101,7 @@ $(document).ready(function() {
   });
 
   $(".sessionExpand").eq(0).removeClass('collapsed');
-  
+
   $(function () {
       $('#accordion2').on('shown.bs.collapse', function (e) {
           var offset = $(this).find('.collapse.in').prev('.panel-heading');

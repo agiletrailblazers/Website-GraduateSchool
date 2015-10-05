@@ -106,8 +106,12 @@
                     , <%= session["days"] %>
                     <% } %>
                 </td>
-
-                <td><%= session.location["city"]%>, <%= session.location["state"]%> <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] %> <%= session.location["address2"] %> <%= session.location["city"] %> <%= session.location["state"] %>'> </td>
+                <td>
+                  <%= session.location["city"]%>, <%= session.location["state"]%>
+                  <% if(session.location["address1"]) { %>
+                     <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] %> <%= session.location["address2"] %> <%= session.location["city"] %> <%= session.location["state"] %> <%= session.location["postalCode"] %>'>
+                  <% } %>
+                </td>
                 <td> $<%= session["tuition"]%></td>
                 <td class="statusData">
                   <% if (session["status"] === "C")  {%>
@@ -393,6 +397,7 @@
         <h4 class="modal-title" id="mapModalLabel"><%= courseData.class.title %></h4>
       </div>
       <div class="modal-body">
+        <div id="map-address"></div>
         <div id="map-canvas"></div>
       </div>
       <div class="modal-footer">
