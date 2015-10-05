@@ -1650,6 +1650,14 @@ a.underline-n:after {
   padding: 20px !important;
 }
 
+.padding-top  {
+  padding-top: 10px;
+}
+
+.padding-bottom {
+  padding-bottom: 10px;
+}
+
 .margin-reset {
  margin: 0 !important;
 }
