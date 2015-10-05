@@ -9,7 +9,7 @@ var test = require('tap').test;
 
 test('course-search with government search  criteria', function(t) {
   //use endpoing from config even for tests
-  var courseApiUrl = config("endpoint").courseApiUrl;
+  var courseApiUrl = config("properties").courseApiUrl;
   var params ={searchCriteria:"government"};
   //test a 200 ok
   var courseServer = nock(courseApiUrl)
@@ -34,7 +34,7 @@ test('course-search with government search  criteria', function(t) {
 
   test('course-search with government failure  criteria', function(t) {
     //test a 500 internal server error
-  var courseApiUrl = config("endpoint").courseApiUrl;
+  var courseApiUrl = config("properties").courseApiUrl;
   var params ={searchCriteria:"failure"};
   var courseServer = nock(courseApiUrl)
     .get('/api/courses?search=failure').reply(500, {
@@ -50,7 +50,7 @@ test('course-search with government search  criteria', function(t) {
 
 test('course-search with government search  criteria and numRequested', function(t) {
     //use endpoing from config even for tests
-  var courseApiUrl = config("endpoint").courseApiUrl;
+  var courseApiUrl = config("properties").courseApiUrl;
   var params ={searchCriteria:"government",numRequested:"100"};
     //test a 200 ok
   var courseServer = nock(courseApiUrl)
@@ -77,7 +77,7 @@ test('course-search with government search  criteria and numRequested', function
 
 test('course-search with government search  criteria,numRequested and cityState', function(t) {
     //use endpoing from config even for tests
-  var courseApiUrl = config("endpoint").courseApiUrl;
+  var courseApiUrl = config("properties").courseApiUrl;
   var params ={searchCriteria:"government",numRequested:"100",cityState:"Washington, DC"};
     //test a 200 ok
   var courseServer = nock(courseApiUrl)
@@ -105,7 +105,7 @@ test('course-search with government search  criteria,numRequested and cityState'
 
 test('course-search with government search  criteria,numRequested,cityState and G2G', function(t) {
     //use endpoing from config even for tests
-  var courseApiUrl = config("endpoint").courseApiUrl;
+  var courseApiUrl = config("properties").courseApiUrl;
   var params ={searchCriteria:"government",numRequested:"100",cityState:"Washington, DC",selectedG2G:"true"};
     //test a 200 ok
   var courseServer = nock(courseApiUrl)
