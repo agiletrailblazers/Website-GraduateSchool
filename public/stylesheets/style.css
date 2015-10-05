@@ -705,7 +705,7 @@ a.nav-top-button  {
 .header {
   background-color: #FFFFFF;
   padding-top: 30px;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 
 header {
@@ -1691,7 +1691,10 @@ a.underline-n:after {
 
 .spacer25 {
   height: 25px !important;
+}
 
+.spacer10 {
+  height: 10px !important;
 }
 
 .tab-content p {
