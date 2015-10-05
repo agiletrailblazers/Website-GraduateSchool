@@ -201,7 +201,6 @@ ul.dropdown-menu li a {
 
 /* TOP NAV */
 #nav-top {
-  	background-color:#01467F;
   	position:relative;
   	width:100%;
   }
@@ -209,7 +208,7 @@ ul.dropdown-menu li a {
   #nav-top .toggle {
   	cursor:pointer;
   	position:absolute;
-  	right:30px;
+  	right:0px;
   }
   #nav-top .toggle a {
   	content: '';

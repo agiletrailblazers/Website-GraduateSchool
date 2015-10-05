@@ -626,13 +626,40 @@ textarea:focus {
 }
 
 .nav-top {
-  border-top: 3px solid #01467F;
-  background-color: #01467F !important;
+  border-bottom: 3px solid #01274F;
+  background: transparent linear-gradient(to right, #2A4D77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274F 100%) repeat scroll 0% 0%;
   padding: 0;
   top:0;
 }
 
-a.nav-top-button  {
+.nav-top-bar {
+  background: transparent linear-gradient(to right, #2A4D77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274F 100%) repeat scroll 0% 0%;
+  height: 38px;
+  margin: 0 0 0 0;
+}
+
+.nav-top-bar ul {
+  padding: 7px 20px 0 20px !important;
+  display: block;
+}
+
+.nav-top-bar ul li {
+  display: inline-block;
+  list-style: none;
+}
+
+.nav-top-bar ul li + li {
+    border-left: 1px solid #EEE;
+}
+
+.nav-top-bar ul li a {
+  padding: 0 20px;
+  font-size: 13px;
+  font-weight: bold !important;
+ }
+
+
+/*a.nav-top-button  {
   background-color: #01467F;
   width: 33px;
   height: 33px;
@@ -646,7 +673,7 @@ a.nav-top-button  {
  a.nav-top-button:hover {
   background-color: #E21264;
   text-decoration: none;
-}
+}*/
 
 .left-panel ul li a {
   color: #fff;
