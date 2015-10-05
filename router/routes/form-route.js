@@ -8,10 +8,7 @@ var logger = require('../../logger');
 
 // Bring this Course to Your Location
 router.get('/forms/onsite-inquiry', function(req, res, next) {
-	var fields;
-	var courses;
-	var locations;
-	var states;
+	var fields, courses, locations, states;
 	async.parallel([
         function(callback) {
         	logger.debug('Get contentful fields');
@@ -70,8 +67,16 @@ router.get('/forms/contact-us', function(req, res, next) {
 
 //Get Request duplicate Form Page
 router.get('/forms/request-duplicate-form', function (req, res, next) {
-  var fields;
-  var states;
+  var fields, states, pageTitle;
+	var getQuery = new RegExp(/\?(.*)/);
+	var query = getQuery.exec(req.originalUrl);
+	if(query[1] === 'coursetype=cc') {
+		pageTitle = "Request Course Completion Certificate";
+	}
+	if (query[1] === 'coursetype=og') {
+		pageTitle = "Request Official Grade Report";
+	}
+	console.log(query);
   async.parallel([
     function (callback) {
       logger.debug('Get contentful fields');
@@ -92,7 +97,7 @@ router.get('/forms/request-duplicate-form', function (req, res, next) {
       sectionTitle: fields.sectionTitle,
       sectionHeaderDescription: fields.sectionHeaderDescription,
       sectionFooterDescription: fields.sectionFooterDescription,
-      title: "Request Course Completion Certificate",
+      title: pageTitle,
 			relatedLinks: fields.relatedLinks,
       states: states
     });
