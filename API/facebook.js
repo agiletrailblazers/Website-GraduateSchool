@@ -1,5 +1,5 @@
 var FB = require('fb');
-FB.setAccessToken(config("endpoint").facebook_AccessToken);
+FB.setAccessToken(config("properties").facebook_AccessToken);
 
 module.exports = {
   getFacebookPosts: function(callback) {
