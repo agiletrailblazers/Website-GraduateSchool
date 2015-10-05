@@ -53,7 +53,6 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
 
 	//Get Contact Us page.
 	router.get('/forms/contact-us', function(req, res, next) {
-		var spaceId = "tz32dajhh9bn";
 		contentfulForms.getContactUs(function(response) {
 			logger.debug(response);
 			logger.debug("Subject Line:", response.cmsEntry.fields.subjectLine);
@@ -81,7 +80,6 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
 		} else {
 			pageTitle = "Request Official Document";
 		}
-		console.log(query);
 		async.parallel([
 			function (callback) {
 				logger.debug('Get contentful fields');
