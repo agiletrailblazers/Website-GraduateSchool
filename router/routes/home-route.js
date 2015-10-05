@@ -6,11 +6,17 @@ var striptags = require('striptags');
 var moment = require('moment');
 var router = express.Router();
 var logger = require('../../logger');
+var facebook = require('../../API/facebook.js')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   data = {};
   async.parallel([
+    function(callback) {
+      facebook.getFacebookPosts(function(posts) {
+        data.facebookPosts = posts;
+      });
+    },
     function(callback) {
       contentful.getHomepageSlider(function(content) {
         data.slider = content;
