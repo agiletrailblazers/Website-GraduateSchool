@@ -240,9 +240,7 @@
                                                        <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
                                                          <%= session["startTime"]%> - <%= session["endTime"]%>
                                                        <% } %>
-                                                       <% if (session["days"] !== null) { %>
-                                                       , <%= session["days"] %>
-                                                       <% } %>
+
                                                   </span>
                                                 </div>
                                                 <div class="col-xs-12">
@@ -258,6 +256,7 @@
                                   <div id="session<%= i+1 %>" class="mySession panel-collapse collapse <% if ((i+1) == 1 ){ %> in <% } %>">
                                       <div class="panel-body nopadding">
                                       <table class="session-schedule-mob">
+                                        <tr><th class="mob-header"><%= content.sessionTable[0] %></th><td><% if (session["days"] !== null) { %><%= session["days"] %><% } %></td></tr>
                                         <tr><th class="mob-header"><%= content.sessionTable[1] %></th><td><%= session.location["city"]%>, <%= session.location["state"]%> <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] %> <%= session.location["address2"] %> <%= session.location["city"] %> <%= session.location["state"] %>'></td></tr>
                                         <tr><th class="mob-header"><%= content.sessionTable[2] %></th><td>$<%= session["tuition"]%></td></tr>
                                         <tr><th class="mob-header"><%= content.sessionTable[3] %></th><td class="statusData-mob">
