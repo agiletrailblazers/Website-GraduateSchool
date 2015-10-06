@@ -35,20 +35,45 @@ Validate = {
   },
   instructor: function() {
     var instructor = $("#txtInstructor").val();
-    if (instructor.length < 3) {
+    if (instructor.trim().length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please enter a valid instructor.</p>");
     }
   },
   courseCode: function() {
     var code = $("#txtCourseNumber").val();
-    if (code.length < 4) {
+    if (code.trim().length < 4) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Code must be atleast 4 characters.</p>");
     }
   },
   courseTitle: function() {
     var title = $("#txtCourseTitle").val();
-    if (title.length < 3) {
+    if (title.trim().length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Course title must be at least 3 characters.</p>");
+    }
+  },
+  courseLocation: function() {
+    var location = $("#txtCourseLocation").val();
+    if (location.trim().length < 3) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Course Location must be at least 3 characters.</p>");
+    }
+  },
+  courseStartDate: function() {
+    var dateStart = $("#dateStart").val();
+    if (dateStart== "" || $("#dateStart").datepicker("getDate") === null) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please select the start date</p>");
+    }
+  },
+  courseEndDate: function() {
+    var dateEnd = $("#dateEnd").val();
+    if (dateEnd == "" || $("#dateEnd").datepicker("getDate") === null) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please select the End date</p>");
+    }
+  },
+  dateTimeDiff: function() {
+    var dateEnd = $("#dateEnd").datepicker("getDate") ;
+    var dateStart = $("#dateStart").datepicker("getDate") ;
+    if ($("#dateStart").val() != "" && dateStart !== null && $("#dateEnd").val() != "" && dateEnd != null &&  (dateEnd - dateStart)/1000/60/60/24<1) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please select the course end date greater than course start date</p>");
     }
   },
   captcha: function(){
@@ -69,6 +94,10 @@ var _runValidation = function() {
   Validate.instructor();
   Validate.courseCode();
   Validate.courseTitle();
+  Validate.courseStartDate();
+  Validate.courseEndDate();
+  Validate.dateTimeDiff();
+  Validate.courseLocation();
   Validate.captcha();
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
@@ -142,5 +171,15 @@ $(document).ready(function() {
     $("#radioGradeReport").prop("checked", true);
   } else {
     $("#radioCertificate").prop("checked", true);
+  }
+
+  $("#dateEnd").datepicker({beforeShow: setminDate});
+  function setminDate() {
+    var courseStartDate = $('#dateStart').datepicker('getDate');
+    if (courseStartDate) {
+      return {
+        minDate: courseStartDate
+      }
+    };
   }
 });
