@@ -7,9 +7,9 @@
           <div class="fix">
              <div class="left-panel col-lg-3">
                  <ul class="nav nav-pills nav-stacked" id="tabs">
-                     <li class="active"><a href="#current-students" data-toggle="tab"><img src="/images/current-students.png" alt="" class="size-fix" /> Students</a></li>
-                     <li><a href="#prospective-students" data-toggle="tab"><img src="/images/prospective-students.png" alt="" class="size-fix" /> Prospective Students</a></li>
-                     <li><a href="#training-official" data-toggle="tab"><img src="/images/training-official.png" alt="" class="size-fix" /> Training Official</a></li>
+                     <li class="active"><a id="lnkCurrent" href="#current-students" data-toggle="tab"><img src="/images/current-students.png" alt="" class="size-fix" /> Students</a></li>
+                     <li ><a id="lnkProspective" href="#prospective-students" data-toggle="tab"><img src="/images/prospective-students.png" alt="" class="size-fix" /> Prospective Students</a></li>
+                     <li ><a id="lnkTraining" href="#training-official" data-toggle="tab"><img src="/images/training-official.png" alt="" class="size-fix" /> Training Official</a></li>
                  </ul>
              </div>
              <div class="tab-content col-lg-9 fix-padding-bottom">
@@ -39,13 +39,13 @@
               </div>
           </div>
         </div><!-- .container -->
-        
+
     		<div class="toggle colored-bg hide-panel" style="z-index: 25;">
           <div class="nav-top-bar">
             <ul id="nav-top-menu">
-              <li><a href="#" >Students</a></li>
-              <li><a href="#">Prospective Students</a></li>
-              <li><a href="#">Training Official</a></li>
+              <li class="nav-toggle" data-tab="lnkCurrent"><a href="#">Students</a></li>
+              <li class="nav-toggle" data-tab="lnkProspective"><a href="#">Prospective Students</a></li>
+              <li class="nav-toggle" data-tab="lnkTraining"><a href="#">Training Official</a></li>
             </ul>
           </div>
           <%# <a href="#">
