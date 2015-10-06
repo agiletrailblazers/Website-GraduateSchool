@@ -27,7 +27,6 @@ $(document).ready(function(){
 $('#searchIcon').click(function() {
     $('div.searchBox').fadeIn();
     $(document).bind('focusin.searchBox click.searchBox',function(e) {
-      console.log("Inside Bind");
       if (!$(e.target).closest('.searchBox, #searchIcon').length) {
         $(document).unbind('.searchBox');
         $('div.searchBox').fadeOut('medium');
