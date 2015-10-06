@@ -207,6 +207,9 @@ test('requestDuplicateForm Happy Path validation With Email', function (t) {
     instructor: "ATB",
     courseCode: "ACT0001",
     courseTitle: "Law",
+    courseLocation:"Washington,DC",
+    startDate:"05/23/2015",
+    endDate:"05/31/2015",
     captchaResponse: "AAAAAAAAAAA"
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
