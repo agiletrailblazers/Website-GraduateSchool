@@ -67,11 +67,11 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
 //Get Request duplicate Form Page
 router.get('/forms/request-duplicate-form', function (req, res, next) {
   var fields, states;
-	var entryId	= "mlBs5OCiQgW84oiMm4k2s";
   async.parallel([
     function (callback) {
       logger.debug('Get contentful fields');
-      contentfulForms.getFormWithHeaderAndFooter(function (response, entryId) {
+			var entryId	= "mlBs5OCiQgW84oiMm4k2s";
+      contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
         fields = response;
         callback();
       });
@@ -102,7 +102,7 @@ router.get('/forms/proctor-request-form', function (req, res, next) {
   async.parallel([
     function (callback) {
       logger.debug('Get contentful fields');
-      contentfulForms.getFormWithHeaderAndFooter(function(response, entryId) {
+      contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
         fields = response;
         callback();
       });
