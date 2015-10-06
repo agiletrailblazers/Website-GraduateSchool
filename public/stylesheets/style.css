@@ -634,12 +634,12 @@ textarea:focus {
 
 .nav-top-bar {
   background: transparent linear-gradient(to right, #2A4D77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274F 100%) repeat scroll 0% 0%;
-  height: 38px;
+  height: 33px;
   margin: 0 0 0 0;
 }
 
 .nav-top-bar ul {
-  padding: 7px 15px 0 15px !important;
+  padding: 4px 15px 0 15px !important;
   display: block;
 }
 
