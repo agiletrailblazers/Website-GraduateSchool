@@ -639,7 +639,7 @@ textarea:focus {
 }
 
 .nav-top-bar ul {
-  padding: 7px 20px 0 20px !important;
+  padding: 7px 15px 0 15px !important;
   display: block;
 }
 
@@ -653,7 +653,7 @@ textarea:focus {
 }
 
 .nav-top-bar ul li a {
-  padding: 0 20px;
+  padding: 0 17px;
   font-size: 13px;
   font-weight: bold !important;
  }
@@ -1756,20 +1756,3 @@ a.underline-n:after {
     {
         outline : none;
     }
-
-
-@media print {
-  #header, #footer, #chat, .util, .ms-drop {display: none !important;  }
-    *{
-        filter: grayscale(100%);
-        -webkit-filter: grayscale(100%);
-    }
-
-    a[href]:after {
-      content: none !important;
-    }
-
-  @page {
-    margin: 75px;
-  }
-}
