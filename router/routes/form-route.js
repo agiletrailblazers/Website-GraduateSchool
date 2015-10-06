@@ -142,9 +142,10 @@ router.get('/forms/certificate-program-application', function (req, res, next) {
 	var entryId = "KbQb89jHMWceeoKIGsSgw";
   async.parallel([
     function (callback) {
-      logger.debug('Get contentful fields');
-      contentfulForms.getFormWithHeaderAndFooter(function(response, entryId) {
+      logger.debug('Get contentful fields:');
+      contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
         fields = response;
+				console.log(fields);
         callback();
       });
     },
