@@ -12,16 +12,16 @@ var requestduplicateTemplate = new EmailTemplate(path.join(templatesDir, 'reques
 var requestProctorTemplate = new EmailTemplate(path.join(templatesDir, 'requestProctor-email'));
 
 var smtp = {
-  host: config("endpoint").defaultEmailServerName,
-  port: config("endpoint").defaultEmailServerPort,
+  host: config("properties").defaultEmailServerName,
+  port: config("properties").defaultEmailServerPort,
   tls: {
     rejectUnauthorized: false
   }
 };
-if (config("endpoint").defaultEmailUserName != "") {
+if (config("properties").defaultEmailUserName != "") {
   smtp.auth = {
-    user: config("endpoint").defaultEmailUserName,
-    pass: config("endpoint").defaultEmailUserPassword
+    user: config("properties").defaultEmailUserName,
+    pass: config("properties").defaultEmailUserPassword
   };
 }
 var transporter = nodemailer.createTransport(smtpTransport(smtp));
@@ -47,8 +47,8 @@ module.exports = {
         return callback(500);
       }
       var mailAttributes = {
-        from: config("endpoint").defaultEmailFromUserName,
-        to: config("endpoint").contactUsToUserName,
+        from: config("properties").defaultEmailFromUserName,
+        to: config("properties").contactUsToUserName,
         subject: params.subject,
         text:  results.text,
         html:  results.html
@@ -72,9 +72,9 @@ module.exports = {
         return callback(500);
       }
       var mailAttributes = {
-        from: config("endpoint").defaultEmailFromUserName,
-        to: config("endpoint").onsiteInquiryToUserName,
-        subject: config("endpoint").onsiteInquiryEmailSubject,
+        from: config("properties").defaultEmailFromUserName,
+        to: config("properties").onsiteInquiryToUserName,
+        subject: config("properties").onsiteInquiryEmailSubject,
         text:  results.text,
         html:  results.html
       };
@@ -90,10 +90,10 @@ module.exports = {
   },
   sendOnRequestDuplicate: function(callback, params) {
     logger.debug("SMTP sending to: " + smtp);
-    var requestDuplicateToEmail=config("endpoint").requestDuplicateCourseCompletionCertificateToUserName;
-    var requestDuplicateEmailSubject =config("endpoint").requestDuplicateFormEmailSubject+" "+params.courseType;
+    var requestDuplicateToEmail=config("properties").requestDuplicateCourseCompletionCertificateToUserName;
+    var requestDuplicateEmailSubject =config("properties").requestDuplicateFormEmailSubject+" "+params.courseType;
     if(params.courseType=="Official Grade Report") {
-      requestDuplicateToEmail=config("endpoint").requestDuplicateOfficialGradeReportToUserName;
+      requestDuplicateToEmail=config("properties").requestDuplicateOfficialGradeReportToUserName;
     }
     requestduplicateTemplate.render(params, function(err, results) {
       logger.info("Starting mail send");
@@ -102,7 +102,7 @@ module.exports = {
         return callback(500);
       }
       var mailAttributes = {
-        from: config("endpoint").defaultEmailFromUserName,
+        from: config("properties").defaultEmailFromUserName,
         to: requestDuplicateToEmail,
         subject: requestDuplicateEmailSubject,
         text:  results.text,
@@ -127,9 +127,9 @@ module.exports = {
         return callback(500);
       }
       var mailAttributes = {
-        from: config("endpoint").defaultEmailFromUserName,
-        to: config("endpoint").proctorRequestToUserName,
-        subject: config("endpoint").proctorRequestEmailSubject,
+        from: config("properties").defaultEmailFromUserName,
+        to: config("properties").proctorRequestToUserName,
+        subject: config("properties").proctorRequestEmailSubject,
         text:  results.text,
         html:  results.html
       };

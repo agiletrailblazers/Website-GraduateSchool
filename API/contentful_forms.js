@@ -6,9 +6,9 @@ module.exports = {
   getInquiryForm: function(callback) {
     request({
       method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/'+ config("endpoint").contentfulSpace_Main +'/entries/' + config("endpoint").contentfulEntry_InquiryForm,
+      url: 'https://cdn.contentful.com/spaces/'+ config("properties").contentfulSpace_Main +'/entries/' + config("properties").contentfulEntry_InquiryForm,
       headers: {
-        'Authorization': 'Bearer ' + config("endpoint").contentfulAuthKey_Main
+        'Authorization': 'Bearer ' + config("properties").contentfulAuthKey_Main
       }
     }, function(error, response, body) {
       logger.debug("Forms Get Inquiry Contentful: " + response.statusCode);
@@ -19,9 +19,9 @@ module.exports = {
   getContactUs: function(callback) {
 	    request({
 	      method: 'GET',
-	      url: 'https://cdn.contentful.com/spaces/'+ config("endpoint").contentfulSpace_Main +'/entries/' + config("endpoint").contentfulEntry_ContactUs,
+	      url: 'https://cdn.contentful.com/spaces/'+ config("properties").contentfulSpace_Main +'/entries/' + config("properties").contentfulEntry_ContactUs,
 	      headers: {
-	        'Authorization': 'Bearer ' + config("endpoint").contentfulAuthKey_Main
+	        'Authorization': 'Bearer ' + config("properties").contentfulAuthKey_Main
 	      }
 	    }, function(error, response, body) {
         logger.debug("Forms Contact Us Contentful: " + response.statusCode);

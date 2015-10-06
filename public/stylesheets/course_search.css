@@ -182,9 +182,6 @@ margin: 20px 0;
   color: #FFF !important;
 }
 
-.spacer {
-  margin: 20px 0px !important;
-}
 
 .control-label {
   padding: 5px 5px 0 0 !important;
@@ -321,4 +318,9 @@ margin: 20px 0;
 
 #searchResults .nav > li {
   width: 50%;
+}
+
+.g2g-checkbox {
+  margin-top: -8px !important;
+  position: absolute;
 }

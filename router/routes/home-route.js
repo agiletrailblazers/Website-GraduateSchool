@@ -15,6 +15,13 @@ router.get('/', function(req, res, next) {
     function(callback) {
       facebook.getFacebookPosts(function(posts) {
         data.facebookPosts = posts;
+        callback();
+      });
+    },
+    function(callback) {
+      twitter.getTwitterTweets(function(tweets) {
+        data.tweets = tweets;
+        callback();
       });
     },
     function(callback) {

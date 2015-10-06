@@ -21,28 +21,18 @@ $(document).ready(function(){
   });
 });
 
-// advanced search > display locations dropdown on search focus
-$(document).ready(function(){
-$('#searchCriteria').focus(function() {
-    $('div.locations').show();
-    $(document).bind('focusin.locations click.locations',function(e) {
-        if ($(e.target).closest('.locations, #searchCriteria').length) return;
-        $(document).unbind('.locations');
-        $('div.locations').fadeOut('medium');
-    });
-});
-$('div.locations').hide();
-});
 
-// advanced search > display locations dropdown on MoreSearchOptions click
+//Displays search box and advanced filter on click.
 $(document).ready(function(){
-$('#moreSearchOptions').click(function() {
-    $('div.locations').show();
-    $(document).bind('focusin.locations click.locations',function(e) {
-        if ($(e.target).closest('.locations, #moreSearchOptions').length) return;
-        $(document).unbind('.locations');
-        $('div.locations').fadeOut('medium');
+$('#searchIcon').click(function() {
+    $('div.searchBox').fadeIn();
+    $(document).bind('focusin.searchBox click.searchBox',function(e) {
+      if (!$(e.target).closest('.searchBox, #searchIcon').length) {
+        $(document).unbind('.searchBox');
+        $('div.searchBox').fadeOut('medium');
+      }
     });
+    $('input.searchCriteria').focus();
 });
-$('div.locations').hide();
+$('div.searchBox').hide();
 });

@@ -6,7 +6,7 @@
           <span id="alertDismiss" data-slug="<%= alert.slug %>"  class="glyphicon glyphicon-remove pull-right" style="cursor: pointer;"></span>
           <div class="row">
             <div class="col-lg-2">
-              <h5><img src="images/alert-icon.png" data-src="" alt=" "><%= alert.alertType %></h5>
+              <h5><img src="images/alert-icon.png" data-src="" alt="" class="alert-icon"><%= alert.alertType %></h5>
             </div>
             <div class="col-lg-10">
               <p><%- alert.alertContent %></p>
@@ -21,7 +21,7 @@
             <li data-target="#myCarousel" data-slide-to="<%= i %>" class="<%= slider[i].status %>"></li>
 				  <% } %>
 				</ol>
-        
+
 				<div class="carousel-inner">
           <% slider.forEach(function(slide) { %>
             <div class="item <%= slide.status %>">
