@@ -19,6 +19,12 @@ router.get('/', function(req, res, next) {
       });
     },
     function(callback) {
+      twitter.getTwitterTweets(function(tweets) {
+        data.tweets = tweets;
+        callback();
+      });
+    },
+    function(callback) {
       contentful.getHomepageSlider(function(content) {
         data.slider = content;
         callback();
