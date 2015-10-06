@@ -75,10 +75,10 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
 			} else if(query[1] === 'coursetype=og') {
 				pageTitle = "Request Official Grade Report";
 			} else {
-				pageTitle = "Request Official Document";
+				pageTitle = "Request Course Completion Certificate";
 			}
 		} else {
-			pageTitle = "Request Official Document";
+			pageTitle = "Request Course Completion Certificate";
 		}
 		async.parallel([
 			function (callback) {
