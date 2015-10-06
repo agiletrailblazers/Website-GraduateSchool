@@ -15,7 +15,7 @@ $(document).ready(function() {
   //removes navbar-fixed-top class on resolutions < 768
   function checkWindowSize() {
       if ( $(window).width() < 768) {
-          $('div').removeClass('navbar-fixed-top');
+          $('#top-menu').removeClass('navbar-fixed-top');
           }
       }
   checkWindowSize();
@@ -23,7 +23,7 @@ $(document).ready(function() {
   //add/remove class for fixed top nav bar based on resized resolution
   $(function(){
   $(window).bind("resize",function(){
-      if($(this).width() <768){
+      if($(this).width() < 768){
       $('#top-menu').removeClass('navbar-fixed-top');
     } else {
       $('#top-menu').addClass('navbar-fixed-top');
