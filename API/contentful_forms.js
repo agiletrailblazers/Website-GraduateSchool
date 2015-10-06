@@ -32,15 +32,15 @@ module.exports = {
       });
     });
   },
-  getFormWithHeaderAndFooter: function(callback, entryId) {
+  getFormWithHeaderAndFooter: function(entryId, callback) {
     request({
       method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/'+ entryId + '',
+      url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/'+ entryId,
       headers: {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-      logger.debug("Get Proctoring Request Form Contentful Response Code: " + response.statusCode);
+      logger.debug("Get For With Header and Footer Request Form Contentful Response Code: " + response.statusCode);
       cmsEntry = JSON.parse(body);
       return callback({
         sectionTitle: cmsEntry.fields.sectionTitle,
