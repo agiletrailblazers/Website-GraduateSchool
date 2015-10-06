@@ -49,4 +49,5 @@ module.exports = {
         statusCode: response.statusCode
       });
     });
-  };
+  }
+};
