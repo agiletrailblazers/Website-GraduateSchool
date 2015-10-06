@@ -199,6 +199,31 @@ module.exports = {
         response.errors.courseTitle = "Course title must be greater than 3 characters."
         break;
     }
+
+    // Validate Course Start Date
+    switch (true) {
+      case (!params.startDate):
+        response.errors.courseStartDate = "Please select course start date."
+        break;
+    }
+
+    // Validate Course End Date
+    switch (true) {
+      case (!params.endDate):
+        response.errors.courseEndDate = "Please select course end date."
+        break;
+    }
+
+    // Validate Course Location
+    switch (true) {
+      case (!params.courseLocation):
+        response.errors.courseLocation = "Course Location is empty."
+        break;
+      case (!validator.isLength(params.courseLocation.trim(), 3)):
+        response.errors.courseTitle = "Course Location must be greater than 3 characters."
+        break;
+    }
+
     // Validate Captcha
     if (!params.captchaResponse) {
       response.errors.captchaResponse = "Please select recaptcha.";
