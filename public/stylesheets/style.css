@@ -653,7 +653,7 @@ textarea:focus {
 }
 
 .nav-top-bar ul li a {
-  padding: 0 17px;
+  padding: 12px 20px;
   font-size: 13px;
   font-weight: bold !important;
  }

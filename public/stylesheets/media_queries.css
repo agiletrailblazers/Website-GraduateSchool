@@ -261,6 +261,12 @@
           background: transparent linear-gradient(to right, #2A4D77 0%, #01274F 100%) repeat scroll 0% 0%;
         }
 
+        .navbar-fixed-top {
+            position:absolute !important;
+            top:0;
+            z-index: 1030;
+        }
+
     }
 
     /* Extra Small Devices, Phones */
