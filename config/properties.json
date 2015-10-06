@@ -33,6 +33,11 @@
 
     "facebook_AccessToken": "1098206310190375|5Dv5iDaT_qEjmZWBOrlFk8h0_MA",
 
+    "consumer_key": "PIoJfzeksP0DMied3JBB5fABD",
+    "consumer_secret": "Bt00lTMM6lYY0KN45pxYKZoUxudyaQ6Wpz2BZB7d41ulGm80uH",
+    "access_token_key": "2464713319-oWrz3HEd11GSuyzi2pJ8ViVCg5yGH63vuyFCeis",
+    "access_token_secret": "5JUVDp3L19E31Y7B3XOXm5EGli971UkmZKnrdmeTLBtJy",
+
     "chatPages":"\/courses\/*|\/forms|\/search|\/forms/contact-us"
 
 }
