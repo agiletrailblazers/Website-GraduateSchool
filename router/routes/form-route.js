@@ -54,25 +54,23 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
 	//Get Contact Us page.
 	router.get('/forms/contact-us', function(req, res, next) {
 		contentfulForms.getContactUs(function(response) {
-			logger.debug(response);
-			logger.debug("Subject Line:", response.cmsEntry.fields.subjectLine);
-			res.render('forms/contact_us', {title: response.cmsEntry.fields.title,
-				subjectLine: response.cmsEntry.fields.subjectLine,
-				topParagraph: response.cmsEntry.fields.topParagraph,
-				relatedLinks: response.cmsEntry.fields.relatedLinks
+			res.render('forms/contact_us', {title: response.fields.title,
+				subjectLine: response.fields.subjectLine,
+				topParagraph: response.fields.topParagraph,
+				relatedLinks: response.fields.relatedLinks
 			});
 		});
 	});
 
 //Get Request duplicate Form Page
 router.get('/forms/request-duplicate-form', function (req, res, next) {
-  var fields, states;
+  var cmsEntry, states;
 	var entryId	= "mlBs5OCiQgW84oiMm4k2s";
   async.parallel([
     function (callback) {
       logger.debug('Get contentful fields');
-      contentfulForms.getFormWithHeaderAndFooter(function (response, entryId) {
-        fields = response;
+      contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
+        cmsEntry = response;
         callback();
       });
     },
@@ -84,26 +82,27 @@ router.get('/forms/request-duplicate-form', function (req, res, next) {
       });
     }
   ], function (results) {
+		//add error handling
     res.render('forms/request_course_completion_certificate', {
-      sectionTitle: fields.sectionTitle,
-      sectionHeaderDescription: fields.sectionHeaderDescription,
-      sectionFooterDescription: fields.sectionFooterDescription,
-      title: fields.sectionTitle,
-			relatedLinks: fields.relatedLinks,
+      sectionTitle: cmsEntry.fields.sectionTitle,
+      sectionHeaderDescription: cmsEntry.fields.sectionHeaderDescription,
+      sectionFooterDescription: cmsEntry.fields.sectionFooterDescription,
+      title: cmsEntry.fields.sectionTitle,
+			relatedLinks: cmsEntry.fields.relatedLinks,
       states: states
     });
   });
 });
 
-//Get Request duplicate Form Page
+//Get Proctor Request Form Page
 router.get('/forms/proctor-request-form', function (req, res, next) {
-  var fields, states;
+  var cmsEntry, states;
 	var entryId = "JgpDPSNoe4kQGWIkImKAM";
   async.parallel([
     function (callback) {
       logger.debug('Get contentful fields');
-      contentfulForms.getFormWithHeaderAndFooter(function(response, entryId) {
-        fields = response;
+      contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
+        cmsEntry = response;
         callback();
       });
     },
@@ -116,11 +115,11 @@ router.get('/forms/proctor-request-form', function (req, res, next) {
     }
   ], function (results) {
     res.render('forms/proctor_request_form', {
-      sectionTitle: fields.sectionTitle,
-      sectionHeaderDescription: fields.sectionHeaderDescription,
-      sectionFooterDescription: fields.sectionFooterDescription,
+      sectionTitle: cmsEntry.fields.sectionTitle,
+      sectionHeaderDescription: cmsEntry.fields.sectionHeaderDescription,
+      sectionFooterDescription: cmsEntry.fields.sectionFooterDescription,
       title: "Proctor Request Form",
-			relatedLinks: fields.relatedLinks,
+			relatedLinks: cmsEntry.fields.relatedLinks,
       states: states
     });
   });
