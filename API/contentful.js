@@ -171,6 +171,7 @@ module.exports = {
         var link = {};
         link.title = linkEntry.fields['link'+linkCount][0];
         link.url = linkEntry.fields['link'+linkCount][1];
+        link.newWindow = (linkEntry.fields['link'+linkCount][2]) === 'true' ? true : false;
         section.links.push(link);
       }
     }

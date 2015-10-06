@@ -95,7 +95,7 @@
         #course-information .nav-tabs > li > a {
         font-size: 14px !important;
         padding: 15px 5px !important;
-}
+        }
 
     }
 
@@ -150,6 +150,10 @@
         width: 100% !important;
       }
       .w4 {
+        width: 100% !important;
+      }
+
+      .w5 {
         width: 100% !important;
       }
 
@@ -239,6 +243,29 @@
           padding: 0 !important;
           margin: 0 !important;
        }
+
+       .alertonmobile {
+         display: block;
+         position: relative !important;
+         margin: -10px -10px 20px -10px !important;
+         background: rgba(58,117,175,  0.1) !important;
+       }
+
+       /* different bg color for the top nav */
+       .nav-top {
+        border-bottom: 3px solid #01274F;
+        background: transparent linear-gradient(to right, #2A4D77 30%, #3B6FA0 75%, #2A4D77 100%) repeat scroll 0% 0%;
+        }
+
+        .nav-top-bar {
+          background: transparent linear-gradient(to right, #2A4D77 0%, #01274F 100%) repeat scroll 0% 0%;
+        }
+
+        .navbar-fixed-top {
+            position:absolute !important;
+            top:0;
+            z-index: 1030;
+        }
 
     }
 

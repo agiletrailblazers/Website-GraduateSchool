@@ -46,7 +46,9 @@
                 }
               }
               %>
-              <input type="checkbox" id="G2G" name="G2G" value="" <%= g2gChecked %> <%= g2gDisabled %> /><label for="G2G"><strong>Guaranteed To Go</strong>&nbsp;(<%= g2gFacetCount %>) </label><br>
+              <div class="wrapper padding-top padding-bottom">
+                <input type="checkbox" id="G2G" name="G2G"  value="" <%= g2gChecked %> <%= g2gDisabled %> /><label for="G2G" class="g2g-checkbox"><strong><span class="label label-success">G</span> Guaranteed To Go</strong>&nbsp;(<%= g2gFacetCount %>) </label><br>
+              </div>
               <hr>
             </span>
             <span class="form-group" data-showfor="course">

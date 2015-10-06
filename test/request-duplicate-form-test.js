@@ -16,7 +16,7 @@ test('firstName-requestDuplicateForm Empty String Validation', function (t) {
     captchaResponse: "AAAAA"
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
-    expect(response.errors.firstName).to.eql(config("endpoint").contactUsFirstNameEmptyCheckMessage);
+    expect(response.errors.firstName).to.eql(config("properties").contactUsFirstNameEmptyCheckMessage);
   }, params);
   t.end();
 });
@@ -32,7 +32,7 @@ test('firstName-requestDuplicateForm length Validation', function (t) {
     captchaResponse: "AAAAA"
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
-    expect(response.errors.firstName).to.eql(config("endpoint").contactUsFirstNameLengthCheckMessage);
+    expect(response.errors.firstName).to.eql(config("properties").contactUsFirstNameLengthCheckMessage);
   }, params);
   t.end();
 });
@@ -48,7 +48,7 @@ test('firstName-requestDuplicateForm White Spaces Validation', function (t) {
     captchaResponse: "AAAAA"
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
-    expect(response.errors.firstName).to.eql(config("endpoint").contactUsFirstNameLengthCheckMessage);
+    expect(response.errors.firstName).to.eql(config("properties").contactUsFirstNameLengthCheckMessage);
   }, params);
   t.end();
 });
@@ -64,7 +64,7 @@ test('lastName-requestDuplicateForm Empty String Validation', function (t) {
     captchaResponse: "AAAAA"
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
-    expect(response.errors.lastName).to.eql(config("endpoint").contactUsLastNameEmptyCheckMessage);
+    expect(response.errors.lastName).to.eql(config("properties").contactUsLastNameEmptyCheckMessage);
   }, params);
   t.end();
 });
@@ -80,7 +80,7 @@ test('lastName-requestDuplicateForm Length Validation', function (t) {
     captchaResponse: "AAAAA"
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
-    expect(response.errors.lastName).to.eql(config("endpoint").contactUsLastNameLengthCheckMessage);
+    expect(response.errors.lastName).to.eql(config("properties").contactUsLastNameLengthCheckMessage);
   }, params);
   t.end();
 });
@@ -96,7 +96,7 @@ test('lastName-requestDuplicateForm White Spaces Validation', function (t) {
     captchaResponse: "AAAAA"
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
-    expect(response.errors.lastName).to.eql(config("endpoint").contactUsLastNameLengthCheckMessage);
+    expect(response.errors.lastName).to.eql(config("properties").contactUsLastNameLengthCheckMessage);
   }, params);
   t.end();
 });
@@ -112,7 +112,7 @@ test('Email-requestDuplicateForm Empty String Validation', function (t) {
     captchaResponse: "AAAAA"
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
-    expect(response.errors.email).to.eql(config("endpoint").contactUsEmailEmptyCheckMessage);
+    expect(response.errors.email).to.eql(config("properties").contactUsEmailEmptyCheckMessage);
   }, params);
   t.end();
 });
@@ -128,7 +128,7 @@ test('Email-requestDuplicateForm Email Wrong Format Validation', function (t) {
     captchaResponse: "AAAAA"
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
-    expect(response.errors.email).to.eql(config("endpoint").contactUsEmailWrongFormatMessage);
+    expect(response.errors.email).to.eql(config("properties").contactUsEmailWrongFormatMessage);
   }, params);
   t.end();
 });
@@ -144,7 +144,7 @@ test('Phone-requestDuplicateForm Empty String Validation', function (t) {
     captchaResponse: "AAAAA"
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
-    expect(response.errors.phone).to.eql(config("endpoint").contactUsPhoneEmptyCheckMessage);
+    expect(response.errors.phone).to.eql(config("properties").contactUsPhoneEmptyCheckMessage);
   }, params);
   t.end();
 });
@@ -160,7 +160,7 @@ test('Phone-requestDuplicateForm Phone Wrong Format Validation', function (t) {
     captchaResponse: "AAAAA"
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
-    expect(response.errors.phone).to.eql(config("endpoint").contactUsPhoneWrongFormatMessage);
+    expect(response.errors.phone).to.eql(config("properties").contactUsPhoneWrongFormatMessage);
   }, params);
   t.end();
 });
@@ -176,7 +176,7 @@ test('Captcha-requestDuplicateForm Empty String Validation', function (t) {
     captchaResponse: ""
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
-    expect(response.errors.captchaResponse).to.eql(config("endpoint").contactUsRecaptchaEmptyCheckMessage);
+    expect(response.errors.captchaResponse).to.eql(config("properties").contactUsRecaptchaEmptyCheckMessage);
   }, params);
   t.end();
 });
@@ -192,7 +192,7 @@ test('Captcha-requestDuplicateForm Empty String Validation', function (t) {
     captchaResponse: ""
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
-    expect(response.errors.captchaResponse).to.eql(config("endpoint").contactUsRecaptchaEmptyCheckMessage);
+    expect(response.errors.captchaResponse).to.eql(config("properties").contactUsRecaptchaEmptyCheckMessage);
   }, params);
   t.end();
 });
@@ -207,6 +207,9 @@ test('requestDuplicateForm Happy Path validation With Email', function (t) {
     instructor: "ATB",
     courseCode: "ACT0001",
     courseTitle: "Law",
+    courseLocation:"Washington,DC",
+    startDate:"05/23/2015",
+    endDate:"05/31/2015",
     captchaResponse: "AAAAAAAAAAA"
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
