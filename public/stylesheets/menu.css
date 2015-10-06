@@ -206,6 +206,7 @@ ul.dropdown-menu li a {
   }
   #nav-top .npanel { display:none; padding: 0; }
   #nav-top .toggle {
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.1) inset, 0px 2px 3px rgba(0, 0, 0, 0.035);
   	cursor:pointer;
   	position:absolute;
   	right:0px;
@@ -328,4 +329,10 @@ transition: background-color 300ms linear;
   -moz-transition: all 0.7s;
   -o-transition: all 0.7s;
   transition: all 0.7s;
+}
+
+.navbar-fixed-top {
+    position: fixed !important;
+    top:0;
+    z-index: 1030;
 }
