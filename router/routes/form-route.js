@@ -8,40 +8,37 @@ var logger = require('../../logger');
 
 // Bring this Course to Your Location
 router.get('/forms/onsite-inquiry', function(req, res, next) {
-	var fields;
-	var courses;
-	var locations;
-	var states;
+	var fields, courses, locations, states;
 	async.parallel([
-        function(callback) {
-        	logger.debug('Get contentful fields');
-        	contentfulForms.getInquiryForm(function(response) {
-        		fields = response.fields;
-        		callback();
-        	});
-        },
-        function(callback) {
-        	logger.debug('Get list of all courses');
-        	course.getCourses(function(response, error, result) {
-        		courses = result;
-        		callback();
-        	});
-        },
-        function(callback) {
-        	logger.debug('Get list of all locations');
-        	course.getLocations(function(response, error, result) {
-        		locations = result;
-        		callback();
-        	});
-        },
-        function(callback) {
-        	logger.debug("Get us states");
-        	contentful.getReferenceData('us-states', function(result) {
-        		states = result;
-        		callback();
-        	});
-        }
-    ], function(results) {
+		function(callback) {
+			logger.debug('Get contentful fields');
+			contentfulForms.getInquiryForm(function(response) {
+				fields = response.fields;
+				callback();
+			});
+		},
+		function(callback) {
+			logger.debug('Get list of all courses');
+			course.getCourses(function(response, error, result) {
+				courses = result;
+				callback();
+			});
+		},
+		function(callback) {
+			logger.debug('Get list of all locations');
+			course.getLocations(function(response, error, result) {
+				locations = result;
+				callback();
+			});
+		},
+		function(callback) {
+			logger.debug("Get us states");
+			contentful.getReferenceData('us-states', function(result) {
+				states = result;
+				callback();
+			});
+		}
+	], function(results) {
 		res.render('forms/onsite_inquiry', {title: fields.title,
 			topParagraph: fields.topParagraph,
 			highlightedParagraph: fields.highlightedParagraph,
@@ -51,54 +48,64 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
 			courses: courses,
 			locations: locations,
 			states: states});
+		});
 	});
-});
 
-//Get Contact Us page.
-router.get('/forms/contact-us', function(req, res, next) {
-  var spaceId = "tz32dajhh9bn";
-  contentfulForms.getContactUs(function(response) {
-    	  logger.debug(response);
-    	  logger.debug("Subject Line:", response.cmsEntry.fields.subjectLine);
-          res.render('forms/contact_us', {title: response.cmsEntry.fields.title,
-        	  subjectLine: response.cmsEntry.fields.subjectLine,
-						topParagraph: response.cmsEntry.fields.topParagraph,
-						relatedLinks: response.cmsEntry.fields.relatedLinks
-        	  });
-        });
-    });
+	//Get Contact Us page.
+	router.get('/forms/contact-us', function(req, res, next) {
+		contentfulForms.getContactUs(function(response) {
+			logger.debug(response);
+			logger.debug("Subject Line:", response.cmsEntry.fields.subjectLine);
+			res.render('forms/contact_us', {title: response.cmsEntry.fields.title,
+				subjectLine: response.cmsEntry.fields.subjectLine,
+				topParagraph: response.cmsEntry.fields.topParagraph,
+				relatedLinks: response.cmsEntry.fields.relatedLinks
+			});
+		});
+	});
 
-//Get Request duplicate Form Page
-router.get('/forms/request-duplicate-form', function (req, res, next) {
-  var fields;
-  var states;
-  async.parallel([
-    function (callback) {
-      logger.debug('Get contentful fields');
-      contentfulForms.getDuplicateForms(function (response) {
-        fields = response;
-        callback();
-      });
-    },
-    function (callback) {
-      logger.debug("Get us states");
-      contentful.getReferenceData('us-states', function (result) {
-        states = result;
-        callback();
-      });
-    }
-  ], function (results) {
-    res.render('forms/request_course_completion_certificate', {
-      sectionTitle: fields.sectionTitle,
-      sectionHeaderDescription: fields.sectionHeaderDescription,
-      sectionFooterDescription: fields.sectionFooterDescription,
-      title: "Request Course Completion Certificate",
-			relatedLinks: fields.relatedLinks,
-      states: states
-    });
-  });
-});
-
+	//Get Request duplicate Form Page
+	router.get('/forms/request-duplicate-form', function (req, res, next) {
+		var fields, states, pageTitle;
+		var getQuery = new RegExp(/\?(.*)/);
+		var query = getQuery.exec(req.originalUrl);
+		if (query) {
+			if (query[1] === 'coursetype=cc') {
+				pageTitle = "Request Course Completion Certificate";
+			} else if(query[1] === 'coursetype=og') {
+				pageTitle = "Request Official Grade Report";
+			} else {
+				pageTitle = "Request Course Completion Certificate";
+			}
+		} else {
+			pageTitle = "Request Course Completion Certificate";
+		}
+		async.parallel([
+			function (callback) {
+				logger.debug('Get contentful fields');
+				contentfulForms.getDuplicateForms(function (response) {
+					fields = response;
+					callback();
+				});
+			},
+			function (callback) {
+				logger.debug("Get us states");
+				contentful.getReferenceData('us-states', function (result) {
+					states = result;
+					callback();
+				});
+			}
+		], function (results) {
+			res.render('forms/request_course_completion_certificate', {
+				sectionTitle: fields.sectionTitle,
+				sectionHeaderDescription: fields.sectionHeaderDescription,
+				sectionFooterDescription: fields.sectionFooterDescription,
+				title: pageTitle,
+				relatedLinks: fields.relatedLinks,
+				states: states
+			});
+		});
+	});
 //Get Request duplicate Form Page
 router.get('/forms/proctor-request-form', function (req, res, next) {
   var fields;
