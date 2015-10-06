@@ -158,10 +158,10 @@ $(document).ready(function() {
     }
   });
   $("#radioCertificate").click(function(e) {
-    $("#title, #breadcrumbTitle").text("Course Completion Certificate");
+    $("#title, #breadcrumbTitle").text("Request Course Completion Certificate");
   });
   $("#radioGradeReport").click(function(e) {
-    $("#title, #breadcrumbTitle").text("Official Grade Report");
+    $("#title, #breadcrumbTitle").text("Request Official Grade Report");
   });
   function getQueryString() {
     var result = {}, queryString = location.search.slice(1),
