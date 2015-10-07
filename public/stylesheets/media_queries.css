@@ -302,6 +302,14 @@
         padding: 10px !important;
       }
 
+      .suggestions {
+        position: relative;
+        float: none;
+        overflow: hidden;
+        display: none;
+        visibility: hidden;
+      }
+
     }
 
 

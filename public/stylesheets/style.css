@@ -1638,9 +1638,25 @@ a.underline-n:after {
  transition: all 0.7s;
 }
 
+/* 404 */
+.suggestions {
+  position: relative;
+  float: right;
+  clear: both;
+  overflow: hidden;
+}
 
+ul.see-more{
+  padding: 0;
+  margin: 5px 10px;
+}
 
-/* FIXES  */
+ul.see-more li {
+  list-style: none;
+  padding: 5px 0;
+}
+
+/* FIXES */
 *:focus {
     outline: 0 !important;
     border: none;
