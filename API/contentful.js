@@ -185,16 +185,16 @@ module.exports = {
       }
     }, function(error, response, body) {
       logger.debug("Reference Data Contentful: " + response.statusCode);
-      var states = {};
+      var data = {};
       if (error != null || response == null || response.statusCode != 200) {
         logger.error("Exception occured getting reference data " + slug + " - " + error);
         return callback(response, new Error("Exception occured getting reference data " + slug), null);
       }
       ref = JSON.parse(body);
       if (ref.items && ref.items.length >= 1 && ref.items[0].fields && ref.items[0].fields.jsonContent) {
-        states = ref.items[0].fields.jsonContent;
+        data = ref.items[0].fields.jsonContent;
       }
-      return callback(states);
+      return callback(data);
     });
   },
   getContentPage: function(callback, slug) {

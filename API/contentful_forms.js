@@ -37,7 +37,7 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-      logger.debug("Get For With Header and Footer Request Form Contentful Response Code: " + response.statusCode);
+      logger.debug("Get Form With Header and Footer Request Form Contentful Response Code: " + response.statusCode);
       cmsEntry = JSON.parse(body);
       return callback(cmsEntry);
     });

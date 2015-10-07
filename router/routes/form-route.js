@@ -126,24 +126,30 @@ router.get('/forms/proctor-request-form', function (req, res, next) {
 });
 
 router.get('/forms/certificate-program-application', function (req, res, next) {
-  var fields, states;
+  var fields, states, programs;
 	var entryId = "KbQb89jHMWceeoKIGsSgw";
   async.parallel([
     function (callback) {
       logger.debug('Get contentful fields:');
       contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
         fields = response;
-				console.log(fields);
         callback();
       });
     },
     function (callback) {
       logger.debug("Get us states");
-      contentful.getReferenceData('us-states', function (result) {
+      contentful.getReferenceData('us-states', function(result) {
         states = result;
         callback();
       });
-    }
+    },
+		function (callback) {
+			logger.debug("Get certificate program list");
+			contentful.getReferenceData('certificate-programs', function(result) {
+				programs = result;
+				callback();
+			});
+		}
   ], function (results) {
     res.render('forms/certificate_program_application', {
       sectionTitle: fields.sectionTitle,
@@ -151,7 +157,8 @@ router.get('/forms/certificate-program-application', function (req, res, next) {
       sectionFooterDescription: fields.sectionFooterDescription,
       title: fields.sectionTitle,
 			relatedLinks: fields.relatedLinks,
-      states: states
+      states: states,
+			programs: programs
     });
   });
 });
