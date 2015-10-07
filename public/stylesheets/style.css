@@ -1342,6 +1342,12 @@ p.asset a:focus {
   background-color:  #E6EBF1;
 }
 
+footer hr {
+  border-color: #DDD -moz-use-text-color -moz-use-text-color;
+}
+
+
+
 footer p, footer a, footer h3 {
   color: #222222;
 }
@@ -1360,6 +1366,13 @@ p.copyright {
   font-size: 13px;
   padding: 15px 0;
 }
+
+p.disclaimer {
+  color: #999;
+  font-size: 12px;
+  padding: 15px 0;
+}
+
 footer ul {
   padding: 0;
 }
