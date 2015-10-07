@@ -1,0 +1,17 @@
+<h3>Facebook</h3>
+<% facebook.data.forEach(function(post) { %>
+  <hr>
+  <ul>
+    <li><%= post.message %></li>
+    <li><%= post.created_time %> %></li>
+  </ul>
+  <hr>
+  <% }) %>
+<h3>Twitter</h3>
+<% for (var i = 0; i < tweets.length; i++) { %>
+  <hr>
+  <ul>
+    <li><%= tweets[i].text %></li>
+    <li><%= tweets[i].created_at %></li>
+  </ul>
+<% } %>
