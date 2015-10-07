@@ -141,7 +141,7 @@ $(document).ready(function() {
     dataForm.proctor.phone ={};
     dataForm.student.firstName = $("#txtFirstName").val();
     dataForm.student.lastName = $("#txtLastName").val();
-    dataForm.student.tstreet = $("#txtStreet").val();
+    dataForm.student.street = $("#txtStreet").val();
     dataForm.student.suite = $("#txtSuite").val();
     dataForm.student.city = $("#txtCity").val();
     dataForm.student.state = $("#selState").val();
