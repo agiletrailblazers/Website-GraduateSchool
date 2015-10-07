@@ -157,6 +157,12 @@ $(document).ready(function() {
       });
     }
   });
+  $("#radioCertificate").click(function(e) {
+    $("#title, #breadcrumbTitle").text("Request Course Completion Certificate");
+  });
+  $("#radioGradeReport").click(function(e) {
+    $("#title, #breadcrumbTitle").text("Request Official Grade Report");
+  });
   function getQueryString() {
     var result = {}, queryString = location.search.slice(1),
       re = /([^&=]+)=([^&]*)/g, m;

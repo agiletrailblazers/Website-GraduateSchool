@@ -9,7 +9,7 @@ test('firstName-requestDuplicateForm Empty String Validation', function (t) {
   params = {
     firstName: "",
     lastName: "ATB",
-    email: "returu@atb.com",
+    email: "gs@atb.com",
     instructor: "ATB",
     courseCode: "ACT0001",
     courseTitle: "Law",
@@ -25,7 +25,7 @@ test('firstName-requestDuplicateForm length Validation', function (t) {
   params = {
     firstName: "GS",
     lastName: "ATB",
-    email: "returu@atb.com",
+    email: "gs@atb.com",
     instructor: "ATB",
     courseCode: "ACT0001",
     courseTitle: "Law",
@@ -41,7 +41,7 @@ test('firstName-requestDuplicateForm White Spaces Validation', function (t) {
   params = {
     firstName: "    ",
     lastName: "ATB",
-    email: "returu@atb.com",
+    email: "gs@atb.com",
     instructor: "ATB",
     courseCode: "ACT0001",
     courseTitle: "Law",
@@ -57,7 +57,7 @@ test('lastName-requestDuplicateForm Empty String Validation', function (t) {
   params = {
     firstName: "ATB",
     lastName: "",
-    email: "returu@atb.com",
+    email: "gs@atb.com",
     instructor: "ATB",
     courseCode: "ACT0001",
     courseTitle: "Law",
@@ -197,7 +197,6 @@ test('Captcha-requestDuplicateForm Empty String Validation', function (t) {
   t.end();
 });
 
-
 test('requestDuplicateForm Happy Path validation With Email', function (t) {
   params = {
     firstName: "ATB",
@@ -207,9 +206,9 @@ test('requestDuplicateForm Happy Path validation With Email', function (t) {
     instructor: "ATB",
     courseCode: "ACT0001",
     courseTitle: "Law",
-    courseLocation:"Washington,DC",
-    startDate:"05/23/2015",
-    endDate:"05/31/2015",
+    courseLocation: "Washington,DC",
+    startDate: "05/23/2015",
+    endDate: "05/31/2015",
     captchaResponse: "AAAAAAAAAAA"
   };
   ajaxformrouteservice.validateRequestDuplicate(function (response) {
@@ -219,17 +218,21 @@ test('requestDuplicateForm Happy Path validation With Email', function (t) {
   t.end();
 });
 
-test('contactUs Happy Path validation With Phone Number', function (t) {
+test('requestDuplicateForm Form Happy Path validation With Phone Number', function (t) {
   params = {
     firstName: "ATB",
-    lastName: "GSM",
+    lastName: "GSMj",
+    email: "gs@edu.com",
     phone: "000-000-0000",
     instructor: "ATB",
     courseCode: "ACT0001",
     courseTitle: "Law",
-    captchaResponse: "AAAAA"
+    courseLocation: "Washington,DC",
+    startDate: "05/23/2015",
+    endDate: "05/31/2015",
+    captchaResponse: "AAAAAAAAAAA"
   };
-  ajaxformrouteservice.validateContactUsfields(function (response) {
+  ajaxformrouteservice.validateRequestDuplicate(function (response) {
     errorLength = Object.keys(response.errors).length;
     expect(errorLength).to.eql(0);
   }, params);

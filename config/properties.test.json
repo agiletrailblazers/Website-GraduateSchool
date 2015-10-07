@@ -11,6 +11,8 @@
     "requestDuplicateFormEmailSubject":"Request for Duplicate Form",
     "requestDuplicateCourseCompletionCertificateToUserName":"GSWebsiteForm@graduateschool.edu",
     "requestDuplicateOfficialGradeReportToUserName":"GSWebsiteForm@graduateschool.edu",
+    "proctorRequestToUserName":"GSWebsiteForm@graduateschool.edu",
+    "proctorRequestEmailSubject":"Request for Proctor",
 
     "googleAnalyticsId":"UA-66851185-2"
   }

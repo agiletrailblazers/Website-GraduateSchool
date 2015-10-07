@@ -5,7 +5,7 @@ var config = require('konphyg')(__dirname + "/../config");
 var test = require('tap').test;
 
 test('firstName-contactUs Empty String Validation', function(t) {
-  params = {firstName:"", lastName:"ATB", communicationPref:"Email",email:"returu@atb.com",captchaResponse :"AAAAA"};
+  params = {firstName:"", lastName:"ATB", communicationPref:"Email",email:"gs@atb.com",captchaResponse :"AAAAA"};
   ajaxformrouteservice.validateContactUsfields(function(response){
     expect(response.errors.firstName).to.eql(config("properties").contactUsFirstNameEmptyCheckMessage);
     },params);
@@ -13,7 +13,7 @@ test('firstName-contactUs Empty String Validation', function(t) {
   });
 
  test('firstName-contactUs length Validation', function(t) {
-   params = {firstName:"GS", lastName:"ATB", communicationPref:"Email",email:"returu@atb.com",captchaResponse :"AAAAA"};
+   params = {firstName:"GS", lastName:"ATB", communicationPref:"Email",email:"gs@atb.com",captchaResponse :"AAAAA"};
    ajaxformrouteservice.validateContactUsfields(function(response){
         expect(response.errors.firstName).to.eql(config("properties").contactUsFirstNameLengthCheckMessage);
       },params);
@@ -21,7 +21,7 @@ test('firstName-contactUs Empty String Validation', function(t) {
    });
 
 test('firstName-contactUs White Spaces Validation', function(t) {
-    params = {firstName:"    ", lastName:"ATB", communicationPref:"Email",email:"returu@atb.com",captchaResponse :"AAAAA"};
+    params = {firstName:"    ", lastName:"ATB", communicationPref:"Email",email:"gs@atb.com",captchaResponse :"AAAAA"};
     ajaxformrouteservice.validateContactUsfields(function(response){
         expect(response.errors.firstName).to.eql(config("properties").contactUsFirstNameLengthCheckMessage);
     },params);
@@ -29,7 +29,7 @@ test('firstName-contactUs White Spaces Validation', function(t) {
 });
 
 test('lastName-contactUs Empty String Validation', function(t) {
-  params = {firstName:"ATB", lastName:"", communicationPref:"Email",email:"returu@atb.com",captchaResponse :"AAAAA"};
+  params = {firstName:"ATB", lastName:"", communicationPref:"Email",email:"gs@atb.com",captchaResponse :"AAAAA"};
   ajaxformrouteservice.validateContactUsfields(function(response){
     expect(response.errors.lastName).to.eql(config("properties").contactUsLastNameEmptyCheckMessage);
     },params);
@@ -37,7 +37,7 @@ test('lastName-contactUs Empty String Validation', function(t) {
   });
 
  test('lastName-contactUs Length Validation', function(t) {
-   params = {firstName:"ATB", lastName:"GS", communicationPref:"Email",email:"returu@atb.com",captchaResponse :"AAAAA"};
+   params = {firstName:"ATB", lastName:"GS", communicationPref:"Email",email:"gs@atb.com",captchaResponse :"AAAAA"};
    ajaxformrouteservice.validateContactUsfields(function(response){
         expect(response.errors.lastName).to.eql(config("properties").contactUsLastNameLengthCheckMessage);
       },params);
@@ -45,7 +45,7 @@ test('lastName-contactUs Empty String Validation', function(t) {
    });
 
 test('lastName-contactUs White Spaces Validation', function(t) {
-    params = {firstName:"ATB", lastName:"     ", communicationPref:"Email",email:"returu@atb.com",captchaResponse :"AAAAA"};
+    params = {firstName:"ATB", lastName:"     ", communicationPref:"Email",email:"gs@atb.com",captchaResponse :"AAAAA"};
     ajaxformrouteservice.validateContactUsfields(function(response){
         expect(response.errors.lastName).to.eql(config("properties").contactUsLastNameLengthCheckMessage);
     },params);

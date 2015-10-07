@@ -46,7 +46,7 @@ test('form route test for Contact us', function (t) {
   contentfulformServer;
   contentful_forms.getContactUs(function (response) {
     fieldsTitle = "Contact Us";
-    expect(response.cmsEntry.fields.title).to.equal(fieldsTitle);
+    expect(response.fields.title).to.equal(fieldsTitle);
     expect(response).to.be.a('object');
   });
   t.end();
@@ -68,11 +68,8 @@ test('form route test for Request Duplicate Form', function (t) {
     });
   contentfulformServer;
 
-  contentful_forms.getDuplicateForms(function (response) {
-    fieldsTitle = "Duplicate Request Forms";
-    var goodStatus = 200;
-    expect(response.statusCode).to.equal(goodStatus);
-    expect(response.sectionTitle).to.equal(fieldsTitle);
+  contentful_forms.getFormWithHeaderAndFooter('mlBs5OCiQgW84oiMm4k2s', function(response) {
+    expect(response.fields.sectionTitle).to.equal("Duplicate Request Forms");
   });
   t.end();
 });
@@ -84,18 +81,12 @@ test('form route test for Request Duplicate Form Internal Error', function (t) {
     }
   }).get('/spaces/jzmztwi1xqvn/entries/mlBs5OCiQgW84oiMm4k2s')
     .reply(500, {
-      'accept': 'application/json',
-          "fields": {
-            "sectionTitle": "",
-            "sectionHeaderDescription": "",
-            "sectionFooterDescription": ""
-          }
+      'accept': 'application/json'
     });
   contentfulformServer;
 
-  contentful_forms.getDuplicateForms(function (response) {
-    var internalErrorStatusCode = 500;
-    expect(response.statusCode).to.equal(internalErrorStatusCode);
+  contentful_forms.getFormWithHeaderAndFooter('mlBs5OCiQgW84oiMm4k2s', function(response) {
+    expect(response.fields).to.be.undefined;
   });
   t.end();
 });
@@ -116,11 +107,8 @@ test('Form route test for Proctor Request Form', function (t) {
     });
   contentfulformServer;
 
-  contentful_forms.getProctoringRequestForm(function (response) {
-    fieldsTitle = "Proctor Request Form";
-    var goodStatus = 200;
-    expect(response.statusCode).to.equal(goodStatus);
-    expect(response.sectionTitle).to.equal(fieldsTitle);
+  contentful_forms.getFormWithHeaderAndFooter('JgpDPSNoe4kQGWIkImKAM', function (response) {
+    expect(response.fields.sectionTitle).to.equal("Proctor Request Form");
   });
   t.end();
 });
@@ -132,18 +120,72 @@ test('Form route test for Proctor Request Form Internal Error', function (t) {
     }
   }).get('/spaces/jzmztwi1xqvn/entries/JgpDPSNoe4kQGWIkImKAM')
     .reply(500, {
-      'accept': 'application/json',
-          "fields": {
-            "sectionTitle": "",
-            "sectionFooterDescription": "",
-            "sectionHeaderDescription": ""
-          }
+      'accept': 'application/json'
     });
   contentfulformServer;
 
-  contentful_forms.getProctoringRequestForm(function (response) {
-    var internalErrorStatusCode = 500;
-    expect(response.statusCode).to.equal(internalErrorStatusCode);
+  contentful_forms.getFormWithHeaderAndFooter('JgpDPSNoe4kQGWIkImKAM', function (response) {
+    expect(response.fields).to.be.undefined;
+  });
+  t.end();
+});
+
+test('Form route test for Certificate Programs Application', function (t) {
+  var contentfulformServer = nock('https://cdn.contentful.com', {
+    reqheaders: {
+      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+    }
+  }).get('/spaces/jzmztwi1xqvn/entries/KbQb89jHMWceeoKIGsSgw')
+    .reply(200, {
+      'accept': 'application/json',
+      "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "jzmztwi1xqvn"
+            }
+          },
+          "type": "Entry",
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "6XkrlHCU9ysmKsCYGUckAC"
+            }
+          },
+          "id": "KbQb89jHMWceeoKIGsSgw",
+          "revision": 1,
+          "createdAt": "2015-10-02T14:56:31.284Z",
+          "updatedAt": "2015-10-02T14:56:31.284Z",
+          "locale": "en-US"
+        },
+        "fields": {
+          "sectionTitle": "Certificate Program Application",
+          "sectionHeaderDescription": "<p><strong>Application Process: </strong>\n Fill out this form and submit it online or print it.  You may mail it to Graduate School USA, Office of the Registrar, 600 Maryland Avenue, S.W., Suite 330, Washington, D.C. 20024-2520, or fax it to (202) 479-2501.</p>"
+        }
+  });
+  contentfulformServer;
+
+  contentful_forms.getFormWithHeaderAndFooter('KbQb89jHMWceeoKIGsSgw', function (response) {
+    expect(response.fields.sectionTitle).to.equal('Certificate Program Application');
+  });
+  t.end();
+});
+
+test('Form route test for  Certificate Programs Application Internal Error', function (t) {
+  var contentfulformServer = nock('https://cdn.contentful.com', {
+    reqheaders: {
+      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+    }
+  }).get('/spaces/jzmztwi1xqvn/entries/KbQb89jHMWceeoKIGsSgw')
+  .reply(500, {
+    'accept': 'application/json'
+  });
+  contentfulformServer;
+
+  contentful_forms.getFormWithHeaderAndFooter('KbQb89jHMWceeoKIGsSgw', function (response) {
+    expect(response.fields).to.be.undefined;
   });
   t.end();
 });
