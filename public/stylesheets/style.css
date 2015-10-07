@@ -1638,7 +1638,75 @@ a.underline-n:after {
  transition: all 0.7s;
 }
 
+/* SOCIAL MEDIA - Homepage  */
+#social-media .nav-tabs > li.active > a,
+#social-media .nav-tabs > li.active > a:focus,
+#social-media .nav-tabs > li.active > a:hover {
+    color: #195181;
+    cursor: default;
+    background-color: #FFF;
+    font-size: 18px;
+    font-weight: normal;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #DDD #DDD transparent;
+}
 
+#social-media .nav-tabs > li > a {
+    color: #767F7F;
+    cursor: pointer;
+    background-color: #ECF0F5;
+    font-size: 18px;
+    font-weight: normal;
+    margin-right: 2px;
+    line-height: 1.42857;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0px 0px;
+    padding: 10px 35px 10px 15px !important;
+}
+
+#social-media .nav-tabs > li > a:hover {
+    background-color: #A5AFB7;
+    color: #4E5154;
+}
+
+#social-media .nav-tabs {
+    border-bottom: none;
+}
+
+.social-media-header {
+  background-color: #CBD7E3;
+}
+
+.social-tab-icon {
+  padding: 15px 10px;
+}
+
+.entry-title {
+  font-size: 16px;
+  padding: 5px 0;
+  line-height: 1.4;
+}
+
+.entry-title a {
+  font-weight: normal;
+  color: #195181;
+}
+
+.entry-title a:hover, #social-media a:hover {
+  color: #000;
+}
+
+
+#social-media p {
+  color: #383F3F;
+}
+
+#social-media a {
+  color: #195181;
+}
+
+#social-media hr.divider {}
 
 /* FIXES  */
 *:focus {
