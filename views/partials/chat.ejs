@@ -1,9 +1,14 @@
 <!--nutch_noindex-->
 <!-- chat -->
   <% if(showChat) { %>
-    <div id="chat">
+    <div id="chat" class="non-mobile">
       <a href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;">
-          <img alt="Live chat by BoldChat" src="../images/chat.png" border="0" id="0.06143315345980227">
+          <img alt="Chat Now" src="../images/chat.png" border="0" id="0.06143315345980227">
+      </a>
+    </div>
+    <div id="chat-mobile" class="mobile">
+      <a href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;">
+          <img alt="Chat" src="../images/chat-mobile.png" border="0" id="0.06143315345980227">
       </a>
     </div>
   <% } %>

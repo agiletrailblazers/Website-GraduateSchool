@@ -1585,6 +1585,16 @@ ul.networks-mobile li {
   z-index: 99999;
 }
 
+#chat-mobile {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  right: 0px;
+  bottom: 20px;
+  z-index: 99;
+  opacity: 0.6;
+}
+
 #chat a {
   padding: 0;
   outline: 0;
