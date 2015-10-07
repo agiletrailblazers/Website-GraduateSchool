@@ -6,5 +6,24 @@
   </head>
   <body>
 
+
+    <!--nutch_noindex-->
+    <select id="selProgram" class="form-control" tabindex="">
+      <option id="">Please Select One</option>
+      <% programs.forEach(function(program) { %>
+        <option id="<%= program.id %>"><%= program.description %></option>
+      <% }); %>
+    </select>
+    <!--/nutch_noindex-->
+
+    <!--nutch_noindex-->
+    <select id="selState" class="form-control" tabindex="">
+      <option value="">Select One</option>
+      <% for (i=0; i < states.length; i++) { %>
+        <option value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
+        <% } %>
+      </select>
+      <!--/nutch_noindex-->
+
   </body>
 </html>

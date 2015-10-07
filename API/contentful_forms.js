@@ -26,46 +26,7 @@ module.exports = {
     }, function(error, response, body) {
       logger.debug("Forms Contact Us Contentful: " + response.statusCode);
       cmsEntry = JSON.parse(body);
-      return callback({
-        cmsEntry: cmsEntry,
-        statusCode: response.statusCode
-      });
-    });
-  },
-  getDuplicateForms: function(callback) {
-    request({
-      method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/mlBs5OCiQgW84oiMm4k2s',
-      headers: {
-        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
-      }
-    }, function(error, response, body) {
-      logger.debug("Get Duplicate Forms Contentful Response Code: " + response.statusCode);
-      cmsEntry = JSON.parse(body);
-      return callback({
-        sectionTitle: cmsEntry.fields.sectionTitle,
-        sectionHeaderDescription: cmsEntry.fields.sectionHeaderDescription,
-        sectionFooterDescription: cmsEntry.fields.sectionFooterDescription,
-        statusCode: response.statusCode
-      });
-    });
-  },
-  getProctoringRequestForm: function(callback) {
-    request({
-      method: 'GET',
-      url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/JgpDPSNoe4kQGWIkImKAM',
-      headers: {
-        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
-      }
-    }, function(error, response, body) {
-      logger.debug("Get Proctoring Request Form Contentful Response Code: " + response.statusCode);
-      cmsEntry = JSON.parse(body);
-      return callback({
-        sectionTitle: cmsEntry.fields.sectionTitle,
-        sectionHeaderDescription: cmsEntry.fields.sectionHeaderDescription,
-        sectionFooterDescription: cmsEntry.fields.sectionFooterDescription,
-        statusCode: response.statusCode
-      });
+      return callback(cmsEntry);
     });
   },
   getFormWithHeaderAndFooter: function(entryId, callback) {
@@ -76,15 +37,9 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-      logger.debug("Get For With Header and Footer Request Form Contentful Response Code: " + response.statusCode);
+      logger.debug("Get Form With Header and Footer Request Form Contentful Response Code: " + response.statusCode);
       cmsEntry = JSON.parse(body);
-      console.log("Body: ", cmsEntry);
-      return callback({
-        sectionTitle: cmsEntry.fields.sectionTitle,
-        sectionHeaderDescription: cmsEntry.fields.sectionHeaderDescription,
-        sectionFooterDescription: cmsEntry.fields.sectionFooterDescription,
-        statusCode: response.statusCode
-      });
+      return callback(cmsEntry);
     });
   }
 };
