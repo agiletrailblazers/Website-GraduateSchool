@@ -1,17 +1,25 @@
-<h3>Facebook</h3>
-<% facebook.data.forEach(function(post) { %>
-  <hr>
-  <ul>
-    <li><%= post.message %></li>
-    <li><%= post.created_time %> %></li>
-  </ul>
-  <hr>
-  <% }) %>
-<h3>Twitter</h3>
-<% for (var i = 0; i < tweets.length; i++) { %>
-  <hr>
-  <ul>
-    <li><%= tweets[i].text %></li>
-    <li><%= tweets[i].created_at %></li>
-  </ul>
-<% } %>
+<div class="container">
+<div class="row">
+  <div class="class=" col-sm-6"">
+    <h3>Facebook</h3>
+    <% facebook.data.forEach(function(post) { %>
+      <hr>
+      <ul class="list-group">
+        <li class="list-group-item"><%= post.message %></li>
+        <li class="list-group-item"><%= post.created_time %>
+          %></li>
+      </ul>
+    <% }) %>
+  </div>
+  <div class="class=" col-sm-6"">
+    <h3>Twitter</h3>
+    <% for (var i = 0; i < tweets.length; i++) { %>
+      <hr>
+      <ul class="list-group">
+        <li class="list-group-item"><%= tweets[i].text %></li>
+        <li class="list-group-item"><%= tweets[i].created_at %></li>
+      </ul>
+    <% } %>
+  </div>
+</div>
+</div>
