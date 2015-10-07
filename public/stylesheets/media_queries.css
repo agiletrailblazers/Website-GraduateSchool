@@ -102,6 +102,12 @@
     /* Small Devices, Tablets */
     @media only screen and (max-width : 768px) {
 
+      /* Mobile scrolling enhancement */
+      html, body {
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+      }
+
       .mobile {
         display: block;
         visibility: visible;
@@ -272,6 +278,8 @@
     /* Extra Small Devices, Phones */
     @media only screen and (max-width : 480px) {
 
+
+
       .title .util {
         position: relative;
         display: inline;
@@ -284,6 +292,24 @@
 
       .util ul li a img {
        margin-bottom: 10px;
+     }
+
+     .mfix-nopadding {
+       padding: 0 !important;
+     }
+
+     blockquote {
+       display: block;
+       width: 100%;
+       font-size: 18px !important;
+       padding-top: 5px;
+     }
+
+     .news-and-events a > h5 {
+       font-size: 15px;
+
+       font-weight: bolder;
+       line-height: 1.2;
      }
 
      #form-filters ul li {
