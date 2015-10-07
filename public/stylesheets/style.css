@@ -1638,9 +1638,14 @@ a.underline-n:after {
  transition: all 0.7s;
 }
 
+/* 404 */
+h1.error {
+  font-size: 100px !important;
+  font-weight: bold;
+  padding: 80px;
+}
 
-
-/* FIXES  */
+/* FIXES */
 *:focus {
     outline: 0 !important;
     border: none;
