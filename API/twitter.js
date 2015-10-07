@@ -10,13 +10,13 @@ var client = new Twitter({
 });
 
 var params = {
-  screen_name: 'nodejs'
+  screen_name: 'thegradschool'
 };
 
 module.exports = {
   getTwitterTweets: function(callback) {
     client.get('statuses/user_timeline', {
-      user_id: "thegradschool",
+      screen_name: "thegradschool",
       count: 4
     }, function(error, tweets, response) {
       if (!error) {
