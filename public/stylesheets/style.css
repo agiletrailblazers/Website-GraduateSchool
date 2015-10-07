@@ -1639,10 +1639,21 @@ a.underline-n:after {
 }
 
 /* 404 */
-h1.error {
-  font-size: 100px !important;
-  font-weight: bold;
-  padding: 80px;
+.suggestions {
+  position: relative;
+  float: right;
+  clear: both;
+  overflow: hidden;
+}
+
+ul.see-more{
+  padding: 0;
+  margin: 5px 10px;
+}
+
+ul.see-more li {
+  list-style: none;
+  padding: 5px 0;
 }
 
 /* FIXES */
