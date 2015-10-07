@@ -1,5 +1,5 @@
 ![GraduateSchool](https://upload.wikimedia.org/wikipedia/en/2/2d/Graduate_School_USA_Logo.png)
-![[Build Status](http://ec2-54-165-8-77.compute-1.amazonaws.com/job/Dev-Env-Website-Graduate-School/badge/icon)](http://ec2-54-165-8-77.compute-1.amazonaws.com/job/Dev-Env-Website-Graduate-School/)
+[![Build Status](http://ec2-54-165-8-77.compute-1.amazonaws.com/job/Dev-Env-Website-Graduate-School/badge/icon)](http://ec2-54-165-8-77.compute-1.amazonaws.com/job/Dev-Env-Website-Graduate-School/)
 # Website-GraduateSchool
 This is the [Express.js](http://expressjs.com/) repository for the GraduateSchool's new website.<br>
 [Google Analytics Sharepoint Page](https://agiletrailblazers.sharepoint.com/_layouts/15/WopiFrame.aspx?sourcedoc={28056b3d-a969-4c41-96d0-53760c3f97a4}&action=edit&wd=target%28%2F%2FGS%20General%20Info.one%7C8951f769-4734-400b-9fc4-1b1f404b0a03%2FGoogle%20Analytics%7C8ebbfb76-7ad9-4523-8682-c6d1f9a8da82%2F%29)
