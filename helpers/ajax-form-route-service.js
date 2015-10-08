@@ -328,5 +328,13 @@ module.exports = {
     response.errors.captchaResponse = "Please select recaptcha.";
   }
   callback(response);
-}
+},
+  validateCustomerFeedBack: function(callback,params) {
+    response = {};
+    response.errors = {};
+    if (!params.captchaResponse) {
+      response.errors.captchaResponse = "Please select recaptcha.";
+    }
+    callback(response);
+  },
 };

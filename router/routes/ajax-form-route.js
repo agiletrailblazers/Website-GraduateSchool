@@ -1,6 +1,6 @@
 var express = require('express');
-var contentfulForms= require('../../API/contentful_forms.js');
-var routerService= require('../../helpers/ajax-form-route-service.js');
+var contentfulForms = require('../../API/contentful_forms.js');
+var routerService = require('../../helpers/ajax-form-route-service.js');
 var async = require('async');
 var router = express.Router();
 var bodyParser = require('body-parser');
@@ -10,73 +10,89 @@ var google = require('../../API/google.js');
 var validator = require('validator');
 var logger = require('../../logger');
 
-router.post('/mailer-customer-feedback', function(req, res, next) {
+router.post('/mailer-customer-feedback', function (req, res, next) {
   params = req.body;
   // Server side validation from routerService.
-
-
-});
-
-router.post('/mailer-contact-us', function(req, res, next) {
-  params = req.body;
-  //move code to router service
-  routerService.validateContactUsfields(function(response){
-  // Send email if there are no errors.
-  if (Object.keys(response.errors).length === 0) {
-    //verify captcha
-    google.verifyCaptcha(function(response) {
-        if ((response!=null) && (response.statusCode == 200)) {
+  routerService.validateCustomerFeedBack(function (response) {
+    // Send email if there are no errors.
+    if (Object.keys(response.errors).length === 0) {
+      //verify captcha
+      google.verifyCaptcha(function (response) {
+        if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
-          mailer.sendContactUs(function(response) {
+          mailer.sendOnCustomerFeedBackForm(function (response) {
             handleResponse(res, response);
           }, params);
         } else {
           sendErrorResponse(res, response);
         }
-    }, params.captchaResponse);
-  } else {
-    sendErrorResponse(res, response);
-   }
-  },params);
+      }, params.captchaResponse);
+    } else {
+      sendErrorResponse(res, response);
+    }
+  }, params);
 });
 
-router.post('/mailer-onsite-inquiry', function(req, res, next) {
+router.post('/mailer-contact-us', function (req, res, next) {
   params = req.body;
-  if (null != params.course["deliveryDate"]&&  params.course["deliveryDate"] !='') {
+  //move code to router service
+  routerService.validateContactUsfields(function (response) {
+    // Send email if there are no errors.
+    if (Object.keys(response.errors).length === 0) {
+      //verify captcha
+      google.verifyCaptcha(function (response) {
+        if ((response != null) && (response.statusCode == 200)) {
+          //send mail of success
+          mailer.sendContactUs(function (response) {
+            handleResponse(res, response);
+          }, params);
+        } else {
+          sendErrorResponse(res, response);
+        }
+      }, params.captchaResponse);
+    } else {
+      sendErrorResponse(res, response);
+    }
+  }, params);
+});
+
+router.post('/mailer-onsite-inquiry', function (req, res, next) {
+  params = req.body;
+  if (null != params.course["deliveryDate"] && params.course["deliveryDate"] != '') {
     params.course["deliveryDate"] = params.course["deliveryDate"].date('MMM DD, YYYY');
   }
   //move code to router service
-  routerService.validateOnsiteInquiryfields(function(response){
-  if (Object.keys(response.errors).length === 0) {
-    //verify captcha
-    google.verifyCaptcha(function(response) {
-      if ((response!=null) && (response.statusCode == 200)) {
-        //send mail of success
-        mailer.sendOnsiteInquiry(function(response) {
-          handleResponse(res, response);
-        }, params);
-      } else {
-        sendErrorResponse(res, response);
-      }
-    }, params.onSiteInquirycaptchaResponse);
-  } else {
-    sendErrorResponse(res, response);
-   }
-  },params);
+  routerService.validateOnsiteInquiryfields(function (response) {
+    if (Object.keys(response.errors).length === 0) {
+      //verify captcha
+      google.verifyCaptcha(function (response) {
+        if ((response != null) && (response.statusCode == 200)) {
+          //send mail of success
+          mailer.sendOnsiteInquiry(function (response) {
+            handleResponse(res, response);
+          }, params);
+        } else {
+          sendErrorResponse(res, response);
+        }
+      }, params.onSiteInquirycaptchaResponse);
+    } else {
+      sendErrorResponse(res, response);
+    }
+  }, params);
 });
 
 
-router.post('/mailer-request-duplicate', function(req, res, next) {
+router.post('/mailer-request-duplicate', function (req, res, next) {
   params = req.body;
   //move code to router service
-  routerService.validateRequestDuplicate(function(response){
+  routerService.validateRequestDuplicate(function (response) {
     // Send email if there are no errors.
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
-      google.verifyCaptcha(function(response) {
-        if ((response!=null) && (response.statusCode == 200)) {
+      google.verifyCaptcha(function (response) {
+        if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
-          mailer.sendOnRequestDuplicate(function(response) {
+          mailer.sendOnRequestDuplicate(function (response) {
             handleResponse(res, response);
           }, params);
         } else {
@@ -86,21 +102,21 @@ router.post('/mailer-request-duplicate', function(req, res, next) {
     } else {
       sendErrorResponse(res, response);
     }
-  },params);
+  }, params);
 });
 
 
-router.post('/mailer-request-proctor', function(req, res, next) {
+router.post('/mailer-request-proctor', function (req, res, next) {
   params = req.body;
   //move code to router service
-  routerService.validateRequestProctor(function(response){
+  routerService.validateRequestProctor(function (response) {
     // Send email if there are no errors.
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
-      google.verifyCaptcha(function(response) {
-        if ((response!=null) && (response.statusCode == 200)) {
+      google.verifyCaptcha(function (response) {
+        if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
-          mailer.sendOnProctorRequest(function(response) {
+          mailer.sendOnProctorRequest(function (response) {
             handleResponse(res, response);
           }, params);
         } else {
@@ -110,17 +126,17 @@ router.post('/mailer-request-proctor', function(req, res, next) {
     } else {
       sendErrorResponse(res, response);
     }
-  },params);
+  }, params);
 });
 
 //send errors to client.
 function sendErrorResponse(res, response) {
-  if((response !=null) && (response.errors !=null)) {
+  if ((response != null) && (response.errors != null)) {
     logger.error("Errors:", response.errors);
     res.status(404).send(response.errors);
-  }else {
+  } else {
     // Send error to client
-    res.status(500).send({"error":"Unexpected Exception Sending Mail"});
+    res.status(500).send({"error": "Unexpected Exception Sending Mail"});
   }
 }
 
@@ -133,7 +149,7 @@ function handleResponse(res, response) {
   }
   else {
     // Send error to client
-    res.status(500).send({"error":"Unexpected Exception Sending Mail"});
+    res.status(500).send({"error": "Unexpected Exception Sending Mail"});
   }
 }
 
