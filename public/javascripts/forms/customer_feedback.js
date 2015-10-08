@@ -1,11 +1,15 @@
 $(document).ready(function() {
   $("#submitForm").click(function(event) {
     event.preventDefault();
-    var data = {};
-    data.name = $("#name").val();
-    data.email = $("#email").val();
-    date.findInfo = $('input[name=optRadio]:checked', '#feedbackForm').val();
-    data.siteInfo = $('textarea[name="findSiteInfo"]').val();
-    data.generalComments = $('textarea[name="generalComments"]').val();
+    var dataForm = {};
+    dataForm.firstName = $("#txtFirstName").val();
+    dataForm.lastName = $("#txtLastName").val();
+    dataForm.phone = $("#telPhone").val();
+    dataForm.email = $("#email").val();
+    dataForm.typePerson = $("input[name=typePerson]:checked", '#feedbackForm').val();
+    dataForm.feedbackCategories = $('input:checkbox:checked.feedbackCategories').map(function () {
+                                    return this.value;
+                                  }).get();
+    dataForm.feedbackText = $("#txtFeedback").val();
   });
 });
