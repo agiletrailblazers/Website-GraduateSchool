@@ -1802,6 +1802,20 @@ a.underline-n:after {
   padding: 0 !important;
 }
 
+.pluginSkinLight > div {width: 100% !important;}
+
+.fb_iframe_widget > span{
+    width: 100% !important;
+}
+
+fb_iframe_widget > span > iframe {
+    width: 100% !important;
+}
+
+div._2p3a {
+    width: 100% !important;
+}
+
 /* display only on mobile */
 .mobile {
   display: none;
