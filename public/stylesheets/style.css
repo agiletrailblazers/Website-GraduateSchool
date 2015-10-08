@@ -11,6 +11,8 @@ html {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   height: 100%;
+  -webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
 }
 *, *:before, *:after {
   -webkit-box-sizing: inherit;
@@ -1748,7 +1750,7 @@ h2.social-title {
   color: #545454;
 }
 
-
+/* FB width fix */
   fb_iframe_widget > span > iframe {
       width: 100% !important;
   }
@@ -1756,6 +1758,10 @@ h2.social-title {
   div._2p3a {
       width: 100% !important;
   }
+
+.myfix {
+  border-radius: 0 !important;
+}
 
 
 /* FIXES  */
