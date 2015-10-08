@@ -23,15 +23,15 @@
 
 						<div id="home-search" class="searchBox">
 							<form id="search-form" action="javascript:performCourseSearch();">
-								<div class="input-group">
-									<input type="text" id="searchCriteria" name="searchCriteria" class="form-control searchCriteria" placeholder="course, course ID, content" pattern=".{3,}" required title="3 characters minimum">
+								<div id="searchGroup" class="input-group">
+									<input type="text" id="searchCriteria" name="searchCriteria" class="form-control searchCriteria" placeholder="Search">
 									<span class="input-group-btn">
 										<button id="course-search-button" class="btn btn-default" type="submit">
 											<img alt="" src="/images/search.png">
 										</button>
 									</span>
 								</div>
-								<div class="locations">
+								<div id="advancedSearchBox" class="locations" style="display:none;">
 										<span>Or find a course by:</span>
 											<select id="selSearchLocation" class="form-control">
 													<option value="">Locations</option>
