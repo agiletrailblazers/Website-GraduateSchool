@@ -1,5 +1,5 @@
 function performCourseSearch() {
-  if ($("#searchCriteria").val().trim().length >= 3) {
+  if ($("#searchCriteria").val().trim().length >= 1) {
     location.href = "/search?search=" + $("#searchCriteria").val().trim();
   }
 }
@@ -24,15 +24,13 @@ $(document).ready(function(){
 
 //Displays search box and advanced filter on click.
 $(document).ready(function(){
-$('#searchIcon').click(function() {
-    $('div.searchBox').fadeIn();
-    $(document).bind('focusin.searchBox click.searchBox',function(e) {
-      if (!$(e.target).closest('.searchBox, #searchIcon').length) {
-        $(document).unbind('.searchBox');
-        $('div.searchBox').fadeOut('medium');
-      }
-    });
-    $('input.searchCriteria').focus();
-});
-$('div.searchBox').hide();
+  $('#searchGroup').focusin(function() {
+      $('#advancedSearchBox').fadeIn();
+  });
+  $('#searchGroup').mouseenter(function() {
+      $('#advancedSearchBox').fadeIn();
+  });
+  $("div.searchBox").mouseleave(function() {
+    $('#advancedSearchBox').fadeOut('medium');
+  });
 });
