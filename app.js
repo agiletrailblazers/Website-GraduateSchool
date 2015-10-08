@@ -29,9 +29,15 @@ app.use(function (req, res, next) {
 	var chatPages = config("properties").chatPages;
 	var navigation = {};
 	var locations = [];
+	//should we show chat on this page?
 	var currentUrl = req.url.split("?",1)[0];
 	var pattern = new RegExp(chatPages);
 	var showChat = pattern.test(currentUrl);
+	//build mail page "mailto" object
+	var mailPage = {};
+	mailPage.titlePrefix = config("properties").mailPageTitlePrefix;
+	mailPage.body = config("properties").mailPageBody;
+	//get data for all pages
 	async.parallel([
     function(callback) {
 			//load the main nav on every request
@@ -53,7 +59,8 @@ app.use(function (req, res, next) {
 			res.locals = {navigation: navigation,
 				locations: locations,
 				googleAnalyticsId: googleAnalyticsId,
-				showChat: showChat};
+				showChat: showChat,
+				mailPage: mailPage};
 			next();
 		});
 });
