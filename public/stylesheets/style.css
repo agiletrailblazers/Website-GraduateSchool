@@ -882,9 +882,10 @@ a.go-button:hover, a.go-button:active {
   position:absolute;
   background-color: #FFF !important;
   overflow: visible;
-  z-index: 9999;
+  z-index: 99;
   top: 0;
   right: 6px;
+  width: 100%;
 }
 
 #searchIcon {
