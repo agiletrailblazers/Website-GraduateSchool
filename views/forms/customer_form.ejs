@@ -12,25 +12,32 @@
   <div class="loading" style="display:none;"></div>
   <div id="customerForm" class="row">
     <div class="col-lg-9 col-md-9 col-sm-8">
-    </div>
-    <div class="tab-content">
-      <div id="contact_us_form" class="">
-        <% include partials/contact_us.ejs %>
+
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#contact-us">Contact us</a></li>
+        <li><a data-toggle="tab" href="#customer-feedback">Customer Feedback</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="contact-us" class="tab-pane fade in active">
+          <div id="contact_us_form" class="">
+            <% include partials/contact_us.ejs %>
+          </div>
+        </div>
+
+        <div id="customer-feedback" class="tab-pane fade">
+          <div id="customer_feedback_form" class="">
+            <% include partials/customer_feedback.ejs %>
+          </div>
+        </div>
       </div>
-      <div id="customer_feedback_form" class="">
-        <% include partials/customer_feedback.ejs %>
-      </div>
+      
     </div>
   </div>
-
-
 </div>
 <% include ../partials/chat %>
 <% include ../partials/footer %>
 <script type="text/javascript" src="/javascripts/forms/customer_form.js"></script>
 <script type="text/javascript" src="/javascripts/contact_us.js"></script>
-
-
 </body>
 </html>`
-
