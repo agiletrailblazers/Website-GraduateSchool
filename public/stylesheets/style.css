@@ -916,8 +916,8 @@ a.go-button:hover, a.go-button:active {
   position: relative;
   left: 0;
   width: 100%;
-  height: 50px;
-  padding: 12px 0 0 0;
+  height: 40px;
+  padding: 6px 0 0 0;
   background: #2a4d77; /* Old browsers */
   background: -moz-linear-gradient(left,  #2a4d77 0%, #3971ab 26%, #3971ab 51%, #01274f 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, right top, color-stop(0%,#2a4d77), color-stop(26%,#3971ab), color-stop(51%,#3971ab), color-stop(100%,#01274f)); /* Chrome,Safari4+ */
@@ -1326,7 +1326,7 @@ p.asset a:focus {
   position: relative;
   left: -20px;
   width: 110%;
-  height: 15px;
+  height: 0px;
   margin-bottom: 25px;
   background: #2a4d77; /* Old browsers */
   background: -moz-linear-gradient(left,  #2a4d77 0%, #3b6fa0 53%, #3d6f9e 63%, #01274f 100%); /* FF3.6+ */
@@ -1345,8 +1345,6 @@ p.asset a:focus {
 footer hr {
   border-color: #DDD -moz-use-text-color -moz-use-text-color;
 }
-
-
 
 footer p, footer a, footer h3 {
   color: #222222;
@@ -1421,8 +1419,27 @@ ul.networks-mobile {
 
 ul.networks-mobile li {
   display: inline-block;
+  padding: 0 7px;
 }
 
+ul.networks-mobile img {
+  width: 27px;
+}
+
+ul.networks-mobile li a {
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+ul.networks-mobile li a:hover {
+  opacity: 0.5;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
 
 #footer-menu {
   position: fixed;
@@ -1433,7 +1450,9 @@ ul.networks-mobile li {
   right: 0;
   background-color: #E6EBF1;
   border-top: 1px solid #CCC;
+  z-index: 999999;
 }
+
 ul.footer-menu {
   display: block;
   margin: 0;
