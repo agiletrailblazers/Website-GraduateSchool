@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title> Graduate School USA | </title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+
+  <style type="text/css">
+    body {
+      font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+      font-size: 14px;
+    }
+
+    a {
+      color: #337AB7;
+      text-decoration: none;
+      outline: none;
+    }
+
+    h1 {
+      color: #337AB7;
+      font-size: 24px;
+    }
+
+    h2 {
+      color: #337AB7;
+      font-size: 18px;
+      padding: 10px 0 5px 0;
+    }
+
+    p.footer {
+      color: #DDD;
+      font-size: 11px;
+
+    }
+
+  </style>
+
+
+</head>
+<body>
+
+<h1>Customer FeedBack Form</h1>
+
+<p>
+  <strong>Thank You</strong>
+  <br>
+  <br>
+  <% if (firstName) { %>
+  <Strong>Dear Valved Customer:</strong>
+  <% } else { %>
+  Dear <%= firstName %>
+  <% } %>
+  <br>
+  <br>Graduate School USA welcomes and values your feedback<br>
+  One of our Customer Service Representatives will read an address your comments personally.As this may often
+  require some time for research before replying,please know we are workign to respond to you as quickly as
+  possible.
+  <br>
+  If your request is time-sensitive,you may wish to contact Customer Support Center at 1.888.744.GRAD(4723).
+  <br>
+  Thank you for contacting Graduate School USA.
+  <br>
+  Best Regards,
+</p>
+
+<hr>
+<br>
+
+<p class="footer">Sent from GraduateSchool.edu.</p>
+</div>
+</body>
+</html>
