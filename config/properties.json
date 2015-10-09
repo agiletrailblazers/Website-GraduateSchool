@@ -31,6 +31,8 @@
     "contentfulEntry_ContactUs":"6Av0MIjzZC2qIsGKUGyKS0",
     "contentfulEntry_InquiryForm":"80IOLAFnVuYGk6U4ocooC",
 
-    "chatPages":"\/courses\/*|\/forms|\/search|\/forms/contact-us"
+    "chatPages":"\/courses\/*|\/forms|\/search|\/forms/contact-us",
 
+    "mailPageTitlePrefix":"Graduate%20School%20USA%20-%20",
+    "mailPageBody":"Hi,%20I%20found%20this%20on%20the%20Graduate%20School%20USA%20website%20and%20thought%20you%20might%20like%20it:%20"
 }
