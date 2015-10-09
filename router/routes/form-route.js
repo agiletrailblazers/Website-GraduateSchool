@@ -163,7 +163,22 @@ router.get('/forms/certificate-program-application', function (req, res, next) {
   });
 });
 	router.get('/forms/feedback', function(req, res, next) {
-		res.render('forms/customer_feedback', {title: 'Customer Feedback'});
-	});
+    var fields;
+
+    async.parallel([
+      function (callback) {
+      contentfulForms.getContactUs(function(response) {
+        fields = response.fields;
+        callback();
+      });
+      }
+    ], function(results) {
+      res.render('forms/customer_form', {title: fields.title,
+        subjectLine: fields.subjectLine,
+        topParagraph:fields.topParagraph,
+        relatedLinks: fields.relatedLinks
+      });
+    });
+  });
 
 	module.exports = router;
