@@ -1327,7 +1327,7 @@ p.asset a:focus {
   position: relative;
   left: -20px;
   width: 110%;
-  height: 0px;
+  height: 13px;
   margin-bottom: 25px;
   background: #2a4d77; /* Old browsers */
   background: -moz-linear-gradient(left,  #2a4d77 0%, #3b6fa0 53%, #3d6f9e 63%, #01274f 100%); /* FF3.6+ */
