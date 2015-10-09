@@ -879,7 +879,6 @@ a.go-button:hover, a.go-button:active {
 }
 
 .searchBox {
-<<<<<<< HEAD
     position:absolute;
     background-color: #FFF !important;
     overflow: visible;
@@ -887,15 +886,6 @@ a.go-button:hover, a.go-button:active {
     top: 0;
     right: 6px;
     width: 100%;
-=======
-  position:absolute;
-  background-color: #FFF !important;
-  overflow: visible;
-  z-index: 99;
-  top: 0;
-  right: 6px;
-  width: 100%;
->>>>>>> 737df8c05e28f70c4d97a65cf751b44ae07474b1
 }
 
 #searchIcon {
