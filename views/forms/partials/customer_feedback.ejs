@@ -15,14 +15,16 @@
         <%= title %>
       </h1>
 
-      <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
+      <div id="customerFeedbackFormAlertError" class="alert alert-danger" role="alert" style="display:none;">
         <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
       </div>
       <div id="feedbackForm-information">
         <div class="container">
           <form id="feedbackForm" class="form-horizontal" role="form">
             <div class="form-inline">
-              <label for="inputCustomerContactInformation">Your Contact Information(optional):(if you wish to receive response, provide phone number or email)</label>
+              <label for="inputCustomerContactInformation">Your Contact Information(optional):(if you wish to receive
+                response, provide phone number or email)</label>
+
               <div class="form-group">
                 <label for="inputCustomerFirstName">First Name</label>
                 <input id="txtCustomerFirstName" name="customerfirstName" type="text" class="form-control" tabindex="1">
@@ -47,35 +49,46 @@
               <span class="form-group">
                 <label for="txtTypePerson">Which Best Describes You?</label>
                  <input type="radio" name="typePerson" id="studentParticipant" value="Student/Participant" tabindex="5">Student/Participant</input>
-                 <input type="radio" name="typePerson" id="instructorFaculty" value="Instructor/Faculty" tabindex="6">Instructor/Faculty</input>
-                 <input type="radio" name="typePerson" id="agencyEmployee" value="Agency Employee" tabindex="7">Agency Employee</input>
-                 <input type="radio" name="typePerson" id="supervisorTrainingOfficer" value="Supervisor/Training Officer" tabindex="8">Supervisor/Training Officer</input>
-                 <input type="radio" name="typePerson" id="websiteVisitors" value="Website Visitors" tabindex="9">Website Visitors</input>
-                 <input type="radio" name="typePerson" id="gsUSAEmployee" value="GS USA Employee" tabindex="10">GS USA Employee</input>
+                <input type="radio" name="typePerson" id="instructorFaculty" value="Instructor/Faculty" tabindex="6">Instructor/Faculty</input>
+                <input type="radio" name="typePerson" id="agencyEmployee" value="Agency Employee" tabindex="7">Agency Employee</input>
+                <input type="radio" name="typePerson" id="supervisorTrainingOfficer" value="Supervisor/Training Officer"
+                       tabindex="8">Supervisor/Training Officer</input>
+                <input type="radio" name="typePerson" id="websiteVisitors" value="Website Visitors" tabindex="9">Website Visitors</input>
+                <input type="radio" name="typePerson" id="gsUSAEmployee" value="GS USA Employee" tabindex="10">GS USA Employee</input>
                 <input type="radio" name="typePerson" id="vendor" value="Vendor" tabindex="11">Vendor</input>
               </span>
             </div>
             <div class="form-inline">
               <span class="form-group">
                 <label for="txtfeedbackCategories">Area Of Feedback</label>
-                <input type="checkbox" name="feedbackCategories" id="course" value="Course" tabindex="12">Course</input>
-                <input type="checkbox" name="feedbackCategories" id="materialInstructor"value="MaterialInstructor" tabindex="13">Material Instructor</input>
-                <input type="checkbox" name="feedbackCategories" id="staff" value="Staff" tabindex="14">Staff</input>
-                <input type="checkbox" name="feedbackCategories" id="facility" value="Facility" tabindex="15">Facility</input>
-                <input type="checkbox" name="feedbackCategories" id="gsPolicy"value="GS Policy or Procedure" tabindex="16">GS Policy or Procedure</input>
-                <input type="checkbox" name="feedbackCategories" id="registration" value="Registration" tabindex="17">Registration</input>
-                <input type="checkbox" name="feedbackCategories" id="paymentInvoice" value="PaymentInvoice" tabindex="18">Payment/Invoice</input>
+                <input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="course" value="Course"
+                       tabindex="12">Course</input>
+                <input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="materialInstructor"
+                       value="MaterialInstructor" tabindex="13">Material Instructor</input>
+                <input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="staff" value="Staff"
+                       tabindex="14">Staff</input>
+                <input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="facility"
+                       value="Facility" tabindex="15">Facility</input>
+                <input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="gsPolicy"
+                       value="GS Policy or Procedure" tabindex="16">GS Policy or Procedure</input>
+                <input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="registration"
+                       value="Registration" tabindex="17">Registration</input>
+                <input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="paymentInvoice"
+                       value="PaymentInvoice" tabindex="18">Payment/Invoice</input>
                 <div class="form-inline">
                   <div class="form-group">
-                  <input type="checkbox" name="feedbackCategories" id="other" value="Other" tabindex="19">Other</input>
-                  <input id="txtfeedbackCategoriesOther" name="feedbackCategoriesOther" type="text" class="form-control" tabindex="20">
+                    <input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="other" value="Other"
+                           tabindex="19">Other</input>
+                    <input id="txtfeedbackCategoriesOther" name="feedbackCategoriesOther" type="text"
+                           class="form-control" disabled="true" tabindex="20">
                   </div>
                 </div>
               </span>
             </div>
             <div>
               <label for="txtfeedback">Feedback</label>
-              <textarea  maxlength="1000" class="form-control" id="txtFeedback" cols="25" name="feedback" rows="8"  tabindex="21"></textarea>
+              <textarea maxlength="1000" class="form-control" id="txtFeedback" cols="25" name="feedback" rows="8"
+                        tabindex="21"></textarea>
               <label for="txtfeedbackCharacterLimit">(Character limit: 1000)</label>
             </div>
             <br>
@@ -83,16 +96,17 @@
             <div id="captcha">
               <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
             </div>
+            s
             <br>
-            <button id="customerFeedbackSubmitForm" type="button" class="btn btn-primary"  tabindex="22">Submit</button>
+            <button id="customerFeedbackSubmitForm" type="button" class="btn btn-primary" tabindex="22">Submit</button>
           </form>
         </div>
-        <div id="alertSuccess" class="alert alert-sucess" role="alert" style="display:none;">
-          <div><b>Thank you for your interest in Graduate School USA.</b></div>
-          <div>Someone will be contacting you as soon as possible.</div>
-        </div>
-        <!-- customer FeedBack information div -->
       </div>
+      <div id="customerFeedbackFormAlertSuccess" class="alert alert-sucess" role="alert" style="display:none;">
+        <div><b>Thank you for your interest in Graduate School USA.</b></div>
+        <div>Someone will be contacting you as soon as possible.</div>
+      </div>
+      <!-- customer FeedBack information div -->
     </div>
   </div>
   <div class="spacer"></div>

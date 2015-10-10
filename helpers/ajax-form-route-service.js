@@ -332,6 +332,14 @@ module.exports = {
   validateCustomerFeedBack: function(callback,params) {
     response = {};
     response.errors = {};
+    switch(true) {
+      case (!params.email):
+        response.errors.email = "Email is empty.";
+        break;
+      case (!validator.isEmail(params.email)):
+        response.errors.email = "Email is in the wrong format."
+        break;
+    }
     if (!params.captchaResponse) {
       response.errors.captchaResponse = "Please select recaptcha.";
     }
