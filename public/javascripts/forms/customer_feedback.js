@@ -42,10 +42,18 @@ $(document).ready(function () {
     dataForm.lastName = $("#txtCustomerLastName").val();
     dataForm.phone = $("#telCustomerPhone").val();
     dataForm.email = $("#txtCustomerEmail").val();
-    dataForm.typePerson = $("input[name=typePerson]:checked", '#feedbackForm').val();
-    dataForm.feedbackCategories = $('input:checkbox:checked.feedbackCategories').map(function () {
-      return this.value;
-    }).get();
+    if ((typeof($("input[name=typePerson]:checked", '#feedbackForm').val())) != "undefined") {
+      dataForm.typePerson = $("input[name=typePerson]:checked", '#feedbackForm').val();
+    }else {
+      dataForm.typePerson = "";
+    }
+    if ($('input:checkbox:checked.feedbackCategories') !=[] && $('input:checkbox:checked.feedbackCategories').length>0){
+      dataForm.feedbackCategories = $('input:checkbox:checked.feedbackCategories').map(function () {
+        return this.value;
+      }).get();
+    } else {
+      dataForm.feedbackCategories="";
+    }
     if (($('#other').is(":checked")) && $("#txtfeedbackCategoriesOther").val().trim() != "") {
       dataForm.feedbackCategories.push($("#txtfeedbackCategoriesOther").val());
     }
