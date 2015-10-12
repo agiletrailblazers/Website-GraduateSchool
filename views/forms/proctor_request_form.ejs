@@ -16,9 +16,6 @@
   <div class="loading" style="display:none;"></div>
   <div class="row">
     <div class="col-lg-9 col-md-9 col-sm-12">
-      <h1>
-        <%= title %>
-      </h1>
       <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
         <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
       </div>
@@ -79,14 +76,14 @@
                       </div>
                       <div class="form-inline">
                         <span class="form-group">
-                          <label for="txtPhone">Daytime Phone Number</label>
+                          <label for="txtPhone">*Daytime Phone Number</label>
                           <input id="telPhone" name="phone" type="tel" placeholder="XXX-XXX-XXXX" pattern="\d{3}[\-]\d{3}[\-]\d{4}" maxlength="12" class="form-control" tabindex="8">
                         </span>
                       </div>
                       <div class="form-inline">
                         <span class="form-group">
-                          <label for="txtPhone">Home Phone Number</label>
-                          <input id="telPhone" name="phone" type="tel" placeholder="XXX-XXX-XXXX"  pattern="\d{3}[\-]\d{3}[\-]\d{4}" maxlength="12" class="form-control" tabindex="9">
+                          <label for="txtHomePhone">Home Phone Number</label>
+                          <input id="telHomePhone" name="phone" type="tel" placeholder="XXX-XXX-XXXX"  pattern="\d{3}[\-]\d{3}[\-]\d{4}" maxlength="12" class="form-control" tabindex="9">
                         </span>
                       </div>
                       <div class="form-inline">
@@ -97,7 +94,7 @@
                       </div>
                       <div class="form-inline">
                         <span class="form-group">
-                          <label for="txtCourseNumber">*Course number</label>
+                          <label for="txtCourseNumber">*Course Code</label>
                           <input type="text" id="txtCourseNumber" class="form-control" size="20" tabindex="11" required>
                         </span>
                         <span class="form-group">

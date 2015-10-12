@@ -6,13 +6,17 @@
 }
 
 
-html {
+html, body {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   height: 100%;
   -webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
 }
 *, *:before, *:after {
   -webkit-box-sizing: inherit;
@@ -877,12 +881,13 @@ a.go-button:hover, a.go-button:active {
 }
 
 .searchBox {
-  position:absolute;
-  background-color: #FFF !important;
-  overflow: visible;
-  z-index: 9999;
-  top: 0;
-  right: 6px;
+    position:absolute;
+    background-color: #FFF !important;
+    overflow: visible;
+    z-index: 99;
+    top: 0;
+    right: 6px;
+    width: 100%;
 }
 
 #searchIcon {
@@ -914,8 +919,8 @@ a.go-button:hover, a.go-button:active {
   position: relative;
   left: 0;
   width: 100%;
-  height: 50px;
-  padding: 12px 0 0 0;
+  height: 40px;
+  padding: 6px 0 0 0;
   background: #2a4d77; /* Old browsers */
   background: -moz-linear-gradient(left,  #2a4d77 0%, #3971ab 26%, #3971ab 51%, #01274f 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, right top, color-stop(0%,#2a4d77), color-stop(26%,#3971ab), color-stop(51%,#3971ab), color-stop(100%,#01274f)); /* Chrome,Safari4+ */
@@ -1078,13 +1083,16 @@ transition: background-color 300ms linear;
 }
 
 .news-and-events a > h5 {
+  font-size: 15px;
   text-align: left;
   color: #000;
+  font-weight: bolder;
   -webkit-transition: background-color 300ms linear;
   -moz-transition: background-color 300ms linear;
   -o-transition: background-color 300ms linear;
   -ms-transition: background-color 300ms linear;
   transition: background-color 300ms linear;
+  line-height: 1.4;
 }
 
 .news-and-events a > h5:hover {
@@ -1108,7 +1116,7 @@ transition: background-color 300ms linear;
   font-weight: bold;
   color: #000;
   clear: both;
-  margin-top: 10px;
+  margin: 10px 10px 0 0;
 }
 
 span.month {
@@ -1321,7 +1329,7 @@ p.asset a:focus {
   position: relative;
   left: -20px;
   width: 110%;
-  height: 15px;
+  height: 13px;
   margin-bottom: 25px;
   background: #2a4d77; /* Old browsers */
   background: -moz-linear-gradient(left,  #2a4d77 0%, #3b6fa0 53%, #3d6f9e 63%, #01274f 100%); /* FF3.6+ */
@@ -1335,6 +1343,10 @@ p.asset a:focus {
 
 .footer {
   background-color:  #E6EBF1;
+}
+
+footer hr {
+  border-color: #DDD -moz-use-text-color -moz-use-text-color;
 }
 
 footer p, footer a, footer h3 {
@@ -1355,6 +1367,13 @@ p.copyright {
   font-size: 13px;
   padding: 15px 0;
 }
+
+p.disclaimer {
+  color: #999;
+  font-size: 12px;
+  padding: 15px 0;
+}
+
 footer ul {
   padding: 0;
 }
@@ -1403,6 +1422,54 @@ ul.networks-mobile {
 
 ul.networks-mobile li {
   display: inline-block;
+  padding: 0 7px;
+}
+
+ul.networks-mobile img {
+  width: 27px;
+}
+
+ul.networks-mobile li a {
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+ul.networks-mobile li a:hover {
+  opacity: 0.5;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+#footer-menu {
+  position: fixed;
+  width: 100%;
+  height: 35px;
+  bottom: 0px;
+  left:0;
+  right: 0;
+  background-color: #E6EBF1;
+  border-top: 1px solid #CCC;
+  z-index: 999999;
+}
+
+ul.footer-menu {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+ul.footer-menu li {
+    display: inline-block;
+    list-style: outside none none;
+    padding: 5px 10px;
+}
+
+ul.footer-menu li a {
+  color: #444;
 }
 
 /* SLIDER */
@@ -1567,6 +1634,16 @@ ul.networks-mobile li {
   z-index: 99999;
 }
 
+#chat-mobile {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  right: 0px;
+  bottom: 20px;
+  z-index: 99;
+  opacity: 0.6;
+}
+
 #chat a {
   padding: 0;
   outline: 0;
@@ -1640,6 +1717,7 @@ a.underline-n:after {
  transition: all 0.7s;
 }
 
+<<<<<<< HEAD
 /* SOCIAL MEDIA - Homepage  */
 #social-media .nav-tabs > li.active > a,
 #social-media .nav-tabs > li.active > a:focus,
@@ -1758,9 +1836,27 @@ h2.social-title {
   div._2p3a {
       width: 100% !important;
   }
+=======
+/* 404 */
+.suggestions {
+  position: relative;
+  float: right;
+  clear: both;
+  overflow: hidden;
+}
+>>>>>>> master
 
+ul.see-more{
+  padding: 0;
+  margin: 5px 10px;
+}
 
-/* FIXES  */
+ul.see-more li {
+  list-style: none;
+  padding: 5px 0;
+}
+
+/* FIXES */
 *:focus {
     outline: 0 !important;
     border: none;

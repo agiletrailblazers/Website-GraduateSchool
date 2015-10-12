@@ -92,7 +92,7 @@ router.get('/alert-dismiss', function(req, res, next) {
 //show a page not found page
 router.get('/pagenotfound', function(req, res, next) {
   logger.error("Page not found");
-  res.render('404', {homepage:true, title: 'Page Not Found'});
+  res.render('404', {title: 'Page Not Found'});
 });
 
 module.exports = router;
