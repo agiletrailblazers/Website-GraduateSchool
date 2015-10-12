@@ -20,8 +20,10 @@ router.post('/mailer-customer-feedback', function (req, res, next) {
       google.verifyCaptcha(function (response) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
-          mailer.sendToCustomerSubmitForm(function (response) {
-          }, params);
+          if(validator.isLength(params.email.trim(),1)) {
+            mailer.sendToCustomerSubmitForm(function (response) {
+            }, params);
+          }
           mailer.sendOnCustomerFeedBackForm(function (response) {
             handleResponse(res, response);
           }, params);

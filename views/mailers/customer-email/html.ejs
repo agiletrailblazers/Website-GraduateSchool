@@ -51,10 +51,10 @@
   <strong>Thank You</strong>
   <br>
   <br>
-  <% if (firstName) { %>
-    <Strong>Dear Valued Customer:</strong>
+  <% if (firstName != '' && firstName != null && typeof(firstName) != 'undefined')  { %>
+    <Strong>Dear <%= firstName %></strong>
   <% } else { %>
-    Dear <%= firstName %>
+    <Strong>Dear Valued Customer:</strong>
   <% } %>
   <br>
   Graduate School USA welcomes and values your feedback

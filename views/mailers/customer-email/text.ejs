@@ -2,10 +2,10 @@ Customer FeedBack Form
 
 Thank You
 
-<% if (firstName) { %>
-  <Strong>Dear Valued Customer:</strong>
+<% if (firstName != '' && firstName != null && typeof(firstName) != 'undefined')  { %>
+  Dear <%= firstName %>
 <% } else { %>
-  Dear  <%= firstName %>
+  Dear Valued Customer:
 <% } %>
 Graduate School USA welcomes and values your feedback
 
