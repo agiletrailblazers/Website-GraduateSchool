@@ -6,7 +6,14 @@
   <link rel="stylesheet" href="/stylesheets/library/spinners.css">
   <script type="text/javascript" src="/javascripts/contact_us.js"></script>
   <script type="text/javascript" src="/javascripts/forms/customer_feedback.js"></script>
-
+  <!-- <script src='https://www.google.com/recaptcha/api.js'></script> -->
+  <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+  <script type="text/javascript">
+  var onloadCallback = function() {
+    // alert("grecaptcha is ready!");
+    grecaptcha.render();
+  };
+</script>
 </head>
 <body>
 <% include ../partials/header %>
@@ -16,7 +23,7 @@
     <div class="col-lg-9 col-md-9 col-sm-8">
 
       <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#contact-us">Contact us</a></li>
+        <li class="active"><a data-toggle="tab" href="#contact-us">Contact Us</a></li>
         <li><a data-toggle="tab" href="#customer-feedback">Customer Feedback</a></li>
       </ul>
 
