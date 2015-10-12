@@ -840,7 +840,7 @@ img.search {
 
 .locations .form-control {
   display: inline-block !important;
-  width: 100px !important;
+  width: 135px !important;
 }
 
 .locations select, .locations input[type="checkbox"]{
@@ -1328,7 +1328,7 @@ p.asset a:focus {
 .bar {
   position: relative;
   left: -20px;
-  width: 110%;
+  width: 114%;
   height: 13px;
   margin-bottom: 25px;
   background: #2a4d77; /* Old browsers */
@@ -1426,7 +1426,8 @@ ul.networks-mobile li {
 }
 
 ul.networks-mobile img {
-  width: 27px;
+  opacity: 0.7;
+  width: 25px;
 }
 
 ul.networks-mobile li a {
@@ -1437,7 +1438,7 @@ ul.networks-mobile li a {
 }
 
 ul.networks-mobile li a:hover {
-  opacity: 0.5;
+  opacity: 0.3;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
