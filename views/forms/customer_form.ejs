@@ -3,8 +3,10 @@
 <head>
   <title> Graduate School USA </title>
   <% include ../partials/head %>
-  <link rel='stylesheet' href='/stylesheets/course_search.css' />
   <link rel="stylesheet" href="/stylesheets/library/spinners.css">
+  <script type="text/javascript" src="/javascripts/contact_us.js"></script>
+  <script type="text/javascript" src="/javascripts/forms/customer_feedback.js"></script>
+
 </head>
 <body>
 <% include ../partials/header %>
@@ -25,19 +27,41 @@
           </div>
         </div>
 
-        <div id="customer-feedback" class="tab-pane fade in active">
+        <div id="customer-feedback" class="tab-pane fade">
           <div id="customer_feedback_form" class="">
             <% include partials/customer_feedback.ejs %>
           </div>
         </div>
       </div>
-
     </div>
+
+    <% if (relatedLinks && relatedLinks.length > 0) { %>
+    <div class="col-lg-3 col-md-3 col-sm-12" id="sidebar">
+      <div class="panel-group">
+        <div class="panel panel-default related-links">
+      <div class="panel-heading related-links">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#related-links">Related links</a>
+            </h4>
+      </div>
+      <div id="related-links" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <ul>
+          <% relatedLinks.forEach(function(link) { %>
+            <li><a href="<%= link.url %>"><%= link.name %></a></li>
+            <hr>
+          <% }); %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+    <% } %>
+
   </div>
 </div>
 <% include ../partials/chat %>
 <% include ../partials/footer %>
-<script type="text/javascript" src="/javascripts/forms/customer_form.js"></script>
-<script type="text/javascript" src="/javascripts/contact_us.js"></script>
 </body>
 </html>`
