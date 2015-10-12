@@ -21,16 +21,24 @@ $(document).ready(function(){
   });
 });
 
-
-//Displays search box and advanced filter on click.
+//Displays search box and advanced filter on focus/mouse enter.
 $(document).ready(function(){
   $('#searchGroup').focusin(function() {
       $('#advancedSearchBox').fadeIn();
   });
   $('#searchGroup').mouseenter(function() {
       $('#advancedSearchBox').fadeIn();
-  });
-  $("div.searchBox").mouseleave(function() {
-    $('#advancedSearchBox').fadeOut('medium');
-  });
+  });;
+});
+
+//Hide advanced filter on click outside of the Search Box area and their descendents.
+$(document).mouseup(function (e)
+{
+    var container = $(".searchBox");
+
+    if (!container.is(e.target) // if the target of the click isn't the container...
+        && container.has(e.target).length === 0) // ... nor a descendant of the container
+    {
+        $('#advancedSearchBox').fadeOut('medium');
+    }
 });
