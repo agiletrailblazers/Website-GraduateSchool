@@ -1,74 +1,86 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title> Graduate School USA </title>
   <% include ../partials/head %>
-  <link rel="stylesheet" href="/stylesheets/library/spinners.css">
-  <script type="text/javascript" src="/javascripts/contact_us.js"></script>
-  <script type="text/javascript" src="/javascripts/forms/customer_feedback.js"></script>
-  <!-- <script src='https://www.google.com/recaptcha/api.js'></script> -->
-  <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
-  <script type="text/javascript">
-  var onloadCallback = function() {
-    // alert("grecaptcha is ready!");
-    grecaptcha.render();
-  };
-</script>
+    <link rel="stylesheet" href="/stylesheets/library/spinners.css">
+    <script type="text/javascript" src="/javascripts/contact_us.js"></script>
+    <script type="text/javascript" src="/javascripts/forms/customer_feedback.js"></script>
+    <script type="text/javascript" src="/javascripts/forms/contact_graduate_school.js"></script>
+    <!-- <script src='https://www.google.com/recaptcha/api.js'></script> -->
+    <script type="text/javascript">
+      var onloadCallback = function() {
+        grecaptcha.render('captcha1', {
+          'sitekey' : '6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh'
+        });
+        grecaptcha.render('captcha2', {
+          'sitekey' : '6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh'
+        });
+      };
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 </head>
+
 <body>
-<% include ../partials/header %>
-<div  class="container">
-  <div class="loading" style="display:none;"></div>
-  <div id="customerForm" class="row">
-    <div class="col-lg-9 col-md-9 col-sm-8">
+  <% include ../partials/header %>
+    <div class="container">
+      <div class="loading" style="display:none;"></div>
+      <div id="customerForm" class="row">
+        <div class="col-lg-9 col-md-9 col-sm-8">
 
-      <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#contact-us">Contact Us</a></li>
-        <li><a data-toggle="tab" href="#customer-feedback">Customer Feedback</a></li>
-      </ul>
-
-      <div class="tab-content">
-        <div id="contact-us" class="tab-pane fade in active">
-          <div id="contact_us_form" class="">
-            <% include partials/contact_us.ejs %>
-          </div>
-        </div>
-
-        <div id="customer-feedback" class="tab-pane fade">
-          <div id="customer_feedback_form" class="">
-            <% include partials/customer_feedback.ejs %>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <% if (relatedLinks && relatedLinks.length > 0) { %>
-    <div class="col-lg-3 col-md-3 col-sm-12" id="sidebar">
-      <div class="panel-group">
-        <div class="panel panel-default related-links">
-      <div class="panel-heading related-links">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" href="#related-links">Related links</a>
-            </h4>
-      </div>
-      <div id="related-links" class="panel-collapse collapse in">
-        <div class="panel-body">
-          <ul>
-          <% relatedLinks.forEach(function(link) { %>
-            <li><a href="<%= link.url %>"><%= link.name %></a></li>
-            <hr>
-          <% }); %>
+          <ul id="formTabs" class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#contact-us">Contact Us</a></li>
+            <li><a data-toggle="tab" href="#customer-feedback">Customer Feedback</a></li>
           </ul>
+
+          <div class="tab-content">
+            <div id="contact-us" class="tab-pane fade in active">
+              <div id="contact_us_form" class="">
+                <% include partials/contact_us.ejs %>
+              </div>
+            </div>
+
+            <div id="customer-feedback" class="tab-pane fade">
+              <div id="customer_feedback_form" class="">
+                <% include partials/customer_feedback.ejs %>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <% if (relatedLinks && relatedLinks.length > 0) { %>
+          <div class="col-lg-3 col-md-3 col-sm-12" id="sidebar">
+            <div class="panel-group">
+              <div class="panel panel-default related-links">
+                <div class="panel-heading related-links">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#related-links">Related links</a>
+                  </h4>
+                </div>
+                <div id="related-links" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    <ul>
+                      <% relatedLinks.forEach(function(link) { %>
+                        <li>
+                          <a href="<%= link.url %>">
+                            <%= link.name %>
+                          </a>
+                        </li>
+                        <hr>
+                        <% }); %>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+
       </div>
     </div>
-  </div>
-    </div>
-    <% } %>
-
-  </div>
-</div>
-<% include ../partials/chat %>
-<% include ../partials/footer %>
+    <% include ../partials/chat %>
+      <% include ../partials/footer %>
 </body>
+
 </html>`
