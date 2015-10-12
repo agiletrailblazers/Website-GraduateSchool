@@ -82,4 +82,8 @@ router.get('/pagenotfound', function(req, res, next) {
   res.render('404', {title: 'Page Not Found'});
 });
 
+router.get('/under-construction', function(req, res, next) {
+  res.render('misc/under_construction', {title: 'Under Construction'});
+});
+
 module.exports = router;
