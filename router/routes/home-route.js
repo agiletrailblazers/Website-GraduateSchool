@@ -6,11 +6,26 @@ var striptags = require('striptags');
 var moment = require('moment');
 var router = express.Router();
 var logger = require('../../logger');
+var facebook = require('../../API/facebook.js');
+var twitter = require('../../API/twitter.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   data = {};
   async.parallel([
+    function(callback) {
+      facebook.getFacebookPosts(function(posts) {
+        data.facebookPosts = posts;
+        console.log(posts);
+        callback();
+      });
+    },
+    function(callback) {
+      twitter.getTwitterTweets(function(tweets) {
+        data.tweets = tweets;
+        callback();
+      });
+    },
     function(callback) {
       contentful.getHomepageSlider(function(content) {
         data.slider = content;
@@ -51,6 +66,8 @@ router.get('/', function(req, res, next) {
     name: 'Home Page',
     slider: data.slider,
     news: data.news,
+    facebook: data.facebookPosts,
+    tweets: data.tweets,
     testimonial: data.testimonial,
     alert: data.alert,
     striptags: striptags,

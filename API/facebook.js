@@ -1,12 +1,20 @@
-passport.use(new FacebookStrategy({
-    clientID: FACEBOOK_APP_ID,
-    clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:3000/auth/facebook/callback",
-    enableProof: false
-  },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-      return done(err, user);
+var FB = require('fb');
+var request = require('request');
+var config = require('konphyg')(__dirname + "/../config");
+
+
+
+FB.setAccessToken(config("properties").facebook_AccessToken);
+
+module.exports = {
+  getFacebookPosts: function(callback) {
+    FB.api('GraduateSchoolUSA/feed?limit=4', function (res) {
+      if(!res || res.error) {
+       console.log(!res ? 'error occurred' : res.error);
+       return;
+      }
+      console.log(res);
+      callback(res);
     });
   }
-));
+}
