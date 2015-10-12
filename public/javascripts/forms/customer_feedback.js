@@ -15,38 +15,58 @@ var Validate = {
   }
 }
 var _runValidation = function () {
-  $("#alertError").slideUp();
-  $("#alertError p").remove();
+  $("#customerFeedbackFormAlertError").slideUp();
+  $("#customerFeedbackFormAlertError p").remove();
   Validate.captcha();
   Validate.input();
-  if ($("#alertError p").length) {
-    $("#alertError").slideDown("slow");
+  if ($("#customerFeedbackFormAlertError p").length) {
+    $("#customerFeedbackFormAlertError").slideDown("slow");
   }
 }
 
 $(document).ready(function () {
-  $("#submitForm").click(function (event) {
+
+  $('#other').click(function () {
+    if ($('#other').is(":checked")) {
+      $("#txtfeedbackCategoriesOther").attr('disabled', false);
+    } else {
+      $("#txtfeedbackCategoriesOther").attr('disabled', true);
+      $("#txtfeedbackCategoriesOther").val("");
+    }
+  });
+  $("#customerFeedbackSubmitForm").click(function (event) {
     event.preventDefault();
     _runValidation();
     var dataForm = {};
-    dataForm.firstName = $("#txtFirstName").val();
-    dataForm.lastName = $("#txtLastName").val();
-    dataForm.phone = $("#telPhone").val();
-    dataForm.email = $("#txtEmail").val();
-    dataForm.typePerson = $("input[name=typePerson]:checked", '#feedbackForm').val();
-    dataForm.feedbackCategories = $('input:checkbox:checked.feedbackCategories').map(function () {
-      return this.value;
-    }).get();
+    dataForm.firstName = $("#txtCustomerFirstName").val();
+    dataForm.lastName = $("#txtCustomerLastName").val();
+    dataForm.phone = $("#telCustomerPhone").val();
+    dataForm.email = $("#txtCustomerEmail").val();
+    if ((typeof($("input[name=typePerson]:checked", '#feedbackForm').val())) != "undefined") {
+      dataForm.typePerson = $("input[name=typePerson]:checked", '#feedbackForm').val();
+    }else {
+      dataForm.typePerson = "";
+    }
+    if ($('input:checkbox:checked.feedbackCategories') !=[] && $('input:checkbox:checked.feedbackCategories').length>0){
+      dataForm.feedbackCategories = $('input:checkbox:checked.feedbackCategories').map(function () {
+        return this.value;
+      }).get();
+    } else {
+      dataForm.feedbackCategories="";
+    }
+    if (($('#other').is(":checked")) && $("#txtfeedbackCategoriesOther").val().trim() != "") {
+      dataForm.feedbackCategories.push($("#txtfeedbackCategoriesOther").val());
+    }
     dataForm.feedbackText = $("#txtFeedback").val();
     dataForm.captchaResponse = $("#g-recaptcha-response").val();
-    if (!$("#alertError p").length) {
+    if (!$("#customerFeedbackFormAlertError p").length) {
       $(".loading").show();
       $.post("/mailer-customer-feedback", dataForm)
         .done(function (data) {
           $(".loading").hide();
           alertify.success("Email sent!")
           $("#feedbackForm-information").toggle();
-          $("#alertSuccess").slideDown();
+          $("#customerFeedbackFormAlertSuccess").slideDown();
         })
         .fail(function (xhr, textStatus, errorThrown) {
           $(".loading").hide();
@@ -54,10 +74,10 @@ $(document).ready(function () {
           var errors = xhr.responseJSON;
           for (var key in errors) {
             if (errors.hasOwnProperty(key)) {
-              $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] + "</p>");
+              $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] + "</p>");
             }
           }
-          $("#alertError").slideDown();
+          $("#customerFeedbackFormAlertError").slideDown();
           $("html, body").animate({
             scrollTop: 0
           }, "slow");

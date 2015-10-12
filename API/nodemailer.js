@@ -11,6 +11,7 @@ var onsiteInquiryTemplate = new EmailTemplate(path.join(templatesDir, 'onsiteinq
 var requestduplicateTemplate = new EmailTemplate(path.join(templatesDir, 'requestduplicate-email'));
 var requestProctorTemplate = new EmailTemplate(path.join(templatesDir, 'requestProctor-email'));
 var customerFeedBackTemplate = new EmailTemplate(path.join(templatesDir, 'customerfeedback-email'));
+var customerTemplate = new EmailTemplate(path.join(templatesDir, 'customer-email'));
 
 var smtp = {
   host: config("properties").defaultEmailServerName,
@@ -160,6 +161,31 @@ module.exports = {
         html:  results.html
       };
       transporter.sendMail(mailAttributes, function(error, info) {
+        if (error) {
+          logger.error(error);
+          return callback(500);
+        }
+        logger.info('Message sent: ' + info.response);
+        return callback(200);
+      });
+    });
+  },
+  sendToCustomerSubmitForm: function (callback, params) {
+    logger.debug("SMTP sending to: " + smtp);
+    customerTemplate.render(params, function (err, results) {
+      logger.info("Starting mail send");
+      if (err) {
+        logger.error(err);
+        return callback(500);
+      }
+      var mailAttributes = {
+        from: config("properties").defaultEmailFromUserName,
+        to: params.email,
+        subject: config("properties").customerFeedBackFormEmailSubject,
+        text: results.text,
+        html: results.html
+      };
+      transporter.sendMail(mailAttributes, function (error, info) {
         if (error) {
           logger.error(error);
           return callback(500);
