@@ -67,6 +67,11 @@ $(document).ready(function () {
           alertify.success("Email sent!")
           $("#feedbackForm-information").toggle();
           $("#customerFeedbackFormAlertSuccess").slideDown();
+          if( (dataForm.firstName != '' && dataForm.firstName != null && typeof(dataForm.firstName) != 'undefined') ) {
+            $("#txtCustomerName").text(dataForm.firstName);
+          } else {
+            $("#txtCustomerName").text("Valued Customer");
+          }
         })
         .fail(function (xhr, textStatus, errorThrown) {
           $(".loading").hide();
