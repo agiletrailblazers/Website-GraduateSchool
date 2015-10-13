@@ -7,11 +7,12 @@ $(document).ready(function() {
     }
     return result;
   }
-  var formtype = getQueryString()["formtype"];
+  var formtype = getQueryString()['formtype'];
   if (formtype && typeof(formtype != 'undefined') && ("cfb".indexOf(formtype.toLowerCase().trim()) > -1) ) {
-
+    // $("#formTabs li").eq(1).trigger('click');
+    $('a[href="#customer-feedback"]').tab('show');
   } else {
-
+    $('a[href="#contact-us"]').tab('show');
   }
 
 });
