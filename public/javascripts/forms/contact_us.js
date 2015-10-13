@@ -1,4 +1,4 @@
-var Validate = {
+var contactUSFormValidate = {
   firstName: function() {
     var input = $("#txtFirstName").val();
     var noNumbersPattern = new RegExp(/^[^0-9]+$/);
@@ -38,11 +38,11 @@ var Validate = {
     switch (true) {
       case ($("#radioEmail").is(':checked')):
         var address = $("#txtEmail").val();
-        Validate.email(address);
+        contactUSFormValidate.email(address);
         break;
       case ($("#radioPhone").is(':checked')):
         var number = $("#telPhone").val();
-        Validate.phone(number);
+        contactUSFormValidate.phone(number);
         break;
     }
   },
@@ -68,15 +68,15 @@ var Validate = {
   }
 }
 
-var _runValidation = function() {
+var _runContactUsFormValidation = function() {
   $("#alertError").slideUp();
   $("#alertError p").remove();
-  Validate.firstName();
-  Validate.lastName();
-  Validate.communication();
-  Validate.comments();
-  Validate.subject();
-  Validate.captcha();
+  contactUSFormValidate.firstName();
+  contactUSFormValidate.lastName();
+  contactUSFormValidate.communication();
+  contactUSFormValidate.comments();
+  contactUSFormValidate.subject();
+  contactUSFormValidate.captcha();
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
   }
@@ -88,7 +88,7 @@ $(document).ready(function() {
   $("#removeAlert").css('cursor', 'pointer');
   $("#submitForm").click(function(e) {
     e.preventDefault();
-    _runValidation();
+    _runContactUsFormValidation();
     var data = {};
     data.firstName = $("#txtFirstName").val();
     data.lastName = $("#txtLastName").val();
