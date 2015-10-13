@@ -22,80 +22,90 @@
         visibility: hidden;
       }
 
-        /* NavBar breaking point */
-        .navbar-header {
-            float: none;
-        }
-        .navbar-toggle {
-            display: block;
-        }
-        .navbar-collapse {
-            border-top: 1px solid transparent;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
-        }
-        .navbar-collapse.collapse {
-            display: none!important;
-        }
-        .navbar-nav {
-            float: none!important;
-            margin: 7.5px -15px;
-        }
-        .navbar-nav>li {
-            float: none;
-        }
-        .navbar-nav>li>a {
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
+      /* NavBar breaking point */
+     .navbar-header {
+       float: none;
+     }
+     .navbar-left,.navbar-right {
+         float: none !important;
+     }
+     .navbar-toggle {
+         display: block;
+     }
+     .navbar-collapse {
+         border-top: 1px solid transparent;
+         box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+     }
+     .navbar-fixed-top {
+       		top: 0;
+       		border-width: 0 0 1px;
+ 	  }
+     .navbar-collapse.collapse {
+         display: none!important;
+     }
+     .navbar-nav {
+         float: none!important;
+ 		     margin-top: 7.5px;
+ 	   }
+ 	   .navbar-nav > li {
+         float: none;
+     }
+     .navbar-nav > li >a {
+         padding-top: 10px;
+         padding-bottom: 10px;
+     }
+     .collapse.in{
+   		  display:block !important;
+ 	   }
 
-        #form-filters ul {
-          display: block;
-          margin: 10px 0 !important;
-          padding: 5px  !important;
-        }
+      #form-filters ul {
+        display: block;
+        margin: 10px 0 !important;
+        padding: 5px  !important;
+      }
 
-        #form-filters ul li {
-          display: inline-block;
-          list-style: none;
-          padding: 3px 7px;
-        }
+      #form-filters ul li {
+        display: inline-block;
+        list-style: none;
+        padding: 3px 7px;
+      }
 
-        #form-filters span {
-          font-size: 17px;
-        }
+      #form-filters span {
+        font-size: 17px;
+      }
 
-        #form-filters ul li a {
-          font-size: 15px;
-        }
+      #form-filters ul li a {
+        font-size: 15px;
+      }
 
-        blockquote {
-          width: 50%;
-          font-size:24px !important;
-          padding: 10px 15px;
-          margin: 5px;
-          text-indent: 30px;
-          position: absolute;
-          top:40px;
-          left:20px;
-          background-image: url(../images/openquote.png);
-          background-position: top left;
-          background-repeat: no-repeat;
-          background-size: 40px;
-        }
+      blockquote {
+        width: 50%;
+        font-size:24px !important;
+        padding: 10px 15px;
+        margin: 5px;
+        text-indent: 30px;
+        position: absolute;
+        top:40px;
+        left:20px;
+        background-image: url(../images/openquote.png);
+        background-position: top left;
+        background-repeat: no-repeat;
+        background-size: 40px;
+      }
 
-        blockquote span {
-          color: #FFF;
-          display: block;
-          background-image: url(../images/closequote.png);
-          background-repeat: no-repeat;
-          background-position: right bottom;
-          background-size: 40px;
-        }
+      blockquote span {
+        color: #FFF;
+        display: block;
+        background-image: url(../images/closequote.png);
+        background-repeat: no-repeat;
+        background-position: right bottom;
+        background-size: 40px;
+      }
 
-        #course-information .nav-tabs > li > a {
-        font-size: 14px !important;
-        padding: 15px 5px !important;
-        }
+      #course-information .nav-tabs > li > a {
+      font-size: 14px !important;
+      padding: 15px 5px !important;
+      }
 
     }
 
@@ -121,6 +131,7 @@
       .mobile-nopadding {
         padding: 0 !important;
       }
+
 
 
       /* remove "CLEAR ALL" button from refine search sidebar on smaller res */
@@ -253,33 +264,73 @@
        .alertonmobile {
          display: block;
          position: relative !important;
-         margin: -10px -10px 20px -10px !important;
-         background: rgba(58,117,175,  0.1) !important;
+         margin: -10px 5px 20px 5px !important;
+         background: rgba(58,117,175,  0.25) !important;
        }
 
-       /* different bg color for the top nav */
+       /* top nav */
        .nav-top {
-        border-bottom: 3px solid #01274F;
-        background: transparent linear-gradient(to right, #2A4D77 30%, #3B6FA0 75%, #2A4D77 100%) repeat scroll 0% 0%;
+          border-bottom: 3px solid #01274F;
+          background: transparent linear-gradient(to right, #2A4D77 30%, #3B6FA0 75%, #2A4D77 100%) repeat scroll 0% 0%;
         }
 
         .nav-top-bar {
           background: transparent linear-gradient(to right, #2A4D77 0%, #01274F 100%) repeat scroll 0% 0%;
+
         }
 
         .navbar-fixed-top {
-            position:absolute !important;
-            top:0;
-            z-index: 1030;
+          position:absolute !important;
+          top:0;
+          z-index: 1030;
         }
+
+        #nav-top .toggle {
+          width: 100%;
+        }
+
+        .nav-top-bar-mob ul {
+          display: block;
+          margin: 0 auto !important;
+          padding: 0 5px;
+
+        }
+
+        .nav-top-bar-mob ul li {
+          margin: 0 auto !important;
+          display: inline-block;
+          width: 31%;
+          padding-top: 7px !important;
+          text-align: center;
+
+        }
+
+        .nav-top-bar-mob ul li img {
+          width: auto;
+          max-width: 27px !important;
+          max-height: 25px !important;
+          padding: 0 0 0 5px !important;
+        }
+
+        .nav-top-bar-mob ul li a {
+          margin: 10px auto 10px auto !important;
+          text-align: center;
+          font-size: 12px;
+        }
+
+      
 
         /* Slider */
         .carousel-inner > .item > img {
-        width: auto !important;
-        min-width: auto !important;
-        max-width: 200% !important;
-        min-height: 240px !important;
-        overflow: hidden;
+          width: auto !important;
+          min-width: auto !important;
+          max-width: 200% !important;
+          min-height: 240px !important;
+          overflow: hidden;
+        }
+
+        .carousel-caption{
+          left: 10px !important;
         }
 
         .carousel-caption h1 {
@@ -293,12 +344,12 @@
           right: auto;
           float: left !important;
           text-align: left;
+          height: 30px;
         }
 
         .carousel {
           overflow: hidden;
         }
-
 
         .carousel-caption p {
           display: none;
@@ -310,7 +361,6 @@
           visibility: visible;
           text-align: left;
           line-height: 1.1;
-
         }
 
         .carousel-caption a, .carousel-caption a:hover {
@@ -329,13 +379,10 @@
         }
 
 
-
     }
 
     /* Extra Small Devices, Phones */
     @media only screen and (max-width : 480px) {
-
-
 
       .title .util {
         position: relative;
@@ -394,7 +441,6 @@
       }
 
     }
-
 
 
     /* Custom, iPhone Retina */
