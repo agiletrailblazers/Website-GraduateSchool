@@ -2,15 +2,15 @@ var Validate = {
   inputs: function () {
     $("#feedbackForm input").blur(function () {
       if (!$(this).val()) {
-        $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Please add content.</p>");
+        $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Please add content.</p>");
       }
 
     });
   },
   captcha: function () {
-    var googleResponse = $('#g-recaptcha-response').val();
+    var googleResponse = grecaptcha.getResponse(customerFeedbackCaptchaID);
     if (!googleResponse) {
-      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> For security, please verify you are a real person below</p>");
+      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> For security, please verify you are a real person below</p>");
     }
   }
 }
@@ -58,7 +58,7 @@ $(document).ready(function () {
       dataForm.feedbackCategories.push($("#txtfeedbackCategoriesOther").val());
     }
     dataForm.feedbackText = $("#txtFeedback").val();
-    dataForm.captchaResponse = $("#g-recaptcha-response").val();
+    dataForm.captchaResponse = grecaptcha.getResponse(customerFeedbackCaptchaID);
     if (!$("#customerFeedbackFormAlertError p").length) {
       $(".loading").show();
       $.post("/mailer-customer-feedback", dataForm)
