@@ -328,5 +328,20 @@ module.exports = {
     response.errors.captchaResponse = "Please select recaptcha.";
   }
   callback(response);
-}
+},
+  validateCustomerFeedBack: function(callback,params) {
+    response = {};
+    response.errors = {};
+    switch(true) {
+      case (validator.isLength(params.email.trim(),1)):
+        if(!validator.isEmail(params.email)) {
+          response.errors.email = "Email is in the wrong format."
+          break;
+        }
+    }
+    if (!params.captchaResponse) {
+      response.errors.captchaResponse = "Please select recaptcha.";
+    }
+    callback(response);
+  },
 };

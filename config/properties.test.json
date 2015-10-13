@@ -13,6 +13,7 @@
     "requestDuplicateOfficialGradeReportToUserName":"GSWebsiteForm@graduateschool.edu",
     "proctorRequestToUserName":"GSWebsiteForm@graduateschool.edu",
     "proctorRequestEmailSubject":"Request for Proctor",
-
+    "customerFeedBackFormToUserName":"",
+    "customerFeedBackFormEmailSubject":"Customer FeedBack Form",
     "googleAnalyticsId":"UA-66851185-2"
   }
