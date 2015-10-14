@@ -2,6 +2,7 @@ var express = require('express');
 var contentful = require('../../API/contentful.js');
 var router = express.Router();
 var logger = require('../../logger');
+var marked = require('marked');
 
 router.get('/content/:content_slug', function(req, res, next) {
   slug = req.params.content_slug;
@@ -28,6 +29,7 @@ router.get('/content/:content_slug', function(req, res, next) {
       subIntro: content.subIntro,
       relatedLinks: content.relatedLinks,
       imageUrl: imageUrl,
+      markdown: marked,
       sections: [
       { title: content.sectionTitle1, content: content.section1, collapse: content.sectionCollapse1 },
       { title: content.sectionTitle2, content: content.section2, collapse: content.sectionCollapse2 },
