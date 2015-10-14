@@ -32,6 +32,8 @@ module.exports = {
 
   sendContactUs: function(callback, params) {
     logger.debug("SMTP sending to: " + smtp);
+    logger.debug("SMTP contact us Email Send from: " + config("properties").defaultEmailFromUserName);
+    logger.debug("SMTP contact us Email Send To: " + config("properties").contactUsToUserName);
     var locals = {
       email: params.email,
       name: {
@@ -147,6 +149,8 @@ module.exports = {
   },
   sendOnCustomerFeedBackForm: function(callback, params) {
     logger.debug("SMTP sending to: " + smtp);
+    logger.debug("SMTP Email Send from: " + config("properties").defaultEmailFromUserName);
+    logger.debug("SMTP Email Send To: " + config("properties").customerFeedBackFormToUserName);
     customerFeedBackTemplate.render(params, function(err, results) {
       logger.info("Starting mail send");
       if (err) {
