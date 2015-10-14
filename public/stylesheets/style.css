@@ -1,6 +1,22 @@
 /*==========  GRADUATE SCHOOL Styles  ==========*/
 /*==============================================*/
 
+@media print {
+      #top-menu, #header, #footer, #chat, .util, .ms-drop {display: none !important;  }
+        *{
+            filter: grayscale(100%);
+            -webkit-filter: grayscale(100%);
+        }
+
+        a[href]:after {
+          content: none !important;
+        }
+
+      @page {
+        margin: 75px;
+      }
+   }
+
 *[id^='glyphicon'] {
   color: white !important;
 }
