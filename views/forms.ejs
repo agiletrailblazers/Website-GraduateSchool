@@ -31,7 +31,7 @@
         <section id="assets" class="assets">
           <h3><%= entrySection.sectionTitle %></h3>
         <% entrySection.assetList.forEach(function(asset) { %>
-          <p class="asset" data-contenttype="<%= asset.description %>"><a href=<%= asset.url %> target="_blank" <% if (asset.type == "application/pdf") {%>onclick="ga('send', 'event', 'PDF', 'Download', this.href);<%}%>"><% if (asset.type == "application/pdf") {%> <span><img src="/images/pdf.png"/></span> <% } else { %> <span><img src="/images/link.png"/></span> <% } %><%= asset.title %></a></p>
+          <p class="asset" data-contenttype="<%= asset.description %>"><a href=<%= asset.url %> <% if (asset.type == "application/pdf") {%>target="_blank"<% } %> <% if (asset.type == "application/pdf") {%>onclick="ga('send', 'event', 'PDF', 'Download', this.href);<%}%>"><% if (asset.type == "application/pdf") {%> <span><img src="/images/pdf.png"/></span> <% } else { %> <span><img src="/images/link.png"/></span> <% } %><%= asset.title %></a></p>
           <% });
         } %>
         </section>
@@ -43,7 +43,7 @@
         <section id="assets" class="assets">
         <h3><%= entrySection.sectionTitle %></h3>
         <% entrySection.assetList.forEach(function(asset) { %>
-          <p class="asset" data-contentType="<%= asset.description %>"><a href=<%= asset.url %> target="_blank" <% if (asset.type == "application/pdf") {%>onclick="ga('send', 'event', 'PDF', 'Download', this.href);<%}%>"><% if (asset.type == "application/pdf") {%> <span><img src="/images/pdf.png"/></span> <% } else { %> <span><img src="/images/link.png"/></span> <% } %><%= asset.title %></a></p>
+          <p class="asset" data-contentType="<%= asset.description %>"><a href=<%= asset.url %> <% if (asset.type == "application/pdf") {%>target="_blank"<% } %> <% if (asset.type == "application/pdf") {%>onclick="ga('send', 'event', 'PDF', 'Download', this.href);<%}%>"><% if (asset.type == "application/pdf") {%> <span><img src="/images/pdf.png"/></span> <% } else { %> <span><img src="/images/link.png"/></span> <% } %><%= asset.title %></a></p>
         <% });
       } %>
       </section>
