@@ -1,16 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-
   <title> Graduate School USA | </title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
-
-  <!--[if lt IE 9]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-
 
   <style type="text/css">
     body {
@@ -34,46 +26,42 @@
       font-size: 18px;
       padding: 10px 0 5px 0;
     }
-
-    p.footer {
-      color: #DDD;
-      font-size: 11px;
-
+    p {
+      padding: 15px
     }
 
+    p.footer {
+      color: #999;
+      font-size: 11px;
+    }
   </style>
 </head>
 <body>
-
 <h1>Customer Feedback</h1>
-<p>
-  <strong>Thank You</strong>
-  <br>
-  <br>
-  <% if (firstName != '' && firstName != null && typeof(firstName) != 'undefined')  { %>
+<div>
+  <p><strong>Thank You</strong></p>
+
+  <p><% if (firstName != '' && firstName != null && typeof(firstName) != 'undefined')  { %>
     <Strong>Dear <%= firstName %>,</strong>
   <% } else { %>
     <Strong>Dear Valued Customer,</strong>
-  <% } %>
-  <br>
-  Graduate School USA welcomes and values your feedback!
-  <br>
-  One of our Customer Service Representatives will read an address your comments personally. As this may often
-  require some time for research before replying, please know we are working to respond to you as quickly as
-  possible.
-  <br>
-  If your request is time-sensitive, you may wish to contact Customer Support Center at <a href="tel:18887444723">1.888.744.GRAD(4723)</a>.
-  <br>
-  Thank you for contacting Graduate School USA.
-  <br>
-  Best Regards,
-  <br>
-  Graduate School Staff
-</p>
+  <% } %></p>
 
+  <p>Graduate School USA welcomes and values your feedback!</p>
+
+  <p>One of our Customer Service Representatives will read an address your comments personally. As this may often
+  require some time for research before replying, please know we are working to respond to you as quickly as
+  possible.</p>
+
+  <p>If your request is time-sensitive, you may wish to contact Customer Support Center at <a href="tel:18887444723">1.888.744.GRAD(4723)</a>.</p>
+
+  <p>Thank you for contacting Graduate School USA.</p>
+
+  <p>Best Regards,<br>
+  Graduate School Staff</p>
+</div>
 <hr>
 <br>
-
 <p class="footer">Sent from GraduateSchool.edu.</p>
 </div>
 </body>

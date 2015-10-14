@@ -1,16 +1,8 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
   <meta charset="utf-8">
-
   <title> Graduate School USA | </title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
-
-  <!--[if lt IE 9]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-
 
   <style type="text/css">
   body {
@@ -36,22 +28,13 @@
   }
 
 p.footer {
-  color: #AAA;
+  color: #999;
   font-size: 11px;
-
   }
-
   </style>
-
-
 </head>
 <body>
-
-
-  <h1>
-    The following is a request for information on on-site training:
-  </h1>
-
+<h1>The following is a request for information on on-site training:</h1>
 <h2>Name and Address</h2>
 <p>Prefix: <strong> <%= address.prefix %></strong></p>
 <p>First Name: <strong> <%= address.firstName %></strong></p>
@@ -63,23 +46,17 @@ p.footer {
 <p>State: <strong><%= address.state %></strong></p>
 <p>Zip Code: <strong><%= address.zip %></strong></p>
 <p>Country: <strong><%= address.country %></strong></p>
-
-  <hr>
-
-  <h2>Contact Information</h2>
-  <p>Telephone Number: <strong><%= contact.phone %></strong></p>
-  <p>Fax Number: <strong><%= contact.fax %></strong></p>
-  <p>Email Address: <strong><%= contact.email %></strong></p>
-
-  <hr>
-
-  <h2>Location</h2>
-  <p>GS Location: <%= location.gs %></strong></p>
-  <p>Customer Location: <strong><%= location.customer %></strong></p>
-  <p>Other Location: <strong><%= location.other %></strong></p>
-
-  <hr>
-
+<hr>
+<h2>Contact Information</h2>
+<p>Telephone Number: <strong><%= contact.phone %></strong></p>
+<p>Fax Number: <strong><%= contact.fax %></strong></p>
+<p>Email Address: <strong><%= contact.email %></strong></p>
+<hr>
+<h2>Location</h2>
+<p>GS Location: <%= location.gs %></strong></p>
+<p>Customer Location: <strong><%= location.customer %></strong></p>
+<p>Other Location: <strong><%= location.other %></strong></p>
+<hr>
 <h2>Course Delivery Information</h2>
 <p>Course Names(s): </p>
 <%
@@ -93,16 +70,13 @@ p.footer {
 <p>Course Delivery Method: <strong><%= course.deliveryMethod %></strong></p>
 <p>Instructor: <strong><%= course.instructor %></strong></p>
 <p>Help Building Enrollment: <strong><%= course.helpWithEnrollment %></strong></p>
-
-  <hr>
-
-  <h2>Additional</h2>
-  <p>How did you hear about us: <strong><%= hearAbout %></strong></p>
-  <p>Comments: <strong><%= comments %></strong></p>
-
-  <hr>
-  <br>
-  <p class="footer">Sent from GraduateSchool.edu - Request for Estimate form.</p>
+<hr>
+<h2>Additional</h2>
+<p>How did you hear about us: <strong><%= hearAbout %></strong></p>
+<p>Comments: <strong><%= comments %></strong></p>
+<hr>
+<br>
+<p class="footer">Sent from GraduateSchool.edu - Request for Estimate form.</p>
 </div>
 </body>
 </html>
