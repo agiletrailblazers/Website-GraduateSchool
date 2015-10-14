@@ -32,7 +32,7 @@ $(document).ready(function(){
 });
 
 //Hide advanced filter on click outside of the Search Box area and their descendents.
-$(document).mouseup(function (e)
+$(document).mouseup(function(e)
 {
     var container = $(".searchBox");
 
@@ -40,5 +40,37 @@ $(document).mouseup(function (e)
         && container.has(e.target).length === 0) // ... nor a descendant of the container
     {
         $('#advancedSearchBox').fadeOut('medium');
+    }
+});
+
+
+// Functions for mobile version
+
+function performCourseSearchM() {
+  if ($("#searchCriteriaM").val().trim().length >= 1) {
+    location.href = "/search?search=" + $("#searchCriteriaM").val().trim();
+  }
+}
+
+$(document).on('change', '#selSearchLocationM', function() {
+  location.href = "/search?search=" + $("#searchCriteriaM").val().trim() + "&cityState=" + $("#selSearchLocationM").val();
+});
+
+
+//Displays search box and advanced filter on focus/mouse enter.
+$(document).ready(function(){
+  $('#mob-search').click(function() {
+      $('#search-top-menu').toggle();
+  });
+});
+
+$(document).mouseup(function (e)
+{
+    var container = $("#search-top-menu, #mob-search");
+
+    if (!container.is(e.target) // if the target of the click isn't the container...
+        && container.has(e.target).length === 0) // ... nor a descendant of the container
+    {
+        $('#search-top-menu').fadeOut('medium');
     }
 });
