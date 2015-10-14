@@ -25,7 +25,7 @@ var _runValidation = function () {
   $("#customerFeedbackFormAlertError p").remove();
   Validate.captcha();
   Validate.inputs();
-  Validate.email();
+  Validate.email($("txtCustomerEmail").val());
   if ($("#customerFeedbackFormAlertError p").length) {
     $("#customerFeedbackFormAlertError").slideDown("slow");
   }
