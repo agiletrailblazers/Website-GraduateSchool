@@ -874,6 +874,11 @@ ul.customer-support li a:hover {
   width: 100%;
 }
 
+#search-form-top {
+  border: 2px solid #D7DDEB !important;
+  border-radius: 2px !important;
+  width: 100%;
+}
 
 #course-search-button.btn-default {
   background-color: transparent;
@@ -884,25 +889,28 @@ ul.customer-support li a:hover {
   padding: 5px !important;
 }
 
+#course-search-buttonM.btn-default {
+  background-color: transparent;
+  background-image: none;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow:none !important;
+  padding: 5px !important;
+}
+
+
 #searchCriteria.form-control {
   border:none !important;
   border-radius: 0 !important;
   box-shadow:none !important;
 }
 
-
-#moreSearchOptions {
-  text-align: right;
-  padding: 10px 5px 0 0;
-  font-weight: normal !important;
-  color: #01467F;
-  font-size: 14px;
+#searchCriteriaM.form-control {
+  border:none !important;
+  border-radius: 0 !important;
+  box-shadow:none !important;
 }
 
-#moreSearchOptions:hover {
-  color: #000;
-  cursor: pointer;
-}
 
 h3.light {
   font-size: 22px !important;
@@ -930,7 +938,7 @@ img.search {
 
 .locations .form-control {
   display: inline-block !important;
-  width: 115px !important;
+  width: 105px !important;
 }
 
 .locations select, .locations input[type="checkbox"]{
