@@ -25,17 +25,16 @@
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     <a href="#<%= i %>" class="expand-section accordion-toggle" data-toggle="collapse"><%= sections[i].title %></a>
                           <article id="<%= i %>" class="collapse nested">
-                            <%- sections[i].content %>
+                            <%- markdown(sections[i].content || '') %>
                           </article>
                      <% } else if (sections[i].title) { %>
                        <h2><%= sections[i].title %></h2>
                        <article id="<%= i %>" class="genericArticle">
-                         <%- sections[i].content %>
+                         <%- markdown(sections[i].content || '') %>
                        </article>
                   <%   } else { %>
-
                        <article id="<%= i %>" class="genericArticle">
-                         <%- sections[i].content %>
+                         <%- markdown(sections[i].content || '') %>
                        </article>
                   <%  } %>
               <%  } %>
