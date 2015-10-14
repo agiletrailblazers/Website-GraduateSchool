@@ -165,7 +165,7 @@ a.breadcrumbs:hover,a.breadcrumbs:active  {
   position: absolute;
   z-index: 998;
   margin: 20px;
-  background: rgba(58,117,175,  0.3);
+  background: rgba(58,117,175,  0.6);
   border:  1px solid rgba(58,117,175,  0.4) !important;
 }
 
@@ -655,7 +655,8 @@ textarea:focus {
 }
 
 .nav-top-bar ul li + li {
-    border-left: 1px solid #EEE;
+    border-left: 1px solid #304E6A;
+
 }
 
 .nav-top-bar ul li a {
@@ -664,6 +665,16 @@ textarea:focus {
   font-weight: bold !important;
  }
 
+
+.nav-top-bar-mob {
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: transparent linear-gradient(to right, #2A4D77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274F 100%) repeat scroll 0% 0%;
+  height: 40px;
+  margin: 0 0 0 0;
+
+}
 
 /*a.nav-top-button  {
   background-color: #01467F;
@@ -721,16 +732,90 @@ textarea:focus {
   color: #fff;
   font-weight:normal;
   text-align: left;
+  opacity: 1.0;
+  -webkit-transition: opacity 300ms linear;
+  -moz-transition: opacity 300ms linear;
+  -o-transition: opacity 300ms linear;
+  -ms-transition: opacity 300ms linear;
+  transition: opacity 300ms linear;
 }
 
 #nav-top ul li a:hover {
   background-color: transparent;
   color: #FFF;
-  text-decoration: underline;
+  text-decoration: none;
+  opacity: 0.6;
+  -webkit-transition: opacity 300ms linear;
+  -moz-transition: opacity 300ms linear;
+  -o-transition: opacity 300ms linear;
+  -ms-transition: opacity 300ms linear;
+  transition: opacity 300ms linear;
 }
 
 #nav-top img.size-fix {
   height: 30px;
+}
+
+
+/* TOP NAV for mobile  */
+#search-top-menu {
+  display: none;
+  position: absolute;
+  overflow-x: hidden;
+  width: 100%;
+  height: auto;
+  top: 40px;
+  background-color: #FFF;
+  z-index: 999;
+  padding: 30px 5%;
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(163,160,163,1);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(163,160,163,1);
+  box-shadow: 0px 0px 5px 1px rgba(163,160,163,1);
+}
+
+#contact-us-top-menu {
+
+}
+
+.mob-locations{
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  background-image: transparent;
+  overflow: hidden;
+  z-index: 9999999;
+  box-shadow: none;
+}
+
+.mob-locations .form-control {
+  display: inline-block !important;
+  width: 115px !important;
+}
+
+
+.mob-locations select, .mob-locations input[type="checkbox"]{
+    border: 2px solid #87ACCE;
+    border-radius: 0px;
+    padding: 6px 16px 6px 7px;
+    margin: 0 5px;
+}
+
+.mob-locations select{
+    -webkit-appearance: none;
+    appearance: none;
+    -moz-appearance: none;
+    background: #FFF url("../images/arrow-down.png") no-repeat scroll 95% center / 20px auto;
+}
+
+.mob-locations span {
+  color: #666666;
+  display: inline-block;
+  font-size: 14px;
+}
+
+.header-mob {
+  margin-top: 40px !important;
 }
 
 
@@ -774,6 +859,11 @@ ul.customer-support li a {
 ul.customer-support li a:hover {
   color: #1C578A;
   background: none;
+}
+
+.logo-mob {
+  width: 70%;
+  max-width: 290px !important;
 }
 
 
@@ -840,7 +930,7 @@ img.search {
 
 .locations .form-control {
   display: inline-block !important;
-  width: 100px !important;
+  width: 115px !important;
 }
 
 .locations select, .locations input[type="checkbox"]{
@@ -1328,7 +1418,7 @@ p.asset a:focus {
 .bar {
   position: relative;
   left: -20px;
-  width: 110%;
+  width: 114%;
   height: 13px;
   margin-bottom: 25px;
   background: #2a4d77; /* Old browsers */
@@ -1398,6 +1488,7 @@ ul.networks {
 }
 
 ul.networks img {
+  opacity: 1.0;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
@@ -1405,7 +1496,7 @@ ul.networks img {
 }
 
 ul.networks img:hover {
-  width: 26px;
+  opacity: 0.6;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
@@ -1426,7 +1517,8 @@ ul.networks-mobile li {
 }
 
 ul.networks-mobile img {
-  width: 27px;
+  opacity: 0.7;
+  width: 25px;
 }
 
 ul.networks-mobile li a {
@@ -1437,7 +1529,7 @@ ul.networks-mobile li a {
 }
 
 ul.networks-mobile li a:hover {
-  opacity: 0.5;
+  opacity: 0.3;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
@@ -1717,7 +1809,7 @@ a.underline-n:after {
  transition: all 0.7s;
 }
 
-<<<<<<< HEAD
+
 /* SOCIAL MEDIA - Homepage  */
 #social-media .nav-tabs > li.active > a,
 #social-media .nav-tabs > li.active > a:focus,
@@ -1836,7 +1928,7 @@ h2.social-title {
   div._2p3a {
       width: 100% !important;
   }
-=======
+
 /* 404 */
 .suggestions {
   position: relative;
@@ -1844,7 +1936,7 @@ h2.social-title {
   clear: both;
   overflow: hidden;
 }
->>>>>>> master
+
 
 ul.see-more{
   padding: 0;
