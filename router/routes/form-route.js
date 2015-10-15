@@ -202,17 +202,16 @@ router.get(
   async.parallel([
     function(callback) {
       contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
-        fields = response;
+        fields = response.fields;
         callback();
       });
     }
   ], function(results) {
-    res.render('/forms/certificate_program_forms', {
+    res.render('forms/certificate_program_forms', {
       title: fields.sectionTitle,
       sectionHeaderDescription: fields.sectionHeaderDescription
     });
   });
-
 });
 
 module.exports = router;
