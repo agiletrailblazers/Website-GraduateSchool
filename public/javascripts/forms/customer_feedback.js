@@ -32,7 +32,11 @@ var _runValidation = function () {
 }
 
 $(document).ready(function () {
-
+  $("#removeAlertCustomerFeedback").css('cursor', 'pointer');
+  $("#removeAlertCustomerFeedback").click(function() {
+    $("#customerFeedbackFormAlertError").slideUp();
+    $("#customerFeedbackFormAlertError p").remove();
+  });
   $('#other').click(function () {
     if ($('#other').is(":checked")) {
       $("#txtfeedbackCategoriesOther").attr('disabled', false);
