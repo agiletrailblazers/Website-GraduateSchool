@@ -31,6 +31,20 @@ Validate = {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Phone number is incorrect.</p>");
     }
   },
+  city: function() {
+    var input = $("#txtCity").val();
+    if (input.trim().length < 3) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> City is incorrect.</p>");
+    }
+  },
+  zip: function() {
+    var input = $("#txtZip").val();
+    // TODO: Regex to see if it is only numbers.
+    if (input.trim.length < 5) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Zip code is incorrect.</p>");
+    }
+  },
+  // TODO: Add validation for state (coming back api call).
   captcha: function(){
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
