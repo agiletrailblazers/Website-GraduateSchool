@@ -839,13 +839,13 @@ textarea:focus {
 
 
 /* TOP NAV for mobile  */
-#search-top-menu {
+#contact-us-top-menu, #search-top-menu {
   display: none;
   position: absolute;
   overflow-x: hidden;
   width: 100%;
   height: auto;
-  top: 40px;
+  top: 38px;
   background-color: #FFF;
   z-index: 999;
   padding: 30px 5%;
@@ -854,9 +854,38 @@ textarea:focus {
   box-shadow: 0px 0px 5px 1px rgba(163,160,163,1);
 }
 
-#contact-us-top-menu {
-
+#contact-us-top-menu ul {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0;
 }
+
+
+#contact-us-top-menu ul li {
+  list-style: none;
+  text-align: left;
+}
+
+#contact-us-top-menu ul li+li {
+  border-top: 1px solid #EEE;
+}
+
+#contact-us-top-menu ul li a {
+  display: block;
+  text-align: left;
+  margin: 0;
+  color: #222;
+  font-weight: normal;
+  padding: 10px;
+}
+
+#contact-us-top-menu ul li:hover, #contact-us-top-menu ul li:focus,
+#contact-us-top-menu ul li a:hover, #contact-us-top-menu ul li a:focus {
+  background-color: #D81251;
+  color: #FFF !important;
+}
+
 
 .mob-locations{
   position: relative;
