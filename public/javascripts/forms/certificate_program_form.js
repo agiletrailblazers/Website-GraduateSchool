@@ -51,6 +51,7 @@ Validate = {
     }
   }
   // TODO: Add validation for state (coming back api call).
+  // TODO: Add validation for name on certificate.
   captcha: function(){
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
@@ -65,6 +66,9 @@ var _runValiation = function() {
  Validate.email();
  Validate.phone();
  Validate.captcha();
+ // if () {
+ //   Validate.certificate();
+ // }
 }
 
 $(document).ready(function() {
