@@ -11,6 +11,10 @@
 <body>
   <% include ../partials/header %>
   <div class="container">
+    <div class="loading" style="display:none;"></div>
+    <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
+      <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+    </div>
     <p><%- sectionHeaderDescription %></p>
     <hr>
     <h2>Student Information</h2>
@@ -95,6 +99,15 @@
       <% if (url == "/forms/certificate-completion") %>
       <%# Insert Your fullname as it should appear on the certificate. %>
       <% } %>
+      <div class="comments">
+        <label>*Comments or Question</label>
+        <br>
+        <textarea id="commentText" name="comments" rows="8" cols="40" class="form-control" required></textarea>
+      </div>
+      <br>
+      <div id="captcha">
+        <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
+      </div>
     </div>
     <% include ../partials/chat %>
     <% include ../partials/footer %>
