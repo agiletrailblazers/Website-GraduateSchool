@@ -174,13 +174,6 @@ router.get('/forms/feedback', function(req, res, next) {
         fields = response.fields;
         callback();
       });
-    },
-    function(callback) {
-      logger.debug("Get us states");
-      contentful.getReferenceData('us-states', function(result) {
-        states = result;
-        callback();
-      });
     }
   ], function(results) {
     res.render('forms/customer_form', {
@@ -214,6 +207,13 @@ router.get(
           fields = response.fields;
           callback();
         });
+      },
+      function(callback) {
+        logger.debug("Get us states");
+        contentful.getReferenceData('us-states', function(result) {
+          states = result;
+          callback();
+        });
       }
       // TODO: Create API function to get certificate program information array. (Content Type Data Grouping)
       // TODO: Unit testing for new forms (is this really needed since it uses a previous funtion?)
@@ -222,6 +222,7 @@ router.get(
       res.render('forms/certificate_program_forms', {
         title: fields.sectionTitle,
         sectionHeaderDescription: fields.sectionHeaderDescription,
+        states: states,
         url: req.url
       });
     });
