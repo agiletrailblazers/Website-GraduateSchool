@@ -167,7 +167,6 @@ router.get('/forms/certificate-program-application', function(req, res, next) {
 });
 router.get('/forms/feedback', function(req, res, next) {
   var fields;
-
   async.parallel([
     function(callback) {
       contentfulForms.getContactUs(function(response) {
