@@ -214,7 +214,8 @@ router.get(
     ], function(results) {
       res.render('forms/certificate_program_forms', {
         title: fields.sectionTitle,
-        sectionHeaderDescription: fields.sectionHeaderDescription
+        sectionHeaderDescription: fields.sectionHeaderDescription,
+        url: req.url
       });
     });
   });

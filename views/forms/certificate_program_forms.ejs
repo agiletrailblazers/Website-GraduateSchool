@@ -11,6 +11,9 @@
     <% include ../partials/header %>
     <div class="container">
       <p><%- sectionHeaderDescription %></p>
+      <% if (url == "/forms/certificate-completion") %>
+        <%# Insert Your fullname as it should appear on the certificate. %>
+      <% } %>
     </div>
     <% include ../partials/chat %>
     <% include ../partials/footer %>
