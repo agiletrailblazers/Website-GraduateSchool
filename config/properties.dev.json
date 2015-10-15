@@ -3,7 +3,7 @@
 
     "defaultEmailServerName": "10.0.0.240",
     "defaultEmailServerPort": "25",
-    "defaultEmailUserName":"gs@agiletrailblazers.com",
+    "defaultEmailUserName":"",
     "defaultEmailUserPassword":"",
     "defaultEmailFromUserName":"gs@agiletrailblazers.com",
     "contactUsToUserName":"gs@agiletrailblazers.com",
