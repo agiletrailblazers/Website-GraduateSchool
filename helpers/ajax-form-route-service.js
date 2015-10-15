@@ -177,8 +177,8 @@ module.exports = {
       case (!params.instructor):
         response.errors.instructor = "Instructor field is empty.";
         break;
-      case (!validator.isLength(params.instructor.trim(), 3)):
-        response.errors.instructor = "Instructor field must be greater than 3 characters.";
+      case (!validator.isLength(params.instructor.trim(), 1)):
+        response.errors.instructor = "Instructor field must be greater than 1 characters.";
         break;
     }
     // Validate Course Code
@@ -274,8 +274,8 @@ module.exports = {
       case (!params.student.instructor):
         response.errors.instructor = "Instructor field is empty.";
         break;
-      case (!validator.isLength(params.student.instructor.trim(), 3)):
-        response.errors.instructor = "Instructor field must be greater than 3 characters.";
+      case (!validator.isLength(params.student.instructor.trim(), 1)):
+        response.errors.instructor = "Instructor field must be 1 characters.";
         break;
     }
     // Validate Course Code

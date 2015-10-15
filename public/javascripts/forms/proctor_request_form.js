@@ -35,7 +35,7 @@ Validate = {
   },
   instructor: function() {
     var instructor = $("#txtInstructor").val();
-    if (instructor.length < 3) {
+    if (instructor.trim().length < 1) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please enter a valid instructor.</p>");
     }
   },
