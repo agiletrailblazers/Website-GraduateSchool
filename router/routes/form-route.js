@@ -188,9 +188,28 @@ router.get('/forms/feedback', function(req, res, next) {
 router.get(
   ['/forms/certificate-program-application', '/forms/certificate-program-progress-report',
    '/forms/certificate-completion', '/forms/certificate-program-waiver-request'], function(req, res, next) {
-  // TODO: set variables for each content type id for each route.
+     var entryId, fields;
+     if (req.url === '/forms/certificate-program-application') {
+       entryId = "3GzxTDiq5WEGguqwIou2O2";
+     } else if (req.url === '/forms/certificate-program-progress-report') {
+       entryId = "344ZZC7odi62ouoyOg4s6I";
+     } else if (req.url === '/forms/certificate-completion') {
+       entryId = "fxHBffYYx2ekiYkIEu8WK";
+     } else if (req.url === '/forms/certificate-program-waiver-request') {
+       entryId = "2M0BN2PEn6YyU0YWoimikI";
+     }
   // TODO: call API function with contentype id.
-  
+  async.parallel([
+    function(callback) {
+      contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
+        fields = response;
+        callback();
+      });
+    }
+  ], function(results) {
+
+  });
+
 });
 
 module.exports = router;
