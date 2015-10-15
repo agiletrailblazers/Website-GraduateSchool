@@ -185,4 +185,12 @@ router.get('/forms/feedback', function(req, res, next) {
   });
 });
 
+router.get(
+  ['/forms/certificate-program-application', '/forms/certificate-program-progress-report',
+   '/forms/certificate-completion', '/forms/certificate-program-waiver-request'], function(req, res, next) {
+  // TODO: set variables for each content type id for each route.
+  // TODO: call API function with contentype id.
+  
+});
+
 module.exports = router;
