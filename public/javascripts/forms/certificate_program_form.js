@@ -44,6 +44,12 @@ Validate = {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Zip code is incorrect.</p>");
     }
   },
+  streetAddress: function() {
+    var input = $("#txtStreet").val();
+    if (input.trim.length < 3) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Street address must be at least 3 characters.</p>");
+    }
+  }
   // TODO: Add validation for state (coming back api call).
   captcha: function(){
     var googleResponse = $('#g-recaptcha-response').val();
