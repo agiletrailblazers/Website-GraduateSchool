@@ -63,8 +63,8 @@ Validate = {
 var _runValiation = function() {
  Validate.firstName();
  Validate.lastName();
- Validate.email();
- Validate.phone();
+ Validate.email($("#txtEmail").val());
+ Validate.phone($("#txtPhone").val());
  Validate.captcha();
  // if () {
  //   Validate.certificate();
