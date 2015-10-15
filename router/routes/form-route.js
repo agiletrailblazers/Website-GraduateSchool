@@ -174,6 +174,13 @@ router.get('/forms/feedback', function(req, res, next) {
         fields = response.fields;
         callback();
       });
+    },
+    function(callback) {
+      logger.debug("Get us states");
+      contentful.getReferenceData('us-states', function(result) {
+        states = result;
+        callback();
+      });
     }
   ], function(results) {
     res.render('forms/customer_form', {
@@ -190,7 +197,7 @@ router.get(
     '/forms/certificate-completion', '/forms/certificate-program-waiver-request'
   ],
   function(req, res, next) {
-    var entryId, fields;
+    var entryId, fields, states;
     var dataGroupID = '6bC5G37EOssooK4K2woUyg';
     if (req.url === '/forms/certificate-program-application') {
       entryId = "3GzxTDiq5WEGguqwIou2O2";
