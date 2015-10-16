@@ -179,7 +179,7 @@ a.breadcrumbs:hover,a.breadcrumbs:active  {
 #alert {
   top: 0;
   position: absolute;
-  z-index: 998;
+  z-index: 17;
   margin: 20px;
   background: rgba(58,117,175,  0.6);
   border:  1px solid rgba(58,117,175,  0.4) !important;
@@ -746,15 +746,13 @@ textarea:focus {
   font-weight: bold !important;
  }
 
-
 .nav-top-bar-mob {
   left: 0;
   right: 0;
   width: 100%;
   background: transparent linear-gradient(to right, #2A4D77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274F 100%) repeat scroll 0% 0%;
-  height: 40px;
+  height: 35px;
   margin: 0 0 0 0;
-
 }
 
 /*a.nav-top-button  {
@@ -845,7 +843,7 @@ textarea:focus {
   overflow-x: hidden;
   width: 100%;
   height: auto;
-  top: 38px;
+  top: 33px;
   background-color: #FFF;
   z-index: 999;
   padding: 30px 5%;
@@ -932,7 +930,7 @@ textarea:focus {
 /* HEADER  */
 .header {
   background-color: #FFFFFF;
-  padding-top: 15px;
+  padding-top: 18px;
   padding-bottom: 17px;
 }
 
@@ -972,10 +970,14 @@ ul.customer-support li a:hover {
 }
 
 .logo-mob {
-  width: 70%;
+  width: 100%;
   max-width: 290px !important;
+
 }
 
+.myy {
+    z-index: 22;
+}
 
 /*  SEARCH  */
 #search-form {

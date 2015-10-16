@@ -1,9 +1,38 @@
 <!-- Navigation -->
 <div class="container">
-	<div class="row padding">
+	<div class="row wrapper">
+		<div class="wrapper mobile-menu">
+			<div id="dl-menu" class="dl-menuwrapper">
+					<button class="dl-trigger"><span class="menutext">Menu</span></button>
 
+					<ul class="dl-menu">
+					  <% navigation.main.forEach(function(nav) { %>
+					  <li>
+					    <a href="#"><%= nav.title %></a>
+					    <% if (nav.sections) { %>
+					      <ul class="dl-submenu">
+					        <% nav.sections.forEach(function(subNav) { %>
+					          <li>
+					              <a href="#"><%= subNav.title %></a>
+					                <ul class="dl-submenu">
+					                  <% subNav.links.forEach(function(link) { %>
+					                    <li>
+					                      <a href="<%= link.url %>" target="<%= (link.newWindow) ? '_blank' : '' %>"><%= link.title %></a>
+					                    </li>
+					                  <% }); %>
+					                </ul>
+					          </li>
+					       <% }); %>
+					      </ul>
+					     <% } %>
+							 </li>
+					   <% }); %>
+					 </ul>
+			 </div><!-- END MOBILE MENU -->
+		</div>
+	</div>
+	<div class="row padding non-mobile mob-rem">
 		<div class="navbar navbar-default gs">
-
 		<div class="navbar-header">
 				<button type="button" data-toggle="collapse" data-target="#navbar-collapse-grid" class="navbar-toggle">
 					<span class="icon-bar"></span>
@@ -58,8 +87,14 @@
         </li>
 			</ul>
 			</div>
-		</div>
-	</div><!-- / END of row -->
-</div>	<!-- END Container  -->
+		</div><!-- END of row -->
+	</div><!-- END Container  -->
+</div>
 <!-- END Navigation -->
 <div class="spacer10"></div>
+
+<script>
+	$(function() {
+		$( '#dl-menu' ).dlmenu();
+	});
+</script>
