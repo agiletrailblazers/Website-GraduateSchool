@@ -49,9 +49,14 @@ Validate = {
     if (input.trim.length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Street address must be at least 3 characters.</p>");
     }
-  }
+  },
+  certificate: function() {
+    var input = $("#txtCertName").val();
+    if(input.trim().length < 1) {
+        $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Name on certificate must be at least 1 character.</p>");
+    }
+  },
   // TODO: Add validation for state (coming back api call).
-  // TODO: Add validation for name on certificate.
   captcha: function(){
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
@@ -66,9 +71,9 @@ var _runValiation = function() {
  Validate.email($("#txtEmail").val());
  Validate.phone($("#txtPhone").val());
  Validate.captcha();
- // if () {
- //   Validate.certificate();
- // }
+ if (window.location.pathname == "/forms/certificate-completion") {
+   Validate.certificate();
+ }
 }
 
 $(document).ready(function() {

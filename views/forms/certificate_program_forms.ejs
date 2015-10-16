@@ -96,9 +96,14 @@
           </span>
         </div>
       </div>
-      <%# if (url == "/forms/certificate-completion") %>
-      <%# Insert Your fullname as it should appear on the certificate. %>
-      <%# } %>
+      <% if (url == "/forms/certificate-completion") { %>
+      <div class="form-inline">
+        <span class="form-group">
+          <label for="txtCertName"><strong>*Your full name as it should appear on the certificate:</strong></label>
+          <input type="text" id="txtCertName" class="form-control" size="50"  tabindex="13">
+        </span>
+      </div>
+      <% } %>
       <div class="comments">
         <label>Comments</label>
         <br>
