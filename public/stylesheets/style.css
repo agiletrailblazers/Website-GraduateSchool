@@ -924,6 +924,7 @@ textarea:focus {
 
 .header-mob {
   margin-top: 40px !important;
+  z-index: 22;
 }
 
 
@@ -975,9 +976,7 @@ ul.customer-support li a:hover {
 
 }
 
-.myy {
-    z-index: 22;
-}
+
 
 /*  SEARCH  */
 #search-form {
