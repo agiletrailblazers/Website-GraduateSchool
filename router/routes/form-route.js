@@ -167,7 +167,6 @@ router.get('/forms/certificate-program-application', function(req, res, next) {
 });
 router.get('/forms/feedback', function(req, res, next) {
   var fields;
-
   async.parallel([
     function(callback) {
       contentfulForms.getContactUs(function(response) {
@@ -190,7 +189,7 @@ router.get(
     '/forms/certificate-completion', '/forms/certificate-program-waiver-request'
   ],
   function(req, res, next) {
-    var entryId, fields;
+    var entryId, fields, states;
     var dataGroupID = '6bC5G37EOssooK4K2woUyg';
     if (req.url === '/forms/certificate-program-application') {
       entryId = "3GzxTDiq5WEGguqwIou2O2";
@@ -207,6 +206,13 @@ router.get(
           fields = response.fields;
           callback();
         });
+      },
+      function(callback) {
+        logger.debug("Get us states");
+        contentful.getReferenceData('us-states', function(result) {
+          states = result;
+          callback();
+        });
       }
       // TODO: Create API function to get certificate program information array. (Content Type Data Grouping)
       // TODO: Unit testing for new forms (is this really needed since it uses a previous funtion?)
@@ -214,7 +220,9 @@ router.get(
     ], function(results) {
       res.render('forms/certificate_program_forms', {
         title: fields.sectionTitle,
-        sectionHeaderDescription: fields.sectionHeaderDescription
+        sectionHeaderDescription: fields.sectionHeaderDescription,
+        states: states,
+        url: req.url
       });
     });
   });

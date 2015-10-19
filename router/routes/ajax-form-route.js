@@ -133,6 +133,40 @@ router.post('/mailer-request-proctor', function (req, res, next) {
   }, params);
 });
 
+router.post('/mailer-request-certificate-program', function(req, res, next) {
+  params = req.body;
+  switch (true) {
+    case (params.formType === '/forms/certificate-program-application'):
+      params.email = "";
+      break;
+    case (params.formType === '/forms/certificate-program-progress-report'):
+      params.email = "";
+      break;
+    case (params.formType === '/forms/certificate-completion'):
+      params.email = "";
+      break;
+    case (params.formType === '/forms/certificate-program-waiver-request'):
+      params.email = "";
+      break;
+  }
+  routerService.validateCertificateProgramForms(function(response) {
+    // Send email if there are no errors.
+    if (Object.keys(response.errors).length === 0) {
+      //verify captcha
+      google.verifyCaptcha(function (response) {
+        if ((response != null) && (response.statusCode == 200)) {
+          //send mail of success
+          // TODO: Mailer functionality
+        } else {
+          sendErrorResponse(res, response);
+        }
+      }, params.captchaResponse);
+    } else {
+      sendErrorResponse(res, response);
+    }
+  }, params);
+});
+
 //send errors to client.
 function sendErrorResponse(res, response) {
   if ((response != null) && (response.errors != null)) {
