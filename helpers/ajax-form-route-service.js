@@ -385,11 +385,20 @@ module.exports = {
     }
     // Validate City
     switch (true) {
-      case (!params.student.courseTitle):
+      case (!params.city):
         response.errors.city = "City is empty."
         break;
-      case (!validator.isLength(params.student.courseTitle.trim(), 3)):
+      case (!validator.isLength(params.city.trim(), 3)):
         response.errors.city = "City must be greater than 3 characters."
+        break;
+    }
+    // Validate Zip
+    switch (true) {
+      case (!params.zip):
+        response.errors.zip = "City is empty."
+        break;
+      case (!validator.isLength(params.zip.trim(), 3)):
+        response.errors.zip = "Zip must be 5 or more characters."
         break;
     }
   }
