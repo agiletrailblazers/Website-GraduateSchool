@@ -1,5 +1,5 @@
 <!-- TOP NAVIGATION -->
-<div class="container-fluid nav-top navbar-fixed-top" id="top-menu">
+<div class="container-fluid nav-top" id="top-menu">
 <div class="container padding0">
 <!-- START TOP PANEL -->
     <div id="nav-top">
@@ -50,9 +50,9 @@
         </div>
         <div class="nav-top-bar-mob mobile">
           <ul id="nav-top-menu">
-            <li class=""><a href="#">Contact Us <img src="/images/contact-us-top.png" alt="" /></a></li>
+            <li class=""><a href="#" id="contact-us">Contact Us <img src="/images/contact-us-top.png" alt="" /></a></li>
             <li class=""><a href="#" id="mob-search">Search <img src="/images/search-top.png" alt="" /></a></li>
-            <li class="nav-toggle" data-tab="lnkCurrent"><a href="#">Quick Menu <img src="/images/prospective-students.png" alt="" class="user-icon" /></a></li>
+            <li class="nav-toggle" data-tab="lnkCurrent"><a href="#">Quick Menu <img src="/images/quick-menu.png" alt="" class="user-icon" /></a></li>
           </ul>
         </div>
       </div><!-- END toggle -->
@@ -61,35 +61,38 @@
 </div>
 <!-- END TOP NAVIGATION -->
 
-<!-- mobile - for contact us -->
-<%# <div id="contact-us-top-menu">
-<ul class="">
-  <li><a href="tel:888-744-4723" ><img alt="" src="/images/call-us.png" class="">Call</a></li>
-  <li><a href="mailto:customersupport@graduateschool.edu" ><img alt="" src="/images/email-us.png" class="">Email</a></li>
-  <li><a href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;"><img src="/images/chat-with-us.png" alt="" />Chat</a></li>
-</ul>
-</div>%>
-
-<div id="search-top-menu">
-<div id="mob-searchBox">
-  <form id="search-form-top" action="javascript:performCourseSearchM();">
-    <div id="searchGroup-mob" class="input-group">
-      <input type="text" id="searchCriteriaM" name="searchCriteriaM" class="form-control searchCriteria" placeholder="Search">
-      <span class="input-group-btn">
-        <button id="course-search-buttonM" class="btn btn-default" type="submit">
-          <img alt="" src="/images/search.png">
-        </button>
-      </span>
-    </div>
-  </form>
-</div>
-<div id="mob-advancedSearchBox" class="mob-locations">
-    <span>Or find a course by:</span>
-      <select id="selSearchLocationM" class="form-control">
-          <option value="">Locations</option>
-          <% locations.forEach(function(location) { %>
-            <option value="<%= location %>"><%= location %></option>
-          <% }); %>
-      </select>
-</div>
-</div><!-- END Search Top menu -->
+<!-- Mobile only section - activated on click-->
+<div class="wrapper mobile">
+  <!-- Contact us -->
+  <div id="contact-us-top-menu">
+  <ul>
+    <li><a href="tel:888-744-4723"><img alt="" src="/images/call-us.png" class="">(888) 744-GRAD</a></li>
+    <li><a href="mailto:customersupport@graduateschool.edu" ><img alt="" src="/images/email-us.png" class="">Customer Support</a></li>
+    <li><a href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;"><img src="/images/chat-with-us.png" alt="" />Chat with us</a></li>
+  </ul>
+  </div>
+  <!-- Search Box -->
+  <div id="search-top-menu">
+  <div id="mob-searchBox">
+    <form id="search-form-top" action="javascript:performCourseSearchM();">
+      <div id="searchGroup-mob" class="input-group">
+        <input type="text" id="searchCriteriaM" name="searchCriteriaM" class="form-control searchCriteria" placeholder="Search">
+        <span class="input-group-btn">
+          <button id="course-search-buttonM" class="btn btn-default" type="submit">
+            <img alt="" src="/images/search.png">
+          </button>
+        </span>
+      </div>
+    </form>
+  </div>
+  <div id="mob-advancedSearchBox" class="mob-locations">
+      <span>Or find a course by:</span>
+        <select id="selSearchLocationM" class="form-control">
+            <option value="">Locations</option>
+            <% locations.forEach(function(location) { %>
+              <option value="<%= location %>"><%= location %></option>
+            <% }); %>
+        </select>
+  </div>
+  </div><!-- END Search -->
+</div><!-- END Wrapper -->
