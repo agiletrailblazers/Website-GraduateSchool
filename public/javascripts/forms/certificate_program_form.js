@@ -92,4 +92,20 @@ $(document).ready(function() {
     $("#alertError").slideUp();
     $("#alertError p").remove();
   });
+  $("#submitForm").click(function(e) {
+    e.preventDefault();
+    var data = {};
+    data.firstName = $("#txtFirstName").val();
+    data.lastName = $("#txtLastName").val();
+    data.email = $("#txtEmail").val();
+    data.phone = $("#txtPhone").val();
+    data.city = $("#txtCity").val();
+    data.state = $("#selState").val();
+    data.zip = $("#txtZip").val();
+    data.streetAddress = $("#txtStreet").val();
+    if (window.location.pathname == "/forms/certificate-completion") {
+      data.certificate = $("#txtCertName").val();
+    }
+    data.captchaResponse = $("#g-recaptcha-response").val();
+  })
 });
