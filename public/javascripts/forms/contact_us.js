@@ -106,10 +106,11 @@ $(document).ready(function() {
     data.captchaResponse = $("#g-recaptcha-response").val();
     if (!$("#alertError p").length) {
       $(".loading").show();
-      $.post("/mailer-request-certificate-program", data)
+      $.post("/mailer-contact-us", data)
         .done(function(data) {
           $(".loading").hide();
           alertify.success("Email sent!")
+          $("#contact-information").toggle();
           $("#alertSuccess").toggle();
         })
         .fail(function(xhr, textStatus, errorThrown) {
