@@ -107,5 +107,29 @@ $(document).ready(function() {
       data.certificate = $("#txtCertName").val();
     }
     data.captchaResponse = $("#g-recaptcha-response").val();
-  })
+    if (!$("#alertError p").length) {
+      $(".loading").show();
+      $.post("/mailer-contact-us", data)
+        .done(function(data) {
+          $(".loading").hide();
+          alertify.success("Email sent!")
+          $("#contact-information").toggle();
+          $("#alertSuccess").toggle();
+        })
+        .fail(function(xhr, textStatus, errorThrown) {
+          $(".loading").hide();
+          alertify.error("Email failed.")
+          var errors = xhr.responseJSON;
+          for (var key in errors) {
+            if (errors.hasOwnProperty(key)) {
+              $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] +"</p>");
+            }
+          }
+          $("#alertError").slideDown();
+          $("html, body").animate({
+            scrollTop: 0
+          }, "slow");
+        });
+    }
+  });
 });
