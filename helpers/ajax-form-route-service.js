@@ -365,6 +365,14 @@ module.exports = {
         response.errors.lastName = "Last name must be at least 3 characters.";
         break;
     }
-
+    // Validate params.email
+    switch(true) {
+      case (!params.student.email):
+        response.errors.email = "Email is empty.";
+        break;
+      case (!validator.isEmail(params.student.email.trim())):
+        response.errors.email = "Email is in the wrong format.";
+        break;
+    }
   }
 };
