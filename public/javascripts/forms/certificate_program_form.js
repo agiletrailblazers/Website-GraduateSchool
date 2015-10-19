@@ -37,6 +37,12 @@ Validate = {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> City is incorrect.</p>");
     }
   },
+  state: function() {
+    var input = $("#selState").val();
+    if (!input) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please select a state.</p>");
+    }
+  },
   zip: function() {
     var input = $("#txtZip").val();
     // TODO: Regex to see if it is only numbers.
@@ -56,7 +62,6 @@ Validate = {
         $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Name on certificate must be at least 1 character.</p>");
     }
   },
-  // TODO: Add validation for state (coming back api call).
   captcha: function(){
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
