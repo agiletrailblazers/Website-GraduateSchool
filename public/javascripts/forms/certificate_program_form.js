@@ -94,7 +94,9 @@ $(document).ready(function() {
   });
   $("#submitForm").click(function(e) {
     e.preventDefault();
+    _runValiation();
     var data = {};
+    data.formType = window.location.pathname;
     data.firstName = $("#txtFirstName").val();
     data.lastName = $("#txtLastName").val();
     data.email = $("#txtEmail").val();
