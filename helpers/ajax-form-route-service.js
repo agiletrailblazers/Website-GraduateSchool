@@ -356,5 +356,15 @@ module.exports = {
         response.errors.firstName = "First name must be at least 3 characters.";
         break;
     }
+    // Validate params.lastName
+    switch(true) {
+      case (!params.student.lastName):
+        response.errors.lastName = "Last name is empty.";
+        break;
+      case (!validator.isLength(params.student.lastName.trim(), 3)):
+        response.errors.lastName = "Last name must be at least 3 characters.";
+        break;
+    }
+
   }
 };
