@@ -6,8 +6,9 @@
 					<button class="dl-trigger"><span class="menutext">Menu</span></button>
 					<ul class="dl-menu">
 					  <% navigation.main.forEach(function(nav) { %>
+							<% var topNameId = nav.title.replace(/\s+/g,'-');%>
 					  <li>
-					    <a href="#"><%= nav.title %></a>
+					    <a href="#" name="<%= topNameId %>"><%= nav.title %></a>
 					    <% if (nav.sections) { %>
 					      <ul class="dl-submenu">
 					        <% nav.sections.forEach(function(subNav) { %>
@@ -15,8 +16,9 @@
 					              <a href="#"><%= subNav.title %></a>
 					                <ul class="dl-submenu">
 					                  <% subNav.links.forEach(function(link) { %>
+															<% var nameId = subNav.title.replace(/\s+/g,'-')+('-')+link.title.replace(/\s+/g,'-');%>
 					                    <li>
-					                      <a href="<%= link.url %>" target="<%= (link.newWindow) ? '_blank' : '' %>"><%= link.title %></a>
+					                      <a  href="<%= link.url %>" target="<%= (link.newWindow) ? '_blank' : '' %>" name="<%= nameId %>"><%= link.title %></a>
 					                    </li>
 					                  <% }); %>
 					                </ul>
@@ -45,7 +47,8 @@
 			<ul class="nav navbar-nav">
 			  <% columnCount = 1; %>
 			  <% navigation.main.forEach(function(nav) { %>
-					<li class="dropdown gs-fw w<%= columnCount %>"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle underlined"><div class="icon"><img src="<%= nav.icon.file.url %>" alt="" /></div><div ><%= nav.title %></div></a>
+					<% var topNameId = nav.title.replace(/\s+/g,'-');%>
+					<li class="dropdown gs-fw w<%= columnCount %>"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle underlined" name="<%= topNameId %>"><div class="icon"><img src="<%= nav.icon.file.url %>" alt="" /></div><div ><%= nav.title %></div></a>
 						<ul class="dropdown-menu">
 							<li class="grid-demo">
 								<div class="row border-between">
@@ -61,8 +64,9 @@
 												<h4><%= subNav.title %></h4>
 													<ul>
 													  <% subNav.links.forEach(function(link) { %>
+															<% var nameId = subNav.title.replace(/\s+/g,'-')+('-')+link.title.replace(/\s+/g,'-');%>
 														  <li>
-															  <a href="<%= link.url %>" target="<%= (link.newWindow) ? '_blank' : '' %>"><%= link.title %></a>
+															  <a  href="<%= link.url %>" target="<%= (link.newWindow) ? '_blank' : '' %>" name="<%= nameId %>"><%= link.title %></a>
 														  </li>
 														<% }); %>
 													</ul>
