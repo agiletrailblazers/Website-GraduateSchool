@@ -413,5 +413,9 @@ module.exports = {
     if (params.certificate && !validator.isLength(params.streetAddress.trim(), 1)) {
       response.errors.streetAddress = "Name on Certificate must be 1 or more characters."
     }
+    // Validate State
+    if (!params.state) {
+      response.errors.state = "Please select a state."
+    }
   }
 };
