@@ -131,14 +131,14 @@ top: 45px;
 
 .dl-menuwrapper li.dl-back:after {
 	left: 10px;
-	color: rgba(212,204,198,0.3);
+	color: rgba(255,255,255,0.55);
 	-webkit-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
 
 .dl-menuwrapper li > a:after {
 	right: 10px;
-	color: rgba(0,0,0,0.15);
+	color: rgba(255,255,255,0.55);
 }
 
 .dl-menuwrapper .dl-menu {
@@ -198,6 +198,22 @@ All this is done for any sub-level being entered.
 	top: 50px;
 	left: 0;
 	margin: 0;
+}
+
+
+/* Demo 1 */
+.mobile-menu .dl-menuwrapper button:hover,
+.mobile-menu .dl-menuwrapper button.dl-active {
+background: transparent;
+}
+
+
+.mobile-menu .dl-menuwrapper button {
+background: transparent;
+}
+
+.mobile-menu .dl-menuwrapper ul {
+	background: #D8124D;
 }
 
 /* Animation classes for moving out and in */
