@@ -637,10 +637,6 @@ select, input {
   margin-right: 10px !important;
 
 }
-/*
-label {
-  display: block;
-} */
 
 form button, form button:visited {
   background-color: #427EB4;
@@ -1435,6 +1431,10 @@ p.asset a:focus {
   transition: background-color 300ms linear;
 }
 
+#customerFeedbackFormAlertSuccess .alert {
+  text-shadow: none;
+  box-shadow: none;
+}
 
 /* USER TYPES */
 .user-types {
