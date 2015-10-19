@@ -344,4 +344,9 @@ module.exports = {
     }
     callback(response);
   },
+  validateCertificateProgramForms: function(callback, params) {
+    response = {};
+    response.errors = {};
+    
+  }
 };
