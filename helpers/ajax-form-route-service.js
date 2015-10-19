@@ -376,11 +376,20 @@ module.exports = {
     }
     // Validate params.phone
     switch(true) {
-      case (!params.student.phone.day):
+      case (!params.phone):
         response.errors.phone = "Phone number is empty.";
         break;
-      case (!params.student.phone.day.match(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)):
+      case (!params.phone.match(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)):
         response.errors.phone = "Phone number is not in the correct format.";
+        break;
+    }
+    // Validate City
+    switch (true) {
+      case (!params.student.courseTitle):
+        response.errors.city = "City is empty."
+        break;
+      case (!validator.isLength(params.student.courseTitle.trim(), 3)):
+        response.errors.city = "City must be greater than 3 characters."
         break;
     }
   }
