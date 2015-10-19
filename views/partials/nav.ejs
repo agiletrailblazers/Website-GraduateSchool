@@ -4,7 +4,7 @@
 		<div class="wrapper mobile-menu">
 			<div id="dl-menu" class="dl-menuwrapper">
 					<button class="dl-trigger"><span class="menutext">Menu</span></button>
-					<ul class="dl-menu">
+					<ul id="myy" class="dl-menu">
 					  <% navigation.main.forEach(function(nav) { %>
 							<% var topNameId = nav.title.replace(/\s+/g,'-');%>
 					  <li>
@@ -98,6 +98,8 @@
 
 <script>
 	$(function() {
-		$( '#dl-menu' ).dlmenu();
+		$('#dl-menu').dlmenu();
 	});
+
+
 </script>

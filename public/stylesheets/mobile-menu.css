@@ -60,7 +60,7 @@ span.menutext {
  position: absolute;
  top: 32px;
  left: 10px;
-
+ color: #07325A;
 }
 
 
@@ -79,12 +79,12 @@ top: 45px;
 	position: absolute;
 	width: 50%;
 	height: 4px;
-	background: #BF3C46;
+	background: #444;
 	top: 9px;
 	left: 25%;
 	box-shadow:
-		0 8px 0 #BF3C46,
-		0 16px 0 #BF3C46;
+		0 8px 0 #444,
+		0 16px 0 #444;
 }
 
 .dl-menuwrapper ul {
@@ -105,9 +105,29 @@ top: 45px;
 	font-size: 16px;
 	line-height: 20px;
 	font-weight: 300;
-	color: #fff;
+	color: #FFF;
 	outline: none;
 }
+
+
+/*  */
+.mobile-menu .dl-menuwrapper button:hover,
+.mobile-menu .dl-menuwrapper button.dl-active {
+	background: transparent;
+		border: 2px solid #AAA;
+}
+
+
+.mobile-menu .dl-menuwrapper button {
+	background: transparent;
+
+}
+
+.mobile-menu .dl-menuwrapper ul {
+
+}
+
+
 
 .no-touch .dl-menuwrapper li a:hover {
 	background: rgba(255,248,213,0.1);
@@ -201,20 +221,7 @@ All this is done for any sub-level being entered.
 }
 
 
-/* Demo 1 */
-.mobile-menu .dl-menuwrapper button:hover,
-.mobile-menu .dl-menuwrapper button.dl-active {
-background: transparent;
-}
 
-
-.mobile-menu .dl-menuwrapper button {
-background: transparent;
-}
-
-.mobile-menu .dl-menuwrapper ul {
-	background: #D8124D;
-}
 
 /* Animation classes for moving out and in */
 

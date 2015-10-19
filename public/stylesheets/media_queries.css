@@ -27,8 +27,8 @@
         display: block;
         visibility: visible;
         position: absolute;
-        top: -60px;
-        right: 10px;
+        top: -50px;
+        right: 16px;
         width: 100%;
       }
 
@@ -140,6 +140,15 @@
 
       .mobile-nopadding {
         padding: 0 !important;
+      }
+
+      .mobile-menu {
+        display: block;
+        visibility: visible;
+        position: absolute;
+        top: -60px;
+        right: 10px;
+        width: 100%;
       }
 
 
