@@ -60,11 +60,11 @@ Validate = {
   },
   certificate: function() {
     var input = $("#txtCertName").val();
-    if(input.trim().length < 1) {
-        $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Name on certificate must be at least 1 character.</p>");
+    if (input.trim().length < 1) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Name on certificate must be at least 1 character.</p>");
     }
   },
-  captcha: function(){
+  captcha: function() {
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> For security, please verify you are a real person below</p>");
@@ -73,18 +73,18 @@ Validate = {
 }
 
 var _runValiation = function() {
- Validate.firstName();
- Validate.lastName();
- Validate.email();
- Validate.phone();
- Validate.streetAddress();
- Validate.city();
- Validate.state();
- Validate.zip();
- Validate.captcha();
- if (window.location.pathname == "/forms/certificate-completion") {
-   Validate.certificate();
- }
+  Validate.firstName();
+  Validate.lastName();
+  Validate.email();
+  Validate.phone();
+  Validate.streetAddress();
+  Validate.city();
+  Validate.state();
+  Validate.zip();
+  Validate.captcha();
+  if (window.location.pathname == "/forms/certificate-completion") {
+    Validate.certificate();
+  }
 }
 
 $(document).ready(function() {
