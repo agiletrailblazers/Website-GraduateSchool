@@ -347,6 +347,14 @@ module.exports = {
   validateCertificateProgramForms: function(callback, params) {
     response = {};
     response.errors = {};
-    
+    // Validate params.firstName
+    switch(true) {
+      case (params.student.firstName.length === 0):
+        response.errors.firstName = "First name is empty.";
+        break;
+      case (!validator.isLength(params.student.firstName.trim(), 3)):
+        response.errors.firstName = "First name must be at least 3 characters.";
+        break;
+    }
   }
 };
