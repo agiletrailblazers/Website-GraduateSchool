@@ -133,6 +133,27 @@ router.post('/mailer-request-proctor', function (req, res, next) {
   }, params);
 });
 
+router.post('/mailer-request-certificate-program', function(req, res, next) {
+  params = req.body;
+  routerService.validateCertificateProgramForms(function(response) {
+    // Send email if there are no errors.
+    if (Object.keys(response.errors).length === 0) {
+      //verify captcha
+      google.verifyCaptcha(function (response) {
+        if ((response != null) && (response.statusCode == 200)) {
+          //send mail of success
+          // TODO: Mailer functionality
+          // NOTE: Do these go to seperate emal accounts?
+        } else {
+          sendErrorResponse(res, response);
+        }
+      }, params.captchaResponse);
+    } else {
+      sendErrorResponse(res, response);
+    }
+  }, params);
+});
+
 //send errors to client.
 function sendErrorResponse(res, response) {
   if ((response != null) && (response.errors != null)) {
