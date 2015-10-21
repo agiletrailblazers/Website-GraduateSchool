@@ -213,8 +213,15 @@ router.get(
           states = result;
           callback();
         });
+      },
+      function(callback) {
+        logger.debug("Getting certificate program information");
+        var entryId = "6bC5G37EOssooK4K2woUyg";
+        contentful.getDataGrouping(entryId, function(response) {
+          selectBoxData = response;
+          callback();
+        });
       }
-      // TODO: Create API function to get certificate program information array. (Content Type Data Grouping)
       // TODO: Unit testing for new forms (is this really needed since it uses a previous funtion?)
       // TODO: Unit testing for data grouping function.
     ], function(results) {
@@ -222,6 +229,7 @@ router.get(
         title: fields.sectionTitle,
         sectionHeaderDescription: fields.sectionHeaderDescription,
         states: states,
+        selectBox: selectBoxData,
         url: req.url
       });
     });
