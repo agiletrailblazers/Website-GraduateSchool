@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   //Important to use live events since we dynamically update page content
-  $(document).on('change', 'select.itemsPerPage, select#selLocation', function() {
+  $(document).on('change', 'select.itemsPerPage, select#selLocation,select#categorySubject', function() {
     $('.itemsPerPage').val($(this).val());
     $('#txtPageCourse').val(1);
     $('#txtPageSite').val(1);
@@ -11,6 +11,7 @@ $(document).ready(function() {
   $(document).on("click",".refine",function(event){
     $("#itemsPerPage").val("10");
     $("#selLocation").val("all");
+    $("#categorySubject").val("all");
     $('#G2G').prop('checked', false);
     $('#txtPageCourse').val(1);
     $('#txtPageSite').val(1);
@@ -20,6 +21,13 @@ $(document).ready(function() {
 
   $(document).on("click","#clearLocation",function(event){
     $("#selLocation").val("all");
+    $('#txtPageCourse').val(1);
+    $('#txtPageSite').val(1);
+    reloadSearchResults();
+  });
+
+  $(document).on("click","#clearCategoriesSubject",function(event){
+    $("#categorySubject").val("all");
     $('#txtPageCourse').val(1);
     $('#txtPageSite').val(1);
     reloadSearchResults();
@@ -78,6 +86,7 @@ $(document).ready(function() {
     var urlParams = "search=" + $("#txtSearchCriteria").val()
         + "&numRequested=" + $(".itemsPerPage").val()
         + "&cityState=" + $("#selLocation").val()
+        + "&categorySubject=" + $("#categorySubject").val()
         + "&selectedG2G=" + $('#G2G').prop('checked')
         + "&page-course=" + $('#txtPageCourse').val()
         + "&page-site=" + $('#txtPageSite').val().trim()
