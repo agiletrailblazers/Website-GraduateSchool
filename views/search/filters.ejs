@@ -86,6 +86,52 @@
                 </select>
                 <hr>
             </span>
+            <span class="form-group" data-showfor="course">
+              <p>Subject <a id="clearCategoriesSubject" href="#" class="checkbox-clear">clear</a></p>
+               <select id="categorySubject" class="form-control">
+                 <option class="checkbox-clear" value="all">All</option>
+                 <%
+                 if (courseResult && courseResult.categorySubjectFacets && courseResult.categorySubjectFacets.length > 0) {
+                   for (categorySubjectFacetCounter = 0; categorySubjectFacetCounter < courseResult.categorySubjectFacets.length; categorySubjectFacetCounter++) {
+                     var courseSubject = courseResult.categorySubjectFacets[categorySubjectFacetCounter].courseSubject;
+                       if (courseSubject.length > 1) { %>
+                         <optgroup label="<%= courseResult.categorySubjectFacets[categorySubjectFacetCounter].category %>"
+                           %>&nbsp;(
+                           <%= courseResult.categorySubjectFacets[categorySubjectFacetCounter].subjectCount %>)>
+                           <% for (courseSubjectCounter = 0; courseSubjectCounter < courseSubject.length; courseSubjectCounter++) {
+                             categorySubjectSelected = "";
+                             if (courseResult.categorySubjectFacets[categorySubjectFacetCounter].category + "/" + courseSubject[courseSubjectCounter].subject ===
+                               params.categorySubject) {
+                               categorySubjectSelected = "selected";
+                             }
+                           %>
+                           <option value="<%= courseResult.categorySubjectFacets[categorySubjectFacetCounter].category + "/" + courseSubject[courseSubjectCounter].subject %>"
+                             <%= categorySubjectSelected %>><%= courseSubject[courseSubjectCounter].subject %>
+                             &nbsp;(<%= courseSubject[courseSubjectCounter].count %>)
+                           </option>
+                           <% } %>
+                         </optgroup>
+                       <% } else if(courseSubject.length == 1) {
+                         categorySubjectSelected = "";
+                         if (courseResult.categorySubjectFacets[categorySubjectFacetCounter].category + "/" + courseSubject[0].subject ===
+                           params.categorySubject) {
+                           categorySubjectSelected = "selected";
+                         }
+                       %>
+                         <option class="checkbox-clear"
+                           value="<%= courseResult.categorySubjectFacets[categorySubjectFacetCounter].category + "/" + courseSubject[0].subject %>"
+                         <%= categorySubjectSelected %> ><%= courseSubject[0].subject %>&nbsp;(<%= courseSubject[0].count %>)
+                         </option>
+                        <% }
+                       }
+                     } else {
+                       if (params.categorySubject && params.categorySubject != 'all') { %>
+                         <option value="<%= params.categorySubject %>" selected><%= params.categorySubject %>&nbsp;(0)</option>
+                       <% }
+                     } %>
+                   </select>
+                 <hr>
+            </span>
           </div>
         </div>
 

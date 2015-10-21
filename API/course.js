@@ -13,6 +13,9 @@ module.exports = {
     if (isNotEmpty(params.cityState) && params.cityState != 'all') {
       courseApiUrl = courseApiUrl + '&filter={facet-countall}city_state:' + params.cityState;
     }
+    if (isNotEmpty(params.categorySubject) && params.categorySubject != 'all') {
+      courseApiUrl = courseApiUrl + '&filter={facet-countall}category_subject:' + params.categorySubject;
+    }
     if (params.page && isNotEmpty(params.page.course)) {
       courseApiUrl = courseApiUrl + '&page='+ params.page.course;
     }
