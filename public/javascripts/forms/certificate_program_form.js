@@ -102,7 +102,10 @@ $(document).ready(function() {
     data.other = $("#txtOther").val();
     data.firstName = $("#txtFirstName").val();
     data.lastName = $("#txtLastName").val();
+    data.mi = $("#txtMI").val();
     data.formerLastName = $("#txtFormerLastName").val();
+    data.ssn = $("#txtSSNa").val() +'-'+ $("#txtSSNb").val() +'-'+ $("#txtSSNc").val();
+    data.dob = $("#month").val() +'/'+ $("#day").val() +'/'+ $("#txtYear").val();
     data.email = $("#txtEmail").val();
     data.phone = $("#txtPhone").val();
     data.fax = $("#txtFax").val();
