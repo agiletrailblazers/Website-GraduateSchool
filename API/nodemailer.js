@@ -207,7 +207,7 @@ module.exports = {
       var mailAttributes = {
         from: config("properties").defaultEmailFromUserName,
         to: params.email,
-        subject: config("properties").customerFeedBackFormEmailSubject,
+        subject: config("properties"),// TODO: Add config for subject title.
         text: results.text,
         html: results.html
       };
@@ -220,9 +220,7 @@ module.exports = {
         return callback(200);
       });
     });
-    // TODO: Render template.
-    // NOTE: Multiple emails so create conditional based off of formType param.
-  }
+  },
   setTransport: function(transporterIn) {
     //this is needed for unit tests to set a mock transporter
     transporter =  transporterIn;
