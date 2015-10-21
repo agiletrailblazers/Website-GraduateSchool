@@ -72,10 +72,8 @@ Validate = {
   }
 }
 
-// TODO: check the name of the variable _runValiation
-// TODO: validation new fields (if necessary) - formerLastName, country, fax, suite, comment
 
-var _runValiation = function() {
+var _runValidation = function() {
   Validate.firstName();
   Validate.lastName();
   Validate.email();
@@ -97,9 +95,11 @@ $(document).ready(function() {
   });
   $("#submitForm").click(function(e) {
     e.preventDefault();
-    _runValiation();
+    _runValidation();
     var data = {};
     data.formType = window.location.pathname;
+    data.selectBox = $("#selectBox").val();
+    data.other = $("#txtOther").val();
     data.firstName = $("#txtFirstName").val();
     data.lastName = $("#txtLastName").val();
     data.formerLastName = $("#txtFormerLastName").val();
