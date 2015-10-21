@@ -72,7 +72,8 @@ Validate = {
   }
 }
 
-var _runValiation = function() {
+
+var _runValidation = function() {
   Validate.firstName();
   Validate.lastName();
   Validate.email();
@@ -94,17 +95,27 @@ $(document).ready(function() {
   });
   $("#submitForm").click(function(e) {
     e.preventDefault();
-    _runValiation();
+    _runValidation();
     var data = {};
     data.formType = window.location.pathname;
+    data.selectBox = $("#selectBox").val();
+    data.other = $("#txtOther").val();
     data.firstName = $("#txtFirstName").val();
     data.lastName = $("#txtLastName").val();
+    data.mi = $("#txtMI").val();
+    data.formerLastName = $("#txtFormerLastName").val();
+    data.ssn = $("#txtSSNa").val() +'-'+ $("#txtSSNb").val() +'-'+ $("#txtSSNc").val();
+    data.dob = $("#month").val() +'/'+ $("#day").val() +'/'+ $("#txtYear").val();
     data.email = $("#txtEmail").val();
     data.phone = $("#txtPhone").val();
+    data.fax = $("#txtFax").val();
     data.city = $("#txtCity").val();
     data.state = $("#selState").val();
+    data.country = $("#txtCountry").val();
     data.zip = $("#txtZip").val();
     data.streetAddress = $("#txtStreet").val();
+    data.suite = $("#txtSuite").val();
+    data.comment = $("#commentText").val();
     if (window.location.pathname == "/forms/certificate-completion") {
       data.certificate = $("#txtCertName").val();
     }
