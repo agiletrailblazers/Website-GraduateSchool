@@ -222,7 +222,7 @@ module.exports = {
     });
     // TODO: Render template.
     // NOTE: Multiple emails so create conditional based off of formType param.
-  }
+  },
   setTransport: function(transporterIn) {
     //this is needed for unit tests to set a mock transporter
     transporter =  transporterIn;

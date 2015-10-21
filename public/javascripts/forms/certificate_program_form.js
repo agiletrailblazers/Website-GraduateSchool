@@ -72,6 +72,9 @@ Validate = {
   }
 }
 
+// TODO: check the name of the variable _runValiation
+// TODO: validation new fields (if necessary) - formerLastName, country, fax, suite, comment
+
 var _runValiation = function() {
   Validate.firstName();
   Validate.lastName();
@@ -99,12 +102,17 @@ $(document).ready(function() {
     data.formType = window.location.pathname;
     data.firstName = $("#txtFirstName").val();
     data.lastName = $("#txtLastName").val();
+    data.formerLastName = $("#txtFormerLastName").val();
     data.email = $("#txtEmail").val();
     data.phone = $("#txtPhone").val();
+    data.fax = $("#txtFax").val();
     data.city = $("#txtCity").val();
     data.state = $("#selState").val();
+    data.country = $("#txtCountry").val();
     data.zip = $("#txtZip").val();
     data.streetAddress = $("#txtStreet").val();
+    data.suite = $("#txtSuite").val();
+    data.comment = $("#commentText").val();
     if (window.location.pathname == "/forms/certificate-completion") {
       data.certificate = $("#txtCertName").val();
     }

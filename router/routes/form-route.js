@@ -128,62 +128,6 @@ router.get('/forms/proctor-request-form', function(req, res, next) {
   });
 });
 
-router.get('/forms/certificate-program-application', function(req, res, next) {
-  var fields, states, programs;
-  var entryId = "KbQb89jHMWceeoKIGsSgw";
-  async.parallel([
-    function(callback) {
-      logger.debug('Get contentful fields:');
-      contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
-        fields = response;
-        callback();
-      });
-    },
-    function(callback) {
-      logger.debug("Get us states");
-      contentful.getReferenceData('us-states', function(result) {
-        states = result;
-        callback();
-      });
-    },
-    function(callback) {
-      logger.debug("Get certificate program list");
-      contentful.getReferenceData('certificate-programs', function(result) {
-        programs = result;
-        callback();
-      });
-    }
-  ], function(results) {
-    res.render('forms/certificate_program_application', {
-      sectionTitle: fields.sectionTitle,
-      sectionHeaderDescription: fields.sectionHeaderDescription,
-      sectionFooterDescription: fields.sectionFooterDescription,
-      title: fields.sectionTitle,
-      relatedLinks: fields.relatedLinks,
-      states: states,
-      programs: programs
-    });
-  });
-});
-router.get('/forms/feedback', function(req, res, next) {
-  var fields;
-  async.parallel([
-    function(callback) {
-      contentfulForms.getContactUs(function(response) {
-        fields = response.fields;
-        callback();
-      });
-    }
-  ], function(results) {
-    res.render('forms/customer_form', {
-      title: fields.title,
-      subjectLine: fields.subjectLine,
-      topParagraph: fields.topParagraph,
-      relatedLinks: fields.relatedLinks
-    });
-  });
-});
-
 router.get(
   ['/forms/certificate-program-application', '/forms/certificate-program-progress-report',
     '/forms/certificate-completion', '/forms/certificate-program-waiver-request'
