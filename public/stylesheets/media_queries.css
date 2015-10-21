@@ -12,6 +12,7 @@
       #course-information .nav-tabs > li > a {
       font-size: 14px !important;
       padding: 15px 5px !important;
+      }
 
     }
 
@@ -20,6 +21,15 @@
       .mob-rem {
         display: none;
         visibility: hidden;
+      }
+
+      .mobile-menu {
+        display: block;
+        visibility: visible;
+        position: absolute;
+        top: -50px;
+        right: 16px;
+        width: 100%;
       }
 
       /* NavBar breaking point */
@@ -130,6 +140,15 @@
 
       .mobile-nopadding {
         padding: 0 !important;
+      }
+
+      .mobile-menu {
+        display: block;
+        visibility: visible;
+        position: absolute;
+        top: -60px;
+        right: 10px;
+        width: 100%;
       }
 
 
@@ -300,7 +319,7 @@
           margin: 0 auto !important;
           display: inline-block;
           width: 31%;
-          padding-top: 7px !important;
+          padding-top: 4px !important;
           text-align: center;
 
         }
@@ -308,7 +327,7 @@
         .nav-top-bar-mob ul li img {
           width: auto;
           max-width: 27px !important;
-          max-height: 25px !important;
+          max-height: 20px !important;
           padding: 0 0 0 5px !important;
         }
 
@@ -318,7 +337,7 @@
           font-size: 12px;
         }
 
-      
+
 
         /* Slider */
         .carousel-inner > .item > img {
