@@ -128,6 +128,25 @@ router.get('/forms/proctor-request-form', function(req, res, next) {
   });
 });
 
+router.get('/forms/feedback', function(req, res, next) {
+  var fields;
+  async.parallel([
+    function(callback) {
+      contentfulForms.getContactUs(function(response) {
+        fields = response.fields;
+        callback();
+      });
+    }
+  ], function(results) {
+    res.render('forms/customer_form', {
+      title: fields.title,
+      subjectLine: fields.subjectLine,
+      topParagraph: fields.topParagraph,
+      relatedLinks: fields.relatedLinks
+    });
+  });
+});
+
 router.get(
   ['/forms/certificate-program-application', '/forms/certificate-program-progress-report',
     '/forms/certificate-completion', '/forms/certificate-program-waiver-request'
@@ -157,8 +176,15 @@ router.get(
           states = result;
           callback();
         });
+      },
+      function(callback) {
+        logger.debug("Getting certificate program information");
+        var entryId = "6bC5G37EOssooK4K2woUyg";
+        contentful.getDataGrouping(entryId, function(response) {
+          selectBoxData = response;
+          callback();
+        });
       }
-      // TODO: Create API function to get certificate program information array. (Content Type Data Grouping)
       // TODO: Unit testing for new forms (is this really needed since it uses a previous funtion?)
       // TODO: Unit testing for data grouping function.
     ], function(results) {
@@ -166,6 +192,7 @@ router.get(
         title: fields.sectionTitle,
         sectionHeaderDescription: fields.sectionHeaderDescription,
         states: states,
+        selectBox: selectBoxData,
         url: req.url
       });
     });

@@ -1,9 +1,39 @@
 <!-- Navigation -->
 <div class="container">
-	<div class="row padding">
-
+	<div class="row wrapper">
+		<div class="wrapper mobile-menu">
+			<div id="dl-menu" class="dl-menuwrapper">
+					<button class="dl-trigger"><span class="menutext">Menu</span></button>
+					<ul class="dl-menu">
+					  <% navigation.main.forEach(function(nav) { %>
+							<% var topNameId = nav.title.replace(/\s+/g,'-');%>
+					  <li>
+					    <a href="#" name="<%= topNameId %>"><%= nav.title %></a>
+					    <% if (nav.sections) { %>
+					      <ul class="dl-submenu">
+					        <% nav.sections.forEach(function(subNav) { %>
+					          <li>
+					              <a href="#"><%= subNav.title %></a>
+					                <ul class="dl-submenu">
+					                  <% subNav.links.forEach(function(link) { %>
+															<% var nameId = subNav.title.replace(/\s+/g,'-')+('-')+link.title.replace(/\s+/g,'-');%>
+					                    <li>
+					                      <a  href="<%= link.url %>" target="<%= (link.newWindow) ? '_blank' : '' %>" name="<%= nameId %>"><%= link.title %></a>
+					                    </li>
+					                  <% }); %>
+					                </ul>
+					          </li>
+					       <% }); %>
+					      </ul>
+					     <% } %>
+							 </li>
+					   <% }); %>
+					 </ul>
+			 </div><!-- END MOBILE MENU -->
+		</div>
+	</div>
+	<div class="row padding non-mobile mob-rem">
 		<div class="navbar navbar-default gs">
-
 		<div class="navbar-header">
 				<button type="button" data-toggle="collapse" data-target="#navbar-collapse-grid" class="navbar-toggle">
 					<span class="icon-bar"></span>
@@ -17,7 +47,8 @@
 			<ul class="nav navbar-nav">
 			  <% columnCount = 1; %>
 			  <% navigation.main.forEach(function(nav) { %>
-					<li class="dropdown gs-fw w<%= columnCount %>"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle underlined"><div class="icon"><img src="<%= nav.icon.file.url %>" alt="" /></div><div ><%= nav.title %></div></a>
+					<% var topNameId = nav.title.replace(/\s+/g,'-');%>
+					<li class="dropdown gs-fw w<%= columnCount %>"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle underlined" name="<%= topNameId %>"><div class="icon"><img src="<%= nav.icon.file.url %>" alt="" /></div><div ><%= nav.title %></div></a>
 						<ul class="dropdown-menu">
 							<li class="grid-demo">
 								<div class="row border-between">
@@ -33,8 +64,9 @@
 												<h4><%= subNav.title %></h4>
 													<ul>
 													  <% subNav.links.forEach(function(link) { %>
+															<% var nameId = subNav.title.replace(/\s+/g,'-')+('-')+link.title.replace(/\s+/g,'-');%>
 														  <li>
-															  <a href="<%= link.url %>" target="<%= (link.newWindow) ? '_blank' : '' %>"><%= link.title %></a>
+															  <a  href="<%= link.url %>" target="<%= (link.newWindow) ? '_blank' : '' %>" name="<%= nameId %>"><%= link.title %></a>
 														  </li>
 														<% }); %>
 													</ul>
@@ -49,7 +81,7 @@
 					<% columnCount++; %>
 				<% }); %>
 
-				<li class="dropdown gs w5"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle underlined"><div class="icon"><img src="/images/contact-us.png" alt="" /></div><div >Contact Us</div></a>
+				<li class="dropdown gs w5 non-mobile"><a aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle underlined"><div class="icon"><img src="/images/contact-us.png" alt="" /></div><div >Contact Us</div></a>
           <ul class="dropdown-menu">
             <li><a href="tel:+18887444723"><img src="/images/call-us.png" alt="" />(888) 744-GRAD</a></li>
             <li><a href="mailto:customersupport@graduateschool.edu"><img src="/images/email-us.png" alt="" />Customer Support</a></li>
@@ -58,8 +90,16 @@
         </li>
 			</ul>
 			</div>
-		</div>
-	</div><!-- / END of row -->
-</div>	<!-- END Container  -->
+		</div><!-- END of row -->
+	</div><!-- END Container  -->
+</div>
 <!-- END Navigation -->
 <div class="spacer10"></div>
+
+<script>
+	$(function() {
+		$('#dl-menu').dlmenu();
+	});
+
+
+</script>
