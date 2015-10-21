@@ -128,43 +128,6 @@ router.get('/forms/proctor-request-form', function(req, res, next) {
   });
 });
 
-router.get('/forms/certificate-program-application', function(req, res, next) {
-  var fields, states, programs;
-  var entryId = "KbQb89jHMWceeoKIGsSgw";
-  async.parallel([
-    function(callback) {
-      logger.debug('Get contentful fields:');
-      contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
-        fields = response;
-        callback();
-      });
-    },
-    function(callback) {
-      logger.debug("Get us states");
-      contentful.getReferenceData('us-states', function(result) {
-        states = result;
-        callback();
-      });
-    },
-    function(callback) {
-      logger.debug("Get certificate program list");
-      contentful.getReferenceData('certificate-programs', function(result) {
-        programs = result;
-        callback();
-      });
-    }
-  ], function(results) {
-    res.render('forms/certificate_program_application', {
-      sectionTitle: fields.sectionTitle,
-      sectionHeaderDescription: fields.sectionHeaderDescription,
-      sectionFooterDescription: fields.sectionFooterDescription,
-      title: fields.sectionTitle,
-      relatedLinks: fields.relatedLinks,
-      states: states,
-      programs: programs
-    });
-  });
-});
 router.get('/forms/feedback', function(req, res, next) {
   var fields;
   async.parallel([
@@ -213,8 +176,15 @@ router.get(
           states = result;
           callback();
         });
+      },
+      function(callback) {
+        logger.debug("Getting certificate program information");
+        var entryId = "6bC5G37EOssooK4K2woUyg";
+        contentful.getDataGrouping(entryId, function(response) {
+          selectBoxData = response;
+          callback();
+        });
       }
-      // TODO: Create API function to get certificate program information array. (Content Type Data Grouping)
       // TODO: Unit testing for new forms (is this really needed since it uses a previous funtion?)
       // TODO: Unit testing for data grouping function.
     ], function(results) {
@@ -222,6 +192,7 @@ router.get(
         title: fields.sectionTitle,
         sectionHeaderDescription: fields.sectionHeaderDescription,
         states: states,
+        selectBox: selectBoxData,
         url: req.url
       });
     });

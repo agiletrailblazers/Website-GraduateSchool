@@ -44,8 +44,9 @@ $(document).mouseup(function(e)
 });
 
 
-// Functions for mobile version
+// Functions for MOBILE version
 
+// Performs Search.
 function performCourseSearchM() {
   if ($("#searchCriteriaM").val().trim().length >= 1) {
     location.href = "/search?search=" + $("#searchCriteriaM").val().trim();
@@ -64,7 +65,7 @@ $(document).ready(function(){
   });
 });
 
-$(document).mouseup(function (e)
+$(document).mouseup(function(e)
 {
     var container = $("#search-top-menu, #mob-search");
 

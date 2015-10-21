@@ -137,7 +137,7 @@ router.post('/mailer-request-certificate-program', function(req, res, next) {
   params = req.body;
   switch (true) {
     case (params.formType === '/forms/certificate-program-application'):
-      params.email = "";
+      params.email = ""; //NOTE: Most likely an array of receiptants.
       break;
     case (params.formType === '/forms/certificate-program-progress-report'):
       params.email = "";
