@@ -397,6 +397,18 @@
           height: 10px !important;
         }
 
+        .ssn {
+          display: block;
+        }
+        .ssn-title {
+          display: block;
+          width: 100%;
+        }
+        .ssn .form-control {
+          width: 25%;
+          display: inline-block;
+        }
+
 
     }
 
