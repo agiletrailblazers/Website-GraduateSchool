@@ -27,6 +27,30 @@
 }
 
 
+.subject-item, .subject-item a {
+  background-color: transparent !important;
+  font-size: 13px;
+  line-height: 14px;
+  font-weight: 700 !important;
+  color: #555 !important;
+}
+
+.subject-item:hover, .subject-item a:hover {
+  color: #FFF !important;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+optgroup.subject-category {
+  background-color: transparent !important;
+  font-size: 13px;
+  line-height: 14px;
+  font-weight: 700 !important;
+  color: #555 !important;
+}
+
 .form-control:focus{
 	border-color:#87ACCE;
 	outline:0;

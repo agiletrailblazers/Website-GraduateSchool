@@ -37,41 +37,48 @@
 									</span>
 								</div>
 								<div id="advancedSearchBox" class="locations" style="display:none;">
-										<span>Or find a course by:</span>
-											<select id="selSearchLocation" class="form-control">
-													<option value="">Locations</option>
-													<% locations.forEach(function(location) { %>
-														<option value="<%= location %>"><%= location %></option>
-													<% }); %>
-											</select>
-           <p></p>
-          <span>Or find a course by:</span>
-          <select id="selCategorySubject" class="form-control">
-            <option class="checkbox-clear" value="all">Subject</option>
-            <%
-            for (categorySubjectFacetCounter = 0; categorySubjectFacetCounter < courseSubjectResult.length; categorySubjectFacetCounter++) {
-              var courseSubject = courseSubjectResult[categorySubjectFacetCounter].courseSubject;
-              if (courseSubject.length > 1 ) { %>
-                <optgroup label="<%= courseSubjectResult[categorySubjectFacetCounter].category %>"
-              %><%= courseSubjectResult[categorySubjectFacetCounter].subjectCount %>)>
-              <% for (courseSubjectCounter = 0; courseSubjectCounter < courseSubject.length; courseSubjectCounter++) {
-              %>
-                <option value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[courseSubjectCounter].subject %>"
-                ><%= courseSubject[courseSubjectCounter].subject %>
-                </option>
-              <% } %>
-                </optgroup>
-              <% } else if(courseSubject.length == 1) { %>
-                <option class="checkbox-clear"
-                  value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[0].subject %>">
-                  <%= courseSubject[0].subject %>
-                </option>
-              <% }
-            }
-          %>
-          </select>
-        </div>
-       </form>
+											<div class="container">
+												<div>
+													Or find a course by:
+												</div>
+												<div class="">
+													<select id="selSearchLocation" class="form-control">
+															<option value="">Locations</option>
+															<% locations.forEach(function(location) { %>
+																<option value="<%= location %>"><%= location %></option>
+															<% }); %>
+													</select>
+												</div>
+												<div class="">
+													<select id="selCategorySubject" class="form-control">
+								            <option class="subject-item" value="all">Subject</option>
+								            <% for (categorySubjectFacetCounter = 0; categorySubjectFacetCounter < courseSubjectResult.length; categorySubjectFacetCounter++) {
+								              var courseSubject = courseSubjectResult[categorySubjectFacetCounter].courseSubject;
+								              if (courseSubject.length > 1 ) { %>
+								                <optgroup class="subject-category" label="<%= courseSubjectResult[categorySubjectFacetCounter].category %>"
+								              %><%= courseSubjectResult[categorySubjectFacetCounter].subjectCount %>)>
+								              <% for (courseSubjectCounter = 0; courseSubjectCounter < courseSubject.length; courseSubjectCounter++) {
+								              %>
+								                <option value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[courseSubjectCounter].subject %>"
+								                ><%= courseSubject[courseSubjectCounter].subject %>
+								                </option>
+								              <% } %>
+								                </optgroup>
+								              <% } else if(courseSubject.length == 1) { %>
+								                <option class="subject-item"
+								                  value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[0].subject %>">
+								                  <%= courseSubject[0].subject %>
+								                </option>
+								              <% }
+								             } %>
+								          </select>
+												</div>
+												<div class="">
+													<p class="btn"><a class="search" href="#" role="button">Search <img src="/images/arrow.png" alt=""></a></p>
+												</div>
+											</div>
+									 </div>
+       				</form>
 						</div> <!-- END searchBox #HomeSearch -->
 					</div>
 				</div>
