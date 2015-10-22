@@ -75,16 +75,18 @@
               <span class="form-group">
                 <label for="txtSSN">Date of birth</label>
                 <select id="month" name="month" class="form-control" tabindex="11">
+                    <option value='' default selected>Month</option>
                 <% for (var i = 1; i <= 12; i++) { %>
-                    <option value='<%= i %>' /><%= i %> </option>
+                    <option value='<%= i %>'><%= i %> </option>
                 <% } %>
                 </select>
                 <select id="day" name="day" class="form-control" tabindex="12">
+                    <option value='' default selected/>Day</option>
                 <% for (var i = 1; i <= 31; i++) { %>
-                    <option value='<%= i %>' /><%= i %> </option>
+                    <option value='<%= i %>'><%= i %> </option>
                 <% } %>
                 </select>
-                <input type="text" id="txtYear" class="form-control" size="4" maxlength="4" tabindex="13" >
+                <input type="text" id="txtYear" class="form-control" size="4" maxlength="4" tabindex="13" placeholder="Year">
               </span>
 
             </div>
