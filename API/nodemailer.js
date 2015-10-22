@@ -198,6 +198,7 @@ module.exports = {
   },
   sendCertificateProgram: function (callback, params) {
     logger.debug("SMTP sending to: " + smtp);
+    console.log("Inside email function...");
     certificateProgramTemplate.render(params, function(err, results) {
       logger.info("Starting mail send");
       if (err) {
@@ -206,7 +207,7 @@ module.exports = {
       }
       var mailAttributes = {
         from: config("properties").defaultEmailFromUserName,
-        to: params.email,
+        to: params.emailTo,
         subject: config("properties"),// TODO: Add config for subject title.
         text: results.text,
         html: results.html

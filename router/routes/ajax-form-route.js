@@ -153,17 +153,17 @@ router.post('/mailer-request-certificate-program', function(req, res, next) {
       break;
   }
   params.emailTo = config("properties").defaultEmailUserName;
-console.log("after setting email", params.emailTo);
-  routerService.validateCertificateProgramForms(function(response) {
+  console.log("after setting email", params.emailTo);
+  routerService.validateCertificateProgramForms(function (response) {
+    console.log("Inside server validation");
     // Send email if there are no errors.
-    console.log("validate function");
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
       console.log("no server errors");
       google.verifyCaptcha(function (response) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
-          routerService.sendCertificateProgram(function (response) {
+          mailer.sendCertificateProgram(function (response) {
             handleResponse(res, response);
           }, params);
         } else {
