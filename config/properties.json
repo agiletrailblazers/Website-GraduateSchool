@@ -3,8 +3,8 @@
 
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
-    "defaultEmailUserName":"gs@agiletrailblazers.com",
-    "defaultEmailUserPassword":"",
+    "defaultEmailUserName":"ikhan@agiletrailblazers.com",
+    "defaultEmailUserPassword":"changeM3!",
     "defaultEmailFromUserName":"gs@agiletrailblazers.com",
     "contactUsToUserName":"gs@agiletrailblazers.com",
     "onsiteInquiryToUserName":"gs@agiletrailblazers.com",

@@ -9,6 +9,7 @@ var dateformat = require('date-format-lite');
 var google = require('../../API/google.js');
 var validator = require('validator');
 var logger = require('../../logger');
+var config = require('konphyg')(__dirname + '/../../config');
 
 router.post('/mailer-customer-feedback', function (req, res, next) {
   params = req.body;
@@ -135,28 +136,36 @@ router.post('/mailer-request-proctor', function (req, res, next) {
 
 router.post('/mailer-request-certificate-program', function(req, res, next) {
   params = req.body;
+  console.log("in mailer request");
+
   switch (true) {
     case (params.formType === '/forms/certificate-program-application'):
-      params.email = ""; //NOTE: Most likely an array of receiptants.
+      params.emailTo = ""; //NOTE: Most likely an array of receiptants.
       break;
     case (params.formType === '/forms/certificate-program-progress-report'):
-      params.email = "";
+      params.emailTo = "";
       break;
     case (params.formType === '/forms/certificate-completion'):
-      params.email = "";
+      params.emailTo = "";
       break;
     case (params.formType === '/forms/certificate-program-waiver-request'):
-      params.email = "";
+      params.emailTo = "";
       break;
   }
+  params.emailTo = config("properties").defaultEmailUserName;
+console.log("after setting email", params.emailTo);
   routerService.validateCertificateProgramForms(function(response) {
     // Send email if there are no errors.
+    console.log("validate function");
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
+      console.log("no server errors");
       google.verifyCaptcha(function (response) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
-          // TODO: Mailer functionality
+          routerService.sendCertificateProgram(function (response) {
+            handleResponse(res, response);
+          }, params);
         } else {
           sendErrorResponse(res, response);
         }
