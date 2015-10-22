@@ -1,3 +1,16 @@
+//Navigation: Desktop
+$(document).on('click', '.gs .dropdown-menu', function(e) {
+  e.stopPropagation()
+});
+
+//Navigation: Mobile
+	$(function() {
+		$('#dl-menu').dlmenu();
+	});
+
+
+
+//Print
 $(document).ready(function() {
   $("#printPage").click(function(e) {
     window.print();
@@ -9,6 +22,16 @@ $(document).ready(function() {
   });
 
 });
+
+//Slider
+  $(document).ready(function() {
+  		 $("#myCarousel").swiperight(function() {
+    		  $(this).carousel('prev');
+	    		});
+		   $("#myCarousel").swipeleft(function() {
+		      $(this).carousel('next');
+	   });
+	});
 
 
 //Displays contact us menu on click
