@@ -44,8 +44,34 @@
 														<option value="<%= location %>"><%= location %></option>
 													<% }); %>
 											</select>
-								</div>
-							</form>
+           <p></p>
+          <span>Or find a course by:</span>
+          <select id="selCategorySubject" class="form-control">
+            <option class="checkbox-clear" value="all">Subject</option>
+            <%
+            for (categorySubjectFacetCounter = 0; categorySubjectFacetCounter < courseSubjectResult.length; categorySubjectFacetCounter++) {
+              var courseSubject = courseSubjectResult[categorySubjectFacetCounter].courseSubject;
+              if (courseSubject.length > 1 ) { %>
+                <optgroup label="<%= courseSubjectResult[categorySubjectFacetCounter].category %>"
+              %><%= courseSubjectResult[categorySubjectFacetCounter].subjectCount %>)>
+              <% for (courseSubjectCounter = 0; courseSubjectCounter < courseSubject.length; courseSubjectCounter++) {
+              %>
+                <option value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[courseSubjectCounter].subject %>"
+                ><%= courseSubject[courseSubjectCounter].subject %>
+                </option>
+              <% } %>
+                </optgroup>
+              <% } else if(courseSubject.length == 1) { %>
+                <option class="checkbox-clear"
+                  value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[0].subject %>">
+                  <%= courseSubject[0].subject %>
+                </option>
+              <% }
+            }
+          %>
+          </select>
+        </div>
+       </form>
 						</div> <!-- END searchBox #HomeSearch -->
 					</div>
 				</div>

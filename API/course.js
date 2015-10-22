@@ -96,6 +96,21 @@ module.exports = {
       return callback(response, error, result);
     });
   },
+  getCategories: function(callback) {
+    var courseApiUrl = config("properties").courseApiUrl;
+    request({
+      method: 'GET',
+      url: courseApiUrl + '/api/categories'
+    }, function (error, response, body) {
+      logger.debug("Get Categories : " + response.statusCode);
+      if (error != null || response == null || response.statusCode != 200) {
+        logger.error("Exception occured getting all categories. " + error);
+        return callback(response, new Error("Exception occured getting all categories"), null);
+      }
+      result = JSON.parse(body);
+      return callback(response, error, result);
+    });
+  },
   performSiteSearch: function(callback, params) {
     //skip search if result would be all pages
     if (isEmpty(params.searchCriteria) && (isEmpty(params.cityState) ||  params.cityState == 'all')) {
