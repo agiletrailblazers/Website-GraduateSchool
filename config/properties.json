@@ -34,6 +34,10 @@
     "contentfulEntry_ContactUs":"6Av0MIjzZC2qIsGKUGyKS0",
     "contentfulEntry_InquiryForm":"80IOLAFnVuYGk6U4ocooC",
 
+    "certificateProgramCity":"City must be greater than 3 characters.",
+    "certificateProgramZip":"Zip must be greater than 5 characters.",
+    "certificateProgramState":"Please select a state.",
+
     "chatPages":"\/courses\/*|\/forms|\/search|\/forms/contact-us",
 
     "mailPageTitlePrefix":"Graduate%20School%20USA%20-%20",
