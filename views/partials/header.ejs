@@ -23,34 +23,36 @@
 					<div class="spacer"></div>
 					<div class="wrapper">
 						<div id="searchIcon">
-							<img alt="" src="/images/search.png" class="">
+							<img alt="" src="/images/search.png">
 						</div>
 
 						<div id="home-search" class="searchBox">
 							<form id="search-form" action="javascript:performCourseSearch();">
 								<div id="searchGroup" class="input-group">
-									<input type="text" id="searchCriteria" name="searchCriteria" class="form-control searchCriteria" placeholder="Search">
+									<input type="text" id="searchCriteria" name="searchCriteria" class="form-control searchCriteria" placeholder="Search" tabindex="1">
 									<span class="input-group-btn">
 										<button id="course-search-button" class="btn btn-default" type="submit">
 											<img alt="" src="/images/search.png">
 										</button>
 									</span>
 								</div>
-								<div id="advancedSearchBox" class="locations" style="display:none;">
-											<div class="container">
-												<div>
-													Or find a course by:
+								<div id="advancedSearchBox" class="advanced-box-filters" style="display:none;">
+											<div class="wrapper">
+												<div class="padding0">
+													<p class="search-box-intro">
+														Or find a course by:
+													</p>
 												</div>
-												<div class="">
-													<select id="selSearchLocation" class="form-control">
+												<div class="center-filter">
+													<select id="selSearchLocation" class="form-control" tabindex="2">
 															<option value="">Locations</option>
 															<% locations.forEach(function(location) { %>
 																<option value="<%= location %>"><%= location %></option>
 															<% }); %>
 													</select>
 												</div>
-												<div class="">
-													<select id="selCategorySubject" class="form-control">
+												<div class="center-filter">
+													<select id="selCategorySubject" class="form-control" tabindex="3">
 								            <option class="subject-item" value="all">Subject</option>
 								            <% for (categorySubjectFacetCounter = 0; categorySubjectFacetCounter < courseSubjectResult.length; categorySubjectFacetCounter++) {
 								              var courseSubject = courseSubjectResult[categorySubjectFacetCounter].courseSubject;
@@ -73,8 +75,8 @@
 								             } %>
 								          </select>
 												</div>
-												<div class="">
-													<p class="btn"><a class="search" href="#" role="button">Search <img src="/images/arrow.png" alt=""></a></p>
+												<div class="pull-right padding-top">
+													<p class="btn"><a id="search-button" class="search" href="#" role="button" tabindex="4">Search <img src="/images/arrow.png" alt=""></a></p>
 												</div>
 											</div>
 									 </div>

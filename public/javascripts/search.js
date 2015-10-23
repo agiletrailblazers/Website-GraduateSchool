@@ -4,10 +4,12 @@ function performCourseSearch() {
   }
 }
 
-$(document).on('change', '#selSearchLocation,#selCategorySubject', function() {
+//Search button on desktop for multiple filters 
+$(document).on("click","#search-button",function(event){
   location.href = "/search?search=" + $("#searchCriteria").val().trim() + "&cityState=" + $("#selSearchLocation").val()
     + "&categorySubject=" + $("#selCategorySubject").val();
 });
+
 
 // control collapse/expand function for Refine results -  mobile vs desktop
 $(document).ready(function(){
@@ -54,10 +56,11 @@ function performCourseSearchM() {
   }
 }
 
-$(document).on('change', '#selSearchLocationM', function() {
-  location.href = "/search?search=" + $("#searchCriteriaM").val().trim() + "&cityState=" + $("#selSearchLocationM").val();
+//Search button on mobile for multiple filters
+$(document).on("click","#search-buttonM",function(event){
+  location.href = "/search?search=" + $("#searchCriteriaM").val().trim() + "&cityState=" + $("#selSearchLocationM").val()
+    + "&categorySubject=" + $("#selCategorySubjectM").val();
 });
-
 
 //Displays search box and advanced filter on focus/mouse enter.
 $(document).ready(function(){
