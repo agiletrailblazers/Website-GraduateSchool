@@ -136,7 +136,6 @@ router.post('/mailer-request-proctor', function (req, res, next) {
 
 router.post('/mailer-request-certificate-program', function(req, res, next) {
   params = req.body;
-  console.log("in mailer request");
 
   switch (true) {
     case (params.formType === '/forms/certificate-program-application'):
@@ -153,13 +152,10 @@ router.post('/mailer-request-certificate-program', function(req, res, next) {
       break;
   }
   params.emailTo = config("properties").defaultEmailUserName;
-  console.log("after setting email", params.emailTo);
   routerService.validateCertificateProgramForms(function (response) {
-    console.log("Inside server validation");
     // Send email if there are no errors.
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
-      console.log("no server errors");
       google.verifyCaptcha(function (response) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success

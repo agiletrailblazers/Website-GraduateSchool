@@ -345,7 +345,6 @@ module.exports = {
   },
   validateCertificateProgramForms: function(callback, params) {
     response = {};
-    console.log("Validating certificate program forms");
     response.errors = {};
     // Validate params.firstName
     switch (true) {
@@ -418,7 +417,6 @@ module.exports = {
     if (!params.state) {
       response.errors.state = "Please select a state."
     }
-    console.log("Errors: ", response.errors);
     callback(response);
   }
 };

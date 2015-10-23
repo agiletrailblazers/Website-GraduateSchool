@@ -3,8 +3,8 @@
 
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
-    "defaultEmailUserName":"ikhan@agiletrailblazers.com",
-    "defaultEmailUserPassword":"changeM3!",
+    "defaultEmailUserName":"gs@agiletrailblazers.com",
+    "defaultEmailUserPassword":"",
     "defaultEmailFromUserName":"gs@agiletrailblazers.com",
     "contactUsToUserName":"gs@agiletrailblazers.com",
     "onsiteInquiryToUserName":"gs@agiletrailblazers.com",
@@ -15,6 +15,7 @@
     "proctorRequestToUserName":"gs@agiletrailblazers.com",
     "proctorRequestEmailSubject":"Request for Proctor",
     "customerFeedBackFormToUserName":"gs@agiletrailblazers.com",
+    "certificateProgramFormToUserName":"gs@agiletrailblazers.com",
     "customerFeedBackFormEmailSubject":"Customer FeedBack Form",
     "googleAnalyticsId":"UA-66851185-2",
 
