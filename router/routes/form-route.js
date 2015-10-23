@@ -153,7 +153,7 @@ router.get(
   ],
   function(req, res, next) {
     var entryId, fields, states;
-    var dataGroupID = '6bC5G37EOssooK4K2woUyg';
+    var dataGroupId = '6bC5G37EOssooK4K2woUyg';
     if (req.url === '/forms/certificate-program-application') {
       entryId = "3GzxTDiq5WEGguqwIou2O2";
     } else if (req.url === '/forms/certificate-program-progress-report') {
@@ -179,8 +179,7 @@ router.get(
       },
       function(callback) {
         logger.debug("Getting certificate program information");
-        var entryId = "6bC5G37EOssooK4K2woUyg";
-        contentful.getDataGrouping(entryId, function(response) {
+        contentful.getDataGrouping(dataGroupId, function(response) {
           selectBoxData = response;
           callback();
         });
