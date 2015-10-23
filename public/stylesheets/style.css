@@ -156,6 +156,34 @@ a.red:hover {
 }
 
 
+a.blueish, a.blueish:visited {
+    color: #FFF;
+    background-color: #427EB4 !important;
+    padding: 7px 15px;
+    box-shadow: none;
+    border: medium none;
+    border-radius: 2px;
+    font-weight: 400;
+    transition: background-color 300ms linear 0s;
+    font-size: 14px !important;
+    display: inline-block;
+    text-align: center;
+}
+
+a.blueish:hover, a.blueish:focus {
+    color: #FFF;
+    background-color: #195181 !important;
+    padding: 7px 15px;
+    box-shadow: none;
+    border: medium none;
+    border-radius: 2px;
+    font-weight: 400;
+    transition: background-color 300ms linear 0s;
+    font-size: 14px !important;
+    display: inline-block;
+    text-align: center;
+}
+
 a.breadcrumbs, a.breadcrumbs:visited {
   color: #FFF;
   text-decoration: none;

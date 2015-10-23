@@ -35,7 +35,7 @@
         <% if ( courseResult.courses[i].description.text !== null ) { %>
           <% if (courseResult.courses[i].code === null) { courseResult.courses[i].code = courseResult.courses[i].id.slice(0, -3); }%>
           <div id="course-result">
-            <h3><a href="/courses/<%= courseResult.courses[i].id %>"><%= courseResult.courses[i].code %> - <%= courseResult.courses[i].title %></a></h3>
+            <h3><a href="/courses/<%= courseResult.courses[i].id %>?location=<%= params.cityState %>"><%= courseResult.courses[i].code %> - <%= courseResult.courses[i].title %></a></h3>
             <div><%= prune(striptags(courseResult.courses[i].description.text), 300, "...") %></div>
             <div class="course-id"> <img src="../images/course-id-icon.png" alt="" /> Code: <strong><%= courseResult.courses[i].code %></strong> </div>
           </div>
