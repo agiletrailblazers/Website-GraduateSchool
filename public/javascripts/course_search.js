@@ -113,9 +113,9 @@ $(document).ready(function() {
   }
 
   function orderOptgroups() {
-    $("select").each(function() {
+    $("#categorySubject").each(function() {
       var $select = $(this);
-      var $groups = $select.find("optgroup");
+      var $groups = $select.find("optgroup ");
       $groups.remove();
       $groups = $groups.sort(function(g1, g2) {
         return g1.label.localeCompare(g2.label);
