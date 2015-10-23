@@ -105,9 +105,11 @@ $(document).ready(function() {
     .done(function(data) {
       $("#searchResults").replaceWith(data);
       $(".loading").hide();
+      orderOptgroups();
     })
     .fail(function(xhr, textStatus, errorThrown) {
       $(".loading").hide();
+      orderOptgroups();
       $("#searchResults").replaceWith('<div id="searchResults" class="col-lg-9 col-md-9 col-sm-8"><div id="alertError" class="alert alert-danger" role="alert">Search currently unavailable. Please try again.</div></div>');
     });
   }
