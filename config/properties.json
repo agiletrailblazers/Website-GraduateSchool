@@ -15,6 +15,7 @@
     "proctorRequestToUserName":"gs@agiletrailblazers.com",
     "proctorRequestEmailSubject":"Request for Proctor",
     "customerFeedBackFormToUserName":"gs@agiletrailblazers.com",
+    "certificateProgramFormToUserName":"gs@agiletrailblazers.com",
     "customerFeedBackFormEmailSubject":"Customer FeedBack Form",
     "googleAnalyticsId":"UA-66851185-2",
 
@@ -32,6 +33,16 @@
     "contentfulSpace_Main":"jzmztwi1xqvn",
     "contentfulEntry_ContactUs":"6Av0MIjzZC2qIsGKUGyKS0",
     "contentfulEntry_InquiryForm":"80IOLAFnVuYGk6U4ocooC",
+
+    "certificateProgramCity":"City must be greater than 3 characters.",
+    "certificateProgramZip":"Zip must be greater than 5 characters.",
+    "certificateProgramState":"Please select a state.",
+    "certificateProgramGroup": {
+      "applicationForm": "gs@agiletrailblazers.com",
+      "progressReport": "gs@agiletrailblazers.com",
+      "programCompletion": "gs@agiletrailblazers.com",
+      "waiverRequest" : "gs@agiletrailblazers.com"
+    },
 
     "chatPages":"\/courses\/*|\/forms|\/search|\/forms/contact-us",
 

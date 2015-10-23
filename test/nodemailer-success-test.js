@@ -159,3 +159,32 @@ test('nodemailer-test:CustomerSendToForm:success', function(t) {
 
   t.end();
 });
+
+test('nodemailer-test:CertificateProgramForm:success', function(t) {
+  var transport = nodemailer.createTransport(stubTransport());
+  mailer.setTransport(transport);
+  params = {};
+  params.other = {};
+  params.selectBox = {};
+  params.firstName = {};
+  params.lastName = {};
+  params.phone = {};
+  params.email = {};
+  params.mi = {};
+  params.formerLastName = {};
+  params.ssn = {};
+  params.dob = {};
+  params.fax = {};
+  params.city = {};
+  params.state = {};
+  params.country = {};
+  params.zip = {};
+  params.streetAddress = {};
+  params.suite = {};
+  params.comment = {};
+  mailer.sendCertificateProgram(function(response) {
+    expect(200).to.eql(response);
+  }, params);
+
+  t.end();
+});
