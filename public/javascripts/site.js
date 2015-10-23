@@ -3,11 +3,11 @@ $(document).on('click', '.gs .dropdown-menu', function(e) {
   e.stopPropagation()
 });
 
+
 //Navigation: Mobile
 	$(function() {
 		$('#dl-menu').dlmenu();
 	});
-
 
 
 //Print
@@ -20,7 +20,6 @@ $(document).ready(function() {
     document.location.href = $('#emailPage').data('href') + encodeURIComponent(document.location.href);
     return false;
   });
-
 });
 
 //Slider

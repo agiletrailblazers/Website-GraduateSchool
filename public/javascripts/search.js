@@ -1,17 +1,19 @@
+// Functions for DESKTOP version
+
+//Search function
 function performCourseSearch() {
   if ($("#searchCriteria").val().trim().length >= 1) {
     location.href = "/search?search=" + $("#searchCriteria").val().trim();
   }
 }
 
-//Search button on desktop for multiple filters 
+//Search button for multiple filters
 $(document).on("click","#search-button",function(event){
   location.href = "/search?search=" + $("#searchCriteria").val().trim() + "&cityState=" + $("#selSearchLocation").val()
     + "&categorySubject=" + $("#selCategorySubject").val();
 });
 
-
-// control collapse/expand function for Refine results -  mobile vs desktop
+//control collapse/expand function for Refine results -  mobile vs desktop
 $(document).ready(function(){
   $(window).bind('resize load', function() {
       if ($(this).width() < 767) {
@@ -47,16 +49,17 @@ $(document).mouseup(function(e)
 });
 
 
+
 // Functions for MOBILE version
 
-// Performs Search.
+//Search function
 function performCourseSearchM() {
   if ($("#searchCriteriaM").val().trim().length >= 1) {
     location.href = "/search?search=" + $("#searchCriteriaM").val().trim();
   }
 }
 
-//Search button on mobile for multiple filters
+//Search button for multiple filters
 $(document).on("click","#search-buttonM",function(event){
   location.href = "/search?search=" + $("#searchCriteriaM").val().trim() + "&cityState=" + $("#selSearchLocationM").val()
     + "&categorySubject=" + $("#selCategorySubjectM").val();
