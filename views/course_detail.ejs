@@ -96,7 +96,7 @@
               <th><%= content.sessionTable[3] %></th>
               <th></th>
             </tr>
-            <% if (courseData.session.status === 404) { %>
+            <% if (courseData.session.length === 0) { %>
               <tr><td colspan="5"><%= content.noSessionsError %></td></tr>
             <% } else { %>
             <% courseData.session.forEach(function(session) { %>

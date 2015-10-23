@@ -48,7 +48,7 @@ router.get('/courses/:course_id', function(req, res, next){
           callback();
         } else {
           logger.error("No course sessions found for course: " + courseId);
-          courseData.session = {status: 404, text: "No courses found."}
+          courseData.session = []; //return empty array
           callback();
         }
       }, courseId);
@@ -74,7 +74,7 @@ router.get('/courses/:course_id', function(req, res, next){
     	}
       //check if we should initially filter courses by location
       courseData.session.forEach(function(session) {
-        if (location == null || location === "" || location === session.location["city"] + ', ' + session.location["state"]) {
+        if (location == null || location === "" || location === 'all' || location === session.location["city"] + ', ' + session.location["state"]) {
           session.hide = false;
         }
         else {

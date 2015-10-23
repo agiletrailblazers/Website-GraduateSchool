@@ -30,18 +30,20 @@ tableApp = {
     var filteredList = $('.courseDetailSessionRow[data-rowhide="false"]:lt(' + limit + ')');
     filteredList.show();
     $('#currentCount').text(filteredList.length);
-    if(courseSessionLength > limit) {
+    if(courseSessionLength > limit || courseSessionLength > filteredList.length) {
       $("#loadMore").show();
     }
   },
-  showAll: function() {
+  showAll: function(limit) {
     var unfilteredList = $(".courseDetailSessionRow");
     unfilteredList.fadeIn();
     $('#currentCount').text(unfilteredList.length);
     $("#loadMore").fadeOut();
-    $("#showLess").fadeIn();
+    if (unfilteredList.length > limit) {
+      $("#showLess").fadeIn();
+    }
   },
-  hideAll: function() {
+  hideAll: function(limit) {
     $("#loadMore").fadeIn();
     $("#showLess").fadeOut();
   }
@@ -54,15 +56,17 @@ tablemobApp = {
     var filteredList = $('.mob-courseDetailSessionRow[data-rowhide="false"]:lt(' + limit + ')');
     filteredList.show();
     $('#mCurrentCount').text(filteredList.length);
-    if(courseSessionLength > limit) {
+    if(courseSessionLength > limit || courseSessionLength > filteredList.length) {
       $("#mob-showAll").show();
     }
     $('#mob-showAll').click(function() {
       var unfilteredList = $('.mob-courseDetailSessionRow');
       unfilteredList.show();
       $('#mCurrentCount').text(unfilteredList.length);
-      $('#mob-showLess').show();
       $('#mob-showAll').hide();
+      if (unfilteredList.length > limit) {
+        $('#mob-showLess').show();
+      }
       tablemobApp.mobileDetaillExpandReset();
     });
     $('#mob-showLess').click(function() {
@@ -93,13 +97,13 @@ $(document).ready(function() {
   tableApp.limitTable(tableApp.limit);
   $("#loadMore").click(function(e) {
     e.preventDefault();
-    tableApp.showAll();
+    tableApp.showAll(tableApp.limit);
   });
   $("#showLess").click(function(e) {
     e.preventDefault();
     $('.courseDetailSessionRow:gt(' + (tableApp.limit - 1) + ')').fadeOut();
     $('#currentCount').text($('.courseDetailSessionRow:lt(' + tableApp.limit + ')').length);
-    tableApp.hideAll();
+    tableApp.hideAll(tableApp.limit);
   });
 
   tablemobApp.limitSessions(5);
