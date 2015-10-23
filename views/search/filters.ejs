@@ -26,31 +26,6 @@
               </span>
               <hr>
             </span>
-            <span class="form-group <%= (params.tab != 'course') ? 'hidden' : '' %>" data-showfor="course" data-hidefor="site">
-              <%
-              var g2gFacetCount = 0;
-              var g2gChecked = "";
-              var g2gDisabled = "";
-              if (courseResult && courseResult.statusFacets) {
-                var statusKeys = Object.keys(courseResult.statusFacets);
-                for (i=0; i < statusKeys.length; i++) {
-                  if (statusKeys[i] === 'C') {
-                    g2gFacetCount = courseResult.statusFacets[statusKeys[i]];
-                  }
-                }
-                if (params.selectedG2G === 'true') {
-                  g2gChecked = "checked";
-                }
-                if (g2gFacetCount == 0) {
-                  g2gDisabled = "disabled";
-                }
-              }
-              %>
-              <div class="wrapper padding-top padding-bottom">
-                <input type="checkbox" id="G2G" name="G2G"  value="" <%= g2gChecked %> <%= g2gDisabled %> /><label for="G2G" class="g2g-checkbox"><strong><span class="label label-success">G</span> Guaranteed To Go</strong>&nbsp;(<%= g2gFacetCount %>) </label><br>
-              </div>
-              <hr>
-            </span>
             <span class="form-group" data-showfor="course">
               <p>Location <a id="clearLocation" href="#" class="checkbox-clear">clear</a></p>
               <select id="selLocation" class="form-control">
@@ -133,6 +108,31 @@
                      } %>
                    </select>
                  <hr>
+            </span>
+            <span class="form-group <%= (params.tab != 'course') ? 'hidden' : '' %>" data-showfor="course" data-hidefor="site">
+              <%
+              var g2gFacetCount = 0;
+              var g2gChecked = "";
+              var g2gDisabled = "";
+              if (courseResult && courseResult.statusFacets) {
+                var statusKeys = Object.keys(courseResult.statusFacets);
+                for (i=0; i < statusKeys.length; i++) {
+                  if (statusKeys[i] === 'C') {
+                    g2gFacetCount = courseResult.statusFacets[statusKeys[i]];
+                  }
+                }
+                if (params.selectedG2G === 'true') {
+                  g2gChecked = "checked";
+                }
+                if (g2gFacetCount == 0) {
+                  g2gDisabled = "disabled";
+                }
+              }
+              %>
+              <div class="wrapper padding-top padding-bottom">
+                <input type="checkbox" id="G2G" name="G2G"  value="" <%= g2gChecked %> <%= g2gDisabled %> /><label for="G2G" class="g2g-checkbox"><strong><span class="label label-success">G</span> Guaranteed To Go</strong>&nbsp;(<%= g2gFacetCount %>) </label><br>
+              </div>
+              <hr>
             </span>
           </div>
         </div>
