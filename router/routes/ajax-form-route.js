@@ -139,16 +139,16 @@ router.post('/mailer-request-certificate-program', function(req, res, next) {
 
   switch (true) {
     case (params.formType === '/forms/certificate-program-application'):
-      params.emailTo = ""; //NOTE: Most likely an array of receiptants.
+      params.emailTo = config("properties").certificateProgramGroup.applicationForm;
       break;
     case (params.formType === '/forms/certificate-program-progress-report'):
-      params.emailTo = "";
+      params.emailTo = config("properties").certificateProgramGroup.progressReport;
       break;
     case (params.formType === '/forms/certificate-completion'):
-      params.emailTo = "";
+      params.emailTo = config("properties").certificateProgramGroup.programCompletion;
       break;
     case (params.formType === '/forms/certificate-program-waiver-request'):
-      params.emailTo = "";
+      params.emailTo = config("properties").certificateProgramGroup.waiverRequest;
       break;
   }
   params.emailTo = config("properties").defaultEmailUserName;

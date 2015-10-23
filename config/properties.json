@@ -37,6 +37,12 @@
     "certificateProgramCity":"City must be greater than 3 characters.",
     "certificateProgramZip":"Zip must be greater than 5 characters.",
     "certificateProgramState":"Please select a state.",
+    "certificateProgramGroup": {
+      "applicationForm": "gs@agiletrailblazers.com",
+      "progressReport": "gs@agiletrailblazers.com",
+      "programCompletion": "gs@agiletrailblazers.com",
+      "waiverRequest" : "gs@agiletrailblazers.com"
+    },
 
     "chatPages":"\/courses\/*|\/forms|\/search|\/forms/contact-us",
 

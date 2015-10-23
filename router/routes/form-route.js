@@ -184,8 +184,6 @@ router.get(
           callback();
         });
       }
-      // TODO: Unit testing for new forms (is this really needed since it uses a previous funtion?)
-      // TODO: Unit testing for data grouping function.
     ], function(results) {
       res.render('forms/certificate_program_forms', {
         title: fields.sectionTitle,

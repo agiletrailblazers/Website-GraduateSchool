@@ -9,5 +9,12 @@
     "contactUsToUserName":"Customersupport@graduateschool.edu,John.Peppard@graduateschool.edu",
     "onsiteInquiryToUserName":"onsite@graduateschool.edu",
 
+    "certificateProgramGroup": {
+      "applicationForm": "certificates@graduateschool.edu, niki.jackson-blake@graduateschool.edu, carolyn.nelson@graduateschool.edu",
+      "progressReport": "certificates@graduateschool.edu, Ashley.Hart@graduateschool.edu, carolyn.nelson@graduateschool.edu",
+      "programCompletion": "certificates@graduateschool.edu, niki.jackson-blake@graduateschool.edu, carolyn.nelson@graduateschool.edu",
+      "waiverRequest" : "certificates@graduateschool.edu, carolyn.nelson@graduateschool.edu"
+    },
+
     "googleAnalyticsId":"UA-66851185-1"
 }
