@@ -27,13 +27,17 @@ tableApp = {
   limitTable: function(limit) {
     $(".courseDetailSessionRow, #loadMore, #showLess").hide();
     courseSessionLength = $("#courseSessionTable").data('totaltr');
-    $('.courseDetailSessionRow:lt(' + limit + ')').show();
+    var filteredList = $('.courseDetailSessionRow[data-rowhide="false"]:lt(' + limit + ')');
+    filteredList.show();
+    $('#currentCount').text(filteredList.length);
     if(courseSessionLength > limit) {
       $("#loadMore").show();
     }
   },
   showAll: function() {
-    $(".courseDetailSessionRow").fadeIn();
+    var unfilteredList = $(".courseDetailSessionRow");
+    unfilteredList.fadeIn();
+    $('#currentCount').text(unfilteredList.length);
     $("#loadMore").fadeOut();
     $("#showLess").fadeIn();
   },
@@ -47,20 +51,40 @@ tablemobApp = {
   limitSessions: function(limit) {
     $(".mob-courseDetailSessionRow, #mob-loadMore, #mob-showLess").hide();
     courseSessionLength = $("#mob-courseSessionTable").data('totaltr');
-    $('.mob-courseDetailSessionRow:lt(' + limit + ')').show();
+    var filteredList = $('.mob-courseDetailSessionRow[data-rowhide="false"]:lt(' + limit + ')');
+    filteredList.show();
+    $('#mCurrentCount').text(filteredList.length);
     if(courseSessionLength > limit) {
       $("#mob-showAll").show();
     }
     $('#mob-showAll').click(function() {
-      $('.mob-courseDetailSessionRow').show();
+      var unfilteredList = $('.mob-courseDetailSessionRow');
+      unfilteredList.show();
+      $('#mCurrentCount').text(unfilteredList.length);
       $('#mob-showLess').show();
       $('#mob-showAll').hide();
+      tablemobApp.mobileDetaillExpandReset();
     });
     $('#mob-showLess').click(function() {
       $('.mob-courseDetailSessionRow').not(':lt(' + limit + ')').hide();
+      $('#mCurrentCount').text($('.mob-courseDetailSessionRow:lt(' + limit + ')').length);
       $('#mob-showAll').show();
       $('#mob-showLess').hide();
+      tablemobApp.mobileDetaillExpandReset();
     });
+  },
+  initialMobileDetailExpand: function() {
+    //expand the first non-hidden section
+    $(".sessionExpand[data-rowhide='false']").eq(0).removeClass('collapsed');
+    $(".mySession[data-rowhide='false']").eq(0).addClass("in");
+  },
+  mobileDetaillExpandReset: function() {
+    //collapse all sections
+    $(".sessionExpand").addClass('collapsed');
+    $(".mySession").removeClass("in");
+    //now expand only the first section
+    $(".sessionExpand").eq(0).removeClass('collapsed');
+    $(".mySession").eq(0).addClass("in");
   }
 }
 
@@ -74,6 +98,7 @@ $(document).ready(function() {
   $("#showLess").click(function(e) {
     e.preventDefault();
     $('.courseDetailSessionRow:gt(' + (tableApp.limit - 1) + ')').fadeOut();
+    $('#currentCount').text($('.courseDetailSessionRow:lt(' + tableApp.limit + ')').length);
     tableApp.hideAll();
   });
 
@@ -99,8 +124,7 @@ $(document).ready(function() {
   $('#mapModal').on('hidden.bs.modal', function() {
     $("#modalSessionLocationSpan, #mapAlert").remove();
   });
-
-  $(".sessionExpand").eq(0).removeClass('collapsed');
+  tablemobApp.initialMobileDetailExpand();
 
   $(function () {
       $('#accordion2').on('shown.bs.collapse', function (e) {
