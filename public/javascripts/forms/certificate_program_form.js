@@ -48,13 +48,13 @@ Validate = {
   zip: function() {
     var input = $("#txtZip").val();
     // TODO: Regex to see if it is only numbers.
-    if (input.trim.length < 5) {
+    if (input.trim().length < 5) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Zip code is incorrect.</p>");
     }
   },
   streetAddress: function() {
     var input = $("#txtStreet").val();
-    if (input.trim.length < 3) {
+    if (input.trim().length < 3) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Street address must be at least 3 characters.</p>");
     }
   },
@@ -120,7 +120,7 @@ $(document).ready(function() {
       data.certificate = $("#txtCertName").val();
     }
     data.captchaResponse = $("#g-recaptcha-response").val();
-    if (!$("#alertError p").length) {
+    if ($("#alertError p").length == 0) {
       $(".loading").show();
       $.post("/mailer-request-certificate-program", data)
         .done(function(data) {

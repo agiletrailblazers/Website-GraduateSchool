@@ -206,7 +206,7 @@ module.exports = {
       }
       var mailAttributes = {
         from: config("properties").defaultEmailFromUserName,
-        to: params.email,
+        to: config("properties").certificateProgramFormToUserName,
         subject: config("properties"),// TODO: Add config for subject title.
         text: results.text,
         html: results.html

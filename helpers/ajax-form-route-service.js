@@ -348,28 +348,28 @@ module.exports = {
     response.errors = {};
     // Validate params.firstName
     switch (true) {
-      case (params.student.firstName.length === 0):
+      case (params.firstName.length === 0):
         response.errors.firstName = "First name is empty.";
         break;
-      case (!validator.isLength(params.student.firstName.trim(), 3)):
+      case (!validator.isLength(params.firstName.trim(), 3)):
         response.errors.firstName = "First name must be at least 3 characters.";
         break;
     }
     // Validate params.lastName
     switch (true) {
-      case (!params.student.lastName):
+      case (!params.lastName):
         response.errors.lastName = "Last name is empty.";
         break;
-      case (!validator.isLength(params.student.lastName.trim(), 3)):
+      case (!validator.isLength(params.lastName.trim(), 3)):
         response.errors.lastName = "Last name must be at least 3 characters.";
         break;
     }
     // Validate params.email
     switch (true) {
-      case (!params.student.email):
+      case (!params.email):
         response.errors.email = "Email is empty.";
         break;
-      case (!validator.isEmail(params.student.email.trim())):
+      case (!validator.isEmail(params.email.trim())):
         response.errors.email = "Email is in the wrong format.";
         break;
     }
@@ -417,5 +417,6 @@ module.exports = {
     if (!params.state) {
       response.errors.state = "Please select a state."
     }
+    callback(response);
   }
 };
