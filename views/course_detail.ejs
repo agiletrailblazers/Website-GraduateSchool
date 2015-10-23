@@ -84,9 +84,7 @@
     <!-- COURSE SESSSION SCHEDULE TABLE -->
     <div class="non-mobile">
     <div class="table-responsive">
-        <div>
-          <span>Displaying <span id="currentCount"></span> of <span id="totalCount"><%= courseData.session.length %></span> </span>
-        </div>
+
         <table id="courseSessionTable" class="table table-striped session-schedule" data-totaltr="<%= courseData.session.length %>">
           <thead>
             <tr>
@@ -136,18 +134,25 @@
                 <% } %>
               </tr>
             <% }); %>
+            <tr>
+              <td colspan="5" class="show-more">
+                <span class="display-of-sessions">Displaying <span id="currentCount"></span> of <span id="totalCount"><%= courseData.session.length %> sessions</span> </span>
+                <a id="loadMore" class="blueish"> Show All </a>  <a id="showLess" class="blueish"> Show Less</a>
+              </td>
+            </tr>
           <% } %>
           </thead>
         </table>
       </div>
       <div class="row padding10">
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 pull-right padding">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right padding">
+
           <div class="table-nav right">
-                <a id="loadMore">Show All</a>  <a id="showLess">Show Less</a>
+
           </div>
         </div><!-- End of right column -->
         <!-- LEGEND-->
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 padding legend">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding legend">
           <div><span class="legend-title">Legend</span>
             <ul>
               <li><span class="label label-info">O</span>Registration open</li>
@@ -219,7 +224,6 @@
             <div class="panel panel-default course-detail">
               <div class="panel-heading course-detail">
                   <a data-toggle="collapse" href="#session-schedule-mob"><h4 class="panel-title"><%= content.sessionTable[0] %></h4></a>
-                  <span>Displaying <span id="mCurrentCount"></span> of <span id="totalCount"><%= courseData.session.length %></span> </span>
               </div>
               <div id="session-schedule-mob" class="panel-collapse collapse in">
                 <div class="panel-body nopadding">
@@ -293,18 +297,19 @@
                               </div>
                           </div>
                           <% }); %>
+                          <div class="panel-heading show-more">
+                                  <span class="display-of-sessions">Displaying <span id="mCurrentCount"></span> of <span id="totalCount"><%= courseData.session.length %></span> </span>
+                                  <a id="mob-showAll" class="blueish">Show All</a>   <a id="mob-showLess" class="blueish">Show Less</a>
+                          </div>
                         <% } %>
+
+
                    </div> <!-- End of column  -->
                 </div>
               </div>
             </div>
           </div>
       <div class="row padding10">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right padding10">
-          <div class="right">
-                <a id="mob-showAll">Show All</a>   <a id="mob-showLess">Show Less</a>
-          </div>
-        </div><!-- End of right column -->
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding10 legend-mobile">
           <div><span class="legend-title">Legend</span>
             <ul>

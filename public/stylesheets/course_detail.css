@@ -384,3 +384,22 @@ hr.course-session {
     color: #FFF;
     margin-top: -35px !important;
 }
+
+table.session-schedule td.show-more, .show-more {
+  background-color: #FFF !important;
+  color: #333;
+  padding: 20px !important;
+}
+
+.show-more {
+  display: relative;
+  text-align: center;
+  margin: 0px auto;
+}
+
+
+span.display-of-sessions {
+  padding: 5px 20px;
+  display: inline-block;
+  color: #555;
+}
