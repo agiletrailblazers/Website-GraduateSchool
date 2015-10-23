@@ -6,8 +6,6 @@ var striptags = require('striptags');
 var moment = require('moment');
 var router = express.Router();
 var logger = require('../../logger');
-var facebook = require('../../API/facebook.js');
-var twitter = require('../../API/twitter.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -53,8 +51,6 @@ router.get('/', function(req, res, next) {
     name: 'Home Page',
     slider: data.slider,
     news: data.news,
-    facebook: data.facebookPosts,
-    tweets: data.tweets,
     testimonial: data.testimonial,
     alert: data.alert,
     striptags: striptags,

@@ -22,9 +22,9 @@
           <div id="contact-information">
             <form>
               <div class="form-inline">
-                <div class="form-group"> <p>
-                  <%= topParagraph %>
-                </p></div>
+                <div class="form-group">
+                  <p><%= topParagraph %></p>
+                </div>
               </div>
               <div class="form-inline">
                 <div class="form-group">
@@ -40,7 +40,6 @@
                 <label for="radioEmail">Email</label>
                 <input type="radio" name="radCommunication" id="radioPhone" value="Phone" />
                 <label for="radioPhone">Phone</label>
-
                 <div id="emailGroup">
                   <label for="inputEmail">Email</label>
                   <input id="txtEmail" name="email" type="email" maxlength="255" required class="form-control">
@@ -87,7 +86,6 @@
           </div>
           <!-- contact information div -->
         </div>
-
         <% if (relatedLinks && relatedLinks.length > 0) { %>
         <div class="col-lg-3 col-md-3 col-sm-12" id="sidebar">
           <div class="panel-group">

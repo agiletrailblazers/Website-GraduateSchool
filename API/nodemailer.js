@@ -12,6 +12,7 @@ var requestduplicateTemplate = new EmailTemplate(path.join(templatesDir, 'reques
 var requestProctorTemplate = new EmailTemplate(path.join(templatesDir, 'requestProctor-email'));
 var customerFeedBackTemplate = new EmailTemplate(path.join(templatesDir, 'customerfeedback-email'));
 var customerTemplate = new EmailTemplate(path.join(templatesDir, 'customer-email'));
+var certificateProgramTemplate = new EmailTemplate(path.join(templatesDir, 'certificate-program'));
 
 var smtp = {
   host: config("properties").defaultEmailServerName,
@@ -182,6 +183,31 @@ module.exports = {
         from: config("properties").defaultEmailFromUserName,
         to: params.email,
         subject: config("properties").customerFeedBackFormEmailSubject,
+        text: results.text,
+        html: results.html
+      };
+      transporter.sendMail(mailAttributes, function (error, info) {
+        if (error) {
+          logger.error(error);
+          return callback(500);
+        }
+        logger.info('Message sent: ' + info.response);
+        return callback(200);
+      });
+    });
+  },
+  sendCertificateProgram: function (callback, params) {
+    logger.debug("SMTP sending to: " + smtp);
+    certificateProgramTemplate.render(params, function(err, results) {
+      logger.info("Starting mail send");
+      if (err) {
+        logger.error(err);
+        return callback(500);
+      }
+      var mailAttributes = {
+        from: config("properties").defaultEmailFromUserName,
+        to: config("properties").certificateProgramFormToUserName,
+        subject: config("properties"),// TODO: Add config for subject title.
         text: results.text,
         html: results.html
       };
