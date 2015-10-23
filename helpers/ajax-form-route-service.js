@@ -394,10 +394,10 @@ module.exports = {
     // Validate Zip
     switch (true) {
       case (!params.zip):
-        response.errors.zip = "City is empty."
+        response.errors.zip = "Zip is empty."
         break;
       case (!validator.isLength(params.zip.trim(), 5)):
-        response.errors.zip = "Zip must be 5 or more characters."
+        response.errors.zip = "Zip must be greater than 5 characters."
         break;
     }
     // Validate Street Address
@@ -406,7 +406,7 @@ module.exports = {
         response.errors.streetAddress = "Street Address is empty."
         break;
       case (!validator.isLength(params.streetAddress.trim(), 3)):
-        response.errors.streetAddress = "Street Address must be 3 or more characters."
+        response.errors.streetAddress = "Street Address must be greater than 3 characters."
         break;
     }
     // Validate Certificate
