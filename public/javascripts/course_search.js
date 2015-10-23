@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+  orderOptgroups();
+
   //Important to use live events since we dynamically update page content
   $(document).on('change', 'select.itemsPerPage, select#selLocation,select#categorySubject', function() {
     $('.itemsPerPage').val($(this).val());
@@ -107,6 +109,27 @@ $(document).ready(function() {
     .fail(function(xhr, textStatus, errorThrown) {
       $(".loading").hide();
       $("#searchResults").replaceWith('<div id="searchResults" class="col-lg-9 col-md-9 col-sm-8"><div id="alertError" class="alert alert-danger" role="alert">Search currently unavailable. Please try again.</div></div>');
+    });
+  }
+
+  function orderOptgroups() {
+    $("select").each(function() {
+      var $select = $(this);
+      var $groups = $select.find("optgroup");
+      $groups.remove();
+      $groups = $groups.sort(function(g1, g2) {
+        return g1.label.localeCompare(g2.label);
+      });
+      $select.append($groups);
+      $groups.each(function() {
+        var $group = $(this);
+        var options = $group.find("option");
+        options.remove();
+        options = options.sort(function(a, b) {
+          return a.innerHTML.localeCompare(b.innerHTML);
+        });
+        $group.append(options);
+      });
     });
   }
 

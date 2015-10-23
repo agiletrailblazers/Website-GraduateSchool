@@ -89,7 +89,7 @@
             <span class="form-group" data-showfor="course">
               <p>Subject <a id="clearCategoriesSubject" href="#" class="checkbox-clear">clear</a></p>
                <select id="categorySubject" class="form-control">
-                 <option class="checkbox-clear" value="all">All</option>
+                 <option value="all">All</option>
                  <%
                  if (courseResult && courseResult.categorySubjectFacets && courseResult.categorySubjectFacets.length > 0) {
                    for (categorySubjectFacetCounter = 0; categorySubjectFacetCounter < courseResult.categorySubjectFacets.length; categorySubjectFacetCounter++) {
@@ -118,10 +118,12 @@
                            categorySubjectSelected = "selected";
                          }
                        %>
-                         <option class="checkbox-clear"
-                           value="<%= courseResult.categorySubjectFacets[categorySubjectFacetCounter].category + "/" + courseSubject[0].subject %>"
-                         <%= categorySubjectSelected %> ><%= courseSubject[0].subject %>&nbsp;(<%= courseSubject[0].count %>)
-                         </option>
+                         <optgroup label="<%= courseSubject[0].subject %> ">
+                          <option
+                            value="<%= courseResult.categorySubjectFacets[categorySubjectFacetCounter].category + "/" + courseSubject[0].subject %>"
+                          <%= categorySubjectSelected %> ><%= courseSubject[0].subject %>&nbsp;(<%= courseSubject[0].count %>)
+                          </option>
+                         </optgroup>
                         <% }
                        }
                      } else {
