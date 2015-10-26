@@ -58,7 +58,11 @@ router.get('/search', function(req, res, next){
       if (courseResult && courseResult.exactMatch && !params.partial) {
         //redirect to course details
         logger.debug("Exact course match found for " + courseResult.courses[0].id + " - Redirecting.")
-        res.redirect('courses/' + courseResult.courses[0].id);
+        var courseUrl = 'courses/' + courseResult.courses[0].id;
+        if (params.cityState != null) {
+          courseUrl = courseUrl + '?location=' + params.cityState
+        }
+        res.redirect(courseUrl);
       }
       else {
         //no search criteria given, this is a special case
