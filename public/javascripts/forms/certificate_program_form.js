@@ -64,6 +64,23 @@ Validate = {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Name on certificate must be at least 1 character.</p>");
     }
   },
+  ifOther: function() {
+    var input = $("#txtOther").val();
+    var pattern = new RegExp(/^[a-z0-9]+$/i);
+    if (!pattern.test(input)) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please use alphanumeric characters.</p>");
+    }
+  },
+  ssn: function() {
+    var input = $("[id^=txtSSN*]").toArray(); //TODO: See if this is write.
+    var pattern = new RegExp(/^[0-9]+$/i);
+    for (var i = 0; i < input.length; i++) {
+      if (!pattern.test(input[i].val())) {
+        $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> SSN must only be in numbers.</p>");
+        break;
+      }
+    }
+  }
   captcha: function() {
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
@@ -85,6 +102,10 @@ var _runValidation = function() {
   Validate.state();
   Validate.zip();
   Validate.captcha();
+  // TODO: Add if there is a value in ssn then validate...
+  if ($("#txtOther").val()) {
+    Validate.ifOther();
+  }
   if (window.location.pathname == "/forms/certificate-completion") {
     Validate.certificate();
   }
