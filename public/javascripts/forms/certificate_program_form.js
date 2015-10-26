@@ -1,7 +1,7 @@
 Validate = {
   firstName: function() {
     var input = $("#txtFirstName").val();
-    var noNumbersPattern = new RegExp(/^[^0-9]+$/);
+    var noNumbersPattern = new RegExp(/^[a-zA-Z]*$/);
     if (!noNumbersPattern.test(input)) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>First Name</strong> should not have numbers.</p>");
     }
@@ -11,7 +11,7 @@ Validate = {
   },
   lastName: function() {
     var input = $("#txtLastName").val();
-    var noNumbersPattern = new RegExp(/^[^0-9]+$/);
+    var noNumbersPattern = new RegExp(/^[a-zA-Z]*$/);
     if (!noNumbersPattern.test(input)) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Last Name</strong> should not have numbers.</p>");
     }
