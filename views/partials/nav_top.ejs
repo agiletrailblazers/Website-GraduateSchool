@@ -15,6 +15,7 @@
            <div class="tab-content col-lg-9 fix-padding-bottom">
               <% navigation.top.forEach(function(nav) { %>
                 <div class="tab-pane <%= nav.active %>" id="<%= nav.key %>">
+                <div class="wrapper non-mobile">
                   <% if (nav.sections) { %>
                     <% var subNavCount = 0; %>
                     <% nav.sections.forEach(function(subNav) { %>
@@ -22,7 +23,7 @@
                         <% if (subNavCount > 0) { %>
                           </div>  <%#-- close out last column (but never on first column) %>
                         <% } %>
-                        <div class="col-lg-4 col-md-2 col-sm-4">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
                       <% } %>
                         <h3><%= subNav.title %></h3>
                         <ul>
@@ -32,8 +33,25 @@
                         </ul>
                       <% subNavCount++; %>
                     <% }); %>
-                    </div> <%#-- close out last column %>
+                    </div> <%#-- close out last column %> <!-- close out last column -->
                   <% } %>
+                </div> <!-- END wrapper non-mobile -->
+                <div id="nav-top-mob" class="mobile">
+                  <% if (nav.sections) { %>
+                    <% nav.sections.forEach(function(subNav) { %>
+                      <div id="single-item" class="wrapper">
+                      <% var linkId = nav.key+'-'+subNav.title.replace(/[^a-zA-Z0-9]/g, '-').replace(/--/g, '-').replace(/\-$/, "");%>
+
+                      <a href="#<%= linkId %>" class="expand-section accordion-toggle" data-toggle="collapse">  <span class="glyphicon glyphicon-plus-sign"></span> <%= subNav.title %></a>
+                        <ul id="<%= linkId %>" class="collapse">
+                          <% subNav.links.forEach(function(link) { %>
+                            <li><a href="<%= link.url %>"><%= link.title %></a></li>
+                          <% }); %>
+                        </ul>
+                      </div>
+                    <% }); %>
+                  <% } %>
+                </div>
                 </div>
               <% }); %>
             </div>
@@ -132,3 +150,12 @@
        </div>
   </div><!-- END Search -->
 </div><!-- END Wrapper -->
+
+<script type="text/javascript">
+//Controls plus-minus sign on top nav on mobile
+$('.collapse').on('shown.bs.collapse', function(){
+  $(this).parent().find(".glyphicon-plus-sign").removeClass("glyphicon-plus-sign").addClass("glyphicon-minus-sign");
+}).on('hidden.bs.collapse', function(){
+  $(this).parent().find(".glyphicon-minus-sign").removeClass("glyphicon-minus-sign").addClass("glyphicon-plus-sign");
+});
+</script>
