@@ -18,6 +18,14 @@
 
     /* Medium Devices, Desktops */
     @media only screen and (max-width : 992px) {
+
+      .alertonmobile {
+        display: block;
+        position: relative !important;
+        margin: 10px 5px 20px 5px !important;
+        background: rgba(58,117,175,  0.25) !important;
+      }
+
       .mob-rem {
         display: none;
         visibility: hidden;
@@ -151,7 +159,12 @@
         width: 100%;
       }
 
-
+      .alertonmobile {
+        display: block;
+        position: relative !important;
+        margin: -10px 5px 20px 5px !important;
+        background: rgba(58,117,175,  0.25) !important;
+      }
 
       /* remove "CLEAR ALL" button from refine search sidebar on smaller res */
       .refine {
@@ -280,12 +293,6 @@
           margin: 0 !important;
        }
 
-       .alertonmobile {
-         display: block;
-         position: relative !important;
-         margin: -10px 5px 20px 5px !important;
-         background: rgba(58,117,175,  0.25) !important;
-       }
 
        /* top nav */
        .nav-top {

@@ -371,11 +371,6 @@ transition: background-color 300ms linear;
   transition: all 0.7s;
 }
 
-.navbar-fixed-top {
-    position: fixed !important;
-    top:0;
-    z-index: 1030;
-}
 
 /* TOP NAVIGATION */
 .fix {
@@ -391,7 +386,7 @@ transition: background-color 300ms linear;
 }
 
 .nav-top {
-  border-bottom: 3px solid #01274F;
+  border-bottom: 2px solid #01274F;
   background: transparent linear-gradient(to right, #2A4D77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274F 100%) repeat scroll 0% 0%;
   padding: 0;
   top:0;
@@ -525,7 +520,7 @@ position: relative;
 
 #nav-top-mob ul li {
   font-size: 14px;
-  color: #FFF;
+  color: #EEE;
   list-style: outside none none;
   padding: 0px;
   margin: 0px;
@@ -552,4 +547,36 @@ position: relative;
   color: #EEE !important;
   background: rgba(0, 0, 0, .4) !important;
   transition: background 300ms linear 0s !important;
+}
+
+#close-button {
+  top: 15px !important;
+  right: 10px !important;
+  position: absolute;
+
+}
+
+#close-button.toggle a {
+  top: 15px !important;
+  right: 10px !important;
+  float: right;
+  clear: both;
+  text-align: right;
+  background-color: #121212;
+  color: #EEE;
+  padding: 0px 8px;
+  border-radius: 25px;
+  font-size: 14px;
+}
+
+#close-button.toggle {
+  box-shadow: none !important;
+  z-index: 1000;
+  display: inline;
+  width: 24px !important;
+}
+
+#close-button.toggle a:hover {
+  background-color: #121212 !important;
+  color: #EEE;
 }

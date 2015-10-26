@@ -5,6 +5,7 @@
     <div id="nav-top">
       <div class="container npanel">
         <div class="fix">
+          <div id="close-button" class="toggle"><ul><li class="nav-toggle"><a href="#"> X </a></li></ul></div>
            <div class="left-panel col-lg-3">
                <ul class="nav nav-pills nav-stacked" id="tabs">
                    <li class="active"><a id="lnkCurrent" href="#current-students" data-toggle="tab"><img src="/images/current-students.png" alt="" class="size-fix" /> Students</a></li>
@@ -13,6 +14,7 @@
                </ul>
            </div>
            <div class="tab-content col-lg-9 fix-padding-bottom">
+
               <% navigation.top.forEach(function(nav) { %>
                 <div class="tab-pane <%= nav.active %>" id="<%= nav.key %>">
                 <div class="wrapper non-mobile">
@@ -74,8 +76,12 @@
             <li class="nav-toggle" data-tab="lnkCurrent"><a href="#">Quick Menu <img src="/images/quick-menu.png" alt="" class="user-icon" /></a></li>
           </ul>
         </div>
+
       </div><!-- END toggle -->
     </div>	<!-- END container -->
+
+
+
 </div> <!-- END TOP MENU - container-fluid nav-top -->
 </div>
 
@@ -150,12 +156,3 @@
        </div>
   </div><!-- END Search -->
 </div><!-- END Wrapper -->
-
-<script type="text/javascript">
-//Controls plus-minus sign on top nav on mobile
-$('.collapse').on('shown.bs.collapse', function(){
-  $(this).parent().find(".glyphicon-plus-sign").removeClass("glyphicon-plus-sign").addClass("glyphicon-minus-sign");
-}).on('hidden.bs.collapse', function(){
-  $(this).parent().find(".glyphicon-minus-sign").removeClass("glyphicon-minus-sign").addClass("glyphicon-plus-sign");
-});
-</script>
