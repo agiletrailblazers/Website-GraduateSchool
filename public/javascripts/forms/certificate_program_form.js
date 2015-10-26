@@ -74,6 +74,8 @@ Validate = {
 
 
 var _runValidation = function() {
+  $("#alertError").slideUp();
+  $("#alertError p").remove();
   Validate.firstName();
   Validate.lastName();
   Validate.email();
@@ -85,6 +87,9 @@ var _runValidation = function() {
   Validate.captcha();
   if (window.location.pathname == "/forms/certificate-completion") {
     Validate.certificate();
+  }
+  if ($("#alertError p").length) {
+    $("#alertError").slideDown("slow");
   }
 }
 
@@ -105,7 +110,11 @@ $(document).ready(function() {
     data.mi = $("#txtMI").val();
     data.formerLastName = $("#txtFormerLastName").val();
     data.ssn = $("#txtSSNa").val() +'-'+ $("#txtSSNb").val() +'-'+ $("#txtSSNc").val();
-    data.dob = $("#month").val() +'/'+ $("#day").val() +'/'+ $("#txtYear").val();
+    if( $("#month").val() || $("#day").val() || $("#txtYear").val()) {
+      data.dob = $("#month").val() +'/'+ $("#day").val() +'/'+ $("#txtYear").val();
+    } else {
+      data.dob = "";
+    }
     data.email = $("#txtEmail").val();
     data.phone = $("#txtPhone").val();
     data.fax = $("#txtFax").val();
@@ -127,6 +136,11 @@ $(document).ready(function() {
           $(".loading").hide();
           alertify.success("Email sent!")
           $("#alertSuccess").toggle();
+          if( (data.firstName != '' && data.firstName != null && typeof(data.firstName) != 'undefined') ) {
+            $("#txtCustomerName").text(data.firstName);
+          } else {
+            $("#txtCustomerName").text("Valued Customer");
+          }
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();

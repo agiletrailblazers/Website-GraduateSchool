@@ -10,10 +10,22 @@
     "onsiteInquiryToUserName":"onsite@graduateschool.edu",
 
     "certificateProgramGroup": {
-      "applicationForm": "certificates@graduateschool.edu, niki.jackson-blake@graduateschool.edu, carolyn.nelson@graduateschool.edu",
-      "progressReport": "certificates@graduateschool.edu, Ashley.Hart@graduateschool.edu, carolyn.nelson@graduateschool.edu",
-      "programCompletion": "certificates@graduateschool.edu, niki.jackson-blake@graduateschool.edu, carolyn.nelson@graduateschool.edu",
-      "waiverRequest" : "certificates@graduateschool.edu, carolyn.nelson@graduateschool.edu"
+      "applicationForm": {
+        "email": "certificates@graduateschool.edu, niki.jackson-blake@graduateschool.edu, carolyn.nelson@graduateschool.edu",
+        "subject": "Incoming Application Form Request"
+      },
+      "progressReport": {
+        "email": "certificates@graduateschool.edu, Ashley.Hart@graduateschool.edu, carolyn.nelson@graduateschool.edu",
+        "subject": "Incoming Progress Report Request"
+      },
+      "programCompletion": {
+        "email": "certificates@graduateschool.edu, niki.jackson-blake@graduateschool.edu, carolyn.nelson@graduateschool.edu",
+        "subject": "Incoming Certificate of Program Completion Request"
+      },
+      "waiverRequest" : {
+        "email": "certificates@graduateschool.edu, carolyn.nelson@graduateschool.edu",
+        "subject": "Incoming Waiver Request"
+      }
     },
 
     "googleAnalyticsId":"UA-66851185-1"

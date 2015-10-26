@@ -24,6 +24,7 @@
         <div class="form-inline">
           <span class="form-group">
             <select id="selectBox" class="form-control" style="width: 270px;"  tabindex="1">
+              <option selected disabled>*Please Select One</option>
             <% selectBox.fields.data.forEach(function(option){ %>
                 <option value="<%= option %>"><%= option %></option>
              <% }); %>
@@ -71,9 +72,10 @@
                 <label for="txtSSN" class="ssn-title">SSN</label>
                 <input type="text" id="txtSSNa" class="form-control" size="5" maxlength="3" tabindex="8" > <input type="text" id="txtSSNb" class="form-control" size="2"  maxlength="2" tabindex="9">
                 <input type="text" id="txtSSNc" class="form-control" size="4" maxlength="4" tabindex="10" >
+                <div class="alert alert-info" role="alert">To insure that your records are complete and accurate, and to prevent multiple mailings, please include your SSN and date of birth. View our <a href="/content/privacy-policy-and-release-of-student-information">security and privacy information</a>.</div>
               </span>
               <span class="form-group ssn">
-                <label for="txtSSN" class="ssn-title">Date of birth</label>
+                <label for="dateBirth" class="ssn-title">Date of birth</label>
                 <select id="month" name="month" class="form-control" tabindex="11">
                     <option value='' default selected>Month</option>
                 <% for (var i = 1; i <= 12; i++) { %>
@@ -171,6 +173,14 @@
               <br>
           </form>
         </div> <!-- END Certificate Program Form -->
+        <div id="alertSuccess" class="alert alert-success" role="alert" style="display:none;">
+            <p><strong>Thank You <span id="txtCustomerName"></span>,</strong></p>
+            <p>Graduate School USA welcomes and values your feedback!</p>
+            <p>One of our Customer Service Representatives will read and address your comments personally. As this may often
+              require some time for research before replying, please know we are working to respond to you as quickly as
+              possible.</p>
+            <p>If your request is time-sensitive, you may wish to contact Customer Support Center at <a href="tel:18887444723">1.888.744.GRAD(4723)</a>.</p>
+      </div>
       </div>
 
     </div><!-- END  Row -->
