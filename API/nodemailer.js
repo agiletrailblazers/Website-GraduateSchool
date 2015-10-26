@@ -198,6 +198,7 @@ module.exports = {
   },
   sendCertificateProgram: function (callback, params) {
     logger.debug("SMTP sending to: " + smtp);
+    logger.debug("SMTP params: " + params);
     certificateProgramTemplate.render(params, function(err, results) {
       logger.info("Starting mail send");
       if (err) {

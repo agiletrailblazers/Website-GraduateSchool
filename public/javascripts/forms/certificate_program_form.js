@@ -135,12 +135,13 @@ $(document).ready(function() {
         .done(function(data) {
           $(".loading").hide();
           alertify.success("Email sent!")
-          $("#alertSuccess").toggle();
+          $(".certificate-program-form").toggle();
           if( (data.firstName != '' && data.firstName != null && typeof(data.firstName) != 'undefined') ) {
             $("#txtCustomerName").text(data.firstName);
           } else {
             $("#txtCustomerName").text("Valued Customer");
           }
+          $("#alertSuccess").slideDown();
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();

@@ -155,7 +155,6 @@ router.post('/mailer-request-certificate-program', function(req, res, next) {
       params.emailSubject = config("properties").certificateProgramGroup.waiverRequest.subject;
       break;
   }
-  params.emailTo = config("properties").defaultEmailUserName;
   routerService.validateCertificateProgramForms(function (response) {
     // Send email if there are no errors.
     if (Object.keys(response.errors).length === 0) {
