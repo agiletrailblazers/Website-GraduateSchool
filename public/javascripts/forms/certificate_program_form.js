@@ -74,6 +74,8 @@ Validate = {
 
 
 var _runValidation = function() {
+  $("#alertError").slideUp();
+  $("#alertError p").remove();
   Validate.firstName();
   Validate.lastName();
   Validate.email();
@@ -85,6 +87,9 @@ var _runValidation = function() {
   Validate.captcha();
   if (window.location.pathname == "/forms/certificate-completion") {
     Validate.certificate();
+  }
+  if ($("#alertError p").length) {
+    $("#alertError").slideDown("slow");
   }
 }
 
@@ -110,7 +115,6 @@ $(document).ready(function() {
     } else {
       data.dob = "";
     }
-
     data.email = $("#txtEmail").val();
     data.phone = $("#txtPhone").val();
     data.fax = $("#txtFax").val();
