@@ -136,6 +136,11 @@ $(document).ready(function() {
           $(".loading").hide();
           alertify.success("Email sent!")
           $("#alertSuccess").toggle();
+          if( (data.firstName != '' && data.firstName != null && typeof(data.firstName) != 'undefined') ) {
+            $("#txtCustomerName").text(data.firstName);
+          } else {
+            $("#txtCustomerName").text("Valued Customer");
+          }
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();
