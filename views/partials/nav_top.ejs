@@ -1,63 +1,134 @@
-  <!-- TOP NAVIGATION -->
-<div class="container-fluid nav-top navbar-fixed-top" id="top-menu">
-  <div class="container padding0">
-  <!-- START TOP PANEL -->
-    	<div id="nav-top">
-    		<div class="container npanel">
-          <div class="fix">
-             <div class="left-panel col-lg-3">
-                 <ul class="nav nav-pills nav-stacked" id="tabs">
-                     <li class="active"><a id="lnkCurrent" href="#current-students" data-toggle="tab"><img src="/images/current-students.png" alt="" class="size-fix" /> Students</a></li>
-                     <li ><a id="lnkProspective" href="#prospective-students" data-toggle="tab"><img src="/images/prospective-students.png" alt="" class="size-fix" /> Prospective Students</a></li>
-                     <li ><a id="lnkTraining" href="#training-official" data-toggle="tab"><img src="/images/training-official.png" alt="" class="size-fix" /> Training Official</a></li>
-                 </ul>
-             </div>
-             <div class="tab-content col-lg-9 fix-padding-bottom">
-                <% navigation.top.forEach(function(nav) { %>
-                  <div class="tab-pane <%= nav.active %>" id="<%= nav.key %>">
-                    <% if (nav.sections) { %>
-                      <% var subNavCount = 0; %>
-							  		  <% nav.sections.forEach(function(subNav) { %>
-                        <% if (subNav.startNewColumn) { %>
-                          <% if (subNavCount > 0) { %>
-                            </div>  <%#-- close out last column (but never on first column) %>
-                          <% } %>
-                          <div class="col-lg-4 col-md-2 col-sm-4">
+<!-- TOP NAVIGATION -->
+<div class="container-fluid nav-top" id="top-menu">
+<div class="container padding0">
+<!-- START TOP PANEL -->
+    <div id="nav-top">
+      <div class="container npanel">
+        <div class="fix">
+           <div class="left-panel col-lg-3">
+               <ul class="nav nav-pills nav-stacked" id="tabs">
+                   <li class="active"><a id="lnkCurrent" href="#current-students" data-toggle="tab"><img src="/images/current-students.png" alt="" class="size-fix" /> Students</a></li>
+                   <li ><a id="lnkProspective" href="#prospective-students" data-toggle="tab"><img src="/images/prospective-students.png" alt="" class="size-fix" /> Prospective Students</a></li>
+                   <li ><a id="lnkTraining" href="#training-official" data-toggle="tab"><img src="/images/training-official.png" alt="" class="size-fix" /> Training Official</a></li>
+               </ul>
+           </div>
+           <div class="tab-content col-lg-9 fix-padding-bottom">
+              <% navigation.top.forEach(function(nav) { %>
+                <div class="tab-pane <%= nav.active %>" id="<%= nav.key %>">
+                  <% if (nav.sections) { %>
+                    <% var subNavCount = 0; %>
+                    <% nav.sections.forEach(function(subNav) { %>
+                      <% if (subNav.startNewColumn) { %>
+                        <% if (subNavCount > 0) { %>
+                          </div>  <%#-- close out last column (but never on first column) %>
                         <% } %>
-                          <h3><%= subNav.title %></h3>
-                          <ul>
-                            <% subNav.links.forEach(function(link) { %>
-                              <li><a href="<%= link.url %>"><%= link.title %></a></li>
-                            <% }); %>
-                          </ul>
-                        <% subNavCount++; %>
-                      <% }); %>
-                      </div> <%#-- close out last column %>
-                    <% } %>
-                  </div>
-                <% }); %>
-              </div>
-          </div>
-        </div><!-- .container -->
+                        <div class="col-lg-4 col-md-2 col-sm-4">
+                      <% } %>
+                        <h3><%= subNav.title %></h3>
+                        <ul>
+                          <% subNav.links.forEach(function(link) { %>
+                            <li><a href="<%= link.url %>"><%= link.title %></a></li>
+                          <% }); %>
+                        </ul>
+                      <% subNavCount++; %>
+                    <% }); %>
+                    </div> <%#-- close out last column %>
+                  <% } %>
+                </div>
+              <% }); %>
+            </div>
+        </div><!-- END container -->
+      </div><!-- END Nav Top -->
 
-    		<div class="toggle colored-bg hide-panel" style="z-index: 25;">
-          <div class="nav-top-bar non-mobile">
-            <ul id="nav-top-menu">
-              <li class="nav-toggle" data-tab="lnkCurrent"><a href="#">Students</a></li>
-              <li class="nav-toggle" data-tab="lnkProspective"><a href="#">Prospective Students</a></li>
-              <li class="nav-toggle" data-tab="lnkTraining"><a href="#">Training Official</a></li>
-            </ul>
-          </div>
-          <div class="nav-top-bar mobile">
-            <ul id="nav-top-menu">
-              <li class="nav-toggle" data-tab="lnkCurrent"><a href="#" >Quick Menu <img src="/images/nav-top-icon.png" alt="" class="user-icon" /></a></li>
-            </ul>
-          </div>
-          <%# <a href="#">
-            <img src="/images/nav-top-icon.png" alt="" />
-          </a>%>
-    		</div><!-- END toggle -->
-    	</div>	<!-- END TOP PANEL -->
+
+      <div class="toggle colored-bg hide-panel" style="z-index: 25;">
+        <div class="nav-top-bar non-mobile">
+          <ul id="nav-top-menu">
+            <li class="nav-toggle" data-tab="lnkCurrent"><a href="#">Students</a></li>
+            <li class="nav-toggle" data-tab="lnkProspective"><a href="#">Prospective Students</a></li>
+            <li class="nav-toggle" data-tab="lnkTraining"><a href="#">Training Official</a></li>
+          </ul>
+        </div>
+        <div class="nav-top-bar-mob mobile">
+          <ul id="nav-top-menu">
+            <li class=""><a href="#" id="contact-us">Contact Us <img src="/images/contact-us-top.png" alt="" /></a></li>
+            <li class=""><a href="#" id="mob-search">Search <img src="/images/search-top.png" alt="" /></a></li>
+            <li class="nav-toggle" data-tab="lnkCurrent"><a href="#">Quick Menu <img src="/images/quick-menu.png" alt="" class="user-icon" /></a></li>
+          </ul>
+        </div>
+      </div><!-- END toggle -->
+    </div>	<!-- END container -->
+</div> <!-- END TOP MENU - container-fluid nav-top -->
+</div>
+
+
+<!-- Mobile only section - activated on click-->
+<div class="wrapper mobile">
+  <!-- Contact us -->
+  <div id="contact-us-top-menu">
+    <ul>
+      <li><a href="tel:888-744-4723"><img alt="" src="/images/call-us.png" class="">(888) 744-GRAD</a></li>
+      <li><a href="mailto:customersupport@graduateschool.edu" ><img alt="" src="/images/email-us.png" class="">Customer Support</a></li>
+      <li><a href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;"><img src="/images/chat-with-us.png" alt="" />Chat with us</a></li>
+    </ul>
   </div>
-  </div>
-<!-- END TOP NAVIGATION -->
+  <!-- Search Box -->
+  <div id="search-top-menu">
+    <div id="mob-searchBox">
+      <form id="search-form-top" action="javascript:performCourseSearchM();">
+        <div id="searchGroup-mob" class="input-group">
+          <input type="text" id="searchCriteriaM" name="searchCriteriaM" class="form-control searchCriteria" placeholder="Search" tabindex="1">
+          <span class="input-group-btn">
+            <button id="course-search-buttonM" class="btn btn-default" type="submit">
+              <img alt="" src="/images/search.png">
+            </button>
+          </span>
+        </div>
+      </form>
+    </div>
+    <div id="mob-advancedSearchBox" class="advanced-box-filters mob">
+          <div class="wrapper">
+            <div class="padding0">
+              <p class="search-box-intro">
+                Or find a course by:
+              </p>
+            </div>
+            <div class="center-filter">
+              <select id="selSearchLocationM" class="form-control" tabindex="2">
+                  <option value="">Locations</option>
+                  <% locations.forEach(function(location) { %>
+                    <option value="<%= location %>"><%= location %></option>
+                  <% }); %>
+              </select>
+            </div>
+            <div class="center-filter">
+              <select id="selCategorySubjectM" class="form-control" tabindex="3">
+                <option class="subject-item" value="all">Subject</option>
+                <% for (categorySubjectFacetCounter = 0; categorySubjectFacetCounter < courseSubjectResult.length; categorySubjectFacetCounter++) {
+                  var courseSubject = courseSubjectResult[categorySubjectFacetCounter].courseSubject;
+                  if (courseSubject.length > 1 ) { %>
+                    <optgroup class="subject-category" label="<%= courseSubjectResult[categorySubjectFacetCounter].category %>"
+                  %><%= courseSubjectResult[categorySubjectFacetCounter].subjectCount %>)>
+                  <% for (courseSubjectCounter = 0; courseSubjectCounter < courseSubject.length; courseSubjectCounter++) {
+                  %>
+                    <option value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[courseSubjectCounter].subject %>"
+                    ><%= courseSubject[courseSubjectCounter].subject %>
+                    </option>
+                  <% } %>
+                    </optgroup>
+                  <% } else if(courseSubject.length == 1) { %>
+                    <option class="subject-item"
+                      value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[0].subject %>">
+                      <%= courseSubject[0].subject %>
+                    </option>
+                  <% }
+                 } %>
+              </select>
+            </div>
+            <div class="search-submit pull-right padding-top">
+              <p class="btn"><a id="search-buttonM" class="search" href="#" role="button" tabindex="4">Search <img src="/images/arrow.png" alt=""></a></p>
+            </div>
+          </div>
+       </div>
+  </div><!-- END Search -->
+</div><!-- END Wrapper -->

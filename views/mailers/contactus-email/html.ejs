@@ -2,15 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-
   <title> Graduate School USA | </title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
-
-  <!--[if lt IE 9]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-
 
   <style type="text/css">
   body {
@@ -36,29 +28,22 @@
   }
 
   p.footer {
-    color: #DDD;
+    color: #999;
     font-size: 11px;
 
   }
-
   </style>
-
-
 </head>
 <body>
-
   <h1>Contact Us</h1>
-
-  <p>First Name : <strong> </strong> <%= name.first %></p>
-  <p>Last Name : <strong> </strong> <%= name.last %></p>
-  <p>Email: <strong> </strong> <%=email%></p>
-  <p>Phone Number: <strong> </strong> <%= phone %></p>
-  <p>Comments: <strong> </strong> <%= comments %></p>
-
-
+  <p>First Name : <strong><%= name.first %></strong></p>
+  <p>Last Name : <strong><%= name.last %></strong></p>
+  <p>Email: <strong><%=email%></strong></p>
+  <p>Phone Number: <strong><%= phone %></strong></p>
+  <p>Comments: <strong><%= comments %></strong></p>
   <hr>
   <br>
-  <p class="footer">Sent from GraduateSchool.edu - Request for Estimate form.</p>
+  <p class="footer">Sent from GraduateSchool.edu - Request for Contact Us form.</p>
 </div>
 </body>
 </html>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
     <title> Graduate School USA | <%= title %></title>
+    <meta charset="utf-8">
     <% include ../partials/head %>
     <script type="text/javascript" src="/javascripts/generic_detail.js"></script>
     <link rel="stylesheet" href="/stylesheets/generic_detail.css">
@@ -25,17 +25,16 @@
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     <a href="#<%= i %>" class="expand-section accordion-toggle" data-toggle="collapse"><%= sections[i].title %></a>
                           <article id="<%= i %>" class="collapse nested">
-                            <%- sections[i].content %>
+                            <%- markdown(sections[i].content || '') %>
                           </article>
                      <% } else if (sections[i].title) { %>
                        <h2><%= sections[i].title %></h2>
                        <article id="<%= i %>" class="genericArticle">
-                         <%- sections[i].content %>
+                         <%- markdown(sections[i].content || '') %>
                        </article>
                   <%   } else { %>
-
                        <article id="<%= i %>" class="genericArticle">
-                         <%- sections[i].content %>
+                         <%- markdown(sections[i].content || '') %>
                        </article>
                   <%  } %>
               <%  } %>

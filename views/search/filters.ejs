@@ -26,31 +26,6 @@
               </span>
               <hr>
             </span>
-            <span class="form-group <%= (params.tab != 'course') ? 'hidden' : '' %>" data-showfor="course" data-hidefor="site">
-              <%
-              var g2gFacetCount = 0;
-              var g2gChecked = "";
-              var g2gDisabled = "";
-              if (courseResult && courseResult.statusFacets) {
-                var statusKeys = Object.keys(courseResult.statusFacets);
-                for (i=0; i < statusKeys.length; i++) {
-                  if (statusKeys[i] === 'C') {
-                    g2gFacetCount = courseResult.statusFacets[statusKeys[i]];
-                  }
-                }
-                if (params.selectedG2G === 'true') {
-                  g2gChecked = "checked";
-                }
-                if (g2gFacetCount == 0) {
-                  g2gDisabled = "disabled";
-                }
-              }
-              %>
-              <div class="wrapper padding-top padding-bottom">
-                <input type="checkbox" id="G2G" name="G2G"  value="" <%= g2gChecked %> <%= g2gDisabled %> /><label for="G2G" class="g2g-checkbox"><strong><span class="label label-success">G</span> Guaranteed To Go</strong>&nbsp;(<%= g2gFacetCount %>) </label><br>
-              </div>
-              <hr>
-            </span>
             <span class="form-group" data-showfor="course">
               <p>Location <a id="clearLocation" href="#" class="checkbox-clear">clear</a></p>
               <select id="selLocation" class="form-control">
@@ -85,6 +60,79 @@
                   %>
                 </select>
                 <hr>
+            </span>
+            <span class="form-group" data-hidefor="site" data-showfor="course">
+              <p>Subject <a id="clearCategoriesSubject" href="#" class="checkbox-clear">clear</a></p>
+               <select id="categorySubject" class="form-control">
+                 <option class="subject-item" value="all">All</option>
+                 <%
+                 if (courseResult && courseResult.categorySubjectFacets && courseResult.categorySubjectFacets.length > 0) {
+                   for (categorySubjectFacetCounter = 0; categorySubjectFacetCounter < courseResult.categorySubjectFacets.length; categorySubjectFacetCounter++) {
+                     var courseSubject = courseResult.categorySubjectFacets[categorySubjectFacetCounter].courseSubject;
+                       if (courseSubject.length > 1) { %>
+                         <optgroup class="subject-category" label="<%= courseResult.categorySubjectFacets[categorySubjectFacetCounter].category %>"
+                           %>&nbsp;(
+                           <%= courseResult.categorySubjectFacets[categorySubjectFacetCounter].subjectCount %>)>
+                           <% for (courseSubjectCounter = 0; courseSubjectCounter < courseSubject.length; courseSubjectCounter++) {
+                             categorySubjectSelected = "";
+                             if (courseResult.categorySubjectFacets[categorySubjectFacetCounter].category + "/" + courseSubject[courseSubjectCounter].subject ===
+                               params.categorySubject) {
+                               categorySubjectSelected = "selected";
+                             }
+                           %>
+                           <option value="<%= courseResult.categorySubjectFacets[categorySubjectFacetCounter].category + "/" + courseSubject[courseSubjectCounter].subject %>"
+                             <%= categorySubjectSelected %>><%= courseSubject[courseSubjectCounter].subject %>
+                             &nbsp;(<%= courseSubject[courseSubjectCounter].count %>)
+                           </option>
+                           <% } %>
+                         </optgroup>
+                       <% } else if(courseSubject.length == 1) {
+                         categorySubjectSelected = "";
+                         if (courseResult.categorySubjectFacets[categorySubjectFacetCounter].category + "/" + courseSubject[0].subject ===
+                           params.categorySubject) {
+                           categorySubjectSelected = "selected";
+                         }
+                       %>
+                         <optgroup label="<%= courseSubject[0].subject %> ">
+                          <option class="subject-category"
+                            value="<%= courseResult.categorySubjectFacets[categorySubjectFacetCounter].category + "/" + courseSubject[0].subject %>"
+                          <%= categorySubjectSelected %> ><%= courseSubject[0].subject %>&nbsp;(<%= courseSubject[0].count %>)
+                          </option>
+                         </optgroup>
+                        <% }
+                       }
+                     } else {
+                       if (params.categorySubject && params.categorySubject != 'all') { %>
+                         <option value="<%= params.categorySubject %>" selected><%= params.categorySubject %>&nbsp;(0)</option>
+                       <% }
+                     } %>
+                   </select>
+                 <hr>
+            </span>
+            <span class="form-group <%= (params.tab != 'course') ? 'hidden' : '' %>" data-showfor="course" data-hidefor="site">
+              <%
+              var g2gFacetCount = 0;
+              var g2gChecked = "";
+              var g2gDisabled = "";
+              if (courseResult && courseResult.statusFacets) {
+                var statusKeys = Object.keys(courseResult.statusFacets);
+                for (i=0; i < statusKeys.length; i++) {
+                  if (statusKeys[i] === 'C') {
+                    g2gFacetCount = courseResult.statusFacets[statusKeys[i]];
+                  }
+                }
+                if (params.selectedG2G === 'true') {
+                  g2gChecked = "checked";
+                }
+                if (g2gFacetCount == 0) {
+                  g2gDisabled = "disabled";
+                }
+              }
+              %>
+              <div class="wrapper padding-top padding-bottom">
+                <input type="checkbox" id="G2G" name="G2G"  value="" <%= g2gChecked %> <%= g2gDisabled %> /><label for="G2G" class="g2g-checkbox"><strong><span class="label label-success">G</span> Guaranteed To Go</strong>&nbsp;(<%= g2gFacetCount %>) </label><br>
+              </div>
+              <hr>
             </span>
           </div>
         </div>

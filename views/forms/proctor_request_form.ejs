@@ -19,11 +19,10 @@
       <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
         <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
       </div>
-
       <div id="ProctorForm-information">
         <div class="form-inline">
           <div class="form-group">
-            <p><%- sectionHeaderDescription %></p>
+            <%- sectionHeaderDescription %>
           </div>
         </div>
         <div id="ProctorForm">
@@ -68,7 +67,7 @@
                             <option value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
                             <% } %>
                           </select>
-                          </span>
+                        </span>
                         <span class="form-group">
                           <label for="txtZip">Zip</label>
                           <input type="text" id="txtZip" class="form-control" tabindex="7">
@@ -111,7 +110,7 @@
                       <br>
                       <button type="button" name="toPanel2Button" id="toPanel2Button" tabindex="14" class="next-button">Next</button>
                     </div><!-- END Panel-body -->
-                </div><!-- END Collapse1 -->
+                  </div><!-- END Collapse1 -->
                 </div><!-- END Panel default -->
                 <div class="panel panel-default">
                   <div class="panel-heading gs">
@@ -120,70 +119,73 @@
                     </a>
                   </div>
                   <div id="collapse2" class="panel-collapse collapse">
-                    <div class="panel-body">
-                      <div class="form-inline">
-                          <div class="form-group">
-                            <label for="inputProctorFirstName">*First Name</label>
-                            <input id="txtProctorFirstName" name="proctorfirstName" type="text" class="form-control" tabindex="15" required>
-                            <label for="inputProctorLastName">*Last Name</label>
-                            <input id="txtProctorLastName" name="proctorlastName" type="text" class="form-control" tabindex="16" required>
-                          </div>
+                  <div class="panel-body">
+                    <div class="form-inline">
+                        <div class="form-group">
+                          <label for="inputProctorFirstName">*First Name</label>
+                          <input id="txtProctorFirstName" name="proctorfirstName" type="text" class="form-control" tabindex="15" required>
+                          <label for="inputProctorLastName">*Last Name</label>
+                          <input id="txtProctorLastName" name="proctorlastName" type="text" class="form-control" tabindex="16" required>
                         </div>
-                        <div class="form-inline">
-                            <span class="form-group">
-                              <label for="inputProctorEmploymentPlace">Place of Employment</label>
-                              <input id="txtProctorEmploymentPlace" name="proctoremploymentplace" type="text" class="form-control" tabindex="17" required>
-                            </span>
-                        </div>
-                        <div class="form-inline">
-                            <span class="form-group">
-                              <label for="inputProctorProfession">Job Title or Profession</label>
-                              <input id="txtProctorProfession" name="proctorprofession" type="text" class="form-control" tabindex="18" required>
-                            </span>
-                        </div>
-                        <div class="form-inline">
-                            <span class="form-group">
-                              <label for="inputProctorStudentRelation">RelationShip to Student</label>
-                              <input id="txtProctorStudentRelation" name="proctorstudentrelation" type="text" class="form-control"  tabindex="19" required>
-                            </span>
-                        </div>
-                        <div class="form-inline">
-                          <span class="form-group">
-                            <label for="txtProctorEmail">*Email</label>
-                            <input type="email" id="txtProctorEmail" class="form-control" size="30" tabindex="20">
-                          </span>
-                        </div>
-                        <div class="form-inline">
-                          <span class="form-group">
-                            <label for="txtProctorPhone">Work Phone Number</label>
-                            <input id="telProctorPhone" name="proctorphone" type="tel" placeholder="XXX-XXX-XXXX"  pattern="\d{3}[\-]\d{3}[\-]\d{4}"  maxlength="12" class="form-control" tabindex="21">
-                          </span>
-                          <span class="form-group">
-                            <label for="txtProctorFax">Fax Number</label>
-                            <input type="text" id="txtProctorFax" class="form-control" tabindex="22">
-                          </span>
-                        </div>
-                        <br>
-                        <button type="button" name="toPanel1Button" id="toPanel1Button" tabindex="23">Previous</button>
-                        <button type="button" name="toPanel3Button" id="toPanel3Button" tabindex="24" class="next-button">Next</button>
-                        <br>
+                    </div>
+                    <div class="form-inline">
+                      <span class="form-group">
+                        <label for="inputProctorEmploymentPlace">Place of Employment</label>
+                        <input id="txtProctorEmploymentPlace" name="proctoremploymentplace" type="text" class="form-control" tabindex="17" required>
+                      </span>
+                    </div>
+                    <div class="form-inline">
+                        <span class="form-group">
+                          <label for="inputProctorProfession">Job Title or Profession</label>
+                          <input id="txtProctorProfession" name="proctorprofession" type="text" class="form-control" tabindex="18" required>
+                        </span>
+                    </div>
+                    <div class="form-inline">
+                        <span class="form-group">
+                          <label for="inputProctorStudentRelation">RelationShip to Student</label>
+                          <input id="txtProctorStudentRelation" name="proctorstudentrelation" type="text" class="form-control"  tabindex="19" required>
+                        </span>
+                    </div>
+                    <div class="form-inline">
+                      <span class="form-group">
+                        <label for="txtProctorEmail">*Email</label>
+                        <input type="email" id="txtProctorEmail" class="form-control" size="30" tabindex="20">
+                      </span>
+                    </div>
+                    <div class="form-inline">
+                      <span class="form-group">
+                        <label for="txtProctorPhone">Work Phone Number</label>
+                        <input id="telProctorPhone" name="proctorphone" type="tel" placeholder="XXX-XXX-XXXX"  pattern="\d{3}[\-]\d{3}[\-]\d{4}"  maxlength="12" class="form-control" tabindex="21">
+                      </span>
+                      <span class="form-group">
+                        <label for="txtProctorFax">Fax Number</label>
+                        <input type="text" id="txtProctorFax" class="form-control" tabindex="22">
+                      </span>
+                    </div>
+                    <br>
+                    <button type="button" name="toPanel1Button" id="toPanel1Button" tabindex="23">Previous</button>
+                    <button type="button" name="toPanel3Button" id="toPanel3Button" tabindex="24" class="next-button">Next</button>
+                    <br>
+                  </div>
                 </div><!-- END Panel-body -->
               </div><!-- END Collapse2 -->
             </div><!-- END Panel default -->
             <div class="panel panel-default">
               <div class="panel-heading gs">
                 <a class="accordion-toggle collapsed" id="collapse3Link" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                  <h4 class="panel-title">ADDITIONAL MAIL TO</h4>
+                  <h4 class="panel-title">ADDITIONAL INFORMATION</h4>
                 </a>
               </div>
               <div id="collapse3" class="panel-collapse collapse">
                 <div class="panel-body">
+                  <label>Materials for test will be primarily emailed to the proctor.</label>
                   <div class="form-inline">
                    <span class="form-group">
                      <label for="txtProctorEmailTo">Email To</label>
                      <input type="email" id="txtProctorEmailTo" class="form-control" size="30" tabindex="25">
                    </span>
                   </div>
+                  <label>Address to mail the examination to if necessary:</label>
                    <div class="form-inline">
                      <span class="form-group">
                        <label for="txtProctorOrganizaiton">Organization Name</label>
@@ -225,41 +227,19 @@
                      <input type="text" id="txtProctorZip" class="form-control" tabindex="32">
                    </span>
                  </div>
-
+                 <br>
+                 <div id="captcha">
+                   <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
+                 </div>
                  <br>
                  <button type="button" name="toPanel2Button-2" id="toPanel2Button-2" tabindex="33">Previous</button>
-                 <button type="button" name="toPanel4Button" id="toPanel4Button" tabindex="34" class="next-button">Next</button>
+                 <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="36">Submit Request</button>
+                 <br>
                 </div>
               </div><!-- END Collapse3 -->
             </div>
-            <div class="panel panel-default">
-              <div class="panel-heading gs">
-                <a class="accordion-toggle collapsed" id="collapse4Link" data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-                  <h4 class="panel-title">EXAMINATION ADMINISTRATION</h4>
-                </a>
-              </div>
-              <div id="collapse4" class="panel-collapse collapse">
-                <div class="panel-body">
-                  <div class="form-inline">
-                    <div class="form-group">
-                      <p><%- sectionFooterDescription %></p></div>
-                      <div id="captcha">
-                        <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
-                      </div>
-                        <br>
-                        <button type="button" name="toPanel3Button-2" id="toPanel3Button-2" tabindex="35">Previous</button>
-                        <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="36">Submit Request</button>
-                        <br>
-                        <br>
-
-                  </div>
-                </div>
-              </div><!-- END Collapse2 -->
-            </div><!-- END panel-default -->
-
-          </form>
-        </div><!--  END Accordion -->
-      </div><!-- End Proctor Request Form -->
+            <%- sectionFooterDescription %>
+          </div><!-- End Proctor Request Form -->
       </div> <!-- End Proctor form information -->
       <div id="alertSuccess" class="alert alert-sucess" role="alert" style="display:none;">
         <div><b>Thank you for your interest in Graduate School USA.</b></div>

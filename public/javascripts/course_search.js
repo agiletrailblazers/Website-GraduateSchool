@@ -1,7 +1,9 @@
 $(document).ready(function() {
 
+  orderOptgroups();
+
   //Important to use live events since we dynamically update page content
-  $(document).on('change', 'select.itemsPerPage, select#selLocation', function() {
+  $(document).on('change', 'select.itemsPerPage, select#selLocation,select#categorySubject', function() {
     $('.itemsPerPage').val($(this).val());
     $('#txtPageCourse').val(1);
     $('#txtPageSite').val(1);
@@ -11,6 +13,7 @@ $(document).ready(function() {
   $(document).on("click",".refine",function(event){
     $("#itemsPerPage").val("10");
     $("#selLocation").val("all");
+    $("#categorySubject").val("all");
     $('#G2G').prop('checked', false);
     $('#txtPageCourse').val(1);
     $('#txtPageSite').val(1);
@@ -20,6 +23,13 @@ $(document).ready(function() {
 
   $(document).on("click","#clearLocation",function(event){
     $("#selLocation").val("all");
+    $('#txtPageCourse').val(1);
+    $('#txtPageSite').val(1);
+    reloadSearchResults();
+  });
+
+  $(document).on("click","#clearCategoriesSubject",function(event){
+    $("#categorySubject").val("all");
     $('#txtPageCourse').val(1);
     $('#txtPageSite').val(1);
     reloadSearchResults();
@@ -78,6 +88,7 @@ $(document).ready(function() {
     var urlParams = "search=" + $("#txtSearchCriteria").val()
         + "&numRequested=" + $(".itemsPerPage").val()
         + "&cityState=" + $("#selLocation").val()
+        + "&categorySubject=" + $("#categorySubject").val()
         + "&selectedG2G=" + $('#G2G').prop('checked')
         + "&page-course=" + $('#txtPageCourse').val()
         + "&page-site=" + $('#txtPageSite').val().trim()
@@ -94,10 +105,33 @@ $(document).ready(function() {
     .done(function(data) {
       $("#searchResults").replaceWith(data);
       $(".loading").hide();
+      orderOptgroups();
     })
     .fail(function(xhr, textStatus, errorThrown) {
       $(".loading").hide();
+      orderOptgroups();
       $("#searchResults").replaceWith('<div id="searchResults" class="col-lg-9 col-md-9 col-sm-8"><div id="alertError" class="alert alert-danger" role="alert">Search currently unavailable. Please try again.</div></div>');
+    });
+  }
+
+  function orderOptgroups() {
+    $("#categorySubject").each(function() {
+      var $select = $(this);
+      var $groups = $select.find("optgroup ");
+      $groups.remove();
+      $groups = $groups.sort(function(g1, g2) {
+        return g1.label.localeCompare(g2.label);
+      });
+      $select.append($groups);
+      $groups.each(function() {
+        var $group = $(this);
+        var options = $group.find("option");
+        options.remove();
+        options = options.sort(function(a, b) {
+          return a.innerHTML.localeCompare(b.innerHTML);
+        });
+        $group.append(options);
+      });
     });
   }
 

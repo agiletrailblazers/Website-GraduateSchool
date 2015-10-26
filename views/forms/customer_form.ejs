@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Graduate School USA | <%= title %></title>
+  <% include ../partials/head %>
+  <link rel="stylesheet" href="/stylesheets/library/spinners.css">
+  <script type="text/javascript" src="/javascripts/forms/contact_us.js"></script>
+  <script type="text/javascript" src="/javascripts/forms/customer_feedback.js"></script>
+  <script type="text/javascript" src="/javascripts/forms/customer_form.js"></script>
+  <script type="text/javascript">
+      var onloadCallback = function() {
+        contactusCaptchaID = grecaptcha.render('contactusCaptcha', {
+          'sitekey' : '6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh',
+        });
+        customerFeedbackCaptchaID = grecaptcha.render('customerFeedbackCaptcha', {
+          'sitekey' : '6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh',
+        });
+      };
+  </script>
+  <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+</head>
+<body>
+  <% include ../partials/header %>
+    <div class="container">
+      <div class="loading" style="display:none;"></div>
+      <div id="customerForm" class="row">
+        <div class="col-lg-9 col-md-9 col-sm-8">
+          <div id="gs-tabs">
+            <div class="tabs">
+              <ul id="formTabs" class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#contact-us">Contact Us</a></li>
+                <li><a data-toggle="tab" href="#customer-feedback">Customer Feedback</a></li>
+              </ul>
+            </div>
+            <div class="tab-content">
+              <div id="contact-us" class="tab-pane fade in active">
+                <div id="contact_us_form" class="">
+                  <% include partials/contact_us.ejs %>
+                </div>
+              </div>
+
+              <div id="customer-feedback" class="tab-pane fade">
+                <div id="customer_feedback_form" class="">
+                  <% include partials/customer_feedback.ejs %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% include ../partials/chat %>
+    <% include ../partials/footer %>
+</body>
+</html>

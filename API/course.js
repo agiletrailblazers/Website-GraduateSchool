@@ -13,6 +13,9 @@ module.exports = {
     if (isNotEmpty(params.cityState) && params.cityState != 'all') {
       courseApiUrl = courseApiUrl + '&filter={facet-countall}city_state:' + params.cityState;
     }
+    if (isNotEmpty(params.categorySubject) && params.categorySubject != 'all') {
+      courseApiUrl = courseApiUrl + '&filter={facet-countall}category_subject:' + params.categorySubject;
+    }
     if (params.page && isNotEmpty(params.page.course)) {
       courseApiUrl = courseApiUrl + '&page='+ params.page.course;
     }
@@ -88,6 +91,21 @@ module.exports = {
       if (error != null || response == null || response.statusCode != 200) {
         logger.error("Exception occured getting all locations. " + error);
         return callback(response, new Error("Exception occured getting all locations"), null);
+      }
+      result = JSON.parse(body);
+      return callback(response, error, result);
+    });
+  },
+  getCategories: function(callback) {
+    var courseApiUrl = config("properties").courseApiUrl;
+    request({
+      method: 'GET',
+      url: courseApiUrl + '/api/categories'
+    }, function (error, response, body) {
+      logger.debug("Get Categories : " + response.statusCode);
+      if (error != null || response == null || response.statusCode != 200) {
+        logger.error("Exception occured getting all categories. " + error);
+        return callback(response, new Error("Exception occured getting all categories"), null);
       }
       result = JSON.parse(body);
       return callback(response, error, result);

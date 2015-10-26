@@ -1,6 +1,5 @@
-
 var express = require('express');
-var contentfulForms= require('../API/contentful_forms.js');
+var contentfulForms = require('../API/contentful_forms.js');
 var async = require('async');
 var router = express.Router();
 var bodyParser = require('body-parser');
@@ -10,47 +9,47 @@ var validator = require('validator');
 
 
 module.exports = {
-  validateContactUsfields: function(callback,params) {
+  validateContactUsfields: function(callback, params) {
     response = {};
     response.errors = {};
     // Validate params.firstName
-    switch(true) {
+    switch (true) {
       case (params.firstName.length === 0):
-      response.errors.firstName = "First name is empty.";
-      break;
+        response.errors.firstName = "First name is empty.";
+        break;
       case (!validator.isLength(params.firstName.trim(), 3)):
-      response.errors.firstName = "First name must be at least 3 characters.";
-      break;
+        response.errors.firstName = "First name must be at least 3 characters.";
+        break;
     }
     // Validate params.lastName
-    switch(true) {
+    switch (true) {
       case (!params.lastName):
-      response.errors.lastName = "Last name is empty.";
-      break;
+        response.errors.lastName = "Last name is empty.";
+        break;
       case (!validator.isLength(params.lastName.trim(), 3)):
-      response.errors.lastName = "Last name must be at least 3 characters.";
-      break;
+        response.errors.lastName = "Last name must be at least 3 characters.";
+        break;
     }
     // Validate params.email
     if (params.communicationPref == 'Email') {
-      switch(true) {
+      switch (true) {
         case (!params.email):
-        response.errors.email = "Email is empty.";
-        break;
+          response.errors.email = "Email is empty.";
+          break;
         case (!validator.isEmail(params.email.trim())):
-        response.errors.email = "Email is in the wrong format."
-        break;
+          response.errors.email = "Email is in the wrong format."
+          break;
       }
     }
     // Validate params.phone
     if (params.communicationPref == 'Phone') {
-      switch(true) {
+      switch (true) {
         case (!params.phone):
-        response.errors.phone = "Phone number is empty.";
-        break;
+          response.errors.phone = "Phone number is empty.";
+          break;
         case (!params.phone.match(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)):
-        response.errors.phone = "Phone number is not in the correct format.";
-        break;
+          response.errors.phone = "Phone number is not in the correct format.";
+          break;
       }
     }
     if (!params.captchaResponse) {
@@ -58,66 +57,66 @@ module.exports = {
     }
     callback(response);
   },
-  validateOnsiteInquiryfields: function(callback,params) {
+  validateOnsiteInquiryfields: function(callback, params) {
     response = {};
     response.errors = {};
     // Validate params.firstName
-    switch(true) {
+    switch (true) {
       case (params.address.firstName.length === 0):
-      response.errors.firstName = "First name is empty.";
-      break;
+        response.errors.firstName = "First name is empty.";
+        break;
       case (!validator.isLength(params.address.firstName.trim(), 3)):
-      response.errors.firstName = "First name must be at least 3 characters.";
-      break;
+        response.errors.firstName = "First name must be at least 3 characters.";
+        break;
     }
     // Validate params.lastName
-    switch(true) {
+    switch (true) {
       case (!params.address.lastName):
-      response.errors.lastName = "Last name is empty.";
-      break;
+        response.errors.lastName = "Last name is empty.";
+        break;
       case (!validator.isLength(params.address.lastName.trim(), 3)):
-      response.errors.lastName = "Last name must be at lease 3 characters.";
-      break;
+        response.errors.lastName = "Last name must be at lease 3 characters.";
+        break;
     }
     // Validate organization
-    switch(true) {
+    switch (true) {
       case (!params.address.organization):
-      response.errors.organization = "Organization is empty.";
-      break;
+        response.errors.organization = "Organization is empty.";
+        break;
       case (!validator.isLength(params.address.organization.trim(), 3)):
-      response.errors.organization = "Organization must be atleast 3 characters.";
-      break;
+        response.errors.organization = "Organization must be atleast 3 characters.";
+        break;
     }
     // Validate params.email
-    switch(true) {
+    switch (true) {
       case (!params.contact.email):
-      response.errors.email = "Email is empty.";
-      break;
+        response.errors.email = "Email is empty.";
+        break;
       case (!validator.isEmail(params.contact.email)):
-      response.errors.email = "Email is in the wrong format."
-      break;
+        response.errors.email = "Email is in the wrong format."
+        break;
     }
 
     // Validate params.phone
-    switch(true) {
+    switch (true) {
       case (!params.contact.phone):
-      response.errors.phone = "Phone number is empty.";
-      break;
+        response.errors.phone = "Phone number is empty.";
+        break;
       case (!params.contact.phone.match(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)):
-      response.errors.phone = "Phone number is not in the correct format.";
-      break;
+        response.errors.phone = "Phone number is not in the correct format.";
+        break;
     }
 
     // Validate student count.
     if (parseInt(params.course.studentCount) !== undefined) {
       switch (true) {
         case (!validator.isLength(params.course.studentCount.trim(), 1)):
-        response.errors.studentCount = "Please provide a number of students.";
-        break;
+          response.errors.studentCount = "Please provide a number of students.";
+          break;
 
         case (parseInt(params.course.studentCount) < 1):
-        response.errors.studentCount = "Please provide a number of students."
-        break;
+          response.errors.studentCount = "Please provide a number of students."
+          break;
       }
     } else {
       response.errors.studentCount = "Please provide a number of students."
@@ -137,48 +136,48 @@ module.exports = {
     response = {};
     response.errors = {};
     // Validate params.firstName
-    switch(true) {
+    switch (true) {
       case (params.firstName.length === 0):
-      response.errors.firstName = "First name is empty.";
-      break;
+        response.errors.firstName = "First name is empty.";
+        break;
       case (!validator.isLength(params.firstName.trim(), 3)):
-      response.errors.firstName = "First name must be at least 3 characters.";
-      break;
+        response.errors.firstName = "First name must be at least 3 characters.";
+        break;
     }
     // Validate params.lastName
-    switch(true) {
+    switch (true) {
       case (!params.lastName):
-      response.errors.lastName = "Last name is empty.";
-      break;
+        response.errors.lastName = "Last name is empty.";
+        break;
       case (!validator.isLength(params.lastName.trim(), 3)):
-      response.errors.lastName = "Last name must be at least 3 characters.";
-      break;
+        response.errors.lastName = "Last name must be at least 3 characters.";
+        break;
     }
     // Validate params.email
-      switch(true) {
-        case (!params.email):
+    switch (true) {
+      case (!params.email):
         response.errors.email = "Email is empty.";
         break;
-        case (!validator.isEmail(params.email.trim())):
+      case (!validator.isEmail(params.email.trim())):
         response.errors.email = "Email is in the wrong format.";
         break;
-      }
+    }
     // Validate params.phone
-      switch(true) {
-        case (!params.phone):
+    switch (true) {
+      case (!params.phone):
         response.errors.phone = "Phone number is empty.";
         break;
-        case (!params.phone.match(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)):
+      case (!params.phone.match(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)):
         response.errors.phone = "Phone number is not in the correct format.";
         break;
-      }
+    }
     // Validate Instructor
     switch (true) {
       case (!params.instructor):
         response.errors.instructor = "Instructor field is empty.";
         break;
-      case (!validator.isLength(params.instructor.trim(), 3)):
-        response.errors.instructor = "Instructor field must be greater than 3 characters.";
+      case (!validator.isLength(params.instructor.trim(), 1)):
+        response.errors.instructor = "Instructor field must be greater than 1 characters.";
         break;
     }
     // Validate Course Code
@@ -234,7 +233,7 @@ module.exports = {
     response = {};
     response.errors = {};
     // Validate params.firstName
-    switch(true) {
+    switch (true) {
       case (params.student.firstName.length === 0):
         response.errors.firstName = "First name is empty.";
         break;
@@ -243,7 +242,7 @@ module.exports = {
         break;
     }
     // Validate params.lastName
-    switch(true) {
+    switch (true) {
       case (!params.student.lastName):
         response.errors.lastName = "Last name is empty.";
         break;
@@ -252,7 +251,7 @@ module.exports = {
         break;
     }
     // Validate params.email
-    switch(true) {
+    switch (true) {
       case (!params.student.email):
         response.errors.email = "Email is empty.";
         break;
@@ -261,7 +260,7 @@ module.exports = {
         break;
     }
     // Validate params.phone
-    switch(true) {
+    switch (true) {
       case (!params.student.phone.day):
         response.errors.phone = "Phone number is empty.";
         break;
@@ -274,8 +273,8 @@ module.exports = {
       case (!params.student.instructor):
         response.errors.instructor = "Instructor field is empty.";
         break;
-      case (!validator.isLength(params.student.instructor.trim(), 3)):
-        response.errors.instructor = "Instructor field must be greater than 3 characters.";
+      case (!validator.isLength(params.student.instructor.trim(), 1)):
+        response.errors.instructor = "Instructor field must be 1 characters.";
         break;
     }
     // Validate Course Code
@@ -314,19 +313,110 @@ module.exports = {
         response.errors.proctorLastName = "Proctor's first name must be greater than 3 characters."
         break;
     }
-  // Validate Proctors Email
-  switch(true) {
-    case (!params.proctor.email):
-      response.errors.proctorEmail = "Proctor's email is empty.";
-      break;
-    case (!validator.isEmail(params.proctor.email.trim())):
-      response.errors.proctorEmail = "Proctor's email is in the wrong format.";
-      break;
+    // Validate Proctors Email
+    switch (true) {
+      case (!params.proctor.email):
+        response.errors.proctorEmail = "Proctor's email is empty.";
+        break;
+      case (!validator.isEmail(params.proctor.email.trim())):
+        response.errors.proctorEmail = "Proctor's email is in the wrong format.";
+        break;
+    }
+    // Validate Captcha
+    if (!params.captchaResponse) {
+      response.errors.captchaResponse = "Please select recaptcha.";
+    }
+    callback(response);
+  },
+  validateCustomerFeedBack: function(callback, params) {
+    response = {};
+    response.errors = {};
+    switch (true) {
+      case (validator.isLength(params.email.trim(), 1)):
+        if (!validator.isEmail(params.email)) {
+          response.errors.email = "Email is in the wrong format."
+          break;
+        }
+    }
+    if (!params.captchaResponse) {
+      response.errors.captchaResponse = "Please select recaptcha.";
+    }
+    callback(response);
+  },
+  validateCertificateProgramForms: function(callback, params) {
+    response = {};
+    response.errors = {};
+    // Validate params.firstName
+    switch (true) {
+      case (params.firstName.length === 0):
+        response.errors.firstName = "First name is empty.";
+        break;
+      case (!validator.isLength(params.firstName.trim(), 3)):
+        response.errors.firstName = "First name must be at least 3 characters.";
+        break;
+    }
+    // Validate params.lastName
+    switch (true) {
+      case (!params.lastName):
+        response.errors.lastName = "Last name is empty.";
+        break;
+      case (!validator.isLength(params.lastName.trim(), 3)):
+        response.errors.lastName = "Last name must be at least 3 characters.";
+        break;
+    }
+    // Validate params.email
+    switch (true) {
+      case (!params.email):
+        response.errors.email = "Email is empty.";
+        break;
+      case (!validator.isEmail(params.email.trim())):
+        response.errors.email = "Email is in the wrong format.";
+        break;
+    }
+    // Validate params.phone
+    switch (true) {
+      case (!params.phone):
+        response.errors.phone = "Phone number is empty.";
+        break;
+      case (!params.phone.match(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)):
+        response.errors.phone = "Phone number is not in the correct format.";
+        break;
+    }
+    // Validate City
+    switch (true) {
+      case (!params.city):
+        response.errors.city = "City is empty."
+        break;
+      case (!validator.isLength(params.city.trim(), 3)):
+        response.errors.city = "City must be greater than 3 characters."
+        break;
+    }
+    // Validate Zip
+    switch (true) {
+      case (!params.zip):
+        response.errors.zip = "Zip is empty."
+        break;
+      case (!validator.isLength(params.zip.trim(), 5)):
+        response.errors.zip = "Zip must be greater than 5 characters."
+        break;
+    }
+    // Validate Street Address
+    switch (true) {
+      case (!params.streetAddress):
+        response.errors.streetAddress = "Street Address is empty."
+        break;
+      case (!validator.isLength(params.streetAddress.trim(), 3)):
+        response.errors.streetAddress = "Street Address must be greater than 3 characters."
+        break;
+    }
+    // Validate Certificate
+    if (params.certificate && !validator.isLength(params.streetAddress.trim(), 1)) {
+      response.errors.certificate = "Name on Certificate must be 1 or more characters."
+    }
+    // Validate State
+    if (!params.state) {
+      response.errors.state = "Please select a state."
+    }
+    callback(response);
   }
-  // Validate Captcha
-  if (!params.captchaResponse) {
-    response.errors.captchaResponse = "Please select recaptcha.";
-  }
-  callback(response);
-}
 };

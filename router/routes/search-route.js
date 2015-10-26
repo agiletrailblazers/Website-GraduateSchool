@@ -17,6 +17,7 @@ router.get('/search', function(req, res, next){
   params.searchCriteria = (typeof(req.query["search"])!='undefined' ? req.query["search"] : null);
   params.numRequested = (typeof(req.query["numRequested"])!='undefined' ? req.query["numRequested"] : null);
   params.cityState = (typeof(req.query["cityState"])!='undefined' ? req.query["cityState"] : null);
+  params.categorySubject = (typeof(req.query["categorySubject"])!='undefined' ? req.query["categorySubject"] : null);
   params.selectedG2G = (typeof(req.query["selectedG2G"])!='undefined' ? req.query["selectedG2G"] : null);
   params.page.course = (typeof(req.query["page-course"])!='undefined' ? req.query["page-course"] : null);
   params.page.site = (typeof(req.query["page-site"])!='undefined' ? req.query["page-site"] : null);
@@ -57,7 +58,11 @@ router.get('/search', function(req, res, next){
       if (courseResult && courseResult.exactMatch && !params.partial) {
         //redirect to course details
         logger.debug("Exact course match found for " + courseResult.courses[0].id + " - Redirecting.")
-        res.redirect('courses/' + courseResult.courses[0].id);
+        var courseUrl = 'courses/' + courseResult.courses[0].id;
+        if (params.cityState != null) {
+          courseUrl = courseUrl + '?location=' + params.cityState
+        }
+        res.redirect(courseUrl);
       }
       else {
         //no search criteria given, this is a special case

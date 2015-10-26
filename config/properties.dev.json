@@ -13,6 +13,25 @@
     "requestDuplicateFormEmailSubject":"Request for Duplicate",
     "proctorRequestToUserName":"gs@agiletrailblazers.com",
     "proctorRequestEmailSubject":"Request for Proctor",
-
+    "customerFeedBackFormToUserName":"gs@agiletrailblazers.com",
+    "customerFeedBackFormEmailSubject":"Customer FeedBack Form",
+    "certificateProgramGroup": {
+      "applicationForm": {
+        "email": "gs@agiletrailblazers.com",
+        "subject": "Incoming Application Form Request"
+      },
+      "progressReport": {
+        "email": "gs@agiletrailblazers.com",
+        "subject": "Incoming Progress Report Request"
+      },
+      "programCompletion": {
+        "email": "gs@agiletrailblazers.com",
+        "subject": "Incoming Certificate of Program Completion Request"
+      },
+      "waiverRequest" : {
+        "email": "gs@agiletrailblazers.com",
+        "subject": "Incoming Waiver Request"
+      }
+    },
     "googleAnalyticsId":"UA-66851185-2"
 }
