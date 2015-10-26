@@ -6,7 +6,7 @@ var logger = require('../logger');
 module.exports = {
   performCourseSearch: function(callback, params) {
     var courseApiUrl = config("properties").courseApiUrl;
-    courseApiUrl = courseApiUrl + '/api/courses?search=' + encodeURIComponent(params.searchCriteria);
+    courseApiUrl = courseApiUrl + '/api/courses?search=' + encodeURIComponent(params.searchCriteria)  ;
     if (isNotEmpty(params.numRequested)) {
       courseApiUrl = courseApiUrl + '&numRequested=' + params.numRequested;
     }
@@ -117,7 +117,7 @@ module.exports = {
       return callback(null, null, {});
     }
     var siteApiUrl = config("properties").courseApiUrl;
-    siteApiUrl = siteApiUrl + '/api/site?search=' + params.searchCriteria
+    siteApiUrl = siteApiUrl + '/api/site?search=' + encodeURIComponent(params.searchCriteria)
     if (isNotEmpty(params.cityState) && params.cityState != 'all') {
       siteApiUrl = siteApiUrl + '&filter=content:' + params.cityState;
     }
