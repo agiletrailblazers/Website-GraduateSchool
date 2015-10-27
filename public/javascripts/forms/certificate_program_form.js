@@ -72,10 +72,10 @@ Validate = {
     }
   },
   ssn: function() {
-    var input = $("[id^=txtSSN*]").toArray(); //TODO: See if this is write.
+    var input = [$("#txtSSNa").val(), $("#txtSSNb").val(), $("#txtSSNc").val()];
     var pattern = new RegExp(/^[0-9]+$/i);
     for (var i = 0; i < input.length; i++) {
-      if (!pattern.test(input[i].val())) {
+      if (!pattern.test(input[i]) {
         $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> SSN must only be in numbers.</p>");
         break;
       }
@@ -102,7 +102,9 @@ var _runValidation = function() {
   Validate.state();
   Validate.zip();
   Validate.captcha();
-  // TODO: Add if there is a value in ssn then validate...
+  if ($("#txtSSNa").val().length != 0 || $("#txtSSNb").val().length != 0 || $("#txtSSNc").val().length != 0) {
+    Validate.ssn();
+  }
   if ($("#txtOther").val()) {
     Validate.ifOther();
   }
