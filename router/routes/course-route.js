@@ -23,7 +23,6 @@ router.get('/courses/:course_id', function(req, res, next){
     	}
     	else {
     		logger.debug(result);
-        console.log("printed results");
     		courseData.class = result;
     	}
         callback();
@@ -86,10 +85,10 @@ router.get('/courses/:course_id', function(req, res, next){
         link.url = link.url.replace('[courseCode]', courseData.class.code);
       });
 
-      courseData.isLeaderShipCourse = false;
+      courseData.isLeadershipCourse = false;
       content.leadershipCourseCodes.forEach(function (currCode) {
         if (courseData.class.code === currCode) {
-          courseData.isLeaderShipCourse = true;
+          courseData.isLeadershipCourse = true;
           courseData.leadershipCourseScheduleLinkText = content.leadershipCourseScheduleLinkText;
           courseData.leadershipCourseScheduleLink = content.leadershipCourseScheduleLink;
         }

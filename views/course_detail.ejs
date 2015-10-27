@@ -95,11 +95,13 @@
               <th></th>
             </tr>
             <% if (courseData.session.length === 0) { %>
-              <% if (true === courseData.isLeaderShipCourse) { %>
-                <tr><td colspan="5"><a href=<%= courseData.leadershipCourseScheduleLink %>><%= content.leadershipCourseScheduleLinkText %></a></td></tr>
-              <% } else { %>
-                <tr><td colspan="5"><%= content.noSessionsError %></td></tr>
-              <% } %>
+                <tr><td colspan="5">
+                  <% if (true === courseData.isLeadershipCourse) { %>
+                    <a href=<%= courseData.leadershipCourseScheduleLink %>><%= content.leadershipCourseScheduleLinkText %></a>
+                  <% } else { %>
+                    <%= content.noSessionsError %>
+                  <% } %>
+                </td></tr>
             <% } else { %>
             <% courseData.session.forEach(function(session) { %>
               <tr class="courseDetailSessionRow" data-rowhide="<%= session.hide %>">
@@ -235,15 +237,13 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mobile-nopadding">
 
                       <% if (courseData.session.length === 0) { %>
-                        <% if (true === courseData.isLeaderShipCourse) { %>
                           <p class="padding20">
-                            <a href=<%= courseData.leadershipCourseScheduleLink %>><%= content.leadershipCourseScheduleLinkText %></a>
+                            <% if (true === courseData.isLeadershipCourse) { %>
+                              <a href=<%= courseData.leadershipCourseScheduleLink %>><%= content.leadershipCourseScheduleLinkText %></a>
+                            <% } else { %>
+                              <%= content.noSessionsError %>
+                            <% } %>
                           </p>
-                        <% } else { %>
-                          <p class="padding20">
-                            <%= content.noSessionsError %>
-                          </p>
-                        <% } %>
                       <% } else { %>
                       <% courseData.session.forEach(function(session,i) { %>
                           <div class="panel-group session-schedule-mob mobile" id="accordion">
