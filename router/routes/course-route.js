@@ -13,6 +13,7 @@ router.get('/courses/:course_id', function(req, res, next){
   var courseId = req.params.course_id;
   var courseData = {};
   var content;
+  var location = (typeof(req.query["location"])!='undefined' ? req.query["location"] : null);
   async.parallel([
     function(callback) {
       course.performExactCourseSearch(function(response, error, result) {
@@ -48,7 +49,7 @@ router.get('/courses/:course_id', function(req, res, next){
           callback();
         } else {
           logger.error("No course sessions found for course: " + courseId);
-          courseData.session = {status: 404, text: "No courses found."}
+          courseData.session = []; //return empty array
           callback();
         }
       }, courseId);
@@ -72,6 +73,15 @@ router.get('/courses/:course_id', function(req, res, next){
     		code = courseData.class.id.slice(0,-3);
     		courseData.class.code = code;
     	}
+      //check if we should initially filter courses by location
+      courseData.session.forEach(function(session) {
+        if (location == null || location === "" || location === 'all' || location === session.location["city"] + ', ' + session.location["state"]) {
+          session.hide = false;
+        }
+        else {
+          session.hide = true;
+        }
+      });
       content.linksSection.forEach(function(link) {
         link.url = link.url.replace('[courseCode]', courseData.class.code);
       });
@@ -88,7 +98,8 @@ router.get('/courses/:course_id', function(req, res, next){
 	    res.render('course_detail', { content: content,
         courseData: courseData,
         title: 'Course Details',
-        topTitle: courseData.class.title });
+        topTitle: courseData.class.title ,
+        location: location});
     }
     else {
     	//handle error

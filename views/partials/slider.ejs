@@ -43,13 +43,9 @@
 </div><!-- END Container -->
 </div> <!-- END Container-fluid -->
 
-<script>
-  $(document).ready(function() {
-  		 $("#myCarousel").swiperight(function() {
-    		  $(this).carousel('prev');
-	    		});
-		   $("#myCarousel").swipeleft(function() {
-		      $(this).carousel('next');
-	   });
-	});
+<script type="text/javascript">
+//Slider interval - 10sec
+  $('.carousel').carousel({
+   interval: 10000
+  });
 </script>

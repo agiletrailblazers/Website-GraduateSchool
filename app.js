@@ -29,6 +29,7 @@ app.use(function (req, res, next) {
 	var chatPages = config("properties").chatPages;
 	var navigation = {};
 	var locations = [];
+  var courseSubjectResult = [];
 	//should we show chat on this page?
 	var currentUrl = req.url.split("?",1)[0];
 	var pattern = new RegExp(chatPages);
@@ -54,10 +55,17 @@ app.use(function (req, res, next) {
 				locations.sort();
 				callback();
 			});
-		}
+		},
+    function(callback) {
+      course.getCategories(function(response, error, result) {
+        courseSubjectResult = result;
+        callback();
+      });
+    }
 		], function() {
 			res.locals = {navigation: navigation,
 				locations: locations,
+        courseSubjectResult: courseSubjectResult,
 				googleAnalyticsId: googleAnalyticsId,
 				showChat: showChat,
 				mailPage: mailPage};

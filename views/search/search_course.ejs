@@ -14,28 +14,16 @@
         <img class="search" src="../../images/search-icon.png" alt="" />
       </div>
     <% } else if (courseResult == null || courseResult.courses == null || courseResult.courses.length == 0) { %>
-      <% if (params.cityState != null && params.selectedG2G == true) { %>
-        <div class="center">
-          <h3 class="light">No matches for '<%= params.searchCriteria %>' with selected filters.</h3>
-          <img class="search" src="../../images/search-icon.png" alt="" />
-        </div>
-      <% } else if (params.cityState != null && params.cityState != 'all') { %>
-        <div class="center">
-          <h3 class="light">No matches for '<%= params.searchCriteria %>' in '<%= params.cityState %>'.</h3>
-          <img class="search" src="../../images/search-icon.png" alt="" />
-        </div>
-      <% } else { %>
-        <div class="center">
-          <h3 class="light">No matches for '<%= params.searchCriteria %>'.</h3>
-          <img class="search" src="../../images/search-icon.png" alt="" />
-        </div>
-      <% } %>
+      <div class="center">
+        <h3 class="light">No matches for selected search criteria. Please refine your search.</h3>
+        <img class="search" src="../../images/search-icon.png" alt="" />
+      </div>
     <% } else { %>
       <% for(var i=0; i<courseResult.courses.length; i++) { %>
         <% if ( courseResult.courses[i].description.text !== null ) { %>
           <% if (courseResult.courses[i].code === null) { courseResult.courses[i].code = courseResult.courses[i].id.slice(0, -3); }%>
           <div id="course-result">
-            <h3><a href="/courses/<%= courseResult.courses[i].id %>"><%= courseResult.courses[i].code %> - <%= courseResult.courses[i].title %></a></h3>
+            <h3><a href="/courses/<%= courseResult.courses[i].id %>?location=<%= params.cityState %>"><%= courseResult.courses[i].code %> - <%= courseResult.courses[i].title %></a></h3>
             <div><%= prune(striptags(courseResult.courses[i].description.text), 300, "...") %></div>
             <div class="course-id"> <img src="../images/course-id-icon.png" alt="" /> Code: <strong><%= courseResult.courses[i].code %></strong> </div>
           </div>

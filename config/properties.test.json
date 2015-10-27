@@ -1,5 +1,5 @@
 {
-    "courseApiUrl": "http://ec2-54-88-97-61.compute-1.amazonaws.com",
+    "courseApiUrl": "http://api-test-loadbalancer-2116542131.us-east-1.elb.amazonaws.com",
 
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
@@ -15,5 +15,25 @@
     "proctorRequestEmailSubject":"Request for Proctor",
     "customerFeedBackFormToUserName":"GSWebsiteForm@graduateschool.edu",
     "customerFeedBackFormEmailSubject":"Customer FeedBack Form",
+
+    "certificateProgramGroup": {
+      "applicationForm": {
+        "email": "gs@agiletrailblazers.com",
+        "subject": "Incoming Application Form Request"
+      },
+      "progressReport": {
+        "email": "gs@agiletrailblazers.com",
+        "subject": "Incoming Progress Report Request"
+      },
+      "programCompletion": {
+        "email": "gs@agiletrailblazers.com",
+        "subject": "Incoming Certificate of Program Completion Request"
+      },
+      "waiverRequest" : {
+        "email": "gs@agiletrailblazers.com",
+        "subject": "Incoming Waiver Request"
+      }
+    },
+
     "googleAnalyticsId":"UA-66851185-2"
   }

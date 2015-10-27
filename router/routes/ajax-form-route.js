@@ -9,6 +9,7 @@ var dateformat = require('date-format-lite');
 var google = require('../../API/google.js');
 var validator = require('validator');
 var logger = require('../../logger');
+var config = require('konphyg')(__dirname + '/../../config');
 
 router.post('/mailer-customer-feedback', function (req, res, next) {
   params = req.body;
@@ -121,6 +122,47 @@ router.post('/mailer-request-proctor', function (req, res, next) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
           mailer.sendOnProctorRequest(function (response) {
+            handleResponse(res, response);
+          }, params);
+        } else {
+          sendErrorResponse(res, response);
+        }
+      }, params.captchaResponse);
+    } else {
+      sendErrorResponse(res, response);
+    }
+  }, params);
+});
+
+router.post('/mailer-request-certificate-program', function(req, res, next) {
+  params = req.body;
+
+  switch (true) {
+    case (params.formType === '/forms/certificate-program-application'):
+      params.emailTo = config("properties").certificateProgramGroup.applicationForm.email;
+      params.emailSubject = config("properties").certificateProgramGroup.applicationForm.subject;
+      break;
+    case (params.formType === '/forms/certificate-program-progress-report'):
+      params.emailTo = config("properties").certificateProgramGroup.progressReport.email;
+      params.emailSubject = config("properties").certificateProgramGroup.progressReport.subject;
+      break;
+    case (params.formType === '/forms/certificate-completion'):
+      params.emailTo = config("properties").certificateProgramGroup.programCompletion.email;
+      params.emailSubject = config("properties").certificateProgramGroup.programCompletion.subject;
+      break;
+    case (params.formType === '/forms/certificate-program-waiver-request'):
+      params.emailTo = config("properties").certificateProgramGroup.waiverRequest.email;
+      params.emailSubject = config("properties").certificateProgramGroup.waiverRequest.subject;
+      break;
+  }
+  routerService.validateCertificateProgramForms(function (response) {
+    // Send email if there are no errors.
+    if (Object.keys(response.errors).length === 0) {
+      //verify captcha
+      google.verifyCaptcha(function (response) {
+        if ((response != null) && (response.statusCode == 200)) {
+          //send mail of success
+          mailer.sendCertificateProgram(function (response) {
             handleResponse(res, response);
           }, params);
         } else {

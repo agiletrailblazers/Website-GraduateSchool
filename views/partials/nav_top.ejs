@@ -1,10 +1,11 @@
 <!-- TOP NAVIGATION -->
-<div class="container-fluid nav-top navbar-fixed-top" id="top-menu">
+<div class="container-fluid nav-top" id="top-menu">
 <div class="container padding0">
 <!-- START TOP PANEL -->
     <div id="nav-top">
       <div class="container npanel">
         <div class="fix">
+          <div id="close-button" class="toggle"><ul><li class="nav-toggle"><a href="#"><span class="glyphicon close-button glyphicon-chevron-up"></span></a></li></ul></div>
            <div class="left-panel col-lg-3">
                <ul class="nav nav-pills nav-stacked" id="tabs">
                    <li class="active"><a id="lnkCurrent" href="#current-students" data-toggle="tab"><img src="/images/current-students.png" alt="" class="size-fix" /> Students</a></li>
@@ -13,8 +14,10 @@
                </ul>
            </div>
            <div class="tab-content col-lg-9 fix-padding-bottom">
+
               <% navigation.top.forEach(function(nav) { %>
                 <div class="tab-pane <%= nav.active %>" id="<%= nav.key %>">
+                <div class="wrapper non-mobile">
                   <% if (nav.sections) { %>
                     <% var subNavCount = 0; %>
                     <% nav.sections.forEach(function(subNav) { %>
@@ -22,7 +25,7 @@
                         <% if (subNavCount > 0) { %>
                           </div>  <%#-- close out last column (but never on first column) %>
                         <% } %>
-                        <div class="col-lg-4 col-md-2 col-sm-4">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
                       <% } %>
                         <h3><%= subNav.title %></h3>
                         <ul>
@@ -32,13 +35,31 @@
                         </ul>
                       <% subNavCount++; %>
                     <% }); %>
-                    </div> <%#-- close out last column %>
+                    </div> <%#-- close out last column %> <!-- close out last column -->
                   <% } %>
+                </div> <!-- END wrapper non-mobile -->
+                <div id="nav-top-mob" class="mobile">
+                  <% if (nav.sections) { %>
+                    <% nav.sections.forEach(function(subNav) { %>
+                      <div id="single-item" class="wrapper">
+                      <% var linkId = nav.key+'-'+subNav.title.replace(/[^a-zA-Z0-9]/g, '-').replace(/--/g, '-').replace(/\-$/, "");%>
+
+                      <a href="#<%= linkId %>" class="expand-section accordion-toggle" data-toggle="collapse">  <span class="glyphicon glyphicon-plus-sign"></span> <%= subNav.title %></a>
+                        <ul id="<%= linkId %>" class="collapse">
+                          <% subNav.links.forEach(function(link) { %>
+                            <li><a href="<%= link.url %>"><%= link.title %></a></li>
+                          <% }); %>
+                        </ul>
+                      </div>
+                    <% }); %>
+                  <% } %>
+                </div>
                 </div>
               <% }); %>
             </div>
-        </div><!-- .container -->
-      </div>
+        </div><!-- END container -->
+      </div><!-- END Nav Top -->
+
 
       <div class="toggle colored-bg hide-panel" style="z-index: 25;">
         <div class="nav-top-bar non-mobile">
@@ -50,46 +71,88 @@
         </div>
         <div class="nav-top-bar-mob mobile">
           <ul id="nav-top-menu">
-            <li class=""><a href="#">Contact Us <img src="/images/contact-us-top.png" alt="" /></a></li>
+            <li class=""><a href="#" id="contact-us">Contact Us <img src="/images/contact-us-top.png" alt="" /></a></li>
             <li class=""><a href="#" id="mob-search">Search <img src="/images/search-top.png" alt="" /></a></li>
-            <li class="nav-toggle" data-tab="lnkCurrent"><a href="#">Quick Menu <img src="/images/prospective-students.png" alt="" class="user-icon" /></a></li>
+            <li class="nav-toggle" data-tab="lnkCurrent"><a href="#" id="nav-toggle-mob">Quick Menu <img src="/images/quick-menu.png" alt="" class="user-icon" /></a></li>
           </ul>
         </div>
+
       </div><!-- END toggle -->
-    </div>	<!-- END TOP PANEL -->
-</div>
-</div>
-<!-- END TOP NAVIGATION -->
+    </div>	<!-- END container -->
 
-<!-- mobile - for contact us -->
-<%# <div id="contact-us-top-menu">
-<ul class="">
-  <li><a href="tel:888-744-4723" ><img alt="" src="/images/call-us.png" class="">Call</a></li>
-  <li><a href="mailto:customersupport@graduateschool.edu" ><img alt="" src="/images/email-us.png" class="">Email</a></li>
-  <li><a href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;"><img src="/images/chat-with-us.png" alt="" />Chat</a></li>
-</ul>
-</div>%>
 
-<div id="search-top-menu">
-<div id="mob-searchBox">
-  <form id="search-form-top" action="javascript:performCourseSearchM();">
-    <div id="searchGroup-mob" class="input-group">
-      <input type="text" id="searchCriteriaM" name="searchCriteriaM" class="form-control searchCriteria" placeholder="Search">
-      <span class="input-group-btn">
-        <button id="course-search-buttonM" class="btn btn-default" type="submit">
-          <img alt="" src="/images/search.png">
-        </button>
-      </span>
+
+</div> <!-- END TOP MENU - container-fluid nav-top -->
+</div>
+
+
+<!-- Mobile only section - activated on click-->
+<div class="wrapper mobile">
+  <!-- Contact us -->
+  <div id="contact-us-top-menu">
+    <ul>
+      <li><a href="tel:888-744-4723"><img alt="" src="/images/call-us.png" class="">(888) 744-GRAD</a></li>
+      <li><a href="mailto:customersupport@graduateschool.edu" ><img alt="" src="/images/email-us.png" class="">Customer Support</a></li>
+      <li><a href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;"><img src="/images/chat-with-us.png" alt="" />Chat with us</a></li>
+    </ul>
+  </div>
+  <!-- Search Box -->
+  <div id="search-top-menu">
+    <div id="mob-searchBox">
+      <form id="search-form-top" action="javascript:performCourseSearchM();">
+        <div id="searchGroup-mob" class="input-group">
+          <input type="text" id="searchCriteriaM" name="searchCriteriaM" class="form-control searchCriteria" placeholder="Search" tabindex="1">
+          <span class="input-group-btn">
+            <button id="course-search-buttonM" class="btn btn-default" type="submit">
+              <img alt="" src="/images/search.png">
+            </button>
+          </span>
+        </div>
+      </form>
     </div>
-  </form>
-</div>
-<div id="mob-advancedSearchBox" class="mob-locations">
-    <span>Or find a course by:</span>
-      <select id="selSearchLocationM" class="form-control">
-          <option value="">Locations</option>
-          <% locations.forEach(function(location) { %>
-            <option value="<%= location %>"><%= location %></option>
-          <% }); %>
-      </select>
-</div>
-</div><!-- END Search Top menu -->
+    <div id="mob-advancedSearchBox" class="advanced-box-filters mob">
+          <div class="wrapper">
+            <div class="padding0">
+              <p class="search-box-intro">
+                Or find a course by:
+              </p>
+            </div>
+            <div class="center-filter">
+              <select id="selSearchLocationM" class="form-control" tabindex="2">
+                  <option value="">Locations</option>
+                  <% locations.forEach(function(location) { %>
+                    <option value="<%= location %>"><%= location %></option>
+                  <% }); %>
+              </select>
+            </div>
+            <div class="center-filter">
+              <select id="selCategorySubjectM" class="form-control" tabindex="3">
+                <option class="subject-item" value="all">Subject</option>
+                <% for (categorySubjectFacetCounter = 0; categorySubjectFacetCounter < courseSubjectResult.length; categorySubjectFacetCounter++) {
+                  var courseSubject = courseSubjectResult[categorySubjectFacetCounter].courseSubject;
+                  if (courseSubject.length > 1 ) { %>
+                    <optgroup class="subject-category" label="<%= courseSubjectResult[categorySubjectFacetCounter].category %>"
+                  %><%= courseSubjectResult[categorySubjectFacetCounter].subjectCount %>)>
+                  <% for (courseSubjectCounter = 0; courseSubjectCounter < courseSubject.length; courseSubjectCounter++) {
+                  %>
+                    <option value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[courseSubjectCounter].subject %>"
+                    ><%= courseSubject[courseSubjectCounter].subject %>
+                    </option>
+                  <% } %>
+                    </optgroup>
+                  <% } else if(courseSubject.length == 1) { %>
+                    <option class="subject-item"
+                      value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[0].subject %>">
+                      <%= courseSubject[0].subject %>
+                    </option>
+                  <% }
+                 } %>
+              </select>
+            </div>
+            <div class="search-submit pull-right padding-top">
+              <p class="btn"><a id="search-buttonM" class="search" href="#" role="button" tabindex="4">Search <img src="/images/arrow.png" alt=""></a></p>
+            </div>
+          </div>
+       </div>
+  </div><!-- END Search -->
+</div><!-- END Wrapper -->

@@ -12,14 +12,32 @@
       #course-information .nav-tabs > li > a {
       font-size: 14px !important;
       padding: 15px 5px !important;
+      }
 
     }
 
     /* Medium Devices, Desktops */
     @media only screen and (max-width : 992px) {
+
+      .alertonmobile {
+        display: block;
+        position: relative !important;
+        margin: 10px 5px 20px 5px !important;
+        background: rgba(58,117,175,  0.25) !important;
+      }
+
       .mob-rem {
         display: none;
         visibility: hidden;
+      }
+
+      .mobile-menu {
+        display: block;
+        visibility: visible;
+        position: absolute;
+        top: -50px;
+        right: 16px;
+        width: 100%;
       }
 
       /* NavBar breaking point */
@@ -132,7 +150,21 @@
         padding: 0 !important;
       }
 
+      .mobile-menu {
+        display: block;
+        visibility: visible;
+        position: absolute;
+        top: -60px;
+        right: 10px;
+        width: 100%;
+      }
 
+      .alertonmobile {
+        display: block;
+        position: relative !important;
+        margin: -10px 5px 20px 5px !important;
+        background: rgba(58,117,175,  0.25) !important;
+      }
 
       /* remove "CLEAR ALL" button from refine search sidebar on smaller res */
       .refine {
@@ -261,12 +293,6 @@
           margin: 0 !important;
        }
 
-       .alertonmobile {
-         display: block;
-         position: relative !important;
-         margin: -10px 5px 20px 5px !important;
-         background: rgba(58,117,175,  0.25) !important;
-       }
 
        /* top nav */
        .nav-top {
@@ -300,7 +326,7 @@
           margin: 0 auto !important;
           display: inline-block;
           width: 31%;
-          padding-top: 7px !important;
+          padding-top: 4px !important;
           text-align: center;
 
         }
@@ -308,7 +334,7 @@
         .nav-top-bar-mob ul li img {
           width: auto;
           max-width: 27px !important;
-          max-height: 25px !important;
+          max-height: 20px !important;
           padding: 0 0 0 5px !important;
         }
 
@@ -318,7 +344,7 @@
           font-size: 12px;
         }
 
-      
+
 
         /* Slider */
         .carousel-inner > .item > img {
@@ -376,6 +402,18 @@
         .carousel-indicators .active, .carousel-indicators li {
           width: 10px !important;
           height: 10px !important;
+        }
+
+        .ssn {
+          display: block;
+        }
+        .ssn-title {
+          display: block;
+          width: 100%;
+        }
+        .ssn .form-control {
+          width: 25%;
+          display: inline-block;
         }
 
 
