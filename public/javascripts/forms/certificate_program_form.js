@@ -64,6 +64,23 @@ Validate = {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Name on certificate must be at least 1 character.</p>");
     }
   },
+  ifOther: function() {
+    var input = $("#txtOther").val();
+    var pattern = new RegExp(/^[a-z0-9]+$/i);
+    if (!pattern.test(input)) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please use alphanumeric characters.</p>");
+    }
+  },
+  ssn: function() {
+    var input = [$("#txtSSNa").val(), $("#txtSSNb").val(), $("#txtSSNc").val()];
+    var pattern = new RegExp(/^[0-9]+$/i);
+    for (var i = 0; i < input.length; i++) {
+      if (!pattern.test(input[i]) {
+        $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> SSN must only be in numbers.</p>");
+        break;
+      }
+    }
+  }
   captcha: function() {
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
@@ -85,6 +102,12 @@ var _runValidation = function() {
   Validate.state();
   Validate.zip();
   Validate.captcha();
+  if ($("#txtSSNa").val().length != 0 || $("#txtSSNb").val().length != 0 || $("#txtSSNc").val().length != 0) {
+    Validate.ssn();
+  }
+  if ($("#txtOther").val()) {
+    Validate.ifOther();
+  }
   if (window.location.pathname == "/forms/certificate-completion") {
     Validate.certificate();
   }
