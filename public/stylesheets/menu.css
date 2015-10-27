@@ -371,8 +371,217 @@ transition: background-color 300ms linear;
   transition: all 0.7s;
 }
 
-.navbar-fixed-top {
-    position: fixed !important;
-    top:0;
-    z-index: 1030;
+
+/* TOP NAVIGATION */
+.fix {
+  padding-top: 15px;
+}
+
+.fix-padding-bottom {
+  padding-bottom: 30px;
+}
+
+.npanel{
+  width: 100%;
+}
+
+.nav-top {
+  border-bottom: 2px solid #01274F;
+  background: transparent linear-gradient(to right, #2A4D77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274F 100%) repeat scroll 0% 0%;
+  padding: 0;
+  top:0;
+}
+
+.nav-top-bar {
+  background: transparent linear-gradient(to right, #2A4D77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274F 100%) repeat scroll 0% 0%;
+  height: 33px;
+  margin: 0 0 0 0;
+}
+
+.nav-top-bar ul {
+  padding: 4px 15px 0 15px !important;
+  display: block;
+}
+
+.nav-top-bar ul li {
+  display: inline-block;
+  list-style: none;
+}
+
+.nav-top-bar ul li + li {
+    border-left: 1px solid #304E6A;
+
+}
+
+.nav-top-bar ul li a {
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: bold !important;
+ }
+
+.nav-top-bar-mob {
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: transparent linear-gradient(to right, #2A4D77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274F 100%) repeat scroll 0% 0%;
+  height: 35px;
+  margin: 0 0 0 0;
+}
+
+.left-panel ul li a {
+  color: #fff;
+  font-size: 15px;
+  font-weight:normal;
+  line-height: 25px;
+  text-decoration: none !important;
+
+}
+.left-panel ul li a:hover {
+  text-decoration: none !important;
+}
+
+#nav-top h3 {
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #fff;
+  padding: 0;
+  margin: 0;
+  line-height: 25px;
+  letter-spacing: 1px;
+}
+#nav-top ul {
+  padding: 0 0 20px 0;
+  margin: 0;
+}
+
+#nav-top ul li {
+  font-size: 13px;
+  color: #fff;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  line-height: 23px;
+}
+
+#nav-top ul li a {
+  background: transparent;
+  color: #fff;
+  font-weight:normal;
+  text-align: left;
+  opacity: 1.0;
+  -webkit-transition: background 300ms linear;
+  -moz-transition: background 300ms linear;
+  -o-transition: background 300ms linear;
+  -ms-transition: background 300ms linear;
+  transition: background 300ms linear;
+}
+
+#nav-top ul li a:hover {
+  background: transparent;
+  color: #FFF;
+  text-decoration: none;
+  opacity: 0.6;
+  -webkit-transition: opacity 300ms linear;
+  -moz-transition: opacity 300ms linear;
+  -o-transition: opacity 300ms linear;
+  -ms-transition: opacity 300ms linear;
+  transition: opacity 300ms linear;
+}
+
+#nav-top img.size-fix {
+  height: 30px;
+}
+
+/* TOP NAVIGATION MOBILE */
+
+
+#nav-top-mob {
+position: relative;
+}
+
+#nav-top-mob .glyphicon {
+  color: #EEE !important;
+  font-size: 15px !important;
+  display: inline-block;
+}
+
+#nav-top-mob a.expand-section:link {
+  font-size: 15px;
+  color: #EEE;
+  background: transparent none repeat scroll 0% 0%;
+  text-decoration: none;
+  transition: background-color 300ms linear 0s;
+  opacity: 1.0;
+}
+#nav-top-mob ul {
+  padding: 0 !important;
+  margin: 10px 0;
+}
+
+#nav-top-mob ul li {
+  font-size: 14px;
+  color: #EEE;
+  list-style: outside none none;
+  padding: 0px;
+  margin: 0px;
+  line-height: 22px;
+}
+
+#nav-top-mob ul li a {
+  padding: 10px 25px !important;
+  opacity: 1.0;
+}
+
+#nav-top-mob ul li a:hover, #nav-top-mob ul li a:focus {
+  color: #EEE !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  transition: background 300ms linear 0s !important;
+  opacity: 1.0;
+}
+
+#nav-top-mob #single-item {
+  display: block;
+}
+
+#nav-top-mob #single-item a, #nav-top-mob #single-item a:visited {
+  color: #EEE !important;
+  padding: 10px 5px;
+  text-align: left;
+  display: inline-block;
+  width: 100%;
+}
+
+#nav-top-mob #single-item a:hover, #nav-top-mob #single-item a:focus {
+  color: #EEE !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  transition: background 300ms linear 0s !important;
+}
+
+#close-button {
+  bottom: 15px !important;
+  right: 10px !important;
+  position: absolute;
+
+}
+
+#close-button.toggle a {
+  float: right;
+  clear: both;
+
+}
+
+#close-button.toggle {
+  box-shadow: none !important;
+  z-index: 1000;
+  display: inline;
+}
+
+#close-button.toggle a:hover {
+  opacity: 0.6;
+}
+
+.close-button{
+  color: #FFF !important;
+  font-size: 22px !important;
 }
