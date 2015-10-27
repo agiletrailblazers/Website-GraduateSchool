@@ -512,6 +512,7 @@ position: relative;
   background: transparent none repeat scroll 0% 0%;
   text-decoration: none;
   transition: background-color 300ms linear 0s;
+  opacity: 1.0;
 }
 #nav-top-mob ul {
   padding: 0 !important;
@@ -529,6 +530,14 @@ position: relative;
 
 #nav-top-mob ul li a {
   padding: 10px 25px !important;
+  opacity: 1.0;
+}
+
+#nav-top-mob ul li a:hover, #nav-top-mob ul li a:focus {
+  color: #EEE !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  transition: background 300ms linear 0s !important;
+  opacity: 1.0;
 }
 
 #nav-top-mob #single-item {
@@ -545,7 +554,7 @@ position: relative;
 
 #nav-top-mob #single-item a:hover, #nav-top-mob #single-item a:focus {
   color: #EEE !important;
-  background: rgba(0, 0, 0, .4) !important;
+  background: rgba(0, 0, 0, 0.5) !important;
   transition: background 300ms linear 0s !important;
 }
 
@@ -566,7 +575,7 @@ position: relative;
   color: #EEE;
   padding: 0px 8px;
   border-radius: 25px;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 #close-button.toggle {

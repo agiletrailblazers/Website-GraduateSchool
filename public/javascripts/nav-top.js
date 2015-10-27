@@ -40,6 +40,7 @@ $(document).mouseup(function(e)
         && container.has(e.target).length === 0  //  nor a descendant of the container
         && $('.npanel').css('display') != 'none') // nor npanel is hidden
     {
+        $('#close-button').fadeOut();
         $('.npanel').slideUp();
         $("html, body").animate({ scrollTop: 0 }, "slow");
 
