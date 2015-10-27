@@ -179,10 +179,6 @@ margin: 20px 0;
   padding: 0;
 }
 
-.white {
-  color: #FFF !important;
-}
-
 
 .control-label {
   padding: 5px 5px 0 0 !important;
@@ -219,12 +215,12 @@ margin: 20px 0;
 
 .tabs {
   background-image: none !important;
-  background-color: #427EB4 !important;
+  background-color: #FFF !important;
   margin-bottom: 0px;
   border: none;
   border-radius: 2px;
   margin: 0;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: none !important;
 }
 
 .row .results-header {
@@ -257,19 +253,22 @@ margin: 20px 0;
 }
 
 #searchResults .nav-tabs > li > a {
-  border: solid 2px transparent;
-  color: #FFF;
+  background: #F2F2F2;
+  border: solid 2px #DDD !important;
+  color: #000;
+  font-size: 14px;
   -webkit-transition: background-color 300ms linear;
   -moz-transition: background-color 300ms linear;
   -o-transition: background-color 300ms linear;
   -ms-transition: background-color 300ms linear;
   transition: background-color 300ms linear;
+
 }
 
-#searchResults .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
-  color: #000;
+#searchResults .nav-tabs > li.active > a {
+  color: #FFF;
   cursor: default;
-  background-image: linear-gradient(to bottom, #F2F2F2 0px, #FFF 100%);
+  background: #427EB4;
   border: solid 2px #DDD;
   -moz-border-top-colors: none;
   -moz-border-right-colors: none;
@@ -283,14 +282,17 @@ margin: 20px 0;
   transition: background-color 300ms linear;
 }
 
-#searchResults .nav-tabs > li > a:hover {
-  color: #000;
+
+
+#searchResults .nav-tabs > li > a:hover, .nav-tabs > li.active > a:hover {
+  color: #FFF;
+  background: rgba(0, 0, 0, 0.8) !important;
   border: solid 2px #DDD;
-  -webkit-transition: background-color 300ms linear;
-  -moz-transition: background-color 300ms linear;
-  -o-transition: background-color 300ms linear;
-  -ms-transition: background-color 300ms linear;
-  transition: background-color 300ms linear;
+  -webkit-transition: background 300ms linear;
+  -moz-transition: background 300ms linear;
+  -o-transition: background 300ms linear;
+  -ms-transition: background 300ms linear;
+  transition: background 300ms linear 0s !important;
 }
 
 
