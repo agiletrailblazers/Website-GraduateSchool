@@ -1,4 +1,11 @@
 Validate = {
+  selectProgram: function() {
+    var selected = $("#selectBox").val();
+    var input = $("#txtOther").val();
+    if( (!selected) && input.trim().length < 1 ) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please select Certificate Program Information</p>");
+    }
+  },
   firstName: function() {
     var input = $("#txtFirstName").val();
     var noNumbersPattern = new RegExp(/^[a-zA-Z]*$/);
@@ -93,6 +100,7 @@ Validate = {
 var _runValidation = function() {
   $("#alertError").slideUp();
   $("#alertError p").remove();
+  Validate.selectProgram();
   Validate.firstName();
   Validate.lastName();
   Validate.email();
