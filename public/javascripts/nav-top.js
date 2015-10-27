@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 
 //Hide/Show close button while animating.
-$(document).ready(function(){
+$(document).ready(function() {
   $('#close-button').click(function() {
       $('#close-button').fadeOut();
   });
@@ -27,18 +27,17 @@ $(document).ready(function(){
   });
 });
 
-$(document).ready(function(){
+$(document).ready(function() {
   //Controls plus-minus sign on top nav on mobile
-  $('.collapse').on('shown.bs.collapse', function(){
+  $('.collapse').on('shown.bs.collapse', function() {
     $(this).parent().find(".glyphicon-plus-sign").removeClass("glyphicon-plus-sign").addClass("glyphicon-minus-sign");
-  }).on('hidden.bs.collapse', function(){
+  }).on('hidden.bs.collapse', function() {
     $(this).parent().find(".glyphicon-minus-sign").removeClass("glyphicon-minus-sign").addClass("glyphicon-plus-sign");
   });
 });
 
 
-$(document).mouseup(function(e)
-{
+$(document).mouseup(function(e) {
     var container = $("#top-menu");
 
     if (!container.is(e.target) // if the target of the click isn't the container...
