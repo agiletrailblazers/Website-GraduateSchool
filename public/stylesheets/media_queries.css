@@ -125,6 +125,8 @@
       padding: 15px 5px !important;
       }
 
+
+
     }
 
     /* Small Devices, Tablets */
@@ -294,6 +296,8 @@
        }
 
 
+
+
        /* top nav */
        .nav-top {
           border-bottom: 3px solid #01274F;
@@ -416,6 +420,14 @@
           display: inline-block;
         }
 
+        /* Search results - tabs */
+        .mob-tab {
+          text-align: left !important;
+        }
+
+        .tab-fix {
+          padding-left: 40px;
+        }
 
     }
 
@@ -477,6 +489,8 @@
         display: none;
         visibility: hidden;
       }
+
+
 
     }
 

@@ -6,10 +6,10 @@
           <div id="searchResults">
             <ul class="nav nav-tabs">
               <li class="<%= (params.tab == 'course') ? 'active' : '' %>">
-                <a data-toggle="tab" href="#course-search-results" data-tab="course" class="<%= (courseResult && courseResult.numFound > 0) ? '' : 'disabled' %>">Course Search Results (<%= (courseResult && courseResult.numFound) ? courseResult.numFound : 0 %>)</a>
+                <a data-toggle="tab" href="#course-search-results" data-tab="course" class="<%= (courseResult && courseResult.numFound > 0) ? '' : 'disabled' %>mob-tab"><img src="/images/tab-icon.png" alt="" class="tab-icon mobile" /> <span class="tab-fix">Course Search Results (<%= (courseResult && courseResult.numFound) ? courseResult.numFound : 0 %>)</span></a>
               </li>
               <li class="<%= (params.tab == 'site') ? 'active' : '' %>">
-                <a data-toggle="tab" href="#site-search-results" data-tab="site" class="<%= (siteResult && siteResult.numFound > 0) ? '' : 'disabled' %>">Site Search Results (<%= (siteResult && siteResult.numFound) ? siteResult.numFound : 0 %>)</a>
+                <a data-toggle="tab" href="#site-search-results" data-tab="site" class="<%= (siteResult && siteResult.numFound > 0) ? '' : 'disabled' %>mob-tab"><img src="/images/tab-icon.png" alt="" class="tab-icon mobile" /> <span class="tab-fix">Site Search Results (<%= (siteResult && siteResult.numFound) ? siteResult.numFound : 0 %>)</span></a>
               </li> <!-- Class disabled when 0 resutls -->
             </ul>
             <input type="hidden" id="txtSelectedTab" value="<%= params.tab %>" />

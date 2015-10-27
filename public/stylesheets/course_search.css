@@ -327,3 +327,12 @@ margin: 20px 0;
   margin-top: -8px !important;
   position: absolute;
 }
+
+.tab-icon {
+  position: absolute;
+  margin: 0px;
+}
+
+.tab-fix {
+  display: block;
+}
