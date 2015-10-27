@@ -95,7 +95,13 @@
               <th></th>
             </tr>
             <% if (courseData.session.length === 0) { %>
-              <tr><td colspan="5"><%= content.noSessionsError %></td></tr>
+                <tr><td colspan="5">
+                  <% if (true === courseData.isLeadershipCourse) { %>
+                    <a href=<%= courseData.leadershipCourseScheduleLink %>><%= content.leadershipCourseScheduleLinkText %></a>
+                  <% } else { %>
+                    <%= content.noSessionsError %>
+                  <% } %>
+                </td></tr>
             <% } else { %>
             <% courseData.session.forEach(function(session) { %>
               <tr class="courseDetailSessionRow" data-rowhide="<%= session.hide %>">
@@ -231,9 +237,13 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mobile-nopadding">
 
                       <% if (courseData.session.length === 0) { %>
-                        <p class="padding20">
-                          <%= content.noSessionsError %>
-                        </p>
+                          <p class="padding20">
+                            <% if (true === courseData.isLeadershipCourse) { %>
+                              <a href=<%= courseData.leadershipCourseScheduleLink %>><%= content.leadershipCourseScheduleLinkText %></a>
+                            <% } else { %>
+                              <%= content.noSessionsError %>
+                            <% } %>
+                          </p>
                       <% } else { %>
                       <% courseData.session.forEach(function(session,i) { %>
                           <div class="panel-group session-schedule-mob mobile" id="accordion">

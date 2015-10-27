@@ -84,6 +84,16 @@ router.get('/courses/:course_id', function(req, res, next){
       content.linksSection.forEach(function(link) {
         link.url = link.url.replace('[courseCode]', courseData.class.code);
       });
+
+      courseData.isLeadershipCourse = false;
+      content.leadershipCourseCodes.forEach(function (currCode) {
+        if (courseData.class.code === currCode) {
+          courseData.isLeadershipCourse = true;
+          courseData.leadershipCourseScheduleLinkText = content.leadershipCourseScheduleLinkText;
+          courseData.leadershipCourseScheduleLink = content.leadershipCourseScheduleLink;
+        }
+      });
+
 	    res.render('course_detail', { content: content,
         courseData: courseData,
         title: 'Course Details',
