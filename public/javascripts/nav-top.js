@@ -9,28 +9,33 @@ $(document).ready(function() {
       // Animation complete.
       function() {
         $('.toggle').toggleClass('hide-panel');
-        $("html, body").animate({ scrollTop: 0 }, "slow");
+        $("html, body").scrollTop(0);
+
       }
     );
   });
+});
 
-  //Hide/Show close button while animating.
-  $(document).ready(function(){
-    $('#close-button').click(function() {
-        $('#close-button').fadeOut();
-    });
-    $('.toggle').click(function() {
-      $('#close-button').fadeIn();
-    });
+
+//Hide/Show close button while animating.
+$(document).ready(function(){
+  $('#close-button').click(function() {
+      $('#close-button').fadeOut();
+  });
+  $('.toggle').click(function() {
+    $('#close-button').fadeIn();
   });
 });
 
-//Controls plus-minus sign on top nav on mobile
-$('.collapse').on('shown.bs.collapse', function(){
-  $(this).parent().find(".glyphicon-plus-sign").removeClass("glyphicon-plus-sign").addClass("glyphicon-minus-sign");
-}).on('hidden.bs.collapse', function(){
-  $(this).parent().find(".glyphicon-minus-sign").removeClass("glyphicon-minus-sign").addClass("glyphicon-plus-sign");
+$(document).ready(function(){
+  //Controls plus-minus sign on top nav on mobile
+  $('.collapse').on('shown.bs.collapse', function(){
+    $(this).parent().find(".glyphicon-plus-sign").removeClass("glyphicon-plus-sign").addClass("glyphicon-minus-sign");
+  }).on('hidden.bs.collapse', function(){
+    $(this).parent().find(".glyphicon-minus-sign").removeClass("glyphicon-minus-sign").addClass("glyphicon-plus-sign");
+  });
 });
+
 
 $(document).mouseup(function(e)
 {

@@ -559,33 +559,29 @@ position: relative;
 }
 
 #close-button {
-  top: 15px !important;
+  bottom: 15px !important;
   right: 10px !important;
   position: absolute;
 
 }
 
 #close-button.toggle a {
-  top: 15px !important;
-  right: 10px !important;
   float: right;
   clear: both;
-  text-align: right;
-  background-color: #121212;
-  color: #EEE;
-  padding: 0px 8px;
-  border-radius: 25px;
-  font-size: 13px;
+
 }
 
 #close-button.toggle {
   box-shadow: none !important;
   z-index: 1000;
   display: inline;
-  width: 24px !important;
 }
 
 #close-button.toggle a:hover {
-  background-color: #121212 !important;
-  color: #EEE;
+  opacity: 0.6;
+}
+
+.close-button{
+  color: #FFF !important;
+  font-size: 22px !important;
 }
