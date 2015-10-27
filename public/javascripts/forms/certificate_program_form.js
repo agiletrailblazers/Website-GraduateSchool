@@ -75,12 +75,12 @@ Validate = {
     var input = [$("#txtSSNa").val(), $("#txtSSNb").val(), $("#txtSSNc").val()];
     var pattern = new RegExp(/^[0-9]+$/i);
     for (var i = 0; i < input.length; i++) {
-      if (!pattern.test(input[i]) {
+      if (!pattern.test(input[i])) {
         $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> SSN must only be in numbers.</p>");
         break;
       }
     }
-  }
+  },
   captcha: function() {
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
