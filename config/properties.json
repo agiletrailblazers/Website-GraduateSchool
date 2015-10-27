@@ -38,10 +38,22 @@
     "certificateProgramZip":"Zip must be greater than 5 characters.",
     "certificateProgramState":"Please select a state.",
     "certificateProgramGroup": {
-      "applicationForm": "gs@agiletrailblazers.com",
-      "progressReport": "gs@agiletrailblazers.com",
-      "programCompletion": "gs@agiletrailblazers.com",
-      "waiverRequest" : "gs@agiletrailblazers.com"
+      "applicationForm": {
+        "email": "gs@agiletrailblazers.com",
+        "subject": "Incoming Application Form Request"
+      },
+      "progressReport": {
+        "email": "gs@agiletrailblazers.com",
+        "subject": "Incoming Progress Report Request"
+      },
+      "programCompletion": {
+        "email": "gs@agiletrailblazers.com",
+        "subject": "Incoming Certificate of Program Completion Request"
+      },
+      "waiverRequest" : {
+        "email": "gs@agiletrailblazers.com",
+        "subject": "Incoming Waiver Request"
+      }
     },
 
     "chatPages":"\/courses\/*|\/forms|\/search|\/forms/contact-us",

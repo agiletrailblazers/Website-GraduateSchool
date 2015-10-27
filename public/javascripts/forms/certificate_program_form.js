@@ -1,7 +1,14 @@
 Validate = {
+  selectProgram: function() {
+    var selected = $("#selectBox").val();
+    var input = $("#txtOther").val();
+    if( (!selected) && input.trim().length < 1 ) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please select Certificate Program Information</p>");
+    }
+  },
   firstName: function() {
     var input = $("#txtFirstName").val();
-    var noNumbersPattern = new RegExp(/^[^0-9]+$/);
+    var noNumbersPattern = new RegExp(/^[a-zA-Z]*$/);
     if (!noNumbersPattern.test(input)) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>First Name</strong> should not have numbers.</p>");
     }
@@ -11,7 +18,7 @@ Validate = {
   },
   lastName: function() {
     var input = $("#txtLastName").val();
-    var noNumbersPattern = new RegExp(/^[^0-9]+$/);
+    var noNumbersPattern = new RegExp(/^[a-zA-Z]*$/);
     if (!noNumbersPattern.test(input)) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Last Name</strong> should not have numbers.</p>");
     }
@@ -64,6 +71,23 @@ Validate = {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Name on certificate must be at least 1 character.</p>");
     }
   },
+  ifOther: function() {
+    var input = $("#txtOther").val();
+    var pattern = new RegExp(/^[a-z0-9]+$/i);
+    if (!pattern.test(input)) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please use alphanumeric characters.</p>");
+    }
+  },
+  ssn: function() {
+    var input = [$("#txtSSNa").val(), $("#txtSSNb").val(), $("#txtSSNc").val()];
+    var pattern = new RegExp(/^[0-9]+$/i);
+    for (var i = 0; i < input.length; i++) {
+      if (!pattern.test(input[i])) {
+        $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> SSN must only be in numbers.</p>");
+        break;
+      }
+    }
+  },
   captcha: function() {
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
@@ -74,6 +98,9 @@ Validate = {
 
 
 var _runValidation = function() {
+  $("#alertError").slideUp();
+  $("#alertError p").remove();
+  Validate.selectProgram();
   Validate.firstName();
   Validate.lastName();
   Validate.email();
@@ -83,8 +110,17 @@ var _runValidation = function() {
   Validate.state();
   Validate.zip();
   Validate.captcha();
+  if ($("#txtSSNa").val().length != 0 || $("#txtSSNb").val().length != 0 || $("#txtSSNc").val().length != 0) {
+    Validate.ssn();
+  }
+  if ($("#txtOther").val()) {
+    Validate.ifOther();
+  }
   if (window.location.pathname == "/forms/certificate-completion") {
     Validate.certificate();
+  }
+  if ($("#alertError p").length) {
+    $("#alertError").slideDown("slow");
   }
 }
 
@@ -105,7 +141,11 @@ $(document).ready(function() {
     data.mi = $("#txtMI").val();
     data.formerLastName = $("#txtFormerLastName").val();
     data.ssn = $("#txtSSNa").val() +'-'+ $("#txtSSNb").val() +'-'+ $("#txtSSNc").val();
-    data.dob = $("#month").val() +'/'+ $("#day").val() +'/'+ $("#txtYear").val();
+    if( $("#month").val() || $("#day").val() || $("#txtYear").val()) {
+      data.dob = $("#month").val() +'/'+ $("#day").val() +'/'+ $("#txtYear").val();
+    } else {
+      data.dob = "";
+    }
     data.email = $("#txtEmail").val();
     data.phone = $("#txtPhone").val();
     data.fax = $("#txtFax").val();
@@ -126,7 +166,13 @@ $(document).ready(function() {
         .done(function(data) {
           $(".loading").hide();
           alertify.success("Email sent!")
-          $("#alertSuccess").toggle();
+          $(".certificate-program-form").toggle();
+          if( (data.firstName != '' && data.firstName != null && typeof(data.firstName) != 'undefined') ) {
+            $("#txtCustomerName").text(data.firstName);
+          } else {
+            $("#txtCustomerName").text("Valued Customer");
+          }
+          $("#alertSuccess").slideDown();
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();

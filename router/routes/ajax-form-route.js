@@ -139,19 +139,22 @@ router.post('/mailer-request-certificate-program', function(req, res, next) {
 
   switch (true) {
     case (params.formType === '/forms/certificate-program-application'):
-      params.emailTo = config("properties").certificateProgramGroup.applicationForm;
+      params.emailTo = config("properties").certificateProgramGroup.applicationForm.email;
+      params.emailSubject = config("properties").certificateProgramGroup.applicationForm.subject;
       break;
     case (params.formType === '/forms/certificate-program-progress-report'):
-      params.emailTo = config("properties").certificateProgramGroup.progressReport;
+      params.emailTo = config("properties").certificateProgramGroup.progressReport.email;
+      params.emailSubject = config("properties").certificateProgramGroup.progressReport.subject;
       break;
     case (params.formType === '/forms/certificate-completion'):
-      params.emailTo = config("properties").certificateProgramGroup.programCompletion;
+      params.emailTo = config("properties").certificateProgramGroup.programCompletion.email;
+      params.emailSubject = config("properties").certificateProgramGroup.programCompletion.subject;
       break;
     case (params.formType === '/forms/certificate-program-waiver-request'):
-      params.emailTo = config("properties").certificateProgramGroup.waiverRequest;
+      params.emailTo = config("properties").certificateProgramGroup.waiverRequest.email;
+      params.emailSubject = config("properties").certificateProgramGroup.waiverRequest.subject;
       break;
   }
-  params.emailTo = config("properties").defaultEmailUserName;
   routerService.validateCertificateProgramForms(function (response) {
     // Send email if there are no errors.
     if (Object.keys(response.errors).length === 0) {
