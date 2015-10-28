@@ -165,9 +165,9 @@
                               <input type="checkbox" id="chkGSLocations" value="" tabindex="18"> Graduate School USA facilities in (which location(s))
                               <select class="form-control" id="selGSLocations" style="display:none;" tabindex="19">
                                 <option value="">Select One</option>
-                                <% for(i = 0; i < locations.length; i++) { %>
-                                  <option value="<%= locations[i].city %>, <%= locations[i].state %>"><%= locations[i].city %>, <%= locations[i].state %></option>
-                                  <% } %>
+                                <% locations.forEach(function(location) { %>
+                                  <option value="<%= location %>"><%= location %></option>
+                                  <% }); %>
                                 </select>
                                 <br>
                                 <input type="checkbox" id="chkYourLocations" value="" tabindex="20"> On-site in your facilities in (which location(s))
