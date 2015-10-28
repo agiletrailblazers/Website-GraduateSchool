@@ -18,6 +18,14 @@
 
     /* Medium Devices, Desktops */
     @media only screen and (max-width : 992px) {
+
+      .alertonmobile {
+        display: block;
+        position: relative !important;
+        margin: 10px 5px 20px 5px !important;
+        background: rgba(58,117,175,  0.25) !important;
+      }
+
       .mob-rem {
         display: none;
         visibility: hidden;
@@ -117,6 +125,8 @@
       padding: 15px 5px !important;
       }
 
+
+
     }
 
     /* Small Devices, Tablets */
@@ -151,7 +161,12 @@
         width: 100%;
       }
 
-
+      .alertonmobile {
+        display: block;
+        position: relative !important;
+        margin: -10px 5px 20px 5px !important;
+        background: rgba(58,117,175,  0.25) !important;
+      }
 
       /* remove "CLEAR ALL" button from refine search sidebar on smaller res */
       .refine {
@@ -280,12 +295,8 @@
           margin: 0 !important;
        }
 
-       .alertonmobile {
-         display: block;
-         position: relative !important;
-         margin: -10px 5px 20px 5px !important;
-         background: rgba(58,117,175,  0.25) !important;
-       }
+
+
 
        /* top nav */
        .nav-top {
@@ -409,6 +420,14 @@
           display: inline-block;
         }
 
+        /* Search results - tabs */
+        .mob-tab {
+          text-align: left !important;
+        }
+
+        .tab-fix {
+          padding-left: 40px;
+        }
 
     }
 
@@ -470,6 +489,8 @@
         display: none;
         visibility: hidden;
       }
+
+
 
     }
 

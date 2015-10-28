@@ -30,8 +30,8 @@ $(document).ready(function() {
 		   $("#myCarousel").swipeleft(function() {
 		      $(this).carousel('next');
 	   });
-	});
 
+	});
 
 //Displays contact us menu on click
 $(document).ready(function(){

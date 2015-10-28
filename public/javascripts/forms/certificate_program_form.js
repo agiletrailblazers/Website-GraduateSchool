@@ -1,4 +1,11 @@
 Validate = {
+  selectProgram: function() {
+    var selected = $("#selectBox").val();
+    var input = $("#txtOther").val();
+    if( (!selected) && input.trim().length < 1 ) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please select Certificate Program Information</p>");
+    }
+  },
   firstName: function() {
     var input = $("#txtFirstName").val();
     var noNumbersPattern = new RegExp(/^[a-zA-Z]*$/);
@@ -75,12 +82,12 @@ Validate = {
     var input = [$("#txtSSNa").val(), $("#txtSSNb").val(), $("#txtSSNc").val()];
     var pattern = new RegExp(/^[0-9]+$/i);
     for (var i = 0; i < input.length; i++) {
-      if (!pattern.test(input[i]) {
+      if (!pattern.test(input[i])) {
         $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> SSN must only be in numbers.</p>");
         break;
       }
     }
-  }
+  },
   captcha: function() {
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
@@ -93,6 +100,7 @@ Validate = {
 var _runValidation = function() {
   $("#alertError").slideUp();
   $("#alertError p").remove();
+  Validate.selectProgram();
   Validate.firstName();
   Validate.lastName();
   Validate.email();

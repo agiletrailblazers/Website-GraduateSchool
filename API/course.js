@@ -6,15 +6,15 @@ var logger = require('../logger');
 module.exports = {
   performCourseSearch: function(callback, params) {
     var courseApiUrl = config("properties").courseApiUrl;
-    courseApiUrl = courseApiUrl + '/api/courses?search=' + params.searchCriteria;
+    courseApiUrl = courseApiUrl + '/api/courses?search=' + encodeURIComponent(params.searchCriteria)  ;
     if (isNotEmpty(params.numRequested)) {
       courseApiUrl = courseApiUrl + '&numRequested=' + params.numRequested;
     }
-    if (isNotEmpty(params.cityState) && params.cityState != 'all') {
-      courseApiUrl = courseApiUrl + '&filter={facet-countall}city_state:' + params.cityState;
+    if (isNotEmptyOrAll(params.cityState)) {
+      courseApiUrl = courseApiUrl + '&filter=city_state:' + params.cityState;
     }
-    if (isNotEmpty(params.categorySubject) && params.categorySubject != 'all') {
-      courseApiUrl = courseApiUrl + '&filter={facet-countall}category_subject:' + params.categorySubject;
+    if (isNotEmptyOrAll(params.categorySubject)) {
+      courseApiUrl = courseApiUrl + '&filter=category_subject:' + params.categorySubject;
     }
     if (params.page && isNotEmpty(params.page.course)) {
       courseApiUrl = courseApiUrl + '&page='+ params.page.course;
@@ -117,7 +117,7 @@ module.exports = {
       return callback(null, null, {});
     }
     var siteApiUrl = config("properties").courseApiUrl;
-    siteApiUrl = siteApiUrl + '/api/site?search=' + params.searchCriteria
+    siteApiUrl = siteApiUrl + '/api/site?search=' + encodeURIComponent(params.searchCriteria)
     if (isNotEmpty(params.cityState) && params.cityState != 'all') {
       siteApiUrl = siteApiUrl + '&filter=content:' + params.cityState;
     }
@@ -153,4 +153,11 @@ function isNotEmpty(val) {
 //-- check if value is empty
 function isEmpty(val) {
   return !isNotEmpty(val);
+}
+//-- check if value is NOT empty or not 'all'
+function isNotEmptyOrAll(val) {
+  if (val != '' && val != null && typeof(val) != 'undefined' && val != 'all') {
+    return true;
+  }
+  return false;
 }

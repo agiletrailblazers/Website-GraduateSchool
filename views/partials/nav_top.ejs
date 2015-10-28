@@ -5,6 +5,7 @@
     <div id="nav-top">
       <div class="container npanel">
         <div class="fix">
+          <div id="close-button" class="toggle"><ul><li class="nav-toggle"><a href="#"><span class="glyphicon close-button glyphicon-chevron-up"></span></a></li></ul></div>
            <div class="left-panel col-lg-3">
                <ul class="nav nav-pills nav-stacked" id="tabs">
                    <li class="active"><a id="lnkCurrent" href="#current-students" data-toggle="tab"><img src="/images/current-students.png" alt="" class="size-fix" /> Students</a></li>
@@ -13,8 +14,10 @@
                </ul>
            </div>
            <div class="tab-content col-lg-9 fix-padding-bottom">
+
               <% navigation.top.forEach(function(nav) { %>
                 <div class="tab-pane <%= nav.active %>" id="<%= nav.key %>">
+                <div class="wrapper non-mobile">
                   <% if (nav.sections) { %>
                     <% var subNavCount = 0; %>
                     <% nav.sections.forEach(function(subNav) { %>
@@ -22,7 +25,7 @@
                         <% if (subNavCount > 0) { %>
                           </div>  <%#-- close out last column (but never on first column) %>
                         <% } %>
-                        <div class="col-lg-4 col-md-2 col-sm-4">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
                       <% } %>
                         <h3><%= subNav.title %></h3>
                         <ul>
@@ -32,8 +35,25 @@
                         </ul>
                       <% subNavCount++; %>
                     <% }); %>
-                    </div> <%#-- close out last column %>
+                    </div> <%#-- close out last column %> <!-- close out last column -->
                   <% } %>
+                </div> <!-- END wrapper non-mobile -->
+                <div id="nav-top-mob" class="mobile">
+                  <% if (nav.sections) { %>
+                    <% nav.sections.forEach(function(subNav) { %>
+                      <div id="single-item" class="wrapper">
+                      <% var linkId = nav.key+'-'+subNav.title.replace(/[^a-zA-Z0-9]/g, '-').replace(/--/g, '-').replace(/\-$/, "");%>
+
+                      <a href="#<%= linkId %>" class="expand-section accordion-toggle" data-toggle="collapse">  <span class="glyphicon glyphicon-plus-sign"></span> <%= subNav.title %></a>
+                        <ul id="<%= linkId %>" class="collapse">
+                          <% subNav.links.forEach(function(link) { %>
+                            <li><a href="<%= link.url %>"><%= link.title %></a></li>
+                          <% }); %>
+                        </ul>
+                      </div>
+                    <% }); %>
+                  <% } %>
+                </div>
                 </div>
               <% }); %>
             </div>
@@ -53,11 +73,15 @@
           <ul id="nav-top-menu">
             <li class=""><a href="#" id="contact-us">Contact Us <img src="/images/contact-us-top.png" alt="" /></a></li>
             <li class=""><a href="#" id="mob-search">Search <img src="/images/search-top.png" alt="" /></a></li>
-            <li class="nav-toggle" data-tab="lnkCurrent"><a href="#">Quick Menu <img src="/images/quick-menu.png" alt="" class="user-icon" /></a></li>
+            <li class="nav-toggle" data-tab="lnkCurrent"><a href="#" id="nav-toggle-mob">Quick Menu <img src="/images/quick-menu.png" alt="" class="user-icon" /></a></li>
           </ul>
         </div>
+
       </div><!-- END toggle -->
     </div>	<!-- END container -->
+
+
+
 </div> <!-- END TOP MENU - container-fluid nav-top -->
 </div>
 

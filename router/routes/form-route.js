@@ -154,13 +154,13 @@ router.get(
   function(req, res, next) {
     var entryId, fields, states;
     var dataGroupId = '6bC5G37EOssooK4K2woUyg';
-    if (req.url === '/forms/certificate-program-application') {
+    if (req.url.indexOf("/forms/certificate-program-application") > -1 ) {
       entryId = "3GzxTDiq5WEGguqwIou2O2";
-    } else if (req.url === '/forms/certificate-program-progress-report') {
+    } else if (req.url.indexOf("/forms/certificate-program-progress-report") > -1 ) {
       entryId = "344ZZC7odi62ouoyOg4s6I";
-    } else if (req.url === '/forms/certificate-completion') {
+    } else if (req.url.indexOf("/forms/certificate-completion") > -1 ) {
       entryId = "fxHBffYYx2ekiYkIEu8WK";
-    } else if (req.url === '/forms/certificate-program-waiver-request') {
+    } else if (req.url.indexOf("/forms/certificate-program-waiver-request") > -1 ) {
       entryId = "2M0BN2PEn6YyU0YWoimikI";
     }
     async.parallel([
