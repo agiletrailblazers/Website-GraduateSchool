@@ -151,6 +151,7 @@ $(document).ready(function() {
     } else {
       data.doc = "";
     }
+    data.title = $("#title").text();
     data.email = $("#txtEmail").val();
     data.phone = $("#txtPhone").val();
     data.fax = $("#txtFax").val();
