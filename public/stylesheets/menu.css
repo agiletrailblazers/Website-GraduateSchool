@@ -497,7 +497,7 @@ transition: background-color 300ms linear;
 
 
 #nav-top-mob {
-position: relative;
+  position: relative;
 }
 
 #nav-top-mob .glyphicon {
@@ -511,7 +511,11 @@ position: relative;
   color: #EEE;
   background: transparent none repeat scroll 0% 0%;
   text-decoration: none;
-  transition: background-color 300ms linear 0s;
+  -webkit-transition: background 300ms linear;
+  -moz-transition: background 300ms linear;
+  -o-transition: background 300ms linear;
+  -ms-transition: background 300ms linear;
+  transition: background 300ms linear 0s !important;
   opacity: 1.0;
 }
 #nav-top-mob ul {
@@ -536,6 +540,10 @@ position: relative;
 #nav-top-mob ul li a:hover, #nav-top-mob ul li a:focus {
   color: #EEE !important;
   background: rgba(0, 0, 0, 0.5) !important;
+  -webkit-transition: background 300ms linear;
+  -moz-transition: background 300ms linear;
+  -o-transition: background 300ms linear;
+  -ms-transition: background 300ms linear;
   transition: background 300ms linear 0s !important;
   opacity: 1.0;
 }
@@ -555,6 +563,10 @@ position: relative;
 #nav-top-mob #single-item a:hover, #nav-top-mob #single-item a:focus {
   color: #EEE !important;
   background: rgba(0, 0, 0, 0.5) !important;
+  -webkit-transition: background 300ms linear;
+  -moz-transition: background 300ms linear;
+  -o-transition: background 300ms linear;
+  -ms-transition: background 300ms linear;
   transition: background 300ms linear 0s !important;
 }
 
@@ -582,6 +594,6 @@ position: relative;
 }
 
 .close-button{
-  color: #FFF !important;
+  color: #DDD !important;
   font-size: 22px !important;
 }
