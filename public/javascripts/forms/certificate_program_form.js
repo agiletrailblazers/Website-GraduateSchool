@@ -147,9 +147,9 @@ $(document).ready(function() {
       data.dob = "";
     }
     if( $("#completionMonth").val() || $("#completionDay").val() || $("#txtCompleteYear").val()) {
-      data.dob = $("#completionMonth").val() +'/'+ $("#completionDay").val() +'/'+ $("#txtCompleteYear").val();
+      data.doc = $("#completionMonth").val() +'/'+ $("#completionDay").val() +'/'+ $("#txtCompleteYear").val();
     } else {
-      data.dob = "";
+      data.doc = "";
     }
     data.email = $("#txtEmail").val();
     data.phone = $("#txtPhone").val();
