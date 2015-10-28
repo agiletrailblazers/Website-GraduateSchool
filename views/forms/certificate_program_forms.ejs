@@ -90,7 +90,6 @@
                 </select>
                 <input type="text" id="txtYear" class="form-control" size="4" maxlength="4" tabindex="13" placeholder="Year">
               </span>
-
             </div>
             <div class="form-inline">
               <span class="form-group">
@@ -155,8 +154,23 @@
                   <input type="text" id="txtCertName" class="form-control" size="50"  tabindex="23">
                 </span>
               </div>
+              <span class="form-group ssn">
+                <label for="expectedDateCertificate" class="ssn-title">What is your expected date of completion?</label>
+                <select id="completionMonth" name="month" class="form-control" tabindex="24">
+                    <option value='' default selected>Month</option>
+                <% for (var i = 1; i <= 12; i++) { %>
+                    <option value='<%= i %>'><%= i %> </option>
+                <% } %>
+                </select>
+                <select id="completionDay" name="day" class="form-control" tabindex="25">
+                    <option value='' default selected/>Day</option>
+                <% for (var i = 1; i <= 31; i++) { %>
+                    <option value='<%= i %>'><%= i %> </option>
+                <% } %>
+                </select>
+                <input type="text" id="txtCompleteYear" class="form-control" size="4" maxlength="4" tabindex="26" placeholder="Year">
+              </span>
               <% } %>
-
               <hr>
               <div class="comments">
                 <label>Comments</label>
