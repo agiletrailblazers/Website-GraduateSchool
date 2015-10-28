@@ -8,7 +8,7 @@ var logger = require('../../logger');
 
 // Bring this Course to Your Location
 router.get('/forms/onsite-inquiry', function(req, res, next) {
-  var fields, courses, locations, states;
+  var fields, courses, states;
   async.parallel([
     function(callback) {
       logger.debug('Get contentful fields');
