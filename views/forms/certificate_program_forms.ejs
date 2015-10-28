@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title><%= title %></title>
+  <title id="title"><%= title %></title>
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <% include ../partials/head %>
   <script type="text/javascript" src="/javascripts/forms/certificate_program_form.js"></script>
@@ -17,7 +17,7 @@
         <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
           <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
         </div>
-        <div><p><%- sectionHeaderDescription %></p></div>
+        <div id="headerDescription"><p><%- sectionHeaderDescription %></p></div>
         <hr>
         <h2>Certificate Program Information</h2>
         <form class="certificate-program-form">
@@ -90,7 +90,6 @@
                 </select>
                 <input type="text" id="txtYear" class="form-control" size="4" maxlength="4" tabindex="13" placeholder="Year">
               </span>
-
             </div>
             <div class="form-inline">
               <span class="form-group">
@@ -155,8 +154,25 @@
                   <input type="text" id="txtCertName" class="form-control" size="50"  tabindex="23">
                 </span>
               </div>
+              <div class="form-inline">
+              <span class="form-group ssn">
+                <label for="expectedDateCertificate" class="ssn-title">What is your expected date of completion?</label>
+                <select id="completionMonth" name="month" class="form-control" tabindex="24">
+                    <option value='' default selected>Month</option>
+                <% for (var i = 1; i <= 12; i++) { %>
+                    <option value='<%= i %>'><%= i %> </option>
+                <% } %>
+                </select>
+                <select id="completionDay" name="day" class="form-control" tabindex="25">
+                    <option value='' default selected/>Day</option>
+                <% for (var i = 1; i <= 31; i++) { %>
+                    <option value='<%= i %>'><%= i %> </option>
+                <% } %>
+                </select>
+                <input type="text" id="txtCompleteYear" class="form-control" size="4" maxlength="4" tabindex="26" placeholder="Year">
+              </span>
               <% } %>
-
+            </div>
               <hr>
               <div class="comments">
                 <label>Comments</label>

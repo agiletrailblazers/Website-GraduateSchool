@@ -146,6 +146,12 @@ $(document).ready(function() {
     } else {
       data.dob = "";
     }
+    if( $("#completionMonth").val() || $("#completionDay").val() || $("#txtCompleteYear").val()) {
+      data.doc = $("#completionMonth").val() +'/'+ $("#completionDay").val() +'/'+ $("#txtCompleteYear").val();
+    } else {
+      data.doc = "";
+    }
+    data.title = $("#title").text();
     data.email = $("#txtEmail").val();
     data.phone = $("#txtPhone").val();
     data.fax = $("#txtFax").val();
@@ -167,6 +173,7 @@ $(document).ready(function() {
           $(".loading").hide();
           alertify.success("Email sent!")
           $(".certificate-program-form").toggle();
+          $("#headerDescription").hide();
           if( (data.firstName != '' && data.firstName != null && typeof(data.firstName) != 'undefined') ) {
             $("#txtCustomerName").text(data.firstName);
           } else {

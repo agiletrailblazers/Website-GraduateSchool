@@ -1,4 +1,4 @@
-Certificate Program Information
+<%= title %>
 Program: <%= selectBox %>
 If other: <%= other %>
 
@@ -7,11 +7,14 @@ Student Information
 First Name : <%= firstName %>
 Last Name : <%= lastName %>
 Middle Initial : <%= mi %>
-Former Last Name: <%= formerLastName %>
+<% if (typeof certificate !== 'undefined' || formType === '/forms/certificate-program-progress-report' )  {  %>
+  <p>Former Last Name: <strong><%= formerLastName %></strong></p>
+<% } %>
 SSN: <%= ssn %>
 Date of birth: <%= dob %>
 <% if (typeof certificate !== 'undefined' )  {  %>
   Full name as it should appear on the certificate: <%= certificate %>
+  Expected date of completion: <%= doc %>
 <% } %>
 Street: <%= streetAddress %>
 Suite: <%= suite %>
