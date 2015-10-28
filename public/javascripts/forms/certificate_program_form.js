@@ -173,6 +173,7 @@ $(document).ready(function() {
           $(".loading").hide();
           alertify.success("Email sent!")
           $(".certificate-program-form").toggle();
+          $("#headerDescription").hide();
           if( (data.firstName != '' && data.firstName != null && typeof(data.firstName) != 'undefined') ) {
             $("#txtCustomerName").text(data.firstName);
           } else {
