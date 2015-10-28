@@ -146,6 +146,11 @@ $(document).ready(function() {
     } else {
       data.dob = "";
     }
+    if( $("#completionMonth").val() || $("#completionDay").val() || $("#txtCompleteYear").val()) {
+      data.dob = $("#completionMonth").val() +'/'+ $("#completionDay").val() +'/'+ $("#txtCompleteYear").val();
+    } else {
+      data.dob = "";
+    }
     data.email = $("#txtEmail").val();
     data.phone = $("#txtPhone").val();
     data.fax = $("#txtFax").val();
