@@ -25,13 +25,6 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
       });
     },
     function(callback) {
-      logger.debug('Get list of all locations');
-      course.getLocations(function(response, error, result) {
-        locations = result;
-        callback();
-      });
-    },
-    function(callback) {
       logger.debug("Get us states");
       contentful.getReferenceData('us-states', function(result) {
         states = result;
@@ -47,7 +40,6 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
       relatedLinks: fields.relatedLinks,
       prefix: fields.namePrefix,
       courses: courses,
-      locations: locations,
       states: states
     });
   });
