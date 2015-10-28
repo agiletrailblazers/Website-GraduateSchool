@@ -43,11 +43,14 @@
   <p>First Name: <strong><%= firstName %></strong> </p>
   <p>Middle Initial: <strong><%= mi %></strong> </p>
   <p>Last Name: <strong><%= lastName %></strong> </p>
-  <p>Former Last Name: <strong><%= formerLastName %></strong></p>
+  <% if (typeof certificate !== 'undefined' || formType === '/forms/certificate-program-progress-report' )  {  %>
+    <p>Former Last Name: <strong><%= formerLastName %></strong></p>
+  <% } %>
   <p>SSN: <strong><%= ssn %></strong></p>
   <p>Date of birth: <strong><%= dob %></strong></p>
   <% if (typeof certificate !== 'undefined' )  {  %>
     <p>Full name as it should appear on the certificate: <strong><%= certificate %></strong> </p>
+    <p>Expected date of completion: <strong><%= doc %></strong></p>
   <% } %>
   <p>Street: <strong><%= streetAddress %></strong></p>
   <p>Suite: <strong><%= suite %></strong></p>
