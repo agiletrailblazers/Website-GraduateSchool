@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
 	var googleAnalyticsId = config("properties").googleAnalyticsId;
 	var chatPages = config("properties").chatPages;
+	var env = config("properties").env;
 	var navigation = {};
 	var locations = [];
   var courseSubjectResult = [];
@@ -68,7 +69,8 @@ app.use(function (req, res, next) {
         courseSubjectResult: courseSubjectResult,
 				googleAnalyticsId: googleAnalyticsId,
 				showChat: showChat,
-				mailPage: mailPage};
+				mailPage: mailPage,
+				env: env};
 			next();
 		});
 });
