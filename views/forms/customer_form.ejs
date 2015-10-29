@@ -28,18 +28,30 @@
           <div id="gs-tabs">
             <div class="tabs">
               <ul id="formTabs" class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#contact-us-tab">Contact Us</a></li>
-                <li><a data-toggle="tab" href="#customer-feedback-tab">Customer Feedback</a></li>
+                <% if (selectedForm == "contact-us") { %>
+                  <li class="active"><a data-toggle="tab" href="#contact-us-tab">Contact Us</a></li>
+                  <li><a data-toggle="tab" href="#customer-feedback-tab">Customer Feedback</a></li>
+                <% } else { %>
+                  <li><a data-toggle="tab" href="#contact-us-tab">Contact Us</a></li>
+                  <li class="active"><a data-toggle="tab" href="#customer-feedback-tab">Customer Feedback</a></li>
+                <% } %>
               </ul>
             </div>
             <div class="tab-content">
-              <div id="contact-us-tab" class="tab-pane fade in active">
+              <% if (selectedForm == "contact-us") { %>
+                <div id="contact-us-tab" class="tab-pane fade in active">
+              <% } else { %>
+                <div id="contact-us-tab" class="tab-pane fade">
+              <% } %>
                 <div id="contact_us_form" class="">
                   <% include partials/contact_us.ejs %>
                 </div>
               </div>
-
-              <div id="customer-feedback-tab" class="tab-pane fade">
+              <% if (selectedForm == "feedback") { %>
+              <div id="customer-feedback-tab" class="tab-pane fade in active">
+              <% } else { %>
+                <div id="customer-feedback-tab" class="tab-pane fade">
+              <% } %>
                 <div id="customer_feedback_form" class="">
                   <% include partials/customer_feedback.ejs %>
                 </div>
