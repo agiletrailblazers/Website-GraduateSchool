@@ -1,5 +1,5 @@
 {
-    "courseApiUrl": "TBD",
+    "courseApiUrl": "http://gs-prod-api-2108241904.us-east-1.elb.amazonaws.com",
 
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
