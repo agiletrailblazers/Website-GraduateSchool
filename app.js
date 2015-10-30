@@ -12,7 +12,8 @@ var course = require("./API/course.js");
 
 var app = express();
 
-logger.info('starting app');
+var env = config("properties").env;
+logger.info('starting app for environment ' + env);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
