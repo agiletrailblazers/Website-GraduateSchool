@@ -50,10 +50,12 @@ app.use(function (req, res, next) {
 		},
 		function(callback) {
 			course.getLocations(function(response, error, result) {
-				result.forEach(function(location) {
-					 locations.push(location.city + ", " + location.state);
-				});
-				locations.sort();
+				if (result != null) {
+					result.forEach(function(location) {
+						 locations.push(location.city + ", " + location.state);
+					});
+					locations.sort();
+				}
 				callback();
 			});
 		},
