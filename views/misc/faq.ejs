@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Graduate School USA |
+      <%= title %></title>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <% include ../partials/header %>
+    <div class="container">
+      <% faqEntries.forEach(function(entry) { %>
+        <h3><%= entry.fields.question %></h3>
+        <p><%- markdown(entry.fields.answer || '') %></p>
+        <hr>
+      <% }); %>
+    </div>
+    <!--/nutch_noindex-->
+
+    <!-- Footer -->
+    <% include ../partials/footer %>
+    <!-- END Footer  -->
+    <!-- Chat  -->
+    <% include ../partials/chat %>
+    <!-- END of Chat  -->
+
+  </body>
+</html>
