@@ -1,4 +1,5 @@
 {
+    "env": "local",
     "courseApiUrl": "http://ec2-54-174-123-251.compute-1.amazonaws.com",
 
     "defaultEmailServerName": "smtp.office365.com",
