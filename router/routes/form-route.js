@@ -45,18 +45,6 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
   });
 });
 
-//Get Contact Us page.
-router.get('/forms/contact-us', function(req, res, next) {
-  contentfulForms.getContactUs(function(response) {
-    res.render('forms/contact_us', {
-      title: response.fields.title,
-      subjectLine: response.fields.subjectLine,
-      topParagraph: response.fields.topParagraph,
-      relatedLinks: response.fields.relatedLinks
-    });
-  });
-});
-
 //Get Request duplicate Form Page
 router.get('/forms/request-duplicate-form', function(req, res, next) {
   var cmsEntry, states;
@@ -120,8 +108,15 @@ router.get('/forms/proctor-request-form', function(req, res, next) {
   });
 });
 
-router.get('/forms/feedback', function(req, res, next) {
-  var fields;
+router.get(
+  ['/forms/feedback', '/forms/contact-us'],
+  function(req, res, next) {
+  var fields, whichForm;
+  if (req.url.indexOf("/forms/feedback") > -1 ) {
+    whichForm = "feedback";
+  } else {
+    whichForm = "contact-us";
+  }
   async.parallel([
     function(callback) {
       contentfulForms.getContactUs(function(response) {
@@ -134,6 +129,7 @@ router.get('/forms/feedback', function(req, res, next) {
       title: fields.title,
       subjectLine: fields.subjectLine,
       topParagraph: fields.topParagraph,
+      selectedForm: whichForm,
       relatedLinks: fields.relatedLinks
     });
   });
