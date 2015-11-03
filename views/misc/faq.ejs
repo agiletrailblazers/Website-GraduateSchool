@@ -1,28 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>
-      Graduate School USA |
-      <%= title %></title>
-    <% include ../partials/head %>
-  </head>
-  <body>
-    <% include ../partials/header %>
+
+<head>
+  <title>
+    Graduate School USA |
+    <%= title %>
+  </title>
+  <% include ../partials/head %>
+</head>
+
+<body>
+  <% include ../partials/header %>
     <div class="container">
-      <% faqEntries.forEach(function(entry) { %>
-        <h3><%= entry.fields.question %></h3>
-        <p><%- markdown(entry.fields.answer || '') %></p>
-        <hr>
-      <% }); %>
+      <div class="tabs">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#tab1">Contact Us</a></li>
+          <li><a data-toggle="tab" href="#tab2">Customer Feedback</a></li>
+        </ul>
+    </div>
+    <div class="tab-content">
+      <div id="tab1" class="tab-pane fade in active">
+        <div class="wrapper">
+
+        </div>
+      </div>
+      <div id="tab2" class="tab-pane fade">
+        <div class="wrapper">
+
+        </div>
+      </div>
+    </div>
     </div>
     <!--/nutch_noindex-->
 
     <!-- Footer -->
     <% include ../partials/footer %>
-    <!-- END Footer  -->
-    <!-- Chat  -->
-    <% include ../partials/chat %>
-    <!-- END of Chat  -->
+      <!-- END Footer  -->
+      <!-- Chat  -->
+      <% include ../partials/chat %>
+        <!-- END of Chat  -->
 
-  </body>
+</body>
+
 </html>
