@@ -30,38 +30,33 @@ router.get(
           faq.categories[i] = {};
           faq.categories[i].title = item.fields.title;
           faq.categories[i].slug = itemSlug;
-          // console.log("Second function faq: ", faq);
-          callback(null, faq);
         });
-      },
-      function(faq, callback) {
-        async.each(faq.categories, function(category, callback) {
-          // console.log(faq.categories);
-          // console.log(faq.categories.indexOf(category));
-          slug = category.slug;
-          contentful.getFAQCategory(slug, function(response) {
-            faq.categories[faq.categories.indexOf(category)].questions = [];
-            if (typeof response.includes != "undefined") {
-              faq.categories[faq.categories.indexOf(category)].questions = response.includes.Entry;
-            }
-          });
-          console.log(faq);
-          callback(null, faq);
-        }, function(err, result) {
-          if (err) {
-            console.log('Error');
-          } else {
-            console.log('Success');
-            console.log("Categories", result);
-            res.render('misc/faq', {
-              title: "FAQ",
-              faq: result,
-              markdown: marked
-            });
+        callback(null, faq);
+      }
+    ], function(err, result) {
+      console.log("Result: ", result);
+      async.each(result.categories, function(category, callback) {
+        slug = category.slug;
+        contentful.getFAQCategory(slug, function(response) {
+          faq.categories[faq.categories.indexOf(category)].questions = [];
+          if (typeof response.includes != "undefined") {
+            faq.categories[faq.categories.indexOf(category)].questions = response.includes.Entry;
           }
         });
-      }
-    ]);
+        callback(null);
+      }, function(err, result) {
+        if (err) {
+          console.log('Error');
+        } else {
+          console.log("Categories", result);
+          res.render('misc/faq', {
+            title: "FAQ",
+            faq: result,
+            markdown: marked
+          });
+        }
+      });
+    });
 
   });
 
