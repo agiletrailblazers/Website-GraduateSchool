@@ -13,16 +13,23 @@
   <div class="container">
   <footer>
     <div class="row clearfix non-mobile">
-      <div class="col-lg-3 col-md-3 col-sm-4">
+      <div class="col-lg-3 col-md-3 col-sm-4 left">
         <img src="/images/gs-logo-gray.png" alt="" />
+        <p class="copyright center"> &copy; 2015 Graduate School USA </p>
+        <a href="#"><img src="/images/gsa-contract-holder-logo.jpg" alt="GSA Contact Holder" class="center"/></a>
+      </div>
+
+      <div class="col-lg-2 col-md-2 col-sm-3">
+        <h3>Contact us</h3>
         <ul class="customer-support footer">
           <li><a href="tel:888-744-4723" ><img alt="" src="/images/call-us.png" class=""> (888) 744-GRAD</a></li>
           <li><a href="mailto:customersupport@graduateschool.edu" ><img alt="" src="/images/email-us.png" class=""> Customer Support</a></li>
           <li><a href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;"><img src="/images/chat-with-us.png" alt="" />Chat</a></li>
         </ul>
       </div>
+
       <% navigation.footer.forEach(function(nav) { %>
-        <div class="col-lg-2 col-md-2 col-sm-4">
+        <div class="col-lg-3 col-md-3 col-sm-2">
           <h3><%= nav.title %></h3>
           <ul class="footer">
             <% if (nav.sections) { %>
@@ -41,22 +48,13 @@
           </ul>
         </div>
       <% }); %>
+      <div class="col-lg-3 col-md-3 col-sm-2">
+        <div class="center">
+          <img src="/images/gs-seal.png" alt="Graduate School Seal"  class="seal" />
+        </div>
+      </div>
 
-      <% navigation.footer.forEach(function(nav) { %>
-        <% if (nav.type=='link') { %>
-
-        <% } else if (nav.type=='sub-section') { %>
-          <div class="col-lg-2 col-md-2 col-sm-4">
-            <h3><%= nav.name %></h3>
-            <ul class="footer">
-              <% nav.value.forEach(function(subNav) { %>
-                <li><a href="<%= subNav.value %>"><%= subNav.name %></a></li>
-              <% }); %>
-            </ul>
-          </div>
-        <% } %>
-      <% }); %>
-      <div class="col-lg-1 col-md-1 col-sm-4">
+      <div class="col-lg-1 col-md-1 col-sm-1">
         <ul class="networks">
           <li><a href="http://www.facebook.com/GraduateSchoolUSA" target="_blank"><img src="/images/facebook.png" alt=""  /></a></li>
           <li><a href="http://twitter.com/thegradschool" target="_blank"><img src="/images/twitter.png" alt=""  /></a></li>
@@ -68,7 +66,7 @@
 
     <div class="row">
       <div class="spacer"></div>
-      <p class="copyright center"> &copy; 2015 Graduate School USA </p>
+      <p class="copyright center mobile"> &copy; 2015 Graduate School USA </p>
       <p class="disclaimer center mobile">
       *Graduate School USA is a private not for profit educational
       institution not affiliated with the Federal Goverment

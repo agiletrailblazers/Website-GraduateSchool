@@ -1684,6 +1684,20 @@ ul.footer-menu li a {
   color: #444;
 }
 
+.padding-left-fix {
+  padding-left: 40px;
+}
+
+.seal {
+  width: 100%;
+  max-width: 175px;
+}
+
+.gsa-contact-holder {
+  position: absolute;
+  left: 60px;
+}
+
 /* SLIDER */
 .carousel-caption h1 {
   color: #FFF;
