@@ -4,16 +4,8 @@ var contentful = require('../../API/contentful.js');
 var router = express.Router();
 var marked = require('marked');
 
-router.get(
-  ['/development-training-frequently-asked-questions',
-    '/academic-program-frequently-asked-questions',
-    '/evening-weekend-frequently-asked-questions'
-  ],
+router.get('/faq',
   function(req, res, next) {
-    if (req.url.indexOf("/development-training-frequently-asked-questions") > -1) {
-      // TODO: Add logic to let front end know that this is under a url.
-      // TODO: Make conditionals or a switch for all possible FAQ's.
-    }
     faq = {};
     async.waterfall([
       function(callback) {
