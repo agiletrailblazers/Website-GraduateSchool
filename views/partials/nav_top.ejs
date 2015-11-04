@@ -11,6 +11,7 @@
                    <li class="active"><a id="lnkCurrent" href="#current-students" data-toggle="tab"><img src="/images/current-students.png" alt="" class="size-fix" /> Students</a></li>
                    <li ><a id="lnkProspective" href="#prospective-students" data-toggle="tab"><img src="/images/prospective-students.png" alt="" class="size-fix" /> Prospective Students</a></li>
                    <li ><a id="lnkTraining" href="#training-official" data-toggle="tab"><img src="/images/training-official.png" alt="" class="size-fix" /> Training Official</a></li>
+                   <li ><a id="lnkFaculty" href="#faculty-and-staff" data-toggle="tab"><img src="/images/faculty-and-staff.png" alt="" class="size-fix" /> Faculty & Staff</a></li>
                </ul>
            </div>
            <div class="tab-content col-lg-9 fix-padding-bottom">
@@ -67,6 +68,7 @@
             <li class="nav-toggle" data-tab="lnkCurrent"><a href="#">Students</a></li>
             <li class="nav-toggle" data-tab="lnkProspective"><a href="#">Prospective Students</a></li>
             <li class="nav-toggle" data-tab="lnkTraining"><a href="#">Training Official</a></li>
+            <li class="nav-toggle" data-tab="lnkFaculty"><a href="#">Faculty & Staff</a></li>
           </ul>
         </div>
         <div class="nav-top-bar-mob mobile">
@@ -92,7 +94,7 @@
   <div id="contact-us-top-menu">
     <ul>
       <li><a href="tel:888-744-4723"><img alt="" src="/images/call-us.png" class="">(888) 744-GRAD</a></li>
-      <li><a href="mailto:customersupport@graduateschool.edu" ><img alt="" src="/images/email-us.png" class="">Customer Support</a></li>
+      <li><a href="/forms/contact-us" ><img alt="" src="/images/email-us.png" class="">Contact GS</a></li>
       <li><a href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;"><img src="/images/chat-with-us.png" alt="" />Chat with us</a></li>
     </ul>
   </div>
@@ -128,25 +130,27 @@
             <div class="center-filter">
               <select id="selCategorySubjectM" class="form-control" tabindex="3">
                 <option class="subject-item" value="all">Subject</option>
-                <% for (categorySubjectFacetCounter = 0; categorySubjectFacetCounter < courseSubjectResult.length; categorySubjectFacetCounter++) {
-                  var courseSubject = courseSubjectResult[categorySubjectFacetCounter].courseSubject;
-                  if (courseSubject.length > 1 ) { %>
-                    <optgroup class="subject-category" label="<%= courseSubjectResult[categorySubjectFacetCounter].category %>"
-                  %><%= courseSubjectResult[categorySubjectFacetCounter].subjectCount %>)>
-                  <% for (courseSubjectCounter = 0; courseSubjectCounter < courseSubject.length; courseSubjectCounter++) {
-                  %>
-                    <option value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[courseSubjectCounter].subject %>"
-                    ><%= courseSubject[courseSubjectCounter].subject %>
-                    </option>
-                  <% } %>
-                    </optgroup>
-                  <% } else if(courseSubject.length == 1) { %>
-                    <option class="subject-item"
-                      value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[0].subject %>">
-                      <%= courseSubject[0].subject %>
-                    </option>
-                  <% }
-                 } %>
+                <% if (courseSubjectResult != null) { %>
+                  <% for (categorySubjectFacetCounter = 0; categorySubjectFacetCounter < courseSubjectResult.length; categorySubjectFacetCounter++) {
+                    var courseSubject = courseSubjectResult[categorySubjectFacetCounter].courseSubject;
+                    if (courseSubject.length > 1 ) { %>
+                      <optgroup class="subject-category" label="<%= courseSubjectResult[categorySubjectFacetCounter].category %>"
+                    %><%= courseSubjectResult[categorySubjectFacetCounter].subjectCount %>)>
+                    <% for (courseSubjectCounter = 0; courseSubjectCounter < courseSubject.length; courseSubjectCounter++) {
+                    %>
+                      <option value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[courseSubjectCounter].subject %>"
+                      ><%= courseSubject[courseSubjectCounter].subject %>
+                      </option>
+                    <% } %>
+                      </optgroup>
+                    <% } else if(courseSubject.length == 1) { %>
+                      <option class="subject-item"
+                        value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[0].subject %>">
+                        <%= courseSubject[0].subject %>
+                      </option>
+                    <% }
+                   } %>
+                 <% } %>
               </select>
             </div>
             <div class="search-submit pull-right padding-top">

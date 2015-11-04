@@ -1,54 +1,66 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title> Graduate School USA | <%= title %></title>
-  <meta charset="utf-8">
-  <% include ../partials/head %>
-  <script type="text/javascript" src="/javascripts/generic_detail.js"></script>
-  <link rel="stylesheet" href="/stylesheets/generic_detail.css">
-</head>
-
-<body>
-  <% include ../partials/header %>
-    <div class="container">
-      <div class="tabs">
-        <ul class="nav nav-tabs">
-
-          <% for (var i = 0; i < faq.categories.length; i++) { %>
-            <% if (i == 0) { %>
-              <li class="active"><a data-toggle="tab" href="#tab<%=i%>"><%=faq.categories[i].title%></a></li>
-            <% } else { %>
-              <li><a data-toggle="tab" href="#tab<%=i%>"><%=faq.categories[i].title%></a></li>
-            <% } %>
-          <% } %>
-        </ul>
-    </div>
-    <div class="tab-content">
-      <% for (var i = 0; i < faq.categories.length; i++) { %>
-        <% if (i == 0) { %>
-          <div id="tab<%=i%>" class="tab-pane fade in active">
-        <% } else { %>
-          <div id="tab<%=i%>" class="tab-pane fade">
-        <% } %>
-            <div class="wrapper">
-              <% for (var j = 0; j < faq.categories[i].questions.length; j++) { %>
-                <p><strong><%= faq.categories[i].questions[j].fields.question %></strong></p>
-                <p><%- faq.categories[i].questions[j].fields.answer %></p>
-              <% } %>
+  <head>
+    <title> Graduate School USA | <%= title %></title>
+    <meta charset="utf-8">
+    <% include ../partials/head %>
+    <script type="text/javascript" src="/javascripts/generic_detail.js"></script>
+    <link rel="stylesheet" href="/stylesheets/generic_detail.css">
+  </head>
+  <body>
+    <% include ../partials/header %>
+    <div id="main-container" class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div id="gs-tabs">
+            <div class="tabs">
+              <ul class="nav nav-tabs">
+                <% for (var i = 0; i < faq.categories.length; i++) { %>
+                  <% if (i == 0) { %>
+                    <li class="active"><a data-toggle="tab" href="#tab<%=i%>"><%=faq.categories[i].title%></a></li>
+                  <% } else { %>
+                    <li><a data-toggle="tab" href="#tab<%=i%>"><%=faq.categories[i].title%></a></li>
+                  <% } %>
+                <% } %>
+              </ul>
             </div>
-          </div>
-      <% } %>
-    </div>
+            <div class="panel panel-default gs">
+              <div class="panel-body">
+                <div class="tab-content">
+
+                <% for (var i = 0; i < faq.categories.length; i++) { %>
+                  <% if (i == 0) { %>
+                    <div id="tab<%=i%>" class="tab-pane fade in active">
+                  <% } else { %>
+                    <div id="tab<%=i%>" class="tab-pane fade">
+                  <% } %>
+                      <div class="wrapper">
+                        <% for (var j = 0; j < faq.categories[i].questions.length; j++) { %>
+                          <% var faqId = faq.categories[i].questions[j].fields.question.replace(/[^a-zA-Z0-9]/g, '-').replace(/--/g, '-').replace(/\-$/, "");%>
+                          <section>
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            <a href="#q-<%=i%>-<%= faqId %>" class="expand-section accordion-toggle" data-toggle="collapse"><%= faq.categories[i].questions[j].fields.question %></a>
+                              <article id="q-<%=i%>-<%= faqId %>" class="collapse nested">
+                                <p><%- faq.categories[i].questions[j].fields.answer %></p>
+                              </article>
+                        </section>
+                        <% } %>
+                      </div>
+                    </div>
+                <% } %>
+              </div> <!-- End tab-content -->
+              </div>
+            </div>
+        </div> <!-- End GS-tabs -->
+      </div> <!-- End column -->
+    </div> <!-- End row -->
     <!--/nutch_noindex-->
-
-    <!-- Footer -->
-    <% include ../partials/footer %>
-      <!-- END Footer  -->
-      <!-- Chat  -->
-      <% include ../partials/chat %>
-        <!-- END of Chat  -->
-
+  </div> <!-- End Container -->
+  <!-- Footer -->
+  <% include ../partials/footer %>
+  <!-- END Footer  -->
+  <!-- Chat  -->
+  <% include ../partials/chat %>
+  <!-- END of Chat  -->
 </body>
-
 </html>

@@ -22,7 +22,11 @@
                   assetObj.title = asset.fields.title;
                   assetObj.description = asset.fields.description;
                   assetObj.url = asset.fields.file.url;
-                  assetObj.type = asset.fields.file.contentType;
+                  if (asset.fields.file.contentType == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+                    assetObj.type = "application/docx";
+                  } else {
+                    assetObj.type = asset.fields.file.contentType;
+                  }
                   arrayofAssetObj.push(assetObj);
                 }
               });
