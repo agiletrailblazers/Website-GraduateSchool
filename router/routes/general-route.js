@@ -21,6 +21,7 @@ router.get('/faq',
           faq.categories[i] = {};
           faq.categories[i].title = item.fields.title;
           faq.categories[i].slug = itemSlug;
+          faq.categories[i].order = item.fields.order;
         });
         callback(null, faq);
       }
@@ -39,6 +40,14 @@ router.get('/faq',
         if (err) {
           console.log('Error');
         } else {
+          faq.categories.sort(function (a,b){
+            return a.order > b.order;
+          });
+          for (var i = 0; i < faq.categories.length; ++i) {
+            faq.categories[i].questions.sort(function(a, b) {
+              return a.fields.question.localeCompare(b.fields.question);
+            });
+          }
           res.render('misc/faq', {
             title: "FAQ",
             faq: faq,
