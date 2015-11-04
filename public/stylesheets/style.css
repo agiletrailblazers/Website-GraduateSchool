@@ -1100,7 +1100,7 @@ optgroup {
   background-color: transparent !important;
   font-size: 13px;
   line-height: 14px;
-  font-weight: 700 !important;
+  font-weight: bold !important;
   color: #555 !important;
 }
 
@@ -1682,6 +1682,20 @@ ul.footer-menu li {
 
 ul.footer-menu li a {
   color: #444;
+}
+
+.padding-left-fix {
+  padding-left: 40px;
+}
+
+.seal {
+  width: 100%;
+  max-width: 175px;
+}
+
+.gsa-contact-holder {
+  position: absolute;
+  left: 60px;
 }
 
 /* SLIDER */

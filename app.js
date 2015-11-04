@@ -12,7 +12,8 @@ var course = require("./API/course.js");
 
 var app = express();
 
-logger.info('starting app');
+var env = config("properties").env;
+logger.info('starting app for environment ' + env);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -49,10 +50,12 @@ app.use(function (req, res, next) {
 		},
 		function(callback) {
 			course.getLocations(function(response, error, result) {
-				result.forEach(function(location) {
-					 locations.push(location.city + ", " + location.state);
-				});
-				locations.sort();
+				if (result != null) {
+					result.forEach(function(location) {
+						 locations.push(location.city + ", " + location.state);
+					});
+					locations.sort();
+				}
 				callback();
 			});
 		},
@@ -68,7 +71,8 @@ app.use(function (req, res, next) {
         courseSubjectResult: courseSubjectResult,
 				googleAnalyticsId: googleAnalyticsId,
 				showChat: showChat,
-				mailPage: mailPage};
+				mailPage: mailPage,
+				env: env};
 			next();
 		});
 });
