@@ -1,5 +1,6 @@
 var request = require('request');
 var logger = require('../logger');
+var config = require('konphyg')(__dirname + '/../config');
 
 module.exports = {
   getWhatsNew: function(callback) {
@@ -92,8 +93,8 @@ module.exports = {
     });
   },
   getNavigation: function(callback) {
-    var MAX_LINKS = 20;
-    var MAX_GROUPS = 7;
+    var MAX_LINKS = config("properties").maxTopNavigationLinks;
+    var MAX_GROUPS = config("properties").maxTopNavigationGroups;
     request({
       method: 'GET',
       url: 'https://cdn.contentful.com/spaces/5tnto6ug3qkh/entries?include=2&content_type=47TLz18cmI6WaeC0KWgOIo',
