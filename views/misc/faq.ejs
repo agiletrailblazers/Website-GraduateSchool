@@ -2,11 +2,11 @@
 <html>
 
 <head>
-  <title>
-    Graduate School USA |
-    <%= title %>
-  </title>
+  <title> Graduate School USA | <%= title %></title>
+  <meta charset="utf-8">
   <% include ../partials/head %>
+  <script type="text/javascript" src="/javascripts/generic_detail.js"></script>
+  <link rel="stylesheet" href="/stylesheets/generic_detail.css">
 </head>
 
 <body>
@@ -14,22 +14,31 @@
     <div class="container">
       <div class="tabs">
         <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#tab1">Contact Us</a></li>
-          <li><a data-toggle="tab" href="#tab2">Customer Feedback</a></li>
+
+          <% for (var i = 0; i < faq.categories.length; i++) { %>
+            <% if (i == 0) { %>
+              <li class="active"><a data-toggle="tab" href="#tab<%=i%>"><%=faq.categories[i].title%></a></li>
+            <% } else { %>
+              <li><a data-toggle="tab" href="#tab<%=i%>"><%=faq.categories[i].title%></a></li>
+            <% } %>
+          <% } %>
         </ul>
     </div>
     <div class="tab-content">
-      <div id="tab1" class="tab-pane fade in active">
-        <div class="wrapper">
-
-        </div>
-      </div>
-      <div id="tab2" class="tab-pane fade">
-        <div class="wrapper">
-
-        </div>
-      </div>
-    </div>
+      <% for (var i = 0; i < faq.categories.length; i++) { %>
+        <% if (i == 0) { %>
+          <div id="tab<%=i%>" class="tab-pane fade in active">
+        <% } else { %>
+          <div id="tab<%=i%>" class="tab-pane fade">
+        <% } %>
+            <div class="wrapper">
+              <% for (var j = 0; j < faq.categories[i].questions.length; j++) { %>
+                <p><strong><%= faq.categories[i].questions[j].fields.question %></strong></p>
+                <p><%- faq.categories[i].questions[j].fields.answer %></p>
+              <% } %>
+            </div>
+          </div>
+      <% } %>
     </div>
     <!--/nutch_noindex-->
 
