@@ -333,6 +333,23 @@ module.exports = {
      dataGroup = JSON.parse(body);
      return callback(dataGroup);
    });
- }
+ },
+ getCatalogDownload: function(callback) {
+   request({
+     method: 'GET',
+     url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=ZRkwvyMcCqK46gGOggeWs',
+     headers: {
+     'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      }
+   }, function(error, response, body) {
+     logger.debug("Get Catalog Contentful: " + response.statusCode);
+     cmsEntry = JSON.parse(body);
+     return callback({
+       cmsEntry: cmsEntry.items,
+       cmsAsset: cmsEntry.includes.Asset,
+       statusCode: response.statusCode
+     });
+   });
+ },
 
 };
