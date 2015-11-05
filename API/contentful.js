@@ -333,6 +333,32 @@ module.exports = {
      dataGroup = JSON.parse(body);
      return callback(dataGroup);
    });
- }
+ },
+ getFAQCategory: function(categorySlug, callback) {
+   request({
+     method: 'GET',
+     url: 'https://cdn.contentful.com/spaces/2v0dv55ahz7w/entries?content_type=5Qnph4LqeWyqy2aeQmes4y&fields.slug=' + categorySlug + '',
+     headers: {
+     'Authorization': 'Bearer eb55e283a78dc7e297091e733bf374948b3361e74e6f36d36e8f880ce20a1467'
+      }
+   }, function(error, response, body) {
+     logger.debug("Get faqs from Contentful: " + response.statusCode);
+     singleFaq = JSON.parse(body);
+     return callback(singleFaq);
+   });
+ },
 
+ getFAQ: function(callback) {
+   request({
+     method: 'GET',
+     url: 'https://cdn.contentful.com/spaces/2v0dv55ahz7w/entries?content_type=5Qnph4LqeWyqy2aeQmes4y',
+     headers: {
+     'Authorization': 'Bearer eb55e283a78dc7e297091e733bf374948b3361e74e6f36d36e8f880ce20a1467'
+      }
+   }, function(error, response, body) {
+     logger.debug("Get faqs from Contentful: " + response.statusCode);
+     faq = JSON.parse(body);
+     return callback(faq);
+   });
+ }
 };
