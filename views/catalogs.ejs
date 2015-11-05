@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Graduate School USA | <%= title %></title>
+    <% include partials/head %>
+    <script src="/javascripts/catalogs.js" type="text/javascript"></script>
+</head>
+<body>
+  <% include partials/header %>
+  <header>
+  <div  class="container">
+  <div class="row">
+    <div class="row">
+      <div class="container">
+        <!--nutch_noindex-->
+          <div class="col-lg-12 col-md-12 col-sm-12" id="catalog-filters">
+            <span>Filter catalogs:</span>
+              <ul id="filterCatalogs">
+                <li name="all"><a href="#">Graduate School USA</a></li>
+                <li name="to"><a href="#">Government Training & Professional Development</a></li>
+                <li name="cs"><a href="#">Academic Programs</a></li>
+                <li name="ps"><a href="#">Evening & Weekend Programs</a></li>
+              </ul>
+            </div>
+        <!--/nutch_noindex-->
+      </div>
+     </div> <!-- END row -->
+    <div class="col-lg-6 col-md-6 col-sm-12" id="col1">
+    <% entry.forEach(function(entrySection) {
+      if (entrySection.sectionColumn==1) { %>
+        <section id="assets" class="assets">
+          <h3><%= entrySection.sectionTitle %></h3>
+        <% entrySection.assetList.forEach(function(asset) { %>
+          <p class="asset" data-contenttype="<%= asset.description %>"><a href=<%= asset.url %> <% if (asset.type == "application/pdf") {%>target="_blank"<% } %> <% if (asset.type == "application/pdf") {%>onclick="ga('send', 'event', 'PDF', 'Download', this.href);<%}%>"><% if (asset.type == "application/pdf") {%> <span><img src="/images/pdf.png"/></span> <% } else if (asset.type == "application/docx") { %> <span><img src="/images/doc.png"/></span> <% } else { %> <span><img src="/images/link.png"/></span> <% } %> <%= asset.title %></a></p>
+          <% });
+        } %>
+        </section>
+    <%  });%>
+  </div><!--END Col1 -->
+    <div class="col-lg-6 col-md-6 col-sm-12" id="col2">
+    <% entry.forEach(function(entrySection) {
+      if (entrySection.sectionColumn==2) { %>
+        <section id="assets" class="assets">
+        <h3><%= entrySection.sectionTitle %></h3>
+        <% entrySection.assetList.forEach(function(asset) { %>
+          <p class="asset" data-contentType="<%= asset.description %>"><a href=<%= asset.url %> <% if (asset.type == "application/pdf") {%>target="_blank"<% } %> <% if (asset.type == "application/pdf") {%>onclick="ga('send', 'event', 'PDF', 'Download', this.href);<%}%>"><% if (asset.type == "application/pdf") {%> <span><img src="/images/pdf.png"/></span> <% } else if (asset.type == "application/docx") { %> <span><%#  %><img src="/images/doc.png"/></span> <% } else { %> <span><img src="/images/link.png"/></span> <% } %> <%= asset.title %></a></p>
+        <% });
+      } %>
+      </section>
+  <%  });%>
+  </div><!--END Col2 -->
+  </div> <!--END Row-->
+  <div class="spacer"></div>
+  <div class="spacer"></div>
+  </div> <!--END Container-->
+  </header>
+<!-- Footer -->
+  <% include partials/footer %>
+<!-- END Footer  -->
+<!-- Chat  -->
+  <% include partials/chat %>
+<!-- END of Chat  -->
+
+  </body>
+</html>
