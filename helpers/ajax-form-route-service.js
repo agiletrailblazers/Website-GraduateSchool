@@ -418,5 +418,62 @@ module.exports = {
       response.errors.state = "Please select a state."
     }
     callback(response);
+  },
+  validateRequestCatalog: function(callback, params) {
+    response = {};
+    response.errors = {};
+    // Validate params.firstName
+    switch (true) {
+      case (params.address.firstName.length === 0):
+        response.errors.firstName = "First name is empty.";
+        break;
+      case (!validator.isLength(params.address.firstName.trim(), 3)):
+        response.errors.firstName = "First name must be at least 3 characters.";
+        break;
+    }
+    // Validate params.lastName
+    switch (true) {
+      case (!params.address.lastName):
+        response.errors.lastName = "Last name is empty.";
+        break;
+      case (!validator.isLength(params.address.lastName.trim(), 3)):
+        response.errors.lastName = "Last name must be at lease 3 characters.";
+        break;
+    }
+    // Validate organization
+    switch (true) {
+      case (!params.address.organization):
+        response.errors.organization = "Organization is empty.";
+        break;
+      case (!validator.isLength(params.address.organization.trim(), 3)):
+        response.errors.organization = "Organization must be atleast 3 characters.";
+        break;
+    }
+    // Validate params.email
+    switch (true) {
+      case (!params.contact.email):
+        response.errors.email = "Email is empty.";
+        break;
+      case (!validator.isEmail(params.contact.email)):
+        response.errors.email = "Email is in the wrong format."
+        break;
+    }
+
+    // Validate params.phone
+    switch (true) {
+      case (!params.contact.phone):
+        response.errors.phone = "Phone number is empty.";
+        break;
+      case (!params.contact.phone.match(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)):
+        response.errors.phone = "Phone number is not in the correct format.";
+        break;
+    }
+
+
+    if (!params.captchaResponse) {
+      response.errors.captchaResponse = "Please select recaptcha.";
+    }
+
+    callback(response);
   }
 };

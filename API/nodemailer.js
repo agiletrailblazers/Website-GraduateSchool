@@ -13,6 +13,7 @@ var requestProctorTemplate = new EmailTemplate(path.join(templatesDir, 'requestP
 var customerFeedBackTemplate = new EmailTemplate(path.join(templatesDir, 'customerfeedback-email'));
 var customerTemplate = new EmailTemplate(path.join(templatesDir, 'customer-email'));
 var certificateProgramTemplate = new EmailTemplate(path.join(templatesDir, 'certificate-program'));
+var catalogRequestForm = new EmailTemplate(path.join(templatesDir, 'catalogrequestform-email'));
 
 var smtp = {
   host: config("properties").defaultEmailServerName,
@@ -209,6 +210,32 @@ module.exports = {
         from: config("properties").defaultEmailFromUserName,
         to: params.emailTo,
         subject: params.emailSubject,
+        text: results.text,
+        html: results.html
+      };
+      transporter.sendMail(mailAttributes, function (error, info) {
+        if (error) {
+          logger.error(error);
+          return callback(500);
+        }
+        logger.info('Message sent: ' + info.response);
+        return callback(200);
+      });
+    });
+  },
+  sendCatalogRequest: function (callback, params) {
+    logger.debug("SMTP sending to: " + smtp);
+    logger.debug("SMTP params: " + params);
+    catalogRequestForm.render(params, function(err, results) {
+      logger.info("Starting mail send");
+      if (err) {
+        logger.error(err);
+        return callback(500);
+      }
+      var mailAttributes = {
+        from: config("properties").defaultEmailFromUserName,
+        to: config("properties").catalogRequestToUserName,
+        subject: config("properties").catalogRequestEmailSubject,
         text: results.text,
         html: results.html
       };

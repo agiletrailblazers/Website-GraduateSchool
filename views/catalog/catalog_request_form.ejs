@@ -1,18 +1,31 @@
-<form>
-  <div class="panel-group" id="accordion">
-    <div class="form-inline">
-      <div class="form-group"><p></p></div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading gs">
-        <a class="accordion-toggle" id="collapse1Link" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-          <h4 class="panel-title">CONTACT INFORMATION </h4>
-        </a>
+<div class="container">
+  <div class="loading" style="display:none;"></div>
+  <div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-12">
+      <!-- Accordion Container -->
+      <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
+        <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
       </div>
-      <div id="collapse1" class="panel-collapse collapse">
-        <div class="panel-body">
-          <div id="form-wrap">
-            <div class="form-inline">
+      <div id="alertSuccess" class="alert alert-sucess" role="alert" style="display:none;">
+        <div><b>Thank you for your interest in Graduate School USA.</b></div>
+        <div>Someone will be contacting you as soon as possible.</div>
+      </div>
+      <form>
+        <div class="panel-group" id="accordion">
+          <div class="form-inline">
+            <div class="form-group"><p></p></div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading gs">
+              <a class="accordion-toggle" id="collapse1Link" data-toggle="collapse" data-parent="#accordion"
+                 href="#collapse1">
+                <h4 class="panel-title">CONTACT INFORMATION</h4>
+              </a>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+              <div class="panel-body">
+                <div id="form-wrap">
+                  <div class="form-inline">
             <span class="form-group">
              <select id="prefix" class="form-control">
                <option value="">Prefix</option>
@@ -29,36 +42,36 @@
             </span>
             <span class="form-group">
               <label for="txtLastName">*Last Name</label>
-              <input type="text" id="txtLastName" class="form-control"  tabindex="2">
+              <input type="text" id="txtLastName" class="form-control" tabindex="2">
             </span>
-            </div>
-            <div class="form-inline">
+                  </div>
+                  <div class="form-inline">
             <span class="form-group">
               <label for="txtOrganizaiton">*Organization</label>
-              <input type="text" id="txtOrganizaiton" class="form-control" size="50"  tabindex="3">
+              <input type="text" id="txtOrganizaiton" class="form-control" size="50" tabindex="3">
             </span>
-            </div>
-            <div class="form-inline">
+                  </div>
+                  <div class="form-inline">
             <span class="form-group">
               <label for="txtStreet">Street Address</label>
-              <input type="text" id="txtStreet" class="form-control"  tabindex="4">
+              <input type="text" id="txtStreet" class="form-control" tabindex="4">
             </span>
             <span class="form-group">
               <label for="txtSuite">Suite, Mail Stop</label>
-              <input type="text" id="txtSuite" class="form-control"  tabindex="5">
+              <input type="text" id="txtSuite" class="form-control" tabindex="5">
             </span>
-            </div>
-            <div class="form-inline">
+                  </div>
+                  <div class="form-inline">
             <span class="form-group">
               <label for="txtCity">City</label>
-              <input type="text" id="txtCity" class="form-control"  tabindex="6">
+              <input type="text" id="txtCity" class="form-control" tabindex="6">
             </span>
             <span class="form-group">
               <label for="selState">State</label>
               <!--nutch_noindex-->
-              <select id="selState" class="form-control"  tabindex="7">
+              <select id="selState" class="form-control" tabindex="7">
                 <option value="">Select One</option>
-                <% for (i=0; i < states.length; i++) { %>
+                <% for (i = 0; i < states.length; i++) { %>
                 <option value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
                 <% } %>
               </select>
@@ -66,60 +79,79 @@
               </span>
               <span class="form-group">
                 <label for="txtZip">Zip</label>
-                <input type="text" id="txtZip" class="form-control"  tabindex="8">
+                <input type="text" id="txtZip" class="form-control" tabindex="8">
               </span>
-            </div>
-            <div class="form-inline">
+                  </div>
+                  <div class="form-inline">
               <span class="form-group">
                 <label for="txtCountry">Country (if not U.S.)</label>
-                <input type="text" id="txtCountry" class="form-control"  tabindex="9">
+                <input type="text" id="txtCountry" class="form-control" tabindex="9">
               </span>
-            </div>
-            <div class="form-inline">
+                  </div>
+                  <div class="form-inline">
               <span class="form-group">
                 <label for="txtPhone">*Daytime Phone Number</label>
-                <input type="text" id="txtPhone" class="form-control"  tabindex="10">
+                <input type="text" id="txtPhone" class="form-control" tabindex="10">
               </span>
               <span class="form-group">
                 <label for="txtFax">Fax Number</label>
-                <input type="text" id="txtFax" class="form-control"  tabindex="11">
+                <input type="text" id="txtFax" class="form-control" tabindex="11">
               </span>
-            </div>
-            <div class="form-inline">
+                  </div>
+                  <div class="form-inline">
               <span class="form-group">
                 <label for="txtEmail">*Email</label>
-                <input type="email" id="txtEmail" class="form-control" size="50"  tabindex="12">
+                <input type="email" id="txtEmail" class="form-control" size="50" tabindex="12">
               </span>
-            </div>
-          </div><!-- contact information div -->
-          <br>
-          <button type="button" name="toCDI" id="toCDIButton"  tabindex="13" class="next-button">Next</button>
+                  </div>
+                </div>
+                <!-- contact information div -->
+                <br>
+                <button type="button" name="toCDI" id="toCDIButton" tabindex="13" class="next-button">Next</button>
 
-        </div><!-- END Panel-body -->
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading gs">
-        <a class="accordion-toggle collapsed" id="collapse3Link" data-toggle="collapse" data-parent="#accordion" href="#collapse3" tabindex="30">
-          <h4 class="panel-title">FORM SUBMISSION</h4>
-        </a>
-      </div>
-      <div id="collapse3" class="panel-collapse collapse">
-        <div class="panel-body">
-          <div id="form-wrap">
-            <% hardCopyEntry.forEach(function(hardCopyCatalog) { %>
-            <%= hardCopyCatalog.fields.catalogHardCopy %>
-            <% }) %>
-
-            <div id="onSiteInguiryCaptcha">
-              <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh" tabindex="33"></div>
+              </div>
+              <!-- END Panel-body -->
             </div>
-            <br>
-            <button type="button" name="toCDI" id="backToCDIButton" tabindex="35">Previous</button>
-            <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="34">Submit Request</button>
-          </div> <!-- END Panel-body -->
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading gs">
+              <a class="accordion-toggle collapsed" id="collapse3Link" data-toggle="collapse" data-parent="#accordion"
+                 href="#collapse3" tabindex="14">
+                <h4 class="panel-title">CATALOG INFORMATION</h4>
+              </a>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+              <div class="panel-body">
+                <div id="form-wrap">
+                    <div class="form-inline">
+                      <div class="form-group">
+                        <span class="block"><label for="txtCatalogTitles"><strong>select catalogs you would like to receive on your mailing address.</strong></label></span>
+                        <% hardCopyEntry.forEach(function(hardCopyCatalog,num) { %>
+                          <span class="block"><input type="checkbox" name="txtCatalogTitles" class="feedbackCategories" id="catalogTitles" value="titles"
+                           tabindex="<%num+14%>"> <%= hardCopyCatalog.fields.catalogHardCopy %> </input></span>
+                           <input type="text" id="txtCount" class="form-control" tabindex="1" value="1">
+                        <% }) %>
+                      </div>
+                    </div>
+                  <div id="catologRequestCaptcha">
+                    <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"
+                         tabindex="33"></div>
+                  </div>
+                  <br>
+                  <button type="button" name="toCDI" id="backToCDIButton" tabindex="35">Previous</button>
+                  <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="34">Submit
+                    Request
+                  </button>
+                </div>
+                <!-- END Panel-body -->
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
-  </div>
-</form> <!-- END Form -->
+    <!-- END Accordion Container -->
+  </div><!-- END  Row -->
+  <div class="spacer"></div>
+</div> <!-- END Container  -->
+      <!-- END Form -->
