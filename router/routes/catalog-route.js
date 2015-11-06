@@ -61,7 +61,7 @@
       });
     } ], function(results) {
       res.render('catalogs', {
-        entry: arrayOfContent, title: "catalogs",
+        entry: arrayOfContent, title: "Catalog Request Form",
         hardCopyEntry:catalogHardCopy,
         states: states
       });
