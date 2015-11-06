@@ -12,54 +12,14 @@
     <% include partials/header %>
     <div id="main-container" class="container">
       <div class="row">
-          <div class="row">
-            <div class="col-lg-12">
-              <div id="catalog-filters">
-                <span class="filter-header pull-left">Filter catalogs: </span>
-                <ul class="nav nav-pills">
-                    <% entry.forEach(function(entrySection,num) { %>
-                    <% if (num == 0) { %>
-                      <li class="active"><a data-toggle="pill" href="#tab<%=num%>"><%- entrySection.catlogTitle %></a></li>
-                    <% } else { %>
-                      <li><a data-toggle="pill" href="#tab<%=num%>"><%- entrySection.catlogTitle %></a></li>
-                    <% } %>
-                  <% }); %>
-                </ul>
-                <span class="filter-header pull-right"><a href="/under-construction" class="archive"><span><img src="/images/archive-icon.png"/></span> Archive</a></span>
-              </div>
-            </div>
-          </div> <!-- End Row -->
-          <div class="tab-content">
-            <% entry.forEach(function(entrySection,num) { %>
-            <% if (num == 0) { %>
-              <div id="tab<%=num%>" class="tab-pane fade in active">
-            <% } else { %>
-              <div id="tab<%=num%>" class="tab-pane fade">
-            <% } %>
-            <div class="wrapper">
-              <% var categoryTitle = entrySection.catlogTitle.replace(/(<([^>]+)>)/ig, "");%>
-              <h2><%= categoryTitle %></h2>
-            </div>
-              <div class="col-lg-6 col-md-6 col-sm-12" id="col1">
-                <% entrySection.assetList.forEach(function(asset) { %>
-                  <%  if (asset.displayInSecondColumn==false) {%>
-                    <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a data-toggle="tooltip" title="<%= asset.description %>" data-placement="right" href="<%= asset.url %>">  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
-                  <% } %>
-                <% }) %>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-12" id="col2">
-                <% entrySection.assetList.forEach(function(asset) { %>
-                  <%  if (asset.displayInSecondColumn) {%>
-                    <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a data-toggle="tooltip" title="<%= asset.description %>" data-placement="right" href="<%= asset.url %>">  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
-                  <% } %>
-                <% }) %>
-              </div>
-            </div>
-          <% }) %>
-          </div> <!-- End tab-content -->
-  </div> <!-- End row - main -->
-    <!-- /nutch_noindex-->
-  </div> <!-- End Container -->
+        <% include catalog/catalog_download %>
+      </div> <!-- End row -->
+    <hr>
+      <div class="row">
+        <% include catalog/catalog_request_form %>
+      </div> <!-- End row  -->
+        <!-- /nutch_noindex-->
+    </div> <!-- End Container -->
   <!-- Footer -->
   <% include partials/footer %>
   <!-- END Footer  -->
