@@ -2063,6 +2063,94 @@ h2.social-title {
       width: 100% !important;
   }
 
+
+/* Catalog Request Form */
+  #catalog-filters {
+      margin: 15px 0px 30px;
+      border-top: 1px solid #CCC;
+      border-bottom: 1px solid #CCC;
+      padding: 5px 20px;
+  }
+
+  #form-filters {
+    margin: 15px 0 30px 0;
+    border-top: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 5px 10px;
+  }
+
+  #catalog-filters ul {
+    display: inline-block;
+    margin: 5px 0 !important;
+  }
+
+  #catalog-filters ul li {
+    display: inline-block;
+    list-style: none;
+    padding: 5px 10px;
+  }
+
+  #catalog-filters ul li+li {
+     border-left: 1px solid #AAAAAA;
+   }
+
+  #catalog-filters span {
+    font-size: 15px;
+    color: #333333;
+    font-weight: normal;
+  }
+
+  #catalog-filters ul li a, #catalog-filters .nav-pills > li > a {
+    font-size: 14px;
+    color: #333333 !important;
+    font-weight: normal;
+    padding: 2px 10px !important;
+    -webkit-transition: background-color 300ms linear;
+    -moz-transition: background-color 300ms linear;
+    -o-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
+  }
+
+  #catalog-filters ul li a:hover, #catalog-filters .nav-pills > li > a:hover {
+    color: #3E79B2 !important;
+    font-weight: normal;
+    background-color: transparent !important;
+    -webkit-transition: background-color 300ms linear;
+    -moz-transition: background-color 300ms linear;
+    -o-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
+  }
+
+  #catalog-filters ul li a:focus, #catalog-filters .nav-pills > li.active > a {
+    color: #3E79B2 !important;
+    font-weight: normal;
+    background-color: transparent !important;
+  }
+
+span.asset {
+  display: block;
+}
+
+span.filter-header {
+  padding: 20px 20px 0 0;
+}
+
+a.archive {
+  font-size: 14px;
+  font-weight: normal !important;
+  color: #333333 !important;
+}
+
+a.archive:hover {
+  font-size: 14px;
+  font-weight: normal !important;
+  color: #3E79B2 !important;
+}
+
+
+
 /* 404 */
 .suggestions {
   position: relative;
