@@ -11,6 +11,7 @@
     <% include partials/header %>
     <div id="main-container" class="container">
       <div class="row">
+        <a href="/under-construction">Archived catalogs</a>.
         <div class="col-lg-12">
           <div id="gs-tabs">
             <div class="tabs">
@@ -36,14 +37,14 @@
                   <div class="col-lg-6 col-md-6 col-sm-12" id="col1">
                     <% entrySection.assetList.forEach(function(asset) { %>
                       <%  if (asset.displayInSecondColumn==false) {%>
-                        <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a href=<%= asset.url %>  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
+                        <p class="asset" data-toggle="tooltip" title="<%= asset.description %>" data-contenttype="<%= asset.catalogFilter %>"><a href=<%= asset.url %>  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
                       <% } %>
                     <% }) %>
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-12" id="col2">
                     <% entrySection.assetList.forEach(function(asset) { %>
                       <%  if (asset.displayInSecondColumn) {%>
-                        <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a href=<%= asset.url %>  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
+                        <p class="asset"  data-toggle="tooltip" title="<%= asset.description %>" data-contenttype="<%= asset.catalogFilter %>"><a href=<%= asset.url %>  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
                       <% } %>
                     <% }) %>
                   </div>
