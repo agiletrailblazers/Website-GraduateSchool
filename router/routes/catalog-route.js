@@ -5,7 +5,8 @@
   // Get Catalog Request Form  page.
   router.get('/catalog-request-form', function(req, res, next) {
   arrayOfContent=[];
-  async.series([
+  var catalogHardCopy = {};
+  async.parallel([
     function(callback) {
       contentful.getCatalogDownload(function(response) {
         response.cmsEntry.forEach(function(cmsEntryAsset) {
@@ -45,9 +46,15 @@
         });
         callback();
       });
-    } ], function(results) {
+    },function(callback) {
+      contentful.getCatalogRequestHardCopy(function(response) {
+        catalogHardCopy = response.cmsEntry;
+        callback();
+      });
+    }, ], function(results) {
       res.render('catalogs', {
-        entry: arrayOfContent, title: "catalogs"
+        entry: arrayOfContent, title: "catalogs",
+        hardCopyEntry:catalogHardCopy
       });
     });
   });

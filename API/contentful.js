@@ -351,5 +351,20 @@ module.exports = {
      });
    });
  },
-
+ getCatalogRequestHardCopy: function(callback) {
+   request({
+     method: 'GET',
+     url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=5SLs6g27dK2IOeuOyKyeoq',
+     headers: {
+     'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      }
+   }, function(error, response, body) {
+     logger.debug("Get Catalog Contentful: " + response.statusCode);
+     cmsEntry = JSON.parse(body);
+     return callback({
+       cmsEntry: cmsEntry.items,
+       statusCode: response.statusCode
+     });
+   });
+ },
 };
