@@ -33,33 +33,30 @@
                   <% } else { %>
                     <div id="tab<%=num%>" class="tab-pane fade">
                   <% } %>
-                      <div class="wrapper">
-                        <% entrySection.assetList.forEach(function(asset) { %>
-                          <section>
-                            <div class="row">
-                            <%  if (asset.displayInSecondColumn) {%>
-                              <div class="right">
-                                <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a href=<%= asset.url %>  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
-                              </div>
-                            <% } else { %>
-                              <div class="left">
-                                <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a href=<%= asset.url %>  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
-                              </div>
-                            <% } %>
-                            </div>
-                        </section>
-                        <% }) %>
-                      </div>
-                    </div>
-                <% }) %>
-              </div> <!-- End tab-content -->
-              </div>
-            </div>
-        </div> <!-- End GS-tabs -->
-      </div> <!-- End column -->
-    </div> <!-- End row -->
+                  <div class="col-lg-6 col-md-6 col-sm-12" id="col1">
+                    <% entrySection.assetList.forEach(function(asset) { %>
+                      <%  if (asset.displayInSecondColumn==false) {%>
+                        <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a href=<%= asset.url %>  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
+                      <% } %>
+                    <% }) %>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12" id="col2">
+                    <% entrySection.assetList.forEach(function(asset) { %>
+                      <%  if (asset.displayInSecondColumn) {%>
+                        <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a href=<%= asset.url %>  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
+                      <% } %>
+                    <% }) %>
+                  </div>
+                </div>
+              <% }) %>
+            </div> <!-- End tab-content -->
+          </div>
+        </div>
+      </div> <!-- End GS-tabs -->
+    </div> <!-- End column -->
+  </div> <!-- End row -->
     <!--/nutch_noindex-->
-  </div> <!-- End Container -->
+</div> <!-- End Container -->
   <!-- Footer -->
   <% include partials/footer %>
   <!-- END Footer  -->
