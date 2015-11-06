@@ -36,7 +36,17 @@
                       <div class="wrapper">
                         <% entrySection.assetList.forEach(function(asset) { %>
                           <section>
-                             <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a href=<%= asset.url %>  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
+                            <div class="row">
+                            <%  if (asset.displayInSecondColumn) {%>
+                              <div class="right">
+                                <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a href=<%= asset.url %>  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
+                              </div>
+                            <% } else { %>
+                              <div class="left">
+                                <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a href=<%= asset.url %>  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
+                              </div>
+                            <% } %>
+                            </div>
                         </section>
                         <% }) %>
                       </div>
