@@ -12,7 +12,6 @@
           content = {};
           content.catlogTitle=  cmsEntryAsset.fields.catlogTitle;
           content.catalogFilter = cmsEntryAsset.fields.catalogFilter;
-        console.log(  content.catlogTitle);
           arrayofAssetObj =[];
           if(typeof(cmsEntryAsset.fields.catlogFileAssets) !='undefined') {
             cmsEntryAsset.fields.catlogFileAssets.forEach(function (sectionFile) {
@@ -20,7 +19,6 @@
                 if (asset.sys.id == sectionFile.sys.id) {
                   assetObj = {};
                   assetObj.title = asset.fields.title;
-                  console.log(assetObj.title);
                   assetObj.description = asset.fields.description;
                   assetObj.url = asset.fields.file.url;
                   assetObj.displayInSecondColumn = false;
@@ -37,7 +35,7 @@
           categoryGroup.assetList.sort(function(a,b) {
              return a.title.localeCompare(b.title);
           });
-          if (categoryGroup.assetList.length > 0) {
+          if (categoryGroup.assetList.length > 16) {
             categoryGroup.assetList.forEach(function(asset,num) {
             if (num > 8)  {
               asset.displayInSecondColumn = true;
