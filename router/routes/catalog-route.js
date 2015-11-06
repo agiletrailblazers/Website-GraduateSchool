@@ -37,7 +37,7 @@
           });
           if (categoryGroup.assetList.length > 16) {
             categoryGroup.assetList.forEach(function(asset,num) {
-            if (num > 8)  {
+            if (num > categoryGroup.assetList.length/2)  {
               asset.displayInSecondColumn = true;
            }
          });
