@@ -13,6 +13,7 @@
           content = {};
           content.catlogTitle=  cmsEntryAsset.fields.catlogTitle;
           content.catalogFilter = cmsEntryAsset.fields.catalogFilter;
+          content.catalogDisplayOrder = cmsEntryAsset.fields.catlogFilterOrder;
           arrayofAssetObj =[];
           if(typeof(cmsEntryAsset.fields.catlogFileAssets) !='undefined') {
             cmsEntryAsset.fields.catlogFileAssets.forEach(function (sectionFile) {
@@ -30,7 +31,9 @@
           }
           content.assetList=arrayofAssetObj;
           arrayOfContent.push(content);
-
+        });
+        arrayOfContent.sort(function(a, b) {
+          return (a.catalogDisplayOrder) - (b.catalogDisplayOrder);
         });
         arrayOfContent.forEach(function(categoryGroup) {
           categoryGroup.assetList.sort(function(a,b) {
