@@ -54,10 +54,16 @@
         catalogHardCopy = response.cmsEntry;
         callback();
       });
-    }, ], function(results) {
+    },function(callback) {
+      contentful.getReferenceData('us-states', function(result) {
+        states = result;
+        callback();
+      });
+    } ], function(results) {
       res.render('catalogs', {
         entry: arrayOfContent, title: "Catalog Request Form",
-        hardCopyEntry:catalogHardCopy
+        hardCopyEntry:catalogHardCopy,
+        states: states
       });
     });
   });
