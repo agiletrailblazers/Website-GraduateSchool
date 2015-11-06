@@ -17,9 +17,9 @@
               <ul class="nav nav-tabs">
                 <% entry.forEach(function(entrySection,num) { %>
                   <% if (num == 0) { %>
-                    <li class="active"><a data-toggle="tab" href="#tab<%=i%>"><%=entrySection.catlogTitle %></a></li>
+                    <li class="active"><a data-toggle="tab" href="#tab<%=num%>"><%=entrySection.catlogTitle %></a></li>
                   <% } else { %>
-                    <li><a data-toggle="tab" href="#tab<%=i%>"><%=entrySection.catlogTitle %></a></li>
+                    <li><a data-toggle="tab" href="#tab<%=num%>"><%=entrySection.catlogTitle %></a></li>
                   <% } %>
                 <% }); %>
               </ul>
@@ -29,9 +29,9 @@
                 <div class="tab-content">
                   <% entry.forEach(function(entrySection,num) { %>
                   <% if (num == 0) { %>
-                    <div id="tab<%=i%>" class="tab-pane fade in active">
+                    <div id="tab<%=num%>" class="tab-pane fade in active">
                   <% } else { %>
-                    <div id="tab<%=i%>" class="tab-pane fade">
+                    <div id="tab<%=num%>" class="tab-pane fade">
                   <% } %>
                       <div class="wrapper">
                         <% entrySection.assetList.forEach(function(asset) { %>
