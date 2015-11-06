@@ -5,13 +5,15 @@
   // Get Catalog Request Form  page.
   router.get('/catalog-request-form', function(req, res, next) {
   arrayOfContent=[];
-  async.series([
+  var catalogHardCopy = {};
+  async.parallel([
     function(callback) {
       contentful.getCatalogDownload(function(response) {
         response.cmsEntry.forEach(function(cmsEntryAsset) {
           content = {};
           content.catlogTitle=  cmsEntryAsset.fields.catlogTitle;
           content.catalogFilter = cmsEntryAsset.fields.catalogFilter;
+          content.catalogDisplayOrder = cmsEntryAsset.fields.catlogFilterOrder;
           arrayofAssetObj =[];
           if(typeof(cmsEntryAsset.fields.catlogFileAssets) !='undefined') {
             cmsEntryAsset.fields.catlogFileAssets.forEach(function (sectionFile) {
@@ -29,7 +31,9 @@
           }
           content.assetList=arrayofAssetObj;
           arrayOfContent.push(content);
-
+        });
+        arrayOfContent.sort(function(a, b) {
+          return (a.catalogDisplayOrder) - (b.catalogDisplayOrder);
         });
         arrayOfContent.forEach(function(categoryGroup) {
           categoryGroup.assetList.sort(function(a,b) {
@@ -45,9 +49,15 @@
         });
         callback();
       });
-    } ], function(results) {
+    },function(callback) {
+      contentful.getCatalogRequestHardCopy(function(response) {
+        catalogHardCopy = response.cmsEntry;
+        callback();
+      });
+    }, ], function(results) {
       res.render('catalogs', {
-        entry: arrayOfContent, title: "Catalog Request Form"
+        entry: arrayOfContent, title: "Catalog Request Form",
+        hardCopyEntry:catalogHardCopy
       });
     });
   });
