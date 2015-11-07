@@ -115,31 +115,34 @@
           </div>
           <div class="panel panel-default">
             <div class="panel-heading gs">
-              <a class="accordion-toggle collapsed" id="collapse3Link" data-toggle="collapse" data-parent="#accordion"
-                 href="#collapse3" tabindex="14">
+              <a class="accordion-toggle collapsed" id="collapse2Link" data-toggle="collapse" data-parent="#accordion"
+                 href="#collapse2" tabindex="14">
                 <h4 class="panel-title">CATALOG INFORMATION</h4>
               </a>
             </div>
-            <div id="collapse3" class="panel-collapse collapse">
+            <div id="collapse2" class="panel-collapse collapse">
               <div class="panel-body">
                 <div id="form-wrap">
-                    <div class="form-inline">
-                      <div class="form-group">
                         <span class="block"><label for="txtCatalogTitles"><strong>select catalogs you would like to receive on your mailing address.</strong></label></span>
+                  <div class="form-inline">
                         <% hardCopyEntry.forEach(function(hardCopyCatalog,num) { %>
-                          <span class="block"><input type="checkbox" name="txtCatalogTitles" class="feedbackCategories" id="catalogTitles" value="titles"
-                           tabindex="<%num+14%>"> <%= hardCopyCatalog.fields.catalogHardCopy %> </input></span>
-                           <input type="text" id="txtCount" class="form-control" tabindex="1" value="1">
+                      <Span class="form-group">
+                        <input type="checkbox" name="txtCatalogTitles" class="catalogHardCopyTitles" id="catalogHardCopyTitles" value="<%= hardCopyCatalog.fields.catalogHardCopy.trim() %>"
+                           tabindex="<%num+14%>"> <%= hardCopyCatalog.fields.catalogHardCopy.trim() %> </input>
+                      </span>
+                      <span class="form-group">
+                           <input type="text" class ="txtCatalogHardCopy" id="txtCatalogHardCopy" data-id="<%= hardCopyCatalog.fields.catalogHardCopy.trim()%>" tabindex="1"  size="2" value="1">
                         <% }) %>
+                      </span>
                       </div>
                     </div>
                   <div id="catologRequestCaptcha">
                     <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"
-                         tabindex="33"></div>
+                         tabindex=""></div>
                   </div>
                   <br>
-                  <button type="button" name="toCDI" id="backToCDIButton" tabindex="35">Previous</button>
-                  <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="34">Submit
+                  <button type="button" name="toCDI" id="backToCDIButton" tabindex="">Previous</button>
+                  <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="">Submit
                     Request
                   </button>
                 </div>

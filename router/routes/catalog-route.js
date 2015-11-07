@@ -52,6 +52,9 @@
     },function(callback) {
       contentful.getCatalogRequestHardCopy(function(response) {
         catalogHardCopy = response.cmsEntry;
+        catalogHardCopy.sort(function(a,b) {
+          return a.fields.catalogHardCopy.localeCompare(b.fields.catalogHardCopy);
+        });
         callback();
       });
     },function(callback) {

@@ -1,5 +1,5 @@
 
-The following is a request for information on on-site training:
+The following is a request for information on Catalog Request:
 
 Name and Address
 Prefix:  <%= address.prefix %>
@@ -16,3 +16,11 @@ Contact Information
 Telephone Number: <%= contact.phone %>
 Fax Number: <%= contact.fax %>
 Email Address: <%= contact.email %>
+Catalog Information
+Catalog(s)Requested:
+  <% catalogHardCopyTitlesList.forEach(function(catalogHardCopyTitle , num ) { %>
+  <% var catalogHardCopy= catalogHardCopyTitle.split("|")%>
+  <%=num+1 %>
+    ><%=catalogHardCopy[0] %>
+    <%= catalogHardCopy[1] %>
+  <% }) %>
