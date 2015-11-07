@@ -13,8 +13,12 @@ module.exports = {
     if (isNotEmptyOrAll(params.cityState)) {
       courseApiUrl = courseApiUrl + '&filter=city_state:' + params.cityState;
     }
-    if (isNotEmptyOrAll(params.categorySubject)) {
-      courseApiUrl = courseApiUrl + '&filter=category_subject:' + params.categorySubject;
+    if (isNotEmptyOrAll(params.categorySubject) && isNotEmptyOrAll(params.categorySubjectType)) {
+      if (params.categorySubjectType === 'category') {
+        courseApiUrl = courseApiUrl + '&filter=category:' + params.categorySubject;
+      } else {
+        courseApiUrl = courseApiUrl + '&filter=category_subject:' + params.categorySubject;
+      }
     }
     if (params.page && isNotEmpty(params.page.course)) {
       courseApiUrl = courseApiUrl + '&page='+ params.page.course;
@@ -100,7 +104,7 @@ module.exports = {
     var courseApiUrl = config("properties").courseApiUrl;
     request({
       method: 'GET',
-      url: courseApiUrl + '/api/categories'
+      url: courseApiUrl + '/api/courses/categories'
     }, function (error, response, body) {
       logger.debug("Get Categories : " + response.statusCode);
       if (error != null || response == null || response.statusCode != 200) {

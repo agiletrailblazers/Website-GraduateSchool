@@ -166,7 +166,7 @@ test('course-search with subject search', function(t) {
   var params ={};
   //test a 200 ok
   var courseServer = nock(courseApiUrl)
-    .get('/api/categories')
+    .get('/api/courses/categories')
     .reply(200,
       {
       "category": "Accounting, Budgeting and Financial Management",
@@ -186,4 +186,3 @@ test('course-search with subject search', function(t) {
   },params);
   t.end();
 });
-
