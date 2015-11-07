@@ -100,7 +100,7 @@ module.exports = {
     var courseApiUrl = config("properties").courseApiUrl;
     request({
       method: 'GET',
-      url: courseApiUrl + '/api/categories'
+      url: courseApiUrl + '/api/courses/categories'
     }, function (error, response, body) {
       logger.debug("Get Categories : " + response.statusCode);
       if (error != null || response == null || response.statusCode != 200) {
