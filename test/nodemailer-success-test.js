@@ -216,7 +216,7 @@ test('nodemailer-test:CatalogForm:success', function(t) {
   data.contact.email = {};
   data.contact.phone = {};
   data.catalogHardCopyTitles = {};
-  data.catalogHardCopyTitlesList = {};
+  data.catalogHardCopyTitlesList = [];
   mailer.sendCatalogRequest(function(response) {
     expect(200).to.eql(response);
   }, data);
