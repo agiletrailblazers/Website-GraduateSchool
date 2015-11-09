@@ -7,14 +7,17 @@
     <script type="text/javascript" src="/javascripts/catalogs.js"></script>
     <link rel="stylesheet" href="/stylesheets/generic_detail.css">
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    <link rel="stylesheet" href="/stylesheets/library/spinners.css">
   </head>
   <body>
     <% include partials/header %>
     <div id="main-container" class="container">
+      <div class="loading" style="display:none;"></div>
       <div class="row">
         <% include catalog/catalog_download %>
       </div> <!-- End row -->
-    <hr>
+      <div class="spacer25"></div>
+    <hr class="divider">
       <div class="row">
         <% include catalog/catalog_request_form %>
       </div> <!-- End row  -->

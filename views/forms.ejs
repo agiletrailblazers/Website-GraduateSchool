@@ -16,10 +16,10 @@
           <div class="col-lg-12 col-md-12 col-sm-12" id="form-filters">
             <span>Filter forms:</span>
               <ul id="filterForms">
-                <li name="all"><a href="#">All forms</a></li>
-                <li name="to"><a href="#">Training Officials</a></li>
-                <li name="cs"><a href="#">Students</a></li>
-                <li name="ps"><a href="#">Prospective Students</a></li>
+                <li name="all"><a href="#" class="form-filter">All forms</a></li>
+                <li name="to"><a href="#" class="form-filter">Training Officials</a></li>
+                <li name="cs"><a href="#" class="form-filter">Students</a></li>
+                <li name="ps"><a href="#" class="form-filter">Prospective Students</a></li>
               </ul>
             </div>
         <!--/nutch_noindex-->
@@ -60,6 +60,15 @@
 <!-- Chat  -->
   <% include partials/chat %>
 <!-- END of Chat  -->
+<script type="text/javascript">
+$('.form-filter').on('focus', function () {
+    $(this).parent().addClass('active');
+  });
+$('.form-filter').click(function () {
+    $(this).parent().addClass('active').siblings().removeClass('active');
+});
+
+</script>
 
   </body>
 </html>
