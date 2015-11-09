@@ -165,6 +165,8 @@ test('nodemailer-test:CertificateProgramForm:success', function(t) {
   mailer.setTransport(transport);
   params = {};
   params.other = {};
+  params.title = {};
+  params.formType = {};
   params.selectBox = {};
   params.firstName = {};
   params.lastName = {};
