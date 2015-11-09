@@ -1,8 +1,10 @@
+var ajaxformrouteservice = require('../helpers/ajax-form-route-service.js');
 var chai = require('chai');
 var expect = require('chai').expect;
 var contentful = require("../API/contentful.js");
 var nock = require('nock');
-var should = require("should");
+
+var config = require('konphyg')(__dirname + "/../config");
 var test = require('tap').test;
 
 test('test for catalog download', function(t) {
@@ -54,5 +56,122 @@ test('test for catalog download', function(t) {
     expect(response.statusCode).to.equal(goodStatus);
     expect(response.cmsEntry[0].fields.catalogHardCopy).to.equal("Center for Leadership and Management brochure");
   });
+  t.end();
+});
+
+
+test('firstName-catalogMailForm length Validation', function (t) {
+
+  var address = {
+    firstName: "AA",
+    lastName: "ATB",
+    organization: "Help"
+  };
+
+  var contact = {
+    email: "gs@email.com",
+    phone: "1234567890"
+  };
+
+  var params  = {};
+  params.address = address;
+  params.contact = contact;
+
+  ajaxformrouteservice.validateRequestCatalog(function (response) {
+    expect(response.errors.firstName).to.eql(config("properties").contactUsFirstNameLengthCheckMessage);
+  }, params);
+  t.end();
+});
+
+test('lastName-catalogMailForm length Validation', function (t) {
+
+  var address = {
+    firstName: "AAA",
+    lastName: "AB",
+    organization: "Help"
+  };
+
+  var contact = {
+    email: "gs@email.com",
+    phone: "1234567890"
+  };
+
+  var params  = {};
+  params.address = address;
+  params.contact = contact;
+
+  ajaxformrouteservice.validateRequestCatalog(function (response) {
+    expect(response.errors.lastName).to.eql(config("properties").contactUsLastNameLengthCheckMessage);
+  }, params);
+  t.end();
+});
+
+test('organization-catalogMailForm Organization is Empty', function (t) {
+
+  var address = {
+    firstName: "AAA",
+    lastName: "ATB",
+    organization: ""
+  };
+
+  var contact = {
+    email: "gs@email.com",
+    phone: "1234567890"
+  };
+
+  var params  = {};
+  params.address = address;
+  params.contact = contact;
+
+  ajaxformrouteservice.validateRequestCatalog(function (response) {
+    expect(response.errors.organization).to.eql("Organization is empty.");
+  }, params);
+  t.end();
+});
+
+test('Email-catalogMailForm Email Wrong Format Validation', function (t) {
+
+  var address = {
+    firstName: "AAA",
+    lastName: "ATB",
+    organization: ""
+  };
+
+  var contact = {
+    email: "gs.email.com",
+    phone: "1234567890"
+  };
+
+  var params  = {};
+  params.address = address;
+  params.contact = contact;
+
+  ajaxformrouteservice.validateRequestCatalog(function (response) {
+    expect(response.errors.email).to.eql(config("properties").contactUsEmailWrongFormatMessage);
+  }, params);
+  t.end();
+});
+
+
+test('Phone-catalogMailForm Empty String Validation', function (t) {
+
+  var address = {
+    firstName: "AAA",
+    lastName: "ATB",
+    organization: ""
+  };
+
+  var contact = {
+    email: "gs@email.com",
+    phone: ""
+  };
+
+  var params  = {};
+  params.address = address;
+  params.contact = contact;
+
+  ajaxformrouteservice.validateRequestCatalog(function (response) {
+    expect(response.errors.phone).to.eql(config("properties").contactUsPhoneEmptyCheckMessage);
+  }, params);
   t.end();
 });

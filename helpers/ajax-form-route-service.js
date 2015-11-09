@@ -437,7 +437,7 @@ module.exports = {
         response.errors.lastName = "Last name is empty.";
         break;
       case (!validator.isLength(params.address.lastName.trim(), 3)):
-        response.errors.lastName = "Last name must be at lease 3 characters.";
+        response.errors.lastName = "Last name must be at least 3 characters.";
         break;
     }
     // Validate organization
