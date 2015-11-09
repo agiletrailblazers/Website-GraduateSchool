@@ -222,4 +222,3 @@ $(document).ready(function() {
   });
   $("#collapse1").addClass("in");
 });
-

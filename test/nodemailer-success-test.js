@@ -190,3 +190,36 @@ test('nodemailer-test:CertificateProgramForm:success', function(t) {
 
   t.end();
 });
+
+
+test('nodemailer-test:CatalogForm:success', function(t) {
+  var transport = nodemailer.createTransport(stubTransport());
+  mailer.setTransport(transport);
+
+  data = {};
+  data.address = {};
+  data.location = {};
+  data.contact = {};
+  data.course = {};
+  data.address.prefix = {};
+  data.address.firstName = {};
+  data.address.middleName = {};
+  data.address.lastName = {};
+  data.address.organization = {};
+  data.address.street = {};;
+  data.address.suite = {};
+  data.address.city = {};
+  data.address.state = {};
+  data.address.zip = {};
+  data.address.country = {};
+  data.contact.fax = {};
+  data.contact.email = {};
+  data.contact.phone = {};
+  data.catalogHardCopyTitles = {};
+  data.catalogHardCopyTitlesList = {};
+  mailer.sendCatalogRequest(function(response) {
+    expect(200).to.eql(response);
+  }, data);
+
+  t.end();
+});
