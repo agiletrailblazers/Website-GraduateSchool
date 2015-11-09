@@ -127,11 +127,11 @@
                   <div class="form-inline">
                         <% hardCopyEntry.forEach(function(hardCopyCatalog,num) { %>
                       <Span class="form-group">
-                        <input type="checkbox" name="txtCatalogTitles" class="catalogHardCopyTitles" id="catalogHardCopyTitles" value="<%= hardCopyCatalog.fields.catalogHardCopy.trim() %>"
+                        <input type="checkbox" name="txtCatalogTitles" class="catalogHardCopyTitles" id="<%= 'catalogHardCopyTitles'+num%>" value="<%= hardCopyCatalog.fields.catalogHardCopy.trim() %>"
                            tabindex="<%num+14%>"> <%= hardCopyCatalog.fields.catalogHardCopy.trim() %> </input>
                       </span>
                       <span class="form-group">
-                           <input type="text" class ="txtCatalogHardCopy" id="txtCatalogHardCopy" data-id="<%= hardCopyCatalog.fields.catalogHardCopy.trim()%>" tabindex="1"  size="2" value="1">
+                           <input type="text" class ="txtCatalogHardCopy" id="<%= 'txtCatalogHardCopy'+num%>" data-id="<%= hardCopyCatalog.fields.catalogHardCopy.trim()%>" tabindex="1"  size="2" value="1">
                         <% }) %>
                       </span>
                       </div>
