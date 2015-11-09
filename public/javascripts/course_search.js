@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   //Important to use live events since we dynamically update page content
-  $(document).on('change', 'select.itemsPerPage, select#selLocation,select#categorySubject', function() {
+  $(document).on('change', 'select.itemsPerPage, select#selLocation, select#categorySubject', function() {
     $('.itemsPerPage').val($(this).val());
     $('#txtPageCourse').val(1);
     $('#txtPageSite').val(1);
@@ -86,6 +86,7 @@ $(document).ready(function() {
     var urlParams = "search=" + $("#txtSearchCriteria").val()
         + "&numRequested=" + $(".itemsPerPage").val()
         + "&cityState=" + $("#selLocation").val()
+        + "&categorySubjectType=" + $('#categorySubject').find(":selected").attr('data-optionType')
         + "&categorySubject=" + $("#categorySubject").val()
         + "&selectedG2G=" + $('#G2G').prop('checked')
         + "&page-course=" + $('#txtPageCourse').val()
