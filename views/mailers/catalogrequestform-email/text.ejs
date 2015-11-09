@@ -1,0 +1,29 @@
+
+The following is a request for information on Catalog Request:
+
+Name and Address
+Prefix:  <%= address.prefix %>
+First Name:  <%= address.firstName %>
+Middle Name:  <%= address.middleName %>
+Last Name: <%= address.lastName %>
+Organization: <%= address.organization %>
+Street: <%= address.street %>
+Suite: <%= address.suite %>
+City: <%= address.city %>
+State: <%= address.state %>
+Zip Code: <%= address.zip %>
+Country: <%= address.country %>
+Contact Information
+Telephone Number: <%= contact.phone %>
+Fax Number: <%= contact.fax %>
+Email Address: <%= contact.email %>
+Catalog Information
+Catalog(s)Requested:
+  <% if ((typeof(catalogHardCopyTitlesList) !='undefined')) {
+   catalogHardCopyTitlesList.forEach(function(catalogHardCopyTitle , num ) { %>
+  <% var catalogHardCopy= catalogHardCopyTitle.split("|")%>
+  <%=num+1 %>
+    ><%=catalogHardCopy[0] %>
+    <%= catalogHardCopy[1] %>
+  <% })
+} %>

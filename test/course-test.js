@@ -187,4 +187,3 @@ test('course-search with subject search', function(t) {
   },params);
   t.end();
 });
-

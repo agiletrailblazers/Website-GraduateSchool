@@ -175,6 +175,30 @@ router.post('/mailer-request-certificate-program', function(req, res, next) {
   }, params);
 });
 
+
+router.post('/mailer-request-catalog', function (req, res, next) {
+  params = req.body;
+  //move code to router service
+  routerService.validateRequestCatalog(function (response) {
+    // Send email if there are no errors.
+    if (Object.keys(response.errors).length === 0) {
+      //verify captcha
+      google.verifyCaptcha(function (response) {
+        if ((response != null) && (response.statusCode == 200)) {
+          //send mail of success
+          mailer.sendCatalogRequest(function (response) {
+            handleResponse(res, response);
+          }, params);
+        } else {
+          sendErrorResponse(res, response);
+        }
+      }, params.captchaResponse);
+    } else {
+      sendErrorResponse(res, response);
+    }
+  }, params);
+});
+
 //send errors to client.
 function sendErrorResponse(res, response) {
   if ((response != null) && (response.errors != null)) {

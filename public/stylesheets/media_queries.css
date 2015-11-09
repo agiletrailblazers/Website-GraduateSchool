@@ -240,7 +240,7 @@
       #form-filters ul li {
         display: block;
         list-style: none;
-        padding: 3px 7px;
+        padding: 6px 7px;
       }
 
       #form-filters ul {
@@ -431,6 +431,48 @@
           padding-left: 40px;
         }
 
+        #catalog-filters ul.nav li, #catalog-filters ul li {
+          display: block !important;
+          list-style: outside none none;
+          padding: 6px 7px;
+        }
+
+        #catalog-filters {
+          display: block !important;
+          padding: 15px 20px 45px 20px !important;
+        }
+
+        #catalog-filters ul li {
+          width: 100%;
+
+          display: block;
+          list-style: none;
+          padding: 10px 7px;
+        }
+
+        #catalog-filters ul li a {
+          text-align: left !important;
+        }
+
+        #catalog-filters ul.nav {
+          display: block !important;
+          margin: 10px 0 !important;
+          padding: 5px !important;
+        }
+
+        #catalog-filters ul.nav li+li {
+           border-left: none !important;
+         }
+
+         span.filter-header {
+            padding: 5px 20px 20px 0px;
+        }
+
+        .catalog-item {
+          display: block;
+          padding: 5px 0 10px 0 !important;
+          /*margin-bottom: 15px;*/
+        }
     }
 
     /* Extra Small Devices, Phones */
@@ -491,7 +533,6 @@
         display: none;
         visibility: hidden;
       }
-
 
 
     }
