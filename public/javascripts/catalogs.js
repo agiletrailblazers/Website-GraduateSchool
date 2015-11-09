@@ -25,6 +25,32 @@ var Validate = {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Organization</strong> should be at least 3 characters.</p>");
     }
   },
+  city: function() {
+    var input = $("#txtCity").val();
+    if (input.trim().length < 3) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>City</strong> is incorrect.</p>");
+    }
+  },
+  state: function() {
+    var input = $("#selState").val();
+    if (!input) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please select a <strong>state</strong>.</p>");
+    }
+  },
+  zip: function() {
+    var input = $("#txtZip").val();
+    // TODO: Regex to see if it is only numbers.
+    if (input.trim().length < 5) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Zip code</strong> is incorrect.</p>");
+    }
+  },
+  streetAddress: function() {
+    var input = $("#txtStreet").val();
+    if (input.trim().length < 3) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Street address</strong> must be at least 3 characters.</p>");
+    }
+  },
+
   email: function() {
     var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
     var input = $("#txtEmail").val();
@@ -75,6 +101,10 @@ var _runValidation = function() {
   Validate.firstName();
   Validate.lastName();
   Validate.organization();
+  Validate.streetAddress();
+  Validate.city();
+  Validate.state();
+  Validate.zip();
   Validate.email();
   Validate.phone();
   Validate.catlogCopies();
@@ -129,6 +159,7 @@ $(document).ready(function() {
     data.course = {};
     data.address.prefix = $("#prefix").val();
     data.address.firstName = $("#txtFirstName").val();
+    data.address.middleName = $("#txtMiddleName").val();
     data.address.lastName = $("#txtLastName").val();
     data.address.organization = $("#txtOrganizaiton").val();
     data.address.street = $("#txtStreet").val();

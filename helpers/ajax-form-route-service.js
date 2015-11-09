@@ -449,6 +449,36 @@ module.exports = {
         response.errors.organization = "Organization must be atleast 3 characters.";
         break;
     }
+
+// Validate City
+    switch (true) {
+      case (!params.address.city):
+        response.errors.city = "City is empty."
+        break;
+      case (!validator.isLength(params.address.city.trim(), 3)):
+        response.errors.city = "City must be greater than 3 characters."
+        break;
+    }
+
+    // Validate Zip
+    switch (true) {
+      case (!params.address.zip):
+        response.errors.zip = "Zip is empty."
+        break;
+      case (!validator.isLength(params.address.zip.trim(), 5)):
+        response.errors.zip = "Zip must be greater than 5 characters."
+        break;
+    }
+    // Validate Street Address
+    switch (true) {
+      case (!params.address.street):
+        response.errors.streetAddress = "Street Address is empty."
+        break;
+      case (!validator.isLength(params.address.street.trim(), 3)):
+        response.errors.streetAddress = "Street Address must be greater than 3 characters."
+        break;
+    }
+
     // Validate params.email
     switch (true) {
       case (!params.contact.email):
@@ -469,6 +499,10 @@ module.exports = {
         break;
     }
 
+    // Validate State
+    if (!params.address.state) {
+      response.errors.state = "Please select a state."
+    }
 
     if (!params.captchaResponse) {
       response.errors.captchaResponse = "Please select recaptcha.";
