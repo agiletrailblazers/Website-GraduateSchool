@@ -57,22 +57,23 @@ p.footer {
 <p>Catalog(s)Requested: </p>
 <table>
   <tr>
-    <strong><td>Sno</td></strong>
-    <strong><td>Catalog Title</td></strong>
-    <strong><td>No of Copies Requested</td></strong>
+    <th>#</th>
+    <th>Catalog Title</th>
+    <th>Number of Copies Requested</th>
   </tr>
   <% if ((typeof(catalogHardCopyTitlesList) !='undefined')) {
   catalogHardCopyTitlesList.forEach(function(catalogHardCopyTitle , num ) {
     %>
     <% var catalogHardCopy= catalogHardCopyTitle.split("|")%>
     <tr>
-      <strong><td><%=num+1 %></td></strong>
-      <strong><td align="justify"><%=catalogHardCopy[0] %></td></strong>
-      <strong><td><%= catalogHardCopy[1] %></td></strong>
+      <td><%=num+1 %></td>
+      <td align="justify"><%=catalogHardCopy[0] %></td>
+      <td><strong><%= catalogHardCopy[1] %></strong></td>
     </tr>
 <% })
 }%>
 </table>
+<br>
 <hr>
 <p class="footer">Sent from GraduateSchool.edu - Request for Catalog(s).</p>
 </div>
