@@ -269,7 +269,7 @@
                                   </div>
                                   <div id="session<%= i+1 %>" class="mySession panel-collapse collapse" data-rowhide="<%= session.hide %>">
                                       <div class="panel-body nopadding">
-                                      <table class="session-schedule-mob">
+                                      <table id="mob-courseSessionTable" class="session-schedule-mob" data-totaltr="<%= courseData.session.length %>">
                                         <tr><th class="mob-header"><%= content.sessionTable[0] %></th><td><% if (session["days"] !== null) { %><%= session["days"] %><% } %></td></tr>
                                         <tr><th class="mob-header"><%= content.sessionTable[1] %></th>
                                           <td><%= session.location["city"]%>, <%= session.location["state"]%>
