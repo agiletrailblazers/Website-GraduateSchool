@@ -418,3 +418,7 @@ span.display-of-sessions {
     background-image: linear-gradient(to bottom, #FFF 0px, #EFEFEF 100%) !important;
     background-repeat: repeat-x;
 }
+
+#map-address {
+  padding: 10px 0px;
+}
