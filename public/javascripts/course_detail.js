@@ -51,7 +51,7 @@ tableApp = {
 
 tablemobApp = {
   limitSessions: function(limit) {
-    $(".mob-courseDetailSessionRow, #mob-loadMore, #mob-showLess").hide();
+    $(".mob-courseDetailSessionRow, #mob-showAll, #mob-showLess").hide();
     courseSessionLength = $("#mob-courseSessionTable").data('totaltr');
     var filteredList = $('.mob-courseDetailSessionRow[data-rowhide="false"]:lt(' + limit + ')');
     filteredList.show();
