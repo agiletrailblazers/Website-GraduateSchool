@@ -246,6 +246,18 @@ button.register:hover {
   transition: background-color 300ms linear;
 }
 
+button.register-mob:hover {
+  color: #FFF;
+  background-color: #008C23;
+  box-shadow: none;
+  border: none;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
 /* Legend */
 
 span.legend-title {
@@ -322,15 +334,12 @@ table.session-schedule-mob th {
 }
 
 h4.session-schedule-mob {
-  color: #545454;
+  color: #333;
   font-size: 14px !important;
   font-weight: normal !important;
   line-height: 1.4;
 }
 
-#session-schedule-mob {
-
-}
 
 .table-nav {
   padding-top: 5px;
@@ -402,4 +411,14 @@ span.display-of-sessions {
   padding: 5px 20px;
   display: inline-block;
   color: #555;
+}
+
+
+.panel-default > .panel-heading {
+    background-image: linear-gradient(to bottom, #FFF 0px, #EFEFEF 100%) !important;
+    background-repeat: repeat-x;
+}
+
+#map-address {
+  padding: 10px 0px;
 }

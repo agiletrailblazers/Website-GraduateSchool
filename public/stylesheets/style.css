@@ -1257,6 +1257,24 @@ img.testimonial {
 margin: 20px 0;
 }
 
+p.date-posted {
+  color: #777777;
+}
+
+#news .glyphicon-custom  {
+  color: #EEE !important;
+  font-size: 12px !important;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: "Glyphicons Halflings";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0 5px 0 0;
+}
+
 .news-and-events a, .news-entry a {
 color: #035A95;
 background-color: transparent !important;
