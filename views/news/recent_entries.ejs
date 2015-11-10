@@ -1,41 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
   <title> Graduate School USA | Recent News Entries</title>
   <% include ../partials/head %>
-
 </head>
 <body>
   <% include ../partials/header %>
-  <div  class="container">
+  <div class="container">
       <div class="row">
         <!-- Blog Entries Column -->
-        <div class="col-md-9">
+        <div id="news" class="col-md-9">
           <!-- First Blog Post -->
           <% for (var i = 0; i < posts.length; i++) { %>
-            <h3>
-              <a href='/news/<%= posts[i].fields.slug %>'><%= posts[i].fields.title %></a>
-            </h3>
-            <p>
-              <span class="glyphicon glyphicon-time"></span>
-              Posted on
-              <%= posts[i].fields.date.date('MMM DD, YYYY') %></p>
+            <h3><a href='/news/<%= posts[i].fields.slug %>'><%= posts[i].fields.title %></a></h3>
+            <p class="date-posted"><span class="glyphicon glyphicon-time"></span> Posted on <%= posts[i].fields.date.date('MMM DD, YYYY') %></p>
               <p><%= prune(striptags(posts[i].fields.body), 300, "...") %></p>
-              <a class="btn btn-primary readmore" href='/news/<%= posts[i].fields.slug %>'>Read More
-                <span class="glyphicon glyphicon-chevron-right"></span>
-              </a>
-              <hr>
+              <a class="blueish" href='/news/<%= posts[i].fields.slug %>'>Read More <span class="glyphicon-custom glyphicon-triangle-right"></span></a>
+              <div class="spacer25"></div>
+              <hr class="divider">
           <% } %>
-        </div>
-        <!-- END Blog Entries Column -->
-      </div>
-      <!-- END Row -->
-    </div>
-    <!-- END Container -->
-    <!-- Include Footer Here! -->
-    <% include ../partials/footer %>
-  </div><!-- END Container-fluid -->
+        </div> <!-- END Blog Entries Column -->
+      </div> <!-- END Row -->
+  </div> <!-- END Container -->
+  <!-- Footer -->
+  <% include ../partials/footer %>
+  <!-- END Footer -->
   <!-- Chat  -->
   <% include ../partials/chat %>
   <!-- END of chat  -->

@@ -233,7 +233,7 @@ button.register, button.register:visited {
   transition: background-color 300ms linear;
 }
 
-button.register:hover,  {
+button.register:hover {
   color: #FFF;
   background-color: #008C23;
   padding: 5px 15px;

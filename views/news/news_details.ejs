@@ -1,45 +1,30 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title> Graduate School USA | 
-    <%= title %>
-  </title>
+  <title> Graduate School USA | <%= title %> </title>
   <% include ../partials/head %>
 </head>
-
 <body>
   <% include ../partials/header %>
-  <div  class="container">
-      <div class="col-md-9">
-        <p>
-          <span class="glyphicon glyphicon-time"></span>
-          Posted on <%= date.date('MMM DD, YYYY') %>
-        </p>
-        <p>
-          <%- body %>
-        </p>
+  <div class="container">
+    <div class="row">
+      <div id="news" class="col-md-9">
+        <p class="date-posted"><span class="glyphicon glyphicon-time"></span>Posted on <%= date.date('MMM DD, YYYY') %></p>
+        <p><%- body %></p>
         <p>
           <% if (featureImageURL !="") { %>
             <img src="<%=featureImageURL %>" alt=""  class=""/>
           <%}%>
         </p>
-        <p>
-          <a class="btn btn-primary readmore" href='/news'>
-            <span class="glyphicon glyphicon-chevron-left"></span>Back to News
-          </a>
-        </p>
-        <br/>
+       <a class="blueish" href='/news'><span class="glyphicon-custom glyphicon-triangle-left"></span>Back to News</a>
+       <div class="spacer25"></div>
       </div>
     </div>
-    <!-- END Container -->
-    <!-- END Page Content -->
-    <!-- Include Footer Here! -->
+    </div> <!-- END Container -->
+    <!-- Footer  -->
     <% include ../partials/footer %>
-  </div><!-- END Container-fluid -->
   <!-- Chat  -->
   <% include ../partials/chat %>
-    <!-- END of chat  -->
+  <!-- END of chat  -->
 </body>
-
 </html>
