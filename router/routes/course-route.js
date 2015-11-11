@@ -7,6 +7,8 @@ var dateformat = require('date-format-lite');
 var prune = require('underscore.string/prune');
 var router = express.Router();
 var logger = require('../../logger');
+var sanitizeHtml = require('sanitize-html');
+var striptags = require('striptags');
 
 // Get course details based off course code.
 router.get('/courses/:course_id', function(req, res, next){
@@ -22,7 +24,7 @@ router.get('/courses/:course_id', function(req, res, next){
     		courseData.session = {status: 404, text: "No courses found."}
     	}
     	else {
-    		logger.debug(result);
+    		// logger.debug(result);
     		courseData.class = result;
     	}
         callback();
@@ -93,6 +95,10 @@ router.get('/courses/:course_id', function(req, res, next){
           courseData.leadershipCourseScheduleLink = content.leadershipCourseScheduleLink;
         }
       });
+
+      // add empty string to avoid exception in case courseData.class.objective is null
+      var clean = striptags(courseData.class.objective + "", '<br><a><p><i><u><ul><li><strong>');
+      courseData.class.objective = clean;
 
 	    res.render('course_detail', { content: content,
         courseData: courseData,
