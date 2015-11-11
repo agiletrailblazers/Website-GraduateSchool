@@ -7,7 +7,6 @@ var dateformat = require('date-format-lite');
 var prune = require('underscore.string/prune');
 var router = express.Router();
 var logger = require('../../logger');
-var sanitizeHtml = require('sanitize-html');
 var striptags = require('striptags');
 
 // Get course details based off course code.
