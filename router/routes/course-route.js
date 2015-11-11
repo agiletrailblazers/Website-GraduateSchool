@@ -24,7 +24,6 @@ router.get('/courses/:course_id', function(req, res, next){
     		courseData.session = {status: 404, text: "No courses found."}
     	}
     	else {
-    		// logger.debug(result);
     		courseData.class = result;
     	}
         callback();
@@ -97,8 +96,18 @@ router.get('/courses/:course_id', function(req, res, next){
       });
 
       // add empty string to avoid exception in case courseData.class.objective is null
-      var clean = striptags(courseData.class.objective + "", '<br><a><p><i><u><ul><li><strong>');
-      courseData.class.objective = clean;
+      courseData.class.description.formatted = striptags(courseData.class.description.formatted + "", '<br><a><p><i><u><ul><li><strong>');
+
+      // add empty string to avoid exception in case courseData.class.objective is null
+      courseData.class.objective = striptags(courseData.class.objective + "", '<br><a><p><i><u><ul><li><strong>');
+
+      // add empty string to avoid exception in case courseData.class.objective is null
+      courseData.class.outcomes.forEach(function(outcome) {
+        courseData.class.outcomes[courseData.class.outcomes.indexOf(outcome)] = striptags(outcome + "", '<br><a><p><i><u><ul><li><strong>');
+      });
+
+      // add empty string to avoid exception in case courseData.class.objective is null
+      courseData.syllabus.fields.syllabusContent = striptags(courseData.syllabus.fields.syllabusContent + "", '<br><a><p><i><u><ul><li><strong>');
 
 	    res.render('course_detail', { content: content,
         courseData: courseData,
