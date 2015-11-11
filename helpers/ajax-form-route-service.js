@@ -440,16 +440,6 @@ module.exports = {
         response.errors.lastName = "Last name must be at least 3 characters.";
         break;
     }
-    // Validate organization
-    switch (true) {
-      case (!params.address.organization):
-        response.errors.organization = "Organization is empty.";
-        break;
-      case (!validator.isLength(params.address.organization.trim(), 3)):
-        response.errors.organization = "Organization must be atleast 3 characters.";
-        break;
-    }
-
 // Validate City
     switch (true) {
       case (!params.address.city):
