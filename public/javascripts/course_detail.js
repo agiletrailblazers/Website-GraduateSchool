@@ -73,7 +73,7 @@ tablemobApp = {
       $('.mob-courseDetailSessionRow').not(':lt(' + limit + ')').hide();
       $('#mCurrentCount').text($('.mob-courseDetailSessionRow:lt(' + limit + ')').length);
       $('#mob-showAll').show();
-      $('#mob-showLess').hide();
+      $('#mob-showLess').fadeOut();
       tablemobApp.mobileDetaillExpandReset();
     });
   },
@@ -129,4 +129,11 @@ $(document).ready(function() {
     $("#modalSessionLocationSpan, #mapAlert").remove();
   });
   tablemobApp.initialMobileDetailExpand();
+});
+
+//Scrolls to the title of page on ShowLess click for desktop version (height: 230px)
+$(document).ready(function() {
+  $('#showLess').click(function() {
+      $("html, body").delay(400).animate({ scrollTop: 230 }, "slow");
+  });
 });
