@@ -108,11 +108,12 @@ router.get('/courses/:course_id', function(req, res, next){
       // add empty string to avoid exception in case courseData.class.objective is null
       courseData.syllabus.fields.syllabusContent = striptags(courseData.syllabus.fields.syllabusContent + "", '<br><a><p><i><u><ul><li><strong>');
 
-	    res.render('course_detail', { content: content,
+      res.render('course_detail', { content: content,
         courseData: courseData,
         title: 'Course Details',
         topTitle: courseData.class.title ,
-        location: location});
+        location: location
+      });
     }
     else {
     	//handle error
