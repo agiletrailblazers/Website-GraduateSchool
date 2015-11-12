@@ -73,7 +73,7 @@ tablemobApp = {
       $('.mob-courseDetailSessionRow').not(':lt(' + limit + ')').hide();
       $('#mCurrentCount').text($('.mob-courseDetailSessionRow:lt(' + limit + ')').length);
       $('#mob-showAll').show();
-      $('#mob-showLess').hide();
+      $('#mob-showLess').fadeOut();
       tablemobApp.mobileDetaillExpandReset();
     });
   },
@@ -104,6 +104,10 @@ $(document).ready(function() {
     $('.courseDetailSessionRow:gt(' + (tableApp.limit - 1) + ')').fadeOut();
     $('#currentCount').text($('.courseDetailSessionRow:lt(' + tableApp.limit + ')').length);
     tableApp.hideAll(tableApp.limit);
+  });
+  //Scrolls to the title of page on ShowLess click for desktop version (height: 230px)
+  $('#showLess').click(function() {
+      $("html, body").delay(400).animate({ scrollTop: 230 }, "slow");
   });
 
   tablemobApp.limitSessions(5);
