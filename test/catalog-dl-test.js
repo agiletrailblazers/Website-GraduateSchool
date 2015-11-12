@@ -92,7 +92,7 @@ test('test for catalog download', function(t) {
       }
     });
   contentfulServer;
-  contentful.getCatalogDownload(function(response){
+  contentful.getCatalogType(function(response){
     var goodStatus = 200;
     expect(response.statusCode).to.equal(goodStatus);
     expect(response.cmsEntry[0].fields.catlogTitle).to.equal("Government Training & Professional Development");

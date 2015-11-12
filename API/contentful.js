@@ -334,7 +334,7 @@ module.exports = {
      return callback(dataGroup);
    });
  },
- getCatalogDownload: function(callback) {
+ getCatalogType: function(callback) {
    request({
      method: 'GET',
      url: 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=ZRkwvyMcCqK46gGOggeWs',
