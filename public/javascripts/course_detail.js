@@ -105,6 +105,10 @@ $(document).ready(function() {
     $('#currentCount').text($('.courseDetailSessionRow:lt(' + tableApp.limit + ')').length);
     tableApp.hideAll(tableApp.limit);
   });
+  //Scrolls to the title of page on ShowLess click for desktop version (height: 230px)
+  $('#showLess').click(function() {
+      $("html, body").delay(400).animate({ scrollTop: 230 }, "slow");
+  });
 
   tablemobApp.limitSessions(5);
   $('.glyphicon-map-marker').click(function(e) {
@@ -129,11 +133,4 @@ $(document).ready(function() {
     $("#modalSessionLocationSpan, #mapAlert").remove();
   });
   tablemobApp.initialMobileDetailExpand();
-});
-
-//Scrolls to the title of page on ShowLess click for desktop version (height: 230px)
-$(document).ready(function() {
-  $('#showLess').click(function() {
-      $("html, body").delay(400).animate({ scrollTop: 230 }, "slow");
-  });
 });
