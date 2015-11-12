@@ -7,6 +7,7 @@ var dateformat = require('date-format-lite');
 var prune = require('underscore.string/prune');
 var router = express.Router();
 var logger = require('../../logger');
+var striptags = require('striptags');
 
 // Get course details based off course code.
 router.get('/courses/:course_id', function(req, res, next){
@@ -22,7 +23,6 @@ router.get('/courses/:course_id', function(req, res, next){
     		courseData.session = {status: 404, text: "No courses found."}
     	}
     	else {
-    		logger.debug(result);
     		courseData.class = result;
     	}
         callback();
@@ -94,11 +94,26 @@ router.get('/courses/:course_id', function(req, res, next){
         }
       });
 
-	    res.render('course_detail', { content: content,
+      // add empty string to avoid exception in case courseData.class.objective is null
+      courseData.class.description.formatted = striptags(courseData.class.description.formatted + "", '<br><a><p><i><u><ul><li><strong>');
+
+      // add empty string to avoid exception in case courseData.class.objective is null
+      courseData.class.objective = striptags(courseData.class.objective + "", '<br><a><p><i><u><ul><li><strong>');
+
+      // add empty string to avoid exception in case courseData.class.objective is null
+      courseData.class.outcomes.forEach(function(outcome) {
+        courseData.class.outcomes[courseData.class.outcomes.indexOf(outcome)] = striptags(outcome + "", '<br><a><p><i><u><ul><li><strong>');
+      });
+
+      // add empty string to avoid exception in case courseData.class.objective is null
+      courseData.syllabus.fields.syllabusContent = striptags(courseData.syllabus.fields.syllabusContent + "", '<br><a><p><i><u><ul><li><strong>');
+
+      res.render('course_detail', { content: content,
         courseData: courseData,
         title: 'Course Details',
         topTitle: courseData.class.title ,
-        location: location});
+        location: location
+      });
     }
     else {
     	//handle error
