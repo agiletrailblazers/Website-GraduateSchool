@@ -19,6 +19,7 @@ router.get('/search', function(req, res, next){
   params.cityState = (typeof(req.query["cityState"])!='undefined' ? req.query["cityState"] : null);
   params.categorySubjectType = (typeof(req.query["categorySubjectType"])!='undefined' ? req.query["categorySubjectType"] : null);
   params.categorySubject = (typeof(req.query["categorySubject"])!='undefined' ? req.query["categorySubject"] : null);
+  params.deliveryMethod = (typeof(req.query["deliveryMethod"])!='undefined' ? req.query["deliveryMethod"] : null);
   params.selectedG2G = (typeof(req.query["selectedG2G"])!='undefined' ? req.query["selectedG2G"] : null);
   params.page.course = (typeof(req.query["page-course"])!='undefined' ? req.query["page-course"] : null);
   params.page.site = (typeof(req.query["page-site"])!='undefined' ? req.query["page-site"] : null);

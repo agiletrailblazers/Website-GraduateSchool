@@ -81,6 +81,42 @@
               </select>
               <hr>
             </span>
+            <span class="form-group" data-showfor="course">
+              <p>Delivery Type <a id="clearDeliveryMethod" href="#" class="checkbox-clear">clear</a></p>
+              <select id="deliveryMethod" class="form-control">
+                <option value="all">All</option>
+                <%
+                if (courseResult && courseResult.deliveryMethodFacets) {
+                  var deliveryMethodFacetsKeys = Object.keys(courseResult.deliveryMethodFacets);
+                if (deliveryMethodFacetsKeys.length > 0) {
+                  deliveryMethodFacetsKeys.sort();
+                for (j = 0; j < deliveryMethodFacetsKeys.length; j++) {
+                  deliveryMethodFacetsKey = deliveryMethodFacetsKeys[j];
+                  deliveryMethodFacetCount = courseResult.deliveryMethodFacets[deliveryMethodFacetsKey];
+                  deliveryMethodSelected = "";
+                  if (deliveryMethodFacetsKey === params.deliveryMethod) {
+                    deliveryMethodSelected = "selected";
+                  }
+                if (deliveryMethodFacetCount > 0) {
+                %>
+                <option value="<%= deliveryMethodFacetsKey%>" <%= deliveryMethodSelected %>><%= deliveryMethodFacetsKey%>&nbsp;<%= "("+courseResult.deliveryMethodFacets[deliveryMethodFacetsKey]+")"%></option>
+                <%
+                }
+                }
+                }
+                else {
+                if (params.deliveryMethod && params.deliveryMethod != 'all') {
+                %>
+                <option value="<%= params.deliveryMethod %>" selected><%= params.deliveryMethod %>&nbsp;(0)</option>
+                <%
+                }
+                }
+                }
+                %>
+              </select>
+                <hr>
+            </span>
+
             <span class="form-group <%= (params.tab != 'course') ? 'hidden' : '' %>" data-showfor="course" data-hidefor="site">
               <%
               var g2gFacetCount = 0;

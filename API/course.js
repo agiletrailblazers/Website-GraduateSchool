@@ -24,6 +24,9 @@ module.exports = {
     if (params.page && common.isNotEmpty(params.page.course)) {
       courseApiUrl = courseApiUrl + '&page='+ params.page.course;
     }
+    if (common.isNotEmpty(params.deliveryMethod)) {
+      courseApiUrl = courseApiUrl + '&filter=delivery_method:' + params.deliveryMethod;
+    }
     if (params.selectedG2G == "true" ) {
       courseApiUrl = courseApiUrl + '&filter=status:C';
     }
@@ -127,10 +130,10 @@ module.exports = {
       siteApiUrl = siteApiUrl + '&filter=content:' + params.cityState;
     }
     if (common.isNotEmpty(params.numRequested)) {
-        siteApiUrl = siteApiUrl + '&numRequested=' + params.numRequested;
+      siteApiUrl = siteApiUrl + '&numRequested=' + params.numRequested;
     }
     if (params.page && common.isNotEmpty(params.page.site)) {
-         siteApiUrl = siteApiUrl + '&page='+ params.page.site;
+      siteApiUrl = siteApiUrl + '&page='+ params.page.site;
     }
     logger.debug(siteApiUrl);
     request({
