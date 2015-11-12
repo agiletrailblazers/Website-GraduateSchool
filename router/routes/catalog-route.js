@@ -8,7 +8,7 @@
   var catalogHardCopy = {};
   async.parallel([
     function(callback) {
-      contentful.getCatalogDownload(function(response) {
+      contentful.getCatalogType(function(response) {
         response.cmsEntry.forEach(function(cmsEntryAsset) {
           content = {};
           content.catlogTitle=  cmsEntryAsset.fields.catlogTitle;
