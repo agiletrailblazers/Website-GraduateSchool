@@ -81,7 +81,7 @@
               </select>
               <hr>
             </span>
-            <span class="form-group" data-showfor="course">
+            <span class="form-group <%= (params.tab != 'course') ? 'hidden' : '' %>"data-hidefor="site" data-showfor="course">
               <p>Delivery Type <a id="clearDeliveryMethod" href="#" class="checkbox-clear">clear</a></p>
               <select id="deliveryMethod" class="form-control">
                 <option value="all">All</option>
