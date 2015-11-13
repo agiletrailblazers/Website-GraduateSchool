@@ -96,18 +96,19 @@ router.get('/courses/:course_id', function(req, res, next){
         }
       });
 
+      var allowedHtmlTags = config("properties").allowedHtmlTags;
       if (common.isNotEmpty(courseData.class.description)) {
         // add empty string to avoid exception
-        courseData.class.description.formatted = striptags(courseData.class.description.formatted + "", config("properties").allowedHtmlTags);
+        courseData.class.description.formatted = striptags(courseData.class.description.formatted + "", allowedHtmlTags);
       }
 
       // add empty string to avoid exception
-      courseData.class.objective = striptags(courseData.class.objective + "", config("properties").allowedHtmlTags);
+      courseData.class.objective = striptags(courseData.class.objective + "", allowedHtmlTags);
 
       if (common.isNotEmpty(courseData.class.outcomes)) {
         courseData.class.outcomes.forEach(function(outcome) {
           // add empty string to avoid exception
-          courseData.class.outcomes[courseData.class.outcomes.indexOf(outcome)] = striptags(outcome + "", config("properties").allowedHtmlTags);
+          courseData.class.outcomes[courseData.class.outcomes.indexOf(outcome)] = striptags(outcome + "", allowedHtmlTags);
         });
       }
 
@@ -115,7 +116,7 @@ router.get('/courses/:course_id', function(req, res, next){
         if (common.isNotEmpty(courseData.syllabus.fields)) {
           if (common.isNotEmpty(courseData.syllabus.fields.syllabusContent)) {
             // add empty string to avoid exception in case courseData.class.objective is null
-            courseData.syllabus.fields.syllabusContent = striptags(courseData.syllabus.fields.syllabusContent + "", config("properties").allowedHtmlTags);
+            courseData.syllabus.fields.syllabusContent = striptags(courseData.syllabus.fields.syllabusContent + "", allowedHtmlTags);
           }
         }
       }
