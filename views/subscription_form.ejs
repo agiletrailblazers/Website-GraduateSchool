@@ -8,8 +8,33 @@
 <body>
   <% include partials/header %>
   <!--nutch_noindex-->
-  <% arrayOfContent.forEach(function(content) { %>
-          <li> <%= content.areaOfInterest %> </li>
+  <div class="subscription-type">
+    <input type="checkbox" name="txtSubscriptionType" class="subscriptionType" id="subscriptionType1" value="E-mail"
+     tabindex="1"> E-mail </input>
+  </div>
+  <div class="subscription-type">
+    <input type="checkbox" name="txtSubscriptionType" class="subscriptionType" id="subscriptionType2" value="Mail"
+     tabindex="2"> Mail </input>
+  </div>
+
+  <fieldset>
+    <legend>Please fill out your full name</legend>
+    First Name: <input type="text"><br>
+    Middle Name: <input type="text"><br>
+    Last Name: <input type="text">
+  </fieldset>
+
+  <fieldset>
+    <legend>Please fill out your email</legend>
+    Email Address: <input type="text">
+  </fieldset>
+
+
+  <% arrayOfContent.forEach(function(content, num) { %>
+    <div class="areaOfInterest-for-subscription">
+      <input type="checkbox" name="txtAreaOfInterest" class="areaOfInterest" id="<%= 'areaOfInterest'+num%>" value="<%= content.areaOfInterest %>"
+       tabindex="<%= num + 1 %>"> <%= content.areaOfInterest %> </input>
+    </div>
   <% }); %>
 
   <!--/nutch_noindex-->
