@@ -187,3 +187,41 @@ test('course-search with subject search', function(t) {
   },params);
   t.end();
 });
+
+
+
+test('course-search with government search  criteria,numRequested and DeliveryMethod', function(t) {
+  //use endpoing from config even for tests
+  var courseApiUrl = config("properties").courseApiUrl;
+  var params ={searchCriteria:"government",numRequested:"100",deliveryMethod:"Classroom - Daytime"};
+  //test a 200 ok
+  var courseServer = nock(courseApiUrl)
+    .get('/api/courses?search=government&numRequested=100&filter=delivery_method:Classroom%20-%20Daytime')
+    .reply(200, {
+      "exactMatch": true,
+      "numRequested":"100",
+      "numFound":"235",
+      "courses": [
+        {
+          "courseId": "WRIT7043D",
+          "courseTitle": "Plain Writing: It is the Law (Classroom-Day)",
+          "courseDescription": "The Plain Writing Act of 2015 (October 13, 2010) requires the Federal government to..."
+        }
+      ],
+      "deliveryMethodFacets": {
+        "ClassroomEvening": 32,
+        "OnlineLearning": 19,
+        "ClassroomDaytime":102
+      }
+    });
+  courseServer;
+  course.performCourseSearch(function(response, error, result){
+    expect(response.statusCode).to.eql(200);
+    expect(result.numRequested).to.eql("100");
+    expect(result.numFound).to.eql("235");
+    expect(result.deliveryMethodFacets.ClassroomEvening).to.eql(32);
+    expect(result.deliveryMethodFacets.OnlineLearning).to.eql(19);
+    expect(result.deliveryMethodFacets.ClassroomDaytime).to.eql(102);
+  },params);
+  t.end();
+});
