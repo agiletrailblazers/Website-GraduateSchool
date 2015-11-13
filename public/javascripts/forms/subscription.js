@@ -107,20 +107,18 @@ var _runSubscriptionFormValidation = function() {
   }
 
   subscriptionFormValidate.captcha();
+
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
   }
 }
 
 $(document).ready(function() {
-
+  
   $("#alertError").hide();
   $(".loading").hide();
   $("#removeAlert").css('cursor', 'pointer');
 
-
-  $("#alertError").hide();
-  $("#removeAlert").css('cursor', 'pointer');
   $("#submitForm").click(function(e) {
     e.preventDefault();
     _runSubscriptionFormValidation();
@@ -196,6 +194,7 @@ $(document).ready(function() {
         });
     }
     //
+
   });
 
   $("#removeAlert").click(function() {
