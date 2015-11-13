@@ -2,25 +2,26 @@ var request = require('request');
 var async = require('async');
 var config = require('konphyg')(__dirname + "/../config");
 var logger = require('../logger');
+var common = require("../helpers/common.js");
 
 module.exports = {
   performCourseSearch: function(callback, params) {
     var courseApiUrl = config("properties").courseApiUrl;
     courseApiUrl = courseApiUrl + '/api/courses?search=' + encodeURIComponent(params.searchCriteria)  ;
-    if (isNotEmpty(params.numRequested)) {
+    if (common.isNotEmpty(params.numRequested)) {
       courseApiUrl = courseApiUrl + '&numRequested=' + params.numRequested;
     }
-    if (isNotEmptyOrAll(params.cityState)) {
+    if (common.isNotEmptyOrAll(params.cityState)) {
       courseApiUrl = courseApiUrl + '&filter=city_state:' + params.cityState;
     }
-    if (isNotEmptyOrAll(params.categorySubject) && isNotEmptyOrAll(params.categorySubjectType)) {
+    if (common.isNotEmptyOrAll(params.categorySubject) && common.isNotEmptyOrAll(params.categorySubjectType)) {
       if (params.categorySubjectType === 'category') {
         courseApiUrl = courseApiUrl + '&filter=category:' + params.categorySubject;
       } else {
         courseApiUrl = courseApiUrl + '&filter=category_subject:' + params.categorySubject;
       }
     }
-    if (params.page && isNotEmpty(params.page.course)) {
+    if (params.page && common.isNotEmpty(params.page.course)) {
       courseApiUrl = courseApiUrl + '&page='+ params.page.course;
     }
     if (params.selectedG2G == "true" ) {
@@ -117,18 +118,18 @@ module.exports = {
   },
   performSiteSearch: function(callback, params) {
     //skip search if result would be all pages
-    if (isEmpty(params.searchCriteria) && (isEmpty(params.cityState) ||  params.cityState == 'all')) {
+    if (common.isEmpty(params.searchCriteria) && (common.isEmpty(params.cityState) ||  params.cityState == 'all')) {
       return callback(null, null, {});
     }
     var siteApiUrl = config("properties").courseApiUrl;
     siteApiUrl = siteApiUrl + '/api/site?search=' + encodeURIComponent(params.searchCriteria)
-    if (isNotEmpty(params.cityState) && params.cityState != 'all') {
+    if (common.isNotEmpty(params.cityState) && params.cityState != 'all') {
       siteApiUrl = siteApiUrl + '&filter=content:' + params.cityState;
     }
-    if (isNotEmpty(params.numRequested)) {
+    if (common.isNotEmpty(params.numRequested)) {
         siteApiUrl = siteApiUrl + '&numRequested=' + params.numRequested;
     }
-    if (params.page && isNotEmpty(params.page.site)) {
+    if (params.page && common.isNotEmpty(params.page.site)) {
          siteApiUrl = siteApiUrl + '&page='+ params.page.site;
     }
     logger.debug(siteApiUrl);
@@ -146,22 +147,3 @@ module.exports = {
     });
   }
 };
-
-//-- check if value is NOT empty
-function isNotEmpty(val) {
-  if (val != '' && val != null && typeof(val) != 'undefined') {
-    return true;
-  }
-  return false;
-}
-//-- check if value is empty
-function isEmpty(val) {
-  return !isNotEmpty(val);
-}
-//-- check if value is NOT empty or not 'all'
-function isNotEmptyOrAll(val) {
-  if (val != '' && val != null && typeof(val) != 'undefined' && val != 'all') {
-    return true;
-  }
-  return false;
-}
