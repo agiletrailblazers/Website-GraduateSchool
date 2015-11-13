@@ -106,25 +106,28 @@ test('lastName-catalogMailForm length Validation', function (t) {
   t.end();
 });
 
-test('organization-catalogMailForm Organization is Empty', function (t) {
+test('organization-catalogMailForm Organization is optional Field', function (t) {
 
   var address = {
-    firstName: "AAA",
+    firstName: "ATB",
     lastName: "ATB",
-    organization: ""
+    street :"ATB",
+    city  :"ATB",
+    state :"PA",
+    zip :"19406"
   };
-
   var contact = {
     email: "gs@email.com",
     phone: "1234567890"
   };
-
   var params  = {};
   params.address = address;
   params.contact = contact;
+  params.captchaResponse = true;
 
   ajaxformrouteservice.validateRequestCatalog(function (response) {
-    //expect(response.errors.organization).to.eql("Organization is empty.");
+    errorLength = Object.keys(response.errors).length;
+    expect(errorLength).to.eql(0);
   }, params);
   t.end();
 });
