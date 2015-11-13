@@ -9,6 +9,7 @@ var router = express.Router();
 var logger = require('../../logger');
 var striptags = require('striptags');
 var common = require("../../helpers/common.js");
+var config = require('konphyg')(__dirname + '/../../config');
 
 // Get course details based off course code.
 router.get('/courses/:course_id', function(req, res, next){
@@ -96,17 +97,17 @@ router.get('/courses/:course_id', function(req, res, next){
       });
 
       if (common.isNotEmpty(courseData.class.description)) {
-        // add empty string to avoid exception 
-        courseData.class.description.formatted = striptags(courseData.class.description.formatted + "", '<br><a><p><i><u><ul><li><strong>');
+        // add empty string to avoid exception
+        courseData.class.description.formatted = striptags(courseData.class.description.formatted + "", config("properties").allowedHtmlTags);
       }
 
       // add empty string to avoid exception
-      courseData.class.objective = striptags(courseData.class.objective + "", '<br><a><p><i><u><ul><li><strong>');
+      courseData.class.objective = striptags(courseData.class.objective + "", config("properties").allowedHtmlTags);
 
       if (common.isNotEmpty(courseData.class.outcomes)) {
         courseData.class.outcomes.forEach(function(outcome) {
           // add empty string to avoid exception
-          courseData.class.outcomes[courseData.class.outcomes.indexOf(outcome)] = striptags(outcome + "", '<br><a><p><i><u><ul><li><strong>');
+          courseData.class.outcomes[courseData.class.outcomes.indexOf(outcome)] = striptags(outcome + "", config("properties").allowedHtmlTags);
         });
       }
 
@@ -114,7 +115,7 @@ router.get('/courses/:course_id', function(req, res, next){
         if (common.isNotEmpty(courseData.syllabus.fields)) {
           if (common.isNotEmpty(courseData.syllabus.fields.syllabusContent)) {
             // add empty string to avoid exception in case courseData.class.objective is null
-            courseData.syllabus.fields.syllabusContent = striptags(courseData.syllabus.fields.syllabusContent + "", '<br><a><p><i><u><ul><li><strong>');
+            courseData.syllabus.fields.syllabusContent = striptags(courseData.syllabus.fields.syllabusContent + "", config("properties").allowedHtmlTags);
           }
         }
       }
