@@ -24,7 +24,7 @@ module.exports = {
     if (params.page && common.isNotEmpty(params.page.course)) {
       courseApiUrl = courseApiUrl + '&page='+ params.page.course;
     }
-    if (common.isNotEmpty(params.deliveryMethod)) {
+    if (common.isNotEmptyOrAll(params.deliveryMethod)) {
       courseApiUrl = courseApiUrl + '&filter=delivery_method:' + params.deliveryMethod;
     }
     if (params.selectedG2G == "true" ) {
