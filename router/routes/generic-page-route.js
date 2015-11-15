@@ -5,8 +5,7 @@ var logger = require('../../logger');
 var marked = require('marked');
 
 router.get(['/content/:content_slug','/content/:subfolder/:content_slug'], function(req, res, next) {
-  var slug = req.params.content_slug;
-  var subfolder = typeof(req.params.subfolder) == 'undefined' ? '' : req.params.subfolder;
+  var slug = (typeof(req.params.subfolder) == 'undefined' ? '' : (req.params.subfolder + '/')) + req.params.content_slug;
   contentful.getContentPage(function(response) {
     if (!response || !response.items || !response.items[0] || !response.items[0].fields ) {
       //handle error
@@ -44,7 +43,7 @@ router.get(['/content/:content_slug','/content/:subfolder/:content_slug'], funct
       { title: content.sectionTitle10, content: content.section10, collapse: content.sectionCollapse10 }
      ]
     });
-  }, slug, subfolder);
+  }, slug);
 });
 
 module.exports = router;
