@@ -4,8 +4,9 @@ var router = express.Router();
 var logger = require('../../logger');
 var marked = require('marked');
 
-router.get('/content/:content_slug', function(req, res, next) {
-  slug = req.params.content_slug;
+router.get(['/content/:content_slug','/content/:subfolder/:content_slug'], function(req, res, next) {
+  var slug = req.params.content_slug;
+  var subfolder = typeof(req.params.subfolder) == 'undefined' ? '' : req.params.subfolder;
   contentful.getContentPage(function(response) {
     if (!response || !response.items || !response.items[0] || !response.items[0].fields ) {
       //handle error
@@ -43,7 +44,7 @@ router.get('/content/:content_slug', function(req, res, next) {
       { title: content.sectionTitle10, content: content.section10, collapse: content.sectionCollapse10 }
      ]
     });
-  }, slug);
+  }, slug, subfolder);
 });
 
 module.exports = router;

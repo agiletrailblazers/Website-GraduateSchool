@@ -9,7 +9,7 @@ test('generic-page:financial-aid:success', function(t) {
       reqheaders: {
         'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
       }
-    }).get('/spaces/98qeodfc03o0/entries/?content_type=4oNvURz39SeMw6EaS84gIM&fields.slug=financial-aid')
+    }).get('/spaces/98qeodfc03o0/entries/?content_type=4oNvURz39SeMw6EaS84gIM&fields.slug=financial-aid&fields.subfolder=')
     .reply(200, {
       slug: 'financial-aid',
       title: 'Financial Aid',
@@ -18,7 +18,7 @@ test('generic-page:financial-aid:success', function(t) {
     });
   contentful.getContentPage(function(contentPage) {
     expect(contentPage.slug).to.equal('financial-aid');
-  }, 'financial-aid');
+  }, 'financial-aid', '');
   t.end();
 });
 
@@ -27,7 +27,7 @@ test('generic-page:financial-aid:data', function(t) {
       reqheaders: {
         'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
       }
-    }).get('/spaces/98qeodfc03o0/entries/?content_type=4oNvURz39SeMw6EaS84gIM&fields.slug=financial-aid')
+    }).get('/spaces/98qeodfc03o0/entries/?content_type=4oNvURz39SeMw6EaS84gIM&fields.slug=financial-aid&fields.subfolder=')
     .reply(200, {
       slug: 'financial-aid',
       title: 'Financial Aid',
@@ -36,6 +36,25 @@ test('generic-page:financial-aid:data', function(t) {
     });
   contentful.getContentPage(function(contentPage) {
     expect(contentPage.title).to.equal('Financial Aid');
-  }, 'financial-aid');
+  }, 'financial-aid', '');
+  t.end();
+});
+
+test('generic-page:with-subfolder', function(t) {
+  var contentfulServer = nock('https://cdn.contentful.com', {
+      reqheaders: {
+        'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
+      }
+    }).get('/spaces/98qeodfc03o0/entries/?content_type=4oNvURz39SeMw6EaS84gIM&fields.slug=PAGE&fields.subfolder=FOLDER')
+    .reply(200, {
+      slug: 'PAGE',
+      subfolder: 'FOLDER',
+      title: 'Test Title',
+      intro: 'Test Intro',
+      subIntro: 'Test Sub Intro'
+    });
+  contentful.getContentPage(function(contentPage) {
+    expect(contentPage.title).to.equal('Test Title');
+  }, 'PAGE', 'FOLDER');
   t.end();
 });
