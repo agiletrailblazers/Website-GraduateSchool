@@ -48,7 +48,8 @@ router.post('/mailer-contact-us', function (req, res, next) {
       google.verifyCaptcha(function (response) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
-          mailer.sendContactUs(function (response) {
+
+          mailer.sendSubscriptionRequest(function (response) {
             handleResponse(res, response);
           }, params);
         } else {
@@ -201,6 +202,7 @@ router.post('/mailer-request-catalog', function (req, res, next) {
 
 router.post('/mailer-subscription', function (req, res, next) {
   params = req.body;
+            console.log("handle post mailer...");
   //move code to router service
   routerService.validateSubscriptionfields(function (response) {
     // Send email if there are no errors.
