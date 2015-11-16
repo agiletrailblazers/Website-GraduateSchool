@@ -66,5 +66,8 @@
     "mailPageBody":"Hi,%20I%20found%20this%20on%20the%20Graduate%20School%20USA%20website%20and%20thought%20you%20might%20like%20it:%20",
     "maxTopNavigationLinks":24,
     "maxTopNavigationGroups":7,
-    "allowedHtmlTags":"<br><a><p><i><u><ul><li><strong>"
+    "allowedHtmlTags":"<br><a><p><i><u><ul><li><strong>",
+
+    "subscriptionRequestEmailSubject":"Request for Subscription",
+    "subscriptionRequestToUserName":"gs@agiletrailblazers.com"
 }

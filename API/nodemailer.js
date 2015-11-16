@@ -14,6 +14,7 @@ var customerFeedBackTemplate = new EmailTemplate(path.join(templatesDir, 'custom
 var customerTemplate = new EmailTemplate(path.join(templatesDir, 'customer-email'));
 var certificateProgramTemplate = new EmailTemplate(path.join(templatesDir, 'certificate-program'));
 var catalogRequestForm = new EmailTemplate(path.join(templatesDir, 'catalogrequestform-email'));
+var subscriptionForm = new EmailTemplate(path.join(templatesDir, 'subscription-email'));
 
 var smtp = {
   host: config("properties").defaultEmailServerName,
@@ -249,6 +250,33 @@ module.exports = {
       });
     });
   },
+  sendSubscriptionRequest: function (callback, params) {
+    logger.debug("SMTP sending to: " + smtp);
+    logger.debug("SMTP params: " + params);
+    subscriptionForm.render(params, function(err, results) {
+      logger.info("Starting mail send");
+      if (err) {
+        logger.error(err);
+        return callback(500);
+      }
+      var mailAttributes = {
+        from: config("properties").defaultEmailFromUserName,
+        to: config("properties").subscriptionRequestToUserName,
+        subject: config("properties").subscriptionRequestEmailSubject,
+        text: results.text,
+        html: results.html
+      };
+      transporter.sendMail(mailAttributes, function (error, info) {
+        if (error) {
+          logger.error(error);
+          return callback(500);
+        }
+        logger.info('Message sent: ' + info.response);
+        return callback(200);
+      });
+    });
+  },
+
   setTransport: function(transporterIn) {
     //this is needed for unit tests to set a mock transporter
     transporter =  transporterIn;

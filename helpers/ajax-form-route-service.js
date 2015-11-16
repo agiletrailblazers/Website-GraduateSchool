@@ -499,5 +499,90 @@ module.exports = {
     }
 
     callback(response);
-  }
+  },
+
+  validateSubscriptionfields: function(callback, params) {
+    response = {};
+    response.errors = {};
+    // Validate params.firstName
+    switch (true) {
+      case (params.firstName.length === 0):
+        response.errors.firstName = "First name is empty.";
+        break;
+      case (!validator.isLength(params.firstName.trim(), 3)):
+        response.errors.firstName = "First name must be at least 3 characters.";
+        break;
+    }
+    // Validate params.lastName
+    switch (true) {
+      case (!params.lastName):
+        response.errors.lastName = "Last name is empty.";
+        break;
+      case (!validator.isLength(params.lastName.trim(), 3)):
+        response.errors.lastName = "Last name must be at least 3 characters.";
+        break;
+    }
+    // Validate email if needed
+    if (params.emailSubscription) {
+      switch (true) {
+        case (!params.email):
+          response.errors.email = "Email is empty.";
+          break;
+        case (!validator.isEmail(params.email)):
+          response.errors.email = "Email is in the wrong format."
+          break;
+      }
+    }
+    // Validate postal address if needed
+    if (params.mailSubscription) {
+      // Validate Street Address
+      switch (true) {
+        case (!params.street):
+          response.errors.streetAddress = "Street Address is empty."
+          break;
+        case (!validator.isLength(params.street.trim(), 3)):
+          response.errors.streetAddress = "Street Address must be greater than 3 characters."
+          break;
+      }
+
+      // Validate City
+      switch (true) {
+        case (!params.city):
+          response.errors.city = "City is empty."
+          break;
+        case (!validator.isLength(params.city.trim(), 3)):
+          response.errors.city = "City must be greater than 3 characters."
+          break;
+      }
+
+      // Validate Zip
+      switch (true) {
+        case (!params.zip):
+          response.errors.zip = "Zip is empty."
+          break;
+        case (!validator.isLength(params.zip.trim(), 5)):
+          response.errors.zip = "Zip must be greater than 5 characters."
+          break;
+      }
+
+      // Validate State
+      if (!params.address.state) {
+        response.errors.state = "Please select a state."
+      }
+
+      // Validate phone
+      switch (true) {
+        case (!params.phone):
+          response.errors.phone = "Phone number is empty.";
+          break;
+        case (!params.phone.match(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)):
+          response.errors.phone = "Phone number is not in the correct format.";
+          break;
+      }
+    }
+    if (!params.captchaResponse) {
+      response.errors.captchaResponse = "Please select recaptcha.";
+    }
+    callback(response);
+  },
 };
