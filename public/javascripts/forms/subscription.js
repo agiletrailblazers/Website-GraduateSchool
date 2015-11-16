@@ -118,6 +118,68 @@ $(document).ready(function() {
   $("#submitForm").click(function(e) {
     e.preventDefault();
     _runSubscriptionFormValidation();
+    var data = {};
+    data.firstName = $("#txtFirstName").val();
+    data.middleName = $("#txtMiddleName").val();
+    data.lastName = $("#txtLastName").val();
+
+    data.subscriptionAction = $("[name='radSubscription']:checked").val()
+    data.actionSubscribe = $("#radioSubscribe").val();
+    data.actionModify = $("#radioModify").val();
+    data.actionUnsubscribe = $("#radioUnsubscribe").val();
+        console.log("subscriptionAction " + data.subscriptionAction);
+    console.log("actionSubscribe " + data.actionSubscribe);
+console.log("actionModify " + data.actionModify);
+console.log("actionUnsubscribe " + data.actionUnsubscribe);
+
+    data.emailSubscription = $("#subscriptionTypeEmail").is(':checked');
+    data.mailSubscription =  $("#subscriptionTypeMail").is(':checked');
+
+    data.street = $("#txtStreet").val();
+    data.city = $("#txtCity").val();
+    data.state = $("#txtState").val();
+    data.zip = $("#txtZip").val();
+    data.country = $("#txtCountry").val;
+    data.apartment = $("txtApt").val;
+    data.phone = $("txtPhone").val;
+    data.organization = $("txtOrganizaiton").val;
+
+    data.email = $("txtEmail").val;
+
+    if ($('input:checkbox:checked.areaOfInterest') !=[] && $('input:checkbox:checked.areaOfInterest').length>0){
+      data.areaOfInterest = $('input:checkbox:checked.areaOfInterest').map(function () {
+        return this.value
+      }).get();
+    } else {
+      data.areaOfInterest="";
+    }
+
+    data.captchaResponse = $("#g-recaptcha-response").val();
+    if (!$("#alertError p").length) {
+      $(".loading").show();
+      $.post("/mailer-subscription", data)
+        .done(function(data) {
+          $(".loading").hide();
+          alertify.success("Email sent!")
+          // $("#contact-information").toggle();
+          // $("#alertSuccess").toggle();
+        })
+        .fail(function(xhr, textStatus, errorThrown) {
+          $(".loading").hide();
+          alertify.error("Email failed.")
+          var errors = xhr.responseJSON;
+          for (var key in errors) {
+            if (errors.hasOwnProperty(key)) {
+              $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] +"</p>");
+            }
+          }
+          $("#alertError").slideDown();
+          $("html, body").animate({
+            scrollTop: 0
+          }, "slow");
+        });
+    }
+    //
   });
 
   $("#removeAlert").click(function() {
