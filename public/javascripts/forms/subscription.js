@@ -126,18 +126,13 @@ $(document).ready(function() {
     data.firstName = $("#txtFirstName").val();
     data.middleName = $("#txtMiddleName").val();
     data.lastName = $("#txtLastName").val();
-
     data.subscriptionAction = $("[name='radSubscription']:checked").val()
     data.actionSubscribe = $("#radioSubscribe").val();
     data.actionModify = $("#radioModify").val();
     data.actionUnsubscribe = $("#radioUnsubscribe").val();
-
     var subscriptionAction = data.subscriptionAction;
-
     data.emailSubscription = $("#subscriptionTypeEmail").is(':checked');
-    console.log("emailSubscription");
     data.mailSubscription =  $("#subscriptionTypeMail").is(':checked');
-
     data.street = $("#txtStreet").val();
     data.city = $("#txtCity").val();
     data.state = $("#txtState").val();
@@ -158,14 +153,11 @@ $(document).ready(function() {
 
     data.captchaResponse = $("#g-recaptcha-response").val();
     if (!$("#alertError p").length) {
-      console.log("going to post");
       $(".loading").show();
       $.post("/mailer-subscription", data)
         .done(function(data) {
           $(".loading").hide();
           alertify.success("Email sent!")
-          // $("#contact-information").toggle();
-
           switch (true) {
             case (subscriptionAction === $("#radioSubscribe").val()):
               $("#alertSuccessSubscribe").toggle();
@@ -193,8 +185,6 @@ $(document).ready(function() {
           }, "slow");
         });
     }
-    //
-
   });
 
   $("#removeAlert").click(function() {
