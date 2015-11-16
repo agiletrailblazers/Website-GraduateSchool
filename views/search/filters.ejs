@@ -69,12 +69,12 @@
                  if (courseResult && courseResult.categorySubjectFacets && courseResult.categorySubjectFacets.length > 0) { %>
                    <% courseResult.categorySubjectFacets.forEach(function(courseCategory) { %>
                      <% if (courseCategory.subjectCount > 1 || courseCategory.category != courseCategory.courseSubject[0].subject) { %>
-                       <option data-optionType="category" value="<%= courseCategory.category %>" label="<%= courseCategory.category + ' (' + courseCategory.count + ')'%>" class="subject-category" <% if (params.categorySubject === courseCategory.category){ %>selected<% } %>></option>
+                       <option data-optionType="category" value="<%= courseCategory.category %>" label="<%= courseCategory.category + ' (' + courseCategory.count + ')'%>" class="subject-item" <% if (params.categorySubject === courseCategory.category){ %>selected<% } %>><%= courseCategory.category + ' (' + courseCategory.count + ')'%></option>
                        <% courseCategory.courseSubject.forEach(function(courseSubject) { %>
-                         <option data-optionType="subject" value="<%= courseSubject.filter %>" label="&nbsp;&nbsp;&nbsp;&nbsp;<%= courseSubject.subject + ' (' + courseSubject.count + ')'%>" class="subject-item" <% if (params.categorySubject === courseSubject.filter){ %>selected<% } %>></option>
+                         <option data-optionType="subject" value="<%= courseSubject.filter %>" label="&nbsp;&nbsp;&nbsp;&nbsp;<%= courseSubject.subject + ' (' + courseSubject.count + ')'%>" class="subject-category" <% if (params.categorySubject === courseSubject.filter){ %>selected<% } %>><%= courseSubject.subject + ' (' + courseSubject.count + ')'%></option>
                        <% }); %>
                     <% } else if(courseCategory.subjectCount == 1) { %>
-                      <option data-optionType="subject" value="<%= courseCategory.courseSubject[0].filter %>" label="<%= courseCategory.courseSubject[0].subject + ' (' + courseCategory.courseSubject[0].count + ')'%>" class="subject-item" <% if (params.categorySubject === courseCategory.courseSubject[0].filter){ %>selected<% } %>></option>
+                      <option data-optionType="subject" value="<%= courseCategory.courseSubject[0].filter %>" label="<%= courseCategory.courseSubject[0].subject + ' (' + courseCategory.courseSubject[0].count + ')'%>" class="subject-item" <% if (params.categorySubject === courseCategory.courseSubject[0].filter){ %>selected<% } %>><%= courseCategory.courseSubject[0].subject + ' (' + courseCategory.courseSubject[0].count + ')'%></option>
                     <% } %>
                   <% }); %>
                 <% } %>
@@ -101,22 +101,21 @@
                 %>
                 <option value="<%= deliveryMethodFacetsKey%>" <%= deliveryMethodSelected %>><%= deliveryMethodFacetsKey%>&nbsp;<%= "("+courseResult.deliveryMethodFacets[deliveryMethodFacetsKey]+")"%></option>
                 <%
-                }
-                }
+                    }
+                  }
                 }
                 else {
                 if (params.deliveryMethod && params.deliveryMethod != 'all') {
                 %>
                 <option value="<%= params.deliveryMethod %>" selected><%= params.deliveryMethod %>&nbsp;(0)</option>
                 <%
-                }
-                }
+                    }
+                  }
                 }
                 %>
               </select>
                 <hr>
             </span>
-
             <span class="form-group <%= (params.tab != 'course') ? 'hidden' : '' %>" data-showfor="course" data-hidefor="site">
               <%
               var g2gFacetCount = 0;
@@ -144,7 +143,6 @@
             </span>
           </div>
         </div>
-
       </div>
     </div>
   </div>
