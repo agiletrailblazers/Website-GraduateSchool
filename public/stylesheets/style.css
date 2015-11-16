@@ -979,6 +979,16 @@ optgroup.subject-category {
   color: #555 !important;
 }
 
+.subject-category {
+  padding-left: 20px;
+  -moz-padding-start: 20px;
+}
+
+#selCategorySubject .subject-category {
+  padding-left: 0;
+  -moz-padding-start: 0;
+}
+
 
 /* BANNER */
 .banner {
