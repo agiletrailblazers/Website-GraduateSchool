@@ -201,7 +201,6 @@ router.post('/mailer-request-catalog', function (req, res, next) {
 
 router.post('/mailer-subscription', function (req, res, next) {
   params = req.body;
-            console.log("handle post mailer...");
   //move code to router service
   routerService.validateSubscriptionfields(function (response) {
     // Send email if there are no errors.
