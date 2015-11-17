@@ -39,7 +39,7 @@ p.footer {
 <p>First Name: <strong> <%= firstName %></strong></p>
 <p>Middle Name: <strong> <%= middleName %></strong></p>
 <p>Last Name: <strong><%= lastName %></strong></p>
-<% if (mailSubscription) { %>
+<% if ( mailSubscription == "true") { %>
   <h2>Address</h2>
   <p>Organization: <strong><%= organization %></strong></p>
   <p>Street: <strong><%= street %></strong></p>
@@ -52,7 +52,7 @@ p.footer {
   <hr>
 <% } %>
 
-<% if (emailSubscription) { %>
+<% if (emailSubscription == "true") { %>
   <h2>Email</h2>
   <p>Email Address: <strong><%= email %></strong></p>
   <hr>

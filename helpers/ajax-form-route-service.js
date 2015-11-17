@@ -505,6 +505,7 @@ module.exports = {
     response = {};
     response.errors = {};
     // Validate params.firstName
+    console.log("parm.firstName is " + params.firstName);
     switch (true) {
       case (params.firstName.length === 0):
         response.errors.firstName = "First name is empty.";
@@ -514,6 +515,7 @@ module.exports = {
         break;
     }
     // Validate params.lastName
+    console.log("parm.lastName is " + params.lastName);
     switch (true) {
       case (!params.lastName):
         response.errors.lastName = "Last name is empty.";
@@ -523,7 +525,9 @@ module.exports = {
         break;
     }
     // Validate email if needed
+        console.log("parm.emailSubscription is " + params.emailSubscription);
     if (params.emailSubscription) {
+      console.log("parm.email is " + params.email);
       switch (true) {
         case (!params.email):
           response.errors.email = "Email is empty.";
@@ -534,8 +538,10 @@ module.exports = {
       }
     }
     // Validate postal address if needed
+    console.log("parm.mailSubscription is " + params.mailSubscription);
     if (params.mailSubscription) {
       // Validate Street Address
+      console.log("parm.street is " + params.street);
       switch (true) {
         case (!params.street):
           response.errors.streetAddress = "Street Address is empty."
@@ -546,6 +552,7 @@ module.exports = {
       }
 
       // Validate City
+        console.log("parm.city is " + params.city);
       switch (true) {
         case (!params.city):
           response.errors.city = "City is empty."
@@ -556,6 +563,7 @@ module.exports = {
       }
 
       // Validate Zip
+      console.log("parm.zip is " + params.zip);
       switch (true) {
         case (!params.zip):
           response.errors.zip = "Zip is empty."
@@ -566,11 +574,13 @@ module.exports = {
       }
 
       // Validate State
-      if (!params.address.state) {
+      console.log("parm.state is " + params.state);
+      if (!params.state) {
         response.errors.state = "Please select a state."
       }
 
       // Validate phone
+      console.log("parm.phone is " + params.phone);
       switch (true) {
         case (!params.phone):
           response.errors.phone = "Phone number is empty.";
@@ -580,9 +590,9 @@ module.exports = {
           break;
       }
     }
-    if (!params.captchaResponse) {
-      response.errors.captchaResponse = "Please select recaptcha.";
-    }
+    // if (!params.captchaResponse) {
+    //   response.errors.captchaResponse = "Please select recaptcha.";
+    // }
     callback(response);
   },
 };

@@ -133,18 +133,19 @@ console.log("actionModify " + data.actionModify);
 console.log("actionUnsubscribe " + data.actionUnsubscribe);
 
     data.emailSubscription = $("#subscriptionTypeEmail").is(':checked');
+    console.log("");
     data.mailSubscription =  $("#subscriptionTypeMail").is(':checked');
 
     data.street = $("#txtStreet").val();
     data.city = $("#txtCity").val();
     data.state = $("#txtState").val();
     data.zip = $("#txtZip").val();
-    data.country = $("#txtCountry").val;
-    data.apartment = $("txtApt").val;
-    data.phone = $("txtPhone").val;
-    data.organization = $("txtOrganizaiton").val;
-
-    data.email = $("txtEmail").val;
+    data.country = $("#txtCountry").val();
+    data.apartment = $("#txtApt").val();
+    data.phone = $("#txtPhone").val();
+    data.organization = $("#txtOrganizaiton").val();
+    console.log("organization is " + data.organization);
+    data.email = $("#txtEmail").val();
 
     if ($('input:checkbox:checked.areaOfInterest') !=[] && $('input:checkbox:checked.areaOfInterest').length>0){
       data.areaOfInterest = $('input:checkbox:checked.areaOfInterest').map(function () {
@@ -154,7 +155,7 @@ console.log("actionUnsubscribe " + data.actionUnsubscribe);
       data.areaOfInterest="";
     }
 
-    data.captchaResponse = $("#g-recaptcha-response").val();
+    // data.captchaResponse = $("#g-recaptcha-response").val();
     if (!$("#alertError p").length) {
       $(".loading").show();
       $.post("/mailer-subscription", data)

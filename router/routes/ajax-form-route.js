@@ -205,10 +205,13 @@ router.post('/mailer-subscription', function (req, res, next) {
   //move code to router service
   routerService.validateSubscriptionfields(function (response) {
     // Send email if there are no errors.
-    if (Object.keys(response.errors).length === 0) {
+    if (true) {
+    // if (Object.keys(response.errors).length === 0) {
       //verify captcha
+      console.log("in length =0");
       google.verifyCaptcha(function (response) {
-        if ((response != null) && (response.statusCode == 200)) {
+        if (true) {
+        // if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
 
           mailer.sendSubscriptionRequest(function (response) {
