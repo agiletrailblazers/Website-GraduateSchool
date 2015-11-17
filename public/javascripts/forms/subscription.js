@@ -114,7 +114,6 @@ var _runSubscriptionFormValidation = function() {
 }
 
 $(document).ready(function() {
-  
   $("#alertError").hide();
   $(".loading").hide();
   $("#removeAlert").css('cursor', 'pointer');
@@ -132,7 +131,7 @@ $(document).ready(function() {
     data.actionUnsubscribe = $("#radioUnsubscribe").val();
     var subscriptionAction = data.subscriptionAction;
     data.emailSubscription = $("#subscriptionTypeEmail").is(':checked');
-    console.log("");
+    console.log("emailSubscription");
     data.mailSubscription =  $("#subscriptionTypeMail").is(':checked');
     data.street = $("#txtStreet").val();
     data.city = $("#txtCity").val();
@@ -154,6 +153,7 @@ $(document).ready(function() {
 
     // data.captchaResponse = $("#g-recaptcha-response").val();
     if (!$("#alertError p").length) {
+      console.log("going to post");
       $(".loading").show();
       $.post("/mailer-subscription", data)
         .done(function(data) {
