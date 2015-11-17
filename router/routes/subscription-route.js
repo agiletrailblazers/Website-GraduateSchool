@@ -21,7 +21,7 @@
           callback();
         });
       }], function(results) {
-        res.render('subscription_form', {
+        res.render('forms/subscription_form', {
           entry: arrayOfContent, title: "Subscription Form",
         });
     });
