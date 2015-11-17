@@ -31,7 +31,7 @@
         <section id="assets" class="assets">
           <h3><%= entrySection.sectionTitle %></h3>
         <% entrySection.assetList.forEach(function(asset) { %>
-          <p class="asset" data-contenttype="<%= asset.description %>"><a data-toggle="tooltip" title="<%= asset.hrefDescription %>" data-placement="right" href=<%= asset.url %> <% if (asset.type == "application/pdf") {%>target="_blank"<% } %> <% if (asset.type == "application/pdf") {%>onclick="ga('send', 'event', 'PDF', 'Download', this.href);<%}%>"><% if (asset.type == "application/pdf") {%> <span><img src="/images/pdf.png"/></span> <% } else if (asset.type == "application/docx") { %> <span><img src="/images/doc.png"/></span> <% } else { %> <span><img src="/images/link.png"/></span> <% } %> <%= asset.title %></a></p>
+          <p class="asset" data-contenttype="<%= asset.description %>"><a data-toggle="tooltip" title="<%= asset.hrefDescription %>"  href=<%= asset.url %> <% if (asset.type == "application/pdf") {%>target="_blank"<% } %> <% if (asset.type == "application/pdf") {%>onclick="ga('send', 'event', 'PDF', 'Download', this.href);<%}%>"><% if (asset.type == "application/pdf") {%> <span><img src="/images/pdf.png"/></span> <% } else if (asset.type == "application/docx") { %> <span><img src="/images/doc.png"/></span> <% } else { %> <span><img src="/images/link.png"/></span> <% } %> <%= asset.title %></a></p>
           <% });
         } %>
         </section>
@@ -43,7 +43,7 @@
         <section id="assets" class="assets">
         <h3><%= entrySection.sectionTitle %></h3>
         <% entrySection.assetList.forEach(function(asset) { %>
-          <p class="asset" data-contentType="<%= asset.description %>"><a data-toggle="tooltip" title="<%= asset.hrefDescription %>" href=<%= asset.url %> <% if (asset.type == "application/pdf") {%>target="_blank"<% } %> <% if (asset.type == "application/pdf") {%>onclick="ga('send', 'event', 'PDF', 'Download', this.href);<%}%>"><% if (asset.type == "application/pdf") {%> <span><img src="/images/pdf.png"/></span> <% } else if (asset.type == "application/docx") { %> <span><%#  %><img src="/images/doc.png"/></span> <% } else { %> <span><img src="/images/link.png"/></span> <% } %> <%= asset.title %></a></p>
+          <p class="asset" data-contentType="<%= asset.description %>"><a data-toggle="tooltip" title="<%= asset.hrefDescription %>"  href=<%= asset.url %> <% if (asset.type == "application/pdf") {%>target="_blank"<% } %> <% if (asset.type == "application/pdf") {%>onclick="ga('send', 'event', 'PDF', 'Download', this.href);<%}%>"><% if (asset.type == "application/pdf") {%> <span><img src="/images/pdf.png"/></span> <% } else if (asset.type == "application/docx") { %> <span><%#  %><img src="/images/doc.png"/></span> <% } else { %> <span><img src="/images/link.png"/></span> <% } %> <%= asset.title %></a></p>
         <% });
       } %>
       </section>
@@ -61,13 +61,15 @@
   <% include partials/chat %>
 <!-- END of Chat  -->
 <script type="text/javascript">
-$('.form-filter').on('focus', function () {
-    $(this).parent().addClass('active');
+$(document).ready(function(){
+  $('.form-filter').on('focus', function () {
+      $(this).parent().addClass('active');
+    });
+  $('.form-filter').click(function () {
+      $(this).parent().addClass('active').siblings().removeClass('active');
   });
-$('.form-filter').click(function () {
-    $(this).parent().addClass('active').siblings().removeClass('active');
+  $('[data-toggle="tooltip"]').tooltip();
 });
-
 </script>
 
   </body>
