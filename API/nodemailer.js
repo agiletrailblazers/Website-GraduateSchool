@@ -251,6 +251,7 @@ module.exports = {
     });
   },
   sendSubscriptionRequest: function (callback, params) {
+    console.log("in node mailer");
     logger.debug("SMTP sending to: " + smtp);
     logger.debug("SMTP params: " + params);
     subscriptionForm.render(params, function(err, results) {

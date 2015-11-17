@@ -4,7 +4,7 @@ The following is a request to <%= subscriptionAction %>:
 First Name: <%= firstName %>
 Middle Name: <%= middleName %>
 Last Name: <%= lastName %>
-<% if (mailSubscription) { %>
+<% if (mailSubscription == "true") { %>
   Organization: <%= organization %>
   Street: <%= street %>
   Suite: <%= apartment %>
@@ -15,7 +15,7 @@ Last Name: <%= lastName %>
   Telephone Number: <%= phone %>
 <% } %>
 
-<% if (emailSubscription) { %>
+<% if (emailSubscription == "true") { %>
   Email Address: <%= email %>
 <% } %>
 
