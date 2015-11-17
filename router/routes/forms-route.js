@@ -1,6 +1,7 @@
   var express = require('express');
   var contentful = require("../../API/contentful.js");
   var async = require('async');
+  var common = require("../../helpers/common.js");
   var router = express.Router();
   // Get Forms page.
   router.get('/forms', function(req, res, next) {
@@ -20,7 +21,20 @@
                 if (asset.sys.id == sectionFile.sys.id) {
                   assetObj = {};
                   assetObj.title = asset.fields.title;
-                  assetObj.description = asset.fields.description;
+                  assestDescription = asset.fields.description;
+                  if (common.isNotEmpty(assestDescription)) {
+                    assestDescriptionArray = assestDescription.split("|");
+                    if ( assestDescriptionArray.length > 1 ) {
+                      assetObj.description = assestDescriptionArray[0].trim();
+                      assetObj.hrefDescription = assestDescriptionArray[1].trim();
+                    } else {
+                      assetObj.description = assestDescription.trim();
+                      assetObj.hrefDescription = "";
+                    }
+                  } else {
+                    assetObj.description = "";
+                    assetObj.hrefDescription = "";
+                  }
                   assetObj.url = asset.fields.file.url;
                   if (asset.fields.file.contentType == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
                     assetObj.type = "application/docx";
@@ -37,7 +51,20 @@
               assetObj = {};
               assetObj.title = sectionLink.name;
               assetObj.url = sectionLink.url;
-              assetObj.description = sectionLink.description;
+              sectionLinkDescription = sectionLink.description;
+              if (common.isNotEmpty(sectionLinkDescription)) {
+                sectionLinkDescriptionArray = sectionLinkDescription.split("|");
+                if ( sectionLinkDescriptionArray.length > 1 ) {
+                  assetObj.description = sectionLinkDescriptionArray[0].trim();
+                  assetObj.hrefDescription = sectionLinkDescriptionArray[1].trim();
+                } else {
+                  assetObj.description = sectionLinkDescription.trim();
+                  assetObj.hrefDescription = "";
+                }
+              } else {
+                assetObj.description = "";
+                assetObj.hrefDescription = "";
+              }
               assetObj.type = "application/link";
               arrayofAssetObj.push(assetObj);
             });
