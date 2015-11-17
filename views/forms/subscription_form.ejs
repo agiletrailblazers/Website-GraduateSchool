@@ -28,18 +28,18 @@
             <div><b>You have been successfully unsubscribed.</b></div>
           </div>
           <div id="alertSuccessModify" class="alert alert-sucess" role="alert" style="display:none;">
-            <div><b>You information has been successfully modified.</b></div>
+            <div><b>Your information has been successfully updated.</b></div>
           </div>
 
           <form>
             <fieldset>
               <legend>Select Types</legend>
               <div class="subscription-type">
-                <input type="checkbox" name="txtSubscriptionType" class="subscriptionType" id="subscriptionTypeEmail" value="E-mail"
+                <input type="checkbox" checked="checked" name="txtSubscriptionType" class="subscriptionType" id="subscriptionTypeEmail" value="E-mail"
                  tabindex="1">E-mail</input>
               </div>
               <div class="subscription-type">
-                <input type="checkbox" name="txtSubscriptionType" class="subscriptionType" id="subscriptionTypeMail" value="Mail"
+                <input type="checkbox" checked="checked" name="txtSubscriptionType" class="subscriptionType" id="subscriptionTypeMail" value="Mail"
                  tabindex="2">Mail</input>
               </div>
             </fieldset>
@@ -72,49 +72,52 @@
             </fieldset >
             <br>
 
-            <fieldset>
-              <legend>Please fill out your email</legend>
-              <label for="inputEmail">*Email:</label>
-              <input type="text" id="txtEmail">
-            </fieldset>
+            <div class="email-fieldSet">
+              <fieldset>
+                <legend>Please fill out your email</legend>
+                <label for="inputEmail">*Email:</label>
+                <input type="text" id="txtEmail">
+              </fieldset>
+            </div>
             <br>
 
-            <fieldset>
-              <legend>Please fill out your full name</legend>
-              <div class="form-inline">
-                <div class="form-group">
-                  <label for="inputStreet">*Street/P.O. Box:</label>
-                  <input type="text" id="txtStreet" class="form-control" tabindex="4">
-                  <label for="inputApt">Room/Suite/Apt:</label>
-                  <input type="text" id="txtApt" class="form-control" tabindex="5">
-                </div>
-              </div>
-              <div class="form-inline">
-                <div class="form-group">
-                  <label for="inputCity">*City:</label>
-                  <input type="text" id="txtCity" class="form-control" tabindex="6">
-                  <label for="inputState">*State:</label>
-                  <input type="text" id="txtState" class="form-control" tabindex="7">
-                </div>
+            <div class="mail-fieldSet">
+              <fieldset>
+                <legend>Please fill out your full address</legend>
                 <div class="form-inline">
                   <div class="form-group">
-                    <label for="inputZip">*Zip Code:</label>
-                    <input type="text" id="txtZip" class="form-control" tabindex="8">
-                    <label for="inputCountry">Country:</label>
-                    <input type="text" id="txtCountry" class="form-control" tabindex="9">
+                    <label for="inputStreet">*Street/P.O. Box:</label>
+                    <input type="text" id="txtStreet" class="form-control" tabindex="4">
+                    <label for="inputApt">Room/Suite/Apt:</label>
+                    <input type="text" id="txtApt" class="form-control" tabindex="5">
                   </div>
                 </div>
                 <div class="form-inline">
                   <div class="form-group">
-                    <label for="inputPhone">*Phone:</label>
-                    <input type="text" id="txtPhone" class="form-control" tabindex="10">
-                    <label for="inputOrganization">Organization:</label>
-                    <input type="text" id="txtOrganizaiton" class="form-control" tabindex="11">
+                    <label for="inputCity">*City:</label>
+                    <input type="text" id="txtCity" class="form-control" tabindex="6">
+                    <label for="inputState">*State:</label>
+                    <input type="text" id="txtState" class="form-control" tabindex="7">
+                  </div>
+                  <div class="form-inline">
+                    <div class="form-group">
+                      <label for="inputZip">*Zip Code:</label>
+                      <input type="text" id="txtZip" class="form-control" tabindex="8">
+                      <label for="inputCountry">Country:</label>
+                      <input type="text" id="txtCountry" class="form-control" tabindex="9">
+                    </div>
+                  </div>
+                  <div class="form-inline">
+                    <div class="form-group">
+                      <label for="inputPhone">*Phone:</label>
+                      <input type="text" id="txtPhone" class="form-control" tabindex="10">
+                      <label for="inputOrganization">Organization:</label>
+                      <input type="text" id="txtOrganizaiton" class="form-control" tabindex="11">
+                    </div>
                   </div>
                 </div>
-              </div>
-
-            </fieldset>
+              </fieldset>
+            </div>
 
             <br>
 

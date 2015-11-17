@@ -202,4 +202,18 @@ $(document).ready(function() {
     $("#alertError").slideUp();
     $("#alertError p").remove();
   });
+  $("#subscriptionTypeEmail").click(function() {
+    if ($("#subscriptionTypeEmail").is(':checked') == true) {
+      $(".email-fieldSet").show();
+    } else {
+      $(".email-fieldSet").hide();
+    }
+  });
+  $("#subscriptionTypeMail").click(function() {
+    if ($("#subscriptionTypeMail").is(':checked') == true) {
+      $(".mail-fieldSet").show();
+    } else {
+      $(".mail-fieldSet").hide();
+    }
+  });
 });
