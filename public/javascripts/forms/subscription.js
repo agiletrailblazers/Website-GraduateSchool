@@ -107,7 +107,6 @@ var _runSubscriptionFormValidation = function() {
   }
 
   subscriptionFormValidate.captcha();
-
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
   }
@@ -151,7 +150,7 @@ $(document).ready(function() {
       data.areaOfInterest="";
     }
 
-    // data.captchaResponse = $("#g-recaptcha-response").val();
+    data.captchaResponse = $("#g-recaptcha-response").val();
     if (!$("#alertError p").length) {
       console.log("going to post");
       $(".loading").show();
