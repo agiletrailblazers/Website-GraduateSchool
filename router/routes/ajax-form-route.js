@@ -209,6 +209,7 @@ router.post('/mailer-subscription', function (req, res, next) {
     // if (true) {
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
+      console.log("in length =0");
       google.verifyCaptcha(function (response) {
         // if (true) {
         if ((response != null) && (response.statusCode == 200)) {
