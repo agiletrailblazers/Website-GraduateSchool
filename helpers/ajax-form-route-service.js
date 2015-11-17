@@ -580,9 +580,9 @@ module.exports = {
           break;
       }
     }
-    // if (!params.captchaResponse) {
-    //   response.errors.captchaResponse = "Please select recaptcha.";
-    // }
+    if (!params.captchaResponse) {
+      response.errors.captchaResponse = "Please select recaptcha.";
+    }
     callback(response);
   },
 };
