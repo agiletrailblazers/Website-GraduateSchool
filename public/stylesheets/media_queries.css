@@ -129,6 +129,15 @@
         margin-top:25px;
       }
 
+      #gs-form input.form-control, #gs-form  select.form-control {
+        width: 250px !important;
+      }
+
+      #gs-form  .width-fixer {
+        width: 260px !important;
+      }
+
+
     }
 
     /* Small Devices, Tablets */
@@ -168,6 +177,27 @@
         position: relative !important;
         margin: -10px 5px 20px 5px !important;
         background: rgba(58,117,175,  0.25) !important;
+      }
+
+      .form-inline .form-group {
+        display: block;
+        margin-right: 0px;
+      }
+
+      #contact-information {
+        width: 100%;
+      }
+
+      #gs-form input.form-control, #gs-form  select.form-control {
+        width: 100% !important;
+      }
+
+      #gs-form  .width-fixer {
+        width: 100% !important;
+      }
+
+      .form-inline .form-group {
+        margin-bottom: 20px !important;
       }
 
       /* remove "CLEAR ALL" button from refine search sidebar on smaller res */
