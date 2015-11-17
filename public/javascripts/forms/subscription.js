@@ -113,6 +113,12 @@ var _runSubscriptionFormValidation = function() {
 }
 
 $(document).ready(function() {
+
+  $("#alertError").hide();
+  $(".loading").hide();
+  $("#removeAlert").css('cursor', 'pointer');
+
+
   $("#alertError").hide();
   $("#removeAlert").css('cursor', 'pointer');
   $("#submitForm").click(function(e) {
@@ -127,13 +133,9 @@ $(document).ready(function() {
     data.actionSubscribe = $("#radioSubscribe").val();
     data.actionModify = $("#radioModify").val();
     data.actionUnsubscribe = $("#radioUnsubscribe").val();
-        console.log("subscriptionAction " + data.subscriptionAction);
-    console.log("actionSubscribe " + data.actionSubscribe);
-console.log("actionModify " + data.actionModify);
-console.log("actionUnsubscribe " + data.actionUnsubscribe);
 
     data.emailSubscription = $("#subscriptionTypeEmail").is(':checked');
-    console.log("");
+    console.log("emailSubscription");
     data.mailSubscription =  $("#subscriptionTypeMail").is(':checked');
 
     data.street = $("#txtStreet").val();
@@ -144,7 +146,6 @@ console.log("actionUnsubscribe " + data.actionUnsubscribe);
     data.apartment = $("#txtApt").val();
     data.phone = $("#txtPhone").val();
     data.organization = $("#txtOrganizaiton").val();
-    console.log("organization is " + data.organization);
     data.email = $("#txtEmail").val();
 
     if ($('input:checkbox:checked.areaOfInterest') !=[] && $('input:checkbox:checked.areaOfInterest').length>0){
@@ -157,13 +158,24 @@ console.log("actionUnsubscribe " + data.actionUnsubscribe);
 
     // data.captchaResponse = $("#g-recaptcha-response").val();
     if (!$("#alertError p").length) {
+      console.log("going to post");
       $(".loading").show();
       $.post("/mailer-subscription", data)
         .done(function(data) {
           $(".loading").hide();
           alertify.success("Email sent!")
           // $("#contact-information").toggle();
-          // $("#alertSuccess").toggle();
+          switch (true) {
+            case (data.subscriptionAction === data.actionSubscribe):
+              $("#alertSuccessSubscribe").toggle();
+              break;
+            case (data.subscriptionAction === data.actionUnsubscribe):
+              $("#alertSuccessUnsubscribe").toggle();
+              break;
+            case (data.subscriptionAction === data.actionModify):
+              $("#alertSuccessModify").toggle();
+              break;
+          }
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();
