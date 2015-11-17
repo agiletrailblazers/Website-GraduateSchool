@@ -4,9 +4,9 @@
 
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
-    "defaultEmailUserName":"gs@agiletrailblazers.com",
-    "defaultEmailUserPassword":"",
-    "defaultEmailFromUserName":"gs@agiletrailblazers.com",
+    "defaultEmailUserName":"ikhan@agiletrailblazers.com",
+    "defaultEmailUserPassword":"changeM3!",
+    "defaultEmailFromUserName":"ikhan@agiletrailblazers.com",
     "contactUsToUserName":"gs@agiletrailblazers.com",
     "onsiteInquiryToUserName":"gs@agiletrailblazers.com",
     "onsiteInquiryEmailSubject":"Request for Training",
