@@ -106,7 +106,7 @@ var _runSubscriptionFormValidation = function() {
     subscriptionFormValidate.phone();
   }
 
-  // subscriptionFormValidate.captcha();
+  subscriptionFormValidate.captcha();
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
   }
@@ -134,6 +134,8 @@ $(document).ready(function() {
     data.actionModify = $("#radioModify").val();
     data.actionUnsubscribe = $("#radioUnsubscribe").val();
 
+    var subscriptionAction = data.subscriptionAction;
+
     data.emailSubscription = $("#subscriptionTypeEmail").is(':checked');
     console.log("emailSubscription");
     data.mailSubscription =  $("#subscriptionTypeMail").is(':checked');
@@ -156,7 +158,7 @@ $(document).ready(function() {
       data.areaOfInterest="";
     }
 
-    // data.captchaResponse = $("#g-recaptcha-response").val();
+    data.captchaResponse = $("#g-recaptcha-response").val();
     if (!$("#alertError p").length) {
       console.log("going to post");
       $(".loading").show();
@@ -165,14 +167,15 @@ $(document).ready(function() {
           $(".loading").hide();
           alertify.success("Email sent!")
           // $("#contact-information").toggle();
+
           switch (true) {
-            case (data.subscriptionAction === data.actionSubscribe):
+            case (subscriptionAction === $("#radioSubscribe").val()):
               $("#alertSuccessSubscribe").toggle();
               break;
-            case (data.subscriptionAction === data.actionUnsubscribe):
+            case (subscriptionAction === $("#radioUnsubscribe").val()):
               $("#alertSuccessUnsubscribe").toggle();
               break;
-            case (data.subscriptionAction === data.actionModify):
+            case (subscriptionAction === $("#radioModify").val()):
               $("#alertSuccessModify").toggle();
               break;
           }

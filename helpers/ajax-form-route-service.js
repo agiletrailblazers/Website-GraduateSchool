@@ -523,7 +523,7 @@ module.exports = {
         break;
     }
     // Validate email if needed
-    if (params.emailSubscription) {
+    if (params.emailSubscription == "true") {
       switch (true) {
         case (!params.email):
           response.errors.email = "Email is empty.";
@@ -534,7 +534,7 @@ module.exports = {
       }
     }
     // Validate postal address if needed
-    if (params.mailSubscription) {
+    if (params.mailSubscription == "true") {
       // Validate Street Address
       switch (true) {
         case (!params.street):
@@ -580,9 +580,9 @@ module.exports = {
           break;
       }
     }
-    // if (!params.captchaResponse) {
-    //   response.errors.captchaResponse = "Please select recaptcha.";
-    // }
+    if (!params.captchaResponse) {
+      response.errors.captchaResponse = "Please select recaptcha.";
+    }
     callback(response);
   },
 };
