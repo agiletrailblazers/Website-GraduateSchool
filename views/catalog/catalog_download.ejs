@@ -33,14 +33,14 @@
           <div class="col-lg-6 col-md-6 col-sm-12" id="col1">
             <% entrySection.assetList.forEach(function(asset) { %>
               <%  if (asset.displayInSecondColumn==false) {%>
-                <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a data-toggle="tooltip" title="<%= asset.description %>" data-placement="right" href="<%= asset.url %>">  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
+                <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a data-toggle="tooltip" title="<%= asset.description %>" href="<%= asset.url %>">  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
               <% } %>
             <% }) %>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12" id="col2">
             <% entrySection.assetList.forEach(function(asset) { %>
               <%  if (asset.displayInSecondColumn) {%>
-                <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a data-toggle="tooltip" title="<%= asset.description %>" data-placement="right" href="<%= asset.url %>">  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
+                <p class="asset" data-contenttype="<%= asset.catalogFilter %>"><a data-toggle="tooltip" title="<%= asset.description %>"  href="<%= asset.url %>">  <span><img src="/images/pdf.png"/></span> <%= asset.title %></a></p>
               <% } %>
             <% }) %>
           </div>
