@@ -132,6 +132,7 @@ $(document).ready(function() {
     data.actionUnsubscribe = $("#radioUnsubscribe").val();
     var subscriptionAction = data.subscriptionAction;
     data.emailSubscription = $("#subscriptionTypeEmail").is(':checked');
+    console.log("");
     data.mailSubscription =  $("#subscriptionTypeMail").is(':checked');
     data.street = $("#txtStreet").val();
     data.city = $("#txtCity").val();
@@ -151,7 +152,7 @@ $(document).ready(function() {
       data.areaOfInterest="";
     }
 
-    data.captchaResponse = $("#g-recaptcha-response").val();
+    // data.captchaResponse = $("#g-recaptcha-response").val();
     if (!$("#alertError p").length) {
       $(".loading").show();
       $.post("/mailer-subscription", data)
