@@ -17,6 +17,7 @@ label, input, select, textarea, button {
   margin-right: 10px !important;
   background-color: #EEEEEE !important;
   color: #333;
+  border: 1px solid #EEEEEE !important;
 }
 
 
@@ -84,6 +85,11 @@ textarea:focus {
 
 #gs-form option {
   background: #FFF !important;
+}
+
+#gs-form input:focus, #gs-form option:focus {
+  border: 1px solid #BBB !important; 
+  transition: border 0.3s ease-in 0s;
 }
 
 /* ACCORDION PANEL - FORMS */
