@@ -19,7 +19,7 @@ input, select, textarea, button {
 }
 
 #gs-form input[type="checkbox"], input[type="radio"] {
-  margin: 0px 0px !important;
+  margin: 0 10px 0 0 !important;
   line-height: normal;
 }
 
@@ -90,7 +90,7 @@ textarea:focus {
 
 .sub-label {
   position: relative;
-  top: -10px;
+  top: -12px;
 }
 
 #contact-information {

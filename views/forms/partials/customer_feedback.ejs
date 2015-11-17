@@ -1,4 +1,4 @@
-<div class="col-lg-12 outer-border form-fix padding20">
+<div class="col-lg-12 col-md-12 col-sm-12 outer-border form-fix padding20">
   <div id="gs-form">
     <div id="customerFeedbackFormAlertError" class="alert alert-danger" role="alert" style="display:none;">
       <span id="removeAlertCustomerFeedback" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
@@ -6,89 +6,78 @@
     <div id="feedbackForm-information">
         <form id="feedbackForm" role="form">
           <div class="form-inline">
-            <div class="form-group">
+            <span class="form-group">
               <h4>Your Contact Information</h4>
-              <p>
-                (if you wish to receive a response, provide a phone number or email)
-              </p>
-            </div>
+              <p>(if you wish to receive a response, provide a phone number or email)</p>
+            </span>
           </div>
           <div class="form-inline">
-            <div class="form-group">
+            <span class="form-group">
               <label for="inputCustomerFirstName">First Name</label>
               <input id="txtCustomerFirstName" name="customerfirstName" type="text" class="form-control" tabindex="1">
+            </span>
+            <span class="form-group">
               <label for="inputCustomerLastName">Last Name</label>
               <input id="txtCustomerLastName" name="customerlastName" type="text" class="form-control" tabindex="2">
-            </div>
+            </span>
           </div>
           <div class="form-inline">
-            <div class="form-group">
+            <span class="form-group">
               <label for="txtCustomerPhone">Phone Number</label>
               <input id="telCustomerPhone" name="customerphone" type="tel" placeholder="XXX-XXX-XXXX"
                  pattern="\d{3}[\-]\d{3}[\-]\d{4}" maxlength="12" class="form-control" tabindex="3">
+            </span>
+            <span class="form-group">
               <label for="txtCustomerEmail">Email</label>
               <input type="email" id="txtCustomerEmail" class="form-control" size="30" tabindex="4">
-            </div>
+            </span>
           </div>
           <div class="spacer25"></div>
-          <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+          <div class="col-lg-4 col-md-4 col-sm-12 nopadding">
             <div class="form-inline">
               <span class="form-group">
-                <span class="block"><label for="txtTypePerson"><strong>Which Best Describes You?</strong></label><br></span>
-                <span class="block"><input type="radio" name="typePerson" id="studentParticipant" value="Student/Participant" tabindex="5">Student/Participant</input></span>
-                <span class="block"><input type="radio" name="typePerson" id="instructorFaculty" value="Instructor/Faculty" tabindex="6">Instructor/Faculty</input></span>
-                <span class="block"><input type="radio" name="typePerson" id="agencyEmployee" value="Agency Employee" tabindex="7">Agency Employee</input></span>
-                <span class="block"><input type="radio" name="typePerson" id="supervisorTrainingOfficer" value="Supervisor/Training Officer" tabindex="8">Supervisor/Training Officer</input></span>
-                <span class="block"><input type="radio" name="typePerson" id="websiteVisitors" value="Website Visitors" tabindex="9">Website Visitors</input></span>
-                <span class="block"><input type="radio" name="typePerson" id="gsUSAEmployee" value="GS USA Employee" tabindex="10">GS USA Employee</input></span>
-                <span class="block"><input type="radio" name="typePerson" id="vendor" value="Vendor" tabindex="11">Vendor</input></span>
+                <label for="txtTypePerson"><strong>Which Best Describes You?</strong></label>
+                <div class="form-block"><input type="radio" name="typePerson" id="studentParticipant" value="Student/Participant" tabindex="5" /><label for="studentParticipant" class="sub-label">Student/Participant</label></div>
+                <div class="form-block"><input type="radio" name="typePerson" id="instructorFaculty" value="Instructor/Faculty" tabindex="6" /><label for="instructorFaculty" class="sub-label">Instructor/Faculty</label></div>
+                <div class="form-block"><input type="radio" name="typePerson" id="agencyEmployee" value="Agency Employee" tabindex="7" /><label for="agencyEmployee" class="sub-label">Agency Employee</label></div>
+                <div class="form-block"><input type="radio" name="typePerson" id="supervisorTrainingOfficer" value="Supervisor/Training Officer" tabindex="8" /><label for="supervisorTrainingOfficer" class="sub-label">Supervisor/Training Officer</label></div>
+                <div class="form-block"><input type="radio" name="typePerson" id="websiteVisitors" value="Website Visitors" tabindex="9" /><label for="websiteVisitors" class="sub-label">Website Visitors</label></div>
+                <div class="form-block"><input type="radio" name="typePerson" id="gsUSAEmployee" value="GS USA Employee" tabindex="10" /><label for="gsUSAEmployee" class="sub-label">GS USA Employee</label></div>
+                <div class="form-block"><input type="radio" name="typePerson" id="vendor" value="Vendor" tabindex="11" /><label for="vendor" class="sub-label">Vendor</label></div>
               </span>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+          <div class="col-lg-4 col-md-4 col-sm-12 nopadding">
             <div class="form-inline">
-              <div class="form-group">
-                <span class="block"><label for="txtfeedbackCategories"><strong>Area Of Feedback</strong></label></span>
-                <span class="block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="course" value="Course"
-                  tabindex="12">Course</input></span>
-                <span class="block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="materialInstructor"
-                  value="MaterialInstructor" tabindex="13">Material Instructor</input></span>
-                <span class="block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="staff" value="Staff"
-                  tabindex="14">Staff</input></span>
-                <span class="block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="facility"
-                  value="Facility" tabindex="15">Facility</input></span>
-                <span class="block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="gsPolicy"
-                  value="GS Policy or Procedure" tabindex="16">GS Policy or Procedure</input></span>
-                <span class="block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="registration"
-                  value="Registration" tabindex="17">Registration</input></span>
-                <span class="block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="paymentInvoice"
-                  value="PaymentInvoice" tabindex="18">Payment/Invoice</input></span>
-              </div>
-            </div>
-            <div class="form-inline">
-              <div class="form-group">
-                  <input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="other" value="Other"
-                      tabindex="19">Other</input>
-                  <input id="txtfeedbackCategoriesOther" name="feedbackCategoriesOther" type="text"
-                      class="form-control" disabled="true" tabindex="20">
-              </div>
+              <span class="form-group">
+                <label for="txtfeedbackCategories"><strong>Area Of Feedback</strong></label>
+                <div class="form-block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="course" value="Course" tabindex="12"><label for="Course" class="sub-label">Course</label></div>
+                <div class="form-block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="materialInstructor" value="MaterialInstructor" tabindex="13"><label for="MaterialInstructor" class="sub-label">Material Instructor</label></div>
+                <div class="form-block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="staff" value="Staff" tabindex="14"><label for="Staff" class="sub-label">Staff</label></div>
+                <div class="form-block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="facility" value="Facility" tabindex="15"><label for="Facility" class="sub-label">Facility</label></div>
+                <div class="form-block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="gsPolicy" value="GS Policy or Procedure" tabindex="16"><label for="gsPolicy" class="sub-label">GS Policy or Procedure</label></div>
+                <div class="form-block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="registration" value="Registration" tabindex="17"><label for="registration" class="sub-label">Registration</label></div>
+                <div class="form-block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="paymentInvoice" value="PaymentInvoice" tabindex="18"><label for="paymentInvoice" class="sub-label">Payment/Invoice</label></div>
+                <div class="form-group">
+                    <input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="other" value="Other" tabindex="19" /><label for="other" class="sub-label">Other</label>
+                    <input id="txtfeedbackCategoriesOther" name="feedbackCategoriesOther" type="text" class="form-control" disabled="true" tabindex="20">
+                </div>
+              </span>
             </div>
           </div>
           <div class="spacer25"></div>
           <div class="form-inline">
             <div class="form-group">
-              <label for="txtfeedback"><strong>Feedback</strong></label><br>
-              <textarea maxlength="1000" class="form-control" id="txtFeedback" cols="100" name="feedback" rows="8"
-                tabindex="21"></textarea>
-              <br>
+              <label for="txtfeedback">Feedback</label><br>
+              <textarea maxlength="1000" class="form-control" id="txtFeedback" rows="10" cols="80" name="feedback"  tabindex="21"></textarea>
               <label for="txtfeedbackCharacterLimit">(Character limit: 1000)</label>
             </div>
           </div>
-              <div id="customerFeedbackCaptcha"></div>
-          <br>
+            <br>
+            <div id="customerFeedbackCaptcha"></div>
+            <div class="spacer"></div>
               <button id="customerFeedbackSubmitForm" type="submit" tabindex="22">Submit</button>
-              <br>
-              <br>
+            <div class="spacer25"></div>
         </form>
     </div>  <!-- END customer FeedBack information -->
 
