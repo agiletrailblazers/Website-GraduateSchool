@@ -1,4 +1,15 @@
 var subscriptionFormValidate = {
+  testIdForLenghtAndNoNumbers: function (id, alertId, fieldName) {
+    var input = $(id).val();
+    var noNumbersPattern = new RegExp(/^[^0-9]+$/);
+    if (input.trim().length < 1) {
+      $(alertId).append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>" + fieldName + "</strong> is empty.</p>");
+    }
+    else if (!noNumbersPattern.test(input)) {
+      $(alertId).append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>" + fieldName + "</strong> should not have numbers.</p>");
+    }
+  },
+
   firstName: function() {
     var input = $("#txtFirstName").val();
     var noNumbersPattern = new RegExp(/^[^0-9]+$/);
@@ -92,6 +103,10 @@ var _runSubscriptionFormValidation = function() {
 
   subscriptionFormValidate.subscriptionType()
   subscriptionFormValidate.firstName();
+  // subscriptionFormValidate.middleName();
+  // subscriptionFormValidate.testIdForLenghtAndNoNumbers("#txtFirstName", "#alertError", "First Name");
+  // subscriptionFormValidate.testIdForLenghtAndNoNumbers("#txtMiddleName", "#alertError", "Middle Name");
+  // subscriptionFormValidate.testIdForLenghtAndNoNumbers("#txtLastName", "#alertError", "Last Name");
   subscriptionFormValidate.lastName();
 
   if($("#subscriptionTypeEmail").is(':checked')) {
