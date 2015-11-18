@@ -22,8 +22,8 @@
 
                 <section>
                   <% if (sections[i].collapse && sections[i].title){ %>
-                    <span class="glyphicon glyphicon-plus-sign"></span>
-                    <a href="#<%= i %>" class="expand-section accordion-toggle" data-toggle="collapse"><%= sections[i].title %></a>
+                    <a href="#<%= i %>" class="expand-section accordion-toggle" data-toggle="collapse">
+                      <span class="glyphicon glyphicon-plus-sign"></span><%= sections[i].title %></a>
                           <article id="<%= i %>" class="collapse nested">
                             <%- markdown(sections[i].content || '') %>
                           </article>
