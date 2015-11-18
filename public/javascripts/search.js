@@ -69,6 +69,8 @@ $(document).on("click","#search-buttonM",function(event){
 $(document).ready(function(){
   $('#mob-search').click(function() {
       $('#search-top-menu').toggle();
+      $('#searchCriteriaM').focus();
+
   });
 });
 
