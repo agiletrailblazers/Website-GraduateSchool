@@ -137,6 +137,14 @@
         width: 260px !important;
       }
 
+      #gs-form select.width-third, #gs-form input.width-third {
+        width: 70px !important;
+      }
+
+      #gs-form select.width-half, #gs-form input.width-half  {
+        width: 130px !important;
+      }
+
 
     }
 
@@ -184,21 +192,17 @@
         margin-right: 0px;
       }
 
-      #contact-information {
-        width: 100%;
-      }
-
-      #gs-form input.form-control, #gs-form  select.form-control {
-        width: 100% !important;
-      }
-
-      #gs-form  .width-fixer {
-        width: 100% !important;
-      }
-
       .form-inline .form-group {
         margin-bottom: 20px !important;
       }
+
+      #contact-information,
+      #gs-form .width-fixer,
+      #gs-form select.width-third, #gs-form  select.form-control, #gs-form select.width-half,
+      #gs-form input.form-control, #gs-form input.width-third, #gs-form input.width-half  {
+        width: 100% !important;
+      }
+
 
       /* remove "CLEAR ALL" button from refine search sidebar on smaller res */
       .refine {
@@ -223,23 +227,9 @@
       }
 
       /* fix MAIN Nav menu items width on mobile */
-      .w1 {
+      .w1, .w2, .w3, .w4, .w5 {
         width: 100% !important;
       }
-      .w2 {
-        width: 100% !important;
-      }
-      .w3 {
-        width: 100% !important;
-      }
-      .w4 {
-        width: 100% !important;
-      }
-
-      .w5 {
-        width: 100% !important;
-      }
-
 
       .title h1 {
         font-size: 22px;
@@ -502,6 +492,18 @@
           display: block;
           padding: 5px 0 10px 0 !important;
           /*margin-bottom: 15px;*/
+        }
+
+        .form-block {
+          display: block;
+          height: auto;
+          top: 10px;
+          position: relative;
+          margin-bottom:20px;
+        }
+
+        #gs-form label.sub-label {
+          display: inline !important;
         }
     }
 
