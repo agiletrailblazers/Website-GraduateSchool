@@ -235,7 +235,7 @@ $(document).ready(function() {
   $("#collapse1").addClass("in");
 
   //Scrolls to the fold for all accordions (height: 455px)
-  $('#toContactButton, #toCDIButton, #toFormSubButton, #backToCDIButton').click(function() {
+  $('#toContactButton, #toCDIButton, #toFormSubButton, #backToCDIButton, #collapse1Link, #collapse2Link, #collapse3Link').click(function() {
     $("html, body").delay(400).animate({ scrollTop: 455 }, "slow");
   });
   //Scroll to the Alert Section/Confirmation message (height: 365px)
