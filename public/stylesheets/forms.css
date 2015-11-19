@@ -1,5 +1,9 @@
 /* FORMS   */
 
+fieldset {
+  padding: 15px 0 !important;
+}
+
 input[type="checkbox"] {
     border: 2px solid #87ACCE;
     border-radius: 0px;
