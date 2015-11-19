@@ -1,5 +1,13 @@
 /* FORMS   */
 
+input[type="checkbox"] {
+    border: 2px solid #87ACCE;
+    border-radius: 0px;
+    padding: 5px;
+    width: 20px;
+    height: 20px;
+  }
+
 #gs-form p {
   font-size: 14px;
   color: #666 !important;
@@ -18,10 +26,19 @@ input, select, textarea, button {
   width: 290px !important;
 }
 
+#gs-form select.width-third, #gs-form input.width-third {
+  width: 93px !important;
+}
+
+#gs-form select.width-half, #gs-form input.width-half  {
+  width: 145px !important;
+}
+
 #gs-form input[type="checkbox"], input[type="radio"] {
   margin: 0 10px 0 0 !important;
-  line-height: normal;
+  line-height: normal !important;
 }
+
 
 #gs-form label {
   display: inline-block;
@@ -33,15 +50,22 @@ input, select, textarea, button {
   color: #666 !important;
 }
 
-#gs-form select, #gs-form input, #gs-form textarea {
+#gs-form select, #gs-form input, #gs-form textarea, #gs-form button.ms-choice {
   margin-right: 10px !important;
   background-color: #EEEEEE !important;
   color: #333;
   border: 1px solid #EEEEEE !important;
 }
 
-#gs-form select, #gs-form input {
-  height: 40px;
+#gs-form select, #gs-form input[type="text"], #gs-form input[type="email"], #gs-form input[type="tel"] {
+  height: 40px !important;
+
+}
+
+.top-fixer {
+  position: relative;
+  top: -11px;
+  display: inline-block !important;
 }
 
 form button, form button:visited {
@@ -65,13 +89,6 @@ form button:hover, form button:active {
   transition: box-shadow 300ms linear 0s;
 }
 
-textarea:focus {
-  border-color: #66AFE9;
-  outline: 0px none;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
-  transition: box-shadow 300ms linear 0s;
-}
-
 .form-inline {
   padding-bottom: 20px;
 }
@@ -85,12 +102,14 @@ textarea:focus {
 
 .form-block {
   display: block;
-  height: 38px;
+  height: 40px;
+  top: 10px;
+  position: relative;
 }
+
 
 .sub-label {
   position: relative;
-  top: -12px;
 }
 
 #contact-information {
@@ -121,18 +140,27 @@ textarea:focus {
 }
 
 #gs-form select {
-    -moz-appearance: none;
-    background: #EEEEEE url("../images/arrow-down.png") no-repeat scroll 98% center / 20px auto !important;
+  -moz-appearance: none;
+  -webkit-appearance:none;
+  appearance:none;
+  background: #EEEEEE url("../images/arrow-down.png") no-repeat scroll 98% center / 20px auto !important;
+  outline: none;
+ -moz-outline: none;
 }
 
 #gs-form option {
   background: #FFF !important;
 }
 
-#gs-form input:focus, #gs-form option:focus {
+#gs-form input:focus, #gs-form option:focus, #gs-form textarea:focus, #gs-form select:focus, #gs-form button.ms-choice:focus, #gs-form .ms-parent:focus, .ms-choice:active   {
+  outline: none !important;
   border: 1px solid #BBB !important;
   transition: border 0.3s ease-in 0s;
+  -moz-outline: none !important;
 }
+
+
+
 
 /* ACCORDION PANEL - FORMS */
 
@@ -197,4 +225,16 @@ textarea:focus {
 .panel-group .panel {
     margin-bottom: 10px;
     border-radius: 4px;
+}
+
+
+
+/* removes dotted outline in firefox */
+@-moz-document url-prefix() {
+    select, select:-moz-focusring, select::-moz-focus-inner {
+       color: transparent !important;
+       text-shadow: 0 0 0 #777 !important;
+       background-image: none !important;
+       border:0;
+    }
 }
