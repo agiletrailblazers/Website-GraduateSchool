@@ -10,6 +10,7 @@ function performCourseSearch() {
 //Search button for multiple filters
 $(document).on("click","#search-button",function(event){
   location.href = "/search?search=" + $("#searchCriteria").val().trim() + "&cityState=" + $("#selSearchLocation").val()
+    + "&categorySubjectType=" + $("#selCategorySubject").find(":selected").attr('data-optionType')
     + "&categorySubject=" + $("#selCategorySubject").val();
 });
 
