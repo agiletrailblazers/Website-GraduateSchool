@@ -234,8 +234,13 @@ $(document).ready(function() {
 
   $("#collapse1").addClass("in");
 
-  //Scrolls to the title of page on ShowLess click for desktop version (height: 455px)
+  //Scrolls to the fold for all accordions (height: 455px)
   $('#toContactButton, #toCDIButton, #toFormSubButton, #backToCDIButton').click(function() {
     $("html, body").delay(400).animate({ scrollTop: 455 }, "slow");
   });
+  //Scroll to the Alert Section/Confirmation message (height: 365px)
+  $('#submitForm').click(function() {
+    $("html, body").delay(400).animate({ scrollTop: 365 }, "slow");
+  });
+
 });
