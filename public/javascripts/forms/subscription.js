@@ -1,11 +1,5 @@
 var subscriptionFormValidate = {
-  phone: function() {
-    var pattern = new RegExp(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/);
-    var phone = $("#txtPhone").val();
-    if (!pattern.test(phone)) {
-      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Phone number is incorrect.</p>");
-    }
-  },
+
   subscriptionAction: function() {
     if (!$("#radioSubscribe").is(':checked') && !$("#radioModify").is(':checked') && !$("#radioUnsubscribe").is(':checked')) {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please specify the subscription action to be performed.</p>");
@@ -16,19 +10,7 @@ var subscriptionFormValidate = {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please choose a type of subscription.</p>");
     }
   },
-  state: function() {
-    var input = $("#txtState").val();
-    if (!input) {
-      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please select a <strong>state</strong>.</p>");
-    }
-  },
-  zip: function() {
-    var input = $("#txtZip").val();
-    // TODO: Regex to see if it is only numbers.
-    if (input.trim().length < 5) {
-      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Zip code</strong> is incorrect.</p>");
-    }
-  },
+
   captcha: function(){
     var googleResponse = $('#g-recaptcha-response').val();
     if (!googleResponse) {
@@ -50,14 +32,12 @@ var _runSubscriptionFormValidation = function() {
   }
 
   if($("#subscriptionTypeMail").is(':checked')) {
-    validate.CheckEmptyString("#txtStreet","#alertError", "Street/P.O.Box");
-    validate.CheckEmptyString("#txtCity","#alertError", "City");
-    // subscriptionFormValidate.city();
-    subscriptionFormValidate.state();
-    //subscriptionFormValidate.zip();
-    validate.CheckEmptyString("#txtZip","#alertError", "Zip code");
-    validate.CheckEmptyString("#txtPhone","#alertError", "Phone number");
-    //subscriptionFormValidate.phone();
+
+    validate.street("#txtStreet", "#alertError", "Street/P.O. Box");
+    validate.city("#txtCity", "#alertError", "City");
+    validate.state("#selState", "#alertError");
+    validate.zip("#txtZip","#alertError", "Zip Code");
+    validate.phone("#txtPhone", "#alertError", "Phone");
   }
 
   subscriptionFormValidate.captcha();

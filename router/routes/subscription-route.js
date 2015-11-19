@@ -6,7 +6,7 @@
   router.get('/subscription-form', function(req, res, next) {
     arrayOfContent=[];
     var catalogHardCopy = {};
-    async.series([
+    async.parallel([
       function(callback) {
         contentful.getCatalogType(function(response) {
           response.cmsEntry.forEach(function(cmsEntryAsset) {
@@ -20,9 +20,16 @@
           });
           callback();
         });
+      },
+      function(callback) {
+        contentful.getReferenceData('us-states', function(result) {
+          states = result;
+          callback();
+        });
       }], function(results) {
         res.render('forms/subscription_form', {
           entry: arrayOfContent, title: "Subscription Form",
+          states : states
         });
     });
   });
