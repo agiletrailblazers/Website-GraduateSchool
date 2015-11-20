@@ -32,7 +32,6 @@ var _runSubscriptionFormValidation = function() {
   }
 
   if($("#subscriptionTypeMail").is(':checked')) {
-
     validate.street("#txtStreet", "#alertError", "Street/P.O. Box");
     validate.city("#txtCity", "#alertError", "City");
     validate.state("#selState", "#alertError");
@@ -40,7 +39,7 @@ var _runSubscriptionFormValidation = function() {
     validate.phone("#txtPhone", "#alertError", "Phone");
   }
 
-  subscriptionFormValidate.captcha();
+  validate.captcha("#g-recaptcha-response", "#alertError");
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
   }
@@ -64,7 +63,6 @@ $(document).ready(function() {
     data.actionUnsubscribe = $("#radioUnsubscribe").val();
     var subscriptionAction = data.subscriptionAction;
     data.emailSubscription = $("#subscriptionTypeEmail").is(':checked');
-    console.log("emailSubscription");
     data.mailSubscription =  $("#subscriptionTypeMail").is(':checked');
     data.street = $("#txtStreet").val();
     data.city = $("#txtCity").val();
@@ -86,12 +84,11 @@ $(document).ready(function() {
 
     data.captchaResponse = $("#g-recaptcha-response").val();
     if (!$("#alertError p").length) {
-      console.log("going to post");
       $(".loading").show();
       $.post("/mailer-subscription", data)
         .done(function(data) {
           $(".loading").hide();
-          alertify.success("Email sent!")
+          alertify.success("Email sent!");
           switch (true) {
             case (subscriptionAction === $("#radioSubscribe").val()):
               $("#alertSuccessSubscribe").toggle();

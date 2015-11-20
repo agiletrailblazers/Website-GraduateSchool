@@ -543,7 +543,7 @@ module.exports = {
       // Validate Zip
       switch (true) {
         case (!validator.isLength(params.zip.trim(), 5)):
-          response.errors.zip = "Zip is required and must be at least 3 characters."
+          response.errors.zip = "Zip is required and must be at least 5 characters."
           break;
       }
 
