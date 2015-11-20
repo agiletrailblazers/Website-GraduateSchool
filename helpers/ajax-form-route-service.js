@@ -563,7 +563,7 @@ module.exports = {
     }
 
     if (!params.captchaResponse) {
-      response.errors.captchaResponse = "Please select recaptcha.";
+      response.errors.captchaResponse = "For security, please verify you are a real person below.";
     }
     callback(response);
   },
