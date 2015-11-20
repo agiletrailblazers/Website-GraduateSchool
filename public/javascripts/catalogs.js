@@ -212,4 +212,12 @@ $(document).ready(function() {
     $("#alertError p").remove();
   });
   $("#collapse1").addClass("in");
+
+  $('#toCDIButton, #backToCDIButton').click(function() {
+    $("html, body").delay(400).animate({ scrollTop:$("#collapse1Link").offset().top }, "slow");
+  });
+
+  $('#submitForm').click(function() {
+    $("html, body").delay(400).animate({ scrollTop:$("#collapse1Link").offset().top }, "slow");
+  });
 });
