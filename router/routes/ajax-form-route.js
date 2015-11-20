@@ -202,26 +202,27 @@ router.post('/mailer-request-catalog', function (req, res, next) {
 
 router.post('/mailer-subscription', function (req, res, next) {
   params = req.body;
-            console.log("handle post mailer...");
+  logger.debug("In mailer-subscription");
   //move code to router service
   routerService.validateSubscriptionfields(function (response) {
     // Send email if there are no errors.
-    // if (true) {
     if (Object.keys(response.errors).length === 0) {
+      logger.debug("mailer-subscription form validation completed without any errors");
       //verify captcha
       google.verifyCaptcha(function (response) {
-        // if (true) {
         if ((response != null) && (response.statusCode == 200)) {
+          logger.debug("mailer-subscription captcha verification success");
           //send mail of success
-
           mailer.sendSubscriptionRequest(function (response) {
             handleResponse(res, response);
           }, params);
         } else {
+          logger.debug("mailer-subscription captcha verification failed");
           sendErrorResponse(res, response);
         }
       }, params.captchaResponse);
     } else {
+      logger.debug("mailer-subscription form validation detected errors");
       sendErrorResponse(res, response);
     }
   }, params);
