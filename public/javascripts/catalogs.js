@@ -214,10 +214,10 @@ $(document).ready(function() {
   $("#collapse1").addClass("in");
 
   $('#toCDIButton, #backToCDIButton').click(function() {
-    $('html, body').animate({scrollTop:950}, 'slow');
+    $("html, body").delay(400).animate({ scrollTop:$("#collapse1Link").offset().top }, "slow");
   });
 
   $('#submitForm').click(function() {
-    $('html, body').animate({scrollTop:890}, 'slow');
+    $("html, body").delay(400).animate({ scrollTop:$("#collapse1Link").offset().top }, "slow");
   });
 });
