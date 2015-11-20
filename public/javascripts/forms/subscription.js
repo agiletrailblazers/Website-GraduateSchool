@@ -68,7 +68,7 @@ $(document).ready(function() {
     data.mailSubscription =  $("#subscriptionTypeMail").is(':checked');
     data.street = $("#txtStreet").val();
     data.city = $("#txtCity").val();
-    data.state = $("#txtState").val();
+    data.state = $("#selState").val();
     data.zip = $("#txtZip").val();
     data.country = $("#txtCountry").val();
     data.apartment = $("#txtApt").val();
@@ -128,15 +128,23 @@ $(document).ready(function() {
   $("#subscriptionTypeEmail").click(function() {
     if ($("#subscriptionTypeEmail").is(':checked') == true) {
       $(".email-fieldSet").show();
+      $("#submitForm").show();
     } else {
       $(".email-fieldSet").hide();
+      if ($("#subscriptionTypeMail").is(':checked') == false) {
+        $("#submitForm").hide();
+      }
     }
   });
   $("#subscriptionTypeMail").click(function() {
     if ($("#subscriptionTypeMail").is(':checked') == true) {
       $(".mail-fieldSet").show();
+      $("#submitForm").show();
     } else {
       $(".mail-fieldSet").hide();
+      if ($("#subscriptionTypeEmail").is(':checked') == false) {
+        $("#submitForm").hide();
+      }
     }
   });
 });
