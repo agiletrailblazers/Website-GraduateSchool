@@ -6,7 +6,7 @@
     "defaultEmailServerPort": "587",
     "defaultEmailUserName":"atbtools@agiletrailblazers.com",
     "defaultEmailUserPassword":"Ramo0061",
-    "defaultEmailFromUserName":"gs@agiletrailblazers.com",
+    "defaultEmailFromUserName":"atbtools@agiletrailblazers.com",
     "contactUsToUserName":"gs@agiletrailblazers.com",
     "onsiteInquiryToUserName":"gs@agiletrailblazers.com",
     "requestDuplicateCourseCompletionCertificateToUserName":"gs@agiletrailblazers.com",
