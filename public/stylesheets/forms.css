@@ -66,6 +66,13 @@ input, select, textarea, button {
 
 }
 
+#gs-form label.invisible-label {
+  color: transparent !important;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
 .top-fixer {
   position: relative;
   top: -11px;

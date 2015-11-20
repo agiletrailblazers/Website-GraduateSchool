@@ -430,16 +430,19 @@
           height: 10px !important;
         }
 
-        .ssn {
+        #mobile-block {
           display: block;
         }
+
         .ssn-title {
           display: block;
           width: 100%;
         }
-        .ssn .form-control {
-          width: 25%;
-          display: inline-block;
+
+        #mobile-block .form-group {
+          width: 30%;
+          display: inline-block !important;
+          padding-right: 5%;
         }
 
         /* Search results - tabs */
