@@ -2,6 +2,8 @@
   var contentful = require("../../API/contentful.js");
   var async = require('async');
   var router = express.Router();
+  var config = require('konphyg')(__dirname + '/../../config');
+
   // Get Catalog Request Form  page.
   router.get('/subscription-form', function(req, res, next) {
     arrayOfContent=[];
@@ -28,8 +30,9 @@
         });
       }], function(results) {
         res.render('forms/subscription_form', {
-          entry: arrayOfContent, title: "Subscription Form",
-          states : states
+          entry : arrayOfContent, title: "Subscription Form",
+          states : states,
+          skipReCaptcha : config("properties").skipReCaptchaVerification
         });
     });
   });
