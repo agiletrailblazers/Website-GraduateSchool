@@ -197,4 +197,8 @@ $(document).ready(function() {
         });
     }
   });
+  //Scroll to the Alert Section/Confirmation message (height: 365px)
+  $('#submitForm').click(function() {
+    $("html, body").delay(400).animate({ scrollTop: 365 }, "slow");
+  });
 });
