@@ -6,7 +6,8 @@ var bodyParser = require('body-parser');
 var mailer = require('../API/nodemailer.js');
 var google = require('../API/google.js');
 var validator = require('validator');
-
+var config = require('konphyg')("./config");
+var logger = require('../logger');
 
 module.exports = {
   validateContactUsfields: function(callback, params) {
@@ -561,9 +562,13 @@ module.exports = {
           break;
       }
     }
-
-    if (!params.captchaResponse) {
-      response.errors.captchaResponse = "For security, please verify you are a real person below.";
+    if (!config("properties").skipReCaptchaVerification) {
+      if (!params.captchaResponse) {
+        response.errors.captchaResponse = "Please select recaptcha.";
+      }
+    }
+    else {
+      logger.debug("validateSubscriptionfields - reCaptcha verification is turned off")
     }
     callback(response);
   },
