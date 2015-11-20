@@ -506,30 +506,21 @@ module.exports = {
     response.errors = {};
     // Validate params.firstName
     switch (true) {
-      case (params.firstName.length === 0):
-        response.errors.firstName = "First name is empty.";
-        break;
-      case (!validator.isLength(params.firstName.trim(), 3)):
-        response.errors.firstName = "First name must be at least 3 characters.";
+      case (!validator.isLength(params.firstName.trim(), 2)):
+        response.errors.firstName = "First name is required and must be at least 2 characters.";
         break;
     }
     // Validate params.lastName
     switch (true) {
-      case (!params.lastName):
-        response.errors.lastName = "Last name is empty.";
-        break;
       case (!validator.isLength(params.lastName.trim(), 3)):
-        response.errors.lastName = "Last name must be at least 3 characters.";
+        response.errors.lastName = "Last name is required and must be at least 3 characters.";
         break;
     }
     // Validate email if needed
     if (params.emailSubscription == "true") {
       switch (true) {
-        case (!params.email):
-          response.errors.email = "Email is empty.";
-          break;
         case (!validator.isEmail(params.email)):
-          response.errors.email = "Email is in the wrong format."
+          response.errors.email = "Email is required and must be a properly formatted email address."
           break;
       }
     }
@@ -537,49 +528,40 @@ module.exports = {
     if (params.mailSubscription == "true") {
       // Validate Street Address
       switch (true) {
-        case (!params.street):
-          response.errors.streetAddress = "Street Address is empty."
-          break;
-        case (!validator.isLength(params.street.trim(), 3)):
-          response.errors.streetAddress = "Street Address must be greater than 3 characters."
+        case (!validator.isLength(params.street.trim(), 5)):
+          response.errors.streetAddress = "Street Address is required and must be at least 5 characters."
           break;
       }
 
       // Validate City
       switch (true) {
-        case (!params.city):
-          response.errors.city = "City is empty."
-          break;
         case (!validator.isLength(params.city.trim(), 3)):
-          response.errors.city = "City must be greater than 3 characters."
+          response.errors.city = "City is required and must be at least 3 characters."
           break;
       }
 
       // Validate Zip
       switch (true) {
-        case (!params.zip):
-          response.errors.zip = "Zip is empty."
-          break;
         case (!validator.isLength(params.zip.trim(), 5)):
-          response.errors.zip = "Zip must be greater than 5 characters."
+          response.errors.zip = "Zip is required and must be at least 3 characters."
           break;
       }
 
       // Validate State
-      if (!params.state) {
-        response.errors.state = "Please select a state."
+      switch (true) {
+        case (!validator.isLength(params.state.trim(), 1)):
+          response.errors.state = "Please select a state."
+          break;
       }
 
       // Validate phone
       switch (true) {
-        case (!params.phone):
-          response.errors.phone = "Phone number is empty.";
-          break;
-        case (!params.phone.match(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)):
-          response.errors.phone = "Phone number is not in the correct format.";
+        case (!validator.isLength(params.phone.trim(), 1)):
+          response.errors.phone = "Phone number is required."
           break;
       }
     }
+
     if (!params.captchaResponse) {
       response.errors.captchaResponse = "Please select recaptcha.";
     }
