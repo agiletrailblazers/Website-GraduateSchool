@@ -2,19 +2,12 @@ var subscriptionFormValidate = {
 
   subscriptionAction: function() {
     if (!$("#radioSubscribe").is(':checked') && !$("#radioModify").is(':checked') && !$("#radioUnsubscribe").is(':checked')) {
-      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please specify the subscription action to be performed.</p>");
+      $("#alertError").append("<p id='radioSubscribe-missing' ><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please specify the subscription action to be performed.</p>");
     }
   },
   subscriptionType: function() {
     if (!$("#subscriptionTypeEmail").is(':checked') && !$("#subscriptionTypeMail").is(':checked')) {
-      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please choose a type of subscription.</p>");
-    }
-  },
-
-  captcha: function(){
-    var googleResponse = $('#g-recaptcha-response').val();
-    if (!googleResponse) {
-      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> For security, please verify you are a real person below</p>");
+      $("#alertError").append("<p id='subscriptionType-missing'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please choose a type of subscription.</p>");
     }
   }
 }
