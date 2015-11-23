@@ -140,21 +140,21 @@
                       <span id="checkboxes" class="form-group">
                           <% hardCopyEntry.forEach(function(hardCopyCatalog, num) { %>
                       <div class="catalog-for-mailing">
-                        <span class="form-group catalog-item">
-                          <input type="checkbox" name="txtCatalogTitles" class="catalogHardCopyTitles form-block"
-                                 id="<%= 'catalogHardCopyTitles' + num %>"
-                                 value="<%= hardCopyCatalog.fields.catalogHardCopy.trim() %>"
-                                 tabindex="<%= catalogTitlesTabIndex + 1 %>"> <%= hardCopyCatalog.fields.catalogHardCopy.trim() %> </input>
-                        </span>
-                        <span style="display:block;" >
-                        <span class="form-group padding-l">
-                          <input type="text" class="txtCatalogHardCopy form-control"
-                                 id="<%= 'txtCatalogHardCopy'+num %>"
-                                 data-id="<%= hardCopyCatalog.fields.catalogHardCopy.trim() %>"
-                                 tabindex="<%= catalogTitlesTabIndex + 2 %>" size="2" value="1">
-                          <% catalogTitlesTabIndex = catalogTitlesTabIndex + 2 %>
-                        </span>
+                        <div class="form-block">
+                          <span class="form-group catalog-item">
+                            <input type="checkbox" name="txtCatalogTitles" class="catalogHardCopyTitles"
+                                   id="<%= 'catalogHardCopyTitles' + num %>"
+                                   value="<%= hardCopyCatalog.fields.catalogHardCopy.trim() %>"
+                                   tabindex="<%= catalogTitlesTabIndex + 1 %>"></input><label class="sub-label"><%= hardCopyCatalog.fields.catalogHardCopy.trim() %> </label>
                           </span>
+                          <span class="form-group padding-l">
+                            <input type="text" class="txtCatalogHardCopy form-control width-third"
+                                   id="<%= 'txtCatalogHardCopy'+num %>"
+                                   data-id="<%= hardCopyCatalog.fields.catalogHardCopy.trim() %>"
+                                   tabindex="<%= catalogTitlesTabIndex + 2 %>" size="2" value="1">
+                            <% catalogTitlesTabIndex = catalogTitlesTabIndex + 2 %>
+                          </span>
+                        </div>
                       </div>
                       <% }) %>
                        </span>
