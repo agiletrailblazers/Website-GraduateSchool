@@ -110,29 +110,18 @@ $(document).ready(function() {
   // Click through form.
   $("#toPanel2Button").click(function() {
     $("#collapse2Link").trigger('click');
-    $("html, body").delay(400).animate({ scrollTop:$("#collapse1Link").offset().top }, "slow");
   });
   $("#toPanel3Button").click(function() {
     $("#collapse3Link").trigger('click');
-    $("html, body").delay(400).animate({ scrollTop:$("#collapse1Link").offset().top }, "slow");
   });
   $("#toPanel1Button").click(function() {
     $("#collapse1Link").trigger('click');
-    $("html, body").delay(400).animate({ scrollTop:$("#collapse1Link").offset().top }, "slow");
   });
   $("#toPanel2Button-2").click(function() {
+    $("#collapse2Link").trigger('click');
     $("#collapse3Link").trigger('click');
-    // $("#collapse2Link").trigger('click');
-    $("html, body").delay(400).animate({ scrollTop:$("#collapse1Link").offset().top }, "slow");
   });
-  $("#toPanel3Button-2").click(function() {
-    $("#collapse3Link").trigger('click');
-    $("html, body").delay(400).animate({ scrollTop:$("#collapse1Link").offset().top }, "slow");
-  });
-  $("#toPanel4Button").click(function() {
-    $("#collapse4Link").trigger('click');
-    $("html, body").delay(400).animate({ scrollTop:$("#collapse1Link").offset().top }, "slow");
-  });
+
   $("#removeAlert").css('cursor', 'pointer');
   $("#removeAlert").click(function() {
     $("#alertError").slideUp();
@@ -203,4 +192,6 @@ $(document).ready(function() {
         });
     }
   });
+  $("#collapse1").addClass("in");
+
 });
