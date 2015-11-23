@@ -1,8 +1,8 @@
 <div class="row">
   <div class="container">
     <div class="col-lg-9 col-md-9 col-sm-12">
+      <h2>Request catalog(s) on your mail address</h2>
       <div id="gs-form">
-        <h1>Request catalog(s) on your mail address</h1>
         <!-- Accordion Container -->
         <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
           <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
@@ -13,14 +13,11 @@
         </div>
         <form>
           <div class="panel-group" id="accordion">
-            <div class="form-inline">
-              <div class="form-group"><p></p></div>
-            </div>
             <div id="accordion-top"></div>
             <div class="panel panel-default" id="p1">
               <div class="panel-heading gs">
-                <a class="accordion-toggle" id="collapse1Link" data-toggle="collapse" data-parent="#accordion"
-                   href="#collapse1">
+                <a class="accordion-toggle" id="collapse1Link" data-toggle="collapse" data-parent="#accordion" data-target="#collapse1"
+                   href="#gs-form">
                   <h4 class="panel-title">CONTACT INFORMATION</h4>
                 </a>
               </div>
@@ -118,14 +115,14 @@
                     </fieldset>
                   </div><!-- END Form-wrap -->
                   <br>
-                  <button type="button" name="toCDI" id="toCDIButton" tabindex="15" class="next-button">Next</button>
+                  <button type="button" name="toCDI" id="toCDIButton" tabindex="15" class="next-button" onclick="window.location.href='#gs-form'">Next</button>
                 </div> <!-- END Panel-body -->
               </div> <!-- END Accordion 1 -->
             </div> <!-- END Panel -->
             <div class="panel panel-default">
               <div class="panel-heading gs">
-                <a class="accordion-toggle collapsed" id="collapse2Link" data-toggle="collapse" data-parent="#accordion"
-                   href="#collapse2" tabindex="16">
+                <a class="accordion-toggle collapsed" id="collapse2Link" data-toggle="collapse" data-parent="#accordion" data-target="#collapse2"
+                   href="#gs-form" tabindex="16">
                   <h4 class="panel-title">CATALOG INFORMATION</h4>
                 </a>
               </div>
@@ -165,11 +162,11 @@
                            tabindex="<%= catalogTitlesTabIndex + 1 %>"></div>
                     </div>
                     <br>
-                    <button type="button" name="toCDI" id="backToCDIButton" tabindex="<%= catalogTitlesTabIndex + 2 %>">
+                    <button type="button" name="toCDI" id="backToCDIButton" tabindex="<%= catalogTitlesTabIndex + 2 %>" onclick="window.location.href='#gs-form'">
                       Previous
                     </button>
                     <button type="submit" id="submitForm" name="submitForm" value="submitForm"
-                       tabindex="<%= catalogTitlesTabIndex + 3 %>">Submit Request
+                       tabindex="<%= catalogTitlesTabIndex + 3 %>" onclick="window.location.href='#gs-form'">Submit Request
                     </button>
                     <br>
                     <br>

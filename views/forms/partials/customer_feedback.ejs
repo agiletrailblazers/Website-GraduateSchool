@@ -1,7 +1,17 @@
 <div class="col-lg-12 col-md-12 col-sm-12 outer-border form-fix padding20">
   <div id="gs-form">
-    <div id="customerFeedbackFormAlertError" class="alert alert-danger" role="alert" style="display:none;">
-      <span id="removeAlertCustomerFeedback" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+    <div id="gs-form2">
+      <div id="customerFeedbackFormAlertError" class="alert alert-danger" role="alert" style="display:none;">
+        <span id="removeAlertCustomerFeedback" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+      </div>
+      <div id="customerFeedbackFormAlertSuccess" class="alert alert-success" role="alert" style="display:none;">
+          <p><strong>Thank You <span id="txtCustomerName"></span>,</strong></p>
+          <p>Graduate School USA welcomes and values your feedback!</p>
+          <p>One of our Customer Service Representatives will read and address your comments personally. As this may often
+            require some time for research before replying, please know we are working to respond to you as quickly as
+            possible.</p>
+          <p>If your request is time-sensitive, you may wish to contact Customer Support Center at <a href="tel:18887444723">1.888.744.GRAD(4723)</a>.</p>
+      </div>
     </div>
     <div id="feedbackForm-information">
         <form id="feedbackForm" role="form">
@@ -76,18 +86,9 @@
             <br>
             <div id="customerFeedbackCaptcha"></div>
             <div class="spacer"></div>
-              <button id="customerFeedbackSubmitForm" type="submit" tabindex="22">Submit</button>
+              <button id="customerFeedbackSubmitForm" type="submit" tabindex="22" onclick="window.location.href='#gs-form2'">Submit</button>
             <div class="spacer25"></div>
         </form>
     </div>  <!-- END customer FeedBack information -->
-
-    <div id="customerFeedbackFormAlertSuccess" class="alert alert-success" role="alert" style="display:none;">
-        <p><strong>Thank You <span id="txtCustomerName"></span>,</strong></p>
-        <p>Graduate School USA welcomes and values your feedback!</p>
-        <p>One of our Customer Service Representatives will read and address your comments personally. As this may often
-          require some time for research before replying, please know we are working to respond to you as quickly as
-          possible.</p>
-        <p>If your request is time-sensitive, you may wish to contact Customer Support Center at <a href="tel:18887444723">1.888.744.GRAD(4723)</a>.</p>
-  </div>
   </div>
 </div>
