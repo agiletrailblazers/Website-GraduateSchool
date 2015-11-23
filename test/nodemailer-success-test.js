@@ -223,3 +223,37 @@ test('nodemailer-test:CatalogForm:success', function(t) {
 
   t.end();
 });
+
+test('nodemailer-test:SubscriptionForm:success', function(t) {
+  var transport = nodemailer.createTransport(stubTransport());
+  mailer.setTransport(transport);
+
+  data = {};
+  data.firstName = {};
+  data.middleName = {};
+  data.lastName = {};
+
+  data.subscriptionAction = {};
+  data.actionSubscribe = {};
+  data.actionModify = {};
+  data.actionUnsubscribe = {};
+
+  data.emailSubscription = {};
+  data.mailSubscription =  {};
+
+  data.street = {};
+  data.city = {};
+  data.state = {};
+  data.zip = {};
+  data.country = {};
+  data.apartment = {};
+  data.phone = {};
+  data.organization = {};
+  data.email = {};
+  data.areaOfInterest = [];
+  mailer.sendSubscriptionRequest(function(response) {
+    expect(200).to.eql(response);
+  }, data);
+
+  t.end();
+});

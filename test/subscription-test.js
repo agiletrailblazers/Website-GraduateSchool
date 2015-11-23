@@ -18,8 +18,6 @@ test('Form : First name Validation', function (t) {
   data.actionModify = "Modify";
   data.actionUnsubscribe = "Unsubscribe";
 
-  var subscriptionAction = data.subscriptionAction;
-
   data.emailSubscription = "true";
   data.mailSubscription =  "false";
 
@@ -49,8 +47,6 @@ test('Form : Last name Validation', function (t) {
   data.actionSubscribe = "Subscribe";
   data.actionModify = "Modify";
   data.actionUnsubscribe = "Unsubscribe";
-
-  var subscriptionAction = data.subscriptionAction;
 
   data.emailSubscription = "true";
   data.mailSubscription =  "false";
@@ -82,8 +78,6 @@ test('Form : Street Validation', function (t) {
   data.actionModify = "Modify";
   data.actionUnsubscribe = "Unsubscribe";
 
-  var subscriptionAction = data.subscriptionAction;
-
   data.emailSubscription = "false";
   data.mailSubscription =  "true";
 
@@ -113,8 +107,6 @@ test('Form : City Validation', function (t) {
   data.actionSubscribe = "Subscribe";
   data.actionModify = "Modify";
   data.actionUnsubscribe = "Unsubscribe";
-
-  var subscriptionAction = data.subscriptionAction;
 
   data.emailSubscription = "false";
   data.mailSubscription =  "true";
@@ -146,8 +138,6 @@ test('Form : State Validation', function (t) {
   data.actionModify = "Modify";
   data.actionUnsubscribe = "Unsubscribe";
 
-  var subscriptionAction = data.subscriptionAction;
-
   data.emailSubscription = "false";
   data.mailSubscription =  "true";
 
@@ -177,8 +167,6 @@ test('Form : Zip Validation', function (t) {
   data.actionSubscribe = "Subscribe";
   data.actionModify = "Modify";
   data.actionUnsubscribe = "Unsubscribe";
-
-  var subscriptionAction = data.subscriptionAction;
 
   data.emailSubscription = "false";
   data.mailSubscription =  "true";
@@ -210,8 +198,6 @@ test('Form : Phone Validation', function (t) {
   data.actionModify = "Modify";
   data.actionUnsubscribe = "Unsubscribe";
 
-  var subscriptionAction = data.subscriptionAction;
-
   data.emailSubscription = "false";
   data.mailSubscription =  "true";
 
@@ -241,8 +227,6 @@ test('Form : Email Validation', function (t) {
   data.actionSubscribe = "Subscribe";
   data.actionModify = "Modify";
   data.actionUnsubscribe = "Unsubscribe";
-
-  var subscriptionAction = data.subscriptionAction;
 
   data.emailSubscription = "true";
   data.mailSubscription =  "false";
