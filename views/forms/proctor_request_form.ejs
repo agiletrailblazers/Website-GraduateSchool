@@ -33,9 +33,10 @@
           <div id="ProctorForm">
             <form>
               <div class="panel-group" id="accordion">
+                <div id="accordion-top"></div>
                 <div class="panel panel-default">
                   <div class="panel-heading gs">
-                    <a class="accordion-toggle" id="collapse1Link" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                    <a class="accordion-toggle" id="collapse1Link" data-toggle="collapse" data-parent="#accordion" data-target="#collapse1" href="#accordion-top">
                       <h4 class="panel-title">STUDENT INFORMATION</h4>
                     </a>
                   </div>
@@ -86,7 +87,7 @@
                           <div class="form-inline">
                             <span class="form-group">
                               <label for="txtCity">City</label>
-                              <input type="text" id="txtCity" class="form-control width-half" tabindex="8">
+                              <input type="text" id="txtCity" class="form-control" tabindex="8">
                             </span>
                             <span class=" form-group">
                               <label for="selState">State</label>
@@ -103,14 +104,17 @@
                               <input type="text" id="txtZip" class="form-control width-half" tabindex="10">
                             </span>
                           </div>
+                        </fieldset>
+                        <fieldset>
+                          <legend>Course information</legend>
                           <div class="form-inline">
                             <span class="form-group">
                               <label for="txtCourseNumber">*Course Code</label>
-                              <input type="text" id="txtCourseNumber" class="form-control width-half" size="20" tabindex="11" required>
+                              <input type="text" id="txtCourseNumber" class="form-control" size="40" tabindex="11" required>
                             </span>
                             <span class="form-group">
                               <label for="txtCourseTitle">*Course Title</label>
-                              <input type="text" id="txtCourseTitle" class="form-control width-half" size="40" tabindex="12" required>
+                              <input type="text" id="txtCourseTitle" class="form-control" size="40" tabindex="12" required>
                             </span>
                           </div>
                           <div class="form-inline">
@@ -120,7 +124,7 @@
                             </span>
                           </div>
                           <br>
-                          <button type="button" name="toPanel2Button" id="toPanel2Button" tabindex="14" class="next-button">Next</button>
+                          <button type="button" name="toPanel2Button" id="toPanel2Button" tabindex="14" class="next-button"  onclick="window.location.href='#accordion-top'">Next</button>
                         </fieldset>
                       </div><!-- END Panel-body -->
                     </div>
@@ -128,7 +132,7 @@
                 </div><!-- END Panel default -->
                 <div class="panel panel-default">
                   <div class="panel-heading gs">
-                    <a class="accordion-toggle collapsed" id="collapse2Link" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                    <a class="accordion-toggle collapsed" id="collapse2Link" data-toggle="collapse" data-parent="#accordion" data-target="#collapse2" href="#accordion-top">
                       <h4 class="panel-title">PROCTOR INFORMATION</h4>
                     </a>
                   </div>
@@ -136,7 +140,7 @@
                     <div class="panel-body">
                       <div id="form-wrap">
                         <fieldset>
-                          <legend>Personal information</legend>
+                          <legend>Proctor personal information</legend>
                           <div class="form-inline">
                             <span class="form-group">
                               <label for="inputProctorFirstName">*First Name</label>
@@ -175,13 +179,13 @@
                           </div>
                           <div class="form-inline">
                             <span class="form-group">
-                              <label for="inputProctorStudentRelation">RelationShip to Student</label>
+                              <label for="inputProctorStudentRelation">Relationship to Student</label>
                               <input id="txtProctorStudentRelation" name="proctorstudentrelation" type="text" class="form-control"  tabindex="22" required>
                             </span>
                           </div>
                           <br>
-                          <button type="button" name="toPanel1Button" id="toPanel1Button" tabindex="23">Previous</button>
-                          <button type="button" name="toPanel3Button" id="toPanel3Button" tabindex="24" class="next-button">Next</button>
+                          <button type="button" name="toPanel1Button" id="toPanel1Button" tabindex="23" onclick="window.location.href='#accordion-top'">Previous</button>
+                          <button type="button" name="toPanel3Button" id="toPanel3Button" tabindex="24" class="next-button" onclick="window.location.href='#accordion-top'">Next</button>
                           <br>
                         </fieldset>
                       </div>
@@ -191,7 +195,7 @@
               </div><!-- END Panel default -->
               <div class="panel panel-default">
                 <div class="panel-heading gs">
-                  <a class="accordion-toggle collapsed" id="collapse3Link" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                  <a class="accordion-toggle collapsed" id="collapse3Link" data-toggle="collapse" data-parent="#accordion" data-target="#collapse3" href="#accordion-top">
                     <h4 class="panel-title">ADDITIONAL INFORMATION</h4>
                   </a>
                 </div>
@@ -233,7 +237,7 @@
                         <div class="form-inline">
                           <span class="form-group">
                             <label for="txtProctorCity">City</label>
-                            <input type="text" id="txtProctorCity" class="form-control width-half" tabindex="30">
+                            <input type="text" id="txtProctorCity" class="form-control" tabindex="30">
                           </span>
                           <span class=" form-group">
                             <label for="selProctorState">State</label>
@@ -254,8 +258,8 @@
                           <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
                         </div>
                         <br>
-                        <button type="button" name="toPanel2Button-2" id="toPanel2Button-2" tabindex="33">Previous</button>
-                        <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="34">Submit Request</button>
+                        <button type="button" name="toPanel2Button-2" id="toPanel2Button-2" tabindex="33" onclick="window.location.href='#accordion-top'">Previous</button>
+                        <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="34"  onclick="window.location.href='#gs-form'">Submit Request</button>
                         <br>
                       </fieldset>
                     </div>
@@ -263,7 +267,6 @@
                 </div>
               </div>
             </form>
-              <%- sectionFooterDescription %>
           </div><!-- End Proctor Request Form -->
         </div> <!-- End Proctor form information -->
       </div> <!-- END left column -->
@@ -288,9 +291,9 @@
             </div>
           </div>
         </div>
-      </div>
-    </div> <!-- END right column -->
+      </div>     <!-- END right column -->
     <% } %>
+    </div>
   </div> <!-- END Row -->
   <div class="spacer"></div>
 
