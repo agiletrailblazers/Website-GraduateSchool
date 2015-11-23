@@ -20,13 +20,14 @@
           <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
             <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
           </div>
+
           <div id="alertSuccess" class="alert alert-sucess" role="alert" style="display:none;">
-            <div><b>Thank you for your interest in Graduate School USA.</b></div>
-            <div>Someone will be contacting you as soon as possible.</div>
+            <p><%- sectionFooterDescription %></p>
           </div>
           <div id="duplicateForm-information">
             <div class="form-inline">
               <div class="form-group">
+                <a class="pull-right" data-toggle="modal"  data-target="#information"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" style="font-size:20px;"></span></a>
                 <p><%- sectionHeaderDescription %></p></div>
             </div>
             <div id="requestDuplicateForm">
@@ -135,11 +136,7 @@
                   <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="16" onclick="window.location.href='#gs-form'">Submit</button>
                   <br>
                   <br>
-                  <div class="form-inline">
-                    <span class="form-group">
-                      <p><%- sectionFooterDescription %></p>
-                    </span>
-                  </div>
+
               </form>
            </div> <!-- End #requestDuplicateForm -->
           </div> <!--  #duplicateForm-information -->
@@ -182,5 +179,25 @@
   });
 
   </script>
+
+  <!-- Modal dialog -->
+  <div class="modal fade" id="information" tabindex="-1" role="dialog" aria-labelledby="informationLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="informationLabel"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" style="font-size:22px;"></span>Additional information</h4>
+        </div>
+        <div class="modal-body">
+            <p><%- sectionFooterDescription %></p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="blueish" data-dismiss="modal">Close</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END - Modal dialog -->
+
 </body>
 </html>
