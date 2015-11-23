@@ -513,8 +513,8 @@ module.exports = {
     }
     // Validate params.lastName
     switch (true) {
-      case (!validator.isLength(params.lastName.trim(), 3)):
-        response.errors.lastName = "Last name is required and must be at least 3 characters.";
+      case (!validator.isLength(params.lastName.trim(), 2)):
+        response.errors.lastName = "Last name is required and must be at least 2 characters.";
         break;
     }
     // Validate email if needed
