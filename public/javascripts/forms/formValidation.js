@@ -49,7 +49,7 @@ var validate = {
       var idForError = id.substring(1);
       var googleResponse = $(id).val();
       if (!googleResponse) {
-        $(alertId).append("<p id='" + idForError + "-format'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> For security, please verify you are a real person below</p>");
+        $(alertId).append("<p id='" + idForError + "-format'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> For security, please verify you are a real person below.</p>");
       }
     }
     else {
