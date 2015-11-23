@@ -50,7 +50,7 @@
             </div>
           </fieldset>
         <fieldset>
-          <legend>Student Information</legend>
+          <legend>Student Information <a class="pull-right" data-toggle="modal"  data-target="#information"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" style="font-size:20px;"></span></a></legend>
             <div id="certificate-program-forms">
               <div class="form-inline">
                 <span class="form-group">
@@ -94,7 +94,6 @@
                   <span class="form-group">
                     <input type="text" id="txtSSNc" class="form-control width-third" size="4" maxlength="4" tabindex="10">
                   </span>
-                  <div class="alert alert-info" role="alert">To insure that your records are complete and accurate, and to prevent multiple mailings, please include your SSN and date of birth. View our <a href="/content/privacy-policy-and-release-of-student-information">security and privacy information</a>.</div>
               </div>
               <div id="mobile-block" class="form-inline">
                 <label for="dateBirth" class="ssn-title">Date of birth</label><br>
@@ -230,6 +229,26 @@
     </div><!-- END  Row -->
     <div class="spacer25"></div>
   </div> <!-- END container -->
+
+  <!-- Modal dialog -->
+  <div class="modal fade" id="information" tabindex="-1" role="dialog" aria-labelledby="informationLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="informationLabel"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" style="font-size:22px;"></span> Privacy information</h4>
+        </div>
+        <div class="modal-body">
+          To insure that your records are complete and accurate, and to prevent multiple mailings, please include your SSN and date of birth. View our <a href="/content/privacy-policy-and-release-of-student-information">security and privacy information</a>.
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="blueish" data-dismiss="modal">Close</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END - Modal dialog -->
+
     <% include ../partials/chat %>
     <% include ../partials/footer %>
   </body>
