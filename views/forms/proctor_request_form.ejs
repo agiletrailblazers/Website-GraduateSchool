@@ -86,7 +86,7 @@
                           <div class="form-inline">
                             <span class="form-group">
                               <label for="txtCity">City</label>
-                              <input type="text" id="txtCity" class="form-control width-half" tabindex="8">
+                              <input type="text" id="txtCity" class="form-control" tabindex="8">
                             </span>
                             <span class=" form-group">
                               <label for="selState">State</label>
@@ -103,14 +103,17 @@
                               <input type="text" id="txtZip" class="form-control width-half" tabindex="10">
                             </span>
                           </div>
+                        </fieldset>
+                        <fieldset>
+                          <legend>Course information</legend>
                           <div class="form-inline">
                             <span class="form-group">
                               <label for="txtCourseNumber">*Course Code</label>
-                              <input type="text" id="txtCourseNumber" class="form-control width-half" size="20" tabindex="11" required>
+                              <input type="text" id="txtCourseNumber" class="form-control" size="40" tabindex="11" required>
                             </span>
                             <span class="form-group">
                               <label for="txtCourseTitle">*Course Title</label>
-                              <input type="text" id="txtCourseTitle" class="form-control width-half" size="40" tabindex="12" required>
+                              <input type="text" id="txtCourseTitle" class="form-control" size="40" tabindex="12" required>
                             </span>
                           </div>
                           <div class="form-inline">
@@ -136,7 +139,7 @@
                     <div class="panel-body">
                       <div id="form-wrap">
                         <fieldset>
-                          <legend>Personal information</legend>
+                          <legend>Proctor personal information</legend>
                           <div class="form-inline">
                             <span class="form-group">
                               <label for="inputProctorFirstName">*First Name</label>
@@ -175,7 +178,7 @@
                           </div>
                           <div class="form-inline">
                             <span class="form-group">
-                              <label for="inputProctorStudentRelation">RelationShip to Student</label>
+                              <label for="inputProctorStudentRelation">Relationship to Student</label>
                               <input id="txtProctorStudentRelation" name="proctorstudentrelation" type="text" class="form-control"  tabindex="22" required>
                             </span>
                           </div>
@@ -233,7 +236,7 @@
                         <div class="form-inline">
                           <span class="form-group">
                             <label for="txtProctorCity">City</label>
-                            <input type="text" id="txtProctorCity" class="form-control width-half" tabindex="30">
+                            <input type="text" id="txtProctorCity" class="form-control" tabindex="30">
                           </span>
                           <span class=" form-group">
                             <label for="selProctorState">State</label>
@@ -263,7 +266,6 @@
                 </div>
               </div>
             </form>
-              <%- sectionFooterDescription %>
           </div><!-- End Proctor Request Form -->
         </div> <!-- End Proctor form information -->
       </div> <!-- END left column -->
@@ -288,9 +290,9 @@
             </div>
           </div>
         </div>
-      </div>
-    </div> <!-- END right column -->
+      </div>     <!-- END right column -->
     <% } %>
+    </div>
   </div> <!-- END Row -->
   <div class="spacer"></div>
 
