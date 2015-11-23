@@ -220,4 +220,5 @@ $(document).ready(function() {
   $('#submitForm').click(function() {
     $("html, body").delay(400).animate({ scrollTop:$("#collapse1Link").offset().top }, "slow");
   });
+  $('#submitForm', '#submitForm').click(function() {
 });

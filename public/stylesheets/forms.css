@@ -238,7 +238,9 @@ form button:hover, form button:active {
     border-radius: 4px;
 }
 
-
+.catalog-item {
+  margin-top: 7px !important;
+}
 
 /* removes dotted outline in firefox */
 @-moz-document url-prefix() {
