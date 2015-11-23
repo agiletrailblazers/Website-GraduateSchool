@@ -122,7 +122,7 @@ $(document).ready(function() {
   });
   $("#toPanel2Button-2").click(function() {
     $("#collapse3Link").trigger('click');
-    $("#collapse2Link").trigger('click');
+    // $("#collapse2Link").trigger('click');
     $("html, body").delay(400).animate({ scrollTop:$("#collapse1Link").offset().top }, "slow");
   });
   $("#toPanel3Button-2").click(function() {
