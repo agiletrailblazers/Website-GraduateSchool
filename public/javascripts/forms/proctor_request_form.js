@@ -119,7 +119,7 @@ $(document).ready(function() {
   });
   $("#toPanel2Button-2").click(function() {
     $("#collapse2Link").trigger('click');
-    $("#collapse3Link").trigger('click');
+    $("#collapse3").removeClass("in");
   });
 
   $("#removeAlert").css('cursor', 'pointer');
