@@ -52,3 +52,26 @@
   </div><!-- End of Social Media -->
 </div> <!-- END Container -->
 </div><!-- END Container-fluid -->
+
+<script>
+  var customizeTwitterAttempts = 0;
+  $(document).ready(function() {
+  function customizeTwitterBoxElements() {
+    setTimeout( function() {
+      if ( $('[id*=twitter]').length ) {
+        $('[id*=twitter]').each( function(){
+          var ibody = $(this).contents().find( 'body' );
+          if ( ibody.find( '.timeline' ).length ) {
+            ibody.find( '.customisable-border' ).css( 'border-radius', 0 );
+          }
+        });
+      }
+      customizeTwitterAttempts++;
+      if ( customizeTwitterAttempts < 3 ) {
+        customizeTwitterBoxElements();
+      }
+    }, 1500);
+  }
+  customizeTwitterBoxElements();
+  });
+</script>
