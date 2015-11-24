@@ -7,17 +7,16 @@
     "defaultEmailUserName":"GSWebsiteForm@graduateschool.edu",
     "defaultEmailUserPassword":"Mana1974",
     "defaultEmailFromUserName":"GSWebsiteForm@graduateschool.edu",
+
     "contactUsToUserName":"GSWebsiteForm@graduateschool.edu",
     "onsiteInquiryToUserName":"GSWebsiteForm@graduateschool.edu",
-    "requestDuplicateFormEmailSubject":"Request for Duplicate Form",
     "requestDuplicateCourseCompletionCertificateToUserName":"GSWebsiteForm@graduateschool.edu",
     "requestDuplicateOfficialGradeReportToUserName":"GSWebsiteForm@graduateschool.edu",
     "proctorRequestToUserName":"GSWebsiteForm@graduateschool.edu",
-    "proctorRequestEmailSubject":"Request for Proctor",
     "customerFeedBackFormToUserName":"GSWebsiteForm@graduateschool.edu",
-    "customerFeedBackFormEmailSubject":"Customer FeedBack Form",
-    "catalogRequestEmailSubject":"Request for Catalog",
+    "certificateProgramFormToUserName":"GSWebsiteForm@graduateschool.edu",
     "catalogRequestToUserName":"GSWebsiteForm@graduateschool.edu",
+    "subscriptionRequestToUserName":"GSWebsiteForm@graduateschool.edu",
 
     "certificateProgramGroup": {
       "applicationForm": {

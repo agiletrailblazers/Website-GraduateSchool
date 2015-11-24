@@ -49,7 +49,7 @@ router.post('/mailer-contact-us', function (req, res, next) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
 
-          mailer.sendSubscriptionRequest(function (response) {
+          mailer.sendContactUs(function (response) {
             handleResponse(res, response);
           }, params);
         } else {

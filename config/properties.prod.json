@@ -7,8 +7,16 @@
     "defaultEmailUserName":"GSWebsiteForm@graduateschool.edu",
     "defaultEmailUserPassword":"Mana7974",
     "defaultEmailFromUserName":"GSWebsiteForm@graduateschool.edu",
+
     "contactUsToUserName":"Customersupport@graduateschool.edu,John.Peppard@graduateschool.edu",
     "onsiteInquiryToUserName":"onsite@graduateschool.edu",
+    "requestDuplicateCourseCompletionCertificateToUserName":"",
+    "requestDuplicateOfficialGradeReportToUserName":"",
+    "proctorRequestToUserName":"",
+    "customerFeedBackFormToUserName":"",
+    "certificateProgramFormToUserName":"",
+    "catalogRequestToUserName":"",
+    "subscriptionRequestToUserName":"Sergio.dasilva@graduateschool.edu",
 
     "certificateProgramGroup": {
       "applicationForm": {
