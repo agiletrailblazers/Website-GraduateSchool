@@ -128,6 +128,7 @@
                         <input type="text" id="txtInstructor" class="form-control" size="30" tabindex="15" required>
                       </span>
                    </div>
+                   <% include ../forms/partials/footnote %>
                   </fieldset>
                   <div id="captcha">
                     <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
@@ -141,30 +142,7 @@
            </div> <!-- End #requestDuplicateForm -->
           </div> <!--  #duplicateForm-information -->
         </div>
-       </div> <!-- END left column -->
-        <% if (relatedLinks && relatedLinks.length > 0) { %>
-        <div class="col-lg-3 col-md-3 col-sm-12" id="sidebar">
-          <div class="panel-group">
-            <div class="panel panel-default related-links">
-              <div class="panel-heading related-links">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" href="#related-links">Related links</a>
-                    </h4>
-              </div>
-              <div id="related-links" class="panel-collapse collapse in">
-                <div class="panel-body">
-                  <ul>
-                  <% relatedLinks.forEach(function(link) { %>
-                    <li><a href="<%= link.url %>"><%= link.name %></a></li>
-                    <hr>
-                  <% }); %>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> <!-- END right column -->
-        <% } %>
+       </div> <!-- END column -->
       </div><!-- END Row -->
       <div class="spacer"></div>
     </div> <!-- END Container -->
