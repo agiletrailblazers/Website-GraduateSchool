@@ -90,6 +90,14 @@ $(document).ready(function() {
   $("#alertError").hide();
   $("#removeAlert").css('cursor', 'pointer');
 
+  $('#ms').change(function() {
+  }).multipleSelect({
+    width: '100%'
+  });
+
+  $( "#txtDeliveryDate" ).datepicker();
+
+
   $("form").keyup(function(e) {
     var code = e.keyCode || e.which;
     if (code === 9) {

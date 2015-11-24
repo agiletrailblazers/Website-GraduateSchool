@@ -15,7 +15,7 @@
   <div class="container">
     <div class="loading" style="display:none;"></div>
     <div class="row">
-      <div class="col-lg-9 col-md-9 col-sm-12">
+      <div class="col-lg-12 col-md-12 col-sm-12">
         <div id="gs-form">
           <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
             <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
@@ -30,141 +30,123 @@
                 <a class="pull-right" data-toggle="modal"  data-target="#information"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" style="font-size:20px;"></span></a>
                 <p><%- sectionHeaderDescription %></p></div>
             </div>
-            <div id="requestDuplicateForm">
-              <form>
-                <div class="form-inline">
-                  <div class="form-group" id="requestDuplicate">
-                    <label for="Request" class="size14">Request a Duplicate for:</label>
-                    <input type="radio" name="reqestDuplicate" id="radioCertificate" value="Course Completion Certificate" checked/>
-                    <label for="radioCertificate"><strong>Course Completion Certificate </strong></label>
-                    <input type="radio" name="reqestDuplicate" id="radioGradeReport" value="Official Grade Report" />
-                    <label for="radioGradeReport"><strong>Official Grade Report </strong></label>
-                  </div>
-                </div>
-                <fieldset>
-                  <legend>Personal information</legend>
-                    <div class="form-inline">
-                      <span class="form-group">
-                        <label for="inputFirstName">*First Name</label>
-                        <input id="txtFirstName" name="firstName" type="text" class="form-control" tabindex="1" required>
-                      </span>
-                      <span class="form-group">
-                        <label for="inputLastName">*Last Name</label>
-                        <input id="txtLastName" name="lastName" type="text" class="form-control" tabindex="2" required>
-                      </span>
-                    </div>
-                    <div class="form-inline">
-                      <span class="form-group">
-                        <label for="txtEmail">*Email</label>
-                        <input type="email" id="txtEmail" class="form-control" size="30" tabindex="3">
-                      </span>
-                      <span class="form-group">
-                        <label for="txtPhone">*Daytime Phone Number</label>
-                        <input id="telPhone" name="phone" type="tel" placeholder="XXX-XXX-XXXX" pattern="\d{3}[\-]\d{3}[\-]\d{4}" maxlength="12" class="form-control" tabindex="4">
-                      </span>
-                    </div>
-                </fieldset>
-                <fieldset>
-                  <legend>Address</legend>
-                    <div class="form-inline">
-                      <span class="form-group">
-                        <label for="txtStreet">Street Address</label>
-                        <input type="text" id="txtStreet" class="form-control" tabindex="5">
-                      </span>
-                      <span class="form-group">
-                        <label for="txtSuite">Suite, Mail Stop</label>
-                        <input type="text" id="txtSuite" class="form-control width-half" size="20"  tabindex="6">
-                      </span>
-                    </div>
-                    <div class="form-inline">
-                      <span class="form-group">
-                        <label for="txtCity">City</label>
-                        <input type="text" id="txtCity" class="form-control" tabindex="7">
-                      </span>
-                      <span class="form-group">
-                        <label for="selState">State</label>
-                        <select id="selState" class="form-control width-half" tabindex="8">
-                          <option value="">Select One</option>
-                          <% for (i = 0; i < states.length; i++) { %>
-                            <option value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
-                            <% } %>
-                          </select>
-                        </span>
-                        <span class="form-group">
-                          <label for="txtZip">Zip</label>
-                          <input type="text" id="txtZip" class="form-control width-half" tabindex="9">
-                        </span>
-                      </div>
-                </fieldset>
-                <fieldset>
-                  <legend>Course information</legend>
-                    <div class="form-inline">
-                      <span class="form-group">
-                        <label for="txtCourseNumber">*Course Code</label>
-                        <input type="text" id="txtCourseNumber" class="form-control" size="20" tabindex="10" required>
-                      </span>
-                      <span class="form-group">
-                        <label for="txtCourseTitle">*Course Title</label>
-                        <input type="text" id="txtCourseTitle" class="form-control" size="40" tabindex="11" required>
-                      </span>
-                    </div>
-                    <div class="form-inline">
-                      <span class="form-group">
-                        <label for="dateStart">*Course Start Date</label>
-                        <input type="text" id="dateStart" class="form-control"  name="dateStart" placeholder="MM/DD/YYYY" readonly="readonly" style="background:white;"  tabindex="12">
-                      </span>
-                      <span class="form-group">
-                        <label for="dateEnd">*Course End Date</label>
-                        <input type="text" id="dateEnd"  class="form-control" name="dateEnd" placeholder="MM/DD/YYYY" readonly="readonly"  style="background:white;"  tabindex="13">
-                      </span>
-                    </div>
-                    <div class="form-inline">
-                      <span class="form-group">
-                        <label for="txtCourseLocation">*Course Location</label>
-                        <input type="text" id="txtCourseLocation"  class="form-control" name="txtCourseLocation"  tabindex="14">
-                      </span>
-                      <span class="form-group">
-                        <label for="txtInstructor">*Instructor</label>
-                        <input type="text" id="txtInstructor" class="form-control" size="30" tabindex="15" required>
-                      </span>
-                   </div>
-                  </fieldset>
-                  <div id="captcha">
-                    <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
-                  </div>
-                  <br>
-                  <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="16" onclick="window.location.href='#gs-form'">Submit</button>
-                  <br>
-                  <br>
 
-              </form>
-           </div> <!-- End #requestDuplicateForm -->
-          </div> <!--  #duplicateForm-information -->
-        </div>
-       </div> <!-- END left column -->
-        <% if (relatedLinks && relatedLinks.length > 0) { %>
-        <div class="col-lg-3 col-md-3 col-sm-12" id="sidebar">
-          <div class="panel-group">
-            <div class="panel panel-default related-links">
-              <div class="panel-heading related-links">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" href="#related-links">Related links</a>
-                    </h4>
-              </div>
-              <div id="related-links" class="panel-collapse collapse in">
-                <div class="panel-body">
-                  <ul>
-                  <% relatedLinks.forEach(function(link) { %>
-                    <li><a href="<%= link.url %>"><%= link.name %></a></li>
-                    <hr>
-                  <% }); %>
-                  </ul>
-                </div>
+            <div class="row">
+              <div class="col-lg-9 col-md-9 col-sm-12">
+                <div id="requestDuplicateForm">
+                  <form>
+                    <div class="form-inline">
+                      <div class="form-group" id="requestDuplicate">
+                        <label for="Request" class="size14">Request a Duplicate for:</label>
+                        <input type="radio" name="reqestDuplicate" id="radioCertificate" value="Course Completion Certificate" checked/>
+                        <label for="radioCertificate"><strong>Course Completion Certificate </strong></label>
+                        <input type="radio" name="reqestDuplicate" id="radioGradeReport" value="Official Grade Report" />
+                        <label for="radioGradeReport"><strong>Official Grade Report </strong></label>
+                      </div>
+                    </div>
+                    <fieldset>
+                      <legend>Personal information</legend>
+                        <div class="form-inline">
+                          <span class="form-group">
+                            <label for="inputFirstName">*First Name</label>
+                            <input id="txtFirstName" name="firstName" type="text" class="form-control" tabindex="1" required>
+                          </span>
+                          <span class="form-group">
+                            <label for="inputLastName">*Last Name</label>
+                            <input id="txtLastName" name="lastName" type="text" class="form-control" tabindex="2" required>
+                          </span>
+                        </div>
+                        <div class="form-inline">
+                          <span class="form-group">
+                            <label for="txtEmail">*Email</label>
+                            <input type="email" id="txtEmail" class="form-control" size="30" tabindex="3">
+                          </span>
+                          <span class="form-group">
+                            <label for="txtPhone">*Daytime Phone Number</label>
+                            <input id="telPhone" name="phone" type="tel" placeholder="XXX-XXX-XXXX" pattern="\d{3}[\-]\d{3}[\-]\d{4}" maxlength="12" class="form-control" tabindex="4">
+                          </span>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>Address</legend>
+                        <div class="form-inline">
+                          <span class="form-group">
+                            <label for="txtStreet">Street Address</label>
+                            <input type="text" id="txtStreet" class="form-control" tabindex="5">
+                          </span>
+                          <span class="form-group">
+                            <label for="txtSuite">Suite, Mail Stop</label>
+                            <input type="text" id="txtSuite" class="form-control width-half" size="20"  tabindex="6">
+                          </span>
+                        </div>
+                        <div class="form-inline">
+                          <span class="form-group">
+                            <label for="txtCity">City</label>
+                            <input type="text" id="txtCity" class="form-control" tabindex="7">
+                          </span>
+                          <span class="form-group">
+                            <label for="selState">State</label>
+                            <select id="selState" class="form-control width-half" tabindex="8">
+                              <option value="">Select One</option>
+                              <% for (i = 0; i < states.length; i++) { %>
+                                <option value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
+                                <% } %>
+                              </select>
+                            </span>
+                            <span class="form-group">
+                              <label for="txtZip">Zip</label>
+                              <input type="text" id="txtZip" class="form-control width-half" tabindex="9">
+                            </span>
+                          </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>Course information</legend>
+                        <div class="form-inline">
+                          <span class="form-group">
+                            <label for="txtCourseNumber">*Course Code</label>
+                            <input type="text" id="txtCourseNumber" class="form-control" size="20" tabindex="10" required>
+                          </span>
+                          <span class="form-group">
+                            <label for="txtCourseTitle">*Course Title</label>
+                            <input type="text" id="txtCourseTitle" class="form-control" size="40" tabindex="11" required>
+                          </span>
+                        </div>
+                        <div class="form-inline">
+                          <span class="form-group">
+                            <label for="dateStart">*Course Start Date</label>
+                            <input type="text" id="dateStart" class="form-control"  name="dateStart" placeholder="MM/DD/YYYY" readonly="readonly" style="background:white;"  tabindex="12">
+                          </span>
+                          <span class="form-group">
+                            <label for="dateEnd">*Course End Date</label>
+                            <input type="text" id="dateEnd"  class="form-control" name="dateEnd" placeholder="MM/DD/YYYY" readonly="readonly"  style="background:white;"  tabindex="13">
+                          </span>
+                        </div>
+                        <div class="form-inline">
+                          <span class="form-group">
+                            <label for="txtCourseLocation">*Course Location</label>
+                            <input type="text" id="txtCourseLocation"  class="form-control" name="txtCourseLocation"  tabindex="14">
+                          </span>
+                          <span class="form-group">
+                            <label for="txtInstructor">*Instructor</label>
+                            <input type="text" id="txtInstructor" class="form-control" size="30" tabindex="15" required>
+                          </span>
+                       </div>
+                       <% include ../forms/partials/footnote %>
+                      </fieldset>
+                      <div id="captcha">
+                        <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
+                      </div>
+                      <br>
+                      <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="16" onclick="window.location.href='#gs-form'">Submit</button>
+                      <br>
+                      <br>
+                  </form>
+               </div> <!-- End #requestDuplicateForm -->
               </div>
             </div>
-          </div>
-        </div> <!-- END right column -->
-        <% } %>
+          </div> <!--  #duplicateForm-information -->
+        </div>
+       </div> <!-- END column -->
       </div><!-- END Row -->
       <div class="spacer"></div>
     </div> <!-- END Container -->
@@ -173,11 +155,10 @@
   <% include ../partials/footer %>
 
   <script type="text/javascript">
-  $(function() {
-    $("#dateStart").datepicker();
-    $("#dateEnd").datepicker();
-  });
-
+    $(function() {
+      $("#dateStart").datepicker();
+      $("#dateEnd").datepicker();
+    });
   </script>
 
   <!-- Modal dialog -->
@@ -189,7 +170,7 @@
           <h4 class="modal-title" id="informationLabel"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" style="font-size:22px;"></span>Additional information</h4>
         </div>
         <div class="modal-body">
-            <p><%- sectionFooterDescription %></p>
+          <p><%- sectionFooterDescription %></p>
         </div>
         <div class="modal-footer">
           <a href="#" class="blueish" data-dismiss="modal">Close</a>

@@ -65,7 +65,7 @@ img.responsive {
 
 p {
   font-size: 15px;
-  color: #444444;
+  color: #666;
   padding: 10px 0 !important;
 }
 
@@ -2200,6 +2200,10 @@ ul.see-more li {
 
 .size14 {
   font-size: 14px !important;
+}
+
+.size13 {
+  font-size: 13px !important;
 }
 
 /* display only on mobile */

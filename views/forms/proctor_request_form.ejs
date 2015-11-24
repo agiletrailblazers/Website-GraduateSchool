@@ -15,7 +15,7 @@
 <div class="container">
   <div class="loading" style="display:none;"></div>
   <div class="row">
-    <div class="col-lg-9 col-md-9 col-sm-12">
+    <div class="col-lg-12 col-md-12 col-sm-12">
       <div id="gs-form">
         <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
           <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
@@ -110,7 +110,7 @@
                           </div>
                         </fieldset>
                         <fieldset>
-                          <legend>Course information</legend>
+                          <legend>Course Information</legend>
                           <div class="form-inline">
                             <span class="form-group">
                               <label for="txtCourseNumber">*Course Code</label>
@@ -144,7 +144,7 @@
                     <div class="panel-body">
                       <div id="form-wrap">
                         <fieldset>
-                          <legend>Proctor personal information</legend>
+                          <legend>Proctor Personal Information</legend>
                           <div class="form-inline">
                             <span class="form-group">
                               <label for="inputProctorFirstName">*First Name</label>
@@ -206,14 +206,14 @@
                 <div id="collapse3" class="panel-collapse collapse">
                   <div class="panel-body">
                     <div id="form-wrap">
-                      <label>Materials for test will be primarily emailed to the proctor.</label>
+                      <p>Materials for test will be primarily emailed to the proctor.</p>
                       <div class="form-inline">
                         <span class="form-group">
                           <label for="txtProctorEmailTo">Email To</label>
                           <input type="email" id="txtProctorEmailTo" class="form-control" size="30" tabindex="25">
                         </span>
                       </div>
-                      <label>Address to mail the examination to if necessary:</label>
+                      <p>Address to mail the examination to if necessary:</p>
                       <div class="form-inline">
                         <span class="form-group">
                           <label for="txtProctorOrganizaiton">Organization Name</label>
@@ -257,6 +257,7 @@
                             <input type="text" id="txtProctorZip" class="form-control  width-half"  tabindex="32">
                           </span>
                         </div>
+                        <% include ../forms/partials/footnote %>
                         <br>
                         <div id="captcha">
                           <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
@@ -273,35 +274,11 @@
             </form>
           </div><!-- End Proctor Request Form -->
         </div> <!-- End Proctor form information -->
-      </div> <!-- END left column -->
-      <% if (relatedLinks && relatedLinks.length > 0) { %>
-      <div class="col-lg-3 col-md-3 col-sm-12" id="sidebar">
-        <div class="panel-group">
-          <div class="panel panel-default related-links">
-            <div class="panel-heading related-links">
-              <h4 class="panel-title">
-                <a data-toggle="collapse" href="#related-links">Related links</a>
-              </h4>
-            </div>
-            <div id="related-links" class="panel-collapse collapse in">
-              <div class="panel-body">
-                <ul>
-                  <% relatedLinks.forEach(function(link) { %>
-                  <li><a href="<%= link.url %>"><%= link.name %></a></li>
-                  <hr>
-                  <% }); %>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>     <!-- END right column -->
-    <% } %>
+      </div> <!-- END column -->
     </div>
   </div> <!-- END Row -->
   <div class="spacer"></div>
 </div> <!-- END Container -->
-
 
 <!-- Modal dialog -->
 <div class="modal fade" id="information" tabindex="-1" role="dialog" aria-labelledby="informationLabel">
@@ -319,8 +296,8 @@
       </div>
     </div>
   </div>
-</div>
-<!-- END - Modal dialog -->
+</div><!-- END - Modal dialog -->
+
 <% include ../partials/footer %>
 <% include ../partials/chat %>
 </body>
