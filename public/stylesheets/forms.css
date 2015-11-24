@@ -86,6 +86,7 @@ form button, form button:visited {
   border: none;
   outline-style: none;
   transition: background-color 300ms linear 0s;
+  border-bottom: 2px solid transparent;
 }
 
 form button:hover, form button:active {
@@ -98,6 +99,14 @@ form button:hover, form button:active {
   outline: 0px none;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
   transition: box-shadow 300ms linear 0s;
+}
+
+#gs-form input[type="checkbox"]:focus, #gs-form input[type="radio"]:focus {
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.35) inset, 0px 7px 8px rgba(102, 175, 233, 0.8);
+}
+
+form button:focus{
+border-bottom: 2px solid #be0f34;
 }
 
 .form-inline {

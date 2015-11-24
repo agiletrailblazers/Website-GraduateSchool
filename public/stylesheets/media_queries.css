@@ -232,7 +232,7 @@
       }
 
       .title h1 {
-        font-size: 22px;
+        font-size: 20px !important;
         margin: 10% 0 5% 0;
       }
 
