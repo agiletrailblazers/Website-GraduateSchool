@@ -8,16 +8,14 @@
     "defaultEmailUserName":"atbtools@agiletrailblazers.com",
     "defaultEmailUserPassword":"Ramo0061",
     "defaultEmailFromUserName":"atbtools@agiletrailblazers.com",
+
     "contactUsToUserName":"gs@agiletrailblazers.com",
     "onsiteInquiryToUserName":"gs@agiletrailblazers.com",
     "requestDuplicateCourseCompletionCertificateToUserName":"gs@agiletrailblazers.com",
     "requestDuplicateOfficialGradeReportToUserName":"gs@agiletrailblazers.com",
-    "requestDuplicateFormEmailSubject":"Request for Duplicate",
     "proctorRequestToUserName":"gs@agiletrailblazers.com",
-    "proctorRequestEmailSubject":"Request for Proctor",
     "customerFeedBackFormToUserName":"gs@agiletrailblazers.com",
-    "customerFeedBackFormEmailSubject":"Customer FeedBack Form",
-    "catalogRequestEmailSubject":"Request for Catalog",
+    "certificateProgramFormToUserName":"gs@agiletrailblazers.com",
     "catalogRequestToUserName":"gs@agiletrailblazers.com",
     "subscriptionRequestToUserName":"gs@agiletrailblazers.com",
 

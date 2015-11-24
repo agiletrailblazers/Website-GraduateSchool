@@ -8,6 +8,7 @@
     "defaultEmailUserName":"gs@agiletrailblazers.com",
     "defaultEmailUserPassword":"",
     "defaultEmailFromUserName":"gs@agiletrailblazers.com",
+    
     "contactUsToUserName":"gs@agiletrailblazers.com",
     "onsiteInquiryToUserName":"gs@agiletrailblazers.com",
     "onsiteInquiryEmailSubject":"Request for Training",
