@@ -16,7 +16,7 @@ var Validate = {
   captcha: function () {
     var googleResponse = grecaptcha.getResponse(customerFeedbackCaptchaID);
     if (!googleResponse) {
-      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> For security, please verify you are a real person below</p>");
+      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> For security, please verify you are a real person below.</p>");
     }
   }
 }

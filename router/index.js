@@ -15,4 +15,5 @@ module.exports = function (app) {
     app.use('/', require('./routes/forms-route'));
     app.use('/', require('./routes/catalog-route'));
     app.use('/', require('./routes/general-route'));
+    app.use('/', require('./routes/subscription-route'));
 };

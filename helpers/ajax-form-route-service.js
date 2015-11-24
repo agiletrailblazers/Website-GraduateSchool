@@ -6,7 +6,8 @@ var bodyParser = require('body-parser');
 var mailer = require('../API/nodemailer.js');
 var google = require('../API/google.js');
 var validator = require('validator');
-
+var config = require('konphyg')("./config");
+var logger = require('../logger');
 
 module.exports = {
   validateContactUsfields: function(callback, params) {
@@ -499,5 +500,76 @@ module.exports = {
     }
 
     callback(response);
-  }
+  },
+
+  validateSubscriptionfields: function(callback, params) {
+    response = {};
+    response.errors = {};
+    // Validate params.firstName
+    switch (true) {
+      case (!validator.isLength(params.firstName.trim(), 2)):
+        response.errors.firstName = "First name is required and must be at least 2 characters.";
+        break;
+    }
+    // Validate params.lastName
+    switch (true) {
+      case (!validator.isLength(params.lastName.trim(), 2)):
+        response.errors.lastName = "Last name is required and must be at least 2 characters.";
+        break;
+    }
+    // Validate email if needed
+    if (params.emailSubscription == "true") {
+      switch (true) {
+        case (!validator.isEmail(params.email)):
+          response.errors.email = "Email is required and must be a properly formatted email address."
+          break;
+      }
+    }
+    // Validate postal address if needed
+    if (params.mailSubscription == "true") {
+      // Validate Street Address
+      switch (true) {
+        case (!validator.isLength(params.street.trim(), 5)):
+          response.errors.streetAddress = "Street Address is required and must be at least 5 characters."
+          break;
+      }
+
+      // Validate City
+      switch (true) {
+        case (!validator.isLength(params.city.trim(), 3)):
+          response.errors.city = "City is required and must be at least 3 characters."
+          break;
+      }
+
+      // Validate Zip
+      switch (true) {
+        case (!validator.isLength(params.zip.trim(), 5)):
+          response.errors.zip = "Zip is required and must be at least 5 characters."
+          break;
+      }
+
+      // Validate State
+      switch (true) {
+        case (!validator.isLength(params.state.trim(), 1)):
+          response.errors.state = "Please select a state."
+          break;
+      }
+
+      // Validate phone
+      switch (true) {
+        case (!validator.isLength(params.phone.trim(), 1)):
+          response.errors.phone = "Phone number is required."
+          break;
+      }
+    }
+    if (!config("properties").skipReCaptchaVerification) {
+      if (!params.captchaResponse) {
+        response.errors.captchaResponse = "Please select recaptcha.";
+      }
+    }
+    else {
+      logger.debug("validateSubscriptionfields - reCaptcha verification is turned off")
+    }
+    callback(response);
+  },
 };

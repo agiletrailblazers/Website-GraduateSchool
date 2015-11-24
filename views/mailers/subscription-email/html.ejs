@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> Graduate School USA | </title>
+
+  <style type="text/css">
+  body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 14px;
+  }
+
+  a {
+    color: #337AB7;
+    text-decoration:none;
+    outline: none;
+  }
+
+  h1 {
+    color: #337AB7;
+    font-size: 24px;
+  }
+
+  h2 {
+    color: #337AB7;
+    font-size: 18px;
+    padding: 10px 0 5px 0;
+  }
+
+p.footer {
+  color: #999;
+  font-size: 11px;
+  }
+  </style>
+</head>
+<body>
+<h1>The following is a request to <%= subscriptionAction %>:</h1>
+<h2>Name</h2>
+<p>First Name: <strong> <%= firstName %></strong></p>
+<p>Middle Name: <strong> <%= middleName %></strong></p>
+<p>Last Name: <strong><%= lastName %></strong></p>
+<% if ( mailSubscription == "true") { %>
+  <h2>Address</h2>
+  <p>Organization: <strong><%= organization %></strong></p>
+  <p>Street: <strong><%= street %></strong></p>
+  <p>Suite: <strong><%= apartment %></strong></p>
+  <p>City: <strong><%= city %></strong></p>
+  <p>State: <strong><%= state %></strong></p>
+  <p>Zip Code: <strong><%= zip %></strong></p>
+  <p>Country: <strong><%= country %></strong></p>
+  <p>Telephone Number: <strong><%= phone %></strong></p>
+  <hr>
+<% } %>
+<% if (emailSubscription == "true") { %>
+  <h2>Email</h2>
+  <p>Email Address: <strong><%= email %></strong></p>
+  <hr>
+<% } %>
+
+<h2>Area(s) Of Interest</h2>
+<table>
+  <% if ((areaOfInterest != "")) {
+    areaOfInterest.forEach(function(curr) { %>
+      <tr>
+        <td><strong><%= curr %></strong></td>
+      </tr>
+    <% });
+  }%>
+</table>
+<br>
+<hr>
+<p class="footer">Sent from GraduateSchool.edu - Request for Subscription(s).</p>
+</div>
+</body>
+</html>

@@ -48,7 +48,8 @@ router.post('/mailer-contact-us', function (req, res, next) {
       google.verifyCaptcha(function (response) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
-          mailer.sendContactUs(function (response) {
+
+          mailer.sendSubscriptionRequest(function (response) {
             handleResponse(res, response);
           }, params);
         } else {
@@ -199,6 +200,45 @@ router.post('/mailer-request-catalog', function (req, res, next) {
   }, params);
 });
 
+router.post('/mailer-subscription', function (req, res, next) {
+  params = req.body;
+  logger.debug("In mailer-subscription");
+  //move code to router service
+  routerService.validateSubscriptionfields(function (response) {
+    // Send email if there are no errors.
+    if (Object.keys(response.errors).length === 0) {
+      //verify captcha
+      if (config("properties").skipReCaptchaVerification) {
+        logger.debug("mailer-subscription - reCaptcha verification is turned off");
+        // send subscription email
+        sendSubscriptionEmail(res, params);
+      }
+      else {
+        google.verifyCaptcha(function (response) {
+          if ((response != null) && (response.statusCode == 200) ) {
+            logger.debug("mailer-subscription captcha verification success");
+            // send subscription email
+            sendSubscriptionEmail(res, params);
+          } else {
+            logger.debug("mailer-subscription captcha verification failed");
+            sendErrorResponse(res, response);
+          }
+        }, params.captchaResponse);
+      }
+    } else {
+      sendErrorResponse(res, response);
+    }
+  }, params);
+});
+
+function sendSubscriptionEmail(res, params) {
+  //send mail of success
+  logger.debug("Sending subscription email");
+  mailer.sendSubscriptionRequest(function (response) {
+    handleResponse(res, response);
+  }, params);
+}
+
 //send errors to client.
 function sendErrorResponse(res, response) {
   if ((response != null) && (response.errors != null)) {
@@ -206,7 +246,7 @@ function sendErrorResponse(res, response) {
     res.status(404).send(response.errors);
   } else {
     // Send error to client
-    res.status(500).send({"error": "Unexpected Exception Sending Mail"});
+    res.status(500).send({"error": "We have experienced a problem processing your request, please try again later."});
   }
 }
 
@@ -219,7 +259,7 @@ function handleResponse(res, response) {
   }
   else {
     // Send error to client
-    res.status(500).send({"error": "Unexpected Exception Sending Mail"});
+    res.status(500).send({"error": "We have experienced a problem processing your request, please try again later."});
   }
 }
 

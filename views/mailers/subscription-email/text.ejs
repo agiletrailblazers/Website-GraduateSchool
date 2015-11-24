@@ -1,0 +1,26 @@
+
+The following is a request to <%= subscriptionAction %>:
+
+First Name: <%= firstName %>
+Middle Name: <%= middleName %>
+Last Name: <%= lastName %>
+<% if (mailSubscription == "true") { %>
+  Organization: <%= organization %>
+  Street: <%= street %>
+  Suite: <%= apartment %>
+  City: <%= city %>
+  State: <%= state %>
+  Zip Code: <%= zip %>
+  Country: <%= country %>
+  Telephone Number: <%= phone %>
+<% } %>
+<% if (emailSubscription == "true") { %>
+  Email Address: <%= email %>
+<% } %>
+
+Area(s) Of Interest:
+<% if ((areaOfInterest != "")) {
+  areaOfInterest.forEach(function(curr) { %>
+      <%= curr %>
+  <% });
+}%>
