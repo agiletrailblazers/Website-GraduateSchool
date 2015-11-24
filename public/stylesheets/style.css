@@ -2202,6 +2202,10 @@ ul.see-more li {
   font-size: 14px !important;
 }
 
+.size13 {
+  font-size: 13px !important;
+}
+
 /* display only on mobile */
 .mobile {
   display: none;
