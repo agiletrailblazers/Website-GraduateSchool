@@ -38,8 +38,7 @@
                         <% for (var j = 0; j < faq.categories[i].questions.length; j++) { %>
                           <% var faqId = faq.categories[i].questions[j].fields.question.replace(/[^a-zA-Z0-9]/g, '-').replace(/--/g, '-').replace(/\-$/, "");%>
                           <section>
-                            <span class="glyphicon glyphicon-plus-sign"></span>
-                            <a href="#q-<%=i%>-<%= faqId %>" class="expand-section accordion-toggle" data-toggle="collapse"><%= faq.categories[i].questions[j].fields.question %></a>
+                            <a href="#q-<%=i%>-<%= faqId %>" class="expand-section accordion-toggle" data-toggle="collapse"><span class="glyphicon glyphicon-plus-sign"></span><%= faq.categories[i].questions[j].fields.question %></a>
                               <article id="q-<%=i%>-<%= faqId %>" class="collapse nested">
                                 <p><%- faq.categories[i].questions[j].fields.answer %></p>
                               </article>
