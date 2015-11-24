@@ -3,6 +3,7 @@
   var async = require('async');
   var router = express.Router();
   var config = require('konphyg')(__dirname + '/../../config');
+  var contentfulForms = require('../../API/contentful_forms.js');
 
   // Get Catalog Request Form  page.
   router.get('/subscription-form', function(req, res, next) {
@@ -24,13 +25,20 @@
         });
       },
       function(callback) {
+        var entryId = "2wAaVPf3aIWCAu0SeeI44O";
+        contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
+          title = response.fields.sectionTitle;
+          callback();
+        });
+      },
+      function(callback) {
         contentful.getReferenceData('us-states', function(result) {
           states = result;
           callback();
         });
       }], function(results) {
         res.render('forms/subscription_form', {
-          entry : arrayOfContent, title: "Subscription Form",
+          entry : arrayOfContent, title: title,
           states : states,
           skipReCaptcha : config("properties").skipReCaptchaVerification
         });

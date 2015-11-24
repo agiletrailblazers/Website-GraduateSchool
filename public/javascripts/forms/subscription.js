@@ -82,6 +82,7 @@ $(document).ready(function() {
         .done(function(data) {
           $(".loading").hide();
           alertify.success("Email sent!");
+          $("#form-wrap").toggle();
           switch (true) {
             case (subscriptionAction === $("#radioSubscribe").val()):
               $("#alertSuccessSubscribe").toggle();

@@ -8,7 +8,7 @@
     "defaultEmailUserName":"gs@agiletrailblazers.com",
     "defaultEmailUserPassword":"",
     "defaultEmailFromUserName":"gs@agiletrailblazers.com",
-    
+
     "contactUsToUserName":"gs@agiletrailblazers.com",
     "onsiteInquiryToUserName":"gs@agiletrailblazers.com",
     "onsiteInquiryEmailSubject":"Request for Training",
@@ -22,7 +22,7 @@
     "customerFeedBackFormEmailSubject":"Customer FeedBack Form",
     "catalogRequestEmailSubject":"Request for Catalog",
     "catalogRequestToUserName":"gs@agiletrailblazers.com",
-    "subscriptionRequestEmailSubject":"Request for Subscription",
+    "subscriptionRequestEmailSubject":"Request for Subscription/Unsubscription/Modification",
     "subscriptionRequestToUserName":"gs@agiletrailblazers.com",
 
     "googleAnalyticsId":"UA-66851185-2",
