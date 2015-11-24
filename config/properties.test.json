@@ -18,6 +18,7 @@
     "customerFeedBackFormEmailSubject":"Customer FeedBack Form",
     "catalogRequestEmailSubject":"Request for Catalog",
     "catalogRequestToUserName":"GSWebsiteForm@graduateschool.edu",
+    "subscriptionRequestToUserName":"GSWebsiteForm@graduateschool.edu",
 
     "certificateProgramGroup": {
       "applicationForm": {

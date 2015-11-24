@@ -19,6 +19,8 @@
     "customerFeedBackFormEmailSubject":"Customer FeedBack Form",
     "catalogRequestEmailSubject":"Request for Catalog",
     "catalogRequestToUserName":"gs@agiletrailblazers.com",
+    "subscriptionRequestToUserName":"gs@agiletrailblazers.com",
+
     "certificateProgramGroup": {
       "applicationForm": {
         "email": "gs@agiletrailblazers.com",

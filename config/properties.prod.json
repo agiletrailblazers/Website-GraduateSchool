@@ -9,6 +9,7 @@
     "defaultEmailFromUserName":"GSWebsiteForm@graduateschool.edu",
     "contactUsToUserName":"Customersupport@graduateschool.edu,John.Peppard@graduateschool.edu",
     "onsiteInquiryToUserName":"onsite@graduateschool.edu",
+    "subscriptionRequestToUserName":"Sergio.dasilva@graduateschool.edu",
 
     "certificateProgramGroup": {
       "applicationForm": {
