@@ -119,13 +119,9 @@ $(document).ready(function() {
   });
   $("#toPanel2Button-2").click(function() {
     $("#collapse2Link").trigger('click');
-  });
-  $("#toPanel3Button-2").click(function() {
     $("#collapse3Link").trigger('click');
   });
-  $("#toPanel4Button").click(function() {
-    $("#collapse4Link").trigger('click');
-  });
+
   $("#removeAlert").css('cursor', 'pointer');
   $("#removeAlert").click(function() {
     $("#alertError").slideUp();
@@ -196,4 +192,6 @@ $(document).ready(function() {
         });
     }
   });
+  $("#collapse1").addClass("in");
+
 });

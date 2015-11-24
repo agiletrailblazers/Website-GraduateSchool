@@ -1,29 +1,40 @@
-<div class="col-lg-12 outer-border form-fix padding20">
-      <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
-        <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-      </div>
-        <div id="contact-information">
-          <form role="form">
-            <div class="form-inline">
-              <div class="form-group">
-                <p><%= topParagraph %></p>
+<div class="col-lg-12 col-md-12 col-sm-12 outer-border form-fix padding20">
+  <div id="gs-form">
+    <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
+      <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+    </div>
+    <div id="alertSuccess" class="alert alert-sucess" role="alert" style="display:none;">
+      <p><b>Thank you for your interest in Graduate School USA.</b></p>
+      <p>Someone will be contacting you as soon as possible.</p>
+    </div>
+      <div id="contact-information">
+        <form role="form">
+          <div class="form-inline">
+            <span class="form-group">
+              <p><%= topParagraph %></p>
+            </span>
+          </div>
+          <div class="form-inline">
+            <span class="form-group">
+              <label for="inputFirstName">*First Name</label>
+              <input id="txtFirstName" name="firstName" type="text" class="form-control" required>
+            </span>
+            <span class="form-group">
+              <label for="inputLastName">*Last Name</label>
+              <input id="txtLastName" name="lastName" type="text" class="form-control" required>
+            </span>
+          </div>
+          <div class="form-inline">
+            <span class="form-group width-fixer">
+              <label for="communication"><strong>*Preferred mode of communication:</strong></label>
+              <div class="form-block">
+                <input type="radio" name="radCommunication" id="radioEmail" value="Email" checked/>
+                <label class="sub-label" for="radioEmail">Email</label>
+                <input type="radio" name="radCommunication" id="radioPhone" value="Phone" />
+                <label class="sub-label" for="radioPhone">Phone</label>
               </div>
-            </div>
-            <div class="form-inline">
-              <div class="form-group">
-                <label for="inputFirstName">*First Name</label>
-                <input id="txtFirstName" name="firstName" type="text" class="form-control" required><br>
-                <label for="inputLastName">*Last Name</label>
-                <input id="txtLastName" name="lastName" type="text" class="form-control" required>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="communication">*Preferred mode of communication</label>
-              <input type="radio" name="radCommunication" id="radioEmail" value="Email" checked/>
-              <label for="radioEmail">Email</label>
-              <input type="radio" name="radCommunication" id="radioPhone" value="Phone" />
-
-              <label for="radioPhone">Phone</label>
+            </span>
+            <span class="form-group">
               <div id="emailGroup">
                 <label for="inputEmail">*Email</label>
                 <input id="txtEmail" name="email" type="email" maxlength="255" required class="form-control">
@@ -32,8 +43,10 @@
                 <label for="inputPhone">*Daytime Phone Number</label>
                 <input id="telPhone" name="phone" type="tel" placeholder="XXX-XXX-XXXX" pattern="\d{3}[\-]\d{3}[\-]\d{4}" maxlength="12" class="form-control">
               </div>
-            </div>
-            <div class="form-group">
+            </span>
+          </div>
+          <div class="form-inline">
+            <span class="form-group">
               <label for="inputOtherSubject">*Subject</label>
               <select class="form-control" id="selInputSubject" name="inputSubject" required>
                 <option id="noSelect" disabled selected>Select One</option>
@@ -44,26 +57,26 @@
                   <br>
                   <% } %>
               </select>
-              </span>
-              <span id="otherSubject" class="form-group" style="display:none">
-                <label for="inputOtherSubject">Other Subject</label>
-                <input type="text" id="inputOtherSubject" name="inputOtherSubject" rows="1" cols="40" class="form-control">
-            </div>
-            <div class="comments">
-              <label>*Comments or Questions</label>
-              <br>
-              <textarea id="commentText" name="comments" rows="8" cols="40" class="form-control" required></textarea>
-            </div>
-            <br>
-           <div id="contactusCaptcha"></div>
-            <br>
-            <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
-            <br>
-            <br>
-          </form>
-        </div><!-- END Contact information  -->
-      <div id="alertSuccess" class="alert alert-sucess" role="alert" style="display:none;">
-        <p><b>Thank you for your interest in Graduate School USA.</b></p>
-        <p>Someone will be contacting you as soon as possible.</p>
-      </div>
+            </span>
+            <span id="otherSubject" class="form-group" style="display:none">
+              <label for="inputOtherSubject">Other Subject</label>
+              <input type="text" id="inputOtherSubject" name="inputOtherSubject" rows="1" class="form-control">
+            </span>
+          </div>
+          <div class="form-inline">
+            <span class="form-group">
+              <div class="comments">
+                <label>*Comments or Questions</label><br>
+                <textarea id="commentText" name="comments" rows="10" cols="80" class="form-control" required></textarea>
+              </div>
+            </span>
+          </div>
+          <br>
+         <div id="contactusCaptcha"></div>
+          <div class="spacer"></div>
+          <button type="submit" id="submitForm" name="submitForm" value="submitForm" onclick="window.location.href='#gs-form'">Submit</button>
+          <div class="spacer25"></div>
+        </form>
+      </div><!-- END Contact information  -->
+  </div>
 </div>

@@ -212,4 +212,5 @@ $(document).ready(function() {
     $("#alertError p").remove();
   });
   $("#collapse1").addClass("in");
+
 });

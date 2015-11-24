@@ -103,6 +103,7 @@ $(document).ready(function() {
     }
   });
 
+
   // Click through form.
   $("#toCDIButton").click(function() {
     $("#collapse2Link").trigger('click');
@@ -216,9 +217,11 @@ $(document).ready(function() {
   $("#ms").change(function() {
     if (($("[name='selCourses']").val() !== null) && ($("[name='selCourses']").val() !== "")&&
       (($("[name='selCourses']").val()).indexOf("OTHER")>-1)) {
+      $("#txtOtherCourseDiv").toggle();
       $("#txtOtherCourse").toggle();
       $('[for="txtOtherCourse"]').toggle();
     } else {
+      $("#txtOtherCourseDiv").hide();
       $("#txtOtherCourse").hide();
       $('[for="txtOtherCourse"]').hide();
       $("#txtOtherCourse").val("");
@@ -230,4 +233,6 @@ $(document).ready(function() {
   });
 
   $("#collapse1").addClass("in");
+
+
 });
