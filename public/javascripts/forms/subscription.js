@@ -122,7 +122,6 @@ $(document).ready(function() {
       $("#submitForm").show();
     } else {
       $(".email-fieldSet").hide();
-      $("#txtEmail").val("");
       if ($("#subscriptionTypeMail").is(':checked') == false) {
         $("#submitForm").hide();
       }
@@ -134,16 +133,6 @@ $(document).ready(function() {
       $("#submitForm").show();
     } else {
       $(".mail-fieldSet").hide();
-      $("#txtStreet").val("");
-      $("#txtStreet").blur();
-      $("#txtCity").val("");
-      $("#selState").val("");
-      $("#txtZip").val("");
-      $("#txtCountry").val("");
-      $("#txtApt").val("");
-      $("#txtPhone").val("");
-      $("#txtOrganizaiton").val("");
-
       if ($("#subscriptionTypeEmail").is(':checked') == false) {
         $("#submitForm").hide();
       }
