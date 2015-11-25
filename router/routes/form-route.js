@@ -98,10 +98,9 @@ router.get('/forms/proctor-request-form', function(req, res, next) {
     }
   ], function(results) {
     res.render('forms/proctor_request_form', {
-      sectionTitle: cmsEntry.fields.sectionTitle,
       sectionHeaderDescription: cmsEntry.fields.sectionHeaderDescription,
       sectionFooterDescription: cmsEntry.fields.sectionFooterDescription,
-      title: "Proctor Request Form",
+      title: cmsEntry.fields.sectionTitle,
       relatedLinks: cmsEntry.fields.relatedLinks,
       states: states
     });
