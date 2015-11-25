@@ -9,31 +9,31 @@
     "defaultEmailUserPassword":"Ramo0061",
     "defaultEmailFromUserName":"atbtools@agiletrailblazers.com",
 
-    "contactUsToUserName":"gs@agiletrailblazers.com",
-    "onsiteInquiryToUserName":"gs@agiletrailblazers.com",
-    "requestDuplicateCourseCompletionCertificateToUserName":"gs@agiletrailblazers.com",
-    "requestDuplicateOfficialGradeReportToUserName":"gs@agiletrailblazers.com",
-    "proctorRequestToUserName":"gs@agiletrailblazers.com",
-    "customerFeedBackFormToUserName":"gs@agiletrailblazers.com",
-    "certificateProgramFormToUserName":"gs@agiletrailblazers.com",
-    "catalogRequestToUserName":"gs@agiletrailblazers.com",
-    "subscriptionRequestToUserName":"gs@agiletrailblazers.com",
+    "contactUsToUserName":"gs-dev-test-email@agiletrailblazers.com",
+    "onsiteInquiryToUserName":"gs-dev-test-email@agiletrailblazers.com",
+    "requestDuplicateCourseCompletionCertificateToUserName":"gs-dev-test-email@agiletrailblazers.com",
+    "requestDuplicateOfficialGradeReportToUserName":"gs-dev-test-email@agiletrailblazers.com",
+    "proctorRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
+    "customerFeedBackFormToUserName":"gs-dev-test-email@agiletrailblazers.com",
+    "certificateProgramFormToUserName":"gs-dev-test-email@agiletrailblazers.com",
+    "catalogRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
+    "subscriptionRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
 
     "certificateProgramGroup": {
       "applicationForm": {
-        "email": "gs@agiletrailblazers.com",
+        "email": "gs-dev-test-email@agiletrailblazers.com",
         "subject": "Incoming Application Form Request"
       },
       "progressReport": {
-        "email": "gs@agiletrailblazers.com",
+        "email": "gs-dev-test-email@agiletrailblazers.com",
         "subject": "Incoming Progress Report Request"
       },
       "programCompletion": {
-        "email": "gs@agiletrailblazers.com",
+        "email": "gs-dev-test-email@agiletrailblazers.com",
         "subject": "Incoming Certificate of Program Completion Request"
       },
       "waiverRequest" : {
-        "email": "gs@agiletrailblazers.com",
+        "email": "gs-dev-test-email@agiletrailblazers.com",
         "subject": "Incoming Waiver Request"
       }
     },

@@ -20,19 +20,19 @@
 
     "certificateProgramGroup": {
       "applicationForm": {
-        "email": "gs@agiletrailblazers.com",
+        "email": "GSWebsiteForm@graduateschool.edu",
         "subject": "Incoming Application Form Request"
       },
       "progressReport": {
-        "email": "gs@agiletrailblazers.com",
+        "email": "GSWebsiteForm@graduateschool.edu",
         "subject": "Incoming Progress Report Request"
       },
       "programCompletion": {
-        "email": "gs@agiletrailblazers.com",
+        "email": "GSWebsiteForm@graduateschool.edu",
         "subject": "Incoming Certificate of Program Completion Request"
       },
       "waiverRequest" : {
-        "email": "gs@agiletrailblazers.com",
+        "email": "GSWebsiteForm@graduateschool.edu",
         "subject": "Incoming Waiver Request"
       }
     },
