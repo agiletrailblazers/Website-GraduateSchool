@@ -1169,7 +1169,7 @@ transition: background-color 300ms linear;
 .news-and-events a > h5 {
   font-size: 15px;
   text-align: left;
-  color: #000;
+  color: #1C578A;
   font-weight: bolder;
   -webkit-transition: background-color 300ms linear;
   -moz-transition: background-color 300ms linear;
@@ -1180,7 +1180,7 @@ transition: background-color 300ms linear;
 }
 
 .news-and-events a > h5:hover {
-  color: #1C578A;
+  color: #000;
   -webkit-transition: background-color 300ms linear;
   -moz-transition: background-color 300ms linear;
   -o-transition: background-color 300ms linear;
@@ -1757,7 +1757,7 @@ ul.footer-menu li a {
   right: 0px;
   bottom: 20px;
   z-index: 99;
-  opacity: 0.6;
+  opacity: 0.9;
 }
 
 #chat a {
@@ -2075,6 +2075,27 @@ a.archive:hover {
 hr.divider {
   border-color: #CCC !important;
 }
+
+.white-arrow {
+  color: #FFF !important;
+  top:1px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.blue-arrow {
+  color: #035A95 !important;
+  top:1px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 14px !important;
+}
+
+a:hover .blue-arrow  {
+  color: #000 !important;
+}
+
+
 
 /* 404 */
 .suggestions {
