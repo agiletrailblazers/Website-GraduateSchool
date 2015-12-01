@@ -395,7 +395,7 @@ module.exports = {
    });
  },
 
- getContentSnippet: function(callback, slug) {
+ getContentSnippet: function(slug, callback) {
    request({
      method: 'GET',
      url: 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries?content_type=vWuB3fpTWge2EU8ec0OOA&fields.slug=' + slug + '',
