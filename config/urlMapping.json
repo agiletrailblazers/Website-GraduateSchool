@@ -1,0 +1,14 @@
+{
+  "codeIdURL":"/course_details.php?cid=",
+  "courseOverviewURLMappings": {
+    "/course_details.php?cid=":"/courses/",
+    "/ace": "/search?search="
+  },
+  "filter":"http:\/\/graduateschool.edu",
+  "courseObjectiveURLMappings": {
+    "/course_details.php?cid=":"/courses/",
+    "/gaticl":"/search?search=",
+    "/finccl": "/search?search="
+  }
+
+}
