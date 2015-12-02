@@ -46,4 +46,19 @@ router.get(['/content/:content_slug','/content/:subfolder/:content_slug'], funct
   }, slug);
 });
 
+router.get(['/content-snippet/:snippet_slug','/content-snippet/:subfolder/:snippet_slug'], function(req, res, next) {
+  var slug = (typeof(req.params.subfolder) == 'undefined' ? '' : (req.params.subfolder + '/')) + req.params.snippet_slug;
+  contentful.getContentSnippet(slug, function(response) {
+    if (!response || !response.items || !response.items[0] || !response.items[0].fields ) {
+      //handle error
+      logger.error("Page not found: " + slug)
+      res.json({"title" : "Error", "snippetContent": "Sorry, page not found."});
+      return;
+    }
+    var content = response.items[0].fields;
+    res.json({"title" : content.title, "snippetContent": content.snippetContent});
+    return;
+  });
+});
+
 module.exports = router;
