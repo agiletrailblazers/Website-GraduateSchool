@@ -2095,6 +2095,13 @@ a:hover .blue-arrow  {
   color: #000 !important;
 }
 
+#snippetModal img {
+  max-width: 100%;
+}
+
+#snippetModal p {
+  text-align: justify;
+}
 
 
 /* 404 */

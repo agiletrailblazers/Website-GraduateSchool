@@ -56,7 +56,7 @@ router.get(['/content-snippet/:snippet_slug','/content-snippet/:subfolder/:snipp
       return;
     }
     var content = response.items[0].fields;
-    res.json({"title" : content.title, "snippetContent": content.snippetContent});
+    res.json({"title" : content.title, "snippetContent": marked(content.snippetContent)});
     return;
   });
 });
