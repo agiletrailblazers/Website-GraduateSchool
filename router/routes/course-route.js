@@ -12,25 +12,6 @@ var common = require("../../helpers/common.js");
 var config = require('konphyg')(__dirname + '/../../config');
 var common = require("../../helpers/common.js");
 
-
-function myfunction () {
-  var hrefURLs = [];
-  courseData.class.description.formatted.replace(/href=("|')(.*?)("|')/g, function(a, b, hrefURL) {
-    hrefURLs.push(hrefURL);
-  });
-  var urlMap = config("urlMapping").courseURLMappings;
-  var codeIdURL = config("urlMapping").codeIdURL;
-  hrefURLs.forEach(function(singleURL) {
-    singleURL = singleURL.trim();
-    if (common.isNotEmpty(urlMap[singleURL])) {
-      courseData.class.description.formatted = courseData.class.description.formatted.replace(singleURL,urlMap[singleURL]);
-    }else if ( common.isNotEmpty(singleURL) && singleURL.indexOf(codeIdURL)> -1 ) {
-      courseData.class.description.formatted =
-        courseData.class.description.formatted.replace(codeIdURL,urlMap[codeIdURL]);
-    }
-  });
-}
-
 // Get course details based off course code.
 router.get('/courses/:course_id', function(req, res, next){
   var courseId = req.params.course_id;
@@ -123,7 +104,8 @@ router.get('/courses/:course_id', function(req, res, next){
       }
 
       // replace old urls specified within course overview  with new ones provided by graduate school
-      courseData.class.description.formatted = courseData.class.description.formatted.replace(/http:\/\/graduateschool.edu/g, '');
+      var filter = new RegExp(config("urlMapping").filter,"g");
+      courseData.class.description.formatted = courseData.class.description.formatted.replace(filter, '');
       var hrefURLs = [];
       courseData.class.description.formatted.replace(/href=("|')(.*?)("|')/g, function(a, b, hrefURL) {
         hrefURLs.push(hrefURL);
@@ -143,7 +125,7 @@ router.get('/courses/:course_id', function(req, res, next){
       // add empty string to avoid exception
       courseData.class.objective = striptags(courseData.class.objective + "", allowedHtmlTags);
       // replace old urls specified within course objective  with new ones provided by graduate school
-      courseData.class.objective = courseData.class.objective.replace(/http:\/\/graduateschool.edu/g, '');
+      courseData.class.objective = courseData.class.objective.replace(filter, '');
       urls = [];
       courseData.class.objective.replace(/href=("|')(.*?)("|')/g, function(a, b, singleUrl) {
         urls.push(singleUrl);
