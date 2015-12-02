@@ -1,17 +1,17 @@
 
 function displayModal(slug) {
-  console.log("In displayModal, slug: " + slug);
-
   $(".loading").show();
   $.get("/content-snippet/" + slug)
   .done(function(data) {
-    console.log("In displayModal, snippet content: " + data);
-    $("#modalContent").replaceWith(data);
+    var dataJSON = JSON.parse(data);
+    $("#modalLabel").html(dataJSON.modalLabel);
+    $("#modalBody").html(dataJSON.modalBody);
     $(".loading").hide();
   })
   .fail(function(xhr, textStatus, errorThrown) {
+    $("#modalLabel").html("Error");
+    $("#modalBody").html("Content currently unavailable. Please try again.");
     $(".loading").hide();
-    $("#modalContent").replaceWith('<div id="modelContentError" class="col-lg-9 col-md-9 col-sm-8"><div id="alertError" class="alert alert-danger" role="alert">Content currently unavailable. Please try again.</div></div>');
   });
   return false;
 }

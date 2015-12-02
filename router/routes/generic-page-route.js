@@ -52,7 +52,10 @@ router.get(['/content-snippet/:snippet_slug','/content-snippet/:subfolder/:snipp
     if (!response || !response.items || !response.items[0] || !response.items[0].fields ) {
       //handle error
       logger.error("Page not found: " + slug)
-    	res.render('error', { message: 'Sorry, page not found.', error: null });
+      res.render('generic/generic_modal', {
+        title: "Error",
+        snippetContent: "Sorry, page not found."
+      });
       return;
     }
     var content = response.items[0].fields;
