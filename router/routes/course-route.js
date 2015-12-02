@@ -101,45 +101,14 @@ router.get('/courses/:course_id', function(req, res, next){
       if (common.isNotEmpty(courseData.class.description)) {
         // add empty string to avoid exception
         courseData.class.description.formatted = striptags(courseData.class.description.formatted + "", allowedHtmlTags);
+        // replace old urls specified within course overview  with new ones provided by graduate school
+        courseData.class.description.formatted = replaceUrl(courseData.class.description.formatted);
       }
-
-      // replace old urls specified within course overview  with new ones provided by graduate school
-      var filter = new RegExp(config("urlMapping").filter,"g");
-      courseData.class.description.formatted = courseData.class.description.formatted.replace(filter, '');
-      var hrefURLs = [];
-      courseData.class.description.formatted.replace(/href=("|')(.*?)("|')/g, function(a, b, hrefURL) {
-        hrefURLs.push(hrefURL);
-      });
-      var urlMap = config("urlMapping").courseOverviewURLMappings;
-      var codeIdURL = config("urlMapping").codeIdURL;
-      hrefURLs.forEach(function(singleURL) {
-        singleURL = singleURL.trim();
-        if (common.isNotEmpty(urlMap[singleURL])) {
-          courseData.class.description.formatted = courseData.class.description.formatted.replace(singleURL,urlMap[singleURL]);
-        }else if ( common.isNotEmpty(singleURL) && singleURL.indexOf(codeIdURL)> -1 ) {
-          courseData.class.description.formatted =
-            courseData.class.description.formatted.replace(codeIdURL,urlMap[codeIdURL]);
-        }
-      });
 
       // add empty string to avoid exception
       courseData.class.objective = striptags(courseData.class.objective + "", allowedHtmlTags);
       // replace old urls specified within course objective  with new ones provided by graduate school
-      courseData.class.objective = courseData.class.objective.replace(filter, '');
-      urls = [];
-      courseData.class.objective.replace(/href=("|')(.*?)("|')/g, function(a, b, singleUrl) {
-        urls.push(singleUrl);
-      });
-      var objectiveUrlMap = config("urlMapping").courseObjectiveURLMappings;
-      urls.forEach(function(singleURL) {
-        singleURL = singleURL.trim();
-        if (common.isNotEmpty(objectiveUrlMap[singleURL])) {
-          courseData.class.objective = courseData.class.objective.replace(singleURL,objectiveUrlMap[singleURL]);
-        }else if ( common.isNotEmpty(singleURL) && singleURL.indexOf(codeIdURL)> -1 ) {
-          courseData.class.objective =
-            courseData.class.objective.replace(codeIdURL,objectiveUrlMap[codeIdURL]);
-        }
-      });
+      courseData.class.objective = replaceUrl(courseData.class.objective);
 
       if (common.isNotEmpty(courseData.class.outcomes)) {
         courseData.class.outcomes.forEach(function(outcome) {
@@ -171,4 +140,30 @@ router.get('/courses/:course_id', function(req, res, next){
     }
   });
 });
+
+function replaceUrl(string) {
+  var filter = new RegExp(config("urlMapping").filter,"g");
+  string = string.replace(filter, '');
+
+  // find the values of href and store them in an array
+  var hrefURLs = [];
+  string.replace(/href=("|')(.*?)("|')/g, function(a, b, hrefURL) {
+    hrefURLs.push(hrefURL);
+  });
+
+  // replace only those url that are found in the urlMapping file.
+  var urlMap = config("urlMapping").courseOverviewURLMappings;
+  var codeIdURL = config("urlMapping").codeIdURL;
+  hrefURLs.forEach(function(singleURL) {
+    singleURL = singleURL.trim();
+    if (common.isNotEmpty(urlMap[singleURL])) {
+      string = string.replace(singleURL,urlMap[singleURL]);
+    }else if ( common.isNotEmpty(singleURL) && singleURL.indexOf(codeIdURL)> -1 ) {
+      string = string.replace(codeIdURL,urlMap[codeIdURL]);
+    }
+  });
+
+  return string;
+}
+
 module.exports = router;

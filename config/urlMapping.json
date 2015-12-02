@@ -1,14 +1,43 @@
 {
+  "filter":"http://graduateschool.edu",
   "codeIdURL":"/course_details.php?cid=",
   "courseOverviewURLMappings": {
     "/course_details.php?cid=":"/courses/",
-    "/ace": "/search?search="
-  },
-  "filter":"http://graduateschool.edu",
-  "courseObjectiveURLMappings": {
-    "/course_details.php?cid=":"/courses/",
-    "/gaticl":"/search?search=",
-    "/finccl": "/search?search="
+    "/ace":"/pagenotfound",
+    "/alp":"/pagenotfound",
+    "/books":"/pagenotfound",
+    "/certacct":"/pagenotfound",
+    "/certadmp":"/pagenotfound",
+    "/certcpm":"/pagenotfound",
+    "/certdpp":"/pagenotfound",
+    "/certedp":"/pagenotfound",
+    "/certenta":"/pagenotfound",
+    "/certfm":"/pagenotfound",
+    "/certgisp":"/pagenotfound",
+    "/certhort":"/pagenotfound",
+    "/certhrm":"/pagenotfound",
+    "/certld":"/pagenotfound",
+    "/certnhfs":"/pagenotfound",
+    "/certpa":"/pagenotfound",
+    "/certpleg":"/pagenotfound",
+    "/certplege":"/pagenotfound",
+    "/certpma":"/pagenotfound",
+    "/certpmbu":"/pagenotfound",
+    "/certpmel":"/pagenotfound",
+    "/certppm":"/pagenotfound",
+    "/clm":"/pagenotfound",
+    "/csg":"/pagenotfound",
+    "/elp":"/pagenotfound",
+    "/finccl":"/pagenotfound",
+    "/gaticl":"/pagenotfound",
+    "/matrix":"/pagenotfound",
+    "/nlp":"/pagenotfound",
+    "/organizational":"/pagenotfound",
+    "/residential":"/pagenotfound",
+    "/sub/ap/certificate.php":"/pagenotfound",
+    "/techreq":"/pagenotfound",
+    "/index.php?option=com_content&task=view&id=192&Itemid=197":"/pagenotfound",
+    "http://register./Catalog/EP_term_matrix_all_skinned.cfm":"/pagenotfound",
+    "/specit":"/pagenotfound"
   }
-
 }
