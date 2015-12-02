@@ -1,8 +1,11 @@
 
 function displayModal(slug) {
+  console.log("In displayModal, slug: " + slug);
+
   $(".loading").show();
   $.get("/content-snippet/" + slug)
   .done(function(data) {
+    console.log("In displayModal, snippet content: " + data);
     $("#modalContent").replaceWith(data);
     $(".loading").hide();
   })

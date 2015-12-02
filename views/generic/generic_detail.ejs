@@ -12,7 +12,9 @@
     <div id="main-container" class="container">
         <div class="row">
           <div class="col-lg-9 col-md-9 ">
-            <div id="modalContent"></div>
+            <div class="modal fade" id="snippetModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+              <div id="modalContent"></div>
+            </div>
             <% if (imageUrl) { %>
               <img src="<%= imageUrl %>" style="width:100%;" />
             <% } %>
