@@ -822,7 +822,7 @@ img.search {
 .advanced-box-filters .form-control {
   display: inline-block !important;
   width: 90%;
-  padding: 5px 10px !important;
+  padding: 5px 35px 5px 10px !important;
 }
 
 
@@ -874,7 +874,7 @@ p.search-box-intro {
 #mob-advancedSearchBox .form-control {
   display: inline-block !important;
   width: 80%;
-  padding: 5px 10px !important;
+  padding: 5px 35px 5px 10px  !important;
 }
 
 #mob-advancedSearchBox a.search {
