@@ -52,17 +52,12 @@ router.get(['/content-snippet/:snippet_slug','/content-snippet/:subfolder/:snipp
     if (!response || !response.items || !response.items[0] || !response.items[0].fields ) {
       //handle error
       logger.error("Page not found: " + slug)
-      res.render('generic/generic_modal', {
-        title: "Error",
-        snippetContent: "Sorry, page not found."
-      });
+      res.json({"title" : "Error", "snippetContent": "Sorry, page not found."});
       return;
     }
     var content = response.items[0].fields;
-    res.render('generic/generic_modal', {
-      title: content.title,
-      snippetContent: content.snippetContent
-    });
+    res.json({"title" : content.title, "snippetContent": content.snippetContent});
+    return;
   });
 });
 

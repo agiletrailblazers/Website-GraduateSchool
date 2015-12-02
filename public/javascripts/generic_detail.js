@@ -3,9 +3,8 @@ function displayModal(slug) {
   $(".loading").show();
   $.get("/content-snippet/" + slug)
   .done(function(data) {
-    var dataJSON = JSON.parse(data);
-    $("#modalLabel").html(dataJSON.modalLabel);
-    $("#modalBody").html(dataJSON.modalBody);
+    $("#modalLabel").html(data.title);
+    $("#modalBody").html(data.snippetContent);
     $(".loading").hide();
   })
   .fail(function(xhr, textStatus, errorThrown) {
