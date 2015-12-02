@@ -132,11 +132,13 @@ margin: 20px 0;
     display: none;
 }
 
-
-
 #refine-results select,  #refine-results input[type="checkbox"], #pagination select, #number-of-items select {
   border: 2px solid #87ACCE;
   border-radius: 0;
+}
+
+#refine-results select {
+  padding: 5px 35px 5px 10px;
 }
 
 #number-of-items select, #pagination select {
@@ -262,7 +264,6 @@ margin: 20px 0;
   -o-transition: background-color 300ms linear;
   -ms-transition: background-color 300ms linear;
   transition: background-color 300ms linear;
-
 }
 
 #searchResults .nav-tabs > li.active > a {
