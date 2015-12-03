@@ -23,7 +23,7 @@
                 <section>
                   <% if (sections[i].collapse && sections[i].title){ %>
                     <a href="#<%= i %>" class="expand-section accordion-toggle" data-toggle="collapse">
-                      <span class="glyphicon glyphicon-plus-sign"></span><%= sections[i].title %></a>
+                      <span class="glyphicon glyphicon-plus-sign"></span><%= sections[i].title %></a><a name="Section<%= i+1 %>"></a>
                           <article id="<%= i %>" class="collapse nested">
                             <%- markdown(sections[i].content || '') %>
                           </article>
