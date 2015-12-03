@@ -22,6 +22,20 @@ router.get(['/content/:content_slug','/content/:subfolder/:content_slug'], funct
          }
        });
     }
+
+    var includedEntries = response.includes.Entry;
+    var snippetContent = function (sectionSnippet) {
+        if (!includedEntries || !sectionSnippet || !sectionSnippet.sys || !sectionSnippet.sys.id) {
+          return null;
+        }
+        for (i = 0; i < includedEntries.length; i++) {
+          if (includedEntries[i].sys.id === sectionSnippet.sys.id) {
+            return includedEntries[i].fields.snippetContent;
+          }
+        }
+      return null;
+    };
+
     res.render('generic/generic_detail', {
       title: content.title,
       slug: content.slug,
@@ -31,16 +45,16 @@ router.get(['/content/:content_slug','/content/:subfolder/:content_slug'], funct
       imageUrl: imageUrl,
       markdown: marked,
       sections: [
-      { title: content.sectionTitle1, content: content.section1, collapse: content.sectionCollapse1 },
-      { title: content.sectionTitle2, content: content.section2, collapse: content.sectionCollapse2 },
-      { title: content.sectionTitle3, content: content.section3, collapse: content.sectionCollapse3 },
-      { title: content.sectionTitle4, content: content.section4, collapse: content.sectionCollapse4 },
-      { title: content.sectionTitle5, content: content.section5, collapse: content.sectionCollapse5 },
-      { title: content.sectionTitle6, content: content.section6, collapse: content.sectionCollapse6 },
-      { title: content.sectionTitle7, content: content.section7, collapse: content.sectionCollapse7 },
-      { title: content.sectionTitle8, content: content.section8, collapse: content.sectionCollapse8 },
-      { title: content.sectionTitle9, content: content.section9, collapse: content.sectionCollapse9 },
-      { title: content.sectionTitle10, content: content.section10, collapse: content.sectionCollapse10 }
+      { title: content.sectionTitle1, content: content.section1, collapse: content.sectionCollapse1, snippet: snippetContent(content.sectionSnippet1) },
+      { title: content.sectionTitle2, content: content.section2, collapse: content.sectionCollapse2, snippet: snippetContent(content.sectionSnippet2) },
+      { title: content.sectionTitle3, content: content.section3, collapse: content.sectionCollapse3, snippet: snippetContent(content.sectionSnippet3) },
+      { title: content.sectionTitle4, content: content.section4, collapse: content.sectionCollapse4, snippet: snippetContent(content.sectionSnippet4) },
+      { title: content.sectionTitle5, content: content.section5, collapse: content.sectionCollapse5, snippet: snippetContent(content.sectionSnippet5) },
+      { title: content.sectionTitle6, content: content.section6, collapse: content.sectionCollapse6, snippet: snippetContent(content.sectionSnippet6) },
+      { title: content.sectionTitle7, content: content.section7, collapse: content.sectionCollapse7, snippet: snippetContent(content.sectionSnippet7) },
+      { title: content.sectionTitle8, content: content.section8, collapse: content.sectionCollapse8, snippet: snippetContent(content.sectionSnippet8) },
+      { title: content.sectionTitle9, content: content.section9, collapse: content.sectionCollapse9, snippet: snippetContent(content.sectionSnippet9) },
+      { title: content.sectionTitle10, content: content.section10, collapse: content.sectionCollapse10, snippet: snippetContent(content.sectionSnippet10) }
      ]
     });
   }, slug);
