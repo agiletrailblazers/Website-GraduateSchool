@@ -101,9 +101,8 @@ form button:hover, form button:active {
   transition: box-shadow 300ms linear 0s;
 }
 
-#gs-form input[type="checkbox"]:focus, #gs-form input[type="radio"]:focus {
-  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.35) inset, 0px 7px 8px rgba(102, 175, 233, 0.8);
-}
+/*#gs-form input:focus + label	{ text-shadow: 1px 1px 3px #000; color: #2C7AD0; }
+*/
 
 form button:focus{
 border-bottom: 2px solid #be0f34;
@@ -265,3 +264,15 @@ border-bottom: 2px solid #be0f34;
        text-shadow: 0 0 0 #777 !important;
     }
 }
+
+/*input[type="radio" i], input[type="checkbox" i] {
+    background-color: initial;
+    margin: 0.5ex;
+    padding: initial;
+    border: initial;
+}
+
+input[type="checkbox" i] {
+    -webkit-appearance: checkbox;
+    box-sizing: border-box;
+}*/
