@@ -101,9 +101,6 @@ form button:hover, form button:active {
   transition: box-shadow 300ms linear 0s;
 }
 
-/*#gs-form input:focus + label	{ text-shadow: 1px 1px 3px #000; color: #2C7AD0; }
-*/
-
 form button:focus{
 border-bottom: 2px solid #be0f34;
 }
