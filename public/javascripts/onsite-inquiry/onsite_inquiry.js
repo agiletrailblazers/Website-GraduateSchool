@@ -169,9 +169,9 @@ $(document).ready(function() {
     } else {
       data.course.helpWithEnrollment = 'No';
     }
-    if ($("#selHearAbout").val().startsWith("Other")) {
+    if ($("#selHearAbout").val().slice(0, 5) == "Other") {
       data.hearAbout = $("#txtHearAboutOther").val();
-    } else if ($("#selHearAbout").val().startsWith("Select One")) {
+    } else if ($("#selHearAbout").val().slice(0, 10) == "Select One") {
       data.hearAbout = "";
     } else if ($("#selHearAbout").val() !== null) {
       data.hearAbout = $("#selHearAbout").val();
@@ -214,7 +214,7 @@ $(document).ready(function() {
     $("#txtOtherLocations").toggle();
   });
   $("#selHearAbout").change(function() {
-    if (this.value.startsWith("Other")) {
+    if (this.value.slice(0, 5) == "Other") {
       $("#hearAboutOther").show();
       $("#txtHearAboutOther").focus();
     } else {
