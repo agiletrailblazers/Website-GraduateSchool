@@ -23,16 +23,22 @@ router.get(['/content/:content_slug','/content/:subfolder/:content_slug'], funct
        });
     }
 
-    var includedEntries = response.includes.Entry;
     var snippetContent = function (sectionSnippet) {
-        if (!includedEntries || !sectionSnippet || !sectionSnippet.sys || !sectionSnippet.sys.id) {
-          return null;
+      if (!sectionSnippet || !sectionSnippet.sys || !sectionSnippet.sys.id) {
+        return null;
+      }
+
+      if (!response.includes || !response.includes.Entry) {
+        logger.error("Snippet reference included in content but no included Entry")
+        return null;
+      }
+
+      var includedEntries = response.includes.Entry;
+      for (i = 0; i < includedEntries.length; i++) {
+        if (includedEntries[i].sys.id === sectionSnippet.sys.id) {
+          return includedEntries[i].fields.snippetContent;
         }
-        for (i = 0; i < includedEntries.length; i++) {
-          if (includedEntries[i].sys.id === sectionSnippet.sys.id) {
-            return includedEntries[i].fields.snippetContent;
-          }
-        }
+      }
       return null;
     };
 
