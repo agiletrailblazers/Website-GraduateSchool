@@ -255,11 +255,6 @@ ul.dropdown-menu li a {
   	content: '';
 
   }
-  #nav-top .hide-panel a {
-
-  }
-  #nav-top .toggle:hover a { top: 10px; }
-  #nav-top .toggle.hide-panel:hover a { top: 8px; }
 
 
 #nav-top h4 {	margin-bottom:17px;	font-size:18px; border-bottom: 1px solid #E7E7E7; line-height:46px }
@@ -333,9 +328,7 @@ transition: background-color 300ms linear;
   transition: background-color 300ms linear;
 }
 
-#nav-top ul.nav li:hover {
 
-}
 
 .user-icon {
   margin: -8px 0 0 0;
@@ -387,15 +380,29 @@ transition: background-color 300ms linear;
 
 .nav-top {
   border-bottom: 2px solid #01274F;
-  background: transparent linear-gradient(to right, #2A4D77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274F 100%) repeat scroll 0% 0%;
   padding: 0;
   top:0;
+  background: #2a4d77; /* Old browsers */
+  background: -moz-linear-gradient(left,  #2a4d77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274f 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#2a4d77), color-stop(53%,#3B6FA0), color-stop(51%,#01274f), color-stop(100%,#01274f)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left,  #2a4d77 0%,#3B6FA0 26%,#3D6F9E 63%,#01274f 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left,  #2a4d77 0%,#3B6FA0 53%,#3D6F9E 63%,#01274f 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left,  #2a4d77 0%,#3B6FA0 53%,#3D6F9E 63%,#01274f 100%); /* IE10+ */
+  background: linear-gradient(to right,  #2a4d77 0%,#3B6FA0 53%,#3D6F9E 63%,#01274f 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a4d77', endColorstr='#01274f',GradientType=1 ); /* IE6-9 */
 }
 
 .nav-top-bar {
-  background: transparent linear-gradient(to right, #2A4D77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274F 100%) repeat scroll 0% 0%;
   height: 33px;
   margin: 0 0 0 0;
+  background: #2a4d77; /* Old browsers */
+  background: -moz-linear-gradient(left,  #2a4d77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274f 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#2a4d77), color-stop(53%,#3B6FA0), color-stop(51%,#01274f), color-stop(100%,#01274f)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left,  #2a4d77 0%,#3B6FA0 26%,#3D6F9E 63%,#01274f 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left,  #2a4d77 0%,#3B6FA0 53%,#3D6F9E 63%,#01274f 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left,  #2a4d77 0%,#3B6FA0 53%,#3D6F9E 63%,#01274f 100%); /* IE10+ */
+  background: linear-gradient(to right,  #2a4d77 0%,#3B6FA0 53%,#3D6F9E 63%,#01274f 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a4d77', endColorstr='#01274f',GradientType=1 ); /* IE6-9 */
 }
 
 .nav-top-bar ul {
@@ -423,9 +430,16 @@ transition: background-color 300ms linear;
   left: 0;
   right: 0;
   width: 100%;
-  background: transparent linear-gradient(to right, #2A4D77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274F 100%) repeat scroll 0% 0%;
   height: 35px;
   margin: 0 0 0 0;
+  background: #2a4d77; /* Old browsers */
+  background: -moz-linear-gradient(left,  #2a4d77 0%, #3B6FA0 53%, #3D6F9E 63%, #01274f 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#2a4d77), color-stop(53%,#3B6FA0), color-stop(51%,#01274f), color-stop(100%,#01274f)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left,  #2a4d77 0%,#3B6FA0 26%,#3D6F9E 63%,#01274f 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left,  #2a4d77 0%,#3B6FA0 53%,#3D6F9E 63%,#01274f 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left,  #2a4d77 0%,#3B6FA0 53%,#3D6F9E 63%,#01274f 100%); /* IE10+ */
+  background: linear-gradient(to right,  #2a4d77 0%,#3B6FA0 53%,#3D6F9E 63%,#01274f 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a4d77', endColorstr='#01274f',GradientType=1 ); /* IE6-9 */
 }
 
 .left-panel ul li a {
@@ -481,6 +495,7 @@ transition: background-color 300ms linear;
   background: transparent;
   color: #FFF;
   text-decoration: none;
+  text-align: left;
   opacity: 0.6;
   -webkit-transition: opacity 300ms linear;
   -moz-transition: opacity 300ms linear;

@@ -1,0 +1,53 @@
+.advanced-box-filters .form-control {
+  display: inline-block !important;
+  width: 90%;
+  padding: 0px 0px 0px 5px !important;
+}
+
+.advanced-box-filters select {
+    -webkit-appearance: none;
+    appearance: none;
+    -moz-appearance: none;
+    background: #FFF !important;
+}
+
+#refine-results select, #pagination select, #number-of-items select {
+  -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+  background: #FFF !important;
+}
+
+#refine-results select {
+  padding: 0px 0px 0px 5px !important;
+}
+
+#number-of-items select, #pagination select {
+  width: auto;
+  padding: 0px 0px 0px 5px !important;
+  display: inline-block;
+}
+
+#gs-form .form-control {
+  padding: 0 0 0 10px;
+  font-size: 14px;
+  line-height: 1.42857;
+  background: #EEEEEE !important;
+}
+
+#gs-form select {
+  -moz-appearance: none;
+  -webkit-appearance:none;
+  appearance:none;
+  background: #EEEEEE !important;
+  outline: none;
+ -moz-outline: none;
+}
+
+#gs-form select:focus, #gs-form select:focus option, #gs-form select::-ms-value  {
+  background-color: #EEEEEE !important;
+}
+
+#gs-form select > option {
+    background-color: #EEEEEE !important;
+}

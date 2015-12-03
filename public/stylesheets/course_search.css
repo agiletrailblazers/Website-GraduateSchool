@@ -68,8 +68,12 @@ color: #FFF !important;
 
 .panel > .panel-heading.gs {
     background-image: none !important;
-    /*background-image: linear-gradient(to bottom, #F5F5F5 0px, #E8E8E8 100%);*/
-    background-color: #427EB4 !important;
+    background: #427EB4 !important; /* Old browsers */
+    background: -moz-linear-gradient(left,  #427EB4 0%,  #427EB4 80%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#427EB4), color-stop(80%,#427EB4)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #427EB4 0%,#427EB4 80%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #427EB4 0%, #427EB4 80%); /* Opera 11.10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#427EB4', endColorstr='#427EB4',GradientType=1 ); /* IE6-9 */
 
 }
  .panel-heading.gs a {
@@ -96,7 +100,7 @@ color: #FFF !important;
 
 .panel .gs a:hover, div.refine p:hover {
   background-color: transparent !important;
-  color: #002F5F !important;
+  color: #000 !important;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -o-transition: all 0.2s;

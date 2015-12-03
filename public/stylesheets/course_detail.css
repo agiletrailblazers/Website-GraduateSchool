@@ -39,8 +39,14 @@ table.details td {
 
 .panel > .panel-heading.course-detail {
     background-image: none !important;
-    background-color: #427EB4 !important;
     border-radius: 0 !important;
+    background: #427EB4 !important; /* Old browsers */
+    background: -moz-linear-gradient(left,  #427EB4 0%,  #427EB4 80%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#427EB4), color-stop(80%,#427EB4)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #427EB4 0%,#427EB4 80%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #427EB4 0%,#427EB4 80%); /* Opera 11.10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#427EB4', endColorstr='#427EB4',GradientType=1 ); /* IE6-9 */
+
 }
 
 .panel .course-detail h4.panel-title {
