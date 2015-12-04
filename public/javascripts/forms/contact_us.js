@@ -145,7 +145,7 @@ $(document).ready(function() {
     }
   });
   $('#selInputSubject').change(function() {
-    if (this.value == "Other") {
+    if (this.value.trim() == "Other") {
       $("#otherSubject").show();
       $("#inputOtherSubject").focus();
     } else {
