@@ -943,7 +943,7 @@ a.go-button:hover, a.go-button:active {
     position:absolute;
     background-color: #FFF !important;
     overflow: visible;
-    z-index: 99;
+    z-index: 1001;
     top: 0;
     right: 6px;
     width: 100%;
