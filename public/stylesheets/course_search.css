@@ -259,9 +259,11 @@ margin: 20px 0;
 }
 
 #searchResults .nav-tabs > li > a {
-  background: #F2F2F2;
-  border: solid 2px #DDD !important;
-  color: #000;
+  background: #FFF;
+  border-width: 1px !important;
+  border: none !important;
+  border-bottom: 1px solid #DDD;
+  color: #444;
   font-size: 14px;
   -webkit-transition: background-color 300ms linear;
   -moz-transition: background-color 300ms linear;
@@ -271,23 +273,20 @@ margin: 20px 0;
 }
 
 #searchResults .nav-tabs > li.active > a {
-  color: #FFF;
+  color: #444;
   cursor: default;
-  background: #427EB4;
-  border: solid 2px #DDD;
+  background: linear-gradient(to bottom, #F2F2F2 0px, #FFF 100%);
+  border: solid 1px #DDD !important;
+  border-bottom: 2px solid #FFF !important;
+  border-style: solid;
+  border-color: #DDD #DDD #FFF;
   -moz-border-top-colors: none;
   -moz-border-right-colors: none;
   -moz-border-bottom-colors: none;
   -moz-border-left-colors: none;
   border-image: none;
-  -webkit-transition: background-color 300ms linear;
-  -moz-transition: background-color 300ms linear;
-  -o-transition: background-color 300ms linear;
-  -ms-transition: background-color 300ms linear;
-  transition: background-color 300ms linear;
+  transition: background-color 300ms linear 0s;
 }
-
-
 
 #searchResults .nav-tabs > li > a:hover, .nav-tabs > li.active > a:hover {
   color: #FFF;
@@ -300,7 +299,6 @@ margin: 20px 0;
   transition: background 300ms linear 0s !important;
 }
 
-
 #searchResults .nav-tabs > li > a {
   border: solid 2px transparent;
   margin-right: 0 !important;
@@ -308,18 +306,16 @@ margin: 20px 0;
   border-radius:  0;
 }
 
-#searchResults .nav > li > a {
+#searchResults .nav > li > a, #searchResults .nav > li.active > a{
   position: relative;
   display: block;
-  padding: 21px 20px;
-  margin-top: -3px;
+  padding: 17px 20px;
+  margin-top: 2px;
 }
-
 
 #searchResults .nav > li > a.disabled, #searchResults .nav > li > a.disabled:hover {
   color: #AAA !important;
   background: transparent !important;
-  border: none !important;
   pointer-events: none;
   cursor: default;
 }
@@ -340,4 +336,20 @@ margin: 20px 0;
 
 .tab-fix {
   display: block;
+}
+
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: #FFF;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #DC1B46;
+    border-radius: 10px;
+    margin: 0 0 0 5px;
 }
