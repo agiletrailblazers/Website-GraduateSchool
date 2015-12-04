@@ -65,6 +65,7 @@
     "https://gsconnect.graduateschool.edu/p5d6plugus1/":"/pagenotfound",
     "Learning/TLSReq.cfm":"/pagenotfound",
     "../programs_services/DistanceLearning/TLSReq.cfm":"/pagenotfound",
-    "cgi-bin/sb/page.cgi/aip=?page=100841":"/pagenotfound"
+    "cgi-bin/sb/page.cgi/aip=?page=100841":"/pagenotfound",
+    "/relatedcourses":"/pagenotfound"
   }
 }
