@@ -51,3 +51,7 @@
 #gs-form select > option {
     background-color: #EEEEEE !important;
 }
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .open > a {
+    color: #000 !important;
+}
