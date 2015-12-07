@@ -56,6 +56,10 @@ body {
   color: #444;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 img.responsive {
   width : 100%;
   max-width: 100%;

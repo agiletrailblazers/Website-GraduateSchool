@@ -242,6 +242,8 @@ margin: 20px 0;
     margin-bottom: 0px;
     list-style: outside none none;
     height: 60px;
+    bottom: -1px;
+    position: relative;
 }
 
 #searchResults .nav-tabs {
@@ -250,7 +252,6 @@ margin: 20px 0;
 
 #searchResults .nav-tabs > li {
     float: left;
-    margin-bottom: -1px;
 }
 
 #searchResults .nav > li {
@@ -259,12 +260,10 @@ margin: 20px 0;
 }
 
 #searchResults .nav-tabs > li > a {
-  background: #FFF;
-  border-width: 1px !important;
-  border: none !important;
-  border-bottom: 1px solid #DDD;
-  color: #444;
-  font-size: 14px;
+  font-size: 15px;
+  padding: 15px;
+  border: solid 1px transparent;
+  color: #444444;
   -webkit-transition: background-color 300ms linear;
   -moz-transition: background-color 300ms linear;
   -o-transition: background-color 300ms linear;
@@ -272,41 +271,46 @@ margin: 20px 0;
   transition: background-color 300ms linear;
 }
 
-#searchResults .nav-tabs > li.active > a {
-  color: #444;
+
+#searchResults .nav-tabs > li.active > a,.nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+  color: #444444;
   cursor: default;
-  background: linear-gradient(to bottom, #F2F2F2 0px, #FFF 100%);
-  border: solid 1px #DDD !important;
-  border-bottom: 2px solid #FFF !important;
-  border-style: solid;
-  border-color: #DDD #DDD #FFF;
+  background-image: linear-gradient(to bottom, #F2F2F2 0px, #FFF 100%);
+  border-top: solid 1px #DDD;
+  border-bottom: solid 1px #FFF;
+  border-left:solid 1px #DDD;
+  border-right:solid 1px #DDD;
   -moz-border-top-colors: none;
   -moz-border-right-colors: none;
   -moz-border-bottom-colors: none;
   -moz-border-left-colors: none;
   border-image: none;
-  transition: background-color 300ms linear 0s;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+  z-index: 2;
 }
 
-#searchResults .nav-tabs > li > a:hover, .nav-tabs > li.active > a:hover {
-  color: #FFF;
-  background: rgba(0, 0, 0, 0.8) !important;
-  border: solid 2px #DDD;
-  -webkit-transition: background 300ms linear;
-  -moz-transition: background 300ms linear;
-  -o-transition: background 300ms linear;
-  -ms-transition: background 300ms linear;
-  transition: background 300ms linear 0s !important;
+#searchResults .nav-tabs > li > a:hover{
+  color: #444444;
+  border-top: solid 1px #DDD;
+  border-bottom: solid 1px #FFF;
+  border-left:solid 1px #DDD;
+  border-right:solid 1px #DDD;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
 }
 
 #searchResults .nav-tabs > li > a {
-  border: solid 2px transparent;
-  margin-right: 0 !important;
-  line-height: 1.42857;
-  border-radius:  0;
+border-radius:  0;
 }
 
-#searchResults .nav > li > a, #searchResults .nav > li.active > a{
+#searchResults .nav > li > a{
   position: relative;
   display: block;
   padding: 17px 20px;
@@ -316,9 +320,11 @@ margin: 20px 0;
 #searchResults .nav > li > a.disabled, #searchResults .nav > li > a.disabled:hover {
   color: #AAA !important;
   background: transparent !important;
+  border: none !important;
   pointer-events: none;
   cursor: default;
 }
+
 
 #searchResults .nav > li {
   width: 50%;
