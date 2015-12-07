@@ -83,38 +83,32 @@
                   <input type="text" id="txtFormerLastName" class="form-control"  tabindex="7">
                 </span>
               </div>
-              <div id="mobile-block" class="form-inline">
-                  <label for="txtSSN" class="ssn-title">Social Security Number (SSN)</label><br>
+              <div class="form-inline">
+                <span id="mobile-block" class="form-group">
+                  <label for="dateBirth">Date of birth</label><br>
                   <span class="form-group">
-                    <input type="text" id="txtSSNa" class="form-control width-third" size="5" maxlength="3" tabindex="8" >
-                  </span>
-                  <span class="form-group">
-                    <input type="text" id="txtSSNb" class="form-control width-third" size="2"  maxlength="2" tabindex="9" >
-                  </span>
-                  <span class="form-group">
-                    <input type="text" id="txtSSNc" class="form-control width-third" size="4" maxlength="4" tabindex="10">
-                  </span>
-              </div>
-              <div id="mobile-block" class="form-inline">
-                <label for="dateBirth" class="ssn-title">Date of birth</label><br>
-                <span class="form-group">
-                  <select id="month" name="month" class="form-control width-third" tabindex="11">
-                        <option value='' default selected>Month</option>
-                    <% for (var i = 1; i <= 12; i++) { %>
-                        <option value='<%= i %>'><%= i %> </option>
-                    <% } %>
-                  </select>
-                </span>
-                <span class="form-group">
-                  <select id="day" name="day" class="form-control width-third" tabindex="12">
-                      <option value='' default selected/>Day</option>
-                  <% for (var i = 1; i <= 31; i++) { %>
+                    <select id="month" name="month" class="form-control width-third" tabindex="8">
+                      <option value='' default selected>Month</option>
+                      <% for (var i = 1; i <= 12; i++) { %>
                       <option value='<%= i %>'><%= i %> </option>
-                  <% } %>
-                  </select>
+                      <% } %>
+                    </select>
+                  </span>
+                  <span class="form-group">
+                    <select id="day" name="day" class="form-control width-third" tabindex="9">
+                      <option value='' default selected/>Day</option>
+                      <% for (var i = 1; i <= 31; i++) { %>
+                      <option value='<%= i %>'><%= i %> </option>
+                      <% } %>
+                    </select>
+                  </span>
+                  <span class="form-group">
+                      <input type="text" id="txtYear" class="form-control width-third" size="4" maxlength="4" tabindex="10" placeholder="Year">
+                  </span>
                 </span>
                 <span class="form-group">
-                    <input type="text" id="txtYear" class="form-control width-third" size="4" maxlength="4" tabindex="13" placeholder="Year">
+                  <label for="txtSSN">Last 4 digits of SSN</label>
+                  <input type="text" id="txtSSN" class="form-control width-half" size="4" maxlength="4" tabindex="11" data-toggle="tooltip" title="Please enter the last four digits of your social security number">
                 </span>
               </div>
               <div class="form-inline">
