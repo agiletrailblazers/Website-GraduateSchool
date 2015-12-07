@@ -1,5 +1,6 @@
 {
-  "filter":"http://graduateschool.edu",
+  "filternowww":"http://graduateschool.edu",
+  "filterwithwww":"http://www.graduateschool.edu",
   "codeIdURL":"/course_details.php?cid=",
   "courseOverviewURLMappings": {
     "/course_details.php?cid=":"/courses/",
@@ -12,6 +13,7 @@
     "/certdpp":"/pagenotfound",
     "/certedp":"/pagenotfound",
     "/certenta":"/pagenotfound",
+    "/certfgap":"/pagenotfound",
     "/certfm":"/pagenotfound",
     "/certgisp":"/pagenotfound",
     "/certhort":"/pagenotfound",
@@ -66,6 +68,7 @@
     "Learning/TLSReq.cfm":"/pagenotfound",
     "../programs_services/DistanceLearning/TLSReq.cfm":"/pagenotfound",
     "cgi-bin/sb/page.cgi/aip=?page=100841":"/pagenotfound",
-    "/relatedcourses":"/pagenotfound"
+    "/relatedcourses":"/pagenotfound",
+    "/images/stories/docs/Administrative_Professionals_Day_Prosperity_on_Purpose_at_Work.pdf":"/pagenotfound"
   }
 }
