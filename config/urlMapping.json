@@ -70,5 +70,12 @@
     "cgi-bin/sb/page.cgi/aip=?page=100841":"/pagenotfound",
     "/relatedcourses":"/pagenotfound",
     "/images/stories/docs/Administrative_Professionals_Day_Prosperity_on_Purpose_at_Work.pdf":"/pagenotfound"
+    "/index.php?option=com_content&task=view&id=676&Itemid=205":"/pagenotfound",
+    "/cgi-bin/sb/nav.cgi/aip=?nav=100902":"/pagenotfound",
+    "http://register.graduateschool.edu/Catalog/EP_term_matrix_all_skinned.cfm":"/pagenotfound",
+    "/cgi-bin/sb/page.cgi/?page=100479":"/pagenotfound",
+    "/cgi-bin/sb/page.cgi/?page=100492":"/pagenotfound",
+    "/cgi-bin/sb/page.cgi/aip=?page=100841":"/pagenotfound",
+    "/Catalog/EP_term_matrix_all_skinned.cfm":"/pagenotfound"
   }
 }
