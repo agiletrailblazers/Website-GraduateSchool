@@ -1,6 +1,6 @@
 {
-  "filter":"http://graduateschool.edu",
-  "filterGS":"http://www.graduateschool.edu",
+  "filternowww":"http://graduateschool.edu",
+  "filterwithwww":"http://www.graduateschool.edu",
   "codeIdURL":"/course_details.php?cid=",
   "courseOverviewURLMappings": {
     "/course_details.php?cid=":"/courses/",
