@@ -1,21 +1,21 @@
 <div id="searchResults" class="row">
   <% include filters %>
-  <div class="col-lg-9 col-md-9 col-sm-8">
+  <div class="col-lg-9 col-md-8 col-sm-8">
     <div class="row tabs">
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding">
           <div id="searchResults">
             <ul class="nav nav-tabs">
               <li class="<%= (params.tab == 'course') ? 'active' : '' %>">
-                <a data-toggle="tab" href="#course-search-results" data-tab="course" class="<%= (courseResult && courseResult.numFound > 0) ? '' : 'disabled' %>mob-tab"><img src="/images/tab-icon.png" alt="" class="tab-icon mobile" />  <span class="tab-fix"> <img src="../images/course-icon.png" alt=""> Courses  <span class="badge"><%= (courseResult && courseResult.numFound) ? courseResult.numFound : 0 %></span></span></a>
+                <a data-toggle="tab" href="#course-search-results" data-tab="course" class="<%= (courseResult && courseResult.numFound > 0) ? '' : 'disabled' %>mob-tab"><span class="tab-fix"> <img src="../images/course-icon.png" alt=""> Courses  <span class="badge"><%= (courseResult && courseResult.numFound) ? courseResult.numFound : 0 %></span></span></a>
               </li>
               <li class="<%= (params.tab == 'site') ? 'active' : '' %>">
-                <a data-toggle="tab" href="#site-search-results" data-tab="site" class="<%= (siteResult && siteResult.numFound > 0) ? '' : 'disabled' %>mob-tab"><img src="/images/tab-icon.png" alt="" class="tab-icon mobile" /> <span class="tab-fix"> <img src="../images/website-icon.png" alt="">  Site Search  <span class="badge"><%= (siteResult && siteResult.numFound) ? siteResult.numFound : 0 %></span></span></a>
+                <a data-toggle="tab" href="#site-search-results" data-tab="site" class="<%= (siteResult && siteResult.numFound > 0) ? '' : 'disabled' %>mob-tab"><span class="tab-fix"> <img src="../images/website-icon.png" alt="">  Site Search  <span class="badge"><%= (siteResult && siteResult.numFound) ? siteResult.numFound : 0 %></span></span></a>
               </li> <!-- Class disabled when 0 resutls -->
             </ul>
             <input type="hidden" id="txtSelectedTab" value="<%= params.tab %>" />
           </div>
         </div> <!-- END left column -->
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding non-mobile">
           <%
             var numRequested = -1;
             if (courseResult && courseResult.numRequested) {

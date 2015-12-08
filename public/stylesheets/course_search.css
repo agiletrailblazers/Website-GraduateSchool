@@ -107,10 +107,8 @@ color: #FFF !important;
   transition: all 0.2s;
 }
 
-#course-result h3 a, #course-result h3 a:visited {
+#course-result h3 a, #course-result h3 a:visited, #site-result h3 a, #site-result h3 a:visited {
   background-color: transparent !important;
-  color: #01356B;
-  font-size: 20px;
   font-weight: bold;
 }
 
@@ -118,11 +116,11 @@ color: #FFF !important;
 margin: 20px 0;
 }
 
-#course-result h3 a:hover  {
+#course-result h3 a:hover, #site-result h3 a:hover  {
   background-color: transparent !important;
-  color: #427EB4;
-  font-size: 20px;
+  color: #01356B;
   font-weight: bold;
+  text-decoration: underline;
 }
 
 #refine-results select, #pagination select, #number-of-items select {
@@ -365,5 +363,9 @@ border-radius:  0;
 
 label.small {
   font-size: 12px;
+  color: #777;
+}
+
+.gray {
   color: #777;
 }

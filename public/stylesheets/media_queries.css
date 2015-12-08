@@ -308,17 +308,12 @@
          padding: 15px 5px;
        }
 
-       #searchResults .nav > li {
-         width: 100% !important;
-       }
+
 
        .nopadding-mobile {
           padding: 0 !important;
           margin: 0 !important;
        }
-
-
-
 
        /* top nav */
        .nav-top {
@@ -451,7 +446,7 @@
         }
 
         .tab-fix {
-          padding-left: 40px;
+          text-align: center;
         }
 
         #catalog-filters ul.nav li, #catalog-filters ul li {
@@ -467,7 +462,6 @@
 
         #catalog-filters ul li {
           width: 100%;
-
           display: block;
           list-style: none;
           padding: 10px 7px;

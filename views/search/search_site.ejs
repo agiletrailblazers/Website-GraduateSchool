@@ -2,7 +2,7 @@
   <div class="row results-header">
     <div class="col-lg-6 col-md-6 col-sm-6">
       <% if (siteResult && siteResult.pages && siteResult.pages.length > 0) { %>
-        <h5>Showing <%= (((siteResult.currentPage-1)*(siteResult.numRequested))+1) %> to <%= (siteResult.currentPage * siteResult.numRequested > siteResult.numFound) ? siteResult.numFound:(siteResult.currentPage * siteResult.numRequested) %> of <%= siteResult.numFound%> Results</h5>
+        <h5 class="gray">Showing <%= (((siteResult.currentPage-1)*(siteResult.numRequested))+1) %> to <%= (siteResult.currentPage * siteResult.numRequested > siteResult.numFound) ? siteResult.numFound:(siteResult.currentPage * siteResult.numRequested) %> of <%= siteResult.numFound%> Results</h5>
       <% } %>
     </div>
     <% include pagination %>
@@ -32,8 +32,8 @@
         <% if (siteResult && siteResult.currentPage > 0 & siteResult.pageNavRange !== null) { %>
           <div id="number-of-items" class="bottom">
             <div class="form-group">
-              <label class="control-label" for="itemsPerPage"> Items per page:</label>
-              <select id="itemsPerPage" class="form-control itemsPerPage">
+              <label class="control-label small" for="itemsPerPage-bottom"> Items per page:</label>
+              <select id="itemsPerPage-bottom" class="form-control itemsPerPage">
                 <option value="10" <% if (siteResult.numRequested==10 || params.numRequested==10) { %> selected <% } %>>10</option>
                 <option value="20"<% if (siteResult.numRequested==20 || params.numRequested==20) { %> selected <% } %>>20</option>
                 <option value="50" <% if (siteResult.numRequested==50 || params.numRequested==50) { %> selected <% } %>>50</option>
