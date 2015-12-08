@@ -85,8 +85,8 @@ test('homepage slider contentful test:failure', function(t) {
     }).get('/spaces/jzmztwi1xqvn/entries?content_type=2Ak0RNhLwIwSGaiukUsCku')
       .reply(404, {});
     contentfulServer;
-    contentful.getHomepageSlider(function(slides) {
-      expect(slides).to.deep.equal([]);
+    contentful.getHomepageSlider(function(slides, error) {
+      expect(error.message).to.equal("Exception occured in getting the homepage slider");
     });
     t.end();
 });
@@ -166,8 +166,8 @@ test('homepage testimonial contentful test:failure', function(t) {
     }).get('/spaces/jzmztwi1xqvn/entries?content_type=6xOVVkV7wc8ecwKqCaSwyW')
       .reply(404, {});
     contentfulServer;
-    contentful.getTestimonial(function(testimonial) {
-      expect(testimonial).to.deep.equal([]);
+    contentful.getTestimonial(function(testimonial, error) {
+      expect(error.message).to.equal("Exception occured in getting the testimonial");
     });
     t.end();
 });
