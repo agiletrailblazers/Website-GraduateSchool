@@ -82,6 +82,11 @@
     "/cgi-bin/sb/page.cgi/?page=100821":"/pagenotfound",
     "/about_us/cert_info.cfm":"/pagenotfound",
     "/gsconnect/":"/pagenotfound",
-    "/index.php?option=com_content&task=view&id=101&Itemid=205":"/pagenotfound"
+    "/index.php?option=com_content&task=view&id=101&Itemid=205":"/pagenotfound",
+    "/programs_services/evening/E-LearningReq.cfm":"/pagenotfound",
+    "/about_us/cert_graphics_ep.cfm":"/pagenotfound",
+    "/index.php?option=com_content&task=view&id=711":"/pagenotfound",
+    "/cgi-bin/sb/page.cgi/?page=100507":"/pagenotfound",
+    "/about_us/cert_web.cfm":"/pagenotfound"
   }
 }
