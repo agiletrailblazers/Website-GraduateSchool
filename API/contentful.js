@@ -11,6 +11,9 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
+      if (checkForErrorAndLog(error, response)) {
+        return callback(response, new Error("Exception occured in getting whats new"), null);
+      }
       logger.debug("What's New Contentful: " + response.statusCode);
       cmsEntry = JSON.parse(body);
       return callback({
@@ -28,6 +31,9 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
+      if (checkForErrorAndLog(error, response)) {
+        return callback(response, new Error("Exception occured in getting asset"), null);
+      }
       logger.debug("Get Asset Contentful: " + response.statusCode);
       asset = JSON.parse(body);
       return callback(asset);
@@ -41,6 +47,9 @@ module.exports = {
         'Authorization': 'Bearer d60cc07cb9754202a1483b9e4758b9a38dae4823d6891676b7ac1640daaf09f8'
       }
     }, function(error, response, body) {
+      if (checkForErrorAndLog(error, response)) {
+        return callback(response, new Error("Exception occured in getting the syllabus"), null);
+      }
       logger.debug("Syllabus Contentful: " + response.statusCode);
       syllabus = JSON.parse(body);
       return callback(syllabus);
@@ -55,6 +64,9 @@ module.exports = {
         'Authorization': 'Bearer a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e'
       }
     }, function(error, response, body) {
+      if (checkForErrorAndLog(error, response)) {
+        return callback(response, new Error("Exception occured in getting the news recent"), null);
+      }
       logger.debug("Recent News Contentful: " + response.statusCode);
       posts = JSON.parse(body);
       return callback(posts);
@@ -69,6 +81,9 @@ module.exports = {
         'Authorization': 'Bearer a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e'
       }
     }, function(error, response, body) {
+      if (checkForErrorAndLog(error, response)) {
+        return callback(response, new Error("Exception occured in getting the news detail"), null);
+      }
       logger.debug("News Post Contentful: " + response.statusCode);
       newsPost = JSON.parse(body);
       newsPost = newsPost;
@@ -83,11 +98,10 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-      logger.debug("Get Content Asset Contentful: " + response.statusCode);
-      if (error != null || response.statusCode != 200) {
-        logger.error("Exception occured in getting the images " + error);
-        return callback(response, new Error("Exception occured in getting the images"), null);
+      if (checkForErrorAndLog(error, response)) {
+        return callback(response, new Error("Exception occured in getting the content asset"), null);
       }
+      logger.debug("Get Content Asset Contentful: " + response.statusCode);
       result = JSON.parse(body);
       return callback(response, error, result);
     });
@@ -102,11 +116,10 @@ module.exports = {
         'Authorization': 'Bearer db132f1da5cc75a00f487cce1c94143798d8e5d12c65c169b2fc04febdfae44d'
       }
     }, function(error, response, body) {
-      logger.debug("Main Nav Contentful: " + response.statusCode);
-      if (error != null || response.statusCode != 200) {
-        logger.error("Exception occured getting navigation " + error);
-        return callback(response, new Error("Exception occured getting navigation"), null);
+      if (checkForErrorAndLog(error, response)) {
+        return callback(response, new Error("Exception occured in getting the navigation"), null);
       }
+      logger.debug("Main Nav Contentful: " + response.statusCode);
       content = JSON.parse(body);
       var nav = {};
       if (content && content.items) {
@@ -185,12 +198,11 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
+      if (checkForErrorAndLog(error, response)) {
+        return callback(response, new Error("Exception occured in getting the reference data: " + slug), null);
+      }
       logger.debug("Reference Data Contentful: " + response.statusCode);
       var data = {};
-      if (error != null || response == null || response.statusCode != 200) {
-        logger.error("Exception occured getting reference data " + slug + " - " + error);
-        return callback(response, new Error("Exception occured getting reference data " + slug), null);
-      }
       ref = JSON.parse(body);
       if (ref.items && ref.items.length >= 1 && ref.items[0].fields && ref.items[0].fields.jsonContent) {
         data = ref.items[0].fields.jsonContent;
@@ -206,6 +218,9 @@ module.exports = {
         'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
       }
     }, function(error, response, body) {
+      if (checkForErrorAndLog(error, response)) {
+        return callback(response, new Error("Exception occured in getting the content page, " + slug), null);
+      }
       contentPage = JSON.parse(body);
       return callback(contentPage);
     });
@@ -218,6 +233,9 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
+      if (checkForErrorAndLog(error, response)) {
+        return callback(response, new Error("Exception occured in getting the course search"), null);
+      }
       logger.debug("Course Search Contentful: " + response.statusCode);
       cmsEntry = JSON.parse(body);
       return callback(cmsEntry.fields);
@@ -231,6 +249,9 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
+      if (checkForErrorAndLog(error, response)) {
+        return callback(response, new Error("Exception occured in getting the course details"), null);
+      }
       logger.debug("Course Details Contentful: " + response.statusCode);
       cmsEntry = JSON.parse(body);
       return callback(cmsEntry.fields);
@@ -244,6 +265,9 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
+      if (checkForErrorAndLog(error, response)) {
+        return callback(response, new Error("Exception occured in getting the homepage slider"), null);
+      }
       logger.debug("Homepage slider: " + response.statusCode);
       content = JSON.parse(body);
       var sliders = [];
@@ -273,6 +297,9 @@ module.exports = {
       'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
        }
     }, function(error, response, body) {
+      if (checkForErrorAndLog(error, response)) {
+        return callback(response, new Error("Exception occured in getting the forms"), null);
+      }
       logger.debug("Get Forms Contentful: " + response.statusCode);
       cmsEntry = JSON.parse(body);
       return callback({
@@ -290,6 +317,9 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
+      if (checkForErrorAndLog(error, response)) {
+        return callback(response, new Error("Exception occured in getting the testimonial"), null);
+      }
       logger.debug("Marketing testimonial: " + response.statusCode);
       content = JSON.parse(body);
       var testimonial = [];
@@ -316,6 +346,9 @@ module.exports = {
      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
    }, function(error, response, body) {
+     if (checkForErrorAndLog(error, response)) {
+       return callback(response, new Error("Exception occured in getting the alerts"), null);
+     }
      logger.debug("Get Alerts from Contentful: " + response.statusCode);
      cmsEntry = JSON.parse(body);
      return callback(cmsEntry.items);
@@ -329,6 +362,9 @@ module.exports = {
      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
    }, function(error, response, body) {
+     if (checkForErrorAndLog(error, response)) {
+       return callback(response, new Error("Exception occured in getting the data grouping"), null);
+     }
      logger.debug("Get data group from Contentful: " + response.statusCode);
      dataGroup = JSON.parse(body);
      return callback(dataGroup);
@@ -342,6 +378,9 @@ module.exports = {
      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
    }, function(error, response, body) {
+     if (checkForErrorAndLog(error, response)) {
+       return callback(response, new Error("Exception occured in getting the catalog type"), null);
+     }
      logger.debug("Get Catalog Contentful: " + response.statusCode);
      cmsEntry = JSON.parse(body);
      return callback({
@@ -359,6 +398,9 @@ module.exports = {
      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
    }, function(error, response, body) {
+     if (checkForErrorAndLog(error, response)) {
+       return callback(response, new Error("Exception occured in getting the catalog request hard copy"), null);
+     }
      logger.debug("Get Catalog Contentful: " + response.statusCode);
      cmsEntry = JSON.parse(body);
      return callback({
@@ -375,6 +417,9 @@ module.exports = {
      'Authorization': 'Bearer eb55e283a78dc7e297091e733bf374948b3361e74e6f36d36e8f880ce20a1467'
       }
    }, function(error, response, body) {
+     if (checkForErrorAndLog(error, response)) {
+       return callback(response, new Error("Exception occured in getting the FAQ category"), null);
+     }
      logger.debug("Get faqs from Contentful: " + response.statusCode);
      singleFaq = JSON.parse(body);
      return callback(singleFaq);
@@ -389,6 +434,9 @@ module.exports = {
      'Authorization': 'Bearer eb55e283a78dc7e297091e733bf374948b3361e74e6f36d36e8f880ce20a1467'
       }
    }, function(error, response, body) {
+     if (checkForErrorAndLog(error, response)) {
+       return callback(response, new Error("Exception occured in getting the FAQ"), null);
+     }
      logger.debug("Get faqs from Contentful: " + response.statusCode);
      faq = JSON.parse(body);
      return callback(faq);
@@ -403,9 +451,27 @@ module.exports = {
        'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
      }
    }, function(error, response, body) {
+     if (checkForErrorAndLog(error, response)) {
+       return callback(response, new Error("Exception occured in getting the snippet, " + slug), null);
+     }
      contentSnippet = JSON.parse(body);
      return callback(contentSnippet);
    });
  }
 
 };
+
+function checkForErrorAndLog(error, response) {
+  if (error || !response || (response.statusCode != 200)) {
+    var message = "Error calling contentful";
+    if (response) {
+      message = message + ", status code: " + response.statusCode;
+    }
+    if (error) {
+      message = message + ", error message: " + error.message;
+    }
+    logger.error(message);
+    return true;
+  }
+  return false;
+}
