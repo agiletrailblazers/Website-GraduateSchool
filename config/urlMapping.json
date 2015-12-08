@@ -76,6 +76,12 @@
     "/cgi-bin/sb/page.cgi/?page=100479":"/pagenotfound",
     "/cgi-bin/sb/page.cgi/?page=100492":"/pagenotfound",
     "/cgi-bin/sb/page.cgi/aip=?page=100841":"/pagenotfound",
-    "/Catalog/EP_term_matrix_all_skinned.cfm":"/pagenotfound"
+    "/Catalog/EP_term_matrix_all_skinned.cfm":"/pagenotfound",
+    "/cgi-bin/sb/page.cgi/?page=100478":"/pagenotfound",
+    "/cgi-bin/sb/page.cgi/?page=100480":"/pagenotfound",
+    "/cgi-bin/sb/page.cgi/?page=100821":"/pagenotfound",
+    "/about_us/cert_info.cfm":"/pagenotfound",
+    "/gsconnect/":"/pagenotfound",
+    "/index.php?option=com_content&task=view&id=101&Itemid=205":"/pagenotfound"
   }
 }
