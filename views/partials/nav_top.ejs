@@ -131,7 +131,7 @@
             <div class="center-filter">
               <select id="selCategorySubjectM" class="form-control" tabindex="3">
                 <option class="subject-item" value="all">Subject</option>
-                <% if (courseSubjectResult != null) { %>
+                <% if (courseSubjectResult) { %>
                   <% for (categorySubjectFacetCounter = 0; categorySubjectFacetCounter < courseSubjectResult.length; categorySubjectFacetCounter++) {
                     var courseSubject = courseSubjectResult[categorySubjectFacetCounter].courseSubject;
                     if (courseSubject.length > 1 ) { %>

@@ -61,7 +61,9 @@ app.use(function (req, res, next) {
 		},
     function(callback) {
       course.getCategories(function(response, error, result) {
-        courseSubjectResult = result;
+				if (result != null) {
+					courseSubjectResult = result;
+				}
         callback();
       });
     }
