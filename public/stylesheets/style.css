@@ -802,12 +802,7 @@ ul.customer-support li a:hover {
 }
 
 
-h3.light {
-  font-size: 22px !important;
-  font-weight: 200;
-  margin: 0 !important;
-  color: #555555;
-}
+
 
 img.search {
   padding: 80px 20px;
@@ -1428,7 +1423,9 @@ p.asset a:focus {
   background-color: #E21264;
 }
 
-
+span.glyphicon-map-marker {
+  cursor: pointer;
+}
 
 /* FOOTER  */
 .bar {
