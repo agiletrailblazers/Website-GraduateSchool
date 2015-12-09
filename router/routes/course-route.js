@@ -142,9 +142,10 @@ router.get('/courses/:course_id', function(req, res, next){
 });
 
 function replaceUrl(string) {
-  var filter = new RegExp(config("urlMapping").filter,"g");
+  var filter = new RegExp(config("urlMapping").filternowww,"g");
   string = string.replace(filter, '');
-
+  var filterwithwww = new RegExp(config("urlMapping").filterwithwww,"g");
+  string = string.replace(filterwithwww, '');
   // find the values of href and store them in an array
   var hrefURLs = [];
   string.replace(/href=("|')(.*?)("|')/g, function(a, b, hrefURL) {

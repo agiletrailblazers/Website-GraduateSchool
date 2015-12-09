@@ -4,7 +4,7 @@
       <div class="">
         <% testimonial.forEach(function(testimony) { %>
           <div class="col-lg-8 col-md-12 col-sm-12 mfix-nopadding">
-            <div class="testimonial">
+            <div id="testimonial" class="testimonial">
               <hr class="mobile">
               <img src="<%= testimony.imageAsset.file.url %>" alt="<%= testimony.marketingImageText %>"  width="100%" class="testimonial-bg"/>
               <blockquote cite="">
@@ -15,7 +15,7 @@
           </div>
         <% }); %>
         <div class="col-lg-4 col-md-12 col-sm-12 mfix-nopadding">
-          <div class="news-and-events">
+          <div id="news-and-events" class="news-and-events">
           <h3><img src="/images/news-icon.png" alt="" /> News & Events</h3>
           <!-- News Entry  -->
           <% if (news) { %>
@@ -48,7 +48,7 @@
           <% } %>
           <!-- END News Entry  -->
           <div class="row clearfix pull-left nopadding">
-            <a href="/news">View all News &amp; Events</a>
+            <a id="view-all-news-link" href="/news">View all News &amp; Events</a>
           </div>
         </div>
        </div>

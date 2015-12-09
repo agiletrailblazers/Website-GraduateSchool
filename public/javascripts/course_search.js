@@ -111,6 +111,11 @@ $(document).ready(function() {
     .done(function(data) {
       $("#searchResults").replaceWith(data);
       $(".loading").hide();
+      if ($(window).width() < 767) {
+        $('#refine-results').removeClass('in');
+        $('#refine-results').addClass('out');
+        $('#collapseLink').addClass('collapsed')
+      }
     })
     .fail(function(xhr, textStatus, errorThrown) {
       $(".loading").hide();

@@ -8,7 +8,7 @@
   }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<div class="container-fluid padding0 non-mobile">
+<div id="social-media" class="container-fluid padding0 non-mobile">
   <div class="container-fluid social-media-header padding0">
     <div class="container">
       <div class="row nopadding">
@@ -18,10 +18,10 @@
         <div class="col-lg-4 col-md-4 col-sm-4">
           <div class="social-media-box">
             <ul>
-              <li><a href="http://www.facebook.com/GraduateSchoolUSA" target="_blank"><img src="/images/fb.png" alt="" /></a></li>
-              <li><a href="http://twitter.com/thegradschool" target="_blank"><img src="/images/tw.png" alt="" /></a></li>
-              <li><a href="http://www.youtube.com/user/TheGradSchool" target="_blank"><img src="/images/yt.png" alt="" /></a></li>
-              <li><a href="http://www.flickr.com/photos/thegradschool" target="_blank"><img src="/images/fl.png" alt="" /></a></li>
+              <li><a id="link-facebook" href="http://www.facebook.com/GraduateSchoolUSA" target="_blank"><img src="/images/fb.png" alt="" /></a></li>
+              <li><a id="link-twitter" href="http://twitter.com/thegradschool" target="_blank"><img src="/images/tw.png" alt="" /></a></li>
+              <li><a id="link-youtube" href="http://www.youtube.com/user/TheGradSchool" target="_blank"><img src="/images/yt.png" alt="" /></a></li>
+              <li><a id="link-flickr" href="http://www.flickr.com/photos/thegradschool" target="_blank"><img src="/images/fl.png" alt="" /></a></li>
             </ul>
           </div>
         </div>
@@ -33,17 +33,17 @@
   <div id="social-media">
     <div class="spacer"> </div>
     <div class="row nopadding">
-      <div class="col-lg-4 col-md-4 col-sm-4">
+      <div id="feed-facebook" class="col-lg-4 col-md-4 col-sm-4">
         <h5>Facebook</h5>
           <div class="fb-page" data-href="https://www.facebook.com/GraduateSchoolUSA?fref=ts" data-width="360" data-height="400" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false" data-show-posts="true"><div class="fb-xfbml-parse-ignore"></div></div>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-4">
+      <div id="feed-twitter" class="col-lg-4 col-md-4 col-sm-4">
         <h5>Twitter</h5>
         <div>
             <a class="twitter-timeline" href="https://twitter.com/thegradschool" width="98%"  height="400" data-widget-id="652129403497943040">Tweets by @thegradschool</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
         </div>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-4">
+      <div id="feed-youtube" class="col-lg-4 col-md-4 col-sm-4">
         <h5>Youtube</h5>
           <iframe src="http://www.youtube.com/embed/?listType=user_uploads&list=TheGradSchool" width="99%" height="400" frameBorder="0"></iframe>
       </div>

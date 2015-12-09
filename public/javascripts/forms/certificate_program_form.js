@@ -79,7 +79,7 @@ Validate = {
     }
   },
   ssn: function() {
-    var input = [$("#txtSSNa").val(), $("#txtSSNb").val(), $("#txtSSNc").val()];
+    var input = $("#txtSSN").val();
     var pattern = new RegExp(/^[0-9]+$/i);
     for (var i = 0; i < input.length; i++) {
       if (!pattern.test(input[i])) {
@@ -110,7 +110,7 @@ var _runValidation = function() {
   Validate.state();
   Validate.zip();
   Validate.captcha();
-  if ($("#txtSSNa").val().length != 0 || $("#txtSSNb").val().length != 0 || $("#txtSSNc").val().length != 0) {
+  if ($("#txtSSN").val().length != 0) {
     Validate.ssn();
   }
   if ($("#txtOther").val()) {
@@ -125,6 +125,7 @@ var _runValidation = function() {
 }
 
 $(document).ready(function() {
+  $('[data-toggle="tooltip"]').tooltip();
   $("#removeAlert").click(function() {
     $("#alertError").slideUp();
     $("#alertError p").remove();
@@ -140,7 +141,6 @@ $(document).ready(function() {
     data.lastName = $("#txtLastName").val();
     data.mi = $("#txtMI").val();
     data.formerLastName = $("#txtFormerLastName").val();
-    data.ssn = $("#txtSSNa").val() +'-'+ $("#txtSSNb").val() +'-'+ $("#txtSSNc").val();
     if( $("#month").val() || $("#day").val() || $("#txtYear").val()) {
       data.dob = $("#month").val() +'/'+ $("#day").val() +'/'+ $("#txtYear").val();
     } else {
@@ -151,6 +151,7 @@ $(document).ready(function() {
     } else {
       data.doc = "";
     }
+    data.ssn = $("#txtSSN").val();
     data.title = $("#title").text();
     data.email = $("#txtEmail").val();
     data.phone = $("#txtPhone").val();
