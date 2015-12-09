@@ -1,0 +1,5 @@
+<div class="col-lg-4 col-md-3 col-sm-6 mob-center">
+  <% if (courseResult && courseResult.courses && courseResult.courses.length > 0) { %>
+    <h5 class="gray"><strong>Results</strong> (<%= (((courseResult.currentPage-1)*(courseResult.numRequested))+1) %> to <%= (courseResult.currentPage * courseResult.numRequested > courseResult.numFound) ? courseResult.numFound:(courseResult.currentPage * courseResult.numRequested) %> of <%= courseResult.numFound%>)</h5>
+  <% } %>
+</div>
