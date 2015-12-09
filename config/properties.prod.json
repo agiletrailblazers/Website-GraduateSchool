@@ -9,14 +9,13 @@
     "defaultEmailFromUserName":"GSWebsiteForm@graduateschool.edu",
 
     "contactUsToUserName":"Customersupport@graduateschool.edu,John.Peppard@graduateschool.edu",
-    "onsiteInquiryToUserName":"onsite@graduateschool.edu",
-    "requestDuplicateCourseCompletionCertificateToUserName":"",
-    "requestDuplicateOfficialGradeReportToUserName":"",
-    "proctorRequestToUserName":"",
-    "customerFeedBackFormToUserName":"",
-    "certificateProgramFormToUserName":"",
-    "catalogRequestToUserName":"",
-    "subscriptionRequestToUserName":"Sergio.dasilva@graduateschool.edu",
+    "onsiteInquiryToUserName":"Shawnree.Baker@graduateschool.edu, Tonia.williams@graduateschool.edu",
+    "requestDuplicateCourseCompletionCertificateToUserName":"registrar@graduateschool.edu, niki.jackson-blake@graduateschool.edu",
+    "requestDuplicateOfficialGradeReportToUserName":"registrar@graduateschool.edu, niki.jackson-blake@graduateschool.edu",
+    "proctorRequestToUserName":"registrar@graduateschool.edu",
+    "customerFeedBackFormToUserName":"ivera.davis@graduateschool.edu",
+    "catalogRequestToUserName":"ivera.davis@graduateschool.edu, carlene.wallace@graduateschool.edu, James.Betterson@graduateschool.edu, sergio.dasilva@graduateschool.edu, Michael.Zimmerman@graduateschool.edu,",
+    "subscriptionRequestToUserName":"ivera.davis@graduateschool.edu, James.Betterson@graduateschool.edu, sergio.dasilva@graduateschool.edu, Michael.Zimmerman@graduateschool.edu",
 
     "certificateProgramGroup": {
       "applicationForm": {
@@ -24,11 +23,11 @@
         "subject": "Incoming Application Form Request"
       },
       "progressReport": {
-        "email": "certificates@graduateschool.edu, Ashley.Hart@graduateschool.edu, carolyn.nelson@graduateschool.edu",
+        "email": "certificates@graduateschool.edu, Ashley.Hart@graduateschool.edu",
         "subject": "Incoming Progress Report Request"
       },
       "programCompletion": {
-        "email": "certificates@graduateschool.edu, niki.jackson-blake@graduateschool.edu, carolyn.nelson@graduateschool.edu",
+        "email": "certificates@graduateschool.edu, Ashley.Hart@graduateschool.edu",
         "subject": "Incoming Certificate of Program Completion Request"
       },
       "waiverRequest" : {
