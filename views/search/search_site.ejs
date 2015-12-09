@@ -1,10 +1,12 @@
 <div class="panel panel-default gs">
   <div class="row results-header">
-    <div class="mob-rem">
-      <% include no_of_results_site %>
-      <% include items_per_page %>
-      <% include pagination %>
-    </div>
+    <% if (siteResult && siteResult.pages && siteResult.pages.length > 0) { %>
+      <div class="mob-rem">
+        <% include no_of_results_site %>
+        <% include items_per_page %>
+        <% include pagination %>
+      </div>
+    <% }%>
   </div>
   <% if (siteResult && siteResult.pages && siteResult.pages.length > 0) { %>
     <hr class="margin-reset mob-rem">
@@ -29,10 +31,12 @@
         <hr>
       <% } %>
     <% } %>
-    <div class="row results-footer mob-center">
-      <% include no_of_results_site %>
-      <% include items_per_page %>
-      <% include pagination %>
-    </div><!-- END row-->
+    <% if (siteResult && siteResult.pages && siteResult.pages.length > 0) { %>
+      <div class="row results-footer mob-center">
+        <% include no_of_results_site %>
+        <% include items_per_page %>
+        <% include pagination %>
+      </div><!-- END row-->
+    <% }%>
   </div><!-- END Panel-body -->
 </div>
