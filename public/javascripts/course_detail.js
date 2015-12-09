@@ -109,6 +109,9 @@ $(document).ready(function() {
   $('#showLess').click(function() {
       $("html, body").delay(400).animate({ scrollTop: 230 }, "slow");
   });
+  $('#mob-showLess').click(function() {
+      $("html, body").delay(400).animate({ scrollTop: 550 }, "slow");
+  });
 
   tablemobApp.limitSessions(5);
   $('.glyphicon-map-marker').click(function(e) {
