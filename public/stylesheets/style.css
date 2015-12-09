@@ -30,7 +30,8 @@ html, body {
 	-ms-text-size-adjust: 100%;
   width: 100%;
   margin: 0px;
-  padding: 0px;
+  padding: 0px !important;
+  overflow-x: hidden;
 }
 
 
@@ -45,19 +46,12 @@ html, body {
 }
 
 body {
-  height: 100%;
+  width: 100%;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
-  padding: 0px;
+  padding: 0px !important;
   margin: 0;
   color: #444;
-}
-
-body {
-  overflow-x: hidden;
-}
-html {
-  overflow-x: hidden;
 }
 
 img.responsive {
