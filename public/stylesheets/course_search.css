@@ -55,7 +55,7 @@ p.clear > span {
 }
 
 div.refine p {
-color: #FFF !important;
+color: #DB0F4E !important;
 }
 
 .panel .gs {
@@ -68,12 +68,8 @@ color: #FFF !important;
 
 .panel > .panel-heading.gs {
     background-image: none !important;
-    background: #427EB4 !important; /* Old browsers */
-    background: -moz-linear-gradient(left,  #427EB4 0%,  #427EB4 80%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#427EB4), color-stop(80%,#427EB4)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(left,  #427EB4 0%,#427EB4 80%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(left,  #427EB4 0%, #427EB4 80%); /* Opera 11.10+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#427EB4', endColorstr='#427EB4',GradientType=1 ); /* IE6-9 */
+    background: #F2F2F2; /* Old browsers */
+    background-image: linear-gradient(to bottom, #F2F2F2 0px, #FFF 100%) !important;
 
 }
  .panel-heading.gs a {
@@ -82,20 +78,21 @@ color: #FFF !important;
 }
 
 .panel-heading.gs h4 {
-  color: #FFF !important;
+  color: #444 !important;
   font-weight: 400 !important;
   margin: 10px 0px !important;
 }
 
 .panel .gs h4.panel-title {
-  color: #FFF !important;
+  color: #444 !important;
   font-size: 18px;
-  font-weight: 400 !important;
+  font-weight: 500 !important;
   padding: 0;
 }
 .panel .gs a, .panel .gs a:link, .panel .gs a:visited  {
-  color: #FFF !important;
+  color: #444 !important;
   background-color: transparent !important;
+  font-weight: 500 !important;
 }
 
 .panel .gs a:hover, div.refine p:hover {
@@ -113,7 +110,7 @@ color: #FFF !important;
 }
 
 #course-result {
-margin: 20px 0;
+  margin: 0 0 20px 0;
 }
 
 #course-result h3 a:hover, #site-result h3 a:hover  {
@@ -147,6 +144,8 @@ margin: 20px 0;
   width: auto;
   padding: 5px 20px 5px 5px;
   display: inline-block;
+  height: 30px;
+  font-size: 12px;
 }
 
 #refine-results input[type="checkbox"] {
@@ -177,12 +176,12 @@ margin: 20px 0;
   text-align: right;
   padding: 15px 15px 0 0;
 }
+
 #number-of-items.top > .form-group {
   margin-bottom: 10px !important;
 }
 
 #number-of-items.bottom {
-  text-align: left;
   padding: 0;
 }
 
@@ -197,7 +196,7 @@ margin: 20px 0;
 .pagination > li > a, .pagination > li > span {
     position: relative;
     float: left;
-    padding: 4px 8px;
+    padding: 3px 7px;
     margin-left: 4px !important;
     line-height: 1.42857;
     color: #063D72 !important;
@@ -231,11 +230,11 @@ margin: 20px 0;
 }
 
 .row .results-header {
-  padding: 20px 15px 0 15px;
+  padding: 15px 15px 0 15px;
 }
 
 .row .results-footer {
-  padding: 20px 0 0 0;
+  padding: 10px 0 0 0;
 }
 
 #searchResults .nav {
@@ -270,6 +269,7 @@ margin: 20px 0;
   -o-transition: background-color 300ms linear;
   -ms-transition: background-color 300ms linear;
   transition: background-color 300ms linear;
+  margin-right: 0px;
 }
 
 
@@ -314,8 +314,8 @@ border-radius:  0;
 #searchResults .nav > li > a{
   position: relative;
   display: block;
-  padding: 17px 20px;
-  margin-top: 2px;
+  padding: 17px 5px;
+  margin-top: 0;
 }
 
 #searchResults .nav > li > a.disabled, #searchResults .nav > li > a.disabled:hover {
@@ -368,4 +368,15 @@ label.small {
 
 .gray {
   color: #777;
+  font-size: 13px;
+}
+
+.filters .panel-heading .accordion-toggle::after {
+    position: relative;
+    top: -5px;
+    color: #444 !important;
+}
+
+.panel-body {
+    padding: 5px 20px;
 }

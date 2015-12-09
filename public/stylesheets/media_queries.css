@@ -145,7 +145,18 @@
         width: 130px !important;
       }
 
+      #pagination nav {
+        float:none !important;
+      }
 
+      .tab-center {
+        text-align: center !important;
+        margin: 10px auto !important;
+      }
+
+      .tab-right {
+        text-align: right;
+      }
     }
 
     /* Small Devices, Tablets */
@@ -502,6 +513,13 @@
         #gs-form label.sub-label {
           display: inline !important;
         }
+
+        .mob-center {
+          text-align: center !important;
+          margin: 10px auto !important;
+        }
+
+
     }
 
     /* Extra Small Devices, Phones */
@@ -561,6 +579,12 @@
         overflow: hidden;
         display: none;
         visibility: hidden;
+      }
+
+      #searchResults .nav-tabs > li > a {
+        font-size: 13px !important;
+        color: #444;
+        height: 60px;
       }
 
 

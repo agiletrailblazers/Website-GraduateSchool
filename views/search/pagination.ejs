@@ -1,16 +1,16 @@
-<div class="col-lg-6 col-md-6 col-sm-6 pull-right">
+<div class="col-lg-4 col-md-5 col-sm-12 mob-center tab-center">
   <% if (result && result.numFound > 0) { %>
     <div id="pagination">
       <nav>
         <ul class="pagination" id="paginationNum">
           <% if (result.previousPage == 0) { %>
             <li class="disabled">
-              <span aria-hidden="true"> &#60; Previous</span></a>
+              <span aria-hidden="true"> &#60;&#60; </span></a>
             </li>
           <%} else {%>
            <li>
              <a href="#"  name="<%= result.previousPage %>" aria-label="Previous">
-             <span aria-hidden="true"> &#60; Previous</span></a>
+             <span aria-hidden="true"> &#60;&#60;</span></a>
            </li>
           <% } %>
           <% if (result.pageNavRange) { %>
@@ -29,12 +29,12 @@
           <% } %>
           <% if (result.nextPage == 0) { %>
             <li class="disabled">
-              <span aria-hidden="true"> Next &#62; </span> </a>
+              <span aria-hidden="true"> &#62;&#62; </span> </a>
             </li>
           <%} else {%>
             <li>
               <a href="#" name="<%= result.nextPage %>"aria-label="Next">
-              <span aria-hidden="true"> Next &#62; </span> </a>
+              <span aria-hidden="true"> &#62;&#62; </span> </a>
             </li>
           <% }%>
         </ul>

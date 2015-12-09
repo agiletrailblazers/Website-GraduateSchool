@@ -1,5 +1,13 @@
 <div id="searchResults" class="row">
   <% include filters %>
+  <%
+    var numRequested = -1;
+    if (courseResult && courseResult.numRequested) {
+      numRequested = courseResult.numRequested;
+    } else if (siteResult && siteResult.numRequested) {
+      numRequested = siteResult.numRequested;
+    }
+  %>
   <div class="col-lg-9 col-md-8 col-sm-8">
     <div class="row tabs">
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding">
@@ -15,27 +23,6 @@
             <input type="hidden" id="txtSelectedTab" value="<%= params.tab %>" />
           </div>
         </div> <!-- END left column -->
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding non-mobile">
-          <%
-            var numRequested = -1;
-            if (courseResult && courseResult.numRequested) {
-              numRequested = courseResult.numRequested;
-            } else if (siteResult && siteResult.numRequested) {
-              numRequested = siteResult.numRequested;
-            }
-          %>
-          <div  id="number-of-items" class="top">
-             <div class="form-group">
-                <label class="control-label small" for="itemsPerPage">Items per page:</label>
-                  <select id="itemsPerPage" class="form-control itemsPerPage">
-                    <option value="10" <% if (numRequested==10 || params.numRequested==10) { %> selected <% } %>>10</option>
-                    <option value="20"<% if (numRequested==20 || params.numRequested==20) { %> selected <% } %>>20</option>
-                    <option value="50" <% if (numRequested==50 || params.numRequested==50) { %> selected <% } %>>50</option>
-                    <option value="100" <% if (numRequested==100 || params.numRequested==100) { %> selected <% } %>>100</option>
-                  </select>
-              </div>
-            </div>
-        </div><!-- END right column -->
     </div> <!-- END Tabs Nav -->
     <div class="tab-content">
 

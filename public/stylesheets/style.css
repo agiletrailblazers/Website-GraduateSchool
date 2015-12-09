@@ -2163,6 +2163,10 @@ ul.see-more li {
   padding: 0 10px !important;
 }
 
+.padding15 {
+  padding: 15px !important;
+}
+
 .nopadding {
    padding: 0 !important;
    margin: 0 !important;
