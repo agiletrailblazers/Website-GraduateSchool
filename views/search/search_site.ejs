@@ -6,7 +6,9 @@
       <% include pagination %>
     </div>
   </div>
-  <hr class="margin-reset mob-rem">
+  <% if (siteResult && siteResult.pages && siteResult.pages.length > 0) { %>
+    <hr class="margin-reset mob-rem">
+  <% } %>
   <div class="panel-body padding15">
     <% if (noSearch) { %>
       <div class="center">

@@ -926,23 +926,6 @@ p.search-box-intro {
   width: 100%;
 }
 
-a.go-button, a.go-button:visited {
-    height: 34px !important;
-    margin: 0;
-    background-color: #427EB4;
-    padding: 7px 10px;
-    color: #FFF;
-    border: medium none;
-    outline-style: none;
-    transition: background-color 300ms linear 0s;
-    border-radius: 2px;
-}
-
-a.go-button:hover, a.go-button:active {
-  background-color: #be0f34;
-  transition: background-color 300ms linear 0s;
-}
-
 .searchBox {
     position:absolute;
     background-color: #FFF !important;

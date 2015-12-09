@@ -1,9 +1,9 @@
 <div class="col-lg-4 col-md-4 col-sm-6 tab-right">
-  <% if (courseResult && courseResult.currentPage > 0 & courseResult.pageNavRange !== null) { %>
-    <div id="number-of-items" class="bottom">
+  <% if (courseResult && courseResult.currentPage > 0 & courseResult.pageNavRange !== null && siteResult && siteResult.pages && siteResult.pages.length > 0) { %>
+    <div id="number-of-items">
       <div class="form-group mob-center">
-        <label class="control-label small" for="itemsPerPage-bottom"> Items per page:</label>
-        <select id="itemsPerPage-bottom" class="form-control itemsPerPage">
+        <label class="control-label small" for="itemsPerPage"> Items per page:</label>
+        <select id="itemsPerPage" class="form-control itemsPerPage">
           <option value="10" <% if (courseResult.numRequested==10 || params.numRequested==10) { %> selected <% } %>>10</option>
           <option value="20"<% if (courseResult.numRequested==20 || params.numRequested==20) { %> selected <% } %>>20</option>
           <option value="50" <% if (courseResult.numRequested==50 || params.numRequested==50) { %> selected <% } %>>50</option>

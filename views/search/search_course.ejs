@@ -6,7 +6,9 @@
       <% include pagination %>
     </div>
   </div>
-  <hr class="margin-reset mob-rem">
+  <% if (courseResult && courseResult.currentPage > 0 & courseResult.pageNavRange !== null) { %>
+    <hr class="margin-reset mob-rem">
+  <% } %>
   <div class="panel-body padding15">
     <% if (noSearch) { %>
       <div class="center">

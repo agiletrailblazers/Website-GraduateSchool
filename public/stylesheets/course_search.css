@@ -131,7 +131,7 @@ color: #DB0F4E !important;
     display: none;
 }
 
-#refine-results select,  #refine-results input[type="checkbox"], #pagination select, #number-of-items select {
+#refine-results select,  #refine-results input[type="checkbox"], #pagination select, #number-of-items select, #refine-results input {
   border: 2px solid #87ACCE;
   border-radius: 0;
 }
@@ -144,8 +144,9 @@ color: #DB0F4E !important;
   width: auto;
   padding: 5px 20px 5px 5px;
   display: inline-block;
-  height: 30px;
+  height: 29px;
   font-size: 12px;
+  margin-top: 1px;
 }
 
 #refine-results input[type="checkbox"] {
@@ -171,20 +172,6 @@ color: #DB0F4E !important;
     margin: 0px !important;
     border-radius: 0 !important;
 }
-
-#number-of-items.top {
-  text-align: right;
-  padding: 15px 15px 0 0;
-}
-
-#number-of-items.top > .form-group {
-  margin-bottom: 10px !important;
-}
-
-#number-of-items.bottom {
-  padding: 0;
-}
-
 
 .control-label {
   padding: 5px 5px 0 0 !important;
@@ -379,4 +366,28 @@ label.small {
 
 .panel-body {
     padding: 5px 20px;
+}
+
+a.go-button, a.go-button:visited {
+    height: 36px !important;
+    margin: 0;
+    background-color: #427EB4;
+    padding: 8px 10px;
+    color: #FFF;
+    border: medium none;
+    outline-style: none;
+    transition: background-color 300ms linear 0s;
+    border-radius: 2px;
+}
+
+a.go-button:hover, a.go-button:active {
+  background-color: #be0f34;
+  transition: background-color 300ms linear 0s;
+}
+
+h3.light {
+  font-size: 18px !important;
+  font-weight: 200;
+  margin: 0 !important;
+  color: #555555;
 }
