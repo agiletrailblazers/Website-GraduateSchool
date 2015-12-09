@@ -65,11 +65,15 @@ module.exports = {
       method: 'GET',
       url: courseApiUrl + '/api/courses/' + courseId + '/sessions'
     }, function (error, response, body) {
-      logger.debug("Course Schedule: " + response.statusCode);
-      if (error != null || response.statusCode != 200) {
+      if (error || !response || (response.statusCode != 200 && response.statusCode != 404)) {
         logger.error("Exception occured performing course schedule search. " + error);
         return callback(response, new Error("Exception occured performing couse search"), null);
       }
+      if (response.statusCode == 404) {
+        //404 is an expected response, return result as null
+        return callback(response, error, null);
+      }
+      logger.debug("Course Schedule: " + response.statusCode);
       result = JSON.parse(body);
       return callback(response, error, result);
     });

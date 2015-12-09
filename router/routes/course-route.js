@@ -50,7 +50,7 @@ router.get('/courses/:course_id', function(req, res, next){
           }
           callback();
         } else {
-          logger.error("No course sessions found for course: " + courseId);
+          logger.debug("No course sessions found for course: " + courseId);
           courseData.session = []; //return empty array
           callback();
         }
