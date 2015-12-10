@@ -17,24 +17,27 @@
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
 				<!-- Indicators -->
 				<ol class="carousel-indicators">
-          <% for(i=0; i<slider.length; i++) { %>
-            <li data-target="#myCarousel" data-slide-to="<%= i %>" class="<%= slider[i].status %>"></li>
-				  <% } %>
+          <% if (slider) { %>
+            <% for(i=0; i < slider.length; i++) { %>
+              <li data-target="#myCarousel" data-slide-to="<%= i %>" class="<%= slider[i].status %>"></li>
+  				  <% } %>
+          <% } %>
 				</ol>
-
 				<div class="carousel-inner">
-          <% slider.forEach(function(slide) { %>
-            <div class="item <%= slide.status %>">
-							<img src="<%= slide.imageAsset.file.url %>" data-src="" alt="">
-							<div class="container">
-								<div class="carousel-caption">
-									<h1><%- slide.marketingMessage %></h1>
-										<p class="btn"><a class="" href="<%= slide.buttonUrl %>" role="button"><%= slide.buttonText %> <span class="glyphicon glyphicon-chevron-right white-arrow"></span></a>  </p>
-                  <p><%- slide.secondaryMessage %></p>
-								</div>
-							</div>
-						</div>
-          <% }); %>
+          <% if (slider) { %>
+            <% slider.forEach(function(slide) { %>
+              <div class="item <%= slide.status %>">
+  							<img src="<%= slide.imageAsset.file.url %>" data-src="" alt="">
+  							<div class="container">
+  								<div class="carousel-caption">
+  									<h1><%- slide.marketingMessage %></h1>
+  										<p class="btn"><a class="" href="<%= slide.buttonUrl %>" role="button"><%= slide.buttonText %> <span class="glyphicon glyphicon-chevron-right white-arrow"></span></a>  </p>
+                    <p><%- slide.secondaryMessage %></p>
+  								</div>
+  							</div>
+  						</div>
+            <% }); %>
+          <% } %>
 				<a id="carousel-left-link" class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
 				<a id="carousel-right-link" class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 			</div>

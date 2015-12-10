@@ -123,15 +123,17 @@
             <div class="center-filter">
               <select id="selSearchLocationM" class="form-control" tabindex="2">
                   <option value="">Locations</option>
-                  <% locations.forEach(function(location) { %>
-                    <option value="<%= location %>"><%= location %></option>
-                  <% }); %>
+                  <% if (locations) { %>
+                    <% locations.forEach(function(location) { %>
+                      <option value="<%= location %>"><%= location %></option>
+                    <% }); %>
+                  <% } %>
               </select>
             </div>
             <div class="center-filter">
               <select id="selCategorySubjectM" class="form-control" tabindex="3">
                 <option class="subject-item" value="all">Subject</option>
-                <% if (courseSubjectResult != null) { %>
+                <% if (courseSubjectResult) { %>
                   <% for (categorySubjectFacetCounter = 0; categorySubjectFacetCounter < courseSubjectResult.length; categorySubjectFacetCounter++) {
                     var courseSubject = courseSubjectResult[categorySubjectFacetCounter].courseSubject;
                     if (courseSubject.length > 1 ) { %>
