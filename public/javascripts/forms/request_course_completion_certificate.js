@@ -60,7 +60,7 @@ Validate = {
   courseStartDate: function() {
     var dateStart = $("#dateStart").val();
     if (dateStart== "" || $("#dateStart").datepicker("getDate") === null) {
-      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please select the start date</p>");
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please select the Start date</p>");
     }
   },
   courseEndDate: function() {
@@ -188,8 +188,4 @@ $(document).ready(function() {
       }
     };
   }
-  //Scroll to the Alert Section/Confirmation message (height: 365px)
-  $('#submitForm').click(function() {
-    $("html, body").delay(400).animate({ scrollTop: 365 }, "slow");
-  });
 });
