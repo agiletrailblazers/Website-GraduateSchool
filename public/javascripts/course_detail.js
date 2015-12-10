@@ -89,6 +89,7 @@ tablemobApp = {
     //now expand only the first section
     $(".sessionExpand").eq(0).removeClass('collapsed');
     $(".mySession").eq(0).addClass("in");
+    $("#session1").removeAttr('style');
   }
 }
 
