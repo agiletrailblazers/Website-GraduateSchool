@@ -48,6 +48,8 @@ router.get(['/content/:content_slug','/content/:subfolder/:content_slug'], funct
       intro: content.intro,
       subIntro: content.subIntro,
       relatedLinks: content.relatedLinks,
+      seoDescription: content.seoDescription,
+      seoKeywords: content.seoKeywords,
       imageUrl: imageUrl,
       markdown: marked,
       sections: [
