@@ -3,12 +3,12 @@
   <head>
     <title> Graduate School USA | <%= title %></title>
     <meta charset="utf-8">
-    <% include ../partials/head %>
+    <% include partials/head %>
     <script type="text/javascript" src="/javascripts/generic_detail.js"></script>
     <link rel="stylesheet" href="/stylesheets/generic_detail.css">
   </head>
   <body>
-    <% include ../partials/header %>
+    <% include partials/header %>
     <div id="main-container" class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -40,7 +40,7 @@
                           <section>
                             <a href="#q-<%=i%>-<%= faqId %>" class="expand-section accordion-toggle" data-toggle="collapse"><span class="glyphicon glyphicon-plus-sign"></span><%= faq.categories[i].questions[j].fields.question %></a>
                               <article id="q-<%=i%>-<%= faqId %>" class="collapse nested">
-                                <p><%- faq.categories[i].questions[j].fields.answer %></p>
+                                <p><%- markdown(faq.categories[i].questions[j].fields.answer) %></p>
                               </article>
                         </section>
                         <% } %>
@@ -56,10 +56,10 @@
     <!--/nutch_noindex-->
   </div> <!-- End Container -->
   <!-- Footer -->
-  <% include ../partials/footer %>
+  <% include partials/footer %>
   <!-- END Footer  -->
   <!-- Chat  -->
-  <% include ../partials/chat %>
+  <% include partials/chat %>
   <!-- END of Chat  -->
 </body>
 </html>
