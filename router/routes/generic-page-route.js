@@ -10,7 +10,7 @@ router.get(['/content/:content_slug','/content/:subfolder/:content_slug'], funct
     if (!response || !response.items || !response.items[0] || !response.items[0].fields ) {
       //handle error
       logger.error("Page not found: " + slug)
-    	res.render('error', { message: 'Sorry, page not found.', error: null });
+      res.redirect('/pagenotfound');
       return;
     }
     var content = response.items[0].fields;
