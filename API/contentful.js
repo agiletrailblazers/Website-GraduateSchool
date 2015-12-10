@@ -457,6 +457,22 @@ module.exports = {
      contentSnippet = JSON.parse(body);
      return callback(contentSnippet);
    });
+ },
+
+ getContentUrlRedirect: function(callback) {
+   request({
+     method: 'GET',
+     url: 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries?content_type=urlRedirect',
+     headers: {
+       'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
+     }
+   }, function(error, response, body) {
+     if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries?content_type=urlRedirect')) {
+       return callback(response, new Error("Exception occured in getting the urlRedirect mapping"), null);
+     }
+     data = JSON.parse(body).items[0].fields;
+     return callback(data);
+   });
  }
 
 };
