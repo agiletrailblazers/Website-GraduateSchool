@@ -12,27 +12,26 @@ router.get('/whats-new', function(req, res, next) {
     function(callback) {
       contentful.getWhatsNew(function(response) {
         content.class = response;
-        content.class.cmsEntry.fields.topBanners.forEach(function(topBannersList) {
+        if (response && response.cmsEntry && response.cmsEntry.fields && response.cmsEntry.fields.topBanners){
+          content.class.cmsEntry.fields.topBanners.forEach(function(topBannersList) {
           assetIdList += topBannersList.sys.id + ",";
-        });
+          });
+        }
         callback();
       });
     },
     function(callback) {
       contentful.getContentAsset(spaceId, function(response, error, result) {
         whatsnewheaderImageURLList = "";
-        result.items.forEach(function(assetList) {
-          if (assetIdList.indexOf(assetList.sys.id) > -1) {
-            whatsnewheaderImageURLList += assetList.fields.file.url + ",";
-          }
-        });
-        if (result != null) {
-          content.whatsnewheaderImageURLList = whatsnewheaderImageURLList;
-          callback();
-        } else {
-          content.whatsnewheaderImageURLList = '';
-          callback();
+
+        if (result && result.items) {
+          result.items.forEach(function(assetList) {
+            if (assetIdList.indexOf(assetList.sys.id) > -1) {
+              whatsnewheaderImageURLList += assetList.fields.file.url + ",";
+            }
+          });
         }
+        content.whatsnewheaderImageURLList = whatsnewheaderImageURLList;
       });
     },
   ], function(results) {
