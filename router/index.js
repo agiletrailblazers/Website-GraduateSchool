@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-
+var logger = require('../logger');
+var contentful = require('../API/contentful.js');
+var common = require("../helpers/common.js")
 
 // load all routes from sub-files
 module.exports = function (app) {
@@ -21,14 +23,14 @@ module.exports = function (app) {
 };
 
 function defaultUrlRedirect(req, res, next) {
-  require('../API/contentful.js').getContentUrlRedirect(function(data, error) {
+  contentful.getContentUrlRedirect(function(data, error) {
     if (data != null) {
       var map = new Object();
       data.forEach(function (curr){
         map[curr.fields.from] = curr.fields.to;
       });
 
-      if(require("../helpers/common.js").isNotEmpty(map[req.url])) {
+      if(common.isNotEmpty(map[req.url])) {
         res.redirect(map[req.url]);
       }
       // redirect non-one word urls to pagenotfound. '1' is used in substring to ignore the first char in url i.e to ignore first '/'
@@ -42,7 +44,7 @@ function defaultUrlRedirect(req, res, next) {
       }
     } else {
         if (error) {
-          require('../logger').error(error);
+          logger.error(error);
         }
     }
   });
