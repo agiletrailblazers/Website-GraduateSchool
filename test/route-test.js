@@ -36,12 +36,12 @@ test("url redirect provides corresponding links", function(t) {
     reqheaders: {
       'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
     }
-  }).get('/spaces/98qeodfc03o0/entries?content_type=urlRedirect')
+  }).get('/spaces/98qeodfc03o0/entries?content_type=redirect')
   .reply(200, {
     "sys": {
       "type": "Array"
     },
-    "total": 1,
+    "total": 5,
     "skip": 0,
     "limit": 100,
     "items": [
@@ -59,23 +59,18 @@ test("url redirect provides corresponding links", function(t) {
             "sys": {
               "type": "Link",
               "linkType": "ContentType",
-              "id": "urlRedirect"
+              "id": "redirect"
             }
           },
-          "id": "1UBFWW9THOs88gIAEUGYmi",
-          "revision": 5,
-          "createdAt": "2015-12-09T19:06:39.292Z",
-          "updatedAt": "2015-12-09T20:53:31.608Z",
+          "id": "6lvq7UyIPSImoYUw8O8oUM",
+          "revision": 1,
+          "createdAt": "2015-12-11T14:57:06.759Z",
+          "updatedAt": "2015-12-11T14:57:06.759Z",
           "locale": "en-US"
         },
         "fields": {
-          "title": "UrlMapping",
-          "links": {
-            "/academic": "/content/academic",
-            "/gov": "/content/government",
-            "/metro": "/content/government",
-            "/evening": "/content/evening"
-          }
+          "from": "/academic",
+          "to": "/content/academic"
         }
       }
     ]
@@ -83,8 +78,8 @@ test("url redirect provides corresponding links", function(t) {
 
   // call the api
   contentful.getContentUrlRedirect(function(response) {
-    expect(response.title).to.equal("UrlMapping");
-    expect(response.links).to.exist;
+    expect(response[0].fields.from).to.exit;
+    expect(response[0].fields.to).to.exist;
   });
   t.end();
 });
