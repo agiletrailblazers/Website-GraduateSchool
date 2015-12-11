@@ -35,8 +35,10 @@ $(document).ready(function() {
 
 //Displays contact us menu on click
 $(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
   $('#contact-us').click(function() {
       $('#contact-us-top-menu').toggle();
+
   });
 });
 
