@@ -2259,3 +2259,26 @@ ul.see-more li {
     select::-ms-expand{
       display:none;
     }
+
+#backTop{
+    width:10px;
+    height:10px;
+    padding:10px;
+    bottom:10px!important;
+    border-radius:4px;
+    text-indent:-9999px;
+    cursor:pointer;
+    z-index:999999999;
+    display:none;
+    box-sizing:content-box;
+    -webkit-box-sizing:content-box;
+}
+
+#backTop.black{
+    background:url(../images/arrow-up.png) no-repeat center center rgba(0,0,0,0.8);
+    border:1px solid #ccc;
+}
+
+#back-to-top a:hover {
+    background: #2e813e url(../images/arrow-up.png) no-repeat center center;
+}
