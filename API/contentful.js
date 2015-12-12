@@ -1,6 +1,7 @@
 var request = require('request');
 var logger = require('../logger');
 var config = require('konphyg')(__dirname + '/../config');
+var common = require("../helpers/common.js");
 
 module.exports = {
   getWhatsNew: function(callback) {
@@ -11,7 +12,7 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-      if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/4QlvJ0GeQw4AY2QOq8SUMY')) {
+      if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/4QlvJ0GeQw4AY2QOq8SUMY')) {
         return callback(response, new Error("Exception occured in getting whats new"), null);
       }
       logger.debug("What's New Contentful: " + response.statusCode);
@@ -31,7 +32,7 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-      if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/' + space + '/assets/' + asset + '')) {
+      if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/' + space + '/assets/' + asset + '')) {
         return callback(response, new Error("Exception occured in getting asset"), null);
       }
       logger.debug("Get Asset Contentful: " + response.statusCode);
@@ -47,7 +48,7 @@ module.exports = {
         'Authorization': 'Bearer d60cc07cb9754202a1483b9e4758b9a38dae4823d6891676b7ac1640daaf09f8'
       }
     }, function(error, response, body) {
-      if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/0rlhdagwnyoo/entries/' + entry + '')) {
+      if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/0rlhdagwnyoo/entries/' + entry + '')) {
         return callback(response, new Error("Exception occured in getting the syllabus"), null);
       }
       logger.debug("Syllabus Contentful: " + response.statusCode);
@@ -64,7 +65,7 @@ module.exports = {
         'Authorization': 'Bearer a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e'
       }
     }, function(error, response, body) {
-      if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?content_type=2wKn6yEnZewu2SCCkus4as&order=-fields.date')) {
+      if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?content_type=2wKn6yEnZewu2SCCkus4as&order=-fields.date')) {
         return callback(response, new Error("Exception occured in getting the news recent"), null);
       }
       logger.debug("Recent News Contentful: " + response.statusCode);
@@ -81,7 +82,7 @@ module.exports = {
         'Authorization': 'Bearer a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e'
       }
     }, function(error, response, body) {
-      if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?content_type=2wKn6yEnZewu2SCCkus4as&fields.slug=' + slug + '')) {
+      if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?content_type=2wKn6yEnZewu2SCCkus4as&fields.slug=' + slug + '')) {
         return callback(response, new Error("Exception occured in getting the news detail"), null);
       }
       logger.debug("News Post Contentful: " + response.statusCode);
@@ -98,7 +99,7 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-      if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/' + space + '/assets/' + '')) {
+      if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/' + space + '/assets/' + '')) {
         return callback(response, new Error("Exception occured in getting the content asset"), null);
       }
       logger.debug("Get Content Asset Contentful: " + response.statusCode);
@@ -116,7 +117,7 @@ module.exports = {
         'Authorization': 'Bearer db132f1da5cc75a00f487cce1c94143798d8e5d12c65c169b2fc04febdfae44d'
       }
     }, function(error, response, body) {
-      if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/5tnto6ug3qkh/entries?include=2&content_type=47TLz18cmI6WaeC0KWgOIo')) {
+      if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/5tnto6ug3qkh/entries?include=2&content_type=47TLz18cmI6WaeC0KWgOIo')) {
         return callback(response, new Error("Exception occured in getting the navigation"), null);
       }
       logger.debug("Main Nav Contentful: " + response.statusCode);
@@ -198,7 +199,7 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-      if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/?content_type=rrnJXELzeC4O8Mc8oQUqK&fields.slug=' + slug + '')) {
+      if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/?content_type=rrnJXELzeC4O8Mc8oQUqK&fields.slug=' + slug + '')) {
         return callback(response, new Error("Exception occured in getting the reference data: " + slug), null);
       }
       logger.debug("Reference Data Contentful: " + response.statusCode);
@@ -218,7 +219,7 @@ module.exports = {
         'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
       }
     }, function(error, response, body) {
-      if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries/?content_type=4oNvURz39SeMw6EaS84gIM&fields.slug=' + slug + '')) {
+      if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries/?content_type=4oNvURz39SeMw6EaS84gIM&fields.slug=' + slug + '')) {
         return callback(response, new Error("Exception occured in getting the content page, " + slug), null);
       }
       contentPage = JSON.parse(body);
@@ -233,7 +234,7 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-      if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/3AdFDCVaOIeQSgemcmkGqk')) {
+      if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/3AdFDCVaOIeQSgemcmkGqk')) {
         return callback(response, new Error("Exception occured in getting the course search"), null);
       }
       logger.debug("Course Search Contentful: " + response.statusCode);
@@ -249,7 +250,7 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-      if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/1Cwi1ay4SEWcIYAy8EAu8U')) {
+      if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/1Cwi1ay4SEWcIYAy8EAu8U')) {
         return callback(response, new Error("Exception occured in getting the course details"), null);
       }
       logger.debug("Course Details Contentful: " + response.statusCode);
@@ -265,7 +266,7 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-      if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=2Ak0RNhLwIwSGaiukUsCku')) {
+      if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=2Ak0RNhLwIwSGaiukUsCku')) {
         return callback(response, new Error("Exception occured in getting the homepage slider"), null);
       }
       logger.debug("Homepage slider: " + response.statusCode);
@@ -297,7 +298,7 @@ module.exports = {
       'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
        }
     }, function(error, response, body) {
-      if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=5Lz9bSZNE4ACoykGQgQwUu')) {
+      if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=5Lz9bSZNE4ACoykGQgQwUu')) {
         return callback(response, new Error("Exception occured in getting the forms"), null);
       }
       logger.debug("Get Forms Contentful: " + response.statusCode);
@@ -317,7 +318,7 @@ module.exports = {
         'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
     }, function(error, response, body) {
-      if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=6xOVVkV7wc8ecwKqCaSwyW')) {
+      if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=6xOVVkV7wc8ecwKqCaSwyW')) {
         return callback(response, new Error("Exception occured in getting the testimonial"), null);
       }
       logger.debug("Marketing testimonial: " + response.statusCode);
@@ -346,7 +347,7 @@ module.exports = {
      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
    }, function(error, response, body) {
-     if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=22JH0IRqc0iEqM2uMgMyyy')) {
+     if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=22JH0IRqc0iEqM2uMgMyyy')) {
        return callback(response, new Error("Exception occured in getting the alerts"), null);
      }
      logger.debug("Get Alerts from Contentful: " + response.statusCode);
@@ -362,7 +363,7 @@ module.exports = {
      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
    }, function(error, response, body) {
-     if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/' + entryId + '')) {
+     if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/' + entryId + '')) {
        return callback(response, new Error("Exception occured in getting the data grouping"), null);
      }
      logger.debug("Get data group from Contentful: " + response.statusCode);
@@ -378,7 +379,7 @@ module.exports = {
      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
    }, function(error, response, body) {
-     if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=ZRkwvyMcCqK46gGOggeWs')) {
+     if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=ZRkwvyMcCqK46gGOggeWs')) {
        return callback(response, new Error("Exception occured in getting the catalog type"), null);
      }
      logger.debug("Get Catalog Contentful: " + response.statusCode);
@@ -398,7 +399,7 @@ module.exports = {
      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
    }, function(error, response, body) {
-     if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=5SLs6g27dK2IOeuOyKyeoq')) {
+     if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=5SLs6g27dK2IOeuOyKyeoq')) {
        return callback(response, new Error("Exception occured in getting the catalog request hard copy"), null);
      }
      logger.debug("Get Catalog Contentful: " + response.statusCode);
@@ -417,7 +418,7 @@ module.exports = {
      'Authorization': 'Bearer eb55e283a78dc7e297091e733bf374948b3361e74e6f36d36e8f880ce20a1467'
       }
    }, function(error, response, body) {
-     if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/2v0dv55ahz7w/entries?content_type=5Qnph4LqeWyqy2aeQmes4y&fields.slug=' + categorySlug + '')) {
+     if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/2v0dv55ahz7w/entries?content_type=5Qnph4LqeWyqy2aeQmes4y&fields.slug=' + categorySlug + '')) {
        return callback(response, new Error("Exception occured in getting the FAQ category"), null);
      }
      logger.debug("Get faqs from Contentful: " + response.statusCode);
@@ -434,7 +435,7 @@ module.exports = {
      'Authorization': 'Bearer eb55e283a78dc7e297091e733bf374948b3361e74e6f36d36e8f880ce20a1467'
       }
    }, function(error, response, body) {
-     if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/2v0dv55ahz7w/entries?content_type=5Qnph4LqeWyqy2aeQmes4y')) {
+     if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/2v0dv55ahz7w/entries?content_type=5Qnph4LqeWyqy2aeQmes4y')) {
        return callback(response, new Error("Exception occured in getting the FAQ"), null);
      }
      logger.debug("Get faqs from Contentful: " + response.statusCode);
@@ -451,7 +452,7 @@ module.exports = {
        'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
      }
    }, function(error, response, body) {
-     if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries?content_type=vWuB3fpTWge2EU8ec0OOA&fields.slug=' + slug + '')) {
+     if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries?content_type=vWuB3fpTWge2EU8ec0OOA&fields.slug=' + slug + '')) {
        return callback(response, new Error("Exception occured in getting the snippet, " + slug), null);
      }
      contentSnippet = JSON.parse(body);
@@ -467,27 +468,11 @@ module.exports = {
        'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
      }
    }, function(error, response, body) {
-     if (checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries?content_type=redirect')) {
+     if (common.checkForErrorAndLog(error, response, 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries?content_type=redirect')) {
        return callback(null, new Error("Exception occured in getting the redirect information"));
      }
      data = JSON.parse(body).items;
      return callback(data, null);
    });
  }
-
 };
-
-function checkForErrorAndLog(error, response, url) {
-  if (error || !response || (response.statusCode != 200)) {
-    var message = "Error calling contentful";
-    if (response) {
-      message = message + ", status code: " + response.statusCode;
-    }
-    if (error) {
-      message = message + ", error message: " + error.message;
-    }
-    logger.error(message + ", url: " + url);
-    return true;
-  }
-  return false;
-}

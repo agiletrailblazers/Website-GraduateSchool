@@ -35,42 +35,47 @@ module.exports = {
       method: 'GET',
       url: courseApiUrl
     }, function (error, response, body) {
-      if (error != null || response == null || response.statusCode != 200) {
-        logger.error("Exception occured performing course search. " + error);
-        return callback(response, new Error("Exception occured performing couse search"), null);
-      }
+      if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
+       return callback(response, new Error("Exception occured performing couse search"), null);
+     }
       logger.debug('Status:', response.statusCode);
       result = JSON.parse(body);
       return callback(response, error, result);
     })
   },
   performExactCourseSearch: function(callback, courseId) {
-    var courseApiUrl = config("properties").courseApiUrl;
+    var courseApiUrl = config("properties").courseApiUrl + '/api/courses/' + courseId;
     request({
       method: 'GET',
-      url: courseApiUrl + '/api/courses/' + courseId + ''
+      url: courseApiUrl
     }, function (error, response, body) {
-      logger.debug("Course Search: " + response.statusCode);
-      if (error != null || response.statusCode != 200) {
-        logger.error("Exception occured performing exact course search. " + error);
-        return callback(response, new Error("Exception occured performing exact course search"), null);
+      if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
+       return callback(response, new Error("Exception occured performing exact course search"), null);
       }
+      logger.debug("Course Search: " + response.statusCode);
       result = JSON.parse(body);
       return callback(response, error, result);
     });
   },
   getSchedule: function(callback, courseId) {
-    var courseApiUrl = config("properties").courseApiUrl;
+    var courseApiUrl = config("properties").courseApiUrl + '/api/courses/' + courseId + '/sessions';
     request({
       method: 'GET',
-      url: courseApiUrl + '/api/courses/' + courseId + '/sessions'
+      url: courseApiUrl
     }, function (error, response, body) {
       if (error || !response || (response.statusCode != 200 && response.statusCode != 404)) {
-        logger.error("Exception occured performing course schedule search. " + error);
-        return callback(response, new Error("Exception occured performing couse search"), null);
+        var message = "Error performing course schedule search";
+        if (response) {
+          message = message + ", status code: " + response.statusCode;
+        }
+        if (error) {
+          message = message + ", error message: " + error.message;
+        }
+        logger.error(message + ", url: " + url);
+        return callback(response, new Error("Exception occured performing course search"), null);
       }
       if (response.statusCode == 404) {
-        //404 is an expected response, return result as null
+        //404 is an expected response, so no need to log an error for it, return result as null
         return callback(response, error, null);
       }
       logger.debug("Course Schedule: " + response.statusCode);
@@ -79,46 +84,43 @@ module.exports = {
     });
   },
   getCourses: function(callback) {
-    var courseApiUrl = config("properties").courseApiUrl;
+    var courseApiUrl = config("properties").courseApiUrl + '/api/courses';
     request({
       method: 'GET',
-      url: courseApiUrl + '/api/courses'
+      url: courseApiUrl
     }, function (error, response, body) {
+      if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
+       return callback(response, new Error("Exception occured getting all courses"), null);
+     }
       logger.debug("Get Courses: " + response.statusCode);
-      if (error != null || response.statusCode != 200) {
-        logger.error("Exception occured getting all courses. " + error);
-        return callback(response, new Error("Exception occured getting all courses"), null);
-      }
       result = JSON.parse(body).courses;
       return callback(response, error, result);
     });
   },
   getLocations: function(callback) {
-    var courseApiUrl = config("properties").courseApiUrl;
+    var courseApiUrl = config("properties").courseApiUrl + '/api/locations';
     request({
       method: 'GET',
-      url: courseApiUrl + '/api/locations'
+      url: courseApiUrl
     }, function (error, response, body) {
-      logger.debug("Get Locations: " + response.statusCode);
-      if (error != null || response == null || response.statusCode != 200) {
-        logger.error("Exception occured getting all locations. " + error);
-        return callback(response, new Error("Exception occured getting all locations"), null);
+      if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
+       return callback(response, new Error("Exception occured getting all locations"), null);
       }
+      logger.debug("Get Locations: " + response.statusCode);
       result = JSON.parse(body);
       return callback(response, error, result);
     });
   },
   getCategories: function(callback) {
-    var courseApiUrl = config("properties").courseApiUrl;
+    var courseApiUrl = config("properties").courseApiUrl + '/api/courses/categories';
     request({
       method: 'GET',
-      url: courseApiUrl + '/api/courses/categories'
+      url: courseApiUrl
     }, function (error, response, body) {
-      logger.debug("Get Categories : " + response.statusCode);
-      if (error != null || response == null || response.statusCode != 200) {
-        logger.error("Exception occured getting all categories. " + error);
-        return callback(response, new Error("Exception occured getting all categories"), null);
+      if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
+       return callback(response, new Error("Exception occured getting all categories"), null);
       }
+      logger.debug("Get Categories : " + response.statusCode);
       result = JSON.parse(body);
       return callback(response, error, result);
     });
@@ -144,10 +146,9 @@ module.exports = {
         method: 'GET',
         url: siteApiUrl
     }, function (error, response, body) {
-        if (error != null || response == null || response.statusCode != 200) {
-            logger.error("Exception occured performing course search. " + error);
-            return callback(response, new Error("Exception occured performing Site search"), null);
-        }
+      if (common.checkForErrorAndLog(error, response, siteApiUrl)) {
+       return callback(response, new Error("Exception occured performing Site search"), null);
+      }
         logger.debug('Status:', response.statusCode);
         result = JSON.parse(body);
         return callback(response, error, result);
