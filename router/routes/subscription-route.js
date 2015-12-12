@@ -26,7 +26,7 @@
       },
       function(callback) {
         var entryId = "2wAaVPf3aIWCAu0SeeI44O";
-        contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
+        contentfulForms.getFormWithHeaderAndFooter(entryId, function(response, error) {
           title = response.fields.sectionTitle;
           callback();
         });

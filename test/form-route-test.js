@@ -23,7 +23,7 @@ test('form route test for inquiry form', function (t) {
       }
     });
   contentfulformServer;
-  contentful_forms.getInquiryForm(function (response) {
+  contentful_forms.getInquiryForm(function (response, error) {
     hearAboutTrainingString = 'From a GS training officer.';
     expect(response.fields.howDidYouHearAboutTraining[0].name).to.equal(hearAboutTrainingString);
     expect(response).to.be.a('object');
@@ -44,7 +44,7 @@ test('form route test for Contact us', function (t) {
       }
     });
   contentfulformServer;
-  contentful_forms.getContactUs(function (response) {
+  contentful_forms.getContactUs(function (response, error) {
     fieldsTitle = "Contact Us";
     expect(response.fields.title).to.equal(fieldsTitle);
     expect(response).to.be.a('object');
@@ -68,7 +68,7 @@ test('form route test for Request Duplicate Form', function (t) {
     });
   contentfulformServer;
 
-  contentful_forms.getFormWithHeaderAndFooter('mlBs5OCiQgW84oiMm4k2s', function(response) {
+  contentful_forms.getFormWithHeaderAndFooter('mlBs5OCiQgW84oiMm4k2s', function(response, error) {
     expect(response.fields.sectionTitle).to.equal("Duplicate Request Forms");
   });
   t.end();
@@ -85,8 +85,9 @@ test('form route test for Request Duplicate Form Internal Error', function (t) {
     });
   contentfulformServer;
 
-  contentful_forms.getFormWithHeaderAndFooter('mlBs5OCiQgW84oiMm4k2s', function(response) {
-    expect(response.fields).to.be.undefined;
+  contentful_forms.getFormWithHeaderAndFooter('mlBs5OCiQgW84oiMm4k2s', function(response, error) {
+    should.exist(error);
+    should.not.exist(response);
   });
   t.end();
 });
@@ -107,7 +108,7 @@ test('Form route test for Proctor Request Form', function (t) {
     });
   contentfulformServer;
 
-  contentful_forms.getFormWithHeaderAndFooter('JgpDPSNoe4kQGWIkImKAM', function (response) {
+  contentful_forms.getFormWithHeaderAndFooter('JgpDPSNoe4kQGWIkImKAM', function (response, error) {
     expect(response.fields.sectionTitle).to.equal("Proctor Request Form");
   });
   t.end();
@@ -124,8 +125,9 @@ test('Form route test for Proctor Request Form Internal Error', function (t) {
     });
   contentfulformServer;
 
-  contentful_forms.getFormWithHeaderAndFooter('JgpDPSNoe4kQGWIkImKAM', function (response) {
-    expect(response.fields).to.be.undefined;
+  contentful_forms.getFormWithHeaderAndFooter('JgpDPSNoe4kQGWIkImKAM', function (response, error) {
+    should.exist(error);
+    should.not.exist(response);
   });
   t.end();
 });
@@ -167,7 +169,7 @@ test('Form route test for Certificate Programs Application', function (t) {
   });
   contentfulformServer;
 
-  contentful_forms.getFormWithHeaderAndFooter('KbQb89jHMWceeoKIGsSgw', function (response) {
+  contentful_forms.getFormWithHeaderAndFooter('KbQb89jHMWceeoKIGsSgw', function (response, error) {
     expect(response.fields.sectionTitle).to.equal('Certificate Program Application');
   });
   t.end();
@@ -184,8 +186,9 @@ test('Form route test for  Certificate Programs Application Internal Error', fun
   });
   contentfulformServer;
 
-  contentful_forms.getFormWithHeaderAndFooter('KbQb89jHMWceeoKIGsSgw', function (response) {
-    expect(response.fields).to.be.undefined;
+  contentful_forms.getFormWithHeaderAndFooter('KbQb89jHMWceeoKIGsSgw', function (response, error) {
+    should.exist(error);
+    should.not.exist(response);
   });
   t.end();
 });

@@ -18,7 +18,7 @@ router.post('/mailer-customer-feedback', function (req, res, next) {
     // Send email if there are no errors.
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
-      google.verifyCaptcha(function (response) {
+      google.verifyCaptcha(function (response, error) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
           if(validator.isLength(params.email.trim(),1)) {
@@ -45,7 +45,7 @@ router.post('/mailer-contact-us', function (req, res, next) {
     // Send email if there are no errors.
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
-      google.verifyCaptcha(function (response) {
+      google.verifyCaptcha(function (response, error) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
 
@@ -71,7 +71,7 @@ router.post('/mailer-onsite-inquiry', function (req, res, next) {
   routerService.validateOnsiteInquiryfields(function (response) {
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
-      google.verifyCaptcha(function (response) {
+      google.verifyCaptcha(function (response, error) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
           mailer.sendOnsiteInquiry(function (response) {
@@ -95,7 +95,7 @@ router.post('/mailer-request-duplicate', function (req, res, next) {
     // Send email if there are no errors.
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
-      google.verifyCaptcha(function (response) {
+      google.verifyCaptcha(function (response, error) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
           mailer.sendOnRequestDuplicate(function (response) {
@@ -119,7 +119,7 @@ router.post('/mailer-request-proctor', function (req, res, next) {
     // Send email if there are no errors.
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
-      google.verifyCaptcha(function (response) {
+      google.verifyCaptcha(function (response, error) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
           mailer.sendOnProctorRequest(function (response) {
@@ -160,7 +160,7 @@ router.post('/mailer-request-certificate-program', function(req, res, next) {
     // Send email if there are no errors.
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
-      google.verifyCaptcha(function (response) {
+      google.verifyCaptcha(function (response, error) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
           mailer.sendCertificateProgram(function (response) {
@@ -184,7 +184,7 @@ router.post('/mailer-request-catalog', function (req, res, next) {
     // Send email if there are no errors.
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
-      google.verifyCaptcha(function (response) {
+      google.verifyCaptcha(function (response, error) {
         if ((response != null) && (response.statusCode == 200)) {
           //send mail of success
           mailer.sendCatalogRequest(function (response) {
@@ -214,7 +214,7 @@ router.post('/mailer-subscription', function (req, res, next) {
         sendSubscriptionEmail(res, params);
       }
       else {
-        google.verifyCaptcha(function (response) {
+        google.verifyCaptcha(function (response, error) {
           if ((response != null) && (response.statusCode == 200) ) {
             logger.debug("mailer-subscription captcha verification success");
             // send subscription email
