@@ -71,7 +71,7 @@ module.exports = {
         if (error) {
           message = message + ", error message: " + error.message;
         }
-        logger.error(message + ", url: " + url);
+        logger.error(message + ", url: " + courseApiUrl);
         return callback(response, new Error("Exception occured performing course search"), null);
       }
       if (response.statusCode == 404) {
