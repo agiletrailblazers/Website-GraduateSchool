@@ -1,4 +1,10 @@
 $(document).ready(function() {
+
+  $('#backTop').backTop({
+    'position' : 100,
+    'speed' : 1000,
+    'color' : 'black',
+  });
   $('.nav-toggle').click(function() {
     // If menu is closed, toggle to selected tab
     if($('.npanel').css('display') === 'none') {
