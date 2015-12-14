@@ -262,20 +262,19 @@ section h2 {
 }
 
 a.expand-section:link {
-  font-size: 17px;
+  font-size: 15px;
   color: #327EBC;
   background: none;
   border-color: none;
-  text-decoration: underline;
+  font-weight: normal;
   transition: background-color 300ms linear 0s;
 }
 
 a.expand-section:visited {
-  font-size: 17px;
+  font-size: 15px;
   color: #327EBC;
   background: none;
   border-color: none;
-  text-decoration: underline;
   transition: background-color 300ms linear 0s;
 }
 
@@ -286,11 +285,13 @@ a.expand-section:hover {
 
 a.expand-section:focus {
   color: #D7124D;
+  font-weight: bold;
   transition: background-color 300ms linear 0s;
 }
 
 a.expand-section:active {
   color: #D7124D !important;
+  font-weight: bold;
   transition: background-color 300ms linear 0s;
 }
 
