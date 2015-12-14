@@ -54,8 +54,15 @@ p.clear > span {
   padding: 0px;
 }
 
-div.refine p {
+div.refine p, div.refine-mobile p {
 color: #DB0F4E !important;
+}
+
+div.refine-mobile {
+  padding-right: 5px;
+}
+div.refine-mobile p:hover {
+  color: #333 !important;
 }
 
 .panel .gs {

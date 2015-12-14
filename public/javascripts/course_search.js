@@ -8,7 +8,7 @@ $(document).ready(function() {
     reloadSearchResults();
   });
 
-  $(document).on("click",".refine",function(event){
+  $(document).on("click",".refine, .refine-mobile",function(event){
     $("#itemsPerPage").val("10");
     $("#selLocation").val("all");
     $("#categorySubject").val("all");
