@@ -1734,7 +1734,7 @@ ul.footer-menu li a {
   width: 45px;
   height: 167px;
   right: 0px;
-  bottom: 50px;
+  bottom: 95px;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
@@ -2263,9 +2263,9 @@ ul.see-more li {
 #backTop{
     width:10px;
     height:10px;
-    padding:10px;
+    padding:14px;
     bottom:10px!important;
-    border-radius:4px;
+    border-radius:0px;
     text-indent:-9999px;
     cursor:pointer;
     z-index:999999999;
@@ -2274,11 +2274,12 @@ ul.see-more li {
     -webkit-box-sizing:content-box;
 }
 
-#backTop.black{
+#backTop.black,  #back-to-top a:visited {
     background:url(../images/arrow-up.png) no-repeat center center rgba(0,0,0,0.8);
-    border:1px solid #ccc;
+    border:1px solid #EEE;
 }
 
+
 #back-to-top a:hover {
-    background: #2e813e url(../images/arrow-up.png) no-repeat center center;
+    background: #427EB4 url(../images/arrow-up.png) no-repeat center center;
 }
