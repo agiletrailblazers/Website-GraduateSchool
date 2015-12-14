@@ -157,6 +157,18 @@
       .tab-right {
         text-align: right;
       }
+
+      #gs-tabs .nav {
+        padding-left: 0px;
+        margin-bottom: 0px;
+        list-style: outside none none;
+        height: auto;
+      }
+
+      #gs-tabs .nav > li > a {
+        padding: 17px 10px;
+        font-size: 14px;
+      }
     }
 
     /* Small Devices, Tablets */
@@ -519,6 +531,35 @@
           margin: 10px auto !important;
         }
 
+        #gs-tabs .nav > li > a {
+         padding: 15px 10px;
+       }
+
+        #faq #gs-tabs .nav > li > a {
+          padding: 10px 5px;
+        }
+
+        #faq .nav-tabs > li {
+          width: 100%;
+        }
+
+        #faq .nav-tabs > li + li {
+          border-top: 1px solid #DDD;
+        }
+
+        a.expand-section:link {
+          font-size: 14px;
+        }
+
+        a.expand-section:focus {
+          font-weight: bold;
+          transition: background-color 300ms linear 0s;
+        }
+
+        a.expand-section:active {
+          font-weight: bold;
+          transition: background-color 300ms linear 0s;
+        }
     }
 
     /* Extra Small Devices, Phones */
