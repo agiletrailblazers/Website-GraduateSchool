@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-
+var logger = require('../logger');
+var contentful = require('../API/contentful.js');
+var common = require("../helpers/common.js")
 
 // load all routes from sub-files
 module.exports = function (app) {
@@ -21,17 +23,29 @@ module.exports = function (app) {
 };
 
 function defaultUrlRedirect(req, res, next) {
-  require('../API/contentful.js').getContentUrlRedirect(function(response) {
-    if(require("../helpers/common.js").isNotEmpty(response.links[req.url])) {
-      res.redirect(response.links[req.url]);
-    }
-    // redirect non-one word urls to pagenotfound. '1' is used in substring to ignore the first char in url i.e to ignore first '/'
-    else if (-1 === req.url.substring(1).search(/^[A-Za-z0-9_-]+$/)){
-      res.redirect('/pagenotfound');
-    }
-    // everything else redirects to page not found
-    else {
-      res.redirect('/');
+  contentful.getContentUrlRedirect(function(data, error) {
+    if (data != null) {
+      var map = new Object();
+      data.forEach(function (curr){
+        map[curr.fields.from] = curr.fields.to;
+      });
+
+      if(common.isNotEmpty(map[req.url])) {
+        res.redirect(map[req.url]);
+      }
+      // redirect non-one word urls to pagenotfound. '1' is used in substring to ignore the first char in url i.e to ignore first '/'
+      else if (-1 === req.url.substring(1).search(/^[A-Za-z0-9_-]+$/)){
+        logger.error("Page not found: " + req.url);
+        res.redirect('/pagenotfound');
+      }
+      // everything else redirects to page not found
+      else {
+        res.redirect('/');
+      }
+    } else {
+        if (error) {
+          logger.error(error);
+        }
     }
   });
 }

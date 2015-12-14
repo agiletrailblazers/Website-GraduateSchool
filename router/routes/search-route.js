@@ -35,13 +35,17 @@ router.get('/search', function(req, res, next){
         return;
       }
       course.performCourseSearch(function(response, error, result){
-        courseResult = result;
+        if (result) {
+          courseResult = result;
+        }
         callback();
       }, params);
     },
     function(callback) {
       contentful.getCourseSearch(function(fields) {
-        content = fields;
+        if (fields) {
+          content = fields;
+        }
         callback();
       });
     },
@@ -52,7 +56,9 @@ router.get('/search', function(req, res, next){
           return;
       }
       course.performSiteSearch(function(response, error, result){
-        siteResult = result;
+        if (result) {
+          siteResult = result;
+        }
         callback();
       }, params);
     }

@@ -12,7 +12,7 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
   async.parallel([
     function(callback) {
       logger.debug('Get contentful fields');
-      contentfulForms.getInquiryForm(function(response) {
+      contentfulForms.getInquiryForm(function(response, error) {
         fields = response.fields;
         callback();
       });
@@ -52,7 +52,7 @@ router.get('/forms/request-duplicate-form', function(req, res, next) {
   async.parallel([
     function(callback) {
       logger.debug('Get contentful fields');
-      contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
+      contentfulForms.getFormWithHeaderAndFooter(entryId, function(response, error) {
         cmsEntry = response;
         callback();
       });
@@ -84,7 +84,7 @@ router.get('/forms/proctor-request-form', function(req, res, next) {
   async.parallel([
     function(callback) {
       logger.debug('Get contentful fields');
-      contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
+      contentfulForms.getFormWithHeaderAndFooter(entryId, function(response, error) {
         cmsEntry = response;
         callback();
       });
@@ -118,7 +118,7 @@ router.get(
   }
   async.parallel([
     function(callback) {
-      contentfulForms.getContactUs(function(response) {
+      contentfulForms.getContactUs(function(response, error) {
         fields = response.fields;
         callback();
       });
@@ -152,7 +152,7 @@ router.get(
     }
     async.parallel([
       function(callback) {
-        contentfulForms.getFormWithHeaderAndFooter(entryId, function(response) {
+        contentfulForms.getFormWithHeaderAndFooter(entryId, function(response, error) {
           fields = response.fields;
           callback();
         });

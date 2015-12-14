@@ -11,7 +11,9 @@ test('test for google captcha:success', function(t) {
         .reply(200, {
         },'');
     googleRecaptchaServer;
-    contentful_forms.verifyCaptcha(function(response){
+    contentful_forms.verifyCaptcha(function(response, error){
+      should.exist(response);
+      should.not.exist(error);
        expect(response.statusCode).to.eql(200);
     },'');
     t.end();
@@ -23,7 +25,9 @@ test('test for google captcha:error', function(t) {
         .reply(500, {"success":false, "error-codes":["invalid-input-response"]
         },'');
     googleRecaptchaServer;
-    contentful_forms.verifyCaptcha(function(response){
+    contentful_forms.verifyCaptcha(function(response, error){
+      should.exist(response);
+      should.exist(error);
        expect(response.statusCode).to.eql(500);
        expect(response.body).to.eq('{"success":false,"error-codes":["invalid-input-response"]}');
     },'');
