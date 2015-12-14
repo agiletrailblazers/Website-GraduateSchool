@@ -2198,16 +2198,20 @@ ul.see-more li {
 
 .spacer {
   height: 40px !important;
+}
 
+.spacer10 {
+  height: 10px !important;
 }
 
 .spacer25 {
   height: 25px !important;
 }
 
-.spacer10 {
-  height: 10px !important;
+.spacer60 {
+  height: 60px !important;
 }
+
 
 .tab-content p {
   font-size: 15px;
