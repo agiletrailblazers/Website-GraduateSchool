@@ -3,6 +3,7 @@
   "filterwithwww":"http://www.graduateschool.edu",
   "codeIdURL":"/course_details.php?cid=",
   "courseOverviewURLMappings": {
+    "/course_details.php?cid=":"/courses/",
     "/ace":"/content/ACE",
     "/alp":"/content/CLM#Section4",
     "/books":"http://graduateschool.textbookx.com/",
