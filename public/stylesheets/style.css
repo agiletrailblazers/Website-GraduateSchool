@@ -2198,16 +2198,20 @@ ul.see-more li {
 
 .spacer {
   height: 40px !important;
+}
 
+.spacer10 {
+  height: 10px !important;
 }
 
 .spacer25 {
   height: 25px !important;
 }
 
-.spacer10 {
-  height: 10px !important;
+.spacer60 {
+  height: 60px !important;
 }
+
 
 .tab-content p {
   font-size: 15px;
@@ -2282,4 +2286,17 @@ ul.see-more li {
 
 #back-to-top a:hover {
     background: #427EB4 url(../images/arrow-up.png) no-repeat center center;
+}
+
+.register {
+  padding-top: 8px;
+
+}
+.register a {
+  color: #555 !important;
+  font-weight: normal !important;
+}
+
+.register a:hover {
+  color: #427EB4 !important;
 }
