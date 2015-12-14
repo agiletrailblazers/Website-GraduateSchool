@@ -89,13 +89,13 @@ router.get('/courses/:course_id', function(req, res, next){
       });
 
       courseData.isLeadershipCourse = false;
-      content.leadershipCourseCodes.forEach(function (currCode) {
-        if (courseData.class.code === currCode) {
+      if (common.isNotEmpty(content.leadershipCoursesScheduleLinks)) {
+        if(common.isNotEmpty(content.leadershipCoursesScheduleLinks[courseData.class.code])) {
           courseData.isLeadershipCourse = true;
           courseData.leadershipCourseScheduleLinkText = content.leadershipCourseScheduleLinkText;
-          courseData.leadershipCourseScheduleLink = content.leadershipCourseScheduleLink;
+          courseData.leadershipCourseScheduleLink = content.leadershipCoursesScheduleLinks[courseData.class.code];
         }
-      });
+      }
 
       var allowedHtmlTags = config("properties").allowedHtmlTags;
       if (common.isNotEmpty(courseData.class.description)) {
