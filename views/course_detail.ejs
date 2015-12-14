@@ -13,7 +13,7 @@
   <div class="row nopadding">
     <div id="sidebar" class="col-lg-3 col-md-3 col-sm-12">
       <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-6">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <!-- COURSE DETAIL -->
             <div class="panel-group">
               <div class="panel panel-default course-detail">
@@ -23,13 +23,13 @@
                 <div id="course-detail" class="panel-collapse collapse in">
                   <div class="panel-body">
                     <div class="row">
-                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 mobile-nopadding">
+                      <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6 mobile-nopadding">
                         <table class="details">
                         <tr><th><%= content.courseDetailTitles[0] %></th><td><%= courseData.class.code %></td></tr>
                         <tr><th><%= content.courseDetailTitles[1] %></th><td><%= courseData.class.type %></td></tr>
                         </table>
                      </div> <!-- End of left column  -->
-                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 mobile-nopadding">
+                     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6 mobile-nopadding">
                         <table class="details">
                           <tr>
                             <th><%= content.courseDetailTitles[2] %></th>
@@ -56,7 +56,7 @@
               </div>
             </div> <!-- End Course Detail panel group -->
         </div>
-        <div class="col-lg-12 col-md-12 col-sm-6">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <!-- RELATED LINKS -->
         <div class="panel-group non-mobile">
           <div class="panel panel-default related-links">
@@ -323,9 +323,10 @@
           </div>
         </div> <!-- End of Legend -->
       </div><!-- End of Row -->
-    </div><!-- End Mobile Course Session Schedule table -->
       <div class="spacer mobile"></div>
-      <div class="spacer"></div>
+    </div><!-- End Mobile Course Session Schedule table -->
+
+      <div class="spacer non-mobile"></div>
 
     <!-- COURSE INFORMATION: Mobile-->
     <div id="sidebar" class="col-lg-12 col-md-12 col-sm-12 padding">
@@ -386,7 +387,7 @@
     </div> <!-- END Course Informaiton Mobile-->
 
     <!-- RELATED LINKS: MOBILE -->
-    <div id="sidebar" class="col-lg-12 col-md-12 col-sm-6 padding mobile">
+    <div id="sidebar" class="col-lg-12 col-md-12 col-sm-12 padding mobile">
       <div class="panel-group">
         <div class="spacer"></div>
         <div class="panel panel-default related-links">

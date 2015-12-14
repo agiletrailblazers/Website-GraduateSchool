@@ -236,6 +236,7 @@
       }
 
 
+
       /* remove "CLEAR ALL" button from refine search sidebar on smaller res */
       .refine {
         display: none;
