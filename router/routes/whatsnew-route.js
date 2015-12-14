@@ -32,6 +32,7 @@ router.get('/whats-new', function(req, res, next) {
           });
         }
         content.whatsnewheaderImageURLList = whatsnewheaderImageURLList;
+        callback();
       });
     },
   ], function(results) {
