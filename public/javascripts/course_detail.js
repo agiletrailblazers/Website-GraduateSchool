@@ -111,7 +111,7 @@ $(document).ready(function() {
       $("html, body").delay(400).animate({ scrollTop: 230 }, "slow");
   });
   $('#mob-showLess').click(function() {
-      $("html, body").delay(400).animate({ scrollTop: 550 }, "slow");
+      $("html, body").delay(400).animate({ scrollTop: 490 }, "slow");
   });
 
   tablemobApp.limitSessions(5);

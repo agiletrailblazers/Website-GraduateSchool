@@ -13,7 +13,7 @@
   <div class="row nopadding">
     <div id="sidebar" class="col-lg-3 col-md-3 col-sm-12">
       <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-6">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <!-- COURSE DETAIL -->
             <div class="panel-group">
               <div class="panel panel-default course-detail">
@@ -23,13 +23,13 @@
                 <div id="course-detail" class="panel-collapse collapse in">
                   <div class="panel-body">
                     <div class="row">
-                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 mobile-nopadding">
+                      <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6 mobile-nopadding">
                         <table class="details">
                         <tr><th><%= content.courseDetailTitles[0] %></th><td><%= courseData.class.code %></td></tr>
                         <tr><th><%= content.courseDetailTitles[1] %></th><td><%= courseData.class.type %></td></tr>
                         </table>
                      </div> <!-- End of left column  -->
-                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 mobile-nopadding">
+                     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6 mobile-nopadding">
                         <table class="details">
                           <tr>
                             <th><%= content.courseDetailTitles[2] %></th>
@@ -56,7 +56,7 @@
               </div>
             </div> <!-- End Course Detail panel group -->
         </div>
-        <div class="col-lg-12 col-md-12 col-sm-6">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <!-- RELATED LINKS -->
         <div class="panel-group non-mobile">
           <div class="panel panel-default related-links">
@@ -84,7 +84,16 @@
     <!-- COURSE SESSSION SCHEDULE TABLE -->
     <div class="non-mobile">
     <div class="table-responsive">
-
+      <!-- LEGEND-->
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding legend">
+        <div><span class="legend-title">Legend</span>
+          <ul>
+            <li><span class="label label-info">O</span>Registration open</li>
+            <li><span class="label label-danger">C</span>Registration closed</li>
+            <li><span class="label label-success">G</span>Guaranteed to Go</li>
+          </ul>
+        </div>
+      </div> <!-- End of Legend -->
         <table id="courseSessionTable" class="table table-striped session-schedule" data-totaltr="<%= courseData.session.length %>">
           <thead>
             <tr>
@@ -150,26 +159,10 @@
           </thead>
         </table>
       </div>
-      <div class="row padding10">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right padding">
 
-          <div class="table-nav right">
-
-          </div>
-        </div><!-- End of right column -->
-        <!-- LEGEND-->
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding legend">
-          <div><span class="legend-title">Legend</span>
-            <ul>
-              <li><span class="label label-info">O</span>Registration open</li>
-              <li><span class="label label-danger">C</span>Registration closed</li>
-              <li><span class="label label-success">G</span>Guaranteed to Go</li>
-            </ul>
-          </div>
-        </div> <!-- End of Legend -->
-      </div><!-- End of Row -->
     </div> <!-- End of Non-Mobile Course Session Schedule table -->
-    <div class="spacer"></div>
+    <div class="spacer non-mobile"></div>
+    <div class="spacer10 mobile"></div>
       <!-- COURSE RELATED CONTENT TABS -->
       <!-- Navigation -->
       <div id="course-information" class="non-mobile">
@@ -330,9 +323,10 @@
           </div>
         </div> <!-- End of Legend -->
       </div><!-- End of Row -->
+      <div class="spacer mobile"></div>
     </div><!-- End Mobile Course Session Schedule table -->
 
-      <div class="spacer"></div>
+      <div class="spacer non-mobile"></div>
 
     <!-- COURSE INFORMATION: Mobile-->
     <div id="sidebar" class="col-lg-12 col-md-12 col-sm-12 padding">
