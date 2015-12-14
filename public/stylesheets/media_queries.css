@@ -180,6 +180,15 @@
         -webkit-overflow-scrolling: touch;
       }
 
+      .container {
+        width: 100%;
+      }
+
+      .container {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+
       .mobile {
         display: block;
         visibility: visible;
@@ -331,8 +340,6 @@
          padding: 15px 5px;
        }
 
-
-
        .nopadding-mobile {
           padding: 0 !important;
           margin: 0 !important;
@@ -346,7 +353,6 @@
 
         .nav-top-bar {
           background: transparent linear-gradient(to right, #2A4D77 0%, #01274F 100%) repeat scroll 0% 0%;
-
         }
 
         .navbar-fixed-top {
@@ -404,7 +410,7 @@
         }
 
         .carousel-caption h1 {
-          font-size: 18px !important;
+          font-size: 26px !important;
           padding: 0 0 10px 0;
         }
 
@@ -565,6 +571,11 @@
     /* Extra Small Devices, Phones */
     @media only screen and (max-width : 480px) {
 
+      .carousel-caption h1 {
+        font-size: 20px !important;
+        padding: 0 0 10px 0;
+      }
+
       .title .util {
         position: relative;
         display: inline;
@@ -625,6 +636,10 @@
         font-size: 13px !important;
         color: #444;
         height: 60px;
+      }
+
+      table.details, table.details th, table.details tr, table.details td {
+        font-size: 12px !important;
       }
 
 

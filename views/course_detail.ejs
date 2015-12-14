@@ -84,7 +84,16 @@
     <!-- COURSE SESSSION SCHEDULE TABLE -->
     <div class="non-mobile">
     <div class="table-responsive">
-
+      <!-- LEGEND-->
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding legend">
+        <div><span class="legend-title">Legend</span>
+          <ul>
+            <li><span class="label label-info">O</span>Registration open</li>
+            <li><span class="label label-danger">C</span>Registration closed</li>
+            <li><span class="label label-success">G</span>Guaranteed to Go</li>
+          </ul>
+        </div>
+      </div> <!-- End of Legend -->
         <table id="courseSessionTable" class="table table-striped session-schedule" data-totaltr="<%= courseData.session.length %>">
           <thead>
             <tr>
@@ -150,26 +159,10 @@
           </thead>
         </table>
       </div>
-      <div class="row padding10">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right padding">
 
-          <div class="table-nav right">
-
-          </div>
-        </div><!-- End of right column -->
-        <!-- LEGEND-->
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding legend">
-          <div><span class="legend-title">Legend</span>
-            <ul>
-              <li><span class="label label-info">O</span>Registration open</li>
-              <li><span class="label label-danger">C</span>Registration closed</li>
-              <li><span class="label label-success">G</span>Guaranteed to Go</li>
-            </ul>
-          </div>
-        </div> <!-- End of Legend -->
-      </div><!-- End of Row -->
     </div> <!-- End of Non-Mobile Course Session Schedule table -->
-    <div class="spacer"></div>
+    <div class="spacer non-mobile"></div>
+    <div class="spacer10 mobile"></div>
       <!-- COURSE RELATED CONTENT TABS -->
       <!-- Navigation -->
       <div id="course-information" class="non-mobile">
@@ -331,7 +324,7 @@
         </div> <!-- End of Legend -->
       </div><!-- End of Row -->
     </div><!-- End Mobile Course Session Schedule table -->
-
+      <div class="spacer mobile"></div>
       <div class="spacer"></div>
 
     <!-- COURSE INFORMATION: Mobile-->
@@ -393,7 +386,7 @@
     </div> <!-- END Course Informaiton Mobile-->
 
     <!-- RELATED LINKS: MOBILE -->
-    <div id="sidebar" class="col-lg-12 col-md-12 col-sm-12 padding mobile">
+    <div id="sidebar" class="col-lg-12 col-md-12 col-sm-6 padding mobile">
       <div class="panel-group">
         <div class="spacer"></div>
         <div class="panel panel-default related-links">
