@@ -18,7 +18,8 @@ router.get('/courses/:course_id', function(req, res, next){
   var courseData = {};
   var content;
   var location = (typeof(req.query["location"])!='undefined' ? req.query["location"] : null);
-  //waterfall is important here as we need to get the course data first before getting
+  //waterfall is important here as we need to get the course data (and the real FULL course id)
+  //  first before getting sessions and the syllabus
   async.waterfall([
     function(callback) {
       course.performExactCourseSearch(function(response, error, result) {
