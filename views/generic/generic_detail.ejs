@@ -20,27 +20,39 @@
             <h1><%= intro %></h1>
             <h2><%= subIntro %></h2>
             <% for (var i = 0; i < sections.length; i++) { %>
-              <% if (sections[i]) { %>
+              <% if (sections[i] && (sections[i].title || sections[i].content || sections[i].snippet)) { %>
 
                 <section>
                   <% if (sections[i].collapse && sections[i].title){ %>
                     <a href="#<%= i %>" class="expand-section accordion-toggle" data-toggle="collapse">
                       <span id="Section<%= i+1 %>" class="glyphicon glyphicon-plus-sign"></span><%= sections[i].title %></a>
                           <article id="<%= i %>" class="collapse nested">
-                            <%- markdown(sections[i].snippet || '') %>
-                            <%- markdown(sections[i].content || '') %>
+                            <% if (sections[i].snippet) { %>
+                              <%- markdown(sections[i].snippet || '') %>
+                            <%  } %>
+                            <% if (sections[i].content) { %>
+                              <%- markdown(sections[i].content || '') %>
+                            <%  } %>
                           </article>
                      <% } else if (sections[i].title) { %>
                        <h2><%= sections[i].title %></h2><span id="Section<%= i+1 %>"></span>
                        <article id="<%= i %>" class="genericArticle">
-                         <%- markdown(sections[i].snippet || '') %>
-                         <%- markdown(sections[i].content || '') %>
+                         <% if (sections[i].snippet) { %>
+                           <%- markdown(sections[i].snippet || '') %>
+                         <%  } %>
+                         <% if (sections[i].content) { %>
+                           <%- markdown(sections[i].content || '') %>
+                         <%  } %>
                        </article>
                   <%   } else { %>
                        <span id="Section<%= i+1 %>"></span>
                        <article id="<%= i %>" class="genericArticle">
-                         <%- markdown(sections[i].snippet || '') %>
-                         <%- markdown(sections[i].content || '') %>
+                         <% if (sections[i].snippet) { %>
+                           <%- markdown(sections[i].snippet || '') %>
+                         <%  } %>
+                         <% if (sections[i].content) { %>
+                           <%- markdown(sections[i].content || '') %>
+                         <%  } %>
                        </article>
                   <%  } %>
               <%  } %>
