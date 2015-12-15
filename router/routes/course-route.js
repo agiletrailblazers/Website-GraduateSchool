@@ -18,7 +18,9 @@ router.get('/courses/:course_id', function(req, res, next){
   var courseData = {};
   var content;
   var location = (typeof(req.query["location"])!='undefined' ? req.query["location"] : null);
-  async.parallel([
+  //waterfall is important here as we need to get the course data (and the real FULL course id)
+  //  first before getting sessions and the syllabus
+  async.waterfall([
     function(callback) {
       course.performExactCourseSearch(function(response, error, result) {
     	if (error || result == null) {
@@ -54,10 +56,11 @@ router.get('/courses/:course_id', function(req, res, next){
           courseData.session = []; //return empty array
           callback();
         }
-      }, courseId);
+      }, courseData.class.id);
     },
     function(callback) {
-      var entryName = courseId.toLowerCase().slice(0,-3);
+      //use the courseData as returned from the 1st call (this is important)
+      var entryName = courseData.class.id.toLowerCase().slice(0,-3);
       contentful.getSyllabus(entryName, function(response, error, result) {
         courseData.syllabus = response;
         callback();
