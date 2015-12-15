@@ -612,3 +612,13 @@ transition: background-color 300ms linear;
   color: #DDD !important;
   font-size: 22px !important;
 }
+
+
+.header-menu a {
+  padding-right: 30px;
+  color: #888888 !important;
+}
+
+.header-menu a img {
+  margin-right: 4px;
+}
