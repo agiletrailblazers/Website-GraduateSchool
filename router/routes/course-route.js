@@ -15,6 +15,7 @@ var common = require("../../helpers/common.js");
 // Get course details based off course code.
 router.get('/courses/:course_id', function(req, res, next){
   var courseId = req.params.course_id;
+  var courseDataId ;
   var courseData = {};
   var content;
   var location = (typeof(req.query["location"])!='undefined' ? req.query["location"] : null);
@@ -43,6 +44,11 @@ router.get('/courses/:course_id', function(req, res, next){
       }
       course.getSchedule(function(response, error, result) {
         if (result != null) {
+          if (common.isNotEmpty(courseData.class.id)) {
+            courseDataId = courseData.class.id;
+          } else {
+            courseDataId = courseId;
+          }
           courseData.session = result.sort(compare);
           // Changing dateFormat for all sessions.
           for (var i = 0; i < courseData.session.length; i++) {
@@ -56,11 +62,17 @@ router.get('/courses/:course_id', function(req, res, next){
           courseData.session = []; //return empty array
           callback();
         }
-      }, courseData.class.id);
+      }, courseDataId);
     },
     function(callback) {
       //use the courseData as returned from the 1st call (this is important)
-      var entryName = courseData.class.id.toLowerCase().slice(0,-3);
+      var entryName ;
+      if (common.isNotEmpty(courseData.class)) {
+        entryName = courseData.class.id.toLowerCase().slice(0,-3);
+      } else {
+        entryName = courseId.toLowerCase().slice(0,-3);
+      }
+
       contentful.getSyllabus(entryName, function(response, error, result) {
         courseData.syllabus = response;
         callback();
