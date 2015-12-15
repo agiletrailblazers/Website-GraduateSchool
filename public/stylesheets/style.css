@@ -1020,7 +1020,7 @@ optgroup.subject-category {
   width: 100%;
   height: auto;
   min-height: 100px;
-  padding: 0 20px;
+  padding: 0 10px;
   margin-bottom: 30px;
   background: #2a4d77; /* Old browsers */
   background: -moz-linear-gradient(left,  #2a4d77 0%, #3971ab 26%, #3971ab 51%, #01274f 100%); /* FF3.6+ */
