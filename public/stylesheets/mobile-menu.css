@@ -220,7 +220,13 @@ All this is done for any sub-level being entered.
 	margin: 0;
 }
 
-
+.mob-menu-divider {
+	border-color: #DDD !important;
+	visibility: visible;
+	display: block;
+	margin: 0 !important;
+	padding: 0 !important;
+}
 
 
 /* Animation classes for moving out and in */

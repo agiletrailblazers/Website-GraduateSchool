@@ -1,6 +1,5 @@
 /*==========  GRADUATE SCHOOL Styles  ==========*/
 /*==============================================*/
-
 @media print {
       #top-menu, #header, #footer, #chat, .util, .ms-drop {display: none !important;  }
         *{
@@ -44,7 +43,6 @@ html, body {
 #printPage{
   cursor:pointer;
 }
-
 body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -1020,7 +1018,7 @@ optgroup.subject-category {
   width: 100%;
   height: auto;
   min-height: 100px;
-  padding: 0 20px;
+  padding: 0 10px;
   margin-bottom: 30px;
   background: #2a4d77; /* Old browsers */
   background: -moz-linear-gradient(left,  #2a4d77 0%, #3971ab 26%, #3971ab 51%, #01274f 100%); /* FF3.6+ */
@@ -2279,7 +2277,7 @@ ul.see-more li {
 
 #backTop.black,  #back-to-top a:visited {
     background:url(../images/arrow-up.png) no-repeat center center rgba(0,0,0,0.8);
-    border:1px solid #EEE;
+    border: none;
 }
 
 
