@@ -13,17 +13,29 @@ var logger = require('../../logger');
 router.get('/search', function(req, res, next){
   var params = {};
   params.page = {};
-  params.partial = (req.query["partial"] == "true");
-  params.searchCriteria = (typeof(req.query["search"])!='undefined' ? req.query["search"] : null);
-  params.numRequested = (typeof(req.query["numRequested"])!='undefined' ? req.query["numRequested"] : null);
-  params.cityState = (typeof(req.query["cityState"])!='undefined' ? req.query["cityState"] : null);
-  params.categorySubjectType = (typeof(req.query["categorySubjectType"])!='undefined' ? req.query["categorySubjectType"] : null);
-  params.categorySubject = (typeof(req.query["categorySubject"])!='undefined' ? req.query["categorySubject"] : null);
-  params.deliveryMethod = (typeof(req.query["deliveryMethod"])!='undefined' ? req.query["deliveryMethod"] : null);
-  params.selectedG2G = (typeof(req.query["selectedG2G"])!='undefined' ? req.query["selectedG2G"] : null);
-  params.page.course = (typeof(req.query["page-course"])!='undefined' ? req.query["page-course"] : null);
-  params.page.site = (typeof(req.query["page-site"])!='undefined' ? req.query["page-site"] : null);
-  params.tab = (typeof(req.query["tab"])!='undefined' ? req.query["tab"] : null);
+  if (req.url === '/search') {
+      params.searchCriteria = "";
+      params.numRequested = null;
+      params.cityState = "";
+      params.categorySubject = "all";
+      params.deliveryMethod = null;
+      params.selectedG2G = null;
+      params.page.course = null;
+      params.page.site = null;
+      params.tab = null;
+    } else {
+      params.partial = (req.query["partial"] == "true");
+      params.searchCriteria = (typeof(req.query["search"])!='undefined' ? req.query["search"] : null);
+      params.numRequested = (typeof(req.query["numRequested"])!='undefined' ? req.query["numRequested"] : null);
+      params.cityState = (typeof(req.query["cityState"])!='undefined' ? req.query["cityState"] : null);
+      params.categorySubjectType = (typeof(req.query["categorySubjectType"])!='undefined' ? req.query["categorySubjectType"] : null);
+      params.categorySubject = (typeof(req.query["categorySubject"])!='undefined' ? req.query["categorySubject"] : null);
+      params.deliveryMethod = (typeof(req.query["deliveryMethod"])!='undefined' ? req.query["deliveryMethod"] : null);
+      params.selectedG2G = (typeof(req.query["selectedG2G"])!='undefined' ? req.query["selectedG2G"] : null);
+      params.page.course = (typeof(req.query["page-course"])!='undefined' ? req.query["page-course"] : null);
+      params.page.site = (typeof(req.query["page-site"])!='undefined' ? req.query["page-site"] : null);
+      params.tab = (typeof(req.query["tab"])!='undefined' ? req.query["tab"] : null);
+    }  
   var courseResult = {};
   var siteResult = {};
   var content = {};
