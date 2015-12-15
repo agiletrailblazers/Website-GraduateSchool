@@ -44,8 +44,8 @@ html, body {
 #printPage{
   cursor:pointer;
 }
-
 body {
+  /*font-family: 'Source Sans Pro', sans-serif;*/
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   padding: 0px !important;
@@ -2279,7 +2279,7 @@ ul.see-more li {
 
 #backTop.black,  #back-to-top a:visited {
     background:url(../images/arrow-up.png) no-repeat center center rgba(0,0,0,0.8);
-    border:1px solid #EEE;
+    border: none;
 }
 
 
