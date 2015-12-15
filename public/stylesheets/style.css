@@ -1,6 +1,5 @@
 /*==========  GRADUATE SCHOOL Styles  ==========*/
 /*==============================================*/
-
 @media print {
       #top-menu, #header, #footer, #chat, .util, .ms-drop {display: none !important;  }
         *{
@@ -45,7 +44,6 @@ html, body {
   cursor:pointer;
 }
 body {
-  /*font-family: 'Source Sans Pro', sans-serif;*/
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   padding: 0px !important;
