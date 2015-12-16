@@ -13,9 +13,9 @@ var config = require('konphyg')(__dirname + '/../../config');
 var common = require("../../helpers/common.js");
 
 // Get course details based off course code.
-router.get('/courses/:course_id', function(req, res, next){
-  var courseId = req.params.course_id;
-  var courseDataId ;
+router.get('/courses/:course_id_or_code', function(req, res, next){
+  var courseIdOrCode = req.params.course_id_or_code;
+  var courseId;
   var courseData = {};
   var content;
   var location = (typeof(req.query["location"])!='undefined' ? req.query["location"] : null);
@@ -30,9 +30,15 @@ router.get('/courses/:course_id', function(req, res, next){
     	}
     	else {
     		courseData.class = result;
+        //set course id to the FULL course id (since it's possible to start with a code or id)
+        if (common.isNotEmpty(courseData.class.id)) {
+          courseId = courseData.class.id;
+        } else {
+          courseId = courseId;
+        }
     	}
         callback();
-      }, courseId);
+      }, courseIdOrCode);
     },
     function(callback) {
       function compare(a,b) {
@@ -44,11 +50,6 @@ router.get('/courses/:course_id', function(req, res, next){
       }
       course.getSchedule(function(response, error, result) {
         if (result != null) {
-          if (common.isNotEmpty(courseData.class.id)) {
-            courseDataId = courseData.class.id;
-          } else {
-            courseDataId = courseId;
-          }
           courseData.session = result.sort(compare);
           // Changing dateFormat for all sessions.
           for (var i = 0; i < courseData.session.length; i++) {
@@ -62,7 +63,7 @@ router.get('/courses/:course_id', function(req, res, next){
           courseData.session = []; //return empty array
           callback();
         }
-      }, courseDataId);
+      }, courseId);
     },
     function(callback) {
       //use the courseData as returned from the 1st call (this is important)
