@@ -16,7 +16,7 @@ $(document).on("click","#search-button",function(event){
 
 //control collapse/expand function for Refine results -  mobile vs desktop
 $(document).ready(function(){
-  $(window).bind('resize load', function() {
+  $(window).bind('load', function() {
       if ($(this).width() < 767) {
           $('#refine-results').removeClass('in');
           $('#refine-results').addClass('out');
