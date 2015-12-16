@@ -123,18 +123,3 @@ $(document).ready(function() {
     });
   }
 });
-
-//control collapse/expand function for Refine results -  mobile vs desktop
-$(document).ready(function(){
-  $(window).bind('resize load', function() {
-      if ($(this).width() < 767) {
-          $('#refine-results').removeClass('in');
-          $('#refine-results').addClass('out');
-          $('#collapseLink').addClass('collapsed')
-      } else {
-          $('#refine-results').removeClass('out');
-          $('#refine-results').addClass('in');
-          $('#collapseLink').removeClass('collapsed')
-      }
-  });
-});
