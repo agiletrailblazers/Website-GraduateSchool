@@ -168,8 +168,10 @@
       <div id="course-information" class="non-mobile">
           <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#course-overview"><img src="../images/course-overview.png" alt="" /><%= content.courseInfoTitles[0] %></a></li>
+            <% if (courseData.class.objective) { %>
             <li><a data-toggle="tab" href="#who-should-attend"><img src="../images/who-should-attend.png" alt="" /><%= content.courseInfoTitles[1] %></a></li>
-            <% if (courseData.class.outcomes !== null && courseData.class.outcomes.length > 0) { %>
+            <% } %>
+            <% if (courseData.class.outcomes && (courseData.class.outcomes.length > 0)) { %>
               <li><a data-toggle="tab" href="#learning-outcomes"><img src="../images/learning-outcomes.png" alt="" /><%= content.courseInfoTitles[2] %></a></li>
             <% } %>
             <% if ( courseData.syllabus &&  courseData.syllabus.fields &&  courseData.syllabus.fields.syllabusContent ) { %>
@@ -182,22 +184,22 @@
             <h3><%= content.courseInfoTitles[0] %></h3>
             <p><%- courseData.class.description.formatted %></p>
           </div>
-          <% if (courseData.class.objective !== null) { %>
+          <% if (courseData.class.objective) { %>
             <div id="who-should-attend" class="tab-pane fade">
               <h3><%= content.courseInfoTitles[1] %></h3>
               <p><%- courseData.class.objective %></p>
             </div>
           <% } %>
-          <% if (courseData.class.outcomes !== null) { %>
+          <% if (courseData.class.outcomes && (courseData.class.outcomes.length > 0)) { %>
             <div id="learning-outcomes" class="tab-pane fade">
               <h3><%= content.courseInfoTitles[2] %></h3>
               <p>
                 <ul>
-                  <% if (courseData.class.outcomes !== null && courseData.class.outcomes.length > 0) { %>
                     <% courseData.class.outcomes.forEach(function(outcome) { %>
-                      <li><%= outcome %></li>
+                      <% if (outcome) { %>
+                      <li><%- outcome %></li>
+                      <% } %>
                     <% }); %>
-                  <% } %>
                 </ul>
               </p>
             </div>
@@ -341,6 +343,7 @@
                       </div>
                   </div>
               </div>
+              <% if (courseData.class.objective) { %>
               <div class="panel panel-default margin-reset nopadding">
                   <div class="panel-heading">
                       <a data-toggle="collapse" href="#accordion-mobile" id="accordion2" data-parent="#accordion-mobile" data-target="#acc-who-should-attend"><h4 class="panel-title"><img src="../images/who-should-attend.png" alt="" /><%= content.courseInfoTitles[1] %></h4></a>
@@ -351,7 +354,8 @@
                       </div>
                   </div>
               </div>
-              <% if (courseData.class.outcomes !== null) { %>
+              <% } %>
+              <% if (courseData.class.outcomes && (courseData.class.outcomes.length > 0)) { %>
               <div class="panel panel-default margin-reset nopadding">
                   <div class="panel-heading">
                         <a data-toggle="collapse" href="#accordion-mobile" id="accordion3" data-parent="#accordion-mobile" data-target="#acc-learning-outcomes"><h4 class="panel-title"><img src="../images/learning-outcomes.png" alt="" /><%= content.courseInfoTitles[2] %></h4></a>
@@ -360,11 +364,11 @@
                       <div class="panel-body">
                         <p>
                           <ul>
-                            <% if (courseData.class.outcomes !== null && courseData.class.outcomes.length > 0) { %>
                               <% courseData.class.outcomes.forEach(function(outcome) { %>
-                                <li><%= outcome %></li>
+                                <% if (outcome) { %>
+                                <li><%- outcome %></li>
+                                <% } %>
                               <% }); %>
-                            <% } %>
                           </ul>
                         </p>
                       </div>
