@@ -34,7 +34,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
         if (common.isNotEmpty(courseData.class.id)) {
           courseId = courseData.class.id;
         } else {
-          courseId = courseId;
+          courseId = courseIdOrCode;   //this really shoud not happen
         }
     	}
         callback();
