@@ -125,14 +125,16 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
       }
 
       // add empty string to avoid exception
-      courseData.class.objective = striptags(courseData.class.objective + "", allowedHtmlTags);
-      // replace old urls specified within course objective  with new ones provided by graduate school
-      courseData.class.objective = replaceUrl(courseData.class.objective);
+      if (courseData && courseData.class && common.isNotEmpty(courseData.class.objective)) {
+        courseData.class.objective = striptags(courseData.class.objective, allowedHtmlTags);
+        courseData.class.objective = replaceUrl(courseData.class.objective);
+      }
 
       if (common.isNotEmpty(courseData.class.outcomes)) {
         courseData.class.outcomes.forEach(function(outcome) {
-          // add empty string to avoid exception
-          courseData.class.outcomes[courseData.class.outcomes.indexOf(outcome)] = striptags(outcome + "", allowedHtmlTags);
+          if (outcome) {
+            courseData.class.outcomes[courseData.class.outcomes.indexOf(outcome)] = striptags(outcome, allowedHtmlTags);            
+          }
         });
       }
 
