@@ -187,7 +187,7 @@
           <% if (courseData.class.objective) { %>
             <div id="who-should-attend" class="tab-pane fade">
               <h3><%= content.courseInfoTitles[1] %></h3>
-              <p><%= courseData.class.objective %></p>
+              <p><%- courseData.class.objective %></p>
             </div>
           <% } %>
           <% if (courseData.class.outcomes && (courseData.class.outcomes.length > 0)) { %>
@@ -197,7 +197,7 @@
                 <ul>
                     <% courseData.class.outcomes.forEach(function(outcome) { %>
                       <% if (outcome) { %>
-                      <li><%= outcome %></li>
+                      <li><%- outcome %></li>
                       <% } %>
                     <% }); %>
                 </ul>
@@ -350,7 +350,7 @@
                   </div>
                   <div id="acc-who-should-attend" class="panel-collapse collapse">
                       <div class="panel-body">
-                        <p><%= courseData.class.objective %></p>
+                        <p><%- courseData.class.objective %></p>
                       </div>
                   </div>
               </div>
@@ -366,7 +366,7 @@
                           <ul>
                               <% courseData.class.outcomes.forEach(function(outcome) { %>
                                 <% if (outcome) { %>
-                                <li><%= outcome %></li>
+                                <li><%- outcome %></li>
                                 <% } %>
                               <% }); %>
                           </ul>
