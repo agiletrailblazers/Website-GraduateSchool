@@ -213,6 +213,10 @@ a.breadcrumbs:hover,a.breadcrumbs:active  {
   color: #000 !important;
 }
 
+#alert h5{
+  display: block;
+}
+
 #alert a {
   color: #063D85 !important;
   text-decoration: underline;
@@ -243,6 +247,11 @@ a.breadcrumbs:hover,a.breadcrumbs:active  {
 
 .alert-icon {
   padding: 0 5px 0 0;
+}
+
+.alert-content {
+  width: 90%;
+  min-width: 90%;
 }
 
 /* GENERIC CONTENT TEMPLATE */
