@@ -74,3 +74,14 @@
    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#ffe8e8e8', GradientType=0);
    background-repeat: repeat-x;
 }
+
+.panel > .related-links.panel-heading {
+   background-image: none !important;
+   background: #82838B  !important;
+   background: -moz-linear-gradient(left,  #A0A0A8  0%,  #82838B  80%);
+   background: -webkit-gradient(linear, left top, right top, color-stop(0%,#427EB4 ), color-stop(80%,#82838B ));
+   background: -webkit-linear-gradient(left,  #A0A0A8  0%,#82838B  80%);
+   background: -o-linear-gradient(left,  #A0A0A8  0%,#82838B  80%);
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A0A0A8 ', endColorstr='#82838B ',GradientType=1 );
+   border-radius: 0 !important;
+}

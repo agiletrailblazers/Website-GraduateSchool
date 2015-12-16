@@ -37,20 +37,36 @@ table.details td {
   padding: 5px !important;
 }
 
+#list-of-sessions .panel > .panel-heading.course-detail {
+    background-image: none !important;
+    border-radius: 0 !important;
+    background: #82838B; /* Old browsers */
+    background-image: linear-gradient(to bottom, #A0A0A8 0px, #82838B 100%) !important;
+}
+
+#list-of-sessions .panel .course-detail h4.panel-title {
+  color: #FFF !important;
+}
+
 .panel > .panel-heading.course-detail {
     background-image: none !important;
     border-radius: 0 !important;
-    background: #427EB4 !important; /* Old browsers */
-    background: -moz-linear-gradient(left,  #427EB4 0%,  #427EB4 80%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#427EB4), color-stop(80%,#427EB4)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(left,  #427EB4 0%,#427EB4 80%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(left,  #427EB4 0%,#427EB4 80%); /* Opera 11.10+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#427EB4', endColorstr='#427EB4',GradientType=1 ); /* IE6-9 */
+    background: #F2F2F2; /* Old browsers */
+    background-image: linear-gradient(to bottom, #F2F2F2 0px, #FFF 100%) !important;
+}
 
+.panel > .panel-heading.related-links {
+    background: #F2F2F2; /* Old browsers */
+    background-image: linear-gradient(to bottom, #F2F2F2 0px, #FFF 100%) !important;
+    border-radius: 0 !important;
+}
+
+.panel .related-links h4.panel-title {
+    color: #444 !important;
 }
 
 .panel .course-detail h4.panel-title {
-    color: #FFF !important;
+    color: #444 !important;
     font-size: 18px;
     font-weight: 400 !important;
     padding: 5px 0px;
@@ -74,8 +90,8 @@ table.session-schedule {
 }
 
 table.session-schedule th {
-  background-image: none !important;
-  background-color: #427EB4 !important;
+  background: #82838B; /* Old browsers */
+  background-image: linear-gradient(to bottom, #A0A0A8 0px, #82838B 100%) !important;
   border-radius: 0px !important;
   color: #FFF;
   padding: 15px !important;
