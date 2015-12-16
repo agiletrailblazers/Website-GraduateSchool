@@ -25,8 +25,11 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
     function(callback) {
       course.performExactCourseSearch(function(response, error, result) {
     	if (error || result == null) {
-    		logger.error("Course not found")
-    		courseData.session = {status: 404, text: "No courses found."}
+    		logger.error("Course not found");
+            courseData = null;
+            //callback(true) tells waterfall to go to the last method if a course is not found
+            callback(true);
+            return;
     	}
     	else {
     		courseData.class = result;
@@ -34,7 +37,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
         if (common.isNotEmpty(courseData.class.id)) {
           courseId = courseData.class.id;
         } else {
-          courseId = courseIdOrCode;   //this really shoud not happen
+          courseId = courseIdOrCode;   //this really should not happen
         }
     	}
         callback();
@@ -151,8 +154,9 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
     }
     else {
     	//handle error
-      logger.error("Course not found: " + courseId)
-    	res.render('error', { message: 'Sorry, course not found.', error: null });
+        logger.error("Course not found: " + courseIdOrCode)
+    	res.redirect('/pagenotfound')
+    	//res.render('error', { message: 'Sorry, course not found.', error: null });
     }
   });
 });
