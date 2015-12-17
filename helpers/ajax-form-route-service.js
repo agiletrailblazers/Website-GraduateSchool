@@ -333,6 +333,13 @@ module.exports = {
     response = {};
     response.errors = {};
     switch (true) {
+
+      case (params.typePerson.length === 0):
+        response.errors.typePerson = "First name is empty.";
+        break;
+      case (!validator.isLength(params.firstName.trim(), 3)):
+        response.errors.firstName = "First name must be at least 3 characters.";
+        break;
       case (validator.isLength(params.email.trim(), 1)):
         if (!validator.isEmail(params.email)) {
           response.errors.email = "Email is in the wrong format."
