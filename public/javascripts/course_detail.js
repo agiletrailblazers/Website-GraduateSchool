@@ -94,7 +94,7 @@ tablemobApp = {
 }
 
 $(document).ready(function() {
-  tableApp.limit = 10;
+  tableApp.limit = 5;
   tableApp.limitTable(tableApp.limit);
   $("#loadMore").click(function(e) {
     e.preventDefault();
