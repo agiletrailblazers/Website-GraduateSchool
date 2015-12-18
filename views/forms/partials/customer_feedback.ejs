@@ -38,7 +38,7 @@
                  pattern="\d{3}[\-]\d{3}[\-]\d{4}" maxlength="12" class="form-control" tabindex="3">
             </span>
             <span class="form-group">
-              <label for="txtCustomerEmail">Email</label>
+              <label for="txtCustomerEmail">*Email</label>
               <input type="email" id="txtCustomerEmail" class="form-control" size="30" tabindex="4">
             </span>
           </div>
@@ -46,21 +46,21 @@
           <div class="col-lg-4 col-md-4 col-sm-12 nopadding">
             <div class="form-inline">
               <span class="form-group">
-                <label for="txtTypePerson"><strong>Which Best Describes You?</strong></label>
-                <div class="form-block"><input type="radio" name="typePerson" id="studentParticipant" value="Student/Participant" tabindex="5"><label for="studentParticipant" class="sub-label">Student/Participant</label></div>
-                <div class="form-block"><input type="radio" name="typePerson" id="instructorFaculty" value="Instructor/Faculty" tabindex="6"><label for="instructorFaculty" class="sub-label">Instructor/Faculty</label></div>
-                <div class="form-block"><input type="radio" name="typePerson" id="agencyEmployee" value="Agency Employee" tabindex="7"><label for="agencyEmployee" class="sub-label">Agency Employee</label></div>
-                <div class="form-block"><input type="radio" name="typePerson" id="supervisorTrainingOfficer" value="Supervisor/Training Officer" tabindex="8"><label for="supervisorTrainingOfficer" class="sub-label">Supervisor/Training Officer</label></div>
-                <div class="form-block"><input type="radio" name="typePerson" id="websiteVisitors" value="Website Visitors" tabindex="9"><label for="websiteVisitors" class="sub-label">Website Visitors</label></div>
-                <div class="form-block"><input type="radio" name="typePerson" id="gsUSAEmployee" value="GS USA Employee" tabindex="10"><label for="gsUSAEmployee" class="sub-label">GS USA Employee</label></div>
-                <div class="form-block"><input type="radio" name="typePerson" id="vendor" value="Vendor" tabindex="11"><label for="vendor" class="sub-label">Vendor</label></div>
+                <label for="txtTypePerson"><strong>*Which Best Describes You?</strong></label>
+                <div class="form-block"><input type="radio" name="typePerson" class ="typePerson" id="studentParticipant" value="Student/Participant" tabindex="5"><label for="studentParticipant" class="sub-label">Student/Participant</label></div>
+                <div class="form-block"><input type="radio" name="typePerson" class ="typePerson" id="instructorFaculty" value="Instructor/Faculty" tabindex="6"><label for="instructorFaculty" class="sub-label">Instructor/Faculty</label></div>
+                <div class="form-block"><input type="radio" name="typePerson" class ="typePerson" id="agencyEmployee" value="Agency Employee" tabindex="7"><label for="agencyEmployee" class="sub-label">Agency Employee</label></div>
+                <div class="form-block"><input type="radio" name="typePerson" class ="typePerson" id="supervisorTrainingOfficer" value="Supervisor/Training Officer" tabindex="8"><label for="supervisorTrainingOfficer" class="sub-label">Supervisor/Training Officer</label></div>
+                <div class="form-block"><input type="radio" name="typePerson" class ="typePerson" id="websiteVisitors" value="Website Visitors" tabindex="9"><label for="websiteVisitors" class="sub-label">Website Visitors</label></div>
+                <div class="form-block"><input type="radio" name="typePerson" class ="typePerson" id="gsUSAEmployee" value="GS USA Employee" tabindex="10"><label for="gsUSAEmployee" class="sub-label">GS USA Employee</label></div>
+                <div class="form-block"><input type="radio" name="typePerson" class ="typePerson" id="vendor" value="Vendor" tabindex="11"><label for="vendor" class="sub-label">Vendor</label></div>
               </span>
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 nopadding">
             <div class="form-inline">
               <span class="form-group">
-                <label for="txtfeedbackCategories"><strong>Area Of Feedback</strong></label>
+                <label for="txtfeedbackCategories"><strong>*Area Of Feedback</strong></label>
                 <div class="form-block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="course" value="Course" tabindex="12"><label for="course" class="sub-label">Course</label></div>
                 <div class="form-block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="materialInstructor" value="MaterialInstructor" tabindex="13"><label for="materialInstructor" class="sub-label">Material Instructor</label></div>
                 <div class="form-block"><input type="checkbox" name="feedbackCategories" class="feedbackCategories" id="staff" value="Staff" tabindex="14"><label for="staff" class="sub-label">Staff</label></div>
@@ -78,7 +78,7 @@
           <div class="spacer25"></div>
           <div class="form-inline">
             <div class="form-group">
-              <label for="txtfeedback">Feedback</label><br>
+              <label for="txtfeedback">*Feedback</label><br>
               <textarea maxlength="1000" class="form-control" id="txtFeedback" rows="10" cols="80" name="feedback"  tabindex="21"></textarea>
               <label for="txtfeedbackCharacterLimit">(Character limit: 1000)</label>
             </div>
