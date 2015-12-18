@@ -8,6 +8,7 @@ var google = require('../API/google.js');
 var validator = require('validator');
 var config = require('konphyg')("./config");
 var logger = require('../logger');
+var validations = require('../public/javascripts/forms/validations.js');
 
 module.exports = {
   validateContactUsfields: function(callback, params) {
