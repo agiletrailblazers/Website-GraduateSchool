@@ -614,11 +614,26 @@ transition: background-color 300ms linear;
 }
 
 
-.header-menu a {
+.header-menu a, .footer-menu a{
   padding-right: 30px;
   color: #888888 !important;
 }
 
-.header-menu a img {
+.footer-menu a, .footer-menu a:visited {
+  font-size: 13px !important;
+  color: #666666 !important;
+  font-weight: normal;
+  margin-bottom: 2px;
+}
+
+.footer-menu a:hover {
+  color: #3A6799 !important;
+}
+
+.header-menu a img, .footer-menu a img {
   margin-right: 4px;
+}
+
+.footer-menu a img, .header-menu a img {
+  margin-bottom: 6px;
 }
