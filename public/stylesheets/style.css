@@ -1102,7 +1102,7 @@ blockquote {
   }
 
   blockquote span {
-    color: #FFF;
+    color: #444;
     display: block;
     background-image: url(../images/closequote.png);
     background-repeat: no-repeat;
