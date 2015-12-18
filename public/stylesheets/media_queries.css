@@ -112,7 +112,7 @@
       }
 
       blockquote span {
-        color: #FFF;
+        color: #444;
         display: block;
         background-image: url(../images/closequote.png);
         background-repeat: no-repeat;
@@ -320,7 +320,7 @@
        blockquote {
          display: block;
          width: 100%;
-         font-size: 20px !important;
+         font-size: 18px !important;
          padding-top: 5px;
          margin: 0px;
          text-indent: 30px;
@@ -613,7 +613,7 @@
      blockquote {
        display: block;
        width: 100%;
-       font-size: 18px !important;
+       font-size: 17px !important;
        padding-top: 5px;
      }
 
