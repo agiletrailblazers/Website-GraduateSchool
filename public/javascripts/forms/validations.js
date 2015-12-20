@@ -1,5 +1,5 @@
 (function(exports){
-    lengthValidate = function (server, input, fieldName, length) {
+    validateLength = function (server, input, fieldName, length) {
       var result ={};
       result.status = true;
       result.errMsg = null;
@@ -18,7 +18,7 @@
       return result;
     },
 
-    emailValidate = function (server, input, fieldName) {
+    validateEmail = function (server, input, fieldName) {
       var result ={};
       result.status = true;
       result.errMsg = null;
@@ -38,23 +38,23 @@
     },
 
     exports.name = function (server, input, fieldName) {
-      var result = lengthValidate(server, input, fieldName, 2);
+      var result = validateLength(server, input, fieldName, 2);
       return result;
     },
 
     exports.street = function (server, input, fieldName) {
-      var result = lengthValidate(server, input, fieldName, 5);
+      var result = validateLength(server, input, fieldName, 5);
 
       return result;
     },
 
     exports.city = function (server, input, fieldName) {
-      var result = lengthValidate(server, input, fieldName, 3);
+      var result = validateLength(server, input, fieldName, 3);
       return result;
     },
 
     exports.email = function (server, input, fieldName) {
-      var result = emailValidate(server, input, fieldName);
+      var result = validateEmail(server, input, fieldName);
       return result;
     };
 })(typeof exports === 'undefined'? this['validations']={}: exports);
