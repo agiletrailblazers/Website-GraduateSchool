@@ -10,11 +10,10 @@ var Validate = {
     }
   },
   comments: function() {
-    var input = $("#txtFeedback").val();
-    if (input == '' || input == null || typeof(input) == 'undefined' || input.trim().length < 3) {
-      console.log("ll");
-      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please enter your Feedback.</p>");
-      console.log("lll");
+    var result = customer_feedback_validations.comments(false, $("#txtFeedback").val());
+    if (!result.status) {
+      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
+         + result.errMsg + "</p>");
     }
   },
   captcha: function () {
