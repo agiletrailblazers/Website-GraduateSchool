@@ -9,7 +9,18 @@
         result.status = false;
         result.errMsg = "Please select Which Best Describes You?";
       }
-      console.log('kj '+result);
+      return result;
+    },
+
+    exports.feedbackCategory = function (server, input) {
+      var result ={};
+      result.status = true;
+      result.errMsg = null;
+
+      if (!input) {
+        result.status = false;
+        result.errMsg = "Please select or enter Area Of Feedback.";
+      }
       return result;
     },
 

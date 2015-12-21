@@ -7,8 +7,10 @@ var Validate = {
     }
   },
   feedbackCategories: function() {
-    if (!$(".feedbackCategories").is(':checked')) {
-      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please select or enter Area Of Feedback.</p>");
+    var result = customer_feedback_validations.feedbackCategory(false, $(".typePerson").is(':checked'));
+    if (!result.status) {
+      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
+          + result.errMsg + "</p>");
     }
   },
   feedback: function() {
@@ -26,14 +28,13 @@ var Validate = {
   }
 }
 var _runValidation = function () {
-  console.log("ifti");
   $("#customerFeedbackFormAlertError").slideUp();
   $("#customerFeedbackFormAlertError p").remove();
   // Validate.captcha();
   Validate.typePerson();
-  // Validate.feedbackCategories();
+  Validate.feedbackCategories();
   Validate.feedback();
-  // validate.email("#txtCustomerEmail","#customerFeedbackFormAlertError", "Email");
+
   if ($("#customerFeedbackFormAlertError p").length) {
     $("#customerFeedbackFormAlertError").slideDown("slow");
   }
