@@ -333,6 +333,7 @@ module.exports = {
   validateCustomerFeedBack: function(callback, params) {
     response = {};
     response.errors = {};
+
     var feedbackValidations = require('../public/javascripts/forms/clientServerValidations/customer_feedback_validations.js');
 
     // type of person

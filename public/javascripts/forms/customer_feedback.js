@@ -32,6 +32,7 @@ var Validate = {
 var _runValidation = function (person, feedbackCategories) {
   $("#customerFeedbackFormAlertError").slideUp();
   $("#customerFeedbackFormAlertError p").remove();
+
   Validate.captcha(skipReCaptcha);
   Validate.typePerson(person);
   Validate.feedbackCategories(feedbackCategories);
