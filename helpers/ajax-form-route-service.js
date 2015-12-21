@@ -334,9 +334,17 @@ module.exports = {
     response = {};
     response.errors = {};
     var feedbackValidations = require('../public/javascripts/forms/clientServerValidations/customer_feedback_validations.js');
-    var feedbackComments = feedbackValidations.feedbackText(true, params.feedbackText);
-    if (!feedbackComments.status) {
-        response.errors.feedbackComments = feedbackComments.errMsg;
+
+    // type of person
+    var typeOfPerson = feedbackValidations.typeOfPerson(true, params.typePerson);
+    if (!typeOfPerson.status) {
+        response.errors.typeOfPerson = typeOfPerson.errMsg;
+    }
+
+    // feedback comments
+    var feedbackText = feedbackValidations.feedbackText(true, params.feedbackText);
+    if (!feedbackText.status) {
+        response.errors.feedbackText = feedbackText.errMsg;
     }
 
     if (!params.captchaResponse) {

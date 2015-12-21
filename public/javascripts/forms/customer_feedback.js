@@ -1,6 +1,6 @@
 var Validate = {
-  typePerson: function() {
-    var result = customer_feedback_validations.typeOfPerson(false, $(".typePerson").is(':checked'));
+  typePerson: function(person) {
+    var result = customer_feedback_validations.typeOfPerson(false, person);
     if (!result.status) {
       $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
           + result.errMsg + "</p>");
@@ -27,11 +27,11 @@ var Validate = {
     }
   }
 }
-var _runValidation = function () {
+var _runValidation = function (person) {
   $("#customerFeedbackFormAlertError").slideUp();
   $("#customerFeedbackFormAlertError p").remove();
   // Validate.captcha();
-  Validate.typePerson();
+  Validate.typePerson(person);
   Validate.feedbackCategories();
   Validate.feedback();
 
@@ -56,17 +56,20 @@ $(document).ready(function () {
   });
   $("#customerFeedbackSubmitForm").click(function (event) {
     event.preventDefault();
-    // _runValidation();
+
+    var person = "";
+    if ((typeof($("input[name=typePerson]:checked", '#feedbackForm').val())) != "undefined") {
+      person = $("input[name=typePerson]:checked", '#feedbackForm').val();
+    }
+
+    // _runValidation(person);
     var dataForm = {};
     dataForm.firstName = $("#txtCustomerFirstName").val();
     dataForm.lastName = $("#txtCustomerLastName").val();
     dataForm.phone = $("#telCustomerPhone").val();
     dataForm.email = $("#txtCustomerEmail").val();
-    if ((typeof($("input[name=typePerson]:checked", '#feedbackForm').val())) != "undefined") {
-      dataForm.typePerson = $("input[name=typePerson]:checked", '#feedbackForm').val();
-    }else {
-      dataForm.typePerson = "";
-    }
+    dataForm.typePerson = person;
+
     if ($('input:checkbox:checked.feedbackCategories') !=[] && $('input:checkbox:checked.feedbackCategories').length>0){
       dataForm.feedbackCategories = $('input:checkbox:checked.feedbackCategories').map(function () {
         return this.value;
