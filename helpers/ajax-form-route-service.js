@@ -353,9 +353,11 @@ module.exports = {
         response.errors.feedbackText = feedbackText.errMsg;
     }
 
-    if (!params.captchaResponse) {
-      response.errors.captchaResponse = "Please select recaptcha.";
+    var recaptcha = validations.captcha(true, params.captchaResponse, config("properties").skipReCaptchaVerification)
+    if (!recaptcha.status) {
+        response.errors.captchaResponse = recaptcha.errMsg;
     }
+
     callback(response);
   },
   validateCertificateProgramForms: function(callback, params) {

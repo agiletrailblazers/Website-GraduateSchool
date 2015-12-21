@@ -38,25 +38,29 @@
     },
 
 
-    exports.captcha = function(googleResponse, skipReCaptcha) {
+    exports.captcha = function(server, googleResponse, skipReCaptcha) {
       var result ={};
       result.status = true;
       result.errMsg = null;
 
       if (!skipReCaptcha) {
-        console.log("Performing reCaptcha validation");
         if (!googleResponse){
           result.status = false;
           result.errMsg = "For security, please verify you are a real person below.";
         }
       }
       else {
-        console.log("Skipping reCaptcha validation");
+        if (server) {
+          require('../../../../logger').debug("Skipping reCaptcha validation.");
+        }
+        else {
+          console.log("Skipping reCaptcha validation.");
+        }
       }
 
       return result;
     },
-    
+
     exports.name = function (server, input, fieldName) {
       var result = validateLength(server, input, fieldName, 2);
       return result;

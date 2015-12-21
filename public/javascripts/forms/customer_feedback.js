@@ -22,7 +22,7 @@ var Validate = {
   },
   captcha: function (skipReCaptcha) {
     var googleResponse = grecaptcha.getResponse(customerFeedbackCaptchaID);
-    var result = validations.captcha(googleResponse, skipReCaptcha);
+    var result = validations.captcha(false, googleResponse, skipReCaptcha);
     if (!result.status) {
       $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
          + result.errMsg + "</p>");
