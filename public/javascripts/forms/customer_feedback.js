@@ -6,8 +6,8 @@ var Validate = {
           + result.errMsg + "</p>");
     }
   },
-  feedbackCategories: function() {
-    var result = customer_feedback_validations.feedbackCategory(false, $(".typePerson").is(':checked'));
+  feedbackCategories: function(feedbackCategories) {
+    var result = customer_feedback_validations.feedbackCategory(false, feedbackCategories);
     if (!result.status) {
       $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
           + result.errMsg + "</p>");
@@ -27,12 +27,12 @@ var Validate = {
     }
   }
 }
-var _runValidation = function (person) {
+var _runValidation = function (person, feedbackCategories) {
   $("#customerFeedbackFormAlertError").slideUp();
   $("#customerFeedbackFormAlertError p").remove();
   // Validate.captcha();
   Validate.typePerson(person);
-  Validate.feedbackCategories();
+  Validate.feedbackCategories(feedbackCategories);
   Validate.feedback();
 
   if ($("#customerFeedbackFormAlertError p").length) {
@@ -62,24 +62,27 @@ $(document).ready(function () {
       person = $("input[name=typePerson]:checked", '#feedbackForm').val();
     }
 
-    // _runValidation(person);
+    feedbackCategories="";
+    if ($('input:checkbox:checked.feedbackCategories') !=[] && $('input:checkbox:checked.feedbackCategories').length>0){
+      feedbackCategories = $('input:checkbox:checked.feedbackCategories').map(function () {
+        return this.value;
+      }).get();
+    }
+    if (($('#other').is(":checked")) && $("#txtfeedbackCategoriesOther").val().trim() != "") {
+      feedbackCategories.push($("#txtfeedbackCategoriesOther").val());
+    }
+
+    _runValidation(person, feedbackCategories);
+
     var dataForm = {};
     dataForm.firstName = $("#txtCustomerFirstName").val();
     dataForm.lastName = $("#txtCustomerLastName").val();
     dataForm.phone = $("#telCustomerPhone").val();
     dataForm.email = $("#txtCustomerEmail").val();
     dataForm.typePerson = person;
+    dataForm.feedbackCategories = feedbackCategories;
 
-    if ($('input:checkbox:checked.feedbackCategories') !=[] && $('input:checkbox:checked.feedbackCategories').length>0){
-      dataForm.feedbackCategories = $('input:checkbox:checked.feedbackCategories').map(function () {
-        return this.value;
-      }).get();
-    } else {
-      dataForm.feedbackCategories="";
-    }
-    if (($('#other').is(":checked")) && $("#txtfeedbackCategoriesOther").val().trim() != "") {
-      dataForm.feedbackCategories.push($("#txtfeedbackCategoriesOther").val());
-    }
+
     dataForm.feedbackText = $("#txtFeedback").val();
     dataForm.captchaResponse = grecaptcha.getResponse(customerFeedbackCaptchaID);
     if (!$("#customerFeedbackFormAlertError p").length) {
