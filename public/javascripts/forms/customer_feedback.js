@@ -1,7 +1,9 @@
 var Validate = {
-   typePerson: function() {
-    if (!$(".typePerson").is(':checked')) {
-      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please select Which Best Describes You?</p>");
+  typePerson: function() {
+    var result = customer_feedback_validations.typeOfPerson(false, $(".typePerson").is(':checked'));
+    if (!result.status) {
+      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
+          + result.errMsg + "</p>");
     }
   },
   feedbackCategories: function() {
@@ -9,8 +11,8 @@ var Validate = {
       $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please select or enter Area Of Feedback.</p>");
     }
   },
-  comments: function() {
-    var result = customer_feedback_validations.comments(false, $("#txtFeedback").val());
+  feedback: function() {
+    var result = customer_feedback_validations.feedback(false, $("#txtFeedback").val());
     if (!result.status) {
       $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
          + result.errMsg + "</p>");
@@ -28,9 +30,9 @@ var _runValidation = function () {
   $("#customerFeedbackFormAlertError").slideUp();
   $("#customerFeedbackFormAlertError p").remove();
   // Validate.captcha();
-  // Validate.typePerson();
+  Validate.typePerson();
   // Validate.feedbackCategories();
-  Validate.comments();
+  Validate.feedback();
   // validate.email("#txtCustomerEmail","#customerFeedbackFormAlertError", "Email");
   if ($("#customerFeedbackFormAlertError p").length) {
     $("#customerFeedbackFormAlertError").slideDown("slow");
