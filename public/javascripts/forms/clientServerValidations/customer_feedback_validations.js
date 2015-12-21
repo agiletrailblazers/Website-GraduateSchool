@@ -24,7 +24,7 @@
       return result;
     },
 
-    exports.feedback = function (server, input) {
+    exports.feedbackText = function (server, input) {
       var result ={};
       result.status = true;
       result.errMsg = null;

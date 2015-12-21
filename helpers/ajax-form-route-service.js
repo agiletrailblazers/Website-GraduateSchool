@@ -333,20 +333,12 @@ module.exports = {
   validateCustomerFeedBack: function(callback, params) {
     response = {};
     response.errors = {};
-    switch (true) {
-
-      case (params.typePerson.length === 0):
-        response.errors.typePerson = "First name is empty.";
-        break;
-      case (!validator.isLength(params.firstName.trim(), 3)):
-        response.errors.firstName = "First name must be at least 3 characters.";
-        break;
-      case (validator.isLength(params.email.trim(), 1)):
-        if (!validator.isEmail(params.email)) {
-          response.errors.email = "Email is in the wrong format."
-          break;
-        }
+    var feedbackValidations = require('../public/javascripts/forms/clientServerValidations/customer_feedback_validations.js');
+    var feedbackComments = feedbackValidations.feedbackText(true, params.feedbackText);
+    if (!feedbackComments.status) {
+        response.errors.feedbackComments = feedbackComments.errMsg;
     }
+
     if (!params.captchaResponse) {
       response.errors.captchaResponse = "Please select recaptcha.";
     }

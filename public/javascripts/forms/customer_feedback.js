@@ -14,7 +14,7 @@ var Validate = {
     }
   },
   feedback: function() {
-    var result = customer_feedback_validations.feedback(false, $("#txtFeedback").val());
+    var result = customer_feedback_validations.feedbackText(false, $("#txtFeedback").val());
     if (!result.status) {
       $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
          + result.errMsg + "</p>");
@@ -56,7 +56,7 @@ $(document).ready(function () {
   });
   $("#customerFeedbackSubmitForm").click(function (event) {
     event.preventDefault();
-    _runValidation();
+    // _runValidation();
     var dataForm = {};
     dataForm.firstName = $("#txtCustomerFirstName").val();
     dataForm.lastName = $("#txtCustomerLastName").val();
