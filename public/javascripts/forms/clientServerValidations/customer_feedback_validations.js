@@ -1,6 +1,19 @@
 (function(exports){
 
-    exports.comments = function (server, input) {
+    exports.typeOfPerson = function (server, input) {
+      var result ={};
+      result.status = true;
+      result.errMsg = null;
+
+      if (!input) {
+        result.status = false;
+        result.errMsg = "Please select Which Best Describes You?";
+      }
+      console.log('kj '+result);
+      return result;
+    },
+
+    exports.feedback = function (server, input) {
       var result ={};
       result.status = true;
       result.errMsg = null;
