@@ -20,17 +20,19 @@ var Validate = {
          + result.errMsg + "</p>");
     }
   },
-  captcha: function () {
+  captcha: function (skipReCaptcha) {
     var googleResponse = grecaptcha.getResponse(customerFeedbackCaptchaID);
-    if (!googleResponse) {
-      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> For security, please verify you are a real person below.</p>");
+    var result = validations.captcha(googleResponse, skipReCaptcha);
+    if (!result.status) {
+      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
+         + result.errMsg + "</p>");
     }
   }
 }
 var _runValidation = function (person, feedbackCategories) {
   $("#customerFeedbackFormAlertError").slideUp();
   $("#customerFeedbackFormAlertError p").remove();
-  // Validate.captcha();
+  Validate.captcha(skipReCaptcha);
   Validate.typePerson(person);
   Validate.feedbackCategories(feedbackCategories);
   Validate.feedback();

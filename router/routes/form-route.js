@@ -5,6 +5,7 @@ var course = require('../../API/course.js');
 var async = require('async');
 var router = express.Router();
 var logger = require('../../logger');
+var config = require('konphyg')(__dirname + '/../../config');
 
 // Bring this Course to Your Location
 router.get('/forms/onsite-inquiry', function(req, res, next) {
@@ -129,7 +130,8 @@ router.get(
       subjectLine: fields.subjectLine,
       topParagraph: fields.topParagraph,
       selectedForm: whichForm,
-      relatedLinks: fields.relatedLinks
+      relatedLinks: fields.relatedLinks,
+      skipReCaptcha : config("properties").skipReCaptchaVerification
     });
   });
 });
