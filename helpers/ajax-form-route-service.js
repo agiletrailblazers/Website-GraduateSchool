@@ -8,7 +8,7 @@ var google = require('../API/google.js');
 var validator = require('validator');
 var config = require('konphyg')("./config");
 var logger = require('../logger');
-var validations = require('../public/javascripts/forms/validations.js');
+var validations = require('../public/javascripts/forms/clientServerValidations/validations.js');
 
 module.exports = {
   validateContactUsfields: function(callback, params) {
@@ -339,6 +339,12 @@ module.exports = {
     var typeOfPerson = feedbackValidations.typeOfPerson(true, params.typePerson);
     if (!typeOfPerson.status) {
         response.errors.typeOfPerson = typeOfPerson.errMsg;
+    }
+
+    // feedback categories
+    var feedbackCategories = feedbackValidations.feedbackCategory(true, params.feedbackCategories);
+    if (!feedbackCategories.status) {
+        response.errors.feedbackCategories = feedbackCategories.errMsg;
     }
 
     // feedback comments

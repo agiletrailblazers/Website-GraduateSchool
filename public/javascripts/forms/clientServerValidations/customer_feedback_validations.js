@@ -24,7 +24,7 @@
       result.status = true;
       result.errMsg = null;
 
-      if (!input) {
+      if (0 == input.length) {
         result.status = false;
         result.errMsg = "Please select or enter Area Of Feedback.";
       }
