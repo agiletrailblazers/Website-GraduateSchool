@@ -5,7 +5,14 @@
       result.status = true;
       result.errMsg = null;
 
-      if (!input) {
+      var currValidator;
+      if (server) {
+        currValidator = require('validator');
+      } else {
+        currValidator = validator;
+      }
+
+      if (!currValidator.isLength(input.trim(), 1)){
         result.status = false;
         result.errMsg = "Please select Which Best Describes You?";
       }
