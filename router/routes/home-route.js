@@ -12,36 +12,56 @@ router.get('/', function(req, res, next) {
   data = {};
   async.parallel([
     function(callback) {
-      contentful.getHomepageSlider(function(content) {
-        data.slider = content;
+      contentful.getHomepageSlider(function(content, error) {
+        if (error) {
+            logger.warn('Ignoring error retrieving the Homepage Slider, displaying page anyways');
+        }
+        else {
+            data.slider = content;
+        }
         callback();
       });
     },
     function(callback) {
-      contentful.getNewsRecent(function(response) {
-        data.news = response.items;
+      contentful.getNewsRecent(function(response, error) {
+        if (error) {
+            logger.warn('Ignoring error retrieving the Homepage News, displaying page anyways');
+        }
+        else {
+            data.news = response.items;
+        }
         callback();
      });
    },
    function(callback) {
-     contentful.getTestimonial(function(response) {
-       data.testimonial = response;
+     contentful.getTestimonial(function(response, error) {
+       if (error) {
+         logger.warn('Ignoring error retrieving the Homepage Testimonials, displaying page anyways');
+       }
+       else {
+         data.testimonial = response;
+       }
        callback();
     });
   },
   function(callback) {
-    contentful.getAlerts(function(items) {
-      data.alert = null;
-      var alertCookie = req.cookies.gsalert;
-      if (items) {
-        items.forEach(function(item) {
-          //check if this alerts has been dismissed by the user this session
-          if (alertCookie != item.fields.slug) {
-            if(moment().isBetween(new Date(item.fields.startDateTime), new Date(item.fields.endDateTime))) {
-              data.alert = item.fields;
-            }
+    contentful.getAlerts(function(items, error) {
+      if (error) {
+          logger.warn('Ignoring error retrieving the Homepage Alerts, displaying page anyways');
+      }
+      else {
+          data.alert = null;
+          var alertCookie = req.cookies.gsalert;
+          if (items) {
+              items.forEach(function (item) {
+                  //check if this alerts has been dismissed by the user this session
+                  if (alertCookie != item.fields.slug) {
+                      if (moment().isBetween(new Date(item.fields.startDateTime), new Date(item.fields.endDateTime))) {
+                          data.alert = item.fields;
+                      }
+                  }
+              });
           }
-        });
       }
       callback();
    });
