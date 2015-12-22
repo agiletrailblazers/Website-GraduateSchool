@@ -65,7 +65,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           callback();
         }
         else {
-          if (error) {
+          if (error  && response.statusCode != 404) { //404 may be expected
             logger.warn(error);
             logger.warn("Error finding course sessions for course: " + courseId + ", displaying page anyways");
           }
@@ -87,7 +87,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
       }
 
       contentful.getSyllabus(entryName, function(response, error, result) {
-        if (error) {
+        if (error && response.statusCode != 404) { //404 may be expected
           logger.warn(error);
           logger.warn("Error retrieving syllabus for course: " + courseId + " displaying page anyways");
         }
@@ -106,8 +106,9 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
         }
         else {
           content = fields;
+          callback();
         }
-        callback();
+
       });
     }
   ], function(results) {
@@ -209,5 +210,9 @@ function replaceUrl(string) {
 
   return string;
 }
+
+router.get('/registration/policy', function(req, res, next) {
+  res.render('course-related-info/registration_policy');
+});
 
 module.exports = router;

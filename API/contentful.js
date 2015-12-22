@@ -51,7 +51,7 @@ module.exports = {
         'Authorization': 'Bearer d60cc07cb9754202a1483b9e4758b9a38dae4823d6891676b7ac1640daaf09f8'
       }
     }, function(error, response, body) {
-      if (common.checkForErrorAndLog(error, response, targetURL)) {
+      if (common.checkForErrorAndLogNon404(error, response, targetURL)) {
         return callback(response, new Error("Exception occurred in getting the syllabus"), null);
       }
       logger.debug("Syllabus Contentful: " + response.statusCode);
@@ -61,7 +61,7 @@ module.exports = {
   },
   // Pulls all news entries from newest to oldest.
   getNewsRecent: function(callback) {
-    var targetURL = 'https://1cdn.contentful.com/spaces/uoxr2n07eksi/entries?content_type=2wKn6yEnZewu2SCCkus4as&order=-fields.date';
+    var targetURL = 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?content_type=2wKn6yEnZewu2SCCkus4as&order=-fields.date';
     request({
       method: 'GET',
       url: targetURL,
@@ -362,8 +362,8 @@ module.exports = {
      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
    }, function(error, response, body) {
-     if (common.checkForErrorAndLog(error, response, targetURL)) {
-       return callback(response, new Error("Exception occured in getting the alerts"), null);
+     if (common.checkForErrorAndLogNon404(error, response, targetURL)) {
+       return callback(response, new Error("Exception occurred in getting the alerts"), null);
      }
      logger.debug("Get Alerts from Contentful: " + response.statusCode);
      cmsEntry = JSON.parse(body);

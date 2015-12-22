@@ -58,7 +58,7 @@ module.exports = {
     });
   },
   getSchedule: function(callback, courseId) {
-    var courseApiUrl = config("properties").courseApiUrl + '/api/courses/' + courseId + '/sessions';
+    var courseApiUrl = config("properties").courseApiUrl + '/2api/courses/' + courseId + '/sessions';
     request({
       method: 'GET',
       url: courseApiUrl
