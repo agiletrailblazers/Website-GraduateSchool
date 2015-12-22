@@ -52,7 +52,7 @@ module.exports = {
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(response, new Error("Exception occured in getting the syllabus"), null);
+        return callback(response, new Error("Exception occurred in getting the syllabus"), null);
       }
       logger.debug("Syllabus Contentful: " + response.statusCode);
       syllabus = JSON.parse(body);
@@ -61,7 +61,7 @@ module.exports = {
   },
   // Pulls all news entries from newest to oldest.
   getNewsRecent: function(callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?content_type=2wKn6yEnZewu2SCCkus4as&order=-fields.date';
+    var targetURL = 'https://1cdn.contentful.com/spaces/uoxr2n07eksi/entries?content_type=2wKn6yEnZewu2SCCkus4as&order=-fields.date';
     request({
       method: 'GET',
       url: targetURL,
@@ -279,7 +279,7 @@ module.exports = {
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(response, new Error("Exception occured in getting the homepage slider"), null);
+        return callback(response, new Error("Exception occurred in getting the homepage slider"), null);
       }
       logger.debug("Homepage slider: " + response.statusCode);
       content = JSON.parse(body);

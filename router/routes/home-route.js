@@ -14,6 +14,7 @@ router.get('/', function(req, res, next) {
     function(callback) {
       contentful.getHomepageSlider(function(content, error) {
         if (error) {
+            logger.warn(error);
             logger.warn('Ignoring error retrieving the Homepage Slider, displaying page anyways');
         }
         else {
@@ -25,6 +26,7 @@ router.get('/', function(req, res, next) {
     function(callback) {
       contentful.getNewsRecent(function(response, error) {
         if (error) {
+            logger.warn(error);
             logger.warn('Ignoring error retrieving the Homepage News, displaying page anyways');
         }
         else {
@@ -36,6 +38,7 @@ router.get('/', function(req, res, next) {
    function(callback) {
      contentful.getTestimonial(function(response, error) {
        if (error) {
+         logger.warn(error);
          logger.warn('Ignoring error retrieving the Homepage Testimonials, displaying page anyways');
        }
        else {
@@ -47,6 +50,7 @@ router.get('/', function(req, res, next) {
   function(callback) {
     contentful.getAlerts(function(items, error) {
       if (error) {
+          logger.warn(error);
           logger.warn('Ignoring error retrieving the Homepage Alerts, displaying page anyways');
       }
       else {
@@ -92,9 +96,12 @@ router.get('/alert-dismiss', function(req, res, next) {
   }
 });
 
-//show a page not found page
 router.get('/pagenotfound', function(req, res, next) {
   res.render('404', {title: 'Page Not Found'});
+});
+
+router.get('/error', function(req, res, next) {
+    res.render('ErrorPage', {title: 'Error retrieving page'});
 });
 
 router.get('/under-construction', function(req, res, next) {

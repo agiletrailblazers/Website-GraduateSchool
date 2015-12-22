@@ -24,21 +24,23 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
   async.waterfall([
     function(callback) {
       course.performExactCourseSearch(function(response, error, result) {
-    	if (error || result == null) {
-            logger.error("Course not found");
-            courseData = null;
-            //callback(true) tells waterfall to go to the last method if a course is not found
-            callback(true);
-            return;
+    	if (result == null && error) {
+          logger.error(error);
+          // This log statement is not entirely clear. Could be course doesn't exist or cannot reach DB and should try again but since page is 404
+          logger.error("Course not found");
+          courseData = null;
+          //The line below tells waterfall to go to the last method if a course is not found
+          callback(true);
+          return;
     	}
-    	else {
-    		courseData.class = result;
-        //set course id to the FULL course id (since it's possible to start with a code or id)
-        if (common.isNotEmpty(courseData.class.id)) {
-          courseId = courseData.class.id;
-        } else {
-          courseId = courseIdOrCode;   //this really should not happen
-        }
+    	else if (result) {
+          courseData.class = result;
+          //set course id to the FULL course id (since it's possible to start with a code or id)
+          if (common.isNotEmpty(courseData.class.id)) {
+            courseId = courseData.class.id;
+          } else {
+            courseId = courseIdOrCode;   //this really should not happen
+          }
     	}
         callback();
       }, courseIdOrCode);
@@ -61,8 +63,15 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
             iSession["endDate"] = courseData.session[i]["endDate"].date('MMM DD, YYYY');
           }
           callback();
-        } else {
-          logger.debug("No course sessions found for course: " + courseId);
+        }
+        else {
+          if (error) {
+            logger.warn(error);
+            logger.warn("Error finding course sessions for course: " + courseId + ", displaying page anyways");
+          }
+          else {
+            logger.debug("No course sessions found for course: " + courseId);
+          }
           courseData.session = []; //return empty array
           callback();
         }
@@ -78,13 +87,26 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
       }
 
       contentful.getSyllabus(entryName, function(response, error, result) {
-        courseData.syllabus = response;
+        if (error) {
+          logger.warn(error);
+          logger.warn("Error retrieving syllabus for course: " + courseId + " displaying page anyways");
+        }
+        else {
+          courseData.syllabus = response;
+        }
         callback();
       });
     },
     function(callback) {
-      contentful.getCourseDetails(function(fields) {
-        content = fields;
+      contentful.getCourseDetails(function(fields, error) {
+        if (error) {
+          logger.error(error);
+          logger.error("Error retrieving generic course details from Contentful, redirecting to error page");
+          res.redirect('/error');
+        }
+        else {
+          content = fields;
+        }
         callback();
       });
     }
@@ -103,13 +125,13 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           session.hide = true;
         }
       });
-      content.linksSection.forEach(function(link) {
+      content.linksSection.forEach(function (link) {
         link.url = link.url.replace('[courseCode]', courseData.class.code);
       });
 
       courseData.isLeadershipCourse = false;
       if (common.isNotEmpty(content.leadershipCoursesScheduleLinks)) {
-        if(common.isNotEmpty(content.leadershipCoursesScheduleLinks[courseData.class.code])) {
+        if (common.isNotEmpty(content.leadershipCoursesScheduleLinks[courseData.class.code])) {
           courseData.isLeadershipCourse = true;
           courseData.leadershipCourseScheduleLinkText = content.leadershipCourseScheduleLinkText;
           courseData.leadershipCourseScheduleLink = content.leadershipCoursesScheduleLinks[courseData.class.code];

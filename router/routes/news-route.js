@@ -9,8 +9,9 @@ var logger = require('../../logger');
 router.get('/news', function(req, res, next) {
   contentful.getNewsRecent(function(response, error) {
     if (error) {
+      logger.error(error);
       logger.error('Could not retrieve news from Contentful. Redirecting to error page');
-      res.redirect('ErrorPage');
+      res.redirect('/error');
     }
     else {
       res.render('news/recent_entries', {
@@ -25,6 +26,7 @@ router.get('/news/:news_slug', function(req, res, next) {
   slug = req.params.news_slug;
   contentful.getNewsDetail(function(response, error) {
     if (error) {
+      logger.error(error);
       logger.error('Could not retrieve news slug from Contentful. Redirecting to page not found');
       res.redirect('/pagenotfound')
     }
