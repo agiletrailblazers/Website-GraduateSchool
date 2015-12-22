@@ -1,25 +1,18 @@
 (function(exports){
 
-    exports.typeOfPerson = function (server, input) {
+    exports.typeOfPerson = function (validator, input) {
       var result ={};
       result.status = true;
       result.errMsg = null;
 
-      var currValidator;
-      if (server) {
-        currValidator = require('validator');
-      } else {
-        currValidator = validator;
-      }
-
-      if (!currValidator.isLength(input.trim(), 1)){
+      if (!validator.isLength(input.trim(), 1)){
         result.status = false;
         result.errMsg = "Please select Which Best Describes You?";
       }
       return result;
     },
 
-    exports.feedbackCategory = function (server, input) {
+    exports.feedbackCategory = function (validator, input) {
       var result ={};
       result.status = true;
       result.errMsg = null;
@@ -31,19 +24,12 @@
       return result;
     },
 
-    exports.feedbackText = function (server, input) {
+    exports.feedbackText = function (validator, input) {
       var result ={};
       result.status = true;
       result.errMsg = null;
 
-      var currValidator;
-      if (server) {
-        currValidator = require('validator');
-      } else {
-        currValidator = validator;
-      }
-
-      if (!currValidator.isLength(input.trim(), 3)){
+      if (!validator.isLength(input.trim(), 3)){
         result.status = false;
         result.errMsg = "Please enter your Feedback.";
       }

@@ -9,6 +9,8 @@ var validator = require('validator');
 var config = require('konphyg')("./config");
 var logger = require('../logger');
 var validations = require('../public/javascripts/forms/clientServerValidations/validations.js');
+var feedbackValidations = require('../public/javascripts/forms/clientServerValidations/customer_feedback_validations.js');
+
 
 module.exports = {
   validateContactUsfields: function(callback, params) {
@@ -333,27 +335,26 @@ module.exports = {
   validateCustomerFeedBack: function(callback, params) {
     response = {};
     response.errors = {};
-    var feedbackValidations = require('../public/javascripts/forms/clientServerValidations/customer_feedback_validations.js');
 
     // type of person
-    var typeOfPerson = feedbackValidations.typeOfPerson(true, params.typePerson);
+    var typeOfPerson = feedbackValidations.typeOfPerson(validator, params.typePerson);
     if (!typeOfPerson.status) {
         response.errors.typeOfPerson = typeOfPerson.errMsg;
     }
 
     // feedback categories
-    var feedbackCategories = feedbackValidations.feedbackCategory(true, params.feedbackCategories);
+    var feedbackCategories = feedbackValidations.feedbackCategory(validator, params.feedbackCategories);
     if (!feedbackCategories.status) {
         response.errors.feedbackCategories = feedbackCategories.errMsg;
     }
 
     // feedback comments
-    var feedbackText = feedbackValidations.feedbackText(true, params.feedbackText);
+    var feedbackText = feedbackValidations.feedbackText(validator, params.feedbackText);
     if (!feedbackText.status) {
         response.errors.feedbackText = feedbackText.errMsg;
     }
 
-    var recaptcha = validations.captcha(true, params.captchaResponse, config("properties").skipReCaptchaVerification)
+    var recaptcha = validations.captcha(params.captchaResponse, config("properties").skipReCaptchaVerification)
     if (!recaptcha.status) {
         response.errors.captchaResponse = recaptcha.errMsg;
     }

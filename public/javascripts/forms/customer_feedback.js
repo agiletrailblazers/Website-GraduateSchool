@@ -1,20 +1,20 @@
 var Validate = {
   typePerson: function(person) {
-    var result = customer_feedback_validations.typeOfPerson(false, person);
+    var result = customer_feedback_validations.typeOfPerson(validator, person);
     if (!result.status) {
       $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
           + result.errMsg + "</p>");
     }
   },
   feedbackCategories: function(feedbackCategories) {
-    var result = customer_feedback_validations.feedbackCategory(false, feedbackCategories);
+    var result = customer_feedback_validations.feedbackCategory(validator, feedbackCategories);
     if (!result.status) {
       $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
           + result.errMsg + "</p>");
     }
   },
   feedback: function() {
-    var result = customer_feedback_validations.feedbackText(false, $("#txtFeedback").val());
+    var result = customer_feedback_validations.feedbackText(validator, $("#txtFeedback").val());
     if (!result.status) {
       $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
          + result.errMsg + "</p>");
@@ -22,7 +22,7 @@ var Validate = {
   },
   captcha: function (skipReCaptcha) {
     var googleResponse = grecaptcha.getResponse(customerFeedbackCaptchaID);
-    var result = validations.captcha(false, googleResponse, skipReCaptcha);
+    var result = validations.captcha(googleResponse, skipReCaptcha);
     if (!result.status) {
       $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
          + result.errMsg + "</p>");

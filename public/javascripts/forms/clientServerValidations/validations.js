@@ -1,44 +1,29 @@
 (function(exports){
-    validateLength = function (server, input, fieldName, length) {
+    validateLength = function (validator, input, fieldName, length) {
       var result ={};
       result.status = true;
       result.errMsg = null;
 
-      var currValidator;
-      if (server) {
-        currValidator = require('validator');
-      } else {
-        currValidator = validator;
-      }
-
-      if (!currValidator.isLength(input.trim(), length)){
+      if (!validator.isLength(input.trim(), length)){
         result.status = false;
         result.errMsg = fieldName + " is required and must be at least " + length + " characters."
       }
       return result;
     },
 
-    validateEmail = function (server, input, fieldName) {
+    validateEmail = function (validator, input, fieldName) {
       var result ={};
       result.status = true;
       result.errMsg = null;
 
-      var currValidator;
-      if (server) {
-        currValidator = require('validator');
-      } else {
-        currValidator = validator;
-      }
-
-      if (!currValidator.isEmail(input.trim())){
+      if (!validator.isEmail(input.trim())){
         result.status = false;
         result.errMsg = fieldName + " is required and must be a properly formatted email address."
       }
       return result;
     },
 
-
-    exports.captcha = function(server, googleResponse, skipReCaptcha) {
+    exports.captcha = function(googleResponse, skipReCaptcha) {
       var result ={};
       result.status = true;
       result.errMsg = null;
@@ -50,35 +35,30 @@
         }
       }
       else {
-        if (server) {
-          require('../../../../logger').debug("Skipping reCaptcha validation.");
-        }
-        else {
           console.log("Skipping reCaptcha validation.");
-        }
       }
 
       return result;
     },
 
-    exports.name = function (server, input, fieldName) {
-      var result = validateLength(server, input, fieldName, 2);
+    exports.name = function (validator, input, fieldName) {
+      var result = validateLength(validator, input, fieldName, 2);
       return result;
     },
 
-    exports.street = function (server, input, fieldName) {
-      var result = validateLength(server, input, fieldName, 5);
+    exports.street = function (validator, input, fieldName) {
+      var result = validateLength(validator, input, fieldName, 5);
 
       return result;
     },
 
-    exports.city = function (server, input, fieldName) {
-      var result = validateLength(server, input, fieldName, 3);
+    exports.city = function (validator, input, fieldName) {
+      var result = validateLength(validator, input, fieldName, 3);
       return result;
     },
 
-    exports.email = function (server, input, fieldName) {
-      var result = validateEmail(server, input, fieldName);
+    exports.email = function (validator, input, fieldName) {
+      var result = validateEmail(validator, input, fieldName);
       return result;
     };
 })(typeof exports === 'undefined'? this['validations']={}: exports);
