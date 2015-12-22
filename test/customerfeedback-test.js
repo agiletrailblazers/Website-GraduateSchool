@@ -32,7 +32,7 @@ test('Customer Feedback- Happy Path Validation', function(t) {
   test('Captcha-Customer Feedback  captcha Validation', function(t) {
     params = {firstName:"", lastName:"ATB",email:"gs.edu.com",phone:"400-000-0000",typePerson:"Student",feedbackCategories:"Course",feedbackText:"This is test",captchaResponse :""};
     ajaxformrouteservice.validateCustomerFeedBack(function(response){
-      expect(response.errors.captchaResponse).to.eql(config("properties").contactUsRecaptchaEmptyCheckMessage);
+      expect(response.errors.captchaResponse).to.eql("For security, please verify you are a real person below.");
     },params);
     t.end();
   });
