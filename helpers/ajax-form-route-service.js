@@ -11,7 +11,6 @@ var logger = require('../logger');
 var validations = require('../public/javascripts/forms/clientServerValidations/validations.js');
 var feedbackValidations = require('../public/javascripts/forms/clientServerValidations/customer_feedback_validations.js');
 
-
 module.exports = {
   validateContactUsfields: function(callback, params) {
     response = {};

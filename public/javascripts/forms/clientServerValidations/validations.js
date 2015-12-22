@@ -48,7 +48,6 @@
 
     exports.street = function (validator, input, fieldName) {
       var result = validateLength(validator, input, fieldName, 5);
-
       return result;
     },
 

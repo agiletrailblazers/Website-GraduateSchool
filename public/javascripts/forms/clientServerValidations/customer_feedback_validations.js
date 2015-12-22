@@ -5,13 +5,13 @@
       result.status = true;
       result.errMsg = null;
 
+
       if (!validator.isLength(input.trim(), 1)){
         result.status = false;
         result.errMsg = "Please select Which Best Describes You?";
       }
       return result;
     },
-
     exports.feedbackCategory = function (validator, input) {
       var result ={};
       result.status = true;
@@ -23,7 +23,6 @@
       }
       return result;
     },
-
     exports.feedbackText = function (validator, input) {
       var result ={};
       result.status = true;
