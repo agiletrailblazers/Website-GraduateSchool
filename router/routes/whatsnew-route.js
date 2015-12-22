@@ -51,7 +51,6 @@ router.get('/whats-new', function(req, res, next) {
       });
     },
   ], function(results) {
-      logger.error('why the hell its triggering');
       res.render('whats_new', {
         title: 'What\'s new',
         entry: content.class.cmsEntry.fields,
