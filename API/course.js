@@ -7,7 +7,7 @@ var common = require("../helpers/common.js");
 module.exports = {
   performCourseSearch: function(callback, params) {
     var courseApiUrl = config("properties").courseApiUrl;
-    courseApiUrl = courseApiUrl + '/ap2i/courses?search=' + encodeURIComponent(params.searchCriteria)  ;
+    courseApiUrl = courseApiUrl + '/api/courses?search=' + encodeURIComponent(params.searchCriteria)  ;
     if (common.isNotEmpty(params.numRequested)) {
       courseApiUrl = courseApiUrl + '&numRequested=' + params.numRequested;
     }
@@ -58,7 +58,7 @@ module.exports = {
     });
   },
   getSchedule: function(callback, courseId) {
-    var courseApiUrl = config("properties").courseApiUrl + '/2api/courses/' + courseId + '/sessions';
+    var courseApiUrl = config("properties").courseApiUrl + '/api/courses/' + courseId + '/sessions';
     request({
       method: 'GET',
       url: courseApiUrl
