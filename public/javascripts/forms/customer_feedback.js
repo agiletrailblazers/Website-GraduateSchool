@@ -1,31 +1,42 @@
 var Validate = {
-  inputs: function () {
-    $("#feedbackForm input").blur(function () {
-      if (!$(this).val()) {
-        $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Please add content.</p>");
-      }
-
-    });
-  },
-  email: function(email) {
-    var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
-    if ((email.trim().length !== 0) && (!pattern.test(email))) {
-      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Email address is incorrect.</p>");
+  typePerson: function(person) {
+    var result = customer_feedback_validations.typeOfPerson(validator, person);
+    if (!result.status) {
+      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
+          + result.errMsg + "</p>");
     }
   },
-  captcha: function () {
+  feedbackCategories: function(feedbackCategories) {
+    var result = customer_feedback_validations.feedbackCategory(validator, feedbackCategories);
+    if (!result.status) {
+      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
+          + result.errMsg + "</p>");
+    }
+  },
+  feedback: function() {
+    var result = customer_feedback_validations.feedbackText(validator, $("#txtFeedback").val());
+    if (!result.status) {
+      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
+         + result.errMsg + "</p>");
+    }
+  },
+  captcha: function (skipReCaptcha) {
     var googleResponse = grecaptcha.getResponse(customerFeedbackCaptchaID);
-    if (!googleResponse) {
-      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> For security, please verify you are a real person below.</p>");
+    var result = validations.captcha(googleResponse, skipReCaptcha);
+    if (!result.status) {
+      $("#customerFeedbackFormAlertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>"
+         + result.errMsg + "</p>");
     }
   }
 }
-var _runValidation = function () {
+var _runValidation = function (person, feedbackCategories) {
   $("#customerFeedbackFormAlertError").slideUp();
   $("#customerFeedbackFormAlertError p").remove();
-  Validate.captcha();
-  Validate.inputs();
-  Validate.email($("#txtCustomerEmail").val());
+  Validate.captcha(skipReCaptcha);
+  Validate.typePerson(person);
+  Validate.feedbackCategories(feedbackCategories);
+  Validate.feedback();
+
   if ($("#customerFeedbackFormAlertError p").length) {
     $("#customerFeedbackFormAlertError").slideDown("slow");
   }
@@ -47,27 +58,33 @@ $(document).ready(function () {
   });
   $("#customerFeedbackSubmitForm").click(function (event) {
     event.preventDefault();
-    _runValidation();
+
+    var person = "";
+    if ((typeof($("input[name=typePerson]:checked", '#feedbackForm').val())) != "undefined") {
+      person = $("input[name=typePerson]:checked", '#feedbackForm').val();
+    }
+
+    feedbackCategories="";
+    if ($('input:checkbox:checked.feedbackCategories') !=[] && $('input:checkbox:checked.feedbackCategories').length>0){
+      feedbackCategories = $('input:checkbox:checked.feedbackCategories').map(function () {
+        return this.value;
+      }).get();
+    }
+    if (($('#other').is(":checked")) && $("#txtfeedbackCategoriesOther").val().trim() != "") {
+      feedbackCategories.push($("#txtfeedbackCategoriesOther").val());
+    }
+
+    _runValidation(person, feedbackCategories);
+
     var dataForm = {};
     dataForm.firstName = $("#txtCustomerFirstName").val();
     dataForm.lastName = $("#txtCustomerLastName").val();
     dataForm.phone = $("#telCustomerPhone").val();
     dataForm.email = $("#txtCustomerEmail").val();
-    if ((typeof($("input[name=typePerson]:checked", '#feedbackForm').val())) != "undefined") {
-      dataForm.typePerson = $("input[name=typePerson]:checked", '#feedbackForm').val();
-    }else {
-      dataForm.typePerson = "";
-    }
-    if ($('input:checkbox:checked.feedbackCategories') !=[] && $('input:checkbox:checked.feedbackCategories').length>0){
-      dataForm.feedbackCategories = $('input:checkbox:checked.feedbackCategories').map(function () {
-        return this.value;
-      }).get();
-    } else {
-      dataForm.feedbackCategories="";
-    }
-    if (($('#other').is(":checked")) && $("#txtfeedbackCategoriesOther").val().trim() != "") {
-      dataForm.feedbackCategories.push($("#txtfeedbackCategoriesOther").val());
-    }
+    dataForm.typePerson = person;
+    dataForm.feedbackCategories = feedbackCategories;
+
+
     dataForm.feedbackText = $("#txtFeedback").val();
     dataForm.captchaResponse = grecaptcha.getResponse(customerFeedbackCaptchaID);
     if (!$("#customerFeedbackFormAlertError p").length) {

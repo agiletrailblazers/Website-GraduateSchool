@@ -8,6 +8,8 @@ var google = require('../API/google.js');
 var validator = require('validator');
 var config = require('konphyg')("./config");
 var logger = require('../logger');
+var validations = require('../public/javascripts/forms/clientServerValidations/validations.js');
+var feedbackValidations = require('../public/javascripts/forms/clientServerValidations/customer_feedback_validations.js');
 
 module.exports = {
   validateContactUsfields: function(callback, params) {
@@ -332,16 +334,30 @@ module.exports = {
   validateCustomerFeedBack: function(callback, params) {
     response = {};
     response.errors = {};
-    switch (true) {
-      case (validator.isLength(params.email.trim(), 1)):
-        if (!validator.isEmail(params.email)) {
-          response.errors.email = "Email is in the wrong format."
-          break;
-        }
+
+    // type of person
+    var typeOfPerson = feedbackValidations.typeOfPerson(validator, params.typePerson);
+    if (!typeOfPerson.status) {
+        response.errors.typeOfPerson = typeOfPerson.errMsg;
     }
-    if (!params.captchaResponse) {
-      response.errors.captchaResponse = "Please select recaptcha.";
+
+    // feedback categories
+    var feedbackCategories = feedbackValidations.feedbackCategory(validator, params.feedbackCategories);
+    if (!feedbackCategories.status) {
+        response.errors.feedbackCategories = feedbackCategories.errMsg;
     }
+
+    // feedback comments
+    var feedbackText = feedbackValidations.feedbackText(validator, params.feedbackText);
+    if (!feedbackText.status) {
+        response.errors.feedbackText = feedbackText.errMsg;
+    }
+
+    var recaptcha = validations.captcha(params.captchaResponse, config("properties").skipReCaptchaVerification)
+    if (!recaptcha.status) {
+        response.errors.captchaResponse = recaptcha.errMsg;
+    }
+
     callback(response);
   },
   validateCertificateProgramForms: function(callback, params) {
