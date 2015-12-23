@@ -7,7 +7,7 @@ var common = require("../helpers/common.js");
 module.exports = {
   performCourseSearch: function(callback, params) {
     var courseApiUrl = config("properties").courseApiUrl;
-    courseApiUrl = courseApiUrl + '/api/courses?search=' + encodeURIComponent(params.searchCriteria)  ;
+    courseApiUrl = courseApiUrl + '/ap2i/courses?search=' + encodeURIComponent(params.searchCriteria)  ;
     if (common.isNotEmpty(params.numRequested)) {
       courseApiUrl = courseApiUrl + '&numRequested=' + params.numRequested;
     }

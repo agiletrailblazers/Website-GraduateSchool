@@ -126,7 +126,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           session.hide = true;
         }
       });
-      content.linksSection.forEach(function (link) {
+      content.linksSection.forEach(function(link) {
         link.url = link.url.replace('[courseCode]', courseData.class.code);
       });
 
