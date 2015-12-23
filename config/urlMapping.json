@@ -5,7 +5,6 @@
   "courseOverviewURLMappings": {
     "/course_details.php?cid=":"/courses/",
     "/ace":"/content/ACE",
-    "/alp":"/content/CLM#Section4",
     "/books":"http://graduateschool.textbookx.com/",
     "/certacct":"/content/ap-management#Section2",
     "/certadmp":"/content/ep-certificates/administrative",
@@ -22,10 +21,8 @@
     "/certpmbu":"/content/certificates/PM",
     "/certppm":"/content/certificates/PPM",
     "/clm":"/content/CLM",
-    "/elp":"/content/CLM#Section6",
     "/finccl":"/content/financial#Section2",
     "/gaticl":"/content/gati#Section3",
-    "/nlp":"/content/CLM#Section5",
     "/organizational":"/content/career-services",
     "/residential":"/content/gov",
     "/sub/ap/certificate.php":"/content/ap-management",
