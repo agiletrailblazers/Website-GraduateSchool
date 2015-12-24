@@ -34,11 +34,12 @@ function defaultUrlRedirect(req, res, next) {
       }
       // redirect non-one word urls to pagenotfound. '1' is used in substring to ignore the first char in url i.e to ignore first '/'
       else if (-1 === req.url.substring(1).search(/^[A-Za-z0-9_-]+$/)){
-        logger.error("Page not found: " + req.url);
+        logger.error("One-word page not found: " + req.url + " redirecting to page not found");
         res.redirect('/pagenotfound');
       }
       // everything else redirects to page not found
       else {
+        logger.error("One-word page not found: " + req.url + " redirecting to homepage");
         res.redirect('/');
       }
     } else {

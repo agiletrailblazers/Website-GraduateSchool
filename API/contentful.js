@@ -229,9 +229,10 @@ module.exports = {
         'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
       }
     }, function(error, response, body) {
-      if (common.checkForErrorAndLog(error, response, targetURL)) {
+      if (common.checkForErrorAndLog(error, response, targetURL)) { //This call returns 200 even when nothing found
         return callback(response, new Error("Exception occurred in getting the content page, " + slug), null);
       }
+      logger.debug("Content Page " +  slug + " Contentful: " + response.statusCode);
       contentPage = JSON.parse(body);
       return callback(contentPage);
     });
@@ -363,7 +364,7 @@ module.exports = {
      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
    }, function(error, response, body) {
-     var httpCodesNotToLog = [404, 200];
+     var httpCodesNotToLog = [404];
      if (common.checkForErrorAndLogExceptCodes(error, response, targetURL, httpCodesNotToLog)) {
        return callback(response, new Error("Exception occurred in getting the alerts"), null);
      }
@@ -440,9 +441,9 @@ module.exports = {
       }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
-       return callback(response, new Error("Exception occurred in getting the FAQ category"), null);
+       return callback(response, new Error("Exception occurred in getting the FAQ category "+ categorySlug), null);
      }
-     logger.debug("Get faqs from Contentful: " + response.statusCode);
+     logger.debug("Get FAQ category " + categorySlug + " from Contentful: " + response.statusCode);
      singleFaq = JSON.parse(body);
      return callback(singleFaq);
    });
@@ -460,7 +461,7 @@ module.exports = {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
        return callback(response, new Error("Exception occurred in getting the FAQ"), null);
      }
-     logger.debug("Get faqs from Contentful: " + response.statusCode);
+     logger.debug("Get main faq page from Contentful: " + response.statusCode);
      faq = JSON.parse(body);
      return callback(faq);
    });
@@ -475,9 +476,10 @@ module.exports = {
        'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
      }
    }, function(error, response, body) {
-     if (common.checkForErrorAndLog(error, response, targetURL)) {
+     if (common.checkForErrorAndLog(error, response, targetURL)) { //This returns 200 even when nothing is found
        return callback(response, new Error("Exception occurred in getting the snippet, " + slug), null);
      }
+     logger.debug("Content snippet " +  slug + " Contentful: " + response.statusCode);
      contentSnippet = JSON.parse(body);
      return callback(contentSnippet);
    });
@@ -495,6 +497,7 @@ module.exports = {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
        return callback(null, new Error("Exception occurred in getting the redirect information"));
      }
+     logger.debug("ContentUrlRedirect Contentful: " + response.statusCode);
      data = JSON.parse(body).items;
      return callback(data, null);
    });
