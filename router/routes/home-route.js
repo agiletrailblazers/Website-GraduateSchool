@@ -14,8 +14,7 @@ router.get('/', function(req, res, next) {
     function(callback) {
       contentful.getHomepageSlider(function(content, error) {
         if (error) {
-            logger.warn(error);
-            logger.warn('Ignoring error retrieving the Homepage Slider, displaying page anyways');
+            logger.warn('Ignoring error retrieving the Homepage Slider, displaying page anyways', error);
         }
         else {
             data.slider = content;
@@ -26,8 +25,7 @@ router.get('/', function(req, res, next) {
     function(callback) {
       contentful.getNewsRecent(function(response, error) {
         if (error) {
-            logger.warn(error);
-            logger.warn('Ignoring error retrieving the Homepage News, displaying page anyways');
+            logger.warn('Ignoring error retrieving the Homepage News, displaying page anyways', error);
         }
         else {
             data.news = response.items;
@@ -38,8 +36,7 @@ router.get('/', function(req, res, next) {
    function(callback) {
      contentful.getTestimonial(function(response, error) {
        if (error) {
-         logger.warn(error);
-         logger.warn('Ignoring error retrieving the Homepage Testimonials, displaying page anyways');
+         logger.warn('Ignoring error retrieving the Homepage Testimonials, displaying page anyways', error);
        }
        else {
          data.testimonial = response;
@@ -50,8 +47,7 @@ router.get('/', function(req, res, next) {
   function(callback) {
     contentful.getAlerts(function(items, error) {
       if (error) {
-          logger.warn(error);
-          logger.warn('Ignoring error retrieving the Homepage Alerts, displaying page anyways');
+          logger.warn('Ignoring error retrieving the Homepage Alerts, displaying page anyways', error);
       }
       else {
           data.alert = null;
@@ -101,7 +97,7 @@ router.get('/pagenotfound', function(req, res, next) {
 });
 
 router.get('/error', function(req, res, next) {
-    res.render('ErrorPage', {title: 'Error retrieving page'});
+    res.render('error_page', {title: 'Error retrieving page'});
 });
 
 router.get('/under-construction', function(req, res, next) {

@@ -14,7 +14,7 @@ module.exports = {
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(response, new Error("Exception occured in getting whats new"), null);
+        return callback(response, new Error("Exception occurred in getting whats new"), null);
       }
       logger.debug("What's New Contentful: " + response.statusCode);
       cmsEntry = JSON.parse(body);
@@ -35,7 +35,7 @@ module.exports = {
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(response, new Error("Exception occured in getting asset"), null);
+        return callback(response, new Error("Exception occurred in getting asset"), null);
       }
       logger.debug("Get Asset Contentful: " + response.statusCode);
       asset = JSON.parse(body);
@@ -51,7 +51,8 @@ module.exports = {
         'Authorization': 'Bearer d60cc07cb9754202a1483b9e4758b9a38dae4823d6891676b7ac1640daaf09f8'
       }
     }, function(error, response, body) {
-      if (common.checkForErrorAndLogNon404(error, response, targetURL)) {
+      var httpCodesNotToLog = [404];
+      if (common.checkForErrorAndLogExceptCodes(error, response, targetURL, httpCodesNotToLog)) {
         return callback(response, new Error("Exception occurred in getting the syllabus"), null);
       }
       logger.debug("Syllabus Contentful: " + response.statusCode);
@@ -70,7 +71,7 @@ module.exports = {
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(response, new Error("Exception occured in getting the news recent"), null);
+        return callback(response, new Error("Exception occurred in getting the news recent"), null);
       }
       logger.debug("Recent News Contentful: " + response.statusCode);
       posts = JSON.parse(body);
@@ -88,7 +89,7 @@ module.exports = {
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(response, new Error("Exception occured in getting the news detail"), null);
+        return callback(response, new Error("Exception occurred in getting the news detail"), null);
       }
       logger.debug("News Post Contentful: " + response.statusCode);
       newsPost = JSON.parse(body);
@@ -106,7 +107,7 @@ module.exports = {
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(response, new Error("Exception occured in getting the content asset"), null);
+        return callback(response, new Error("Exception occurred in getting the content asset"), null);
       }
       logger.debug("Get Content Asset Contentful: " + response.statusCode);
       result = JSON.parse(body);
@@ -125,7 +126,7 @@ module.exports = {
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(response, new Error("Exception occured in getting the navigation"), null);
+        return callback(response, new Error("Exception occurred in getting the navigation"), null);
       }
       logger.debug("Main Nav Contentful: " + response.statusCode);
       content = JSON.parse(body);
@@ -208,7 +209,7 @@ module.exports = {
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(response, new Error("Exception occured in getting the reference data: " + slug), null);
+        return callback(response, new Error("Exception occurred in getting the reference data: " + slug), null);
       }
       logger.debug("Reference Data Contentful: " + response.statusCode);
       var data = {};
@@ -229,7 +230,7 @@ module.exports = {
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(response, new Error("Exception occured in getting the content page, " + slug), null);
+        return callback(response, new Error("Exception occurred in getting the content page, " + slug), null);
       }
       contentPage = JSON.parse(body);
       return callback(contentPage);
@@ -245,7 +246,7 @@ module.exports = {
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(response, new Error("Exception occured in getting the course search"), null);
+        return callback(response, new Error("Exception occurred in getting the course search"), null);
       }
       logger.debug("Course Search Contentful: " + response.statusCode);
       cmsEntry = JSON.parse(body);
@@ -262,7 +263,7 @@ module.exports = {
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(response, new Error("Exception occured in getting the course details"), null);
+        return callback(response, new Error("Exception occurred in getting the course details"), null);
       }
       logger.debug("Course Details Contentful: " + response.statusCode);
       cmsEntry = JSON.parse(body);
@@ -312,7 +313,7 @@ module.exports = {
        }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(response, new Error("Exception occured in getting the forms"), null);
+        return callback(response, new Error("Exception occurred in getting the forms"), null);
       }
       logger.debug("Get Forms Contentful: " + response.statusCode);
       cmsEntry = JSON.parse(body);
@@ -333,7 +334,7 @@ module.exports = {
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(response, new Error("Exception occured in getting the testimonial"), null);
+        return callback(response, new Error("Exception occurred in getting the testimonial"), null);
       }
       logger.debug("Marketing testimonial: " + response.statusCode);
       content = JSON.parse(body);
@@ -362,7 +363,8 @@ module.exports = {
      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
    }, function(error, response, body) {
-     if (common.checkForErrorAndLogNon404(error, response, targetURL)) {
+     var httpCodesNotToLog = [404, 200];
+     if (common.checkForErrorAndLogExceptCodes(error, response, targetURL, httpCodesNotToLog)) {
        return callback(response, new Error("Exception occurred in getting the alerts"), null);
      }
      logger.debug("Get Alerts from Contentful: " + response.statusCode);
@@ -380,7 +382,7 @@ module.exports = {
       }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
-       return callback(response, new Error("Exception occured in getting the data grouping"), null);
+       return callback(response, new Error("Exception occurred in getting the data grouping"), null);
      }
      logger.debug("Get data group from Contentful: " + response.statusCode);
      dataGroup = JSON.parse(body);
@@ -397,7 +399,7 @@ module.exports = {
       }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
-       return callback(response, new Error("Exception occured in getting the catalog type"), null);
+       return callback(response, new Error("Exception occurred in getting the catalog type"), null);
      }
      logger.debug("Get Catalog Contentful: " + response.statusCode);
      cmsEntry = JSON.parse(body);
@@ -418,7 +420,7 @@ module.exports = {
       }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
-       return callback(response, new Error("Exception occured in getting the catalog request hard copy"), null);
+       return callback(response, new Error("Exception occurred in getting the catalog request hard copy"), null);
      }
      logger.debug("Get Catalog Contentful: " + response.statusCode);
      cmsEntry = JSON.parse(body);
@@ -438,7 +440,7 @@ module.exports = {
       }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
-       return callback(response, new Error("Exception occured in getting the FAQ category"), null);
+       return callback(response, new Error("Exception occurred in getting the FAQ category"), null);
      }
      logger.debug("Get faqs from Contentful: " + response.statusCode);
      singleFaq = JSON.parse(body);
@@ -456,7 +458,7 @@ module.exports = {
       }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
-       return callback(response, new Error("Exception occured in getting the FAQ"), null);
+       return callback(response, new Error("Exception occurred in getting the FAQ"), null);
      }
      logger.debug("Get faqs from Contentful: " + response.statusCode);
      faq = JSON.parse(body);
@@ -474,7 +476,7 @@ module.exports = {
      }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
-       return callback(response, new Error("Exception occured in getting the snippet, " + slug), null);
+       return callback(response, new Error("Exception occurred in getting the snippet, " + slug), null);
      }
      contentSnippet = JSON.parse(body);
      return callback(contentSnippet);
@@ -491,7 +493,7 @@ module.exports = {
      }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
-       return callback(null, new Error("Exception occured in getting the redirect information"));
+       return callback(null, new Error("Exception occurred in getting the redirect information"));
      }
      data = JSON.parse(body).items;
      return callback(data, null);

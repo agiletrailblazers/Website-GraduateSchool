@@ -13,8 +13,7 @@ router.get('/whats-new', function(req, res, next) {
     function(callback) {
       contentful.getWhatsNew(function(response, error) {
         if(error){
-          logger.error(error);
-          logger.error('Could not retrieve Whatsnew from Contentful. Redirecting to error page');
+          logger.error('Could not retrieve Whatsnew from Contentful. Redirecting to error page', error);
           res.redirect('/error');
         }
         else{
@@ -32,8 +31,7 @@ router.get('/whats-new', function(req, res, next) {
     function(callback) {
       contentful.getContentAsset(spaceId, function(response, error, result) {
         if(error){
-          logger.error(error);
-          logger.error('Could not retrieve ContentAsset from Contentful. Redirecting to error page');
+          logger.error('Could not retrieve ContentAsset from Contentful. Redirecting to error page', error);
           res.redirect('/error');
         }
         else{

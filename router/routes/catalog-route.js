@@ -12,8 +12,7 @@ var express = require('express');
     function(callback) {
       contentful.getCatalogType(function(response, error) {
         if(error){
-          logger.error(error);
-          logger.error('Could not retrieve CatalogType from Contentful. Redirecting to error page');
+          logger.error('Could not retrieve CatalogType from Contentful. Redirecting to error page', error);
           res.redirect('/error');
         }
         else{
@@ -61,8 +60,7 @@ var express = require('express');
     },function(callback) {
       contentful.getCatalogRequestHardCopy(function(response, error) {
         if(error){
-          logger.error(error);
-          logger.error('Could not get CatalogRequestHardCopy from Contentful. Redirecting to error page');
+          logger.error('Could not get CatalogRequestHardCopy from Contentful. Redirecting to error page', error);
           res.redirect('/error');
         }
         else{
@@ -76,8 +74,7 @@ var express = require('express');
     },function(callback) {
       contentful.getReferenceData('us-states', function(result, error) {
         if(error){
-          logger.error(error);
-          logger.error('Could not get state details from Contentful. Redirecting to error page');
+          logger.error('Could not get state details from Contentful. Redirecting to error page', error);
           res.redirect('/error');
         }
         else{

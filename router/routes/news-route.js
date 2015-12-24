@@ -9,8 +9,7 @@ var logger = require('../../logger');
 router.get('/news', function(req, res, next) {
   contentful.getNewsRecent(function(response, error) {
     if (error) {
-      logger.error(error);
-      logger.error('Could not retrieve news from Contentful. Redirecting to error page');
+      logger.error('Could not retrieve news from Contentful. Redirecting to error page', error);
       res.redirect('/error');
     }
     else {
@@ -26,9 +25,14 @@ router.get('/news/:news_slug', function(req, res, next) {
   slug = req.params.news_slug;
   contentful.getNewsDetail(function(response, error) {
     if (error) {
-      logger.error(error);
-      logger.error('Could not retrieve news slug from Contentful. Redirecting to page not found');
-      res.redirect('/pagenotfound')
+      if (response.statusCode == 404) { //expected 404, do not log error
+        logger.warn('No results for news slug ' + slug + ' from Contentful. Redirecting to page not found');
+        res.redirect('/pagenotfound')
+      }
+      else {
+        logger.error('Error retrieving news slug from Contentful. Redirect to error page', error);
+        res.redirect('/error');
+      }
     }
     else {
       function renderNews(index, featureImageURL) {
@@ -46,7 +50,7 @@ router.get('/news/:news_slug', function(req, res, next) {
 
       switch (response.items.length) {
         case 0:
-          logger.error('News item not found: ' + slug);
+          logger.warn('No results for news slug ' + slug + ' from Contentful. Redirecting to page not found');
           res.redirect('/pagenotfound');
           break;
         case 1:
@@ -71,14 +75,14 @@ router.get('/news/:news_slug', function(req, res, next) {
               renderNews(i, featureImageURL);
               break;
             } else {
-              logger.error('News item not found: ' + slug);
+              logger.warn('No results for news slug ' + slug + ' from Contentful. Redirecting to page not found');
               res.redirect('/pagenotfound');
               break;
             }
           }
-        case null:
-          logger.error('News item not found: ' + slug);
-          res.redirect('/pagenotfound');
+        case null: // The response contained no items. This may be deprecated since there is now an error check above
+          logger.error('Error retrieving news slug ' + slug + ' from Contentful. Redirecting to error page');
+          res.redirect('/error');
           break;
       }
     }

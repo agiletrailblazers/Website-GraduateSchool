@@ -24,14 +24,18 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
   async.waterfall([
     function(callback) {
       course.performExactCourseSearch(function(response, error, result) {
-    	if (result == null && error) {
-          logger.error(error);
-          // This log statement is not entirely clear. Could be course doesn't exist or cannot reach DB and should try again but since page is 404
-          logger.error("Course not found");
-          courseData = null;
-          //The line below tells waterfall to go to the last method if a course is not found
-          callback(true);
-          return;
+    	if (result == null && error) { //expected 404 - not an error
+          if (response.statusCode == 404) {
+            logger.warn("No courses found for " + courseIdOrCode + " redirecting to page not found");
+            courseData = null;
+            //The line below tells waterfall to go to the last method if a course is not found
+            callback(true);
+            return;
+          }
+          else {
+            logger.error("Encountered exception when loading course " + courseIdOrCode + " redirecting to error page", error);
+            res.redirect('/error');
+          }
     	}
     	else if (result) {
           courseData.class = result;
@@ -41,8 +45,8 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           } else {
             courseId = courseIdOrCode;   //this really should not happen
           }
+          callback();
     	}
-        callback();
       }, courseIdOrCode);
     },
     function(callback) {
@@ -65,13 +69,10 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           callback();
         }
         else {
-          if (error  && response.statusCode != 404) { //404 may be expected
-            logger.warn(error);
-            logger.warn("Error finding course sessions for course: " + courseId + ", displaying page anyways");
+          if (error  && response.statusCode != 404) { //404s may be expected
+            logger.warn("Error finding course sessions for course: " + courseId + ", displaying page anyways", error);
           }
-          else {
-            logger.debug("No course sessions found for course: " + courseId);
-          }
+
           courseData.session = []; //return empty array
           callback();
         }
@@ -88,8 +89,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
 
       contentful.getSyllabus(entryName, function(response, error, result) {
         if (error && response.statusCode != 404) { //404 may be expected
-          logger.warn(error);
-          logger.warn("Error retrieving syllabus for course: " + courseId + " displaying page anyways");
+          logger.warn("Error retrieving syllabus for course: " + courseId + " displaying page anyways", error);
         }
         else {
           courseData.syllabus = response;
@@ -100,8 +100,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
     function(callback) {
       contentful.getCourseDetails(function(fields, error) {
         if (error) {
-          logger.error(error);
-          logger.error("Error retrieving generic course details from Contentful, redirecting to error page");
+          logger.error("Error retrieving generic course details from Contentful, redirecting to error page", error);
           res.redirect('/error');
         }
         else {
@@ -179,7 +178,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
     }
     else {
     	//handle error
-    	logger.error("Course not found: " + courseIdOrCode);
+    	logger.warn("Course not found: " + courseIdOrCode);
     	res.redirect('/pagenotfound');
     }
   });

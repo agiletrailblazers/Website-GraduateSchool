@@ -14,8 +14,7 @@ var express = require('express');
      function(callback) {
        contentful.getCatalogType(function(response, error) {
          if(error){
-           logger.warn(error);
-           logger.warn('Ignoring error retrieving the catalog types in subscription-form, because areaofinterest is not a mandatory field');
+           logger.warn('Ignoring error retrieving the catalog types in subscription-form, because areaofinterest is not a mandatory field', error);
          }
          else{
            response.cmsEntry.forEach(function(cmsEntryAsset) {
@@ -35,8 +34,8 @@ var express = require('express');
        var entryId = "2wAaVPf3aIWCAu0SeeI44O";
        contentfulForms.getFormWithHeaderAndFooter(entryId, function(response, error) {
          if(error){
-           logger.warn(error);
-           logger.warn('Ignoring error retrieving the SectionTitle in subscription-form');
+           logger.warn('Ignoring error retrieving the SectionTitle in subscription-form', error);
+           title = 'Form'; //title cannot be null in order to render the page so choose generic title
          }
          else{
            title = response.fields.sectionTitle;
@@ -47,8 +46,7 @@ var express = require('express');
      function(callback) {
        contentful.getReferenceData('us-states', function(result, error) {
          if(error){
-           logger.error(error);
-           logger.error('Could not get states from Contentful.getReferenceData API call. Redirecting to error page');
+           logger.error('Could not get states from Contentful.getReferenceData API call. Redirecting to error page', error);
            res.redirect('/error');
          }
          else{
