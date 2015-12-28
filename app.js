@@ -41,42 +41,69 @@ app.use(function (req, res, next) {
 	mailPage.body = config("properties").mailPageBody;
 	//get data for all pages
 	async.parallel([
-    function(callback) {
-			//load the main nav on every request
-			contentful.getNavigation(function(nav) {
-				navigation = nav;
+		function(callback) {
+			if (currentUrl != '/error') { //do not load navigation for error page
+				contentful.getNavigation(function (nav, error) {
+					if (error) {
+						logger.error('Error retrieving navigation from Contentful. Redirecting to error page', error);
+						res.redirect('/error');
+
+					}
+					else {
+						navigation = nav;
+						callback();
+					}
+				});
+			}
+			else {
 				callback();
-			});
+			}
 		},
 		function(callback) {
-			course.getLocations(function(response, error, result) {
-				if (result != null) {
-					result.forEach(function(location) {
-						 locations.push(location.city + ", " + location.state);
-					});
-					locations.sort();
-				}
+			if (currentUrl != '/error') { //do not load locations for error page
+				course.getLocations(function (response, error, result) {
+					if (error) {
+						logger.warn('Error retrieving locations from API. Ignoring error and displaying page', error);
+					}
+					if (result != null) {
+						result.forEach(function (location) {
+							locations.push(location.city + ", " + location.state);
+						});
+						locations.sort();
+					}
+					callback();
+				});
+			}
+			else {
 				callback();
-			});
+			}
 		},
-    function(callback) {
-      course.getCategories(function(response, error, result) {
-				if (result != null) {
-					courseSubjectResult = result;
-				}
-        callback();
-      });
-    }
-		], function() {
-			res.locals = {navigation: navigation,
-				locations: locations,
-        courseSubjectResult: courseSubjectResult,
-				googleAnalyticsId: googleAnalyticsId,
-				showChat: showChat,
-				mailPage: mailPage,
-				env: env};
-			next();
-		});
+		function(callback) {
+			if (currentUrl != '/error') { //do not load subjects for error page
+				course.getCategories(function (response, error, result) {
+					if (error) {
+						logger.warn('Error retrieving subjects from API. Ignoring error and displaying page', error);
+					}
+					if (result != null) {
+						courseSubjectResult = result;
+					}
+					callback();
+				});
+			}
+			else {
+				callback();
+			}
+		}
+	], function() {
+		res.locals = {navigation: navigation,
+			locations: locations,
+			courseSubjectResult: courseSubjectResult,
+			googleAnalyticsId: googleAnalyticsId,
+			showChat: showChat,
+			mailPage: mailPage,
+			env: env};
+		next();
+	});
 });
 
 //app.use('/', require('./routes'));
