@@ -14,22 +14,40 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
     function(callback) {
       logger.debug('Get contentful fields');
       contentfulForms.getInquiryForm(function(response, error) {
-        fields = response.fields;
-        callback();
+        if(error){
+          logger.error('Could not get inquiry form fields. Redirecting to error page', error);
+          res.redirect('/error');
+        }
+        else{
+          fields = response.fields;
+          callback();
+        }
       });
     },
     function(callback) {
       logger.debug('Get list of all courses');
       course.getCourses(function(response, error, result) {
-        courses = result;
-        callback();
+        if(error){
+          logger.error('Could not get list of courses for inquiry form. Redirecting to error page', error);
+          res.redirect('/error');
+        }
+        else{
+          courses = result;
+          callback();
+        }
       });
     },
     function(callback) {
       logger.debug("Get us states");
-      contentful.getReferenceData('us-states', function(result) {
-        states = result;
-        callback();
+      contentful.getReferenceData('us-states', function(result, error) {
+        if(error){
+          logger.error('Could not get list of U.S states for inquiry form. Redirecting to error page', error);
+          res.redirect('/error');
+        }
+        else{
+          states = result;
+          callback();
+        }
       });
     }
   ], function(results) {
@@ -54,15 +72,27 @@ router.get('/forms/request-duplicate-form', function(req, res, next) {
     function(callback) {
       logger.debug('Get contentful fields');
       contentfulForms.getFormWithHeaderAndFooter(entryId, function(response, error) {
-        cmsEntry = response;
-        callback();
+        if(error){
+          logger.error('Could not get section title, description and related links for request-duplicate-form. Redirecting to error page', error);
+          res.redirect('/error');
+        }
+        else{
+          cmsEntry = response;
+          callback();
+        }
       });
     },
     function(callback) {
       logger.debug("Get us states");
-      contentful.getReferenceData('us-states', function(result) {
-        states = result;
-        callback();
+      contentful.getReferenceData('us-states', function(result, error) {
+        if(error){
+          logger.error('Could not get list of U.S states for request-duplicate-form. Redirecting to error page', error);
+          res.redirect('/error');
+        }
+        else{
+          states = result;
+          callback();
+        }
       });
     }
   ], function(results) {
@@ -86,15 +116,27 @@ router.get('/forms/proctor-request-form', function(req, res, next) {
     function(callback) {
       logger.debug('Get contentful fields');
       contentfulForms.getFormWithHeaderAndFooter(entryId, function(response, error) {
-        cmsEntry = response;
-        callback();
+        if(error){
+          logger.error('Could not get section title, description and related links for proctor-request-form. Redirecting to error page', error);
+          res.redirect('/error');
+        }
+        else{
+          cmsEntry = response;
+          callback();
+        }
       });
     },
     function(callback) {
       logger.debug("Get us states");
-      contentful.getReferenceData('us-states', function(result) {
-        states = result;
-        callback();
+      contentful.getReferenceData('us-states', function(result, error) {
+        if(error){
+          logger.error('Could not get list of U.S states for proctor_request_form. Redirecting to error page', error);
+          res.redirect('/error');
+        }
+        else{
+          states = result;
+          callback();
+        }
       });
     }
   ], function(results) {
@@ -120,8 +162,15 @@ router.get(
   async.parallel([
     function(callback) {
       contentfulForms.getContactUs(function(response, error) {
-        fields = response.fields;
-        callback();
+        if(error){
+          logger.error('Could not get feedback form details like title, description and related links. Redirecting to error page', error);
+          res.redirect('/error');
+        }
+        else{
+          fields = response.fields;
+          callback();
+        }
+
       });
     }
   ], function(results) {
@@ -155,22 +204,41 @@ router.get(
     async.parallel([
       function(callback) {
         contentfulForms.getFormWithHeaderAndFooter(entryId, function(response, error) {
-          fields = response.fields;
-          callback();
+          if(error){
+            logger.error('Could not get section title, description and related links for certificate_program_forms. Redirecting to error page', error);
+            res.redirect('/error');
+          }
+          else{
+            fields = response.fields;
+            callback();
+          }
         });
       },
       function(callback) {
         logger.debug("Get us states");
-        contentful.getReferenceData('us-states', function(result) {
-          states = result;
-          callback();
+        contentful.getReferenceData('us-states', function(result, error) {
+          if(error){
+            logger.error('Could not get list of U.S states for certificate_program_forms. Redirecting to error page', error);
+            res.redirect('/error');
+          }
+          else{
+            states = result;
+            callback();
+          }
         });
       },
       function(callback) {
         logger.debug("Getting certificate program information");
-        contentful.getDataGrouping(dataGroupId, function(response) {
-          selectBoxData = response;
-          callback();
+        contentful.getDataGrouping(dataGroupId, function(response, error) {
+          if(error){
+            logger.error('Could not get list of certificate program information and its a mandatory field too. Redirecting to error page', error);
+            res.redirect('/error');
+          }
+          else{
+            selectBoxData = response;
+            callback();
+          }
+
         });
       }
     ], function(results) {
