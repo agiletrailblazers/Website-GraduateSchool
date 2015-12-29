@@ -96,10 +96,6 @@ router.get('/pagenotfound', function(req, res, next) {
   res.render('404', {title: 'Page Not Found'});
 });
 
-router.get('/error', function(req, res, next) {
-    res.render('error_page', {title: 'Error retrieving page'});
-});
-
 router.get('/under-construction', function(req, res, next) {
   res.render('misc/under_construction', {title: 'Under Construction'});
 });

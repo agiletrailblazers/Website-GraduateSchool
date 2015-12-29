@@ -5,12 +5,13 @@ var prune = require('underscore.string/prune');
 var striptags = require('striptags');
 var router = express.Router();
 var logger = require('../../logger');
+var common = require("../../helpers/common.js");
 
 router.get('/news', function(req, res, next) {
   contentful.getNewsRecent(function(response, error) {
     if (error) {
       logger.error('Could not retrieve news from Contentful. Redirecting to error page', error);
-      res.redirect('/error');
+      common.redirectToError(res);
     }
     else {
       res.render('news/recent_entries', {
@@ -31,7 +32,7 @@ router.get('/news/:news_slug', function(req, res, next) {
       }
       else {
         logger.error('Error retrieving news slug from Contentful. Redirect to error page', error);
-        res.redirect('/error');
+        common.redirectToError(res);
       }
     }
     else {
@@ -82,7 +83,7 @@ router.get('/news/:news_slug', function(req, res, next) {
           }
         case null: // The response contained no items. This may be deprecated since there is now an error check above
           logger.error('Error retrieving news slug ' + slug + ' from Contentful. Redirecting to error page');
-          res.redirect('/error');
+          common.redirectToError(res);
           break;
       }
     }

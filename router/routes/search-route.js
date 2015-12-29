@@ -7,6 +7,7 @@ var dateformat = require('date-format-lite');
 var prune = require('underscore.string/prune');
 var router = express.Router();
 var logger = require('../../logger');
+var common = require("../../helpers/common.js");
 
 // Search for a course.  If there is only one exact match redirect to the course details page
 //  otherwise show the search results page.
@@ -49,7 +50,7 @@ router.get('/search', function(req, res, next){
       course.performCourseSearch(function(response, error, result){
         if (error) {
           logger.error("Exception encountered while performing API course search, filters not loaded, redirecting to error page", error);
-          res.redirect('/error');
+          common.redirectToError(res);
         }
         else if (result) {
           courseResult = result;

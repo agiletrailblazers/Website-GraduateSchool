@@ -9,6 +9,7 @@ var config = require('konphyg')("./config");
 var logger = require('./logger');
 var async = require('async');
 var course = require("./API/course.js");
+var common = require("./helpers/common.js");
 
 var app = express();
 
@@ -42,57 +43,41 @@ app.use(function (req, res, next) {
 	//get data for all pages
 	async.parallel([
 		function(callback) {
-			if (currentUrl != '/error') { //do not load navigation for error page
-				contentful.getNavigation(function (nav, error) {
-					if (error) {
-						logger.error('Error retrieving navigation from Contentful. Redirecting to error page', error);
-						res.redirect('/error');
-
-					}
-					else {
-						navigation = nav;
-						callback();
-					}
-				});
-			}
-			else {
-				callback();
-			}
+			contentful.getNavigation(function (nav, error) {
+				if (error) {
+					logger.error('Error retrieving navigation from Contentful. Redirecting to error page', error);
+					common.redirectToError(res);
+				}
+				else {
+					navigation = nav;
+					callback();
+				}
+			});
 		},
 		function(callback) {
-			if (currentUrl != '/error') { //do not load locations for error page
-				course.getLocations(function (response, error, result) {
-					if (error) {
-						logger.warn('Error retrieving locations from API. Ignoring error and displaying page', error);
-					}
-					if (result != null) {
-						result.forEach(function (location) {
-							locations.push(location.city + ", " + location.state);
-						});
-						locations.sort();
-					}
-					callback();
-				});
-			}
-			else {
+			course.getLocations(function (response, error, result) {
+				if (error) {
+					logger.warn('Error retrieving locations from API. Ignoring error and displaying page', error);
+				}
+				if (result != null) {
+					result.forEach(function (location) {
+						locations.push(location.city + ", " + location.state);
+					});
+					locations.sort();
+				}
 				callback();
-			}
+			});
 		},
 		function(callback) {
-			if (currentUrl != '/error') { //do not load subjects for error page
-				course.getCategories(function (response, error, result) {
-					if (error) {
-						logger.warn('Error retrieving subjects from API. Ignoring error and displaying page', error);
-					}
-					if (result != null) {
-						courseSubjectResult = result;
-					}
-					callback();
-				});
-			}
-			else {
+			course.getCategories(function (response, error, result) {
+				if (error) {
+					logger.warn('Error retrieving subjects from API. Ignoring error and displaying page', error);
+				}
+				if (result != null) {
+					courseSubjectResult = result;
+				}
 				callback();
-			}
+			});
 		}
 	], function() {
 		res.locals = {navigation: navigation,

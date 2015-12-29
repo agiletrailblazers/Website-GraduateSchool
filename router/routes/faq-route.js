@@ -4,6 +4,7 @@ var contentful = require('../../API/contentful.js');
 var router = express.Router();
 var marked = require('marked');
 var logger = require('../../logger');
+var common = require("../../helpers/common.js");
 
 router.get('/faq',
   function(req, res, next) {
@@ -13,7 +14,7 @@ router.get('/faq',
         contentful.getFAQ(function(response, error) {
           if (error) {
             logger.error('Exception encountered when accessing main FAQ page from Contentful, redirecting to error page', error);
-            res.redirect('/error');
+            common.redirectToError(res);
           }
           else {
             faq.response = response;
@@ -67,7 +68,8 @@ router.get('/faq',
 
         }, function(err, result) {
           if (err) {
-            res.redirect('/error');
+            logger.error("There was an error in the FAQ Final results", error);
+            common.redirectToError(res);
           }
           else {
             //sort categories
@@ -87,7 +89,7 @@ router.get('/faq',
           logger.error("Error encountered when reading categories, redirecting to error", err);
         }
         logger.error("No FAQ data returned, directing to error");
-        res.redirect("/error");
+        common.redirectToError(res);
       }
     });
   });

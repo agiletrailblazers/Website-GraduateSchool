@@ -10,7 +10,6 @@ var logger = require('../../logger');
 var striptags = require('striptags');
 var common = require("../../helpers/common.js");
 var config = require('konphyg')(__dirname + '/../../config');
-var common = require("../../helpers/common.js");
 
 // Get course details based off course code.
 router.get('/courses/:course_id_or_code', function(req, res, next){
@@ -34,7 +33,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           }
           else {
             logger.error("Encountered exception when loading course " + courseIdOrCode + " redirecting to error page", error);
-            res.redirect('/error');
+            common.redirectToError(res);
           }
     	}
     	else if (result) {
@@ -101,7 +100,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
       contentful.getCourseDetails(function(fields, error) {
         if (error) {
           logger.error("Error retrieving generic course details from Contentful, redirecting to error page", error);
-          res.redirect('/error');
+          common.redirectToError(res);
         }
         else {
           content = fields;

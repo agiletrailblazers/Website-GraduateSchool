@@ -3,13 +3,14 @@ var contentful = require('../../API/contentful.js');
 var router = express.Router();
 var logger = require('../../logger');
 var marked = require('marked');
+var common = require("../../helpers/common.js");
 
 router.get(['/content/:content_slug','/content/:subfolder/:content_slug'], function(req, res, next) {
   var slug = (typeof(req.params.subfolder) == 'undefined' ? '' : (req.params.subfolder + '/')) + req.params.content_slug;
   contentful.getContentPage(function(response, error) {
     if (error) {
       logger.error('Exception encountered searching for content page, redirecting to error', error);
-      res.redirect('/error');
+      common.redirectToError(res);
       return;
     }
     else if (!response || !response.items || !response.items[0] || !response.items[0].fields ) {

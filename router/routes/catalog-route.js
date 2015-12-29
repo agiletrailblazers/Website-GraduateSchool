@@ -1,8 +1,9 @@
 var express = require('express');
-  var contentful = require("../../API/contentful.js");
-  var async = require('async');
-  var router = express.Router();
-  var logger = require('../../logger');
+var contentful = require("../../API/contentful.js");
+var async = require('async');
+var router = express.Router();
+var logger = require('../../logger');
+var common = require("../../helpers/common.js");
 
   // Get Catalog Request Form  page.
   router.get('/catalog-request-form', function(req, res, next) {
@@ -13,7 +14,7 @@ var express = require('express');
       contentful.getCatalogType(function(response, error) {
         if(error){
           logger.error('Could not retrieve CatalogType from Contentful. Redirecting to error page', error);
-          res.redirect('/error');
+          common.redirectToError(res);
         }
         else{
           response.cmsEntry.forEach(function(cmsEntryAsset) {
@@ -61,7 +62,7 @@ var express = require('express');
       contentful.getCatalogRequestHardCopy(function(response, error) {
         if(error){
           logger.error('Could not get CatalogRequestHardCopy from Contentful. Redirecting to error page', error);
-          res.redirect('/error');
+          common.redirectToError(res);
         }
         else{
           catalogHardCopy = response.cmsEntry;
@@ -75,7 +76,7 @@ var express = require('express');
       contentful.getReferenceData('us-states', function(result, error) {
         if(error){
           logger.error('Could not get state details from Contentful. Redirecting to error page', error);
-          res.redirect('/error');
+          common.redirectToError(res);
         }
         else{
           states = result;

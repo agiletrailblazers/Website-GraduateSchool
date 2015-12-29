@@ -1,10 +1,11 @@
 var express = require('express');
- var contentful = require("../../API/contentful.js");
- var async = require('async');
- var router = express.Router();
- var config = require('konphyg')(__dirname + '/../../config');
- var contentfulForms = require('../../API/contentful_forms.js');
- var logger = require('../../logger');
+var contentful = require("../../API/contentful.js");
+var async = require('async');
+var router = express.Router();
+var config = require('konphyg')(__dirname + '/../../config');
+var contentfulForms = require('../../API/contentful_forms.js');
+var logger = require('../../logger');
+var common = require("../../helpers/common.js");
 
  // Get subscription-form page.
  router.get('/subscription-form', function(req, res, next) {
@@ -47,7 +48,7 @@ var express = require('express');
        contentful.getReferenceData('us-states', function(result, error) {
          if(error){
            logger.error('Could not get states from Contentful.getReferenceData API call. Redirecting to error page', error);
-           res.redirect('/error');
+           common.redirectToError(res);
          }
          else{
            states = result;

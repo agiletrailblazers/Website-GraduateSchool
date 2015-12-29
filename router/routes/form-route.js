@@ -6,6 +6,7 @@ var async = require('async');
 var router = express.Router();
 var logger = require('../../logger');
 var config = require('konphyg')(__dirname + '/../../config');
+var common = require("../../helpers/common.js");
 
 // Bring this Course to Your Location
 router.get('/forms/onsite-inquiry', function(req, res, next) {
@@ -16,7 +17,7 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
       contentfulForms.getInquiryForm(function(response, error) {
         if(error){
           logger.error('Could not get inquiry form fields. Redirecting to error page', error);
-          res.redirect('/error');
+          common.redirectToError(res);
         }
         else{
           fields = response.fields;
@@ -29,7 +30,7 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
       course.getCourses(function(response, error, result) {
         if(error){
           logger.error('Could not get list of courses for inquiry form. Redirecting to error page', error);
-          res.redirect('/error');
+          common.redirectToError(res);
         }
         else{
           courses = result;
@@ -42,7 +43,7 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
       contentful.getReferenceData('us-states', function(result, error) {
         if(error){
           logger.error('Could not get list of U.S states for inquiry form. Redirecting to error page', error);
-          res.redirect('/error');
+          common.redirectToError(res);
         }
         else{
           states = result;
@@ -74,7 +75,7 @@ router.get('/forms/request-duplicate-form', function(req, res, next) {
       contentfulForms.getFormWithHeaderAndFooter(entryId, function(response, error) {
         if(error){
           logger.error('Could not get section title, description and related links for request-duplicate-form. Redirecting to error page', error);
-          res.redirect('/error');
+          common.redirectToError(res);
         }
         else{
           cmsEntry = response;
@@ -87,7 +88,7 @@ router.get('/forms/request-duplicate-form', function(req, res, next) {
       contentful.getReferenceData('us-states', function(result, error) {
         if(error){
           logger.error('Could not get list of U.S states for request-duplicate-form. Redirecting to error page', error);
-          res.redirect('/error');
+          common.redirectToError(res);
         }
         else{
           states = result;
@@ -118,7 +119,7 @@ router.get('/forms/proctor-request-form', function(req, res, next) {
       contentfulForms.getFormWithHeaderAndFooter(entryId, function(response, error) {
         if(error){
           logger.error('Could not get section title, description and related links for proctor-request-form. Redirecting to error page', error);
-          res.redirect('/error');
+          common.redirectToError(res);
         }
         else{
           cmsEntry = response;
@@ -131,7 +132,7 @@ router.get('/forms/proctor-request-form', function(req, res, next) {
       contentful.getReferenceData('us-states', function(result, error) {
         if(error){
           logger.error('Could not get list of U.S states for proctor_request_form. Redirecting to error page', error);
-          res.redirect('/error');
+          common.redirectToError(res);
         }
         else{
           states = result;
@@ -164,7 +165,7 @@ router.get(
       contentfulForms.getContactUs(function(response, error) {
         if(error){
           logger.error('Could not get feedback form details like title, description and related links. Redirecting to error page', error);
-          res.redirect('/error');
+          common.redirectToError(res);
         }
         else{
           fields = response.fields;
@@ -206,7 +207,7 @@ router.get(
         contentfulForms.getFormWithHeaderAndFooter(entryId, function(response, error) {
           if(error){
             logger.error('Could not get section title, description and related links for certificate_program_forms. Redirecting to error page', error);
-            res.redirect('/error');
+            common.redirectToError(res);
           }
           else{
             fields = response.fields;
@@ -219,7 +220,7 @@ router.get(
         contentful.getReferenceData('us-states', function(result, error) {
           if(error){
             logger.error('Could not get list of U.S states for certificate_program_forms. Redirecting to error page', error);
-            res.redirect('/error');
+            common.redirectToError(res);
           }
           else{
             states = result;
@@ -232,7 +233,7 @@ router.get(
         contentful.getDataGrouping(dataGroupId, function(response, error) {
           if(error){
             logger.error('Could not get list of certificate program information and its a mandatory field too. Redirecting to error page', error);
-            res.redirect('/error');
+            common.redirectToError(res);
           }
           else{
             selectBoxData = response;

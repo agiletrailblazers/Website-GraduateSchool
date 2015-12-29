@@ -53,10 +53,16 @@ isNotEmptyOrAll = function (val) {
   return false;
 };
 
+redirectToError = function (res) {
+  res.writeHead(302, { 'Location': '/error_page.html' });
+  res.end();
+}
+
 module.exports = {
   isNotEmpty: isNotEmpty,
   isEmpty: isEmpty,
   isNotEmptyOrAll: isNotEmptyOrAll,
   checkForErrorAndLog: checkForErrorAndLog,
-  checkForErrorAndLogExceptCodes: checkForErrorAndLogExceptCodes
+  checkForErrorAndLogExceptCodes: checkForErrorAndLogExceptCodes,
+  redirectToError: redirectToError
 };

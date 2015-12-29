@@ -13,7 +13,7 @@
       contentful.getForms(function(response, error) {
         if (error) {
           logger.error("Error getting list of forms from Contentful. Redirecting to error page", error);
-          res.redirect("/error");
+          common.redirectToError(res);
         }
         else {
           response.cmsEntry.forEach(function (cmsEntryAsset) {
