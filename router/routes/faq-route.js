@@ -68,7 +68,7 @@ router.get('/faq',
 
         }, function(err, result) {
           if (err) {
-            logger.error("There was an error in the FAQ Final results", error);
+            logger.error("There was an error in the FAQ Final results", err);
             common.redirectToError(res);
           }
           else {
