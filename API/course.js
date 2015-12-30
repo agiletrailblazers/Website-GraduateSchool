@@ -36,7 +36,7 @@ module.exports = {
       url: courseApiUrl
     }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
-       return callback(response, new Error("Exception occured performing couse search"), null);
+       return callback(response, new Error("Exception occurred performing course search"), null);
      }
       logger.debug('Status:', response.statusCode);
       result = JSON.parse(body);
@@ -50,7 +50,7 @@ module.exports = {
       url: courseApiUrl
     }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
-       return callback(response, new Error("Exception occured performing exact course search"), null);
+       return callback(response, new Error("Exception occurred performing exact course search"), null);
       }
       logger.debug("Course Search: " + response.statusCode);
       result = JSON.parse(body);
@@ -72,7 +72,7 @@ module.exports = {
           message = message + ", error message: " + error.message;
         }
         logger.error(message + ", url: " + courseApiUrl);
-        return callback(response, new Error("Exception occured performing course search"), null);
+        return callback(response, new Error("Exception occurred performing course search"), null);
       }
       if (response.statusCode == 404) {
         //404 is an expected response, so no need to log an error for it, return result as null
@@ -90,7 +90,7 @@ module.exports = {
       url: courseApiUrl
     }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
-       return callback(response, new Error("Exception occured getting all courses"), null);
+       return callback(response, new Error("Exception occurred getting all courses"), null);
      }
       logger.debug("Get Courses: " + response.statusCode);
       result = JSON.parse(body).courses;
@@ -104,7 +104,7 @@ module.exports = {
       url: courseApiUrl
     }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
-       return callback(response, new Error("Exception occured getting all locations"), null);
+       return callback(response, new Error("Exception occurred getting all locations"), null);
       }
       logger.debug("Get Locations: " + response.statusCode);
       result = JSON.parse(body);
@@ -118,7 +118,7 @@ module.exports = {
       url: courseApiUrl
     }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
-       return callback(response, new Error("Exception occured getting all categories"), null);
+       return callback(response, new Error("Exception occurred getting all categories"), null);
       }
       logger.debug("Get Categories : " + response.statusCode);
       result = JSON.parse(body);
@@ -147,7 +147,7 @@ module.exports = {
         url: siteApiUrl
     }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, siteApiUrl)) {
-       return callback(response, new Error("Exception occured performing Site search"), null);
+       return callback(response, new Error("Exception occurred performing Site search"), null);
       }
         logger.debug('Status:', response.statusCode);
         result = JSON.parse(body);

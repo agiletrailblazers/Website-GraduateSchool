@@ -10,7 +10,6 @@ var logger = require('../../logger');
 var striptags = require('striptags');
 var common = require("../../helpers/common.js");
 var config = require('konphyg')(__dirname + '/../../config');
-var common = require("../../helpers/common.js");
 
 // Get course details based off course code.
 router.get('/courses/:course_id_or_code', function(req, res, next){
@@ -24,23 +23,29 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
   async.waterfall([
     function(callback) {
       course.performExactCourseSearch(function(response, error, result) {
-    	if (error || result == null) {
-            logger.error("Course not found");
+    	if (result == null && error) { //expected 404 - not an error
+          if (response.statusCode == 404) {
+            logger.warn("No courses found for " + courseIdOrCode + " redirecting to page not found");
             courseData = null;
-            //callback(true) tells waterfall to go to the last method if a course is not found
+            //The line below tells waterfall to go to the last method if a course is not found
             callback(true);
             return;
+          }
+          else {
+            logger.error("Encountered exception when loading course " + courseIdOrCode + " redirecting to error page", error);
+            common.redirectToError(res);
+          }
     	}
-    	else {
-    		courseData.class = result;
-        //set course id to the FULL course id (since it's possible to start with a code or id)
-        if (common.isNotEmpty(courseData.class.id)) {
-          courseId = courseData.class.id;
-        } else {
-          courseId = courseIdOrCode;   //this really should not happen
-        }
+    	else if (result) {
+          courseData.class = result;
+          //set course id to the FULL course id (since it's possible to start with a code or id)
+          if (common.isNotEmpty(courseData.class.id)) {
+            courseId = courseData.class.id;
+          } else {
+            courseId = courseIdOrCode;   //this really should not happen
+          }
+          callback();
     	}
-        callback();
       }, courseIdOrCode);
     },
     function(callback) {
@@ -61,8 +66,12 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
             iSession["endDate"] = courseData.session[i]["endDate"].date('MMM DD, YYYY');
           }
           callback();
-        } else {
-          logger.debug("No course sessions found for course: " + courseId);
+        }
+        else {
+          if (error  && response.statusCode != 404) { //404s may be expected
+            logger.warn("Error finding course sessions for course: " + courseId + ", displaying page anyways", error);
+          }
+
           courseData.session = []; //return empty array
           callback();
         }
@@ -78,14 +87,26 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
       }
 
       contentful.getSyllabus(entryName, function(response, error, result) {
-        courseData.syllabus = response;
+        if (error && response.statusCode != 404) { //404 may be expected
+          logger.warn("Error retrieving syllabus for course: " + courseId + " displaying page anyways", error);
+        }
+        else {
+          courseData.syllabus = response;
+        }
         callback();
       });
     },
     function(callback) {
-      contentful.getCourseDetails(function(fields) {
-        content = fields;
-        callback();
+      contentful.getCourseDetails(function(fields, error) {
+        if (error) {
+          logger.error("Error retrieving generic course details from Contentful, redirecting to error page", error);
+          common.redirectToError(res);
+        }
+        else {
+          content = fields;
+          callback();
+        }
+
       });
     }
   ], function(results) {
@@ -109,7 +130,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
 
       courseData.isLeadershipCourse = false;
       if (common.isNotEmpty(content.leadershipCoursesScheduleLinks)) {
-        if(common.isNotEmpty(content.leadershipCoursesScheduleLinks[courseData.class.code])) {
+        if (common.isNotEmpty(content.leadershipCoursesScheduleLinks[courseData.class.code])) {
           courseData.isLeadershipCourse = true;
           courseData.leadershipCourseScheduleLinkText = content.leadershipCourseScheduleLinkText;
           courseData.leadershipCourseScheduleLink = content.leadershipCoursesScheduleLinks[courseData.class.code];
@@ -156,7 +177,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
     }
     else {
     	//handle error
-    	logger.error("Course not found: " + courseIdOrCode);
+    	logger.warn("Course not found: " + courseIdOrCode);
     	res.redirect('/pagenotfound');
     }
   });
@@ -187,5 +208,9 @@ function replaceUrl(string) {
 
   return string;
 }
+
+router.get('/registration/policy', function(req, res, next) {
+  res.render('course-related-info/registration_policy');
+});
 
 module.exports = router;

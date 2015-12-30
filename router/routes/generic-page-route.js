@@ -3,13 +3,18 @@ var contentful = require('../../API/contentful.js');
 var router = express.Router();
 var logger = require('../../logger');
 var marked = require('marked');
+var common = require("../../helpers/common.js");
 
 router.get(['/content/:content_slug','/content/:subfolder/:content_slug'], function(req, res, next) {
   var slug = (typeof(req.params.subfolder) == 'undefined' ? '' : (req.params.subfolder + '/')) + req.params.content_slug;
-  contentful.getContentPage(function(response) {
-    if (!response || !response.items || !response.items[0] || !response.items[0].fields ) {
-      //handle error
-      logger.error("Page not found: " + slug)
+  contentful.getContentPage(function(response, error) {
+    if (error) {
+      logger.error('Exception encountered searching for content page, redirecting to error', error);
+      common.redirectToError(res);
+      return;
+    }
+    else if (!response || !response.items || !response.items[0] || !response.items[0].fields ) {
+      logger.warn('No results for content slug ' + slug + ' from Contentful. Redirecting to page not found');
       res.redirect('/pagenotfound');
       return;
     }
@@ -70,11 +75,15 @@ router.get(['/content/:content_slug','/content/:subfolder/:content_slug'], funct
 
 router.get(['/content-snippet/:snippet_slug','/content-snippet/:subfolder/:snippet_slug'], function(req, res, next) {
   var slug = (typeof(req.params.subfolder) == 'undefined' ? '' : (req.params.subfolder + '/')) + req.params.snippet_slug;
-  contentful.getContentSnippet(slug, function(response) {
+  contentful.getContentSnippet(slug, function(response, error) {
+    if (error) {
+      logger.error('Exception encountered searching for content snippet slug ' + slug + ' , redirecting to error', error);
+      res.json({"title" : "Error", "snippetContent": "We had a problem processing your request. Please try your request again in a few moments"});
+      return
+    }
     if (!response || !response.items || !response.items[0] || !response.items[0].fields ) {
-      //handle error
-      logger.error("Page not found: " + slug)
-      res.json({"title" : "Error", "snippetContent": "Sorry, page not found."});
+      logger.warn('No results for content snippet slug ' + slug + ' from Contentful. Redirecting to page not found');
+      res.json({"title" : "Not Found", "snippetContent": "Sorry, content not found."});
       return;
     }
     var content = response.items[0].fields;

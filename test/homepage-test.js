@@ -86,7 +86,7 @@ test('homepage slider contentful test:failure', function(t) {
       .reply(404, {});
     contentfulServer;
     contentful.getHomepageSlider(function(slides, error) {
-      expect(error.message).to.equal("Exception occured in getting the homepage slider");
+      expect(error.message).to.equal("Exception occurred in getting the homepage slider");
     });
     t.end();
 });
@@ -167,7 +167,7 @@ test('homepage testimonial contentful test:failure', function(t) {
       .reply(404, {});
     contentfulServer;
     contentful.getTestimonial(function(testimonial, error) {
-      expect(error.message).to.equal("Exception occured in getting the testimonial");
+      expect(error.message).to.equal("Exception occurred in getting the testimonial");
     });
     t.end();
 });

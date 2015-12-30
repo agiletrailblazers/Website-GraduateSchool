@@ -7,6 +7,7 @@ var dateformat = require('date-format-lite');
 var prune = require('underscore.string/prune');
 var router = express.Router();
 var logger = require('../../logger');
+var common = require("../../helpers/common.js");
 
 // Search for a course.  If there is only one exact match redirect to the course details page
 //  otherwise show the search results page.
@@ -47,14 +48,21 @@ router.get('/search', function(req, res, next){
         return;
       }
       course.performCourseSearch(function(response, error, result){
-        if (result) {
-          courseResult = result;
+        if (error) {
+          logger.error("Exception encountered while performing API course search, filters not loaded, redirecting to error page", error);
+          common.redirectToError(res);
         }
-        callback();
+        else if (result) {
+          courseResult = result;
+          callback();
+        }
       }, params);
     },
     function(callback) {
-      contentful.getCourseSearch(function(fields) {
+      contentful.getCourseSearch(function(fields, error) {
+        if (error) {
+         logger.warn("Exception when getting search labels and titles from Contentful. Displaying page anyways", error);
+        }
         if (fields) {
           content = fields;
         }
@@ -65,9 +73,12 @@ router.get('/search', function(req, res, next){
     //if no search criteria param included, skip search
       if (params.searchCriteria === null) {
         callback();
-          return;
+        return;
       }
       course.performSiteSearch(function(response, error, result){
+        if (error) {
+          logger.warn("Exception encountered while performing API site search. Will not display Sites", error);
+        }
         if (result) {
           siteResult = result;
         }
@@ -77,7 +88,7 @@ router.get('/search', function(req, res, next){
     ], function(results) {
       if (courseResult && courseResult.exactMatch && !params.partial) {
         //redirect to course details
-        logger.debug("Exact course match found for " + courseResult.courses[0].id + " - Redirecting.")
+        logger.debug("Exact course match found for " + courseResult.courses[0].id + " - Redirecting.");
         var courseUrl = 'courses/' + courseResult.courses[0].id;
         if (params.cityState != null) {
           courseUrl = courseUrl + '?location=' + params.cityState
@@ -87,7 +98,7 @@ router.get('/search', function(req, res, next){
       else {
         //no search criteria given, this is a special case
         var noSearch = false;
-        if (typeof(courseResult.numFound) == 'undefined' && typeof(siteResult.numFound) == 'undefined') {
+        if (courseResult && typeof(courseResult.numFound) == 'undefined' && typeof(siteResult.numFound) == 'undefined') {
           noSearch = true;
         }
         //update title of page
@@ -95,13 +106,21 @@ router.get('/search', function(req, res, next){
         if (params.searchCriteria != null) {
           topTitle = 'Results for ' + params.searchCriteria;
         }
-        //handle current tab scenarios
-        if ((courseResult.numFound == 0 || typeof(courseResult.numFound) == 'undefined') && siteResult.numFound > 0) {
+        if (courseResult == null) {
           params.tab = 'site';
-        } else if (params.tab == 'site' && siteResult && typeof(siteResult.numFound) == 'undefined') {
-          params.tab = 'course';
-        } else if (params.tab == null || params.tab == '') {
-          params.tab = 'course';
+        }
+        else if (siteResult == null) {
+          param.tabs = 'course'
+        }
+        else {
+          //handle current tab scenarios if both searches did not return errors
+          if ((courseResult.numFound == 0 || typeof(courseResult.numFound) == 'undefined') && siteResult.numFound > 0) {
+            params.tab = 'site';
+          } else if (params.tab == 'site' && siteResult && typeof(siteResult.numFound) == 'undefined') {
+            params.tab = 'course';
+          } else if (params.tab == null || params.tab == '') {
+            params.tab = 'course';
+          }
         }
         //display search results page
         var render = { courseResult: courseResult,

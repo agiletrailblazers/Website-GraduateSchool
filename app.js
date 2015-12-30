@@ -9,6 +9,7 @@ var config = require('konphyg')("./config");
 var logger = require('./logger');
 var async = require('async');
 var course = require("./API/course.js");
+var common = require("./helpers/common.js");
 
 var app = express();
 
@@ -41,42 +42,53 @@ app.use(function (req, res, next) {
 	mailPage.body = config("properties").mailPageBody;
 	//get data for all pages
 	async.parallel([
-    function(callback) {
-			//load the main nav on every request
-			contentful.getNavigation(function(nav) {
-				navigation = nav;
-				callback();
+		function(callback) {
+			contentful.getNavigation(function (nav, error) {
+				if (error) {
+					logger.error('Error retrieving navigation from Contentful. Redirecting to error page', error);
+					common.redirectToError(res);
+				}
+				else {
+					navigation = nav;
+					callback();
+				}
 			});
 		},
 		function(callback) {
-			course.getLocations(function(response, error, result) {
+			course.getLocations(function (response, error, result) {
+				if (error) {
+					logger.warn('Error retrieving locations from API. Ignoring error and displaying page', error);
+				}
 				if (result != null) {
-					result.forEach(function(location) {
-						 locations.push(location.city + ", " + location.state);
+					result.forEach(function (location) {
+						locations.push(location.city + ", " + location.state);
 					});
 					locations.sort();
 				}
 				callback();
 			});
 		},
-    function(callback) {
-      course.getCategories(function(response, error, result) {
+		function(callback) {
+			course.getCategories(function (response, error, result) {
+				if (error) {
+					logger.warn('Error retrieving subjects from API. Ignoring error and displaying page', error);
+				}
 				if (result != null) {
 					courseSubjectResult = result;
 				}
-        callback();
-      });
-    }
-		], function() {
-			res.locals = {navigation: navigation,
-				locations: locations,
-        courseSubjectResult: courseSubjectResult,
-				googleAnalyticsId: googleAnalyticsId,
-				showChat: showChat,
-				mailPage: mailPage,
-				env: env};
-			next();
-		});
+				callback();
+			});
+		}
+	], function() {
+		res.locals = {navigation: navigation,
+			locations: locations,
+			courseSubjectResult: courseSubjectResult,
+			googleAnalyticsId: googleAnalyticsId,
+			showChat: showChat,
+			mailPage: mailPage,
+			env: env};
+		next();
+	});
 });
 
 //app.use('/', require('./routes'));
