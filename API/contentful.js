@@ -501,5 +501,25 @@ module.exports = {
      data = JSON.parse(body).items;
      return callback(data, null);
    });
- }
+ },
+
+ getCatalogArchiveLink: function(callback) {
+   var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/18K2MpUdQmysAmK4ISSeOs';
+   request({
+     method: 'GET',
+     url: targetURL,
+     headers: {
+     'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      }
+   }, function(error, response, body) {
+     if (common.checkForErrorAndLog(error, response, targetURL)) {
+       return callback(response, new Error("Exception occurred in getting the catalog archive link"), null);
+     }
+     logger.debug("Get Catalog Archive Link: " + response.statusCode);
+     cmsEntry = JSON.parse(body);
+     return callback({
+       link: cmsEntry.fields.link
+     });
+   });
+ },
 };
