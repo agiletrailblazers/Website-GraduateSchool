@@ -1,10 +1,22 @@
 var log4js = require('log4js');
 
-//define global logger
-log4js.loadAppender('file');
-log4js.addAppender(log4js.appenders.file('logs/app.log'), 'app');
+// configure the logger
+log4js.configure({
+  "appenders": [
+      {
+          "type": "file",
+          "filename": "logs/app.log",
+          "maxLogSize": 5000000,
+          "backups": 10,
+          "category": "app",
+      }
+  ],
+  "levels": {
+    "app":  "INFO"
+  }
+});
+
 var logger = log4js.getLogger('app');
-logger.setLevel('DEBUG');
 logger.info('Logger setup ok');
 
 module.exports = logger;
