@@ -9,6 +9,7 @@ var common = require("../../helpers/common.js");
   router.get('/catalog-request-form', function(req, res, next) {
   arrayOfContent=[];
   var catalogHardCopy = {};
+  var archivelink = "";
   async.parallel([
     function(callback) {
       contentful.getCatalogType(function(response, error) {
@@ -72,6 +73,17 @@ var common = require("../../helpers/common.js");
           callback();
         }
       });
+    }, function(callback){
+      contentful.getCatalogArchiveLink(function(response, error) {
+        if(error){
+          logger.error('Could not retrieve CatalogType from Contentful. Redirecting to error page', error);
+          common.redirectToError(res);
+        }
+        else{
+          archivelink = response.link;
+          callback();
+        }
+      });
     },function(callback) {
       contentful.getReferenceData('us-states', function(result, error) {
         if(error){
@@ -87,7 +99,8 @@ var common = require("../../helpers/common.js");
       res.render('catalogs', {
         entry: arrayOfContent, title: "Catalog Request Form",
         hardCopyEntry:catalogHardCopy,
-        states: states
+        states: states,
+        archivelink: archivelink
       });
     });
   });
