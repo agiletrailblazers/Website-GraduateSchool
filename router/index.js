@@ -45,6 +45,7 @@ function defaultUrlRedirect(req, res, next) {
     } else {
         if (error) {
           logger.error(error);
+          common.redirectToError(res);
         }
     }
   });
