@@ -120,7 +120,7 @@
               <tr class="courseDetailSessionRow" data-rowhide="<%= session.hide %>">
                 <td>Course available after purchase</td>
                 <td></td>
-                <td></td>
+                <td>$<%= session["tuition"] %></td>
                 <td></td>
                 <td><button class="register" type="button" name="button" onclick="location.href='https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?offeringId= <%= session["classNumber"] %>&amp;fromUSDARegistration=true'"><%= content.registerButton %></button></td>
               </tr>
@@ -266,44 +266,54 @@
                                           <a data-toggle="collapse" href="#session-title<%= i+1 %>" class="accordion-toggle sessionExpand collapsed" data-target="#session<%= i+1 %>" data-rowhide="<%= session.hide %>">
                                             <h4 class="panel-title session-schedule-mob">
                                               <div class="row">
+                                                <% if (courseData.isOnlineCourse == true) { %>
+                                                  <div class="col-xs-12">
+                                                    <p>Course available after purchase</p>
+                                                  </div>
+                                                <% } else { %>
                                                 <div class="col-xs-11">
-                                                  <span>
-                                                    <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%>
-                                                       <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
-                                                         <%= session["startTime"]%> - <%= session["endTime"]%>
-                                                       <% } %>
-                                                  </span>
-                                                </div>
+                                                <span>
+                                                  <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%>
+                                                   <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
+                                                     <%= session["startTime"]%> - <%= session["endTime"]%>
+                                                   <% } %>
+                                                 </span>
+                                               </div>
                                                 <div class="col-xs-12">
                                                   <hr class="course-session">
                                                   <span><%= session.location["city"]%>, <%= session.location["state"]%></span>
                                                 </div>
+                                                <% } %>
                                               </div>
                                           </h4></a>
                                   </div>
                                   <div id="session<%= i+1 %>" class="mySession panel-collapse collapse" data-rowhide="<%= session.hide %>">
                                       <div class="panel-body nopadding">
                                       <table id="mob-courseSessionTable" class="session-schedule-mob" data-totaltr="<%= courseData.session.length %>">
-                                        <tr><th class="mob-header"><%= content.sessionTable[0] %></th><td><% if (session["days"] !== null) { %><%= session["days"] %><% } %></td></tr>
-                                        <tr><th class="mob-header"><%= content.sessionTable[1] %></th>
-                                          <td><%= session.location["city"]%>, <%= session.location["state"]%>
-                                            <% if(session.location["address1"]) { %>
-                                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] %> <%= session.location["address2"] %> <%= session.location["city"] %> <%= session.location["state"] %>'>
-                                            <% } %>
-                                          </td>
-                                        </tr>
-                                        <tr><th class="mob-header"><%= content.sessionTable[2] %></th><td>$<%= session["tuition"]%></td></tr>
-                                        <tr><th class="mob-header"><%= content.sessionTable[3] %></th><td class="statusData-mob">
-                                        <% if (session["status"] === "C")  {%>
-                                          <% if (session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
-                                            <span class="label label-danger">C</span>
-                                          <% } else { %>
-                                          <span class="label label-success">G</span>
-                                          <% } %>
-                                        <% } else { %>
-                                          <span class="label label-info">O</span>
+                                        <% if (courseData.isOnlineCourse == false) { %>
+                                          <tr><th class="mob-header"><%= content.sessionTable[0] %></th><td><% if (session["days"] !== null) { %><%= session["days"] %><% } %></td></tr>
+                                          <tr><th class="mob-header"><%= content.sessionTable[1] %></th>
+                                              <td><%= session.location["city"]%>, <%= session.location["state"]%>
+                                                <% if(session.location["address1"]) { %>
+                                                  <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] %> <%= session.location["address2"] %> <%= session.location["city"] %> <%= session.location["state"] %>'>
+                                                <% } %>
+                                              </td>
+                                          </tr>
                                         <% } %>
-                                        </td></tr>
+                                        <tr><th class="mob-header"><%= content.sessionTable[2] %></th><td>$<%= session["tuition"]%></td></tr>
+                                        <% if (courseData.isOnlineCourse == false) { %>
+                                          <tr><th class="mob-header"><%= content.sessionTable[3] %></th><td class="statusData-mob">
+                                          <% if (session["status"] === "C")  {%>
+                                            <% if (session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
+                                              <span class="label label-danger">C</span>
+                                            <% } else { %>
+                                            <span class="label label-success">G</span>
+                                            <% } %>
+                                          <% } else { %>
+                                            <span class="label label-info">O</span>
+                                          <% } %>
+                                          </td></tr>
+                                        <% } %>
                                         </table>
 
                                           <!-- Register button -->
