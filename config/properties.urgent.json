@@ -1,6 +1,6 @@
 {
     "env": "urgent",
-    "courseApiUrl": "http://10.0.1.141",
+    "courseApiUrl": "http://10.0.1.244",
 
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
