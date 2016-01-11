@@ -112,9 +112,19 @@
                       <%- content.noSessionsError %>
                     </div>
                   <% } %>
+
                 </td></tr>
             <% } else { %>
             <% courseData.session.forEach(function(session) { %>
+              <% if (courseData.isOnlineCourse == true) { %>
+              <tr class="courseDetailSessionRow" data-rowhide="<%= session.hide %>">
+                <td>Course available after purchase</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button class="register" type="button" name="button" onclick="location.href='https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?offeringId= <%= session["classNumber"] %>&amp;fromUSDARegistration=true'"><%= content.registerButton %></button></td>
+              </tr>
+              <% } else { %>
               <tr class="courseDetailSessionRow" data-rowhide="<%= session.hide %>">
                 <td> <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br/>
                     <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
@@ -153,7 +163,8 @@
                   <td><button class="register" type="button" name="button" onclick="location.href='https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?offeringId= <%= session["classNumber"] %>&amp;fromUSDARegistration=true'"><%= content.registerButton %></button></td>
                 <% } %>
               </tr>
-            <% }); %>
+
+            <%} }); %>
             <tr>
               <td colspan="5" class="show-more">
                 <span class="display-of-sessions">Displaying <span id="currentCount"></span> of <span id="totalCount"><%= courseData.session.length %> sessions</span> </span>

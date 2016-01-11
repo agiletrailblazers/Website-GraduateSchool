@@ -17,6 +17,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
   var courseId;
   var courseData = {};
   var content;
+  var courseOnlineTypes = ['Instructor-Supported WBT','Web Based Training','Video On Demand','Physical Offering'];
   var location = (typeof(req.query["location"])!='undefined' ? req.query["location"] : null);
   //waterfall is important here as we need to get the course data (and the real FULL course id)
   //  first before getting sessions and the syllabus
@@ -136,6 +137,10 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           courseData.leadershipCourseScheduleLink = content.leadershipCoursesScheduleLinks[courseData.class.code];
         }
       }
+      courseData.isOnlineCourse = false;
+      if (common.isNotEmpty(courseData.class.type) && (courseOnlineTypes.indexOf(courseData.class.type) >= 0)) {
+        courseData.isOnlineCourse  = true;
+      }
 
       var allowedHtmlTags = config("properties").allowedHtmlTags;
       if (common.isNotEmpty(courseData.class.description)) {
@@ -154,7 +159,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
       if (common.isNotEmpty(courseData.class.outcomes)) {
         courseData.class.outcomes.forEach(function(outcome) {
           if (outcome) {
-            courseData.class.outcomes[courseData.class.outcomes.indexOf(outcome)] = striptags(outcome, allowedHtmlTags);            
+            courseData.class.outcomes[courseData.class.outcomes.indexOf(outcome)] = striptags(outcome, allowedHtmlTags);
           }
         });
       }
