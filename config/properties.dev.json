@@ -3,6 +3,11 @@
     "skipReCaptchaVerification":true,
     "apiServer": "http://ec2-52-3-244-235.compute-1.amazonaws.com",
 
+    "registrationUrl" : "/manage/createuser?offeringId=",
+    "manage" : {
+      "userRouteEnabled" : true,
+    },
+
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
     "defaultEmailUserName":"atbtools@agiletrailblazers.com",
