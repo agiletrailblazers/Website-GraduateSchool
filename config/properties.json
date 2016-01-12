@@ -3,6 +3,8 @@
     "skipReCaptchaVerification":false,
     "courseApiUrl": "http://ec2-52-3-244-235.compute-1.amazonaws.com",
 
+    "registrationUrl" : "http://saba-test-loadbalancer-1038476084.us-east-1.elb.amazonaws.com/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=",
+
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
     "defaultEmailUserName":"atbtools@agiletrailblazers.com",

@@ -154,7 +154,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
       if (common.isNotEmpty(courseData.class.outcomes)) {
         courseData.class.outcomes.forEach(function(outcome) {
           if (outcome) {
-            courseData.class.outcomes[courseData.class.outcomes.indexOf(outcome)] = striptags(outcome, allowedHtmlTags);            
+            courseData.class.outcomes[courseData.class.outcomes.indexOf(outcome)] = striptags(outcome, allowedHtmlTags);
           }
         });
       }
@@ -172,7 +172,8 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
         courseData: courseData,
         title: 'Course Details',
         topTitle: courseData.class.title ,
-        location: location
+        location: location,
+        registrationUrl: config("properties").registrationUrl
       });
     }
     else {
