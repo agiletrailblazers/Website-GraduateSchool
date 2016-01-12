@@ -64,7 +64,9 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           for (var i = 0; i < courseData.session.length; i++) {
             var iSession = courseData.session[i];
             iSession["startDate"] = courseData.session[i]["startDate"].date('MMM DD, YYYY');
-            iSession["endDate"] = courseData.session[i]["endDate"].date('MMM DD, YYYY');
+            if (common.isNotEmpty(courseData.session[i]["endDate"])) {
+              iSession["endDate"] = courseData.session[i]["endDate"].date('MMM DD, YYYY');
+            }
           }
           callback();
         }
