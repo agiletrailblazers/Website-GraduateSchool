@@ -115,14 +115,15 @@
 
                 </td></tr>
             <% } else { %>
-            <% courseData.session.forEach(function(session) { %>
+            <% courseData.session.forEach(function(session, current) { %>
               <% if (courseData.isOnlineCourse == true) { %>
+
               <tr class="courseDetailSessionRow" data-rowhide="<%= session.hide %>">
                 <td>Course available after purchase</td>
                 <td></td>
                 <td>$<%= session["tuition"] %></td>
                 <td></td>
-                <td><button class="register" type="button" name="button" onclick="location.href='https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?offeringId= <%= session["classNumber"] %>&amp;fromUSDARegistration=true'"><%= content.registerButton %></button></td>
+                <td><button class="register" type="button" name="button" id="registerButton<%= current %>" onclick="location.href='https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?offeringId= <%= session["classNumber"] %>&amp;fromUSDARegistration=true'"><%= content.registerButton %></button></td>
               </tr>
               <% } else { %>
               <tr class="courseDetailSessionRow" data-rowhide="<%= session.hide %>">
