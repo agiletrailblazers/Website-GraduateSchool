@@ -156,11 +156,11 @@
                   <% } %>
                 </td>
                 <% if (session["status"] === 'S') { %>
-                  <td><button class="register" type="button" name="button" onclick="location.href='https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?offeringId= <%= session["classNumber"] %>&amp;fromUSDARegistration=true'"><%= content.registerButton %></button></td>
+                  <td><button class="register" type="button" name="button" onclick="location.href='<%= registrationUrl %><%= session["classNumber"] %>'"><%= content.registerButton %></button></td>
                 <% } else if (session["status"] === 'C' && session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
                   <td></td>
                 <% } else { %>
-                  <td><button class="register" type="button" name="button" onclick="location.href='https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?offeringId= <%= session["classNumber"] %>&amp;fromUSDARegistration=true'"><%= content.registerButton %></button></td>
+                  <td><button class="register" type="button" name="button" onclick="location.href='<%= registrationUrl %><%= session["classNumber"] %>'"><%= content.registerButton %></button></td>
                 <% } %>
               </tr>
 

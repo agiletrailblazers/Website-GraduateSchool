@@ -177,7 +177,8 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
         courseData: courseData,
         title: 'Course Details',
         topTitle: courseData.class.title ,
-        location: location
+        location: location,
+        registrationUrl: config("properties").registrationUrl
       });
     }
     else {
