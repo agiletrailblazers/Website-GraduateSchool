@@ -6,6 +6,12 @@ Validate = {
       $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please select Certificate Program Information</p>");
     }
   },
+  prefix: function() {
+    var selectprefix = $("#prefix").val();
+    if (!selectprefix) {
+      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> Please select prefix.</p>");
+    }
+  },
   firstName: function() {
     var input = $("#txtFirstName").val();
     var noNumbersPattern = new RegExp(/^[a-zA-Z]*$/);
@@ -101,6 +107,7 @@ var _runValidation = function() {
   $("#alertError").slideUp();
   $("#alertError p").remove();
   Validate.selectProgram();
+  Validate.prefix();
   Validate.firstName();
   Validate.lastName();
   Validate.email();
@@ -137,6 +144,7 @@ $(document).ready(function() {
     data.formType = window.location.pathname;
     data.selectBox = $("#selectBox").val();
     data.other = $("#txtOther").val();
+    data.prefix = $("#prefix").val();
     data.firstName = $("#txtFirstName").val();
     data.lastName = $("#txtLastName").val();
     data.mi = $("#txtMI").val();
@@ -151,10 +159,14 @@ $(document).ready(function() {
     } else {
       data.doc = "";
     }
+    data.preferredAddress = $("[name='radAddress']:checked").val()
+    data.homeAddress = $("#radioHome").val();
+    data.workAddress = $("#radioWork").val();
     data.ssn = $("#txtSSN").val();
     data.title = $("#title").text();
     data.email = $("#txtEmail").val();
     data.phone = $("#txtPhone").val();
+    data.homephone = $("#txtHomePhone").val();
     data.fax = $("#txtFax").val();
     data.city = $("#txtCity").val();
     data.state = $("#selState").val();

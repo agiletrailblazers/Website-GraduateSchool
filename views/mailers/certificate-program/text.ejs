@@ -4,12 +4,14 @@ If other: <%= other %>
 
 Student Information
 
+Prefix : <%= prefix %>
 First Name : <%= firstName %>
 Last Name : <%= lastName %>
 Middle Initial : <%= mi %>
 <% if (typeof certificate !== 'undefined' || formType === '/forms/certificate-program-progress-report' )  {  %>
   <p>Former Last Name: <strong><%= formerLastName %></strong></p>
 <% } %>
+Preferred Address: <%= preferredAddress %>
 SSN: <%= ssn %>
 Date of birth: <%= dob %>
 <% if (typeof certificate !== 'undefined' )  {  %>
@@ -23,7 +25,8 @@ State: <%= state %>
 Zip Code: <%= zip %>
 Country: <%= country %>
 Email: <%= email %>
-Phone Number: <%= phone %>
+Daytime Phone Number: <%= phone %>
+Home Phone Number: <%= homephone %>
 Comments: <%= comment %>
 
 --
