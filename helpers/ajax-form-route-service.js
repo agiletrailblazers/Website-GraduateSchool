@@ -434,6 +434,10 @@ module.exports = {
     if (!params.state) {
       response.errors.state = "Please select a state."
     }
+    // validate prefix
+    if(!params.prefix){
+      response.errors.prefix = "Please select prefix."
+    }
     callback(response);
   },
   validateRequestCatalog: function(callback, params) {
