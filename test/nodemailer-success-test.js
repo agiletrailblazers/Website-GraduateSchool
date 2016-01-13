@@ -168,9 +168,11 @@ test('nodemailer-test:CertificateProgramForm:success', function(t) {
   params.title = {};
   params.formType = {};
   params.selectBox = {};
+  params.prefix = {};
   params.firstName = {};
   params.lastName = {};
   params.phone = {};
+  params.homephone = {};
   params.email = {};
   params.mi = {};
   params.formerLastName = {};
@@ -181,6 +183,7 @@ test('nodemailer-test:CertificateProgramForm:success', function(t) {
   params.state = {};
   params.country = {};
   params.zip = {};
+  params.preferredAddress = {};
   params.streetAddress = {};
   params.suite = {};
   params.comment = {};
