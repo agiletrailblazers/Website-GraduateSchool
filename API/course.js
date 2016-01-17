@@ -6,36 +6,36 @@ var common = require("../helpers/common.js");
 
 module.exports = {
   performCourseSearch: function(callback, params) {
-    var courseApiUrl = config("properties").courseApiUrl;
-    courseApiUrl = courseApiUrl + '/api/courses?search=' + encodeURIComponent(params.searchCriteria)  ;
+    var apiServer = config("properties").apiServer;
+    apiServer = apiServer + '/api/courses?search=' + encodeURIComponent(params.searchCriteria)  ;
     if (common.isNotEmpty(params.numRequested)) {
-      courseApiUrl = courseApiUrl + '&numRequested=' + params.numRequested;
+      apiServer = apiServer + '&numRequested=' + params.numRequested;
     }
     if (common.isNotEmptyOrAll(params.cityState)) {
-      courseApiUrl = courseApiUrl + '&filter=city_state:' + params.cityState;
+      apiServer = apiServer + '&filter=city_state:' + params.cityState;
     }
     if (common.isNotEmptyOrAll(params.categorySubject) && common.isNotEmptyOrAll(params.categorySubjectType)) {
       if (params.categorySubjectType === 'category') {
-        courseApiUrl = courseApiUrl + '&filter=category:' + params.categorySubject;
+        apiServer = apiServer + '&filter=category:' + params.categorySubject;
       } else {
-        courseApiUrl = courseApiUrl + '&filter=category_subject:' + params.categorySubject;
+        apiServer = apiServer + '&filter=category_subject:' + params.categorySubject;
       }
     }
     if (params.page && common.isNotEmpty(params.page.course)) {
-      courseApiUrl = courseApiUrl + '&page='+ params.page.course;
+      apiServer = apiServer + '&page='+ params.page.course;
     }
     if (common.isNotEmptyOrAll(params.deliveryMethod)) {
-      courseApiUrl = courseApiUrl + '&filter=delivery_method:' + params.deliveryMethod;
+      apiServer = apiServer + '&filter=delivery_method:' + params.deliveryMethod;
     }
     if (params.selectedG2G == "true" ) {
-      courseApiUrl = courseApiUrl + '&filter=status:C';
+      apiServer = apiServer + '&filter=status:C';
     }
-    logger.debug(courseApiUrl);
+    logger.debug(apiServer);
     request({
       method: 'GET',
-      url: courseApiUrl
+      url: apiServer
     }, function (error, response, body) {
-      if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
+      if (common.checkForErrorAndLog(error, response, apiServer)) {
        return callback(response, new Error("Exception occurred performing course search"), null);
      }
       logger.debug('Status:', response.statusCode);
@@ -44,12 +44,12 @@ module.exports = {
     })
   },
   performExactCourseSearch: function(callback, courseId) {
-    var courseApiUrl = config("properties").courseApiUrl + '/api/courses/' + courseId;
+    var apiServer = config("properties").apiServer + '/api/courses/' + courseId;
     request({
       method: 'GET',
-      url: courseApiUrl
+      url: apiServer
     }, function (error, response, body) {
-      if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
+      if (common.checkForErrorAndLog(error, response, apiServer)) {
        return callback(response, new Error("Exception occurred performing exact course search"), null);
       }
       logger.debug("Course Search: " + response.statusCode);
@@ -58,10 +58,10 @@ module.exports = {
     });
   },
   getSchedule: function(callback, courseId) {
-    var courseApiUrl = config("properties").courseApiUrl + '/api/courses/' + courseId + '/sessions';
+    var apiServer = config("properties").apiServer + '/api/courses/' + courseId + '/sessions';
     request({
       method: 'GET',
-      url: courseApiUrl
+      url: apiServer
     }, function (error, response, body) {
       if (error || !response || (response.statusCode != 200 && response.statusCode != 404)) {
         var message = "Error performing course schedule search";
@@ -71,7 +71,7 @@ module.exports = {
         if (error) {
           message = message + ", error message: " + error.message;
         }
-        logger.error(message + ", url: " + courseApiUrl);
+        logger.error(message + ", url: " + apiServer);
         return callback(response, new Error("Exception occurred performing course search"), null);
       }
       if (response.statusCode == 404) {
@@ -84,12 +84,12 @@ module.exports = {
     });
   },
   getCourses: function(callback) {
-    var courseApiUrl = config("properties").courseApiUrl + '/api/courses';
+    var apiServer = config("properties").apiServer + '/api/courses';
     request({
       method: 'GET',
-      url: courseApiUrl
+      url: apiServer
     }, function (error, response, body) {
-      if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
+      if (common.checkForErrorAndLog(error, response, apiServer)) {
        return callback(response, new Error("Exception occurred getting all courses"), null);
      }
       logger.debug("Get Courses: " + response.statusCode);
@@ -98,12 +98,12 @@ module.exports = {
     });
   },
   getLocations: function(callback) {
-    var courseApiUrl = config("properties").courseApiUrl + '/api/locations';
+    var apiServer = config("properties").apiServer + '/api/locations';
     request({
       method: 'GET',
-      url: courseApiUrl
+      url: apiServer
     }, function (error, response, body) {
-      if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
+      if (common.checkForErrorAndLog(error, response, apiServer)) {
        return callback(response, new Error("Exception occurred getting all locations"), null);
       }
       logger.debug("Get Locations: " + response.statusCode);
@@ -112,12 +112,12 @@ module.exports = {
     });
   },
   getCategories: function(callback) {
-    var courseApiUrl = config("properties").courseApiUrl + '/api/courses/categories';
+    var apiServer = config("properties").apiServer + '/api/courses/categories';
     request({
       method: 'GET',
-      url: courseApiUrl
+      url: apiServer
     }, function (error, response, body) {
-      if (common.checkForErrorAndLog(error, response, courseApiUrl)) {
+      if (common.checkForErrorAndLog(error, response, apiServer)) {
        return callback(response, new Error("Exception occurred getting all categories"), null);
       }
       logger.debug("Get Categories : " + response.statusCode);
@@ -130,23 +130,23 @@ module.exports = {
     if (common.isEmpty(params.searchCriteria) && (common.isEmpty(params.cityState) ||  params.cityState == 'all')) {
       return callback(null, null, {});
     }
-    var siteApiUrl = config("properties").courseApiUrl;
-    siteApiUrl = siteApiUrl + '/api/site?search=' + encodeURIComponent(params.searchCriteria)
+    var siteapiServer = config("properties").apiServer;
+    siteapiServer = siteapiServer + '/api/site?search=' + encodeURIComponent(params.searchCriteria)
     if (common.isNotEmpty(params.cityState) && params.cityState != 'all') {
-      siteApiUrl = siteApiUrl + '&filter=content:' + params.cityState;
+      siteapiServer = siteapiServer + '&filter=content:' + params.cityState;
     }
     if (common.isNotEmpty(params.numRequested)) {
-      siteApiUrl = siteApiUrl + '&numRequested=' + params.numRequested;
+      siteapiServer = siteapiServer + '&numRequested=' + params.numRequested;
     }
     if (params.page && common.isNotEmpty(params.page.site)) {
-      siteApiUrl = siteApiUrl + '&page='+ params.page.site;
+      siteapiServer = siteapiServer + '&page='+ params.page.site;
     }
-    logger.debug(siteApiUrl);
+    logger.debug(siteapiServer);
     request({
         method: 'GET',
-        url: siteApiUrl
+        url: siteapiServer
     }, function (error, response, body) {
-      if (common.checkForErrorAndLog(error, response, siteApiUrl)) {
+      if (common.checkForErrorAndLog(error, response, siteapiServer)) {
        return callback(response, new Error("Exception occurred performing Site search"), null);
       }
         logger.debug('Status:', response.statusCode);

@@ -1,6 +1,6 @@
 {
     "env": "prod",
-    "courseApiUrl": "http://gs-prod-api-2108241904.us-east-1.elb.amazonaws.com",
+    "apiServer": "http://gs-prod-api-2108241904.us-east-1.elb.amazonaws.com",
 
     "registrationUrl" : "https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=",
 

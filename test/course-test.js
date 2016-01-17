@@ -9,10 +9,10 @@ var test = require('tap').test;
 
 test('course-search with government search  criteria', function(t) {
   //use endpoing from config even for tests
-  var courseApiUrl = config("properties").courseApiUrl;
+  var apiServer = config("properties").apiServer;
   var params ={searchCriteria:"government"};
   //test a 200 ok
-  var courseServer = nock(courseApiUrl)
+  var courseServer = nock(apiServer)
         .get('/api/courses?search=government')
         .reply(200, {
           "exactMatch": true,
@@ -34,9 +34,9 @@ test('course-search with government search  criteria', function(t) {
 
   test('course-search with government failure  criteria', function(t) {
     //test a 500 internal server error
-  var courseApiUrl = config("properties").courseApiUrl;
+  var apiServer = config("properties").apiServer;
   var params ={searchCriteria:"failure"};
-  var courseServer = nock(courseApiUrl)
+  var courseServer = nock(apiServer)
     .get('/api/courses?search=failure').reply(500, {
       });
         courseServer;
@@ -50,10 +50,10 @@ test('course-search with government search  criteria', function(t) {
 
 test('course-search with government search  criteria and numRequested', function(t) {
     //use endpoing from config even for tests
-  var courseApiUrl = config("properties").courseApiUrl;
+  var apiServer = config("properties").apiServer;
   var params ={searchCriteria:"government",numRequested:"100"};
     //test a 200 ok
-  var courseServer = nock(courseApiUrl)
+  var courseServer = nock(apiServer)
     .get('/api/courses?search=government&numRequested=100')
      .reply(200, {
        "exactMatch": true,
@@ -77,10 +77,10 @@ test('course-search with government search  criteria and numRequested', function
 
 test('course-search with government search  criteria,numRequested and cityState', function(t) {
     //use endpoing from config even for tests
-  var courseApiUrl = config("properties").courseApiUrl;
+  var apiServer = config("properties").apiServer;
   var params ={searchCriteria:"government",numRequested:"100",cityState:"Washington, DC"};
     //test a 200 ok
-  var courseServer = nock(courseApiUrl)
+  var courseServer = nock(apiServer)
     .get('/api/courses?search=government&numRequested=100&filter=city_state:Washington,%20DC')
       .reply(200, {
          "exactMatch": true,
@@ -106,10 +106,10 @@ test('course-search with government search  criteria,numRequested and cityState'
 
 test('course-search with government search  criteria,numRequested,cityState and G2G', function(t) {
     //use endpoing from config even for tests
-  var courseApiUrl = config("properties").courseApiUrl;
+  var apiServer = config("properties").apiServer;
   var params ={searchCriteria:"government",numRequested:"100",cityState:"Washington, DC",selectedG2G:"true"};
     //test a 200 ok
-  var courseServer = nock(courseApiUrl)
+  var courseServer = nock(apiServer)
     .get('/api/courses?search=government&numRequested=100&filter=city_state:Washington,%20DC&filter=status:C')
       .reply(200, {
          "exactMatch": true,
@@ -135,10 +135,10 @@ test('course-search with government search  criteria,numRequested,cityState and 
 
 test('course-search with government search  criteria,numRequested,categorySubject and G2G', function(t) {
   //use endpoing from config even for tests
-  var courseApiUrl = config("properties").courseApiUrl;
+  var apiServer = config("properties").apiServer;
   var params ={searchCriteria:"government",numRequested:"100",categorySubjectType:"Accounting",categorySubject:"Accounting, Budgeting and Financial Management/Financial Management",selectedG2G:"true"};
   //test a 200 ok
-  var courseServer = nock(courseApiUrl)
+  var courseServer = nock(apiServer)
     .get('/api/courses?search=government&numRequested=100&filter=category_subject:Accounting,%20Budgeting%20and%20Financial%20Management/Financial%20Management&filter=status:C')
     .reply(200, {
       "exactMatch": true,
@@ -163,10 +163,10 @@ test('course-search with government search  criteria,numRequested,categorySubjec
 
 test('course-search with subject search', function(t) {
   //use endpoing from config even for tests
-  var courseApiUrl = config("properties").courseApiUrl;
+  var apiServer = config("properties").apiServer;
   var params ={};
   //test a 200 ok
-  var courseServer = nock(courseApiUrl)
+  var courseServer = nock(apiServer)
     .get('/api/courses/categories')
     .reply(200,
       {
@@ -192,10 +192,10 @@ test('course-search with subject search', function(t) {
 
 test('course-search with government search  criteria,numRequested and DeliveryMethod', function(t) {
   //use endpoing from config even for tests
-  var courseApiUrl = config("properties").courseApiUrl;
+  var apiServer = config("properties").apiServer;
   var params ={searchCriteria:"government",numRequested:"100",deliveryMethod:"Classroom - Daytime"};
   //test a 200 ok
-  var courseServer = nock(courseApiUrl)
+  var courseServer = nock(apiServer)
     .get('/api/courses?search=government&numRequested=100&filter=delivery_method:Classroom%20-%20Daytime')
     .reply(200, {
       "exactMatch": true,

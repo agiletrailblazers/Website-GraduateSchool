@@ -1,7 +1,7 @@
 {
     "env": "dev",
     "skipReCaptchaVerification":true,
-    "courseApiUrl": "http://ec2-52-3-244-235.compute-1.amazonaws.com",
+    "apiServer": "http://ec2-52-3-244-235.compute-1.amazonaws.com",
 
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",

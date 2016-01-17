@@ -1,6 +1,6 @@
 {
     "env": "test",
-    "courseApiUrl": "http://api-test-loadbalancer-2116542131.us-east-1.elb.amazonaws.com",
+    "apiServer": "http://api-test-loadbalancer-2116542131.us-east-1.elb.amazonaws.com",
 
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",

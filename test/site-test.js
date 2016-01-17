@@ -9,10 +9,10 @@ var test = require('tap').test;
 
 test('site-search with government search  criteria', function (t) {
   //use endpoing from config even for tests
-  var siteApiUrl = config("properties").courseApiUrl;
+  var siteapiServer = config("properties").apiServer;
   var params = {searchCriteria: "government"};
   //test a 200 ok
-  var siteServer = nock(siteApiUrl)
+  var siteServer = nock(siteapiServer)
     .get('/api/site?search=government')
     .reply(200, {
       "currentPage": 1,
@@ -43,9 +43,9 @@ test('site-search with government search  criteria', function (t) {
 
 test('site-search with government failure  criteria', function (t) {
   //test a 500 internal server error
-  var siteApiUrl = config("properties").courseApiUrl;
+  var siteapiServer = config("properties").apiServer;
   var params = {searchCriteria: "failure"};
-  var siteServer = nock(siteApiUrl)
+  var siteServer = nock(siteapiServer)
     .get('/api/site?search=failure').reply(500, {});
   siteServer;
   site.performSiteSearch(function (response, error, result) {
@@ -59,10 +59,10 @@ test('site-search with government failure  criteria', function (t) {
 
 test('site-search with government search  criteria and numRequested', function (t) {
   //use endpoing from config even for tests
-  var siteApiUrl = config("properties").courseApiUrl;
+  var siteapiServer = config("properties").apiServer;
   var params = {searchCriteria: "government", numRequested: "100"};
   //test a 200 ok
-  var siteServer = nock(siteApiUrl)
+  var siteServer = nock(siteapiServer)
     .get('/api/site?search=government&numRequested=100')
     .reply(200, {
       "currentPage": 1,
