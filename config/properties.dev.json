@@ -5,7 +5,7 @@
 
     "registrationUrl" : "/manage/createuser?offeringId=",
     "manage" : {
-      "userRouteEnabled" : true,
+      "userRouteEnabled" : true
     },
 
     "defaultEmailServerName": "smtp.office365.com",
