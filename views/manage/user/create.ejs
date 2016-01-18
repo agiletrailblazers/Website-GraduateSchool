@@ -3,7 +3,7 @@
   <head>
     <title> Graduate School USA | <%= content.title %></title>
     <% include ../../partials/head %>
-    <script type="text/javascript" src="/javascripts/manage/user/createuser.js"></script>
+    <script type="text/javascript" src="/javascripts/manage/user/create.js"></script>
   </head>
   <body>
     <% include ../../partials/header %>
@@ -74,7 +74,7 @@
                           <input type="password" id="password" class="form-control" tabindex="17">
                         </span>
                         <span class="form-group">
-                          <label for="confirmPassword">*Password</label>
+                          <label for="confirmPassword">*Confirm Password</label>
                           <input type="password" id="confirmPassword" class="form-control" tabindex="18">
                         </span>
                       </div>
@@ -130,15 +130,16 @@
             </div>  <!-- END create-user -->
           </div> <!--END gs-form-->
 
-          <div id="course-information" class="col-lg-3 col-md-3 col-sm-3 outer-border">
-            <fieldset>
-              <legend>Course Information</legend>
-
-              <div>Session ID <%= offeringId ? offeringId : 'Oops, no course offering provided' %></div>
-              <div>TODO: create a session API to retrieve course/session info by session ID</div>
-
-            </fieldset>
-          </div> <!-- END course-information -->
+          <% if (offeringId) { %>
+            <input type=hidden id="offeringId" name="offeringId" value="<%= offeringId %>"/>
+            <div id="course-information" class="col-lg-3 col-md-3 col-sm-3 outer-border">
+              <fieldset>
+                <legend>Course Information</legend>
+                <div>Session ID <%= offeringId ? offeringId : 'Oops, no course offering provided' %></div>
+                <div>TODO: create a session API to retrieve course/session info by session ID</div>
+              </fieldset>
+            </div> <!-- END course-information -->
+          <% } %>
 
         </div> <!--END outer-->
       </div> <!--END container-->

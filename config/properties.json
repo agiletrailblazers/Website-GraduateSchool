@@ -5,8 +5,7 @@
 
     "registrationUrl" : "https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=",
     "manage" : {
-      "userRouteEnabled" : false,
-      "registrationRouteEnabled" : false
+      "userRouteEnabled" : false
     },
 
     "defaultEmailServerName": "smtp.office365.com",
