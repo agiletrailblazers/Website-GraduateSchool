@@ -1,5 +1,5 @@
 {
-    "env": "local",
+    "env": "default",
     "skipReCaptchaVerification":false,
     "apiServer": "http://ec2-52-3-244-235.compute-1.amazonaws.com",
 
