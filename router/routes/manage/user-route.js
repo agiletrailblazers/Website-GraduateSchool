@@ -9,15 +9,16 @@ var common = require("../../../helpers/common.js");
 // Routes related to user management
 
 // Display the create user form
-router.get('/createuser', function(req, res, next) {
+router.get('/create', function(req, res, next) {
+
   content = {
-    title: "New Student Registration",
+    title: "Account Setup",
     states: {},
-    offeringId: ""
+    offeringId: null
   };
   async.series([
     function(callback) {
-      content.offeringId = req.query.offeringId;
+      content.offeringId = req.query.offeringId ? req.query.offeringId : null;
 
       // TODO lookup the course/session info by session ID
       callback();
@@ -41,12 +42,12 @@ router.get('/createuser', function(req, res, next) {
       common.redirectToError(res);
       return;
     }
-    res.render('manage/user/createuser', content);
+    res.render('manage/user/create', content);
   });
 });
 
 // Handle request to create the user; this is an AJAX call.
-router.post('/createuser', function (req, res, next) {
+router.post('/create', function (req, res, next) {
 
   // get the form data from the body of the request
   var formData = req.body;
@@ -56,12 +57,11 @@ router.post('/createuser', function (req, res, next) {
 
   async.series([
     function(callback) {
-      logger.info("Creating user: " + JSON.stringify(formData));
+      logger.info("Creating user: " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
       var userData = {
         "username" : formData.email,
-        "dateOfBirth" : formData.birthMonth + '/' + formData.birthDay + '/' + formData.birthYear,
-        "lastFourSSN" : formData.lastFourSSN,
         "password" : formData.password,
+        "lastFourSSN" : formData.lastFourSSN,
         "person" :
          {
            "firstName" : formData.firstName,
@@ -78,7 +78,8 @@ router.post('/createuser', function (req, res, next) {
                "state" : formData.state,
                "postalCode" : formData.zip
              },
-           "secondaryAddress" : null
+           "secondaryAddress" : null,
+           "dateOfBirth" : formData.birthMonth + '/' + formData.birthDay + '/' + formData.birthYear
          }
       };
 
@@ -90,7 +91,8 @@ router.post('/createuser', function (req, res, next) {
         if (error) return callback(error);
 
         // user created successfully
-        logger.info("Create user: " + JSON.stringify(createdUser));
+        logger.info("Created user: " + createdUser.id);
+        logger.info("Created user: " + createdUser.id + " - " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
         content.createdUser = createdUser;
         callback(null);
       });
@@ -105,5 +107,21 @@ router.post('/createuser', function (req, res, next) {
     res.status(200).send({"id" : content.createdUser.id});
   });
 });
+
+// Display the register user form
+router.get('/:userId/register/:offeringId', function(req, res, next) {
+
+  content = {
+    title: "Course Registration",
+    user: {
+      id: req.params.userId
+    },
+    offeringId: req.params.offeringId
+  };
+
+  logger.info("Registering student, " + JSON.stringify(content));
+  res.render('manage/user/register', content);
+});
+
 
 module.exports = router;

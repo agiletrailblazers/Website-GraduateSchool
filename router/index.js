@@ -7,7 +7,6 @@ var config = require('konphyg')(__dirname + '/../config');
 
 // log some key configuration information
 logger.info("userRouteEnabled: " + config("properties").manage.userRouteEnabled);
-logger.info("registrationRouteEnabled: " + config("properties").manage.registrationRouteEnabled);
 logger.info("registrationUrl: " + config("properties").registrationUrl);
 
 
@@ -26,10 +25,7 @@ module.exports = function (app) {
     app.use('/', require('./routes/faq-route'));
     app.use('/', require('./routes/subscription-route'));
     if (config("properties").manage.userRouteEnabled === true) {
-      app.use('/manage', require('./routes/manage/user-route'));
-    }
-    if (config("properties").manage.registrationRouteEnabled === true) {
-      app.use('/manage', require('./routes/manage/registration-route'));
+      app.use('/manage/user', require('./routes/manage/user-route'));
     }
     app.use(defaultUrlRedirect);
 };

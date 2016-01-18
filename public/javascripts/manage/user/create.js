@@ -42,13 +42,20 @@ $(document).ready(function () {
 
     if (!$("#gs-form-alert-error p").length) {
       $(".loading").show();
-      $.post("/manage/createuser", formData)
-        .done(function (data) {
+      $.post("/manage/user/create", formData)
+        .done(function (user) {
           $(".loading").hide();
-          // the data object is a "User" and includes the newly created user ID
-          alertify.success("Your account has been created!");
-          $("#create-user").toggle();
-          $("#gs-form-alert-success").slideDown();
+
+          if (!!document.getElementById("offeringId")) {
+            // we were passed a course session, redirect to registration, passing in the user id and course session id
+            window.location.href='/manage/user/' + user.id + '/register/' + $("#offeringId").val();
+          }
+          else {
+            // no course session was provided, display user created successfully
+            alertify.success("Your account has been created!");
+            $("#create-user").toggle();
+            $("#gs-form-alert-success").slideDown();
+          }
         })
         .fail(function (xhr, textStatus, errorThrown) {
           $(".loading").hide();
