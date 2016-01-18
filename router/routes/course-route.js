@@ -17,7 +17,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
   var courseId;
   var courseData = {};
   var content;
-  var courseOnlineTypes = ['Instructor-Supported WBT','Web Based Training','Video On Demand','Physical Offering'];
+  var courseOnlineTypes = ['Instructor-Supported WBT','Web Based Training','Video On Demand','Distance Education'];
   var location = (typeof(req.query["location"])!='undefined' ? req.query["location"] : null);
   //waterfall is important here as we need to get the course data (and the real FULL course id)
   //  first before getting sessions and the syllabus
