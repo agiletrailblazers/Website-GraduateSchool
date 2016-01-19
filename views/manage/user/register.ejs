@@ -23,16 +23,14 @@
               <div id="gs-form-alert-success" class="alert alert-success" role="alert" style="display:none;">
                   <p><strong>Thank you for registering!</strong></p>
               </div>
-          </div> <!--END gs-form-->
 
-          <hidden id="offeringId" value="<%= offeringId %>"/>
-          <div id="course-information" class="col-lg-3 col-md-3 col-sm-3 outer-border">
-            <fieldset>
-              <legend>Course Information</legend>
-              <div>Session ID <%= offeringId %></div>
-              <div>TODO: Display session/course information</div>
-            </fieldset>
-          </div> <!-- END course-information -->
+              <div id="register-user">
+                <div class="alert alert-success" role="alert">
+                    <p><strong>Thank you for creating an account, you may now <a href="http://saba-test-loadbalancer-1038476084.us-east-1.elb.amazonaws.com/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=<%= offeringId %>">login and register</a> for the class!</strong></p>
+                </div>
+
+              </div> <!-- END register-user-->
+          </div> <!--END gs-form-->
 
         </div> <!--END outer-->
       </div> <!--END container-->
