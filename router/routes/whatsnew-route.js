@@ -7,7 +7,7 @@ var common = require("../../helpers/common.js");
 
 // Get What's new page.
 router.get('/whats-new', function(req, res, next) {
-  content = {};
+  var content = {};
   var assetIdList = "";
   var spaceId = "jzmztwi1xqvn";
   async.series([
@@ -50,16 +50,11 @@ router.get('/whats-new', function(req, res, next) {
       });
     },
   ], function(results) {
-    if (common.isNotEmpty(content.class)) {
       res.render('whats_new', {
         title: 'What\'s new',
         entry: content.class.cmsEntry.fields,
         whatsnewheaderImageURLList: content.whatsnewheaderImageURLList
       });
-    } else {
-      res.redirect('/pagenotfound');
-
-    }
   });
 
 });
