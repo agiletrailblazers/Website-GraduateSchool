@@ -21,7 +21,7 @@ router.get('/whats-new', function(req, res, next) {
           content.class = response;
           if (response && response.cmsEntry && response.cmsEntry.fields && response.cmsEntry.fields.topBanners){
             content.class.cmsEntry.fields.topBanners.forEach(function(topBannersList) {
-            assetIdList += topBannersList.sys.id + ",";
+              assetIdList += topBannersList.sys.id + ",";
             });
           }
           callback();
@@ -50,12 +50,18 @@ router.get('/whats-new', function(req, res, next) {
       });
     },
   ], function(results) {
+    if (common.isNotEmpty(content.class)) {
       res.render('whats_new', {
         title: 'What\'s new',
         entry: content.class.cmsEntry.fields,
         whatsnewheaderImageURLList: content.whatsnewheaderImageURLList
       });
+    } else {
+      res.redirect('/pagenotfound');
+
+    }
   });
+
 });
 
 module.exports = router;
