@@ -7,7 +7,7 @@ var common = require("../../helpers/common.js");
 
 // Get What's new page.
 router.get('/whats-new', function(req, res, next) {
-  content = {};
+  var content = {};
   var assetIdList = "";
   var spaceId = "jzmztwi1xqvn";
   async.series([
@@ -21,7 +21,7 @@ router.get('/whats-new', function(req, res, next) {
           content.class = response;
           if (response && response.cmsEntry && response.cmsEntry.fields && response.cmsEntry.fields.topBanners){
             content.class.cmsEntry.fields.topBanners.forEach(function(topBannersList) {
-            assetIdList += topBannersList.sys.id + ",";
+              assetIdList += topBannersList.sys.id + ",";
             });
           }
           callback();
@@ -56,6 +56,7 @@ router.get('/whats-new', function(req, res, next) {
         whatsnewheaderImageURLList: content.whatsnewheaderImageURLList
       });
   });
+
 });
 
 module.exports = router;
