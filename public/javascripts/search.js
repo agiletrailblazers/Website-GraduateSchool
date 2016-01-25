@@ -64,8 +64,9 @@ function performCourseSearchM() {
 
 //Search button for multiple filters
 $(document).on("click","#search-buttonM",function(event){
-  location.href = "/search?search=" + $("#searchCriteriaM").val().trim() + "&cityState=" + $("#selSearchLocationM").val()
-    + "&categorySubject=" + $("#selCategorySubjectM").val();
+    location.href = "/search?search=" + $("#searchCriteriaM").val().trim() + "&cityState=" + $("#selSearchLocationM").val()
+        + "&categorySubjectType=" + $("#selCategorySubjectM").find(":selected").attr('data-optionType')
+        + "&categorySubject=" + $("#selCategorySubjectM").val();
 });
 
 //Displays search box and advanced filter on focus/mouse enter.
