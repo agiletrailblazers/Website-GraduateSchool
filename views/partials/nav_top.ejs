@@ -134,26 +134,17 @@
               <select id="selCategorySubjectM" class="form-control" tabindex="3">
                 <option class="subject-item" value="all">Subject</option>
                 <% if (courseSubjectResult) { %>
-                  <% for (categorySubjectFacetCounter = 0; categorySubjectFacetCounter < courseSubjectResult.length; categorySubjectFacetCounter++) {
-                    var courseSubject = courseSubjectResult[categorySubjectFacetCounter].courseSubject;
-                    if (courseSubject.length > 1 ) { %>
-                      <optgroup class="subject-category" label="<%= courseSubjectResult[categorySubjectFacetCounter].category %>"
-                    %><%= courseSubjectResult[categorySubjectFacetCounter].subjectCount %>)>
-                    <% for (courseSubjectCounter = 0; courseSubjectCounter < courseSubject.length; courseSubjectCounter++) {
-                    %>
-                      <option value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[courseSubjectCounter].subject %>"
-                      ><%= courseSubject[courseSubjectCounter].subject %>
-                      </option>
-                    <% } %>
-                      </optgroup>
-                    <% } else if(courseSubject.length == 1) { %>
-                      <option class="subject-item"
-                        value="<%= courseSubjectResult[categorySubjectFacetCounter].category + "/" + courseSubject[0].subject %>">
-                        <%= courseSubject[0].subject %>
-                      </option>
-                    <% }
-                   } %>
-                 <% } %>
+                  <% courseSubjectResult.forEach(function(courseCategory) { %>
+                    <% if (courseCategory.subjectCount > 1 || courseCategory.category != courseCategory.courseSubject[0].subject) { %>
+                    <option data-optionType="category" value="<%= courseCategory.category %>" label="<%= courseCategory.category + ' (' + courseCategory.count + ')'%>"><%= courseCategory.category + ' (' + courseCategory.count + ')'%></option>
+                    <% courseCategory.courseSubject.forEach(function(courseSubject) { %>
+                      <option data-optionType="subject" value="<%= courseSubject.filter %>" label="&nbsp;&nbsp;&nbsp;&nbsp;<%= courseSubject.subject + ' (' + courseSubject.count + ')'%>" class="subject-category"><%= courseSubject.subject + ' (' + courseSubject.count + ')'%></option>
+                <% }); %>
+                <% } else if(courseCategory.subjectCount == 1) { %>
+                  <option data-optionType="subject" value="<%= courseCategory.courseSubject[0].filter %>" label="<%= courseCategory.courseSubject[0].subject + ' (' + courseCategory.courseSubject[0].count + ')'%>" class="subject-item"><%= courseCategory.courseSubject[0].subject + ' (' + courseCategory.courseSubject[0].count + ')'%></option>
+                  <% } %>
+                <% }); %>
+                <% } %>
               </select>
             </div>
             <div class="search-submit pull-right padding-top">
