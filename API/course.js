@@ -39,7 +39,7 @@ module.exports = {
        return callback(response, new Error("Exception occurred performing course search"), null);
      }
       logger.debug('Status:', response.statusCode);
-      result = JSON.parse(body);
+      var result = JSON.parse(body);
       return callback(response, error, result);
     })
   },
@@ -53,7 +53,7 @@ module.exports = {
        return callback(response, new Error("Exception occurred performing exact course search"), null);
       }
       logger.debug("Course Search: " + response.statusCode);
-      result = JSON.parse(body);
+      var result = JSON.parse(body);
       return callback(response, error, result);
     });
   },
@@ -79,7 +79,7 @@ module.exports = {
         return callback(response, error, null);
       }
       logger.debug("Course Schedule: " + response.statusCode);
-      result = JSON.parse(body);
+      var result = JSON.parse(body);
       return callback(response, error, result);
     });
   },
@@ -93,7 +93,7 @@ module.exports = {
        return callback(response, new Error("Exception occurred getting all courses"), null);
      }
       logger.debug("Get Courses: " + response.statusCode);
-      result = JSON.parse(body).courses;
+      var result = JSON.parse(body).courses;
       return callback(response, error, result);
     });
   },
@@ -107,7 +107,7 @@ module.exports = {
        return callback(response, new Error("Exception occurred getting all locations"), null);
       }
       logger.debug("Get Locations: " + response.statusCode);
-      result = JSON.parse(body);
+      var result = JSON.parse(body);
       return callback(response, error, result);
     });
   },
@@ -121,7 +121,7 @@ module.exports = {
        return callback(response, new Error("Exception occurred getting all categories"), null);
       }
       logger.debug("Get Categories : " + response.statusCode);
-      result = JSON.parse(body);
+      var result = JSON.parse(body);
       return callback(response, error, result);
     });
   },
@@ -150,7 +150,7 @@ module.exports = {
        return callback(response, new Error("Exception occurred performing Site search"), null);
       }
         logger.debug('Status:', response.statusCode);
-        result = JSON.parse(body);
+        var result = JSON.parse(body);
         return callback(response, error, result);
     });
   }

@@ -12,7 +12,7 @@ var logger = require('../../logger');
 var config = require('konphyg')(__dirname + '/../../config');
 
 router.post('/mailer-customer-feedback', function (req, res, next) {
-  params = req.body;
+  var params = req.body;
   // Server side validation from routerService.
   routerService.validateCustomerFeedBack(function (response) {
     // Send email if there are no errors.
@@ -39,7 +39,7 @@ router.post('/mailer-customer-feedback', function (req, res, next) {
 });
 
 router.post('/mailer-contact-us', function (req, res, next) {
-  params = req.body;
+  var params = req.body;
   //move code to router service
   routerService.validateContactUsfields(function (response) {
     // Send email if there are no errors.
@@ -63,7 +63,7 @@ router.post('/mailer-contact-us', function (req, res, next) {
 });
 
 router.post('/mailer-onsite-inquiry', function (req, res, next) {
-  params = req.body;
+  var params = req.body;
   if (null != params.course["deliveryDate"] && params.course["deliveryDate"] != '') {
     params.course["deliveryDate"] = params.course["deliveryDate"].date('MMM DD, YYYY');
   }
@@ -89,7 +89,7 @@ router.post('/mailer-onsite-inquiry', function (req, res, next) {
 
 
 router.post('/mailer-request-duplicate', function (req, res, next) {
-  params = req.body;
+  var params = req.body;
   //move code to router service
   routerService.validateRequestDuplicate(function (response) {
     // Send email if there are no errors.
@@ -113,7 +113,7 @@ router.post('/mailer-request-duplicate', function (req, res, next) {
 
 
 router.post('/mailer-request-proctor', function (req, res, next) {
-  params = req.body;
+  var params = req.body;
   //move code to router service
   routerService.validateRequestProctor(function (response) {
     // Send email if there are no errors.
@@ -136,7 +136,7 @@ router.post('/mailer-request-proctor', function (req, res, next) {
 });
 
 router.post('/mailer-request-certificate-program', function(req, res, next) {
-  params = req.body;
+  var params = req.body;
 
   switch (true) {
     case (params.formType === '/forms/certificate-program-application'):
@@ -178,7 +178,7 @@ router.post('/mailer-request-certificate-program', function(req, res, next) {
 
 
 router.post('/mailer-request-catalog', function (req, res, next) {
-  params = req.body;
+  var params = req.body;
   //move code to router service
   routerService.validateRequestCatalog(function (response) {
     // Send email if there are no errors.
@@ -201,7 +201,7 @@ router.post('/mailer-request-catalog', function (req, res, next) {
 });
 
 router.post('/mailer-subscription', function (req, res, next) {
-  params = req.body;
+  var params = req.body;
   logger.debug("In mailer-subscription");
   //move code to router service
   routerService.validateSubscriptionfields(function (response) {

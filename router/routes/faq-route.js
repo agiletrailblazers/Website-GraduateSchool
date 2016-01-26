@@ -8,7 +8,7 @@ var common = require("../../helpers/common.js");
 
 router.get('/faq',
   function(req, res, next) {
-    faq = {};
+    var faq = {};
     async.waterfall([
       function(callback) {
         contentful.getFAQ(function(response, error) {
@@ -41,7 +41,7 @@ router.get('/faq',
     ], function(err, result) {
       if (result && result.categories) {
         async.each(result.categories, function(category, callback) {
-          slug = category.slug;
+          var slug = category.slug;
           contentful.getFAQCategory(slug, function(response, error) { //TODO: This seems to be redundant as the above query returns all questions
             if (error) {
               logger.error('Encountered error retrieving FAQ Category, redirecting to error', error);

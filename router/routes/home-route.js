@@ -9,7 +9,7 @@ var logger = require('../../logger');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  data = {};
+  var data = {};
   async.parallel([
     function(callback) {
       contentful.getHomepageSlider(function(content, error) {

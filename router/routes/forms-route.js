@@ -7,7 +7,7 @@
 
   // Get Forms page.
   router.get('/forms', function(req, res, next) {
-  arrayOfContent=[];
+  var arrayOfContent=[];
   async.series([
     function(callback) {
       contentful.getForms(function(response, error) {
@@ -17,11 +17,11 @@
         }
         else {
           response.cmsEntry.forEach(function (cmsEntryAsset) {
-            content = {};
+            var content = {};
             content.sectionTitle = cmsEntryAsset.fields.sectionTitle;
             content.sectionColumn = cmsEntryAsset.fields.sectionColumn;
             content.sectionOrder = cmsEntryAsset.fields.sectionOrder;
-            arrayofAssetObj = [];
+            var arrayofAssetObj = [];
             if (typeof(cmsEntryAsset.fields.sectionFiles) != 'undefined') {
               cmsEntryAsset.fields.sectionFiles.forEach(function (sectionFile) {
                 response.cmsAsset.forEach(function (asset) {
@@ -55,12 +55,12 @@
             }
             if (typeof(cmsEntryAsset.fields.sectionLink) != 'undefined') {
               cmsEntryAsset.fields.sectionLink.forEach(function (sectionLink) {
-                assetObj = {};
+                var assetObj = {};
                 assetObj.title = sectionLink.name;
                 assetObj.url = sectionLink.url;
-                sectionLinkDescription = sectionLink.description;
+                var sectionLinkDescription = sectionLink.description;
                 if (common.isNotEmpty(sectionLinkDescription)) {
-                  sectionLinkDescriptionArray = sectionLinkDescription.split("|");
+                  var sectionLinkDescriptionArray = sectionLinkDescription.split("|");
                   if (sectionLinkDescriptionArray.length > 1) {
                     assetObj.description = sectionLinkDescriptionArray[0].trim();
                     assetObj.hrefDescription = sectionLinkDescriptionArray[1].trim();
