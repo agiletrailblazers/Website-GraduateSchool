@@ -23,7 +23,7 @@ router.get('/news', function(req, res, next) {
 });
 
 router.get('/news/:news_slug', function(req, res, next) {
-  slug = req.params.news_slug;
+  var slug = req.params.news_slug;
   contentful.getNewsDetail(function(response, error) {
     if (error) {
       if (response.statusCode == 404) { //expected 404, do not log error

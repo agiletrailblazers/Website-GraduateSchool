@@ -7,9 +7,10 @@ var common = require("../../helpers/common.js");
 
   // Get Catalog Request Form  page.
   router.get('/catalog-request-form', function(req, res, next) {
-  arrayOfContent=[];
+  var arrayOfContent=[];
   var catalogHardCopy = {};
   var archivelink = "";
+  var states = [];
   async.parallel([
     function(callback) {
       contentful.getCatalogType(function(response, error) {
@@ -19,11 +20,11 @@ var common = require("../../helpers/common.js");
         }
         else{
           response.cmsEntry.forEach(function(cmsEntryAsset) {
-            content = {};
+            var content = {};
             content.catlogTitle=  cmsEntryAsset.fields.catlogTitle;
             content.catalogFilter = cmsEntryAsset.fields.catalogFilter;
             content.catalogDisplayOrder = cmsEntryAsset.fields.catlogFilterOrder;
-            arrayofAssetObj =[];
+            var arrayofAssetObj =[];
             if(typeof(cmsEntryAsset.fields.catlogFileAssets) !='undefined') {
               cmsEntryAsset.fields.catlogFileAssets.forEach(function (sectionFile) {
                 response.cmsAsset.forEach(function (asset) {

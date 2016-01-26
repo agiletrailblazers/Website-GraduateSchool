@@ -115,7 +115,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
   ], function(results) {
     if (courseData && courseData.class) {
     	if (courseData.class.code === null) {
-    		code = courseData.class.id.slice(0,-3);
+    		var code = courseData.class.id.slice(0,-3);
     		courseData.class.code = code;
     	}
       //check if we should initially filter courses by location

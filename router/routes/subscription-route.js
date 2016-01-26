@@ -9,8 +9,10 @@ var common = require("../../helpers/common.js");
 
  // Get subscription-form page.
  router.get('/subscription-form', function(req, res, next) {
-   arrayOfContent=[];
+   var arrayOfContent=[];
    var catalogHardCopy = {};
+   var states = [];
+   var title = "";
    async.parallel([
      function(callback) {
        contentful.getCatalogType(function(response, error) {
@@ -19,7 +21,7 @@ var common = require("../../helpers/common.js");
          }
          else{
            response.cmsEntry.forEach(function(cmsEntryAsset) {
-             content = {};
+             var content = {};
              content.areaOfInterest=  cmsEntryAsset.fields.catlogTitle;
              content.areaOfInterestDisplayOrder = cmsEntryAsset.fields.catlogFilterOrder;
              arrayOfContent.push(content);
@@ -57,7 +59,8 @@ var common = require("../../helpers/common.js");
        });
      }], function(results) {
        res.render('forms/subscription_form', {
-         entry : arrayOfContent, title: title,
+         arrayOfContent : arrayOfContent,
+         title: title,
          states : states,
          skipReCaptcha : config("properties").skipReCaptchaVerification
        });
