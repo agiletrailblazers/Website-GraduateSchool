@@ -1,0 +1,22 @@
+User-agent: * Allow: /
+
+# Disallowed Directories 
+Disallow: /public/
+Disallow: /stylesheets/
+Disallow: /fonts/
+Disallow: /images/
+Disallow: /javascripts/
+
+# Disallowed File Types 
+Disallow: /*.jpg$
+Disallow: /*.jpeg$
+Disallow: /*.png$
+Disallow: /*.ico$ 
+Disallow: /*.pdf$
+ Disallow: /*.ejs$
+Disallow: /*.js$
+Disallow: /*.css$
+Disallow: /*.xml$
+
+# Disallowed URL Patterns
+Disallow: /*search?
