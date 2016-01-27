@@ -221,4 +221,13 @@ router.get('/registration/policy', function(req, res, next) {
   res.render('course-related-info/registration_policy');
 });
 
+router.get('/course_details.php', function(req, res, next) {
+  var courseCode = req.query["cid"];
+  if (common.isNotEmpty(courseCode)) {
+    res.redirect('/courses/'+courseCode);
+  } else {
+    res.redirect('/pagenotfound');
+  }
+});
+
 module.exports = router;
