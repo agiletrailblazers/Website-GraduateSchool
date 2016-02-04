@@ -3,7 +3,7 @@
     "skipReCaptchaVerification":true,
     "apiServer": "http://ec2-52-3-244-235.compute-1.amazonaws.com",
 
-    "registrationUrl" : "/manage/user/create?offeringId=",
+    "registrationUrl" : "/manage/cart?courseId=[courseId]&sessionId=[sessionId]",
     "manage" : {
       "userRouteEnabled" : true
     },

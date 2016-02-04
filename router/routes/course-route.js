@@ -67,6 +67,11 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
             if (common.isNotEmpty(courseData.session[i]["endDate"])) {
               iSession["endDate"] = courseData.session[i]["endDate"].date('MMM DD, YYYY');
             }
+            // set the session specific registration link
+            var tmpRegistrationUrl = config("properties").registrationUrl;
+            tmpRegistrationUrl = tmpRegistrationUrl.replace("[courseId]", courseData.class.id);
+            tmpRegistrationUrl = tmpRegistrationUrl.replace("[sessionId]", courseData.session[i].classNumber);
+            courseData.session[i].registrationUrl = tmpRegistrationUrl;
           }
           callback();
         }
@@ -179,8 +184,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
         courseData: courseData,
         title: 'Course Details',
         topTitle: courseData.class.title ,
-        location: location,
-        registrationUrl: config("properties").registrationUrl
+        location: location
       });
     }
     else {

@@ -2,7 +2,7 @@
     "env": "urgent",
     "apiServer": "http://10.0.1.244",
 
-    "registrationUrl" : "http://saba-test-loadbalancer-1038476084.us-east-1.elb.amazonaws.com/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=",
+    "registrationUrl" : "http://saba-test-loadbalancer-1038476084.us-east-1.elb.amazonaws.com/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=[sessionId]",
 
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
