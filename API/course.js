@@ -153,5 +153,16 @@ module.exports = {
         var result = JSON.parse(body);
         return callback(response, error, result);
     });
+  },
+  // API to retrieve a specific course session by its ID
+  getSession: function(sessionId, callback) {
+    // url for the API call
+    var sessionUrl = config("properties").apiServer + '/api/courses/session/' + sessionId;
+    request(sessionUrl, function (error, response, body) {
+      if (common.checkForErrorAndLog(error, response, sessionUrl)) {
+        return callback(new Error("Exception occurred getting session " + sessionId), null);
+      }
+      return callback(null, JSON.parse(body));
+    });
   }
 };

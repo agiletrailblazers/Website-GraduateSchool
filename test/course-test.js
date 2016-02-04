@@ -225,3 +225,41 @@ test('course-search with government search  criteria,numRequested and DeliveryMe
   },params);
   t.end();
 });
+
+test('getSession success', function(t) {
+  //use endpoint from config even for tests
+  var apiServer = config("properties").apiServer;
+  var sessionId = "55555";
+  var expectedResponse = {"key" : "value"};
+
+  //test a 200 ok
+  var server = nock(apiServer)
+        .get('/api/courses/session/' + sessionId)
+        .reply(200, expectedResponse);
+
+  server;
+  course.getSession(sessionId, function(error, session) {
+    expect(error).to.be.a('null');
+    expect(session).to.eql(expectedResponse);
+  });
+  t.end();
+});
+
+test('getSession failure', function(t) {
+  //use endpoint from config even for tests
+  var apiServer = config("properties").apiServer;
+  var sessionId = "55555";
+  var expectedResponse = {"key" : "value"};
+
+  //test a 500 internal server error
+  var server = nock(apiServer)
+        .get('/api/courses/session/' + sessionId)
+        .reply(500, {});
+
+  server;
+  course.getSession(sessionId, function(error, session) {
+    expect(session).to.be.a('null');
+    expect(error).to.be.an.instanceof(Error);
+  });
+  t.end();
+});

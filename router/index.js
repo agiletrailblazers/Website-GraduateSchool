@@ -26,6 +26,7 @@ module.exports = function (app) {
     app.use('/', require('./routes/subscription-route'));
     if (config("properties").manage.userRouteEnabled === true) {
       app.use('/manage/user', require('./routes/manage/user-route'));
+      app.use('/manage/cart', require('./routes/manage/cart-route'));
     }
     app.use(defaultUrlRedirect);
 };

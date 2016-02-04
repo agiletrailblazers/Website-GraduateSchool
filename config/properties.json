@@ -3,7 +3,7 @@
     "skipReCaptchaVerification":false,
     "apiServer": "http://ec2-52-3-244-235.compute-1.amazonaws.com",
 
-    "registrationUrl" : "https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=",
+    "registrationUrl" : "https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=[sessionId]",
     "manage" : {
       "userRouteEnabled" : false
     },
