@@ -85,8 +85,6 @@ router.post('/create', function (req, res, next) {
          }
       };
 
-logger.info("PFRIEDMAN - create user: " + JSON.stringify(userData));
-
       // get the list of states required by the form
       user.createUser(userData, function(createdUser, error) {
         // callback with the error, this will cause async module to stop executing remaining
