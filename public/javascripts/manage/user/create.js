@@ -46,9 +46,9 @@ $(document).ready(function () {
         .done(function (user) {
           $(".loading").hide();
 
-          if (!!document.getElementById("offeringId")) {
+          if (!!document.getElementById("sessionId")) {
             // we were passed a course session, redirect to registration, passing in the user id and course session id
-            window.location.href='/manage/user/' + user.id + '/register/' + $("#offeringId").val();
+            window.location.href='/manage/user/' + user.id + '/register/' + $("#sessionId").val();
           }
           else {
             // no course session was provided, display user created successfully
@@ -73,4 +73,27 @@ $(document).ready(function () {
         });
     }
   });
+
+  $('#toggle-create-account').click(function() {
+      displayCreateAccount();
+  });
+
+  $('#toggle-already-have-account').click(function() {
+      displayAlreadyHaveAccount();
+  });
+
 });
+
+function displayAlreadyHaveAccount() {
+  $('#create-account-section').fadeOut();
+  $('#toggle-create-account-section').fadeIn();
+  $('#toggle-already-have-account-section').fadeOut();
+  $('#login-section').fadeIn();
+}
+
+function displayCreateAccount() {
+  $('#create-account-section').fadeIn();
+  $('#toggle-create-account-section').fadeOut();
+  $('#toggle-already-have-account-section').fadeIn();
+  $('#login-section').fadeOut();
+}

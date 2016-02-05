@@ -1,18 +1,66 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> Graduate School USA | <%= content.title %></title>
+    <title> Graduate School USA | <%= title %></title>
     <% include ../../partials/head %>
     <script type="text/javascript" src="/javascripts/manage/user/create.js"></script>
   </head>
   <body>
     <% include ../../partials/header %>
-    <header>
       <div id="container" class="container">
         <div class="loading" style="display:none;"></div>
         <div id="outer" class="col-lg-12 col-md-12 col-sm-12 form-fix padding20">
 
-          <div id="gs-form" class="col-lg-9 col-md-9 col-sm-9">
+          <div id="toggle-already-have-account-section" class="row" style="display:none;">
+            <div class="col-lg-4 col-md-4 col-sm-4"></div>
+            <div class="col-lg-4 col-md-4 col-sm-4 center">
+              <a id="toggle-already-have-account" href="#outer" tabindex="11">Already have an account?</a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4"></div>
+          </div>
+
+          <!-- Login Form Secion -->
+          <div id="login-section" class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4"></div>
+            <div id="login" class="col-lg-4 col-md-4 col-sm-4">
+              <form id="login-form" role="form">
+                <% if (sessionId) { %>
+                  <input type=hidden id="sessionId" name="sessionId" value="<%= sessionId %>"/>
+                <% } %>
+                <div id="form-wrap">
+                  <div>
+                    <span class="form-group">
+                      <label for="username">Email</label>
+                      <input type="email" id="username" class="form-control" size="50" tabindex="12">
+                    </span>
+                    <div class="spacer10"></div>
+                    <span class="form-group">
+                      <label for="credentials">Password</label>
+                      <input type="password" id="credentials" class="form-control" tabindex="13">
+                    </span>
+                  </div>
+                  <div class="spacer10"></div>
+                  <div id="buttons" class="center">
+                    <button id="login-submit" type="submit" tabindex="14" onclick="window.location.href='#login-form'">Log In</button>
+                  </div>
+                </div> <!-- END form-wrap -->
+              </form> <!-- END create-user-form -->
+            </div> <!-- END login -->
+            <div class="col-lg-4 col-md-4 col-sm-4"></div>
+          </div> <!-- END login-section -->
+
+          <div class="spacer25"></div>
+
+          <div id="toggle-create-account-section" class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4"></div>
+            <div class="col-lg-4 col-md-4 col-sm-4 center">
+              <a id="toggle-create-account" href="#outer" tabindex="15">Need an account?</a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4"></div>
+          </div>
+
+          <div id="create-account-section" class="row" style="display:none;">
+            <div id="gs-form">
               <!-- alert - error -->
               <div id="gs-form-alert-error" class="alert alert-danger" role="alert" style="display:none;">
                 <span id="gs-form-alert-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
@@ -23,28 +71,30 @@
               </div>
               <div id="create-user">
                 <form id="create-user-form" role="form">
+                  <% if (sessionId) { %>
+                    <input type=hidden id="sessionId" name="sessionId" value="<%= sessionId %>"/>
+                  <% } %>
                   <div id="form-wrap">
-                    <fieldset id="personal-info">
-                      <legend>Personal information</legend>
+                    <div id="personal-info">
                       <div class="form-inline">
                         <span class="form-group">
                           <label for="firstName">*First Name</label>
-                          <input type="text" id="firstName" class="form-control" tabindex="10">
+                          <input type="text" id="firstName" class="form-control" tabindex="16">
                         </span>
                         <span class="form-group">
                           <label for="middleName">Middle Name</label>
-                          <input type="text" id="middleName" class="form-control" tabindex="11">
+                          <input type="text" id="middleName" class="form-control" tabindex="17">
                         </span>
                         <span class="form-group">
                           <label for="lastName">*Last Name</label>
-                          <input type="text" id="lastName" class="form-control" tabindex="12">
+                          <input type="text" id="lastName" class="form-control" tabindex="18">
                         </span>
                       </div>
                       <div class="form-inline">
                         <span class="form-group">
                           <label for="dateBirth">Date of birth</label><br>
                           <span class="form-group">
-                            <select id="birthMonth" name="birthMonth" class="form-control width-third" tabindex="13">
+                            <select id="birthMonth" name="birthMonth" class="form-control width-third" tabindex="19">
                               <option value='' default selected>Month</option>
                               <% for (var i = 1; i <= 12; i++) { %>
                               <option value='<%= i %>'><%= i %> </option>
@@ -52,7 +102,7 @@
                             </select>
                           </span>
                           <span class="form-group">
-                            <select id="birthDay" name="birthDay" class="form-control width-third" tabindex="14">
+                            <select id="birthDay" name="birthDay" class="form-control width-third" tabindex="20">
                               <option value='' default selected/>Day</option>
                               <% for (var i = 1; i <= 31; i++) { %>
                               <option value='<%= i %>'><%= i %> </option>
@@ -60,46 +110,44 @@
                             </select>
                           </span>
                           <span class="form-group">
-                              <input type="text" id="birthYear" class="form-control width-third" size="4" maxlength="4" tabindex="15" placeholder="Year">
+                              <input type="text" id="birthYear" class="form-control width-third" size="4" maxlength="4" tabindex="21" placeholder="Year">
                           </span>
                         </span>
                         <span class="form-group">
                           <label for="lastFourSSN">Last 4 digits of SSN</label>
-                          <input type="password" id="lastFourSSN" class="form-control width-half" size="4" maxlength="4" tabindex="16" data-toggle="tooltip" title="Please enter the last four digits of your social security number">
+                          <input type="password" id="lastFourSSN" class="form-control width-half" size="4" maxlength="4" tabindex="22" data-toggle="tooltip" title="Please enter the last four digits of your social security number">
                         </span>
                       </div>
                       <div class="form-inline">
                         <span class="form-group">
                           <label for="password">*Password</label>
-                          <input type="password" id="password" class="form-control" tabindex="17">
+                          <input type="password" id="password" class="form-control" tabindex="23">
                         </span>
                         <span class="form-group">
                           <label for="confirmPassword">*Confirm Password</label>
-                          <input type="password" id="confirmPassword" class="form-control" tabindex="18">
+                          <input type="password" id="confirmPassword" class="form-control" tabindex="24">
                         </span>
                       </div>
-                    </fieldset> <!-- END personal-info -->
-                    <fieldset id="contact-info">
-                      <legend>Contact Information</legend>
+
                       <div class="form-inline">
                         <span class="form-group">
                           <label for="street">*Street Address</label>
-                          <input type="text" id="street" class="form-control" tabindex="19">
+                          <input type="text" id="street" class="form-control" tabindex="25">
                         </span>
                         <span class="form-group">
                           <label for="suite">Suite, Mail Stop</label>
-                          <input type="text" id="suite" class="form-control width-half" tabindex="20">
+                          <input type="text" id="suite" class="form-control width-half" tabindex="26">
                         </span>
                       </div>
                       <div class="form-inline">
                         <span class="form-group">
                           <label for="city">*City</label>
-                          <input type="text" id="city" class="form-control" tabindex="21">
+                          <input type="text" id="city" class="form-control" tabindex="27">
                         </span>
                         <span class="form-group">
                           <label for="state">*State</label>
                       <!--nutch_noindex-->
-                          <select id="state" class="form-control width-half" tabindex="22">
+                          <select id="state" class="form-control width-half" tabindex="28">
                             <option value="">Select One</option>
                             <% for (i = 0; i < states.length; i++) { %>
                               <option value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
@@ -109,41 +157,32 @@
                         </span>
                         <span class="form-group">
                           <label for="zip">*Zip</label>
-                          <input type="text" id="zip" class="form-control width-half" tabindex="23">
+                          <input type="text" id="zip" class="form-control width-half" tabindex="29">
                         </span>
                       </div>
                       <div class="form-inline">
                         <span class="form-group">
                           <label for="email">*Email</label>
-                          <input type="email" id="email" class="form-control" size="50" tabindex="24">
+                          <input type="email" id="email" class="form-control" size="50" tabindex="30">
                         </span>
                         <span class="form-group">
                           <label for="phone">*Daytime Phone Number</label>
-                          <input type="text" id="phone" class="form-control" tabindex="25">
+                          <input type="text" id="phone" class="form-control" tabindex="31">
                         </span>
                       </div>
-                    </fieldset> <!-- END contact-info -->
+                    </div>
                     <div class="spacer10"></div>
-                    <button id="create-user-form-submit" type="submit" tabindex="26" onclick="window.location.href='#gs-form'">Submit</button>
+                    <div id="buttons">
+                      <button id="create-user-form-submit" type="submit" tabindex="32" onclick="window.location.href='#gs-form'">Submit</button>
+                    </div>
                   </div> <!-- END form-wrap -->
                 </form> <!-- END create-user-form -->
-            </div>  <!-- END create-user -->
-          </div> <!--END gs-form-->
-
-          <% if (offeringId) { %>
-            <input type=hidden id="offeringId" name="offeringId" value="<%= offeringId %>"/>
-            <div id="course-information" class="col-lg-3 col-md-3 col-sm-3 outer-border">
-              <fieldset>
-                <legend>Course Information</legend>
-                <div>Session ID <%= offeringId ? offeringId : 'Oops, no course offering provided' %></div>
-                <div>TODO: create a session API to retrieve course/session info by session ID</div>
-              </fieldset>
-            </div> <!-- END course-information -->
-          <% } %>
+              </div>  <!-- END create-user -->
+            </div> <!--END gs-form-->
+          </div> <!-- END create-account-section -->
 
         </div> <!--END outer-->
       </div> <!--END container-->
-    </header>
     <!-- Footer -->
     <% include ../../partials/footer %>
     <!-- END Footer  -->

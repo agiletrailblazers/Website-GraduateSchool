@@ -11,17 +11,15 @@ var common = require("../../../helpers/common.js");
 // Display the create user form
 router.get('/create', function(req, res, next) {
 
-  content = {
-    title: "Account Setup",
+  var content = {
+    title: "Login",
     states: {},
-    offeringId: null
+    sessionId: null
   };
   async.series([
     function(callback) {
-      content.offeringId = req.query.offeringId ? req.query.offeringId : null;
-
-      // TODO lookup the course/session info by session ID
-      callback();
+      content.sessionId = req.query.sessionId ? req.query.sessionId : null;
+      return callback(null);
     },
     function(callback) {
       // get the list of states required by the form
@@ -33,7 +31,7 @@ router.get('/create', function(req, res, next) {
 
         // got our data, set it up
         content.states = result;
-        callback(null);
+        return callback(null);
       });
     }
   ], function(err) {
@@ -42,7 +40,11 @@ router.get('/create', function(req, res, next) {
       common.redirectToError(res);
       return;
     }
-    res.render('manage/user/create', content);
+    res.render('manage/user/create', {
+      title: content.title,
+      states: content.states,
+      sessionId: content.sessionId
+    });
   });
 });
 
@@ -83,6 +85,8 @@ router.post('/create', function (req, res, next) {
          }
       };
 
+logger.info("PFRIEDMAN - create user: " + JSON.stringify(userData));
+
       // get the list of states required by the form
       user.createUser(userData, function(createdUser, error) {
         // callback with the error, this will cause async module to stop executing remaining
@@ -91,7 +95,6 @@ router.post('/create', function (req, res, next) {
         if (error) return callback(error);
 
         // user created successfully
-        logger.info("Created user: " + createdUser.id);
         logger.info("Created user: " + createdUser.id + " - " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
         content.createdUser = createdUser;
         callback(null);

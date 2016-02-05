@@ -5,7 +5,7 @@ var common = require("../../helpers/common.js");
 
 module.exports = {
   createUser: function(userData, callback) {
-    var targetURL = config("properties").apiServer + '/api/registration/user';
+    var targetURL = config("properties").apiServer + '/api/user';
     request({
       method: 'POST',
       url: targetURL,
