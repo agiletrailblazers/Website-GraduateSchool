@@ -11,37 +11,30 @@ var common = require("../../../helpers/common.js");
 // Display the create user form
 router.get('/create', function(req, res, next) {
 
-  var content = {
-    title: "Login",
-    states: {},
-    sessionId: null
-  };
-  async.series([
-    function(callback) {
-      content.sessionId = req.query.sessionId ? req.query.sessionId : null;
-      return callback(null);
+  async.series({
+    sessionId: function(callback) {
+      var sessionId = req.query.sessionId ? req.query.sessionId : null;
+      return callback(null, sessionId);
     },
-    function(callback) {
+    states: function(callback) {
       // get the list of states required by the form
-      contentful.getReferenceData('us-states', function(result, error) {
+      contentful.getReferenceData('us-states', function(states, error) {
         // callback with the error, this will cause async module to stop executing remaining
         // functions and jump immediately to the final function, it is important to return
         // so that the task callback isn't called twice
         if (error) return callback(error);
 
-        // got our data, set it up
-        content.states = result;
-        return callback(null);
+        return callback(null, states);
       });
     }
-  ], function(err) {
+  }, function(err, content) {
     if (err) {
       logger.error("Error rendering createuser", err);
       common.redirectToError(res);
       return;
     }
     res.render('manage/user/create', {
-      title: content.title,
+      title: 'Login',
       states: content.states,
       sessionId: content.sessionId
     });
@@ -51,15 +44,12 @@ router.get('/create', function(req, res, next) {
 // Handle request to create the user; this is an AJAX call.
 router.post('/create', function (req, res, next) {
 
-  // get the form data from the body of the request
-  var formData = req.body;
-  var content = {
-    "createdUser" : null
-  };
-
-  async.series([
-    function(callback) {
+  async.series({
+    createdUser: function(callback) {
+      // get the form data from the body of the request
+      var formData = req.body;
       logger.info("Creating user: " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
+
       var userData = {
         "username" : formData.email,
         "password" : formData.password,
@@ -86,7 +76,7 @@ router.post('/create', function (req, res, next) {
       };
 
       // get the list of states required by the form
-      user.createUser(userData, function(createdUser, error) {
+      user.createUser(userData, function(error, createdUser) {
         // callback with the error, this will cause async module to stop executing remaining
         // functions and jump immediately to the final function, it is important to return
         // so that the task callback isn't called twice
@@ -94,11 +84,10 @@ router.post('/create', function (req, res, next) {
 
         // user created successfully
         logger.info("Created user: " + createdUser.id + " - " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
-        content.createdUser = createdUser;
-        callback(null);
+        return callback(null, createdUser);
       });
     }
-  ], function(err) {
+  }, function(err, content) {
     if (err) {
       logger.error("Failed during user creation", err);
       res.status(500).send({"error": "We have experienced a problem processing your request, please try again later."});
@@ -110,18 +99,15 @@ router.post('/create', function (req, res, next) {
 });
 
 // Display the register user form
-router.get('/:userId/register/:offeringId', function(req, res, next) {
+router.get('/:userId/register/:sessionId', function(req, res, next) {
 
-  content = {
+  res.render('manage/user/register', {
     title: "Course Registration",
     user: {
       id: req.params.userId
     },
-    offeringId: req.params.offeringId
-  };
-
-  logger.info("Registering student, " + JSON.stringify(content));
-  res.render('manage/user/register', content);
+    sessionId: req.params.sessionId
+  });
 });
 
 

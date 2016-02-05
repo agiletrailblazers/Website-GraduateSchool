@@ -39,11 +39,11 @@ test('createUser success', function(t) {
 
   //test a 200 ok
   var server = nock(apiServer)
-        .post('/api/registration/user', userData)
+        .post('/api/user', userData)
         .reply(200, expectedResponse);
 
   server;
-  user.createUser(userData, function(createdUser, error) {
+  user.createUser(userData, function(error, createdUser) {
     expect(error).to.be.a('null');
     expect(createdUser).to.eql(expectedResponse);
   });
@@ -79,11 +79,11 @@ test('createUser success', function(t) {
     };
 
     var server = nock(apiServer)
-          .post('/api/registration/user', userData)
+          .post('/api/user', userData)
           .reply(500, {});
 
     server;
-    user.createUser(userData, function(createdUser, error) {
+    user.createUser(userData, function(error, createdUser) {
       expect(createdUser).to.be.a('null');
       expect(error).to.be.an.instanceof(Error);
     });

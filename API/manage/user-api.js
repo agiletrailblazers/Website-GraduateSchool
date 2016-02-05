@@ -12,9 +12,9 @@ module.exports = {
       json: userData
     }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(null, new Error("Exception occured creating user"));
+        return callback(new Error("Exception occured creating user"), null);
       }
-      return callback(body, null);
+      return callback(null, body);
     });
   }
 };
