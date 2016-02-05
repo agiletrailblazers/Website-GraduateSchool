@@ -6,13 +6,13 @@
         <ul id="form-filter" class="nav nav-pills">
             <% entry.forEach(function(entrySection,num) { %>
             <% if (num == 0) { %>
-              <li class="active"><a data-toggle="pill" href="#tab<%=num%>"><%- entrySection.catlogTitle %></a></li>
+              <li class="active" id="catalogTitle<%= num%>"><a data-toggle="pill" href="#tab<%=num%>"><%- entrySection.catlogTitle %></a></li>
             <% } else { %>
-              <li><a data-toggle="pill" href="#tab<%=num%>"><%- entrySection.catlogTitle %></a></li>
+              <li id="catalogTitle<%= num%>"><a data-toggle="pill" href="#tab<%=num%>"><%- entrySection.catlogTitle %></a></li>
             <% } %>
           <% }); %>
         </ul>
-        <span class="filter-header pull-right"><a href=<%- archivelink %> class="archive"><span><img src="/images/archive-icon.png"/></span> Archive</a></span>
+        <span class="filter-header pull-right"><a id="archiveLink" href=<%- archivelink %> class="archive"><span><img src="/images/archive-icon.png"/></span> Archive</a></span>
       </div>
     </div>
   </div> <!-- End Row -->
