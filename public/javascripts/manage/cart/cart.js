@@ -3,7 +3,8 @@ $(document).ready(function () {
 
   $("#cart-form-continue").click(function (event) {
     event.preventDefault();
-    alert("Functionality not yet available.");
+    // continue to the user page
+    window.location.href='/manage/user/create?sessionId=' + $("#sessionId").val();
   });
 
 });
