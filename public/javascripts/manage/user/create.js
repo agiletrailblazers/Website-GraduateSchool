@@ -47,8 +47,8 @@ $(document).ready(function () {
           $(".loading").hide();
 
           if (!!document.getElementById("sessionId")) {
-            // we were passed a course session, redirect to registration, passing in the user id and course session id
-            window.location.href='/manage/user/' + user.id + '/register/' + $("#sessionId").val();
+            // we were passed a course session, redirect to payment, passing in the user id and course session id
+            window.location.href='/manage/cart/payment/user/' + user.id + '/session/' + $("#sessionId").val();
           }
           else {
             // no course session was provided, display user created successfully

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript">
+      window.onload = function() {
+        document.forms['payment'].submit();
+      };
+    </script>
+  </head>
+  <body>
+    <form id="payment" action="<%= paymentUrl %>" method="post"/>
+      <% parameters.forEach(function(value, key) { %>
+      <input type="hidden" id="<%= key %>" name="<%= key %>" value="<%= value %>"/>
+      <% }); %>
+      <input type="hidden" id="signature" name="signature" value="<%= signature %>"/>
+    </form>
+  </body>
+</html>
