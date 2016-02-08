@@ -94,21 +94,8 @@ router.post('/create', function (req, res, next) {
       return;
     }
     // send success to client
-    res.status(200).send({"id" : content.createdUser.id});
+    res.status(201).send({"id" : content.createdUser.id});
   });
 });
-
-// Display the register user form
-router.get('/:userId/register/:sessionId', function(req, res, next) {
-
-  res.render('manage/user/register', {
-    title: "Course Registration",
-    user: {
-      id: req.params.userId
-    },
-    sessionId: req.params.sessionId
-  });
-});
-
 
 module.exports = router;
