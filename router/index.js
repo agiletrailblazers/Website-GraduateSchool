@@ -38,9 +38,13 @@ function defaultUrlRedirect(req, res, next) {
       data.forEach(function (curr){
         map[curr.fields.from] = curr.fields.to;
       });
-
-      if(common.isNotEmpty(map[req.url])) {
-        res.redirect(map[req.url]);
+      var  requrl = req.url.trim();
+      var lastChar=requrl.charAt(requrl.length-1);
+      if (lastChar.indexOf('/')==0) {
+        requrl = requrl.substring(0, requrl.length - 1);
+      }
+      if(common.isNotEmpty(map[requrl])) {
+        res.redirect(map[requrl]);
       }
       // redirect non-one word urls to pagenotfound. '1' is used in substring to ignore the first char in url i.e to ignore first '/'
       else if (-1 === req.url.substring(1).search(/^[A-Za-z0-9_-]+$/)){
