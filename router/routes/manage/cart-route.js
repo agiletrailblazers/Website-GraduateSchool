@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
   if (req.query.courseId) {
     sessionData.cart.courseId = req.query.courseId;
   }
-  if (req.query.sessionid) {
+  if (req.query.sessionId) {
     sessionData.cart.sessionId = req.query.sessionId;
   }
 
@@ -165,7 +165,6 @@ router.get('/payment', function(req, res, next) {
         parameters.set("transaction_type", "authorization");
         parameters.set("reference_number", reference_number);
         parameters.set("amount", session["tuition"]);
-//        parameters.set("amount", 10000000000);  // this amount will cause a decline, use for testing
         parameters.set("currency", "USD");
         // add line item info
         parameters.set("line_item_count", 1);
@@ -221,19 +220,93 @@ router.post('/payment/cancel', function(req, res, next) {
   res.redirect('/manage/cart');
 });
 
-// handle the payment completion post from Cybersource payment
-router.post('/payment/complete', function(req, res, next) {
+// handle the payment confirm post from Cybersource payment
+router.post('/payment/confirm', function(req, res, next) {
+
+  logger.debug("Processing payment confirm");
 
   var sessionData = session.getSessionData(req);
 
-  logger.debug("Processing payment completed");
-  res.json(req.body);
+  async.parallel({
+    course: function(callback) {
+      var courseId = sessionData.cart.courseId;
+      if (!courseId) {
+        return callback(new Error("Missing courseId parameter"));
+      }
+
+      logger.debug("Looking up course " + courseId + " for shopping cart");
+      courseAPI.performExactCourseSearch(function(response, error, course) {
+        // callback with the error, this will cause async module to stop executing remaining
+        // functions and jump immediately to the final function, it is important to return
+        // so that the task callback isn't called twice
+        if (error) return callback(error);
+
+        return callback(null, course);
+      }, courseId);
+    },
+    session: function(callback) {
+      var sessionId = sessionData.cart.sessionId;
+      if (!sessionId) {
+        return callback(new Error("Missing sessionId parameter"));
+      }
+
+      logger.debug("Looking up course session " + sessionId + " for shopping cart");
+      courseAPI.getSession(sessionId, function(error, session) {
+        // callback with the error, this will cause async module to stop executing remaining
+        // functions and jump immediately to the final function, it is important to return
+        // so that the task callback isn't called twice
+        if (error) return callback(error);
+
+        // Change date format in the session.
+        session["startDate"] = session["startDate"].date('MMM DD, YYYY');
+        if (common.isNotEmpty(session["endDate"])) {
+          session["endDate"] = session["endDate"].date('MMM DD, YYYY');
+        }
+
+        return callback(null, session);
+      });
+    },
+    authorization: function(callback) {
+      // this is more of sanity check / safety precaution
+      if (!sessionData.userId) {
+        return callback(new Error("No user id in session"));
+      }
+
+      // populate the payment authorization data from the cybersource response
+      var cybersourceResponse = req.body;
+
+      var authorization = {
+        approved: (cybersourceResponse.decision == "ACCEPT") ? true : false,
+        cardNumber: cybersourceResponse.req_card_number,
+        cardExpiry: cybersourceResponse.req_card_expiry_date
+      };
+
+      return callback(null, authorization);
+    }
+  }, function(err, content) {
+    if (err) {
+      logger.error("Error rendering shopping cart", err);
+      common.redirectToError(res);
+      return;
+    }
+
+    // update the session data
+    session.setSessionData(res, sessionData);
+
+    res.render('manage/cart/confirmation', {
+        title: "Course Registration - Confirmation",
+        course: content.course,
+        session: content.session,
+        authorization: content.authorization,
+        cybersourceresponse: JSON.stringify(req.body)
+    });
+  });
 });
 
 // handle the payment receipt
-router.get('/payment/receipt', function(req, res, next) {
+router.post('/payment/complete', function(req, res, next) {
 
-  logger.debug("Processing payment receipt");
+  logger.debug("Processing payment complete");
 
   // TODO clear out cart
   var sessionData = session.getSessionData(req);
@@ -242,7 +315,7 @@ router.get('/payment/receipt', function(req, res, next) {
   // update the session data
   session.setSessionData(res, sessionData);
 
-  res.json(req.body);
+  res.send("Receipt Page - Under Construction");
 });
 
 
