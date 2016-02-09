@@ -46,9 +46,6 @@ var common = require("../../helpers/common.js");
             return (a.catalogDisplayOrder) - (b.catalogDisplayOrder);
           });
           arrayOfContent.forEach(function(categoryGroup) {
-            categoryGroup.assetList.sort(function(a,b) {
-               return a.title.localeCompare(b.title);
-            });
             if (categoryGroup.assetList.length > 16) {
               categoryGroup.assetList.forEach(function(asset,num) {
               if (num > categoryGroup.assetList.length/2)  {
