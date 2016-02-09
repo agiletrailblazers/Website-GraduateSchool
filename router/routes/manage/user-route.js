@@ -5,15 +5,18 @@ var logger = require('../../../logger');
 var contentful = require("../../../API/contentful.js");
 var user = require("../../../API/manage/user-api.js");
 var common = require("../../../helpers/common.js");
+var session = require('../../../API/manage/session-api.js');
 
 // Routes related to user management
 
 // Display the create user form
 router.get('/create', function(req, res, next) {
 
+  var sessionData = session.getSessionData(req);
+
   async.series({
     sessionId: function(callback) {
-      var sessionId = req.query.sessionId ? req.query.sessionId : null;
+      var sessionId = sessionData.cart.sessionId;
       return callback(null, sessionId);
     },
     states: function(callback) {
@@ -33,6 +36,7 @@ router.get('/create', function(req, res, next) {
       common.redirectToError(res);
       return;
     }
+
     res.render('manage/user/create', {
       title: 'Login',
       states: content.states,
@@ -93,8 +97,14 @@ router.post('/create', function (req, res, next) {
       res.status(500).send({"error": "We have experienced a problem processing your request, please try again later."});
       return;
     }
+
+    // add the created user id to the session data
+    var sessionData = session.getSessionData(req);
+    sessionData.userId = content.createdUser.id;
+    session.setSessionData(res, sessionData);
+
     // send success to client
-    res.status(201).send({"id" : content.createdUser.id});
+    res.status(201).send();
   });
 });
 

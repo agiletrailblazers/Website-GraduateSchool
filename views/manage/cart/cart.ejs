@@ -3,7 +3,6 @@
   <head>
     <title> Graduate School USA | <%= title %></title>
     <% include ../../partials/head %>
-    <script type="text/javascript" src="/javascripts/manage/cart/cart.js"></script>
   </head>
   <body>
     <% include ../../partials/header %>
@@ -13,10 +12,7 @@
 
           <div id="gs-form">
               <div id="cart">
-                <form id="cart-form" role="form">
-                  <% if (session["classNumber"]) { %>
-                    <input type=hidden id="sessionId" name="sessionId" value="<%= session['classNumber'] %>"/>
-                  <% } %>
+                <form id="cart-form" role="form" method="get" action="<%= nextpage %>">
                   <div id="form-wrap">
                     <div id="cart-items">
                       <table>
@@ -44,7 +40,7 @@
                     </div>
                     <div class="spacer10"></div>
                     <div id="buttons" class="pull-right">
-                      <button id="cart-form-continue" type="submit" tabindex="21" onclick="window.location.href='#gs-form'">Continue</button>
+                      <button id="cart-form-continue" type="submit" tabindex="10">Continue</button>
                     </div>
                   </div> <!-- END form-wrap -->
                 </form> <!-- END cart-form -->
