@@ -272,20 +272,54 @@ router.post('/payment/confirm', function(req, res, next) {
         return callback(new Error("No user id in session"));
       }
 
-      // populate the payment authorization data from the cybersource response
+      // get the cybersource response
       var cybersourceResponse = req.body;
 
+      // ensure that request was not tampered with by re-building the signature and comparing to the one set by cybersource
+      var cybersourceSignedFields = (cybersourceResponse.signed_field_names).split(',');
+      var parameters = new Map();
+      cybersourceSignedFields.forEach(function(field) {
+          parameters.set(field, cybersourceResponse[field]);
+      });
+
+      // generate the signature string
+      var signatureStr = "";
+      var i = 0;
+      parameters.forEach(function(value, key) {
+        if (i != 0) {
+          signatureStr = signatureStr + ",";
+        }
+        signatureStr = signatureStr + key + "=" + value;
+        i++;
+      });
+
+      // encode the signature string
+      var hash = crypto.HmacSHA256(signatureStr, config("properties").manage.payment.secretKey);
+      var signature = crypto.enc.Base64.stringify(hash);
+
+      logger.debug("Generated signed signature string: " + signature);
+      logger.debug("Cybersrc  signed signature string: " + cybersourceResponse.signature);
+      // compare the generated signature string with the one provided by cybersource
+      if (signature !== cybersourceResponse.signature) {
+        // signature strings don't match, data may have been altered
+        return callback(new Error("Generated signature string does not match cybersource signature"));
+      }
+
+      // populate the payment authorization data from the cybersource response
       var authorization = {
-        approved: (cybersourceResponse.decision == "ACCEPT") ? true : false,
+        approved: (cybersourceResponse.decision === "ACCEPT") ? true : false,
         cardNumber: cybersourceResponse.req_card_number,
         cardExpiry: cybersourceResponse.req_card_expiry_date
       };
+
+      // add required fields to session for completing the sale after confirmation
+      sessionData.cart.payment.authorization = authorization;
 
       return callback(null, authorization);
     }
   }, function(err, content) {
     if (err) {
-      logger.error("Error rendering shopping cart", err);
+      logger.error("Error rendering payment confirmation", err);
       common.redirectToError(res);
       return;
     }
@@ -297,8 +331,7 @@ router.post('/payment/confirm', function(req, res, next) {
         title: "Course Registration - Confirmation",
         course: content.course,
         session: content.session,
-        authorization: content.authorization,
-        cybersourceresponse: JSON.stringify(req.body)
+        authorization: content.authorization
     });
   });
 });
@@ -308,14 +341,81 @@ router.post('/payment/complete', function(req, res, next) {
 
   logger.debug("Processing payment complete");
 
-  // TODO clear out cart
   var sessionData = session.getSessionData(req);
-  sessionData.cart = {};
 
-  // update the session data
-  session.setSessionData(res, sessionData);
+  async.series({
+      course: function(callback) {
+        var courseId = sessionData.cart.courseId;
+        if (!courseId) {
+          return callback(new Error("Missing courseId parameter"));
+        }
 
-  res.send("Receipt Page - Under Construction");
+        logger.debug("Looking up course " + courseId + " for shopping cart");
+        courseAPI.performExactCourseSearch(function(response, error, course) {
+          // callback with the error, this will cause async module to stop executing remaining
+          // functions and jump immediately to the final function, it is important to return
+          // so that the task callback isn't called twice
+          if (error) return callback(error);
+
+          return callback(null, course);
+        }, courseId);
+      },
+      session: function(callback) {
+        var sessionId = sessionData.cart.sessionId;
+        if (!sessionId) {
+          return callback(new Error("Missing sessionId parameter"));
+        }
+
+        logger.debug("Looking up course session " + sessionId + " for shopping cart");
+        courseAPI.getSession(sessionId, function(error, session) {
+          // callback with the error, this will cause async module to stop executing remaining
+          // functions and jump immediately to the final function, it is important to return
+          // so that the task callback isn't called twice
+          if (error) return callback(error);
+
+          // Change date format in the session.
+          session["startDate"] = session["startDate"].date('MMM DD, YYYY');
+          if (common.isNotEmpty(session["endDate"])) {
+            session["endDate"] = session["endDate"].date('MMM DD, YYYY');
+          }
+
+          return callback(null, session);
+        });
+      },
+      registration: function(callback) {
+
+        // TODO make the API call to create the registration
+        var registration = {};
+        return callback(null, registration);
+      },
+      payment: function(callback) {
+
+        // TODO make the API call to cybersource to complete the sale
+        var payment = sessionData.cart.payment.authorization;
+        return callback(null, payment);
+      }
+    }, function(err, content) {
+
+      if (err) {
+        logger.error("Error rendering createuser", err);
+        common.redirectToError(res);
+        return;
+      }
+
+      // clear out the cart after successful registration and payment
+      sessionData.cart = {};
+
+      // update the session data
+      session.setSessionData(res, sessionData);
+
+      res.render('manage/cart/receipt', {
+          title: "Course Registration - Receipt",
+          course: content.course,
+          session: content.session,
+          registration: content.registration,
+          payment: content.payment
+        });
+  });
 });
 
 
