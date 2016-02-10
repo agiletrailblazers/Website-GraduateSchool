@@ -34,6 +34,14 @@ var common = require("../../helpers/common.js");
                     assetObj.description = asset.fields.description;
                     assetObj.url = asset.fields.file.url;
                     assetObj.displayInSecondColumn = false;
+                    cmsEntryAsset.fields.sectionCatalogdisplay.forEach(function (sectionCatalogdisplayObj){
+                      if (common.isNotEmpty(sectionCatalogdisplayObj) &&
+                          common.isNotEmpty(sectionCatalogdisplayObj.catalogtitle) &&
+                          common.isNotEmpty(sectionCatalogdisplayObj.catalogdisplayorder))
+                      if(sectionCatalogdisplayObj.catalogtitle.indexOf(asset.fields.title) >= 0) {
+                        assetObj.catalogdisplayorder = sectionCatalogdisplayObj.catalogdisplayorder;
+                      }
+                    });
                     arrayofAssetObj.push(assetObj);
                   }
                 });
@@ -46,6 +54,9 @@ var common = require("../../helpers/common.js");
             return (a.catalogDisplayOrder) - (b.catalogDisplayOrder);
           });
           arrayOfContent.forEach(function(categoryGroup) {
+            categoryGroup.assetList.sort(function(a,b) {
+              return (a.catalogdisplayorder) - (b.catalogdisplayorder);
+            });
             if (categoryGroup.assetList.length > 16) {
               categoryGroup.assetList.forEach(function(asset,num) {
               if (num > categoryGroup.assetList.length/2)  {

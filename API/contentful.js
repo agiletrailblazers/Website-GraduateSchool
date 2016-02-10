@@ -391,12 +391,12 @@ module.exports = {
    });
  },
  getCatalogType: function(callback) {
-   var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=ZRkwvyMcCqK46gGOggeWs';
+   var targetURL = 'https://cdn.contentful.com/spaces/o30o1662klzi/entries?content_type=ZRkwvyMcCqK46gGOggeWs';
    request({
      method: 'GET',
      url: targetURL,
      headers: {
-     'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+     'Authorization': 'Bearer 6c799f33fcef9965be34f6d4b5f1f67e5c7eb3b4bc76de2f0b0fe4dcf2dd96a5'
       }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
