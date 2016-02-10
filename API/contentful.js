@@ -396,7 +396,7 @@ module.exports = {
      method: 'GET',
      url: targetURL,
      headers: {
-     'Authorization': 'Bearer 6c799f33fcef9965be34f6d4b5f1f67e5c7eb3b4bc76de2f0b0fe4dcf2dd96a5'
+     'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
       }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {

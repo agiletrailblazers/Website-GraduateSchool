@@ -34,14 +34,16 @@ var common = require("../../helpers/common.js");
                     assetObj.description = asset.fields.description;
                     assetObj.url = asset.fields.file.url;
                     assetObj.displayInSecondColumn = false;
-                    cmsEntryAsset.fields.sectionCatalogdisplay.forEach(function (sectionCatalogdisplayObj){
-                      if (common.isNotEmpty(sectionCatalogdisplayObj) &&
+                    if (common.isNotEmpty(cmsEntryAsset.fields.sectionCatalogdisplay)) {
+                      cmsEntryAsset.fields.sectionCatalogdisplay.forEach(function (sectionCatalogdisplayObj) {
+                        if (common.isNotEmpty(sectionCatalogdisplayObj) &&
                           common.isNotEmpty(sectionCatalogdisplayObj.catalogtitle) &&
                           common.isNotEmpty(sectionCatalogdisplayObj.catalogdisplayorder))
-                      if(sectionCatalogdisplayObj.catalogtitle.indexOf(asset.fields.title) >= 0) {
-                        assetObj.catalogdisplayorder = sectionCatalogdisplayObj.catalogdisplayorder;
-                      }
-                    });
+                          if (sectionCatalogdisplayObj.catalogtitle.indexOf(asset.fields.title) >= 0) {
+                            assetObj.catalogdisplayorder = sectionCatalogdisplayObj.catalogdisplayorder;
+                          }
+                      });
+                    }
                     arrayofAssetObj.push(assetObj);
                   }
                 });
