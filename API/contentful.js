@@ -391,7 +391,7 @@ module.exports = {
    });
  },
  getCatalogType: function(callback) {
-   var targetURL = 'https://cdn.contentful.com/spaces/o30o1662klzi/entries?content_type=ZRkwvyMcCqK46gGOggeWs';
+   var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=ZRkwvyMcCqK46gGOggeWs';
    request({
      method: 'GET',
      url: targetURL,
