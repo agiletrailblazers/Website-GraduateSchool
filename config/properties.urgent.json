@@ -19,6 +19,7 @@
     "certificateProgramFormToUserName":"GSWebsiteForm@graduateschool.edu",
     "catalogRequestToUserName":"GSWebsiteForm@graduateschool.edu",
     "subscriptionRequestToUserName":"GSWebsiteForm@graduateschool.edu",
+    "landingRequestToUserName":"GSWebsiteForm@graduateschool.edu",
 
     "certificateProgramGroup": {
       "applicationForm": {
