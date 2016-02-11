@@ -8,6 +8,21 @@ var length = function (id, alertId, fieldName, length) {
 
 
 var validate = {
+  Name: function(validator, id, alertId, fieldName) {
+    var name = validations.name(validator, $(id).val(), fieldName);
+    var idForError = id.substring(1);
+    if (!name.status) {
+      $(alertId).append("<p id='" + idForError + "-length'><span  class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>" + name.errMsg + "</p>");
+    }
+  },
+
+  Email: function(validator, id, alertId, fieldName) {
+    var email = validations.email(validator, $(id).val(), fieldName);
+    var idForError = id.substring(1);
+    if (!email.status) {
+      $(alertId).append("<p id='" + idForError + "-format'><span  class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>" + email.errMsg + "</p>");
+    }
+  },
 
   name : function (id, alertId, fieldName) {
     length(id, alertId, fieldName, 2);
