@@ -29,6 +29,7 @@
     "certificateProgramFormToUserName":"gs-dev-test-email@agiletrailblazers.com",
     "catalogRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
     "subscriptionRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
+    "landingRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
 
     "certificateProgramGroup": {
       "applicationForm": {

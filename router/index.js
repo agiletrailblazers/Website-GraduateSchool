@@ -28,6 +28,7 @@ module.exports = function (app) {
       app.use('/manage/user', require('./routes/manage/user-route'));
       app.use('/manage/cart', require('./routes/manage/cart-route'));
     }
+    app.use('/', require('./routes/landing-page-route'));
     app.use(defaultUrlRedirect);
 };
 

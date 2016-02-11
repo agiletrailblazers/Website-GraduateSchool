@@ -592,4 +592,28 @@ module.exports = {
     }
     callback(response);
   },
+
+  validateLandingFields: function(callback, params) {
+    response = {};
+    response.errors = {};
+
+
+    // firstName comments
+    var firstName = validations.name(validator, params.firstName, "First name");
+    if (!firstName.status) {
+      response.errors.firstName = firstName.errMsg;
+    }
+
+    var recaptcha = validations.captcha(params.captchaResponse, config("properties").skipReCaptchaVerification)
+    if (!recaptcha.status) {
+      response.errors.captchaResponse = recaptcha.errMsg;
+    }
+
+    // firstName comments
+    var email = validations.email(validator, params.email, "Email");
+    if (!email.status) {
+      response.errors.email = email.errMsg;
+    }
+    callback(response);
+  },
 };
