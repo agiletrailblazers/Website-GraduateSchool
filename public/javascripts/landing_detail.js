@@ -30,7 +30,8 @@ $(document).ready(function() {
         .done(function(data) {
           $(".loading").hide();
           alertify.success("Email sent!");
-          $("#form-wrap").toggle();
+          $("#alertSuccess").toggle();
+          $("#gs-form").toggle();
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();
