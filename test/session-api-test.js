@@ -1,6 +1,4 @@
 var session = require('../API/manage/session-api.js');
-var request = require('request');
-var nock = require('nock');
 var chai = require('chai');
 var expect = chai.expect;
 var config = require('konphyg')(__dirname + "/../config");

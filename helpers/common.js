@@ -2,7 +2,7 @@ var logger = require('../logger');
 
 checkForErrorAndLogExceptCodes = function(error, response, url, httpCodesNotToLog) {
   // all 2xx status codes should be considered successful, not just 200
-  if (error || !response || (response.statusCode / 100 != 2)) {
+  if (error || !response || response.statusCode < 200 || response.statusCode > 299) {
     var logError = true;
     var i = 0;
     if (isNotEmpty(httpCodesNotToLog)) {
