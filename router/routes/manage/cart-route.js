@@ -8,6 +8,7 @@ var config = require('konphyg')(__dirname + '/../../../config');
 var crypto = require("crypto-js");
 var uuid = require('uuid');
 var session = require('../../../API/manage/session-api.js');
+var user = require("../../../API/manage/user-api.js");
 
 // Routes related to the registration shopping cart
 
@@ -382,11 +383,24 @@ router.post('/payment/complete', function(req, res, next) {
           return callback(null, session);
         });
       },
-      registration: function(callback) {
+      completedRegistrations: function(callback) {
 
-        // TODO make the API call to create the registration
-        var registration = {};
-        return callback(null, registration);
+        // currently only support a single registration
+        var registration = {
+          orderNumber: null,
+          studentId: sessionData.userId,
+          sessionId: sessionData.cart.sessionId
+        };
+
+        // register the user
+        user.registerUser(sessionData.userId, [registration], function(error, completedRegistrations) {
+          // callback with the error, this will cause async module to stop executing remaining
+          // functions and jump immediately to the final function, it is important to return
+          // so that the task callback isn't called twice
+          if (error) return callback(error);
+
+          return callback(null, completedRegistrations);
+        });
       },
       payment: function(callback) {
 
@@ -397,7 +411,7 @@ router.post('/payment/complete', function(req, res, next) {
     }, function(err, content) {
 
       if (err) {
-        logger.error("Error rendering createuser", err);
+        logger.error("Error rendering payment receipt", err);
         common.redirectToError(res);
         return;
       }
@@ -412,7 +426,7 @@ router.post('/payment/complete', function(req, res, next) {
           title: "Course Registration - Receipt",
           course: content.course,
           session: content.session,
-          registration: content.registration,
+          completedRegistrations: content.completedRegistrations,
           payment: content.payment
         });
   });
