@@ -6,6 +6,7 @@
     "registrationUrl" : "https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=[sessionId]",
     "manage" : {
       "userRouteEnabled" : false,
+      "sessionName" : "gssession",
       "sessionTimeout" : 86400000
     },
 

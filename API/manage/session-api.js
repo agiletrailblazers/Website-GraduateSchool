@@ -25,7 +25,7 @@ module.exports = {
     logger.debug("Set session data: " + sessionDataStr);
 
     // session is currently stored in a cookie as a JSON string
-    res.cookie("gssession", sessionDataStr, {maxAge : config("properties").manage.sessionTimeout});
+    res.cookie(config("properties").manage.sessionName, sessionDataStr, {maxAge : config("properties").manage.sessionTimeout});
     return;
   }
 
