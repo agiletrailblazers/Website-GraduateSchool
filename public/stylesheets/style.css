@@ -193,6 +193,22 @@ a.breadcrumbs:hover,a.breadcrumbs:active  {
   background-color: transparent;
 }
 
+a.testimonial-link img {
+  opacity: 1;
+  transition: all .25s ease-in-out;
+  -moz-transition: all .25s ease-in-out;
+  -webkit-transition: all .25s ease-in-out;
+}
+​
+a.testimonial-link:hover img {
+  opacity: 0.8;
+  -webkit-box-shadow: 2px 2px 5px -4px rgba(78,77,79,1);
+  -moz-box-shadow: 2px 2px 5px -4px rgba(78,77,79,1);
+  box-shadow: 2px 2px 5px -4px rgba(78,77,79,1);
+  transition: all .25s ease-in-out;
+  -moz-transition: all .25s ease-in-out;
+  -webkit-transition: all .25s ease-in-out;
+}
 
 /* ALERT */
 
@@ -1107,6 +1123,9 @@ blockquote {
     background-image: url(../images/closequote.png);
     background-repeat: no-repeat;
     background-position: right bottom;
+    font-style: italic !important;
+    font-weight: lighter !important;
+    text-align: left !important;
   }
 
 .news {
