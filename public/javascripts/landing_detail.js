@@ -14,6 +14,7 @@ $(document).ready(function() {
   $("#alertError").hide();
   $(".loading").hide();
   $("#removeAlert").css('cursor', 'pointer');
+  $("#removeAlertSuccess").css('cursor', 'pointer');
 
   $("#submitForm").click(function(e) {
     e.preventDefault();
@@ -31,7 +32,6 @@ $(document).ready(function() {
           $(".loading").hide();
           alertify.success("Email sent!");
           $("#alertSuccess").toggle();
-          $("#gs-form").toggle();
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();
@@ -53,6 +53,11 @@ $(document).ready(function() {
   $("#removeAlert").click(function() {
     $("#alertError").slideUp();
     $("#alertError p").remove();
+  });
+
+  $("#removeAlertSuccess").click(function() {
+    $("#alertSuccess").slideUp();
+    $("#alertSuccess p").remove();
   });
 
 });

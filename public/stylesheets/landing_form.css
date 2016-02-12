@@ -2,9 +2,11 @@
 
 
 #request-information {
-  width: 100%;
+  margin:2.5%;
+  width: 95%;
   border: 2px solid #417CB4;
   padding: 10px;
+  min-height: 660px;
 }
 
 #request-information h1 {
@@ -26,7 +28,8 @@
 }
 
 #gs-form input.form-control, #gs-form select.form-control {
-    width: 300px !important;
+    max-width: 300px !important;
+    width: 100% !important;
 }
 
 .submit-button-right {
