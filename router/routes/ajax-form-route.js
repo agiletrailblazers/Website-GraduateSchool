@@ -254,12 +254,11 @@ router.post('/mailer-landing', function (req, res, next) {
         sendLandingEmail(res, params);
       }
       else {
-        sendlandingEmail(res, params);
       google.verifyCaptcha(function (response, error) {
           if ((response != null) && (response.statusCode == 200) ) {
             logger.debug("mailer-landing captcha verification success");
             // send subscription email
-            sendlandingEmail(res, params);
+            sendLandingEmail(res, params);
           } else {
             logger.debug("mailer-landing captcha verification failed");
             sendErrorResponse(res, response);
