@@ -24,6 +24,14 @@ var validate = {
     }
   },
 
+  Captcha: function(id, alertId) {
+    var idForError = id.substring(1);
+    var captcha = validations.captcha($(id).val(), skipReCaptcha);
+    if (!captcha.status) {
+     $(alertId).append("<p id='" + idForError + "-format'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>" + captcha.errMsg + "</p>");
+    }
+  },
+
   name : function (id, alertId, fieldName) {
     length(id, alertId, fieldName, 2);
   },
