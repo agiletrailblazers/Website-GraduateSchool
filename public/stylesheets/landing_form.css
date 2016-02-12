@@ -8,17 +8,25 @@
 }
 
 #request-information h1 {
-  font-size: 23px !important;
+  font-size: 26px !important;
   text-align: center;
+  font-weight: 500;
+  color: #025A95;
 }
 
 #request-information h3 {
+  font-size: 18px !important;
   text-align: center;
+  font-weight: 500;
 }
 
 #landing {
-  max-width: 280px;
+  max-width: 300px;
   margin: 0 auto;
+}
+
+#gs-form input.form-control, #gs-form select.form-control {
+    width: 300px !important;
 }
 
 .submit-button-right {
@@ -31,4 +39,8 @@
 
 .submit-button-right .form-group {
   margin-right: 0px;
+}
+
+.form-inline .form-group {
+    margin-bottom: 15px !important;
 }
