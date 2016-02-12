@@ -1107,8 +1107,10 @@ blockquote {
     background-image: url(../images/closequote.png);
     background-repeat: no-repeat;
     background-position: right bottom;
+    font-style: italic !important;
+    font-weight: lighter !important;
+    text-align: left !important;
   }
-
 .news {
   margin-bottom: 30px;
 }
@@ -2308,4 +2310,23 @@ ul.see-more li {
 
 .register a:hover {
   color: #427EB4 !important;
+}
+
+#testimonial-link img {
+  opacity: 1.0;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+#testimonial-link img:hover {
+  opacity: 0.6;
+  -webkit-box-shadow: 2px 2px 5px -4px rgba(78,77,79,1);
+  -moz-box-shadow: 2px 2px 5px -4px rgba(78,77,79,1);
+  box-shadow: 2px 2px 5px -4px rgba(78,77,79,1);
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
 }
