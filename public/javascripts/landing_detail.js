@@ -4,7 +4,7 @@ var _runLandingFormValidation = function() {
   $("#alertError p").remove();
   validate.Name(validator, "#txtFirstName", "#alertError", "First Name");
   validate.Email(validator, "#txtEmail","#alertError", "Email");
-  validate.captcha("#g-recaptcha-response", "#alertError");
+  validate.Captcha("#g-recaptcha-response", "#alertError");
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
   }
