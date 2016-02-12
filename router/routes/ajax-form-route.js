@@ -248,7 +248,7 @@ router.post('/mailer-landing', function (req, res, next) {
     // Send email if there are no errors.
     if (Object.keys(response.errors).length === 0) {
       //verify captcha
-      if (config("properties").skipReCaptchaVerification==false) {
+      if (config("properties").skipReCaptchaVerification) {
         logger.debug("mailer-landing - reCaptcha verification is turned off");
         // send landing email
         sendLandingEmail(res, params);
