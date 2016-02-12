@@ -1,4 +1,12 @@
-
+<div id="messages">
+    <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
+        <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+    </div>
+    <div id="alertSuccess" class="alert alert-sucess" role="alert" style="display:none;">
+        <p><b>Thank you for your interest in Graduate School USA.</b></p>
+        <p>Someone will be contacting you as soon as possible.</p>
+    </div>
+</div>
 <div id="gs-form">
     <div id="request-information">
       <h1>Request more information</h1>
@@ -23,11 +31,12 @@
                 <input id="information" name="information" type="text" maxlength="255" class="form-control">
             </span>
           </div>
+          <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
           <% include partials/footnote %>
           <div class="form-inline submit-button-right">
             <span class="form-group">
               <div class="submit-button">
-                <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
+                  <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
               </div>
             </span>
           </div>
@@ -35,12 +44,4 @@
     </div>
 </div><!-- END Request more information  -->
 
-<div id="messages">
-  <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
-    <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-  </div>
-  <div id="alertSuccess" class="alert alert-sucess" role="alert" style="display:none;">
-    <p><b>Thank you for your interest in Graduate School USA.</b></p>
-    <p>Someone will be contacting you as soon as possible.</p>
-  </div>
-</div>
+

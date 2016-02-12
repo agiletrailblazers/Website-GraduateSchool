@@ -29,6 +29,8 @@
     "catalogRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
     "subscriptionRequestEmailSubject":"Request for Subscription/Unsubscription/Modification",
     "subscriptionRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
+    "landingRequestEmailSubject":"Request for landing Page",
+    "landingRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
 
     "googleAnalyticsId":"UA-66851185-2",
 
