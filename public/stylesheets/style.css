@@ -1128,6 +1128,25 @@ blockquote {
     text-align: left !important;
   }
 
+  #testimonial-link img {
+    opacity: 1.0;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+  }
+
+  #testimonial-link img:hover {
+    opacity: 0.6;
+    -webkit-box-shadow: 2px 2px 5px -4px rgba(78,77,79,1);
+    -moz-box-shadow: 2px 2px 5px -4px rgba(78,77,79,1);
+    box-shadow: 2px 2px 5px -4px rgba(78,77,79,1);
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+  }
+
 .news {
   margin-bottom: 30px;
 }
