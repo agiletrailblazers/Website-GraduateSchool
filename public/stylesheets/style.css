@@ -193,7 +193,6 @@ a.breadcrumbs:hover,a.breadcrumbs:active  {
   background-color: transparent;
 }
 
-
 /* ALERT */
 
 #slider {
@@ -1107,7 +1106,31 @@ blockquote {
     background-image: url(../images/closequote.png);
     background-repeat: no-repeat;
     background-position: right bottom;
+    font-style: italic !important;
+    font-weight: lighter !important;
+    text-align: left !important;
   }
+
+
+#testimonial-link a img {
+  opacity: 1.0;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+  #testimonial-link a:hover img {
+    opacity: 0.6;
+    -webkit-box-shadow: 2px 2px 5px -4px rgba(78,77,79,1);
+    -moz-box-shadow: 2px 2px 5px -4px rgba(78,77,79,1);
+    box-shadow: 2px 2px 5px -4px rgba(78,77,79,1);
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+  }
+
 
 .news {
   margin-bottom: 30px;
