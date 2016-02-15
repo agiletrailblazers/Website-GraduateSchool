@@ -30,6 +30,10 @@ $(document).ready(function() {
       $.post("/mailer-landing", data)
         .done(function(data) {
           $(".loading").hide();
+          $("#txtFirstName").val('');
+          $("#txtEmail").val('');
+          $("#telPhone").val('');
+          $("#information").val('');
           alertify.success("Email sent!");
           $("#alertSuccess").toggle();
         })
