@@ -36,5 +36,6 @@
       }
     },
 
-    "googleAnalyticsId":"UA-66851185-1"
+    "googleAnalyticsId":"UA-66851185-1",
+    "landingPageRouteEnabled":false
 }

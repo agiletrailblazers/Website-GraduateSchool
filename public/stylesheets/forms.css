@@ -261,15 +261,3 @@ border-bottom: 2px solid #be0f34;
        text-shadow: 0 0 0 #777 !important;
     }
 }
-
-/*input[type="radio" i], input[type="checkbox" i] {
-    background-color: initial;
-    margin: 0.5ex;
-    padding: initial;
-    border: initial;
-}
-
-input[type="checkbox" i] {
-    -webkit-appearance: checkbox;
-    box-sizing: border-box;
-}*/
