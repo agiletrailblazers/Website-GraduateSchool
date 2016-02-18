@@ -152,7 +152,7 @@
                 </td>
                 <td> $<%= session["tuition"]%></td>
                 <td class="statusData">
-                  <% if (session["status"] === "C")  {%>
+                  <% if (session["status"] === "C" || session["status"] === "S")  {%>
                     <% if (session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
                       <span class="label label-danger">C</span>
                     <% } else { %>
@@ -162,8 +162,8 @@
                     <span class="label label-info">O</span>
                   <% } %>
                 </td>
-                <% if (session["status"] === 'S') { %>
-                  <td><button class="register" type="button" name="button" onclick="location.href='<%= session["registrationUrl"] %>'"><%= content.registerButton %></button></td>
+                <% if (session["status"] === 'S' && session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
+                  <td></td>
                 <% } else if (session["status"] === 'C' && session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
                   <td></td>
                 <% } else { %>
