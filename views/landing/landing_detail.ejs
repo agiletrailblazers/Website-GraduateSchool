@@ -18,6 +18,35 @@
   <body>
    <div class="loading" style="display:none;"></div>
     <% include ../partials/header %>
+    <!-- Main Feature container START -->
+    <div id="main-container" class="container padding15">
+        <div class="row">
+          <div class="col-lg-9 col-md-9">
+            <% if (featureImageUrl) { %>
+              <img src="<%= featureImageUrl %>" style="width:100%;" />
+            <% } %>
+            <h1>
+              <% if (maintitle) { %>
+                <%- maintitle  %>
+              <%  } %>
+            </h1>
+              <% if (maincontent) { %>
+                <%- maincontent  %>
+              <%  } %>
+          </div>
+        </div>
+      </div>
+    <!-- Main Feature container END -->
+
+      <div id="TwoColumnContainer" class="container padding15">
+        <div id="LeftContent" class="leftColumn"><% if (leftcolumncontent) { %>
+          <%- leftcolumncontent  %>
+        <%  } %></div>
+        <div id="RightContent" class="rightColumn"><% if (rightcolumncontent) { %>
+          <img src="<%= rightcolumncontent %>" style="width:100%;" />
+        <% } %></div>
+      </div>
+
     <% include ../forms/landing_form %>
       <% include ../partials/chat %>
       <% include ../partials/footer %>
