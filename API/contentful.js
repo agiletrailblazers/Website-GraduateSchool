@@ -237,6 +237,24 @@ module.exports = {
       return callback(contentPage);
     });
   },
+  getLandingPage: function(callback, slug) {
+    var targetURL = 'https://cdn.contentful.com/spaces/rwpes6c9xnt6/entries/?content_type=landingGeneric&fields.slug=' + slug;
+    request({
+      method: 'GET',
+      url: targetURL,
+      headers: {
+        'Authorization': 'Bearer 58b9e19609e55070f0f46a3165e9116329acd28e3dd9495b8bccee6d2cc7deba'
+      }
+    }, function(error, response, body) {
+      if (common.checkForErrorAndLog(error, response, targetURL)) { //This call returns 200 even when nothing found
+        return callback(response, new Error("Exception occurred in getting the landing page, " + slug), null);
+      }
+      logger.debug("Landing Page " +  slug + " Contentful: " + response.statusCode);
+      landingPage = JSON.parse(body);
+      //console.log(body);
+      return callback(landingPage);
+    });
+  },
   getCourseSearch: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/3AdFDCVaOIeQSgemcmkGqk';
     request({
