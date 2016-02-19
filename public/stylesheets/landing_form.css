@@ -32,6 +32,15 @@
     width: 100% !important;
 }
 
+.leftColumn {
+    float: left;
+    width: 50%;
+}
+.rightColumn {
+    float: right;
+    width: 50%;
+}
+
 .submit-button-right {
   text-align: right;
 }
