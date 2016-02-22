@@ -251,7 +251,7 @@ module.exports = {
       }
       logger.debug("Landing Page " +  slug + " Contentful: " + response.statusCode);
       landingPage = JSON.parse(body);
-      //console.log(body);
+      console.log(body);
       return callback(landingPage);
     });
   },

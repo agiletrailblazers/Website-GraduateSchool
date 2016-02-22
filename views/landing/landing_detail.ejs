@@ -17,7 +17,7 @@
   </head>
   <body>
    <div class="loading" style="display:none;"></div>
-    <% include ../partials/header %>
+    <% include ../partials/header-landing %>
     <!-- Main Feature container START -->
     <div id="main-container" class="container padding15">
         <div class="row">
@@ -45,6 +45,20 @@
         <div id="RightContent" class="rightColumn"><% if (rightcolumncontent) { %>
           <img src="<%= rightcolumncontent %>" style="width:100%;" />
         <% } %></div>
+      </div>
+      <div id="Section1" class="container padding15">
+      </div>
+      <div id="Section2" class="container padding15">
+      </div>
+      <div id="AdditionalSection" class="container padding15">
+        <h1>
+          <% if (additionalsectiontitle) { %>
+            <%- additionalsectiontitle  %>
+          <%  } %>
+        </h1>
+          <% if (additionalsectioncontent) { %>
+            <%- additionalsectioncontent  %>
+          <%  } %>
       </div>
 
     <% include ../forms/landing_form %>
