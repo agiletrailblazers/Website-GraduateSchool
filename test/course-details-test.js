@@ -30,7 +30,7 @@ test('course-detail testcase 1', function(t) {
       server;
       course.performExactCourseSearch(function(response, error, result) {
         expect(response.statusCode).to.eql(200);
-    }, 'AUDT8002G001');
+    }, 'AUDT8002G001', 'testToken');
   t.end();
 });
 
@@ -53,7 +53,7 @@ test('course-detail testcase 2', function(t) {
       server;
       course.performExactCourseSearch(function(response, error, result) {
        expect(result.courseTitle).to.eql('Prevention and Detection of Fraud LOL');
-     }, 'AUDT8002G001');
+     }, 'AUDT8002G001', "testToken");
      t.end();
 });
 
@@ -76,7 +76,7 @@ test('course-detail testcase 3', function(t) {
    server;
    course.performExactCourseSearch(function(response, error, result) {
     expect(result.courseCode).to.eql('AUDT8002G001');
-  }, 'AUDT8002G001');
+  }, 'AUDT8002G001', "testToken");
   t.end();
 });
 
@@ -99,7 +99,7 @@ test('course-detail testcase 4', function(t) {
     server;
     course.performExactCourseSearch(function(response, error, result) {
       expect(result.courseType).to.eql('Classroom-Day');
-    }, 'AUDT8002G001');
+    }, 'AUDT8002G001', "testToken");
     t.end();
   });
 
@@ -122,7 +122,7 @@ test('course-detail testcase 5', function(t) {
   server;
   course.performExactCourseSearch(function(response, error, result) {
     expect(result.courseCredit).to.be.an('object');
-  }, 'AUDT8002G001');
+  }, 'AUDT8002G001', "testToken");
   t.end();
 });
 
@@ -145,7 +145,7 @@ test('course-detail testcase 6', function(t) {
   server;
   course.performExactCourseSearch(function(response, error, result) {
     expect(result.courseCredit).to.include.keys('type');
-  }, 'AUDT8002G001');
+  }, 'AUDT8002G001', "testToken");
   t.end();
 });
 
@@ -168,6 +168,6 @@ test('course-detail testcase 7', function(t) {
   server;
   course.performExactCourseSearch(function(response, error, result) {
     result.courseCredit.should.have.property('value').with.length(2);
-  }, 'AUDT8002G001');
+  }, 'AUDT8002G001', "testToken");
   t.end();
 });

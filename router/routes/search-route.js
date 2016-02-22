@@ -47,6 +47,7 @@ router.get('/search', function(req, res, next){
         callback();
         return;
       }
+
       course.performCourseSearch(function(response, error, result){
         if (error) {
           logger.error("Exception encountered while performing API course search, filters not loaded, redirecting to error page", error);
@@ -56,7 +57,7 @@ router.get('/search', function(req, res, next){
           courseResult = result;
           callback();
         }
-      }, params);
+      }, params, req.query["authToken"]);
     },
     function(callback) {
       contentful.getCourseSearch(function(fields, error) {
@@ -83,7 +84,7 @@ router.get('/search', function(req, res, next){
           siteResult = result;
         }
         callback();
-      }, params);
+      }, params, req.query["authToken"]);
     }
     ], function(results) {
       if (courseResult && courseResult.exactMatch && !params.partial) {
