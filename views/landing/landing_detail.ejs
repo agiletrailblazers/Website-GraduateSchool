@@ -42,9 +42,15 @@
         <div id="LeftContent" class="leftColumn"><% if (leftcolumncontent) { %>
           <%- leftcolumncontent  %>
         <%  } %></div>
-        <div id="RightContent" class="rightColumn"><% if (rightcolumncontent) { %>
-          <img src="<%= rightcolumncontent %>" style="width:100%;" />
-        <% } %></div>
+        <div id="RightContent" class="rightColumn">
+          <%if (formDisplay) {%>
+            <% include ../forms/landing_form %>
+          <% } else if (imageDisplay) {%>
+             <img src="<%= rightcolumncontent %>" style="width:100%;" />
+          <% } else if (videosDisplay) {%>
+          <iframe src="<%= rightContentVideoUrl %>" width="99%" height="400" frameBorder="0"></iframe>
+          <% } %>
+        </div>
       </div>
       <div id="Section1" class="container padding15">
       </div>
@@ -60,9 +66,6 @@
             <%- additionalsectioncontent  %>
           <%  } %>
       </div>
-
-    <% include ../forms/landing_form %>
-      <% include ../partials/chat %>
       <% include ../partials/landing_footer %>
   </body>
 </html>

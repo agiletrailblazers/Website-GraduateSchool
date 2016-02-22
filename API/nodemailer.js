@@ -16,6 +16,7 @@ var certificateProgramTemplate = new EmailTemplate(path.join(templatesDir, 'cert
 var catalogRequestForm = new EmailTemplate(path.join(templatesDir, 'catalogrequestform-email'));
 var subscriptionForm = new EmailTemplate(path.join(templatesDir, 'subscription-email'));
 var landingTemplate = new EmailTemplate(path.join(templatesDir, 'landing-email'));
+var common = require("../helpers/common.js");
 
 
 var smtp = {
@@ -281,15 +282,19 @@ module.exports = {
   sendLandingRequest: function (callback, params) {
     logger.debug("SMTP sending to: " + smtp);
     logger.debug("SMTP params: " + params);
+    var receipentEmailID =  config("properties").landingRequestToUserName;
     landingTemplate.render(params, function(err, results) {
       logger.debug("Starting mail send");
       if (err) {
         logger.error(err);
         return callback(500);
       }
+      if (common.isNotEmpty(params.email) ) {
+        receipentEmailID = params.email.trim();
+      }
       var mailAttributes = {
         from: config("properties").defaultEmailFromUserName,
-        to: config("properties").landingRequestToUserName,
+        to: receipentEmailID,
         subject: config("properties").landingRequestEmailSubject,
         text: results.text,
         html: results.html

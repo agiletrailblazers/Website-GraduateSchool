@@ -23,8 +23,9 @@ $(document).ready(function() {
     data.firstName = $("#txtFirstName").val();
     data.email = $("#txtEmail").val();
     data.phone = $("#telPhone").val();
-    data.information = $("#information").val();
+    data.information = $("#moreInfo").val();
     data.captchaResponse = $("#g-recaptcha-response").val();
+    data.email=$("#email").val();
     if (!$("#alertError p").length) {
       $(".loading").show();
       $.post("/mailer-landing", data)
@@ -36,6 +37,7 @@ $(document).ready(function() {
           $("#information").val('');
           alertify.success("Email sent!");
           $("#alertSuccess").toggle();
+          $("#request-information-form").toggle();
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();

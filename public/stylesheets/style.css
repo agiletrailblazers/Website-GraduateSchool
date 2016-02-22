@@ -869,7 +869,7 @@ img.search {
 a.search {
     background-color: #337AB7;
     padding: 7px 20px;
-    color: #FFF;
+    color: #FFF !important;
     font-size: 14px;
     font-weight: normal;
     margin: 0px auto;
@@ -2346,4 +2346,7 @@ ul.see-more li {
     background: -ms-linear-gradient(left,  #2a4d77 0%,#3b6fa0 53%,#3d6f9e 63%,#01274f 100%); /* IE10+ */
     background: linear-gradient(to right,  #2a4d77 0%,#3b6fa0 53%,#3d6f9e 63%,#01274f 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a4d77', endColorstr='#01274f',GradientType=1 ); /* IE6-9 */
+}
+.alignright {
+    float: right;
 }
