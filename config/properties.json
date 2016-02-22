@@ -9,6 +9,10 @@
       "sessionName" : "gssession",
       "sessionTimeout" : 86400000
     },
+    "authenticate" : {
+      "tokenName" : "gstoken",
+      "tokenTimeout" : 15778476000
+    },
 
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",

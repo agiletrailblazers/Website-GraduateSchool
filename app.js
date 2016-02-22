@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var contentful = require('./API/contentful.js');
+var authentication = require('./API/authentication-api.js');
 var config = require('konphyg')("./config");
 var logger = require('./logger');
 var async = require('async');
@@ -40,6 +41,16 @@ app.use(function (req, res, next) {
 	var mailPage = {};
 	mailPage.titlePrefix = config("properties").mailPageTitlePrefix;
 	mailPage.body = config("properties").mailPageBody;
+
+	authentication.checkForAndGetAuthToken(req, res, function(error, token) {
+		if (error) {
+			logger.error(error);
+			common.redirectToError(res);
+		}
+		logger.debug("Token is +", token);
+		//TODO Figure out what to do with token
+	});
+
 	//get data for all pages
 	async.parallel([
 		function(callback) {

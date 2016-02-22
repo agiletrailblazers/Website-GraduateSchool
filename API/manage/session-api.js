@@ -5,9 +5,9 @@ module.exports = {
 
   // get the session data associated with the specified http request
   getSessionData: function(req) {
-
+    var sessionName = config("properties").manage.sessionName;
     // session is currently stored in a cookie as a JSON string
-    var sessionData = req.cookies.gssession ? req.cookies.gssession : "{}";
+    var sessionData = req.cookies[sessionName] ? req.cookies[sessionName] : "{}";
 
     // convert the JSON string into a javascript object and return it
     logger.debug("Get session data: " + sessionData);
