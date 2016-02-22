@@ -21,11 +21,13 @@ router.get(['/content/:content_slug','/content/:subfolder/:content_slug'], funct
     var content = response.items[0].fields;
     var imageUrl = null;
     if (content.featureImage) {
-       response.includes.Asset.forEach(function(asset) {
-         if (content.featureImage.sys.id === asset.sys.id) {
-           imageUrl = asset.fields.file.url;
-         }
-       });
+      if (response.includes && response.includes.Asset) {
+        response.includes.Asset.forEach(function(asset) {
+          if (content.featureImage.sys.id === asset.sys.id) {
+            imageUrl = asset.fields.file.url;
+          }
+        });
+      }
     }
 
     var snippetContent = function (sectionSnippet) {
