@@ -28,10 +28,6 @@
                   <label for="inputPhone">Phone Number</label>
                   <input id="telPhone" name="phone" type="tel" maxlength="12" class="form-control">
               </span>
-              <span class="form-group">
-                  <label for="inputInformation">What information can we send you?</label>
-                  <input id="information" name="information" type="text" maxlength="255" class="form-control">
-              </span>
             </div>
             <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
             <% include partials/footnote %>
@@ -42,6 +38,8 @@
                 </div>
               </span>
             </div>
+              <input type="hidden" id="email" value="<%= email %>" />
+              <input type="hidden" id="moreInfo" value="<%= moreInfo %>" />
           </form>
       </div>
     </div>
