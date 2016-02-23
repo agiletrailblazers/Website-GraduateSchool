@@ -28,7 +28,7 @@ test('course-search with government search  criteria', function(t) {
       courseServer;
       course.performCourseSearch(function(response, error, result){
         expect(response.statusCode).to.eql(200);
-      },params);
+      },params, 'test');
       t.end();
  });
 

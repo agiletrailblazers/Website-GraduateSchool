@@ -49,7 +49,7 @@ router.get('/', function(req, res, next) {
         if (error) return callback(error);
 
         return callback(null, course);
-      }, courseId);
+      }, courseId, req.query["authToken"]);
     },
     session: function(callback) {
       var sessionId = sessionData.cart.sessionId;
@@ -71,7 +71,7 @@ router.get('/', function(req, res, next) {
         }
 
         return callback(null, session);
-      });
+      }, req.query["authToken"]);
     },
     nextpage: function(callback) {
       // if the user is already logged in then they should go from the cart directly into payment,
@@ -137,7 +137,7 @@ router.get('/payment', function(req, res, next) {
 
         // pass the session to the next function in the waterfall
         return callback(null, session);
-      });
+      }, req.query["authToken"]);
     },
     function(session, callback) {
 
@@ -243,7 +243,7 @@ router.post('/payment/confirm', function(req, res, next) {
         if (error) return callback(error);
 
         return callback(null, course);
-      }, courseId);
+      }, courseId, req.query["authToken"]);
     },
     session: function(callback) {
       var sessionId = sessionData.cart.sessionId;
@@ -265,7 +265,7 @@ router.post('/payment/confirm', function(req, res, next) {
         }
 
         return callback(null, session);
-      });
+      }, req.query["authToken"]);
     },
     authorization: function(callback) {
       // this is more of sanity check / safety precaution
@@ -359,7 +359,7 @@ router.post('/payment/complete', function(req, res, next) {
           if (error) return callback(error);
 
           return callback(null, course);
-        }, courseId);
+        }, courseId, req.query["authToken"]);
       },
       session: function(callback) {
         var sessionId = sessionData.cart.sessionId;
@@ -381,7 +381,7 @@ router.post('/payment/complete', function(req, res, next) {
           }
 
           return callback(null, session);
-        });
+        }, req.query["authToken"]);
       },
       completedRegistrations: function(callback) {
 
@@ -400,7 +400,7 @@ router.post('/payment/complete', function(req, res, next) {
           if (error) return callback(error);
 
           return callback(null, completedRegistrations);
-        });
+        }, req.query["authToken"]);
       },
       payment: function(callback) {
 

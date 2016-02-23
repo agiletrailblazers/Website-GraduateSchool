@@ -5,7 +5,7 @@ var logger = require('../logger');
 var common = require("../helpers/common.js");
 
 module.exports = {
-  performCourseSearch: function(callback, params) {
+  performCourseSearch: function(callback, params, authToken) {
     var apiServer = config("properties").apiServer;
     apiServer = apiServer + '/api/courses?search=' + encodeURIComponent(params.searchCriteria)  ;
     if (common.isNotEmpty(params.numRequested)) {
@@ -33,7 +33,10 @@ module.exports = {
     logger.debug(apiServer);
     request({
       method: 'GET',
-      url: apiServer
+      url: apiServer,
+      headers: {
+        'Authorization': authToken
+      }
     }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, apiServer)) {
        return callback(response, new Error("Exception occurred performing course search"), null);
@@ -43,11 +46,14 @@ module.exports = {
       return callback(response, error, result);
     })
   },
-  performExactCourseSearch: function(callback, courseId) {
+  performExactCourseSearch: function(callback, courseId, authToken) {
     var apiServer = config("properties").apiServer + '/api/courses/' + courseId;
     request({
       method: 'GET',
-      url: apiServer
+      url: apiServer,
+      headers: {
+        'Authorization': authToken
+      }
     }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, apiServer)) {
        return callback(response, new Error("Exception occurred performing exact course search"), null);
@@ -57,11 +63,14 @@ module.exports = {
       return callback(response, error, result);
     });
   },
-  getSchedule: function(callback, courseId) {
+  getSchedule: function(callback, courseId, authToken) {
     var apiServer = config("properties").apiServer + '/api/courses/' + courseId + '/sessions';
     request({
       method: 'GET',
-      url: apiServer
+      url: apiServer,
+      headers: {
+        'Authorization': authToken
+      }
     }, function (error, response, body) {
       if (error || !response || (response.statusCode != 200 && response.statusCode != 404)) {
         var message = "Error performing course schedule search";
@@ -83,11 +92,14 @@ module.exports = {
       return callback(response, error, result);
     });
   },
-  getCourses: function(callback) {
+  getCourses: function(callback, authToken) {
     var apiServer = config("properties").apiServer + '/api/courses';
     request({
       method: 'GET',
-      url: apiServer
+      url: apiServer,
+      headers: {
+        'Authorization': authToken
+      }
     }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, apiServer)) {
        return callback(response, new Error("Exception occurred getting all courses"), null);
@@ -97,11 +109,14 @@ module.exports = {
       return callback(response, error, result);
     });
   },
-  getLocations: function(callback) {
+  getLocations: function(callback, authToken) {
     var apiServer = config("properties").apiServer + '/api/locations';
     request({
       method: 'GET',
-      url: apiServer
+      url: apiServer,
+      headers: {
+        'Authorization': authToken
+      }
     }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, apiServer)) {
        return callback(response, new Error("Exception occurred getting all locations"), null);
@@ -111,11 +126,14 @@ module.exports = {
       return callback(response, error, result);
     });
   },
-  getCategories: function(callback) {
+  getCategories: function(callback, authToken) {
     var apiServer = config("properties").apiServer + '/api/courses/categories';
     request({
       method: 'GET',
-      url: apiServer
+      url: apiServer,
+      headers: {
+        'Authorization': authToken
+      }
     }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, apiServer)) {
        return callback(response, new Error("Exception occurred getting all categories"), null);
@@ -125,7 +143,7 @@ module.exports = {
       return callback(response, error, result);
     });
   },
-  performSiteSearch: function(callback, params) {
+  performSiteSearch: function(callback, params, authToken) {
     //skip search if result would be all pages
     if (common.isEmpty(params.searchCriteria) && (common.isEmpty(params.cityState) ||  params.cityState == 'all')) {
       return callback(null, null, {});
@@ -144,7 +162,10 @@ module.exports = {
     logger.debug(siteapiServer);
     request({
         method: 'GET',
-        url: siteapiServer
+        url: siteapiServer,
+        headers: {
+          'Authorization': authToken
+        }
     }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, siteapiServer)) {
        return callback(response, new Error("Exception occurred performing Site search"), null);
@@ -155,10 +176,16 @@ module.exports = {
     });
   },
   // API to retrieve a specific course session by its ID
-  getSession: function(sessionId, callback) {
+  getSession: function(sessionId, callback, authToken) {
     // url for the API call
     var sessionUrl = config("properties").apiServer + '/api/courses/session/' + sessionId;
-    request(sessionUrl, function (error, response, body) {
+    request({
+      method: 'GET',
+      url: sessionUrl,
+      headers: {
+        'Authorization': authToken
+      }
+    }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, sessionUrl)) {
         return callback(new Error("Exception occurred getting session " + sessionId), null);
       }

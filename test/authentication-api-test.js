@@ -31,7 +31,7 @@ test('get token from api and set cookie success', function(t) {
     });
 
   tokenApiServer;
-  authenticate.checkForAndGetAuthToken(req, res, function(error, tokenData) {
+  authenticate.getAuthToken(req, res, function(error, tokenData) {
       expect(expectedTokenData).to.eql(tokenData);
   });
   t.end();
@@ -55,7 +55,7 @@ test('get token from api and set cookie failure', function(t) {
       .reply(500, { });
 
   tokenApiServer;
-  authenticate.checkForAndGetAuthToken(req, res, function(error, tokenData) {
+  authenticate.getAuthToken(req, res, function(error, tokenData) {
     //expect(res).to.be.a('token: '{}'');
     expect(error).to.be.an.instanceof(Error);
   });
@@ -64,23 +64,23 @@ test('get token from api and set cookie failure', function(t) {
 
 
 test('get token from cookie success', function(t) {
-  var tokenData = '1231231231test2341231231251fadfafd';
+  var expectedToken = '1231231231test2341231231251fadfafd';
   // setup our mock response object
   var req = {
     cookies: {
-      gstoken: tokenData
+      gstoken: expectedToken
     }
   };
   var res = {
     cookie: function(name, value, props) {
       expect(name).to.eql(tokenName);
       var actualToken = value.token;
-      expect(actualToken, tokenData);
+      expect(actualToken, expectedToken);
     }
   };
 
-  authenticate.checkForAndGetAuthToken(req, res, function(error, tokenData) {
-    expect(tokenData).to.eql(res.token);
+  authenticate.getAuthToken(req, res, function(error, tokenData) {
+    expect(expectedToken).to.eql(tokenData);
   });
   t.end();
 });

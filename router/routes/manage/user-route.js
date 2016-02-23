@@ -89,7 +89,7 @@ router.post('/create', function (req, res, next) {
         // user created successfully
         logger.info("Created user: " + createdUser.id + " - " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
         return callback(null, createdUser);
-      });
+      }, req.query["authToken"]);
     }
   }, function(err, content) {
     if (err) {
