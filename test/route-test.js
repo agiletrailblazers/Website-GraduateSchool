@@ -36,7 +36,7 @@ test("url redirect provides corresponding links", function(t) {
     reqheaders: {
       'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
     }
-  }).get('/spaces/98qeodfc03o0/entries?content_type=redirect')
+  }).get('/spaces/98qeodfc03o0/entries?content_type=redirect&limit=1000')
   .reply(200, {
     "sys": {
       "type": "Array"
