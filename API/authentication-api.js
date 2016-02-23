@@ -19,7 +19,6 @@ getAuthToken = function (req, res, callback) {
             if (error) {
                 return callback(error, null);
             }
-            token = tokenData;
             logger.debug("Got new token " + tokenData.token);
 
             res.cookie(tokenCookieName, tokenData.token, {maxAge: config("properties").authenticate.tokenTimeout});
