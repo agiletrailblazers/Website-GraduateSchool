@@ -260,3 +260,24 @@ test('nodemailer-test:SubscriptionForm:success', function(t) {
 
   t.end();
 });
+
+
+
+test('nodemailer-test:LandingPage:success', function(t) {
+  var transport = nodemailer.createTransport(stubTransport());
+  mailer.setTransport(transport);
+
+  data = {};
+  var data = {};
+  data.firstName =  {};
+  data.email =  {};
+  data.phone = {};
+  data.information =  {};
+  data.email= {};
+  data.userEmail =  {};
+  mailer.sendLandingRequest(function(response) {
+    expect(200).to.eql(response);
+  }, data);
+
+  t.end();
+});

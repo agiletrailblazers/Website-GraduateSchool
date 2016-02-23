@@ -290,7 +290,7 @@ module.exports = {
         return callback(500);
       }
       if (common.isNotEmpty(params.email) ) {
-        receipentEmailID = params.email.trim();
+        receipentEmailID = params.email;
       }
       var mailAttributes = {
         from: config("properties").defaultEmailFromUserName,
