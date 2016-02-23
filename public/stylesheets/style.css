@@ -2348,5 +2348,5 @@ ul.see-more li {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a4d77', endColorstr='#01274f',GradientType=1 ); /* IE6-9 */
 }
 .alignright {
-    float: right;
+    float :right;
 }

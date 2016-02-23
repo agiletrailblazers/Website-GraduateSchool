@@ -81,6 +81,7 @@ router.get(['/landing/:landing_slug'], function(req, res, next) {
       additionalsectioncontent:landingcontent.additionalSectionContent,
       featureImageUrl: featureImageUrl,
       rightContentVideoUrl:landingcontent.rightContentVideoUrl,
+      markdown: marked,
       sections: [
       { title: landingcontent.sectionTitle1, content: landingcontent.section1, collapse: landingcontent.sectionCollapse1, snippet: snippetContent(landingcontent.sectionSnippet1) },
       { title: landingcontent.sectionTitle2, content: landingcontent.section2, collapse: landingcontent.sectionCollapse2, snippet: snippetContent(landingcontent.sectionSnippet2) },

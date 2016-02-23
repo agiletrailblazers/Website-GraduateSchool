@@ -1,0 +1,104 @@
+<!-- Main Feature container START -->
+<div id="main-container" class="container padding15">
+  <div class="row">
+    <div>
+      <% if (featureImageUrl) { %>
+      <img src="<%= featureImageUrl %>" style="width:100%;" />
+      <% } %>
+      <h1>
+        <% if (maintitle) { %>
+        <%- maintitle  %>
+        <%  } %>
+      </h1>
+      <% if (maincontent) { %>
+      <%- maincontent  %>
+      <%  } %>
+    </div>
+  </div>
+</div>
+<!-- Main Feature container END -->
+<% if ((formDisplay == false) & (imageDisplay == false) & (videosDisplay == false) ) {%>
+<%if (leftcolumncontent)  {%>
+<div id="oneColumnContainer" class="container padding15">
+  <%- leftcolumncontent  %>
+</div>
+<% } %>
+<% } else {%>
+<%if (leftcolumncontent) { %>
+<div id="TwoColumnContainer" class="container padding15">
+  <div id="LeftContent" class="leftColumn"><% if (leftcolumncontent) { %>
+    <%- leftcolumncontent  %>
+    <%  } %></div>
+  <div id="RightContent" class="rightColumn">
+    <%if (formDisplay) {%>
+    <% include ../../forms/landing_form %>
+    <% } else if (imageDisplay) {%>
+    <img src="<%= rightcolumncontent %>" style="width:100%;" />
+    <% } else if (videosDisplay) {%>
+    <iframe src="<%= rightContentVideoUrl %>" width="99%" height="400" frameBorder="0"></iframe>
+    <% } %>
+  </div>
+</div>
+<%} else {%>
+<div id="OneRightColumnContent">
+  <%if (formDisplay) {%>
+  <% include ../../forms/landing_form %>
+  <% } else if (imageDisplay) {%>
+  <img src="<%= rightcolumncontent %>" style="width:100%;" />
+  <% } else if (videosDisplay) {%>
+  <iframe src="<%= rightContentVideoUrl %>" width="99%" height="400" frameBorder="0"></iframe>
+  <% } %>
+</div>
+<%}%>
+<%} %>
+<% for (var i = 0; i < sections.length; i++) { %>
+<% if (sections[i] && (sections[i].title || sections[i].content || sections[i].snippet)) { %>
+
+<section>
+  <% if (sections[i].collapse && sections[i].title){ %>
+  <a href="#<%= i %>" class="expand-section accordion-toggle" data-toggle="collapse">
+    <span id="Section<%= i+1 %>" class="glyphicon glyphicon-plus-sign"></span><%= sections[i].title %></a>
+  <article id="<%= i %>" class="collapse nested">
+    <% if (sections[i].snippet) { %>
+    <%- markdown(sections[i].snippet || '') %>
+    <%  } %>
+    <% if (sections[i].content) { %>
+    <%- markdown(sections[i].content || '') %>
+    <%  } %>
+  </article>
+  <% } else if (sections[i].title) { %>
+  <h2><%= sections[i].title %></h2><span id="Section<%= i+1 %>"></span>
+  <article id="<%= i %>" class="genericArticle">
+    <% if (sections[i].snippet) { %>
+    <%- markdown(sections[i].snippet || '') %>
+    <%  } %>
+    <% if (sections[i].content) { %>
+    <%- markdown(sections[i].content || '') %>
+    <%  } %>
+  </article>
+  <%   } else { %>
+  <span id="Section<%= i+1 %>"></span>
+  <article id="<%= i %>" class="genericArticle">
+    <% if (sections[i].snippet) { %>
+    <%- markdown(sections[i].snippet || '') %>
+    <%  } %>
+    <% if (sections[i].content) { %>
+    <%- markdown(sections[i].content || '') %>
+    <%  } %>
+  </article>
+  <%  } %>
+  <%  } %>
+</section>
+
+<% } %>
+</div>
+<div id="AdditionalSection" class="container padding15">
+  <h1>
+    <% if (additionalsectiontitle) { %>
+    <%- additionalsectiontitle  %>
+    <%  } %>
+  </h1>
+  <% if (additionalsectioncontent) { %>
+  <%- additionalsectioncontent  %>
+  <%  } %>
+</div>
