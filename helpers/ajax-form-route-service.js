@@ -609,8 +609,8 @@ module.exports = {
       response.errors.captchaResponse = recaptcha.errMsg;
     }
 
-    // firstName comments
-    var email = validations.email(validator, params.email, "Email");
+
+    var email = validations.email(validator, params.userEmail, "Email");
     if (!email.status) {
       response.errors.email = email.errMsg;
     }
