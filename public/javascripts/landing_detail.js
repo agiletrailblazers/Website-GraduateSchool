@@ -27,6 +27,7 @@ $(document).ready(function() {
     data.information = $("#moreInfo").val();
     data.captchaResponse = $("#g-recaptcha-response").val();
     data.email=$("#email").val();
+    data.userEmail = $("#txtEmail").val();
     if (!$("#alertError p").length) {
       $(".loading").show();
       $.post("/mailer-landing", data)
