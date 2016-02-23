@@ -11,6 +11,7 @@ var _runLandingFormValidation = function() {
 }
 
 $(document).ready(function() {
+
   $("#alertError").hide();
   $(".loading").hide();
   $("#removeAlert").css('cursor', 'pointer');
@@ -23,8 +24,10 @@ $(document).ready(function() {
     data.firstName = $("#txtFirstName").val();
     data.email = $("#txtEmail").val();
     data.phone = $("#telPhone").val();
-    data.information = $("#information").val();
+    data.information = $("#moreInfo").val();
     data.captchaResponse = $("#g-recaptcha-response").val();
+    data.email=$("#email").val();
+    data.userEmail = $("#txtEmail").val();
     if (!$("#alertError p").length) {
       $(".loading").show();
       $.post("/mailer-landing", data)
@@ -36,6 +39,7 @@ $(document).ready(function() {
           $("#information").val('');
           alertify.success("Email sent!");
           $("#alertSuccess").toggle();
+          $("#request-information-form").toggle();
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();
@@ -64,4 +68,9 @@ $(document).ready(function() {
     $("#alertSuccess p").remove();
   });
 
+  $('#backTop').backTop({
+    'position' : 100,
+    'speed' : 1000,
+    'color' : 'black',
+  });
 });
