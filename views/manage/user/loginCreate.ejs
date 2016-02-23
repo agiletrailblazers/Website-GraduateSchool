@@ -23,7 +23,7 @@
           <div id="login-section" class="row">
             <div class="col-lg-4 col-md-4 col-sm-4"></div>
             <div id="login" class="col-lg-4 col-md-4 col-sm-4">
-              <form id="login-form" role="form">
+              <form id="login-form" role="form" action="/manage/user/login">
                 <% if (sessionId) { %>
                   <input type=hidden id="sessionId" name="sessionId" value="<%= sessionId %>"/>
                 <% } %>
@@ -41,7 +41,7 @@
                   </div>
                   <div class="spacer10"></div>
                   <div id="buttons" class="center">
-                    <button id="login-submit" type="submit" tabindex="14" onclick="window.location.href='#login-form'">Log In</button>
+                    <button id="login-submit" type="submit" tabindex="14">Log In</button>
                   </div>
                 </div> <!-- END form-wrap -->
               </form> <!-- END create-user-form -->

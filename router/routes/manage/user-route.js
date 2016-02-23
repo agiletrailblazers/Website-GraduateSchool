@@ -4,6 +4,7 @@ var router = express.Router();
 var logger = require('../../../logger');
 var contentful = require("../../../API/contentful.js");
 var user = require("../../../API/manage/user-api.js");
+var authentication = require("../../../API/authentication-api.js");
 var common = require("../../../helpers/common.js");
 var session = require('../../../API/manage/session-api.js');
 
@@ -37,7 +38,7 @@ router.get('/create', function(req, res, next) {
       return;
     }
 
-    res.render('manage/user/create', {
+    res.render('manage/user/loginCreate', {
       title: 'Login',
       states: content.states,
       sessionId: content.sessionId
@@ -106,6 +107,49 @@ router.post('/create', function (req, res, next) {
     // send success to client
     res.status(201).send();
   });
+});
+
+// Handle request to login as a user
+router.post('/login', function (req, res, next) {
+  logger.error("Login function");
+  var authorizedUser = {};
+  async.waterfall({
+    loginUser: function (callback) {
+      // get the form data from the body of the request
+      var formData = req.body;
+      logger.info("Logging in user: " + formData.username);
+      var authCredentials = {
+        "username": formData.username,
+        "password": formData.password
+      };
+      authentication.loginUser(authCredentials, function (error, authUser) {
+        if (error) return callback(error);
+        authorizedUser = authUser;
+        logger.info("Logged in userID: " + authorizedUser.user.id + " with token: " + authorizedUser.authToken);
+
+        return callback(null, authorizedUser);
+      }, req.query.authToken);
+    },
+    handleNewToken: function (callback) {
+      // set authorization cookie and req variable
+      logger.info("Got new token " + authorizedUser.authToken);
+      authentication.setNewToken(req, res, authorizedUser.authToken);
+
+      logger.info("Replacing old token " + req.query["authToken"]);
+      req.query["authToken"] = authorizedUser.authToken;
+      callback();
+    }
+  },function(err, content) {
+      if (err) {
+        logger.error("Failed during user creation", err);
+        res.status(500).send({"error": "We have experienced a problem processing your request, please try again later."});
+        return;
+
+      // send success to client
+      res.status(200).send();
+      }
+    }
+  )
 });
 
 module.exports = router;

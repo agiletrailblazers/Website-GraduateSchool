@@ -7,7 +7,6 @@ var dateformat = require('date-format-lite');
 var prune = require('underscore.string/prune');
 var router = express.Router();
 var logger = require('../../logger');
-var striptags = require('striptags');
 var common = require("../../helpers/common.js");
 var config = require('konphyg')(__dirname + '/../../config');
 

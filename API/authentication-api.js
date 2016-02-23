@@ -41,7 +41,37 @@ getGuestToken = function (callback) {
     });
 };
 
+loginUser = function(authCredentials, callback, authToken) {
+    var targetURL = config("properties").apiServer + '/api/token';
+    request({
+        method: 'POST',
+        url: targetURL,
+        json: authCredentials,
+        headers: {
+            'Authorization': authToken
+        }
+    }, function (error, response, body) {
+        if (common.checkForErrorAndLog(error, response, targetURL)) {
+            return callback(new Error("Exception occured registering user"), null);
+        }
+        return callback(null, body);
+    });
+};
+
+setNewToken = function (req, res, newToken) {
+    var tokenCookieName  = config("properties").authenticate.tokenName;
+    var oldToken = req.cookies[tokenCookieName] ? req.cookies[tokenCookieName] : null;
+
+    if (oldToken) {
+        logger.info("Read token data to be replaced from " + tokenCookieName + " token: " + oldToken);
+    }
+    res.cookie(tokenCookieName, newToken, {maxAge: config("properties").authenticate.tokenTimeout});
+    logger.info("New token set to: " + newToken);
+};
+
 module.exports = {
     getAuthToken: getAuthToken,
-    getGuestToken: getGuestToken
+    getGuestToken: getGuestToken,
+    loginUser: loginUser,
+    setNewToken: setNewToken
 };
