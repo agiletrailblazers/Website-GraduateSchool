@@ -11,6 +11,7 @@ var _runLandingFormValidation = function() {
 }
 
 $(document).ready(function() {
+
   $("#alertError").hide();
   $(".loading").hide();
   $("#removeAlert").css('cursor', 'pointer');
@@ -66,4 +67,9 @@ $(document).ready(function() {
     $("#alertSuccess p").remove();
   });
 
+  $('#backTop').backTop({
+    'position' : 100,
+    'speed' : 1000,
+    'color' : 'black',
+  });
 });
