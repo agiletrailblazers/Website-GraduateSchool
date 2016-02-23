@@ -6,15 +6,20 @@ var expect = chai.expect;
 var config = require('konphyg')(__dirname + "/../config");
 var test = require('tap').test;
 
+var authToken = "token123456789";
 
 test('course-search with government search  criteria', function(t) {
   //use endpoing from config even for tests
   var apiServer = config("properties").apiServer;
   var params ={searchCriteria:"government"};
   //test a 200 ok
-  var courseServer = nock(apiServer)
-        .get('/api/courses?search=government')
-        .reply(200, {
+  var courseServer = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
+      .get('/api/courses?search=government')
+      .reply(200, {
           "exactMatch": true,
           "courses": [
             {
@@ -23,28 +28,34 @@ test('course-search with government search  criteria', function(t) {
               "courseDescription": "The Plain Writing Act of 2015 (October 13, 2010) requires the Federal government to..."
             }
           ]
-    });
+        });
 
       courseServer;
       course.performCourseSearch(function(response, error, result){
+        courseServer.done();
         expect(response.statusCode).to.eql(200);
-      },params, 'test');
+      },params, authToken);
+
       t.end();
  });
 
-  test('course-search with government failure  criteria', function(t) {
+test('course-search with government failure  criteria', function(t) {
     //test a 500 internal server error
   var apiServer = config("properties").apiServer;
   var params ={searchCriteria:"failure"};
-  var courseServer = nock(apiServer)
-    .get('/api/courses?search=failure').reply(500, {
-      });
+  var courseServer = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
+      .get('/api/courses?search=failure').reply(500, {
+        });
         courseServer;
         course.performCourseSearch(function(response, error, result){
+          courseServer.done();
           expect(response.statusCode).to.eql(500);
           expect(result).to.equal(null);
-
-        },params);
+        },params, authToken);
   t.end();
   });
 
@@ -53,9 +64,13 @@ test('course-search with government search  criteria and numRequested', function
   var apiServer = config("properties").apiServer;
   var params ={searchCriteria:"government",numRequested:"100"};
     //test a 200 ok
-  var courseServer = nock(apiServer)
-    .get('/api/courses?search=government&numRequested=100')
-     .reply(200, {
+  var courseServer = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
+      .get('/api/courses?search=government&numRequested=100')
+      .reply(200, {
        "exactMatch": true,
        "numRequested":"100",
         "courses": [
@@ -68,9 +83,10 @@ test('course-search with government search  criteria and numRequested', function
       });
     courseServer;
     course.performCourseSearch(function(response, error, result){
+      courseServer.done();
       expect(response.statusCode).to.eql(200);
       expect(result.numRequested).to.eql("100");
-    },params);
+    },params, authToken);
     t.end();
 });
 
@@ -80,7 +96,11 @@ test('course-search with government search  criteria,numRequested and cityState'
   var apiServer = config("properties").apiServer;
   var params ={searchCriteria:"government",numRequested:"100",cityState:"Washington, DC"};
     //test a 200 ok
-  var courseServer = nock(apiServer)
+  var courseServer = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
     .get('/api/courses?search=government&numRequested=100&filter=city_state:Washington,%20DC')
       .reply(200, {
          "exactMatch": true,
@@ -96,10 +116,11 @@ test('course-search with government search  criteria,numRequested and cityState'
       });
   courseServer;
   course.performCourseSearch(function(response, error, result){
+    courseServer.done();
      expect(response.statusCode).to.eql(200);
      expect(result.numRequested).to.eql("100");
      expect(result.numFound).to.eql("235");
-  },params);
+  },params, authToken);
   t.end();
 });
 
@@ -109,7 +130,11 @@ test('course-search with government search  criteria,numRequested,cityState and 
   var apiServer = config("properties").apiServer;
   var params ={searchCriteria:"government",numRequested:"100",cityState:"Washington, DC",selectedG2G:"true"};
     //test a 200 ok
-  var courseServer = nock(apiServer)
+  var courseServer = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
     .get('/api/courses?search=government&numRequested=100&filter=city_state:Washington,%20DC&filter=status:C')
       .reply(200, {
          "exactMatch": true,
@@ -125,10 +150,11 @@ test('course-search with government search  criteria,numRequested,cityState and 
       });
   courseServer;
   course.performCourseSearch(function(response, error, result){
+    courseServer.done();
      expect(response.statusCode).to.eql(200);
      expect(result.numRequested).to.eql("100");
      expect(result.numFound).to.eql("235");
-  },params);
+  },params, authToken);
   t.end();
 });
 
@@ -138,7 +164,11 @@ test('course-search with government search  criteria,numRequested,categorySubjec
   var apiServer = config("properties").apiServer;
   var params ={searchCriteria:"government",numRequested:"100",categorySubjectType:"Accounting",categorySubject:"Accounting, Budgeting and Financial Management/Financial Management",selectedG2G:"true"};
   //test a 200 ok
-  var courseServer = nock(apiServer)
+  var courseServer = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
     .get('/api/courses?search=government&numRequested=100&filter=category_subject:Accounting,%20Budgeting%20and%20Financial%20Management/Financial%20Management&filter=status:C')
     .reply(200, {
       "exactMatch": true,
@@ -154,19 +184,23 @@ test('course-search with government search  criteria,numRequested,categorySubjec
     });
   courseServer;
   course.performCourseSearch(function(response, error, result){
+    courseServer.done();
     expect(response.statusCode).to.eql(200);
     expect(result.numRequested).to.eql("100");
     expect(result.numFound).to.eql("235");
-  },params);
+  },params, authToken);
   t.end();
 });
 
 test('course-search with subject search', function(t) {
   //use endpoing from config even for tests
   var apiServer = config("properties").apiServer;
-  var params ={};
   //test a 200 ok
-  var courseServer = nock(apiServer)
+  var courseServer = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
     .get('/api/courses/categories')
     .reply(200,
       {
@@ -181,21 +215,24 @@ test('course-search with subject search', function(t) {
     });
   courseServer;
   course.getCategories(function(response, error, result){
+    courseServer.done();
     expect(response.statusCode).to.eql(200);
     expect(result.category).to.eql("Accounting, Budgeting and Financial Management");
     expect(result.courseSubject[0].subject).to.eql("Accounting");
-  },params);
+  }, authToken);
   t.end();
 });
-
-
 
 test('course-search with government search  criteria,numRequested and DeliveryMethod', function(t) {
   //use endpoing from config even for tests
   var apiServer = config("properties").apiServer;
   var params ={searchCriteria:"government",numRequested:"100",deliveryMethod:"Classroom - Daytime"};
   //test a 200 ok
-  var courseServer = nock(apiServer)
+  var courseServer = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
     .get('/api/courses?search=government&numRequested=100&filter=delivery_method:Classroom%20-%20Daytime')
     .reply(200, {
       "exactMatch": true,
@@ -216,13 +253,14 @@ test('course-search with government search  criteria,numRequested and DeliveryMe
     });
   courseServer;
   course.performCourseSearch(function(response, error, result){
+    courseServer.done();
     expect(response.statusCode).to.eql(200);
     expect(result.numRequested).to.eql("100");
     expect(result.numFound).to.eql("235");
     expect(result.deliveryMethodFacets.ClassroomEvening).to.eql(32);
     expect(result.deliveryMethodFacets.OnlineLearning).to.eql(19);
     expect(result.deliveryMethodFacets.ClassroomDaytime).to.eql(102);
-  },params);
+  },params, authToken);
   t.end();
 });
 
@@ -233,15 +271,20 @@ test('getSession success', function(t) {
   var expectedResponse = {"key" : "value"};
 
   //test a 200 ok
-  var server = nock(apiServer)
+  var courseServer = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
         .get('/api/courses/session/' + sessionId)
         .reply(200, expectedResponse);
 
-  server;
+  courseServer;
   course.getSession(sessionId, function(error, session) {
+    courseServer.done();
     expect(error).to.be.a('null');
     expect(session).to.eql(expectedResponse);
-  });
+  }, authToken);
   t.end();
 });
 
@@ -252,14 +295,19 @@ test('getSession failure', function(t) {
   var expectedResponse = {"key" : "value"};
 
   //test a 500 internal server error
-  var server = nock(apiServer)
-        .get('/api/courses/session/' + sessionId)
-        .reply(500, {});
+  var courseServer = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
+      .get('/api/courses/session/' + sessionId)
+      .reply(400, {});
 
-  server;
-  course.getSession(sessionId, function(error, session) {
-    expect(session).to.be.a('null');
-    expect(error).to.be.an.instanceof(Error);
-  });
-  t.end();
+    courseServer;
+    course.getSession(sessionId, function(error, session) {
+      courseServer.done();
+      expect(session).to.be.a('null');
+      expect(error).to.be.an.instanceof(Error);
+    }, authToken);
+    t.end();
 });
