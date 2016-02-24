@@ -5,6 +5,10 @@ var contentful = require('../API/contentful.js');
 var common = require("../helpers/common.js")
 var config = require('konphyg')(__dirname + '/../config');
 
+// requires for route controllers
+var userController = require('./routes/manage/user-controller.js');
+var cartController = require('./routes/manage/cart-controller.js');
+
 // log some key configuration information
 logger.info("userRouteEnabled: " + config("properties").manage.userRouteEnabled);
 logger.info("registrationUrl: " + config("properties").registrationUrl);
@@ -24,11 +28,22 @@ module.exports = function (app) {
     app.use('/', require('./routes/catalog-route'));
     app.use('/', require('./routes/faq-route'));
     app.use('/', require('./routes/subscription-route'));
+
     if (config("properties").manage.userRouteEnabled === true) {
-      app.use('/manage/user', require('./routes/manage/user-route'));
-      app.use('/manage/cart', require('./routes/manage/cart-route'));
+        // user management routes
+        app.use('/', router.get('/manage/user/loginCreate', userController.displayLoginCreate));
+        app.use('/', router.post('/manage/user/create', userController.createUser));
+        app.use('/', router.post('/manage/user/login', userController.login));
+
+        // cart routes
+        app.use('/', router.get('/manage/cart', cartController.displayCart));
+        app.use('/', router.get('/manage/cart/payment', cartController.displayPayment));
+        app.use('/', router.post('/manage/cart/payment/cancel', cartController.cancelPayment));
+        app.use('/', router.post('/manage/cart/payment/confirm', cartController.confirmPayment));
+        app.use('/', router.post('/manage/cart/payment/complete', cartController.completePayment));
     }
-   if (config("properties").landingPageRouteEnabled === true) {
+
+    if (config("properties").landingPageRouteEnabled === true) {
      app.use('/', require('./routes/landing-page-route'));
    }
     app.use(defaultUrlRedirect);
