@@ -6,6 +6,8 @@ var should = require("should");
 var test = require('tap').test;
 var config = require('konphyg')(__dirname + "/../config");
 
+var authToken = "token123456789";
+
 // Nock works by intercepting any HTTP calls your application makes, and
 // recording their parameters. You can then record those parameters, so
 // future HTTP calls get the recorded responses, rather than making an
@@ -13,7 +15,11 @@ var config = require('konphyg')(__dirname + "/../config");
 
 test('course-detail testcase 1', function(t) {
   var apiServer = config("properties").apiServer;
-  var server = nock(apiServer)
+  var server = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
       .get('/api/courses/AUDT8002G001')
       .reply(200, {
         // Need sections from Boris.
@@ -29,14 +35,19 @@ test('course-detail testcase 1', function(t) {
       });
       server;
       course.performExactCourseSearch(function(response, error, result) {
+        server.done();
         expect(response.statusCode).to.eql(200);
-    }, 'AUDT8002G001');
+    }, 'AUDT8002G001', authToken);
   t.end();
 });
 
 test('course-detail testcase 2', function(t) {
   var apiServer = config("properties").apiServer;
-  var server = nock(apiServer)
+  var server = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
       .get('/api/courses/AUDT8002G001')
       .reply(200, {
         // Need sections from Boris.
@@ -52,14 +63,19 @@ test('course-detail testcase 2', function(t) {
       });
       server;
       course.performExactCourseSearch(function(response, error, result) {
-       expect(result.courseTitle).to.eql('Prevention and Detection of Fraud LOL');
-     }, 'AUDT8002G001');
+        server.done();
+        expect(result.courseTitle).to.eql('Prevention and Detection of Fraud LOL');
+     }, 'AUDT8002G001', authToken);
      t.end();
 });
 
 test('course-detail testcase 3', function(t) {
   var apiServer = config("properties").apiServer;
-  var server = nock(apiServer)
+  var server = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
       .get('/api/courses/AUDT8002G001')
       .reply(200, {
         // Need sections from Boris.
@@ -75,14 +91,19 @@ test('course-detail testcase 3', function(t) {
    });
    server;
    course.performExactCourseSearch(function(response, error, result) {
-    expect(result.courseCode).to.eql('AUDT8002G001');
-  }, 'AUDT8002G001');
+     server.done();
+     expect(result.courseCode).to.eql('AUDT8002G001');
+  }, 'AUDT8002G001', authToken);
   t.end();
 });
 
 test('course-detail testcase 4', function(t) {
   var apiServer = config("properties").apiServer;
-  var server = nock(apiServer)
+  var server = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
         .get('/api/courses/AUDT8002G001')
         .reply(200, {
           // Need sections from Boris.
@@ -98,14 +119,19 @@ test('course-detail testcase 4', function(t) {
     });
     server;
     course.performExactCourseSearch(function(response, error, result) {
+      server.done();
       expect(result.courseType).to.eql('Classroom-Day');
-    }, 'AUDT8002G001');
+    }, 'AUDT8002G001', authToken);
     t.end();
   });
 
 test('course-detail testcase 5', function(t) {
   var apiServer = config("properties").apiServer;
-  var server = nock(apiServer)
+  var server = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
     .get('/api/courses/AUDT8002G001')
     .reply(200, {
       // Need sections from Boris.
@@ -121,14 +147,19 @@ test('course-detail testcase 5', function(t) {
   });
   server;
   course.performExactCourseSearch(function(response, error, result) {
+    server.done();
     expect(result.courseCredit).to.be.an('object');
-  }, 'AUDT8002G001');
+  }, 'AUDT8002G001', authToken);
   t.end();
 });
 
 test('course-detail testcase 6', function(t) {
   var apiServer = config("properties").apiServer;
-  var server = nock(apiServer)
+  var server = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
     .get('/api/courses/AUDT8002G001')
     .reply(200, {
       // Need sections from Boris.
@@ -144,14 +175,19 @@ test('course-detail testcase 6', function(t) {
   });
   server;
   course.performExactCourseSearch(function(response, error, result) {
+    server.done();
     expect(result.courseCredit).to.include.keys('type');
-  }, 'AUDT8002G001');
+  }, 'AUDT8002G001', authToken);
   t.end();
 });
 
 test('course-detail testcase 7', function(t) {
   var apiServer = config("properties").apiServer;
-  var server = nock(apiServer)
+  var server = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
     .get('/api/courses/AUDT8002G001')
     .reply(200, {
       // Need sections from Boris.
@@ -167,7 +203,8 @@ test('course-detail testcase 7', function(t) {
   });
   server;
   course.performExactCourseSearch(function(response, error, result) {
+    server.done();
     result.courseCredit.should.have.property('value').with.length(2);
-  }, 'AUDT8002G001');
+  }, 'AUDT8002G001', authToken);
   t.end();
 });

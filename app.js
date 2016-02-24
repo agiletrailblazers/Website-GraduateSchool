@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var contentful = require('./API/contentful.js');
+var authentication = require('./API/authentication-api.js');
 var config = require('konphyg')("./config");
 var logger = require('./logger');
 var async = require('async');
@@ -31,7 +32,7 @@ app.use(function (req, res, next) {
 	var chatPages = config("properties").chatPages;
 	var navigation = {};
 	var locations = [];
-  var courseSubjectResult = [];
+	var courseSubjectResult = [];
 	//should we show chat on this page?
 	var currentUrl = req.url.split("?",1)[0];
 	var pattern = new RegExp(chatPages);
@@ -40,55 +41,73 @@ app.use(function (req, res, next) {
 	var mailPage = {};
 	mailPage.titlePrefix = config("properties").mailPageTitlePrefix;
 	mailPage.body = config("properties").mailPageBody;
-	//get data for all pages
-	async.parallel([
+	async.series([
 		function(callback) {
-			contentful.getNavigation(function (nav, error) {
+			//Check to see if a token exists in the cookie, and if not get one from API and put it in cookie.
+			authentication.getAuthToken(req, res, function(error, token) {
 				if (error) {
-					logger.error('Error retrieving navigation from Contentful. Redirecting to error page', error);
+					logger.error(error);
 					common.redirectToError(res);
 				}
-				else {
-					navigation = nav;
+				logger.debug("Token returned is ", token);
+				//Set token to request variable for use in API calls
+				req.query["authToken"] = token;
+				callback();
+			});
+		},
+		//get data for all pages
+
+	function() {
+		async.parallel([
+			function(callback) {
+				contentful.getNavigation(function (nav, error) {
+					if (error) {
+						logger.error('Error retrieving navigation from Contentful. Redirecting to error page', error);
+						common.redirectToError(res);
+					}
+					else {
+						navigation = nav;
+						callback();
+					}
+				});
+			},
+			function(callback) {
+				course.getLocations(function (response, error, result) {
+					if (error) {
+						logger.warn('Error retrieving locations from API. Ignoring error and displaying page', error);
+					}
+					if (result != null) {
+						result.forEach(function (location) {
+							locations.push(location.city + ", " + location.state);
+						});
+						locations.sort();
+					}
 					callback();
-				}
-			});
-		},
-		function(callback) {
-			course.getLocations(function (response, error, result) {
-				if (error) {
-					logger.warn('Error retrieving locations from API. Ignoring error and displaying page', error);
-				}
-				if (result != null) {
-					result.forEach(function (location) {
-						locations.push(location.city + ", " + location.state);
-					});
-					locations.sort();
-				}
-				callback();
-			});
-		},
-		function(callback) {
-			course.getCategories(function (response, error, result) {
-				if (error) {
-					logger.warn('Error retrieving subjects from API. Ignoring error and displaying page', error);
-				}
-				if (result != null) {
-					courseSubjectResult = result;
-				}
-				callback();
-			});
-		}
-	], function() {
-		res.locals = {navigation: navigation,
-			locations: locations,
-			courseSubjectResult: courseSubjectResult,
-			googleAnalyticsId: googleAnalyticsId,
-			showChat: showChat,
-			mailPage: mailPage,
-			env: env};
-		next();
-	});
+				}, req.query["authToken"]);
+			},
+			function(callback) {
+				course.getCategories(function (response, error, result) {
+					if (error) {
+						logger.warn('Error retrieving subjects from API. Ignoring error and displaying page', error);
+					}
+					if (result != null) {
+						courseSubjectResult = result;
+					}
+					callback();
+				}, req.query["authToken"]);
+			}
+		], function() {
+			res.locals = {navigation: navigation,
+				locations: locations,
+				courseSubjectResult: courseSubjectResult,
+				googleAnalyticsId: googleAnalyticsId,
+				showChat: showChat,
+				mailPage: mailPage,
+				env: env};
+			next();
+		})
+	}
+	]);
 });
 
 //app.use('/', require('./routes'));

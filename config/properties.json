@@ -5,7 +5,13 @@
 
     "registrationUrl" : "https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=[sessionId]",
     "manage" : {
-      "userRouteEnabled" : false
+      "userRouteEnabled" : false,
+      "sessionName" : "gssession",
+      "sessionTimeout" : 86400000
+    },
+    "authenticate" : {
+      "tokenName" : "gstoken",
+      "tokenTimeout" : 15778476000
     },
 
     "defaultEmailServerName": "smtp.office365.com",
@@ -29,6 +35,8 @@
     "catalogRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
     "subscriptionRequestEmailSubject":"Request for Subscription/Unsubscription/Modification",
     "subscriptionRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
+    "landingRequestEmailSubject":"Request for landing Page",
+    "landingRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
 
     "googleAnalyticsId":"UA-66851185-2",
 
@@ -75,5 +83,7 @@
     "mailPageBody":"Hi,%20I%20found%20this%20on%20the%20Graduate%20School%20USA%20website%20and%20thought%20you%20might%20like%20it:%20",
     "maxTopNavigationLinks":24,
     "maxTopNavigationGroups":7,
-    "allowedHtmlTags":"<br><a><p><i><u><ul><li><strong>"
+    "allowedHtmlTags":"<br><a><p><i><u><ul><li><strong>",
+    "landingPageRouteEnabled":true
+
 }

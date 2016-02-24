@@ -239,6 +239,46 @@ function sendSubscriptionEmail(res, params) {
   }, params);
 }
 
+
+router.post('/mailer-landing', function (req, res, next) {
+  var params = req.body;
+  logger.debug("In mailer-landing");
+  //move code to router service
+  routerService.validateLandingFields(function (response) {
+    // Send email if there are no errors.
+    if (Object.keys(response.errors).length === 0) {
+      //verify captcha
+      if (config("properties").skipReCaptchaVerification) {
+        logger.debug("mailer-landing - reCaptcha verification is turned off");
+        // send landing email
+        sendLandingEmail(res, params);
+      }
+      else {
+      google.verifyCaptcha(function (response, error) {
+          if ((response != null) && (response.statusCode == 200) ) {
+            logger.debug("mailer-landing captcha verification success");
+            // send subscription email
+            sendLandingEmail(res, params);
+          } else {
+            logger.debug("mailer-landing captcha verification failed");
+            sendErrorResponse(res, response);
+          }
+        }, params.captchaResponse);
+      }
+    } else {
+      sendErrorResponse(res, response);
+    }
+  }, params);
+});
+
+function sendLandingEmail(res, params) {
+  //send mail of success
+  logger.debug("Sending landing email");
+  mailer.sendLandingRequest(function (response) {
+    handleResponse(res, response);
+  }, params);
+}
+
 //send errors to client.
 function sendErrorResponse(res, response) {
   if ((response != null) && (response.errors != null)) {

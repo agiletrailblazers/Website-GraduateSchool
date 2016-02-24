@@ -1,46 +1,48 @@
 
 <div id="gs-form">
     <div id="request-information">
-      <h1>Request more information</h1>
-      <h3>Fill out the form to find out more.</h3>
-        <form role="form" id="landing">
-          <div class="form-inline">
-            <span class="form-group">
-              <label for="inputFirstName">*Name</label>
-              <input id="txtFirstName" name="firstName" type="text" class="form-control" required>
-            </span>
-
-            <span class="form-group">
-                <label for="inputEmail">*Email</label>
-                <input id="txtEmail" name="email" type="email" maxlength="255" required class="form-control">
-            </span>
-            <span class="form-group">
-                <label for="inputPhone">Phone Number</label>
-                <input id="telPhone" name="phone" type="tel" maxlength="12" class="form-control">
-            </span>
-            <span class="form-group">
-                <label for="inputInformation">What information can we send you?</label>
-                <input id="information" name="information" type="text" maxlength="255" class="form-control">
-            </span>
+      <div id="messages">
+          <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
+              <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
           </div>
-          <% include partials/footnote %>
-          <div class="form-inline submit-button-right">
-            <span class="form-group">
-              <div class="submit-button">
-                <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
-              </div>
-            </span>
+          <div id="alertSuccess" class="alert alert-danger center" role="alert" style="display:none;">
+            <span id="removeAlertSuccess" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+              <p id="sucessDiv"><b>Thank you for your interest in Graduate School USA.</b></p>
+              <p>Someone will be contacting you as soon as possible.</p>
           </div>
-        </form>
+      </div>
+      <div id="request-information-form">
+        <h1>Request more information</h1>
+        <h3>Fill out the form to request more information.</h3>
+          <form role="form" id="landing">
+            <div class="form-inline">
+              <span class="form-group">
+                <label for="inputFirstName">*Full Name</label>
+                <input id="txtFirstName" name="firstName" type="text" class="form-control" required>
+              </span>
+              <span class="form-group">
+                  <label for="inputEmail">*Email</label>
+                  <input id="txtEmail" name="email" type="email" maxlength="255" required class="form-control">
+              </span>
+              <span class="form-group">
+                  <label for="inputPhone">Phone Number</label>
+                  <input id="telPhone" name="phone" type="tel" maxlength="12" class="form-control">
+              </span>
+              <span class="form-group">
+                  <label for="inputInformation">What information can we send you?</label>
+                  <input id="information" name="information" type="text" maxlength="255" class="form-control">
+              </span>
+            </div>
+            <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh"></div>
+            <% include partials/footnote %>
+            <div class="form-inline submit-button-right">
+              <span class="form-group">
+                <div class="submit-button">
+                    <button type="submit" id="submitForm" name="submitForm" value="submitForm">Submit</button>
+                </div>
+              </span>
+            </div>
+          </form>
+      </div>
     </div>
 </div><!-- END Request more information  -->
-
-<div id="messages">
-  <div id="alertError" class="alert alert-danger" role="alert" style="display:none;">
-    <span id="removeAlert" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-  </div>
-  <div id="alertSuccess" class="alert alert-sucess" role="alert" style="display:none;">
-    <p><b>Thank you for your interest in Graduate School USA.</b></p>
-    <p>Someone will be contacting you as soon as possible.</p>
-  </div>
-</div>

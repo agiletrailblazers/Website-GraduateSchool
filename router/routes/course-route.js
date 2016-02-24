@@ -47,7 +47,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           }
           callback();
     	}
-      }, courseIdOrCode);
+      }, courseIdOrCode, req.query["authToken"]);
     },
     function(callback) {
       function compare(a,b) {
@@ -83,7 +83,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           courseData.session = []; //return empty array
           callback();
         }
-      }, courseId);
+      }, courseId, req.query["authToken"]);
     },
     function(callback) {
       //use the courseData as returned from the 1st call (this is important)

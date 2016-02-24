@@ -36,7 +36,7 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
           courses = result;
           callback();
         }
-      });
+      }, req.query["authToken"]);
     },
     function(callback) {
       logger.debug("Get us states");

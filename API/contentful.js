@@ -486,7 +486,7 @@ module.exports = {
  },
 
  getContentUrlRedirect: function(callback) {
-   var targetURL = 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries?content_type=redirect';
+   var targetURL = 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries?content_type=redirect&limit=1000';
    request({
      method: 'GET',
      url: targetURL,
