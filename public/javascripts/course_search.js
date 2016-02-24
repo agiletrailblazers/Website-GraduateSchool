@@ -103,9 +103,31 @@ $(document).ready(function() {
     return urlParams;
   }
 
+  function isNotEmpty(val) {
+    if (val != '' && val != null && typeof(val) != 'undefined') {
+      return true;
+    }
+    return false;
+  };
+
   function reloadSearchResults() {
     $(".loading").show();
-    $("#title").text("Results for " + $("#txtSearchCriteria").val());
+
+    var topTitle = "Search Results";
+    if (isNotEmpty($("#txtSearchCriteria").val()) && $("#txtSearchCriteria").val() != '') {
+      topTitle = "Results for " + $("#txtSearchCriteria").val();
+    } else if (isNotEmpty($('#G2G').prop('checked')) && $('#G2G').prop('checked') == true) {
+      topTitle = "Results for " + 'Guaranteed To Go';
+    } else if (isNotEmpty($("#categorySubject").val()) && $("#categorySubject").val() != 'all') {
+      var subject = ($("#categorySubject").val()).split('~');
+      topTitle = "Results for " + subject[0];
+    } else if (isNotEmpty($("#selLocation").val()) && $("#selLocation").val() != 'all'){
+      topTitle = "Results for " + $("#selLocation").val();
+    } else if (isNotEmpty($("#deliveryMethod").val() && $("#deliveryMethod").val() != 'all')) {
+      topTitle = "Results for " + $("#deliveryMethod").val();
+    }
+
+    $("#title").text(topTitle);
     var urlParams = pushBrowserHistory();
     $.get("/search?partial=true&" + urlParams)
     .done(function(data) {
