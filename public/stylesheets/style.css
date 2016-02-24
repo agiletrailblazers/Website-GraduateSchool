@@ -2321,7 +2321,8 @@ ul.see-more li {
 }
 
 .register {
-  padding-top: 8px;
+  padding-top: 0px;
+  text-align: center;
 
 }
 .register a {
@@ -2350,4 +2351,18 @@ ul.see-more li {
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.header-menu a{
+  font-size: 13px;
+}
+
+.header-menu-text {
+  top: 7px;
+  position: relative;
+  text-align: left;
 }
