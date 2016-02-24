@@ -36,7 +36,7 @@ router.get('/search', function(req, res, next){
       params.page.course = (typeof(req.query["page-course"])!='undefined' ? req.query["page-course"] : null);
       params.page.site = (typeof(req.query["page-site"])!='undefined' ? req.query["page-site"] : null);
       params.tab = (typeof(req.query["tab"])!='undefined' ? req.query["tab"] : null);
-    }  
+    }
   var courseResult = {};
   var siteResult = {};
   var content = {};
@@ -103,8 +103,8 @@ router.get('/search', function(req, res, next){
           noSearch = true;
         }
         //update title of page
-        var topTitle = "Search";
-        if (params.searchCriteria != null) {
+        var topTitle = "Search Results";
+        if (params.searchCriteria != null && params.searchCriteria != "") {
           topTitle = 'Results for ' + params.searchCriteria;
         }
         if (courseResult == null) {
