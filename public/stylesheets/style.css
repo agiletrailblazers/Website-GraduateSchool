@@ -2321,7 +2321,8 @@ ul.see-more li {
 }
 
 .register {
-  padding-top: 8px;
+  padding-top: 0px;
+  text-align: center;
 
 }
 .register a {
@@ -2331,4 +2332,19 @@ ul.see-more li {
 
 .register a:hover {
   color: #427EB4 !important;
+}
+
+
+.inline-block {
+  display: inline-block;
+}
+
+.header-menu a{
+  font-size: 13px;
+}
+
+.header-menu-text {
+  top: 7px;
+  position: relative;
+  text-align: left;
 }
