@@ -11,7 +11,7 @@ var session = require('../../../API/manage/session-api.js');
 // Routes related to user management
 
 // Display the create user form
-router.get('/create', function(req, res, next) {
+router.get('/loginCreate', function(req, res, next) {
 
   var sessionData = session.getSessionData(req);
 
@@ -30,8 +30,18 @@ router.get('/create', function(req, res, next) {
 
         return callback(null, states);
       });
+    },
+    loginError: function(callback) {
+      var loginError = sessionData.loginError;
+      if (loginError) {
+        logger.debug("Error logging in, displaying alert and clearing the warning from session");
+        sessionData.loginError = null;
+      }
+      return callback(null, loginError);
     }
   }, function(err, content) {
+    session.setSessionData(res, sessionData);
+
     if (err) {
       logger.error("Error rendering createuser", err);
       common.redirectToError(res);
@@ -41,7 +51,8 @@ router.get('/create', function(req, res, next) {
     res.render('manage/user/loginCreate', {
       title: 'Login',
       states: content.states,
-      sessionId: content.sessionId
+      sessionId: content.sessionId,
+      loginError: content.loginError
     });
   });
 });
@@ -111,44 +122,46 @@ router.post('/create', function (req, res, next) {
 
 // Handle request to login as a user
 router.post('/login', function (req, res, next) {
-  logger.error("Login function");
   var authorizedUser = {};
-  async.waterfall({
-    loginUser: function (callback) {
-      // get the form data from the body of the request
-      var formData = req.body;
-      logger.info("Logging in user: " + formData.username);
-      var authCredentials = {
-        "username": formData.username,
-        "password": formData.password
-      };
-      authentication.loginUser(authCredentials, function (error, authUser) {
-        if (error) return callback(error);
-        authorizedUser = authUser;
-        logger.info("Logged in userID: " + authorizedUser.user.id + " with token: " + authorizedUser.authToken);
+  async.waterfall([
+        function (callback) {
+          // get the form data from the body of the request
+          var formData = req.body;
 
-        return callback(null, authorizedUser);
-      }, req.query.authToken);
-    },
-    handleNewToken: function (callback) {
-      // set authorization cookie and req variable
-      logger.info("Got new token " + authorizedUser.authToken);
-      authentication.setNewToken(req, res, authorizedUser.authToken);
+          logger.debug("Logging in user: " + formData.username);
+          var authCredentials = {
+            "username": formData.username,
+            "password": formData.credentials
+          };
+          authentication.loginUser(authCredentials, function (error, authUser) {
+            if (error) return callback(error);
+            authorizedUser = authUser;
+            logger.info("Logged in userID: " + authorizedUser.user.id + " with token: " + authorizedUser.authToken.token);
 
-      logger.info("Replacing old token " + req.query["authToken"]);
-      req.query["authToken"] = authorizedUser.authToken;
-      callback();
-    }
-  },function(err, content) {
-      if (err) {
-        logger.error("Failed during user creation", err);
-        res.status(500).send({"error": "We have experienced a problem processing your request, please try again later."});
-        return;
+            // set authorization cookie and req variable
+            authentication.setNewToken(req, res, authorizedUser.authToken.token);
 
-      // send success to client
-      res.status(200).send();
+            logger.debug("Replacing old token " + req.query["authToken"]);
+            req.query["authToken"] = authorizedUser.authToken.token;
+            return callback(null, authorizedUser);
+
+          }, req.query.authToken);
+        }
+      ], function (err, content) {
+        var sessionData = session.getSessionData(req);
+
+        if (err) {
+          sessionData.loginError = "Login failed, please try again";
+          session.setSessionData(res, sessionData);
+
+          logger.error("Failed during user login", err);
+          res.redirect('loginCreate');
+          return;
+        }
+        sessionData.userId = content.user.id;
+        session.setSessionData(res, sessionData);
+        res.redirect("/manage/cart/payment");
       }
-    }
   )
 });
 

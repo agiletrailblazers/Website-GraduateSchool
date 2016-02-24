@@ -6,6 +6,7 @@ var expect = chai.expect;
 var config = require('konphyg')(__dirname + "/../config");
 var test = require('tap').test;
 
+var authToken = "token123456789";
 
 test('createUser success', function(t) {
   //use endpoing from config even for tests
@@ -38,15 +39,20 @@ test('createUser success', function(t) {
   var expectedResponse = {"key" : "value"};
 
   //test a 200 ok
-  var server = nock(apiServer)
+  var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+          }
+        })
         .post('/api/user', userData)
         .reply(200, expectedResponse);
 
   server;
   user.createUser(userData, function(error, createdUser) {
+    server.done();
     expect(error).to.be.a('null');
     expect(createdUser).to.eql(expectedResponse);
-  });
+  }, authToken);
   t.end();
 });
 
@@ -78,15 +84,20 @@ test('createUser failure', function(t) {
      }
   };
 
-  var server = nock(apiServer)
+  var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+          }
+        })
         .post('/api/user', userData)
         .reply(500, {});
 
   server;
   user.createUser(userData, function(error, createdUser) {
+    server.done();
     expect(createdUser).to.be.a('null');
     expect(error).to.be.an.instanceof(Error);
-  });
+  }, authToken);
   t.end();
 });
 
@@ -110,15 +121,20 @@ test('registerUser success', function(t) {
   ];
 
   //test a 201 created
-  var server = nock(apiServer)
+  var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+          }
+        })
         .post('/api/registration/user/' + userId, registrationList)
         .reply(201, registrationResponse);
 
   server;
   user.registerUser(userId, registrationList, function(error, response) {
+    server.done();
     expect(error).to.be.a('null');
     expect(response).to.eql(registrationResponse);
-  });
+  }, authToken);
   t.end();
 });
 
@@ -142,14 +158,19 @@ test('registerUser failure', function(t) {
   ];
 
   //test a 201 created
-  var server = nock(apiServer)
+  var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+          }
+        })
         .post('/api/registration/user/' + userId, registrationList)
         .reply(500, null);
 
   server;
   user.registerUser(userId, registrationList, function(error, response) {
+    server.done();
     expect(response).to.be.a('null');
     expect(error).to.be.an.instanceof(Error);
-  });
+  }, authToken);
   t.end();
 });

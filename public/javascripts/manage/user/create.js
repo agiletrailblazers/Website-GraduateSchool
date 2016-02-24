@@ -1,4 +1,3 @@
-
 var _runValidation = function (formData) {
   $("#gs-form-alert-error").slideUp();
   $("#gs-form-alert-error p").remove();
@@ -76,6 +75,7 @@ $(document).ready(function () {
 });
 
 function displayAlreadyHaveAccount() {
+  $("#gs-form-alert-error").remove();
   $('#create-account-section').fadeOut();
   $('#toggle-create-account-section').fadeIn();
   $('#toggle-already-have-account-section').fadeOut();

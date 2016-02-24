@@ -42,7 +42,7 @@ getGuestToken = function (callback) {
 };
 
 loginUser = function(authCredentials, callback, authToken) {
-    var targetURL = config("properties").apiServer + '/api/token';
+    var targetURL = config("properties").apiServer + '/api/authentication';
     request({
         method: 'POST',
         url: targetURL,
@@ -52,8 +52,9 @@ loginUser = function(authCredentials, callback, authToken) {
         }
     }, function (error, response, body) {
         if (common.checkForErrorAndLog(error, response, targetURL)) {
-            return callback(new Error("Exception occured registering user"), null);
+            return callback(new Error("Exception occurred logging in user"), null);
         }
+        logger.info("Successfully logged in");
         return callback(null, body);
     });
 };
@@ -63,10 +64,10 @@ setNewToken = function (req, res, newToken) {
     var oldToken = req.cookies[tokenCookieName] ? req.cookies[tokenCookieName] : null;
 
     if (oldToken) {
-        logger.info("Read token data to be replaced from " + tokenCookieName + " token: " + oldToken);
+        logger.debug("Read token data to be replaced from " + tokenCookieName + " token: " + oldToken);
     }
     res.cookie(tokenCookieName, newToken, {maxAge: config("properties").authenticate.tokenTimeout});
-    logger.info("New token set to: " + newToken);
+    logger.debug("New token set to: " + newToken);
 };
 
 module.exports = {
