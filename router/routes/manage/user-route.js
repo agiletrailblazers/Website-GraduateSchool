@@ -133,19 +133,14 @@ router.post('/login', function (req, res, next) {
             "username": formData.username,
             "password": formData.credentials
           };
-          authentication.loginUser(authCredentials, function (error, authUser) {
+          authentication.loginUser(req, res, authCredentials, function (error, authUser) {
             if (error) return callback(error);
             authorizedUser = authUser;
-            logger.info("Logged in userID: " + authorizedUser.user.id + " with token: " + authorizedUser.authToken.token);
 
-            // set authorization cookie and req variable
-            authentication.setNewToken(req, res, authorizedUser.authToken.token);
 
-            logger.debug("Replacing old token " + req.query["authToken"]);
-            req.query["authToken"] = authorizedUser.authToken.token;
             return callback(null, authorizedUser);
 
-          }, req.query.authToken);
+          });
         }
       ], function (err, content) {
         var sessionData = session.getSessionData(req);
@@ -154,7 +149,7 @@ router.post('/login', function (req, res, next) {
           sessionData.loginError = "Login failed, please try again";
           session.setSessionData(res, sessionData);
 
-          logger.error("Failed during user login", err);
+          logger.debug("Failed during user login", err);
           res.redirect('loginCreate');
           return;
         }
