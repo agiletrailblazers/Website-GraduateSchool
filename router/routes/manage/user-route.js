@@ -4,13 +4,14 @@ var router = express.Router();
 var logger = require('../../../logger');
 var contentful = require("../../../API/contentful.js");
 var user = require("../../../API/manage/user-api.js");
+var authentication = require("../../../API/authentication-api.js");
 var common = require("../../../helpers/common.js");
 var session = require('../../../API/manage/session-api.js');
 
 // Routes related to user management
 
 // Display the create user form
-router.get('/create', function(req, res, next) {
+router.get('/loginCreate', function(req, res, next) {
 
   var sessionData = session.getSessionData(req);
 
@@ -29,18 +30,29 @@ router.get('/create', function(req, res, next) {
 
         return callback(null, states);
       });
+    },
+    loginError: function(callback) {
+      var loginError = sessionData.loginError;
+      if (loginError) {
+        logger.debug("Error logging in, displaying alert and clearing the warning from session");
+        sessionData.loginError = null;
+      }
+      return callback(null, loginError);
     }
   }, function(err, content) {
+    session.setSessionData(res, sessionData);
+
     if (err) {
       logger.error("Error rendering createuser", err);
       common.redirectToError(res);
       return;
     }
 
-    res.render('manage/user/create', {
+    res.render('manage/user/loginCreate', {
       title: 'Login',
       states: content.states,
-      sessionId: content.sessionId
+      sessionId: content.sessionId,
+      loginError: content.loginError
     });
   });
 });
@@ -106,6 +118,46 @@ router.post('/create', function (req, res, next) {
     // send success to client
     res.status(201).send();
   });
+});
+
+// Handle request to login as a user
+router.post('/login', function (req, res, next) {
+  var authorizedUser = {};
+  async.waterfall([
+        function (callback) {
+          // get the form data from the body of the request
+          var formData = req.body;
+
+          logger.debug("Logging in user: " + formData.username);
+          var authCredentials = {
+            "username": formData.username,
+            "password": formData.credentials
+          };
+          authentication.loginUser(req, res, authCredentials, function (error, authUser) {
+            if (error) return callback(error);
+            authorizedUser = authUser;
+
+
+            return callback(null, authorizedUser);
+
+          });
+        }
+      ], function (err, content) {
+        var sessionData = session.getSessionData(req);
+
+        if (err) {
+          sessionData.loginError = "Login failed, please try again";
+          session.setSessionData(res, sessionData);
+
+          logger.debug("Failed during user login", err);
+          res.redirect('loginCreate');
+          return;
+        }
+        sessionData.userId = content.user.id;
+        session.setSessionData(res, sessionData);
+        res.redirect("/manage/cart/payment");
+      }
+  )
 });
 
 module.exports = router;

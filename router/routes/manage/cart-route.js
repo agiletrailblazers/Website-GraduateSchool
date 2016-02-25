@@ -80,7 +80,7 @@ router.get('/', function(req, res, next) {
         callback(null, "/manage/cart/payment");
       }
       else {
-        callback(null, "/manage/user/create");
+        callback(null, "/manage/user/loginCreate");
       }
       return;
     }
