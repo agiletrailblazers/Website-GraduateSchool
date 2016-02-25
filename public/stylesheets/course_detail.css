@@ -1,6 +1,11 @@
 
 /*==========  Course Detail Styles  ==========*/
 
+@media print
+{
+  .tab-content > .tab-pane {display: block !important; opacity: 1 !important;}
+}
+
 #map-canvas{
   height: 300px;
   width: 100%;
