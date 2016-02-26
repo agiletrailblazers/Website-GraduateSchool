@@ -54,15 +54,27 @@ isNotEmptyOrAll = function (val) {
   return false;
 };
 
+//-- returns string of specified length or empty string
+createTruncatedString = function (val, maxLength) {
+  var truncatedValue = "";
+  if(isNotEmpty(val)) {
+    if (typeof val === 'string') {
+      truncatedValue = val.substr(0, maxLength);
+    }
+  }
+  return truncatedValue;
+};
+
 redirectToError = function (res) {
   res.writeHead(302, { 'Location': '/error_page.html' });
   res.end();
-}
+};
 
 module.exports = {
   isNotEmpty: isNotEmpty,
   isEmpty: isEmpty,
   isNotEmptyOrAll: isNotEmptyOrAll,
+  createTruncatedString: createTruncatedString,
   checkForErrorAndLog: checkForErrorAndLog,
   checkForErrorAndLogExceptCodes: checkForErrorAndLogExceptCodes,
   redirectToError: redirectToError

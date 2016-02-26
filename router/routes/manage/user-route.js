@@ -17,6 +17,10 @@ router.get('/loginCreate', function(req, res, next) {
 
   async.series({
     sessionId: function(callback) {
+      if (!sessionData.cart) {
+        return callback(new Error("No session ID exists"), null);
+      }
+
       var sessionId = sessionData.cart.sessionId;
       return callback(null, sessionId);
     },
