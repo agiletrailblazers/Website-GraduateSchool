@@ -1,20 +1,20 @@
 var map, geocoder;
+var marker;
 mapApp = {
   start: function() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
       zoom: 15,
     });
     geocoder = new google.maps.Geocoder();
+    marker = null;
   },
   codeAddress: function(address) {
-    console.log('address is ' + address);
     geocoder.geocode({
       'address': address
     }, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        console.log('length is ' + results.length);
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
+        // map.setCenter(results[0].geometry.location);
+        marker = new google.maps.Marker({
           map: map,
           position: results[0].geometry.location
         });
@@ -128,17 +128,13 @@ $(document).ready(function() {
     $("#map-address").html(address);
     google.maps.event.addListenerOnce(map, 'idle', function() {
       google.maps.event.trigger(map, 'resize');
+      if (marker != null) {
+        map.setCenter(marker.getPosition());
+      }
     });
-    console.log('before mapmodal');
-    // $("#mapModal").on("shown.bs.modal", function() {
-      console.log('calling ');
-      mapApp.codeAddress(address);
-      $("#getDirections").attr("href", directionsUrl);
-      google.maps.event.trigger(map, "resize");
-    // });
+
+    mapApp.codeAddress(address);
+    $("#getDirections").attr("href", directionsUrl);
   });
-  // $('#mapModal').on('hidden.bs.modal', function() {
-  //   $("#modalSessionLocationSpan, #mapAlert").remove();
-  // });
   tablemobApp.initialMobileDetailExpand();
 });
