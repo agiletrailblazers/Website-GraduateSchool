@@ -437,7 +437,7 @@ router.post('/payment/complete', function(req, res, next) {
           title: "Course Registration - Receipt",
           course: content.course,
           session: content.session,
-          completedRegistrations: content.registrationResponse.completedRegistrations,
+          registrations: content.registrationResponse.registrations,
           payment: content.payment
         });
   });
