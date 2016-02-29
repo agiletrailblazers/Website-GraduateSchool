@@ -104,7 +104,17 @@ router.post('/create', function (req, res, next) {
 
         // user created successfully
         logger.info("Created user: " + createdUser.id + " - " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
-        return callback(null, createdUser);
+
+        logger.debug("Authenticate the newly created user: " + userData.username);
+        var authCredentials = {
+          "username": userData.username,
+          "password": userData.password
+        };
+        authentication.loginUser(req, res, authCredentials, function (error, authUser) {
+          if (error) return callback(error);
+          // the login user API call will set the authenticated token, we don't need to do anything with the response
+          return callback(null, createdUser);
+        });
       }, req.query["authToken"]);
     }
   }, function(err, content) {
