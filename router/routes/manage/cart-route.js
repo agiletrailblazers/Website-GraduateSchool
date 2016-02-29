@@ -6,6 +6,7 @@ var courseAPI = require('../../../API/course.js');
 var common = require("../../../helpers/common.js");
 var config = require('konphyg')(__dirname + '/../../../config');
 var crypto = require("crypto-js");
+var truncator = require("underscore.string/truncate");
 var uuid = require('uuid');
 var session = require('../../../API/manage/session-api.js');
 var user = require("../../../API/manage/user-api.js");
@@ -145,14 +146,14 @@ router.get('/payment', function(req, res, next) {
       user.getUser(sessionData.userId , function(error, retrievedUser) {
           if (error) return callback(error);
           //User info manually input may be too long, so ensure strings are no longer than maximum before sending to Cybersource
-          retrievedUser.person.firstName = common.createTruncatedString(retrievedUser.person.firstName, 60);
-          retrievedUser.person.lastName = common.createTruncatedString(retrievedUser.person.lastName, 60);
-          retrievedUser.person.primaryAddress.address1 = common.createTruncatedString(retrievedUser.person.primaryAddress.address1,60);
-          retrievedUser.person.primaryAddress.address2 = common.createTruncatedString(retrievedUser.person.primaryAddress.address2, 60);
-          retrievedUser.person.primaryAddress.city = common.createTruncatedString(retrievedUser.person.primaryAddress.city, 50);
-          retrievedUser.person.primaryAddress.state =  common.createTruncatedString(retrievedUser.person.primaryAddress.state, 2);
-          retrievedUser.person.primaryAddress.postalCode = common.createTruncatedString(retrievedUser.person.primaryAddress.postalCode, 10);
-          retrievedUser.person.emailAddress = common.createTruncatedString(retrievedUser.person.emailAddress, 255);
+          retrievedUser.person.firstName = truncator(retrievedUser.person.firstName, 60, [truncateString = ""]);
+          retrievedUser.person.lastName = truncator(retrievedUser.person.lastName, 60, [truncateString = ""]);
+          retrievedUser.person.primaryAddress.address1 = truncator(retrievedUser.person.primaryAddress.address1,60, [truncateString = ""]);
+          retrievedUser.person.primaryAddress.address2 = truncator(retrievedUser.person.primaryAddress.address2, 60, [truncateString = ""]);
+          retrievedUser.person.primaryAddress.city = truncator(retrievedUser.person.primaryAddress.city, 50, [truncateString = ""]);
+          retrievedUser.person.primaryAddress.state =  truncator(retrievedUser.person.primaryAddress.state, 2, [truncateString = ""]);
+          retrievedUser.person.primaryAddress.postalCode = truncator(retrievedUser.person.primaryAddress.postalCode, 10, [truncateString = ""]);
+          retrievedUser.person.emailAddress = truncator(retrievedUser.person.emailAddress, 255, [truncateString = ""]);
 
           return callback(null, session, retrievedUser);
       }, req.query["authToken"])
