@@ -335,7 +335,10 @@ router.post('/payment/confirm', function(req, res, next) {
       var authorization = {
         approved: (cybersourceResponse.decision === "ACCEPT") ? true : false,
         cardNumber: cybersourceResponse.req_card_number,
-        cardExpiry: cybersourceResponse.req_card_expiry_date
+        cardExpiry: cybersourceResponse.req_card_expiry_date,
+        authId: cybersourceResponse.transaction_id,
+        amount: cybersourceResponse.auth_amount,
+        referenceNumber: cybersourceResponse.req_reference_number
       };
 
       // add required fields to session for completing the sale after confirmation
@@ -408,28 +411,36 @@ router.post('/payment/complete', function(req, res, next) {
           return callback(null, session);
         }, req.query["authToken"]);
       },
-      completedRegistrations: function(callback) {
+      registrationResponse: function(callback) {
 
-        // currently only support a single registration
-        var registration = {
-          orderNumber: null,
-          studentId: sessionData.userId,
-          sessionId: sessionData.cart.sessionId
+        var registrationRequest = {
+            registrations:[
+                {
+                    orderNumber: null,
+                    studentId: sessionData.userId,
+                    sessionId: sessionData.cart.sessionId
+                }
+            ],
+            payments:[
+                {
+                    amount: sessionData.cart.payment.authorization.amount,
+                    authorizationId: sessionData.cart.payment.authorization.authId,
+                    merchantReferenceId: sessionData.cart.payment.authorization.referenceNumber
+                }
+            ]
         };
 
         // register the user
-        user.registerUser(sessionData.userId, [registration], function(error, completedRegistrations) {
+        user.registerUser(sessionData.userId, registrationRequest, function(error, registrationResponse) {
           // callback with the error, this will cause async module to stop executing remaining
           // functions and jump immediately to the final function, it is important to return
           // so that the task callback isn't called twice
           if (error) return callback(error);
 
-          return callback(null, completedRegistrations);
+          return callback(null, registrationResponse);
         }, req.query["authToken"]);
       },
       payment: function(callback) {
-
-        // TODO make the API call to cybersource to complete the sale
         var payment = sessionData.cart.payment.authorization;
         return callback(null, payment);
       }
@@ -451,7 +462,7 @@ router.post('/payment/complete', function(req, res, next) {
           title: "Course Registration - Receipt",
           course: content.course,
           session: content.session,
-          completedRegistrations: content.completedRegistrations,
+          registrations: content.registrationResponse.registrations,
           payment: content.payment
         });
   });

@@ -21,13 +21,13 @@ module.exports = {
     });
   },
 
-  // registrationList is an array of registration objects
-  registerUser: function(userId, registrationList, callback, authToken) {
+  // registrationRequest is an object containing a List of Registration objects and a List of Payment objects
+  registerUser: function(userId, registrationRequest, callback, authToken) {
     var targetURL = config("properties").apiServer + '/api/registration/user/' + userId;
     request({
       method: 'POST',
       url: targetURL,
-      json: registrationList,
+      json: registrationRequest,
       headers: {
         'Authorization': authToken
       }

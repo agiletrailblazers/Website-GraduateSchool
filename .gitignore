@@ -32,3 +32,8 @@ test.tap
 
 # local property file
 config/properties.local.json
+
+
+.classpath
+.idea/
+Website-GraduateSchool.iml
