@@ -1,6 +1,5 @@
 var common = require('../helpers/common.js');
 var chai = require('chai');
-var truncator = require("underscore.string")
 var expect = chai.expect;
 var config = require('konphyg')(__dirname + "/../config");
 var test = require('tap').test;
