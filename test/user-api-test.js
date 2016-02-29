@@ -9,7 +9,7 @@ var test = require('tap').test;
 var authToken = "token123456789";
 
 test('createUser success', function(t) {
-  //use endpoing from config even for tests
+  //use endpoint from config even for tests
   var apiServer = config("properties").apiServer;
   var userData = {
     "username" : "foo@bar.com",
@@ -173,4 +173,81 @@ test('registerUser failure', function(t) {
     expect(error).to.be.an.instanceof(Error);
   }, authToken);
   t.end();
+});
+
+test('get user success', function(t) {
+    //use endpoint from config even for tests
+    var apiServer = config("properties").apiServer;
+    var userId = 'persn00000012345';
+    var expectedUsername = "testUser@test.com";
+    var userData = {
+        "id": userId,
+        "username": expectedUsername,
+        "password": null,
+        "lastFourSSN": null,
+        "timezoneId": "tzone000000000000007",
+        "accountId": "accnt000000000582595",
+        "currencyId": "crncy000000000000167",
+        "split": "domin000000000000001",
+        "timestamp": "1456153504261",
+        "person": {
+            "firstName": "Test",
+            "middleName": null,
+            "lastName": "User",
+            "emailAddress": expectedUsername,
+            "primaryPhone": "5555555555",
+            "secondaryPhone": null,
+            "primaryAddress": {
+                "address1": "666 Test Road",
+                "address2": "ATB",
+                "city": "Testville",
+                "state": "AL",
+                "postalCode": "66666"
+            },
+            "secondaryAddress": null,
+            "veteran": null,
+            "dateOfBirth": "2011-02-10"
+        }
+    };
+
+    //test a 200 ok
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    })
+        .get('/api/user/' + userId)
+        .reply(200, userData);
+
+    server;
+    user.getUser(userId, function(error, retrievedUser, body) {
+        server.done();
+        expect(retrievedUser.username).to.eql(expectedUsername);
+        expect(retrievedUser).to.eql(userData);
+    }, authToken);
+    t.end();
+});
+
+test('get user failure', function(t) {
+    //use endpoint from config even for tests
+    var apiServer = config("properties").apiServer;
+    var userId = 'persn00000012345';
+    var expectedUsername = "testUser@test.com";
+
+    //test a 200 ok
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    })
+        .get('/api/user/' + userId)
+        .reply(500, null);
+
+    server;
+    user.getUser(userId, function(error, retrievedUser, body) {
+        server.done();
+        expect(retrievedUser).to.be.a('null');
+        expect(error).to.be.an.instanceof(Error);
+    }, authToken);
+    t.end();
 });

@@ -140,7 +140,24 @@ router.get('/payment', function(req, res, next) {
       }, req.query["authToken"]);
     },
     function(session, callback) {
+      logger.debug("Looking up user details for user " + sessionData.userId)
 
+      user.getUser(sessionData.userId , function(error, retrievedUser) {
+          if (error) return callback(error);
+          //User info manually input may be too long, so ensure strings are no longer than maximum before sending to Cybersource
+          retrievedUser.person.firstName = common.createTruncatedString(retrievedUser.person.firstName, 60);
+          retrievedUser.person.lastName = common.createTruncatedString(retrievedUser.person.lastName, 60);
+          retrievedUser.person.primaryAddress.address1 = common.createTruncatedString(retrievedUser.person.primaryAddress.address1,60);
+          retrievedUser.person.primaryAddress.address2 = common.createTruncatedString(retrievedUser.person.primaryAddress.address2, 60);
+          retrievedUser.person.primaryAddress.city = common.createTruncatedString(retrievedUser.person.primaryAddress.city, 50);
+          retrievedUser.person.primaryAddress.state =  common.createTruncatedString(retrievedUser.person.primaryAddress.state, 2);
+          retrievedUser.person.primaryAddress.postalCode = common.createTruncatedString(retrievedUser.person.primaryAddress.postalCode, 10);
+          retrievedUser.person.emailAddress = common.createTruncatedString(retrievedUser.person.emailAddress, 255);
+
+          return callback(null, session, retrievedUser);
+      }, req.query["authToken"])
+    },
+    function(session, retrievedUser, callback) {
         logger.debug("Building and signing payment request data");
 
         var transaction_uuid = uuid.v4();
@@ -159,7 +176,7 @@ router.get('/payment', function(req, res, next) {
         parameters.set("access_key", paymentConfig.accessKey);
         parameters.set("profile_id", paymentConfig.profileId);
         parameters.set("transaction_uuid", transaction_uuid);
-        parameters.set("signed_field_names", "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,line_item_count,item_0_name,item_0_unit_price,item_0_quantity");
+        parameters.set("signed_field_names", "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,line_item_count,item_0_name,item_0_unit_price,item_0_quantity,bill_to_forename,bill_to_surname,bill_to_address_line1,bill_to_address_line2,bill_to_address_city,bill_to_address_state,bill_to_address_country,bill_to_address_postal_code,bill_to_email");
         parameters.set("unsigned_field_names", "");
         parameters.set("signed_date_time", signed_date_time);
         parameters.set("locale", "en");
@@ -172,7 +189,16 @@ router.get('/payment', function(req, res, next) {
         parameters.set("item_0_name", session["classNumber"]);
         parameters.set("item_0_unit_price", session["tuition"]);
         parameters.set("item_0_quantity", 1);
-
+        // add user and address info
+        parameters.set("bill_to_forename", retrievedUser.person.firstName);
+        parameters.set("bill_to_surname", retrievedUser.person.lastName);
+        parameters.set("bill_to_address_line1", retrievedUser.person.primaryAddress.address1);
+        parameters.set("bill_to_address_line2", retrievedUser.person.primaryAddress.address2);
+        parameters.set("bill_to_address_city", retrievedUser.person.primaryAddress.city);
+        parameters.set("bill_to_address_state", retrievedUser.person.primaryAddress.state);
+        parameters.set("bill_to_address_country", "US");
+        parameters.set("bill_to_address_postal_code", retrievedUser.person.primaryAddress.postalCode);
+        parameters.set("bill_to_email", retrievedUser.person.emailAddress);
         var signatureStr = "";
         var i = 0;
         parameters.forEach(function(value, key) {
@@ -198,7 +224,6 @@ router.get('/payment', function(req, res, next) {
 
     // update the session data
     session.setSessionData(res, sessionData);
-
     res.render('manage/cart/payment', {
         parameters: parameters,
         signature: signature,
