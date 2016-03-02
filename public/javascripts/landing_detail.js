@@ -4,14 +4,16 @@ var _runLandingFormValidation = function() {
   $("#alertError p").remove();
   validate.Name(validator, "#txtFirstName", "#alertError", "First Name");
   validate.Email(validator, "#txtEmail","#alertError", "Email");
-  validate.Captcha("#g-recaptcha-response", "#alertError");
+  if ($("#telPhone").val().trim() != ''  ) {
+    validate.Phone(validator, "#telPhone", "#alertError", "Phone Number");
+  }
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
   }
 }
 
 $(document).ready(function() {
-
+  $("#telPhone").mask("(999) 999-9999", {autoclear: false});
   $("#alertError").hide();
   $(".loading").hide();
   $("#removeAlert").css('cursor', 'pointer');
@@ -25,7 +27,6 @@ $(document).ready(function() {
     data.email = $("#txtEmail").val();
     data.phone = $("#telPhone").val();
     data.information = $("#moreInfo").val();
-    data.captchaResponse = $("#g-recaptcha-response").val();
     data.email=$("#email").val();
     data.userEmail = $("#txtEmail").val();
     if (!$("#alertError p").length) {
