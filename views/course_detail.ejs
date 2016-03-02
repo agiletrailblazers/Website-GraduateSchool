@@ -152,7 +152,7 @@
                 </td>
                 <td> $<%= session["tuition"]%></td>
                 <td class="statusData">
-                  <% if (session["status"] === "C" || session["status"] === "S")  {%>
+                  <% if (session["status"] === "C")  {%>
                     <% if (session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
                       <span class="label label-danger">C</span>
                     <% } else { %>
