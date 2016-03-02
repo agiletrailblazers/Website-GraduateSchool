@@ -65,7 +65,6 @@ router.get(['/landing/:landing_slug'], function(req, res, next) {
     }
 
     res.render('landing/landing_detail', {
-      skipReCaptcha : config("properties").skipReCaptchaVerification,
       title: landingcontent.title,
       slug: landingcontent.slug,
       maintitle:landingcontent.mainTitle,
