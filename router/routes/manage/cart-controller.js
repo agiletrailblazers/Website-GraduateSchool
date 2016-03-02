@@ -10,6 +10,7 @@ var common = require("../../../helpers/common.js");
 var courseAPI = require('../../../API/course.js');
 var session = require('../../../API/manage/session-api.js');
 var user = require("../../../API/manage/user-api.js");
+var payment = require("../../../API/manage/payment-api.js");
 
 // handlers for cart related routes
 
@@ -240,13 +241,53 @@ module.exports = {
 
         logger.debug("Processing payment canceled");
 
-        // remove the payment data from the cart
         var sessionData = session.getSessionData(req);
-        sessionData.cart.payment = {};
-        session.setSessionData(res, sessionData);
 
-        // redirect back to the cart
-        res.redirect('/manage/cart');
+        async.series({
+            authReversal: function(callback) {
+
+                // can arrive here in one of two ways, having canceled from the CyberSource page
+                // or having canceled from the confirmation page
+                // only have to reverse authorization if cancel from confirmation page
+                if (sessionData.cart && sessionData.cart.payment && sessionData.cart.payment.authorization) {
+
+                    logger.debug("Sending payment authorization reversal for user " + sessionData.userId);
+
+                    var payments = [
+                        {
+                            amount: sessionData.cart.payment.authorization.amount,
+                            authorizationId: sessionData.cart.payment.authorization.authId,
+                            merchantReferenceId: sessionData.cart.payment.authorization.referenceNumber
+                        }
+                    ];
+
+                    payment.sendAuthReversal(payments, function(error) {
+                        // auth reversal failures should not render an error, simply log the warning and move on
+                        if (error) {
+                            logger.warn("Failure processing payment authorization reversal" + error.message);
+                        }
+
+                        // there is nothing to return for a payment authorization reversal
+                        return callback(null, "");
+
+                    }, req.query["authToken"]);
+                }
+            }
+        }, function(err, content) {
+
+            if (err) {
+                logger.error("Error processing cancel from registration", err);
+                common.redirectToError(res);
+                return;
+            }
+
+            // remove all payment data from the cart, but leave all other contents
+            sessionData.cart.payment = {};
+            session.setSessionData(res, sessionData);
+
+            // redirect back to the cart
+            res.redirect('/manage/cart');
+        });
     },
 
     // handle the payment confirm post from Cybersource payment
