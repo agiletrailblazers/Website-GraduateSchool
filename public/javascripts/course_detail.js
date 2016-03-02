@@ -1,18 +1,19 @@
 var map, geocoder;
+var marker;
 mapApp = {
   start: function() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
       zoom: 15,
     });
     geocoder = new google.maps.Geocoder();
+    marker = null;
   },
   codeAddress: function(address) {
     geocoder.geocode({
       'address': address
     }, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
+        marker = new google.maps.Marker({
           map: map,
           position: results[0].geometry.location
         });
@@ -118,7 +119,7 @@ $(document).ready(function() {
   $('.glyphicon-map-marker').click(function(e) {
     e.preventDefault();
     var cityState = $(this).data('city');
-    $("#mapModalLabel").append('<span id="modalSessionLocationSpan">' + cityState + '</span>');
+    $("#modalSessionLocationSpan").text(cityState);
     mapApp.start();
     var address = $(this).data('address');
     var destination = address.replace(/ /g, '+');
@@ -126,15 +127,13 @@ $(document).ready(function() {
     $("#map-address").html(address);
     google.maps.event.addListenerOnce(map, 'idle', function() {
       google.maps.event.trigger(map, 'resize');
+      if (marker != null) {
+        map.setCenter(marker.getPosition());
+      }
     });
-    $("#mapModal").on("shown.bs.modal", function() {
-      mapApp.codeAddress(address);
-      $("#getDirections").attr("href", directionsUrl);
-      google.maps.event.trigger(map, "resize");
-    });
-  });
-  $('#mapModal').on('hidden.bs.modal', function() {
-    $("#modalSessionLocationSpan, #mapAlert").remove();
+
+    mapApp.codeAddress(address);
+    $("#getDirections").attr("href", directionsUrl);
   });
   tablemobApp.initialMobileDetailExpand();
 });

@@ -36,7 +36,7 @@ router.get('/search', function(req, res, next){
       params.page.course = (typeof(req.query["page-course"])!='undefined' ? req.query["page-course"] : null);
       params.page.site = (typeof(req.query["page-site"])!='undefined' ? req.query["page-site"] : null);
       params.tab = (typeof(req.query["tab"])!='undefined' ? req.query["tab"] : null);
-    }  
+    }
   var courseResult = {};
   var siteResult = {};
   var content = {};
@@ -103,10 +103,20 @@ router.get('/search', function(req, res, next){
           noSearch = true;
         }
         //update title of page
-        var topTitle = "Search";
-        if (params.searchCriteria != null) {
-          topTitle = 'Results for ' + params.searchCriteria;
+        var topTitle = "Search Results";
+        if (common.isNotEmpty(params.searchCriteria)) {
+          topTitle = "Results for " + params.searchCriteria;
+        } else if (common.isNotEmpty(params.selectedG2G) && (params.selectedG2G == "true")) {
+          topTitle = "Results for " + 'Guaranteed To Go';
+        } else if (common.isNotEmpty(params.categorySubject) && (params.categorySubject != 'all')) {
+          var subject = params.categorySubject.split('~');
+          topTitle = "Results for " + subject[0];
+        } else if (common.isNotEmpty(params.cityState) && (params.cityState != 'all')){
+          topTitle = "Results for " + params.cityState;
+        } else if (common.isNotEmpty(params.deliveryMethod) && (params.deliveryMethod != 'all')) {
+          topTitle = "Results for " + params.deliveryMethod;
         }
+
         if (courseResult == null) {
           params.tab = 'site';
         }
