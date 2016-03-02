@@ -50,7 +50,9 @@
     <%if (formDisplay) {%>
     <% include ../../forms/landing_form %>
     <% } else if (imageDisplay) {%>
-      <img src="<%= rightcolumncontent %>" style="width:100%;" />
+      <div class="center">
+        <img src="<%= rightcolumncontent %>" style="width:80%;" />
+      </div>
     <% } else if (videosDisplay) {%>
       <iframe src="<%= rightContentVideoUrl %>" width="99%" height="400" frameBorder="0"></iframe>
     <% } %>

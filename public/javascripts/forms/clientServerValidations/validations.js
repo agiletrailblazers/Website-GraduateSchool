@@ -30,7 +30,7 @@
        var re = /^(\([0-9]{3}\) )[0-9]{3}-[0-9]{4}$/g;
        if (input.trim().match(re)==null){
          result.status = false;
-         result.errMsg = fieldName + " is incorrect.."
+         result.errMsg = fieldName + " is incorrect."
        }
        return result;
      }
