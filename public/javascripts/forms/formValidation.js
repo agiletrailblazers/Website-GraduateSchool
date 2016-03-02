@@ -24,6 +24,14 @@ var validate = {
     }
   },
 
+  Phone: function(validator, id, alertId, fieldName) {
+    var phone = validations.phone(validator, $(id).val(), fieldName);
+    var idForError = id.substring(1);
+    if (!phone.status) {
+      $(alertId).append("<p id='" + idForError + "-format'><span  class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>" + phone.errMsg + "</p>");
+    }
+  },
+
   Captcha: function(id, alertId) {
     var idForError = id.substring(1);
     var captcha = validations.captcha($(id).val(), skipReCaptcha);

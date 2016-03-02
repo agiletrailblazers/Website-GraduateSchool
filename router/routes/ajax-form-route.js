@@ -247,24 +247,8 @@ router.post('/mailer-landing', function (req, res, next) {
   routerService.validateLandingFields(function (response) {
     // Send email if there are no errors.
     if (Object.keys(response.errors).length === 0) {
-      //verify captcha
-      if (config("properties").skipReCaptchaVerification) {
-        logger.debug("mailer-landing - reCaptcha verification is turned off");
         // send landing email
         sendLandingEmail(res, params);
-      }
-      else {
-      google.verifyCaptcha(function (response, error) {
-          if ((response != null) && (response.statusCode == 200) ) {
-            logger.debug("mailer-landing captcha verification success");
-            // send subscription email
-            sendLandingEmail(res, params);
-          } else {
-            logger.debug("mailer-landing captcha verification failed");
-            sendErrorResponse(res, response);
-          }
-        }, params.captchaResponse);
-      }
     } else {
       sendErrorResponse(res, response);
     }
