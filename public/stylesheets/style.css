@@ -12,7 +12,7 @@
         }
 
       @page {
-        margin: 75px;
+        margin: 50px;
       }
    }
 
@@ -33,7 +33,6 @@ html, body {
   overflow-x: hidden;
 }
 
-
 *, *:before, *:after {
   -webkit-box-sizing: inherit;
   -moz-box-sizing: inherit;
@@ -43,6 +42,7 @@ html, body {
 #printPage{
   cursor:pointer;
 }
+
 body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -56,7 +56,6 @@ img.responsive {
   max-width: 100%;
   height: auto;
 }
-
 
 p {
   font-size: 15px;

@@ -1,10 +1,37 @@
 
 /*==========  Course Detail Styles  ==========*/
 
-@media print
-{
-  .tab-content > .tab-pane {display: block !important; opacity: 1 !important;}
+@media print {
+  body {
+    width: 100% !important;
+    margin-right: 50px !important;
+  }
+
+  .tab-content > .tab-pane {
+    display: block !important;
+    opacity: 1 !important;
+  }
+
+  .related-links, ul.nav-tabs {
+    display: none;
+    visibility: hidden;
+  }
+
+  #course-information, #sidebar, .table-responsive {
+    width: 95%;
+  }
+
+  .container {
+    width: auto !important;
+  }
+
+  #courseContent {
+    width: auto !important;
+  }
+
+
 }
+
 
 #map-canvas{
   height: 300px;
