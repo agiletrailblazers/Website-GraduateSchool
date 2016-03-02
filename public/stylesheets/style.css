@@ -2205,6 +2205,10 @@ ul.see-more li {
   padding-bottom: 10px;
 }
 
+.padding-bottom30 {
+  padding-bottom: 30px;
+}
+
 .margin-reset {
  margin: 0 !important;
 }
