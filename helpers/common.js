@@ -57,7 +57,7 @@ isNotEmptyOrAll = function (val) {
 redirectToError = function (res) {
   res.writeHead(302, { 'Location': '/error_page.html' });
   res.end();
-}
+};
 
 module.exports = {
   isNotEmpty: isNotEmpty,

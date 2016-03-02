@@ -41,7 +41,43 @@ getGuestToken = function (callback) {
     });
 };
 
+loginUser = function(req, res, authCredentials, callback) {
+    var targetURL = config("properties").apiServer + '/api/authentication';
+    var currentAuthToken = req.query["authToken"];
+
+    request({
+        method: 'POST',
+        url: targetURL,
+        json: authCredentials,
+        headers: {
+            'Authorization': currentAuthToken
+        }
+    }, function (error, response, body) {
+        if (common.checkForErrorAndLog(error, response, targetURL)) {
+            return callback(new Error("Exception occurred logging in user"), null);
+        }
+        logger.info("Logged in username: " + body.user.username + " with token: " + body.authToken.token);
+
+        //Replace old token in cookie and req variable with new token
+        var tokenCookieName  = config("properties").authenticate.tokenName;
+        var tokenFromCookie = req.cookies[tokenCookieName] ? req.cookies[tokenCookieName] : null;
+
+        if (tokenFromCookie) {
+            logger.debug("Read token data to be replaced from " + tokenCookieName + ": " + tokenFromCookie);
+        }
+
+        res.cookie(tokenCookieName, body.authToken.token, {maxAge: config("properties").authenticate.tokenTimeout});
+
+        req.query["authToken"] = body.authToken.token;
+
+        logger.debug("New token set to: " + body.authToken.token);
+
+        return callback(null, body);
+    });
+};
+
 module.exports = {
     getAuthToken: getAuthToken,
-    getGuestToken: getGuestToken
+    getGuestToken: getGuestToken,
+    loginUser: loginUser
 };

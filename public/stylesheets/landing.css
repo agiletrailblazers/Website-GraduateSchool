@@ -1,0 +1,199 @@
+/* Landing pages form */
+
+#request-information {
+  margin:2.5%;
+  width: 95%;
+  border: 2px solid #417CB4;
+  padding: 10px;
+  min-height: 500px;
+}
+
+#request-information {
+  margin: 2.5% 7.5%;
+  width: 85%;
+  }
+
+#request-information h1 {
+  font-size: 26px !important;
+  text-align: center;
+  font-weight: 500;
+  color: #025A95;
+}
+
+#request-information h3 {
+  font-size: 18px !important;
+  text-align: center;
+  font-weight: 500;
+}
+
+#landing {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+#gs-form input.form-control, #gs-form select.form-control {
+  max-width: 300px !important;
+  width: 100% !important;
+}
+
+
+.landingSuccessMessage {
+  position: relative;
+  top: 80px;
+}
+
+h4#sucessDiv {
+  text-align: center;
+}
+
+
+/* Landing Page 01 */
+
+.leftColumn {
+    float: left;
+    width: 50%;
+}
+.rightColumn {
+    float: right;
+    width: 50%;
+}
+
+.submit-button-right {
+  text-align: right;
+}
+
+.submit-button {
+  display: inline-block;
+}
+
+.submit-button-right .form-group {
+  margin-right: 0px;
+}
+
+.form-inline .form-group {
+    margin-bottom: 15px !important;
+    width: 100%;
+}
+
+
+.header {
+    background-color: #FFFFFF;
+    padding-top: 35px;
+    padding-bottom: 35px;
+}
+
+.header ul {
+  margin: 0;
+  padding: 0;
+}
+
+.header ul li {
+  list-style: none;
+}
+
+.gs .dropdown-menu {
+  right: 0;
+  left: auto;
+  width: 100%;
+  min-width: 175px;
+}
+
+#main-container h1 {
+  margin-top: 30px;
+}
+
+
+#AdditionalSection h1 {
+  text-align: center;
+  color: #015994;
+  font-size: 30px !important;
+}
+
+#AdditionalSection p {
+  color: #555555;
+  text-align: center;
+}
+
+
+ul.networks-mobile img {
+  opacity: 0.7;
+  width: 22px !important;
+}
+
+.banner-landing {
+  height: 35px;
+  padding: 2px 0 0 0;
+}
+
+.divider-landing {
+  margin: 45px 0 30px 0;
+}
+
+.d-top {
+  height: 15px;
+  background-color: #CBD7E3;
+}
+
+.d-bottom {
+  height: 15px;
+  background-color: #E9EEF3;
+}
+
+p.copyright {
+  padding: 25px 0 5px 0 !important;
+}
+
+#landingContent p {
+ color: #666666;
+}
+
+#landingContent ul {
+ margin: 0 0 30px 0;
+ padding: 0;
+}
+
+#landingContent ul li {
+  font-size: 15px;
+  color: #666666;
+  background: url('../images/star.png') no-repeat;
+  background-position: 0 10px;
+  padding: 0px 5px 25px 60px;
+  list-style: none;
+  margin: 0;
+}
+
+#landingContent ol li {
+  font-size: 15px;
+  color: #666666;
+  background-position: 0 10px;
+  padding: 0px 5px 25px 45px;
+  list-style: none;
+  margin: 0;
+}
+
+
+#landingContent ol {
+  counter-reset: numList;
+}
+
+#landingContent ol li:before {
+  counter-increment: numList;
+  content: counter(numList);
+
+  float: left;
+  position: absolute;
+  left: 30px;
+
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+  color: #135992;
+  line-height: 36px;
+
+  width: 42px; height: 42px;
+  background: #FFF;
+  border: 2px solid #135992;
+
+  -moz-border-radius: 999px;
+  border-radius: 999px
+}

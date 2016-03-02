@@ -14,6 +14,14 @@
       padding: 15px 5px !important;
       }
 
+      .header-menu a {
+        padding-right: 20px;
+        color: #888888 !important;
+      }
+      .register {
+        padding-left: 20px;
+      }
+
     }
 
     /* Medium Devices, Desktops */
@@ -133,6 +141,10 @@
         width: 250px !important;
       }
 
+      #request-information input.form-control, #request-information  select.form-control {
+        width: 100% !important;
+      }
+
       #gs-form  .width-fixer {
         width: 260px !important;
       }
@@ -168,6 +180,11 @@
       #gs-tabs .nav > li > a {
         padding: 17px 10px;
         font-size: 14px;
+      }
+
+      #request-information {
+        margin:2.5%;
+        width: 95%;
       }
 
     }
@@ -581,6 +598,11 @@
 
         table.generic th {
           font-size: 12px;
+        }
+
+        #request-information {
+          margin:2.5%;
+          width: 95%;
         }
     }
 

@@ -6,8 +6,9 @@ var expect = chai.expect;
 var config = require('konphyg')(__dirname + "/../config");
 var test = require('tap').test;
 
+var tokenName = config("properties").authenticate.tokenName;
+
 test('get token from api and set cookie success', function(t) {
-  var tokenName = config("properties").authenticate.tokenName;
   var tokenTimeout = config("properties").authenticate.tokenTimeout;
   var expectedTokenData = '1231231231test2341231231251fadfafd';
   var apiServer = config("properties").apiServer;
@@ -38,7 +39,6 @@ test('get token from api and set cookie success', function(t) {
 });
 
 test('get token from api and set cookie failure', function(t) {
-  var tokenName = config("properties").authenticate.tokenName;
   var tokenTimeout = config("properties").authenticate.tokenTimeout;
   var tokenData = '1231231231test2341231231251fadfafd';
   var apiServer = config("properties").apiServer;
@@ -56,7 +56,6 @@ test('get token from api and set cookie failure', function(t) {
 
   tokenApiServer;
   authenticate.getAuthToken(req, res, function(error, tokenData) {
-    //expect(res).to.be.a('token: '{}'');
     expect(error).to.be.an.instanceof(Error);
   });
   t.end();
@@ -82,5 +81,186 @@ test('get token from cookie success', function(t) {
   authenticate.getAuthToken(req, res, function(error, tokenData) {
     expect(expectedToken).to.eql(tokenData);
   });
+  t.end();
+});
+
+test('login user successful with no cookie', function(t) {
+  var apiServer = config("properties").apiServer;
+  var oldAuthToken = "tokenOld123";
+  var newAuthToken = "token123456789";
+
+  var expectedUsername = "JoeSmith@test.com";
+  var expectedPassword = "test1234";
+  var authCredentials = {
+    "username": expectedUsername,
+    "password": expectedPassword
+  };
+  var req = {
+    cookies: {},
+    query: {
+      "authToken": oldAuthToken
+    }
+  };
+
+  var res =
+    {
+      cookie: function(name, value, props) {
+        expect(name).to.eql(tokenName);
+        var actualToken = value;
+        expect(actualToken, newAuthToken);
+      },
+      "authToken": newAuthToken,
+      "user": {
+        "username" : expectedUsername,
+        "dateOfBirth" : "01/01/1960",
+        "lastFourSSN" : "4444",
+        "password" : expectedPassword,
+        "person" :
+        {
+          "firstName" : "Joe",
+          "middleName" : null,
+          "lastName" : "Smith",
+          "emailAddress" : expectedUsername,
+          "primaryPhone" : "555-555-5555",
+          "secondaryPhone" : null,
+          "primaryAddress" :
+          {
+            "address1" : "1313 Mockingbird Lane",
+            "address2" : null,
+            "city" : "Los Angeles",
+            "state" : "CA",
+            "postalCode" : "55555"
+          },
+          "secondaryAddress" : null
+        }
+      }
+    };
+  var server = nock(apiServer, {
+        reqheaders: {
+          'Authorization': oldAuthToken
+        }
+      })
+      .post('/api/authentication', authCredentials)
+      .reply(200, res);
+  server;
+
+  authenticate.loginUser(req, res, authCredentials, function (error, response, body) {
+    server.done();
+    expect(newAuthToken).to.eql(response.authToken);
+
+    var user = response.user;
+    expect(expectedUsername).to.eql(user.username);
+    expect(expectedPassword).to.eql(user.password);
+  });
+
+  t.end();
+});
+
+test('login user successful with cookie', function(t) {
+  var apiServer = config("properties").apiServer;
+  var oldAuthToken = "tokenOld123";
+  var newAuthToken = "token123456789";
+
+  var expectedUsername = "JoeSmith@test.com";
+  var expectedPassword = "test1234";
+  var authCredentials = {
+    "username": expectedUsername,
+    "password": expectedPassword
+  };
+
+  var req = {
+    cookies: {
+      gstoken: oldAuthToken
+    },
+    query: {
+      "authToken": oldAuthToken
+    }
+  };
+
+  var loginResponse =
+  {
+    cookie: function(name, value, props) {
+      expect(name).to.eql(tokenName);
+      var actualToken = value;
+      expect(actualToken, newAuthToken);
+    },
+    "authToken": newAuthToken,
+    "user": {
+      "username" : expectedUsername,
+      "dateOfBirth" : "01/01/1960",
+      "lastFourSSN" : "4444",
+      "password" : expectedPassword,
+      "person" :
+      {
+        "firstName" : "Joe",
+        "middleName" : null,
+        "lastName" : "Smith",
+        "emailAddress" : expectedUsername,
+        "primaryPhone" : "555-555-5555",
+        "secondaryPhone" : null,
+        "primaryAddress" :
+        {
+          "address1" : "1313 Mockingbird Lane",
+          "address2" : null,
+          "city" : "Los Angeles",
+          "state" : "CA",
+          "postalCode" : "55555"
+        },
+        "secondaryAddress" : null
+      }
+    }
+  };
+  var server = nock(apiServer, {
+    reqheaders: {
+      'Authorization': oldAuthToken
+    }
+  })
+      .post('/api/authentication', authCredentials)
+      .reply(200, loginResponse);
+  server;
+
+  authenticate.loginUser(req, loginResponse, authCredentials, function (error, response, body) {
+    server.done();
+    expect(newAuthToken).to.eql(response.authToken);
+
+    var user = response.user;
+    expect(expectedUsername).to.eql(user.username);
+    expect(expectedPassword).to.eql(user.password);
+  });
+
+  t.end();
+});
+
+test('login user failure', function(t) {
+  var apiServer = config("properties").apiServer;
+  var authToken = "tokenOld123";
+
+  var authCredentials = {
+    "username": "notrealuser",
+    "password": "none"
+  };
+  var req = {
+    cookies: {},
+    query: {
+      "authToken": authToken
+    }
+  };
+  var res = { };
+
+  var server = nock(apiServer, {
+        reqheaders: {
+          'Authorization': authToken
+        }
+      })
+      .post('/api/authentication', authCredentials)
+      .reply(500, {});
+  server;
+
+  authenticate.loginUser(req, res, authCredentials, function (error, response, body) {
+    server.done();
+    expect(response).to.be.a('null');
+    expect(error).to.be.an.instanceof(Error);
+  });
+
   t.end();
 });

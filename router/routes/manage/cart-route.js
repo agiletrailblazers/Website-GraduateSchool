@@ -6,6 +6,7 @@ var courseAPI = require('../../../API/course.js');
 var common = require("../../../helpers/common.js");
 var config = require('konphyg')(__dirname + '/../../../config');
 var crypto = require("crypto-js");
+var truncator = require("underscore.string/truncate");
 var uuid = require('uuid');
 var session = require('../../../API/manage/session-api.js');
 var user = require("../../../API/manage/user-api.js");
@@ -80,7 +81,7 @@ router.get('/', function(req, res, next) {
         callback(null, "/manage/cart/payment");
       }
       else {
-        callback(null, "/manage/user/create");
+        callback(null, "/manage/user/loginCreate");
       }
       return;
     }
@@ -140,7 +141,24 @@ router.get('/payment', function(req, res, next) {
       }, req.query["authToken"]);
     },
     function(session, callback) {
+      logger.debug("Looking up user details for user " + sessionData.userId)
 
+      user.getUser(sessionData.userId , function(error, retrievedUser) {
+          if (error) return callback(error);
+          //User info manually input may be too long, so ensure strings are no longer than maximum before sending to Cybersource
+          retrievedUser.person.firstName = truncator(retrievedUser.person.firstName, 60, [truncateString = ""]);
+          retrievedUser.person.lastName = truncator(retrievedUser.person.lastName, 60, [truncateString = ""]);
+          retrievedUser.person.primaryAddress.address1 = truncator(retrievedUser.person.primaryAddress.address1,60, [truncateString = ""]);
+          retrievedUser.person.primaryAddress.address2 = truncator(retrievedUser.person.primaryAddress.address2, 60, [truncateString = ""]);
+          retrievedUser.person.primaryAddress.city = truncator(retrievedUser.person.primaryAddress.city, 50, [truncateString = ""]);
+          retrievedUser.person.primaryAddress.state =  truncator(retrievedUser.person.primaryAddress.state, 2, [truncateString = ""]);
+          retrievedUser.person.primaryAddress.postalCode = truncator(retrievedUser.person.primaryAddress.postalCode, 10, [truncateString = ""]);
+          retrievedUser.person.emailAddress = truncator(retrievedUser.person.emailAddress, 255, [truncateString = ""]);
+
+          return callback(null, session, retrievedUser);
+      }, req.query["authToken"])
+    },
+    function(session, retrievedUser, callback) {
         logger.debug("Building and signing payment request data");
 
         var transaction_uuid = uuid.v4();
@@ -159,7 +177,7 @@ router.get('/payment', function(req, res, next) {
         parameters.set("access_key", paymentConfig.accessKey);
         parameters.set("profile_id", paymentConfig.profileId);
         parameters.set("transaction_uuid", transaction_uuid);
-        parameters.set("signed_field_names", "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,line_item_count,item_0_name,item_0_unit_price,item_0_quantity");
+        parameters.set("signed_field_names", "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,line_item_count,item_0_name,item_0_unit_price,item_0_quantity,bill_to_forename,bill_to_surname,bill_to_address_line1,bill_to_address_line2,bill_to_address_city,bill_to_address_state,bill_to_address_country,bill_to_address_postal_code,bill_to_email");
         parameters.set("unsigned_field_names", "");
         parameters.set("signed_date_time", signed_date_time);
         parameters.set("locale", "en");
@@ -172,7 +190,16 @@ router.get('/payment', function(req, res, next) {
         parameters.set("item_0_name", session["classNumber"]);
         parameters.set("item_0_unit_price", session["tuition"]);
         parameters.set("item_0_quantity", 1);
-
+        // add user and address info
+        parameters.set("bill_to_forename", retrievedUser.person.firstName);
+        parameters.set("bill_to_surname", retrievedUser.person.lastName);
+        parameters.set("bill_to_address_line1", retrievedUser.person.primaryAddress.address1);
+        parameters.set("bill_to_address_line2", retrievedUser.person.primaryAddress.address2);
+        parameters.set("bill_to_address_city", retrievedUser.person.primaryAddress.city);
+        parameters.set("bill_to_address_state", retrievedUser.person.primaryAddress.state);
+        parameters.set("bill_to_address_country", "US");
+        parameters.set("bill_to_address_postal_code", retrievedUser.person.primaryAddress.postalCode);
+        parameters.set("bill_to_email", retrievedUser.person.emailAddress);
         var signatureStr = "";
         var i = 0;
         parameters.forEach(function(value, key) {
@@ -198,7 +225,6 @@ router.get('/payment', function(req, res, next) {
 
     // update the session data
     session.setSessionData(res, sessionData);
-
     res.render('manage/cart/payment', {
         parameters: parameters,
         signature: signature,
@@ -310,7 +336,10 @@ router.post('/payment/confirm', function(req, res, next) {
       var authorization = {
         approved: (cybersourceResponse.decision === "ACCEPT") ? true : false,
         cardNumber: cybersourceResponse.req_card_number,
-        cardExpiry: cybersourceResponse.req_card_expiry_date
+        cardExpiry: cybersourceResponse.req_card_expiry_date,
+        authId: cybersourceResponse.transaction_id,
+        amount: cybersourceResponse.auth_amount,
+        referenceNumber: cybersourceResponse.req_reference_number
       };
 
       // add required fields to session for completing the sale after confirmation
@@ -383,28 +412,36 @@ router.post('/payment/complete', function(req, res, next) {
           return callback(null, session);
         }, req.query["authToken"]);
       },
-      completedRegistrations: function(callback) {
+      registrationResponse: function(callback) {
 
-        // currently only support a single registration
-        var registration = {
-          orderNumber: null,
-          studentId: sessionData.userId,
-          sessionId: sessionData.cart.sessionId
+        var registrationRequest = {
+            registrations:[
+                {
+                    orderNumber: null,
+                    studentId: sessionData.userId,
+                    sessionId: sessionData.cart.sessionId
+                }
+            ],
+            payments:[
+                {
+                    amount: sessionData.cart.payment.authorization.amount,
+                    authorizationId: sessionData.cart.payment.authorization.authId,
+                    merchantReferenceId: sessionData.cart.payment.authorization.referenceNumber
+                }
+            ]
         };
 
         // register the user
-        user.registerUser(sessionData.userId, [registration], function(error, completedRegistrations) {
+        user.registerUser(sessionData.userId, registrationRequest, function(error, registrationResponse) {
           // callback with the error, this will cause async module to stop executing remaining
           // functions and jump immediately to the final function, it is important to return
           // so that the task callback isn't called twice
           if (error) return callback(error);
 
-          return callback(null, completedRegistrations);
+          return callback(null, registrationResponse);
         }, req.query["authToken"]);
       },
       payment: function(callback) {
-
-        // TODO make the API call to cybersource to complete the sale
         var payment = sessionData.cart.payment.authorization;
         return callback(null, payment);
       }
@@ -426,7 +463,7 @@ router.post('/payment/complete', function(req, res, next) {
           title: "Course Registration - Receipt",
           course: content.course,
           session: content.session,
-          completedRegistrations: content.completedRegistrations,
+          registrations: content.registrationResponse.registrations,
           payment: content.payment
         });
   });
