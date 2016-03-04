@@ -272,6 +272,9 @@ module.exports = {
 
                     }, req.query["authToken"]);
                 }
+                else {
+                    return callback(null, "");
+                }
             }
         }, function(err, content) {
 
