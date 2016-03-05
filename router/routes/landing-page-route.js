@@ -87,7 +87,8 @@ router.get(['/landing/:landing_slug'], function(req, res, next) {
       { title: landingcontent.sectionTitle3, content: landingcontent.section3, collapse: landingcontent.sectionCollapse3, snippet: snippetContent(landingcontent.sectionSnippet3) },
       { title: landingcontent.sectionTitle4, content: landingcontent.section4, collapse: landingcontent.sectionCollapse4, snippet: snippetContent(landingcontent.sectionSnippet4) },
       { title: landingcontent.sectionTitle5, content: landingcontent.section5, collapse: landingcontent.sectionCollapse5, snippet: snippetContent(landingcontent.sectionSnippet5) },
-     ]
+     ],
+     landingPageFormDisplay : config("properties").landingPageFormDisplay
     });
   }, slug);
 });
