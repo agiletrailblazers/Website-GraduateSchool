@@ -340,6 +340,7 @@ module.exports = {
                 }, req.query["authToken"]);
             },
             authorization: function(callback) {
+
                 // this is more of sanity check / safety precaution
                 if (!sessionData.userId) {
                     return callback(new Error("No user id in session"));
@@ -407,7 +408,8 @@ module.exports = {
                 title: "Course Registration - Confirmation",
                 course: content.course,
                 session: content.session,
-                authorization: content.authorization
+                authorization: content.authorization,
+                error: null
             });
         });
     },
@@ -458,7 +460,7 @@ module.exports = {
                     return callback(null, session);
                 }, req.query["authToken"]);
             },
-            registrationResponse: function(callback) {
+            registrationResult: function(callback) {
 
                 var registrationRequest = {
                     registrations:[
@@ -478,13 +480,9 @@ module.exports = {
                 };
 
                 // register the user
-                user.registerUser(sessionData.userId, registrationRequest, function(error, registrationResponse) {
-                    // callback with the error, this will cause async module to stop executing remaining
-                    // functions and jump immediately to the final function, it is important to return
-                    // so that the task callback isn't called twice
-                    if (error) return callback(error);
-
-                    return callback(null, registrationResponse);
+                user.registerUser(sessionData.userId, registrationRequest, function(error, registrationResult) {
+                    // the success or failure of registration is contained in the result, so ignore the error parameter
+                    return callback(null, registrationResult);
                 }, req.query["authToken"]);
             },
             payment: function(callback) {
@@ -494,24 +492,63 @@ module.exports = {
         }, function(err, content) {
 
             if (err) {
-                logger.error("Error rendering payment receipt", err);
+
+                logger.error("Error processing registration and payment", err);
                 common.redirectToError(res);
                 return;
             }
 
-            // clear out the cart after successful registration and payment
-            sessionData.cart = {};
+            // hold onto authorization for last display of page
+            var tmpAuthorization = sessionData.cart.payment.authorization;
 
-            // update the session data
+            // in every case, we want to clear the payment information out of the session data at this point
+            sessionData.cart.payment = {};
             session.setSessionData(res, sessionData);
 
-            res.render('manage/cart/receipt', {
-                title: "Course Registration - Receipt",
-                course: content.course,
-                session: content.session,
-                registrations: content.registrationResponse.registrations,
-                payment: content.payment
-            });
+            // inspect the registration result to determine appropriate action
+            if (content.registrationResult.generalError) {
+                logger.error("General error during registration and payment");
+
+                common.redirectToError(res);
+            }
+            else if (content.registrationResult.paymentDeclinedError) {
+                logger.debug("Registration failure due to declined payment for user " + sessionData.userId);
+
+                res.render('manage/cart/confirmation', {
+                    title: "Course Registration - Confirmation",
+                    course: content.course,
+                    session: content.session,
+                    authorization: tmpAuthorization,
+                    error: "We're sorry, but your payment could not be processed. Please contact your financial institution if you feel this was in error."
+                });
+            }
+            else if (content.registrationResult.paymentAcceptedError) {
+                logger.warn("Payment was accepted but registration not guaranteed for user " + sessionData.userId);
+
+                res.render('manage/cart/confirmation', {
+                    title: "Course Registration - Confirmation",
+                    course: content.course,
+                    session: content.session,
+                    authorization: tmpAuthorization,
+                    error: "We're sorry, but we've encountered an issue while processing your registration request. To finalize your registration, please contact our Customer Service Center at (888) 744-4723 ."
+                });
+            }
+            else {
+
+                // registration and payment were successful, clear out the cart and render the receipt
+                sessionData.cart = {};
+
+                // update the session data
+                session.setSessionData(res, sessionData);
+
+                res.render('manage/cart/receipt', {
+                    title: "Course Registration - Receipt",
+                    course: content.course,
+                    session: content.session,
+                    registrations: content.registrationResult.registrationResponse.registrations,
+                    payment: content.payment
+                });
+            }
         });
     }
 } // end module.exports
