@@ -24,11 +24,13 @@ router.get(['/landing/:landing_slug'], function(req, res, next) {
     var landingcontent = response.items[0].fields;
     var featureImageUrl = null;
     if (landingcontent.featureImage) {
-       response.includes.Asset.forEach(function(asset) {
-         if (landingcontent.featureImage.sys.id === asset.sys.id) {
-           featureImageUrl = asset.fields.file.url;
-         }
-       });
+      if (response.includes && response.includes.Asset) {
+        response.includes.Asset.forEach(function (asset) {
+          if (landingcontent.featureImage.sys.id === asset.sys.id) {
+            featureImageUrl = asset.fields.file.url;
+          }
+        });
+      }
     }
     var snippetContent = function (sectionSnippet) {
       if (!sectionSnippet || !sectionSnippet.sys || !sectionSnippet.sys.id) {
