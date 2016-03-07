@@ -79,7 +79,7 @@
       </div>
     </div> <!-- End of SIDEBAR / Left Column -->
     <!-- Right Column -->
-    <div class="col-lg-9 col-md-9 col-sm-12">
+    <div id="courseContent" class="col-lg-9 col-md-9 col-sm-12">
 
     <!-- COURSE SESSSION SCHEDULE TABLE -->
     <div class="non-mobile">
@@ -152,7 +152,7 @@
                 </td>
                 <td> $<%= session["tuition"]%></td>
                 <td class="statusData">
-                  <% if (session["status"] === "C" || session["status"] === "S")  {%>
+                  <% if (session["status"] === "C")  {%>
                     <% if (session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
                       <span class="label label-danger">C</span>
                     <% } else { %>
@@ -320,7 +320,7 @@
                                         <tr><th class="mob-header"><%= content.sessionTable[2] %></th><td>$<%= session["tuition"]%></td></tr>
                                         <% if (courseData.isOnlineCourse == false) { %>
                                           <tr><th class="mob-header"><%= content.sessionTable[3] %></th><td class="statusData-mob">
-                                          <% if (session["status"] === "C" || session["status"] === "S")  {%>
+                                          <% if (session["status"] === "C")  {%>
                                             <% if (session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
                                               <span class="label label-danger">C</span>
                                             <% } else { %>
