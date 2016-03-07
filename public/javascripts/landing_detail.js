@@ -4,13 +4,16 @@ var _runLandingFormValidation = function() {
   $("#alertError p").remove();
   validate.Name(validator, "#txtFirstName", "#alertError", "First Name");
   validate.Email(validator, "#txtEmail","#alertError", "Email");
-  validate.Captcha("#g-recaptcha-response", "#alertError");
+  if ($("#telPhone").val().trim() != ''  ) {
+    validate.Phone(validator, "#telPhone", "#alertError", "Phone Number");
+  }
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
   }
 }
 
 $(document).ready(function() {
+  $("#telPhone").mask("(999) 999-9999", {autoclear: false});
   $("#alertError").hide();
   $(".loading").hide();
   $("#removeAlert").css('cursor', 'pointer');
@@ -23,8 +26,9 @@ $(document).ready(function() {
     data.firstName = $("#txtFirstName").val();
     data.email = $("#txtEmail").val();
     data.phone = $("#telPhone").val();
-    data.information = $("#information").val();
-    data.captchaResponse = $("#g-recaptcha-response").val();
+    data.information = $("#moreInfo").val();
+    data.email=$("#email").val();
+    data.userEmail = $("#txtEmail").val();
     if (!$("#alertError p").length) {
       $(".loading").show();
       $.post("/mailer-landing", data)
@@ -36,6 +40,7 @@ $(document).ready(function() {
           $("#information").val('');
           alertify.success("Email sent!");
           $("#alertSuccess").toggle();
+          $("#request-information-form").toggle();
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();
@@ -62,6 +67,19 @@ $(document).ready(function() {
   $("#removeAlertSuccess").click(function() {
     $("#alertSuccess").slideUp();
     $("#alertSuccess p").remove();
+  });
+
+  $('#backTop').backTop({
+    'position' : 100,
+    'speed' : 1000,
+    'color' : 'black',
+  });
+
+  //Controls plus-minus sign on top nav on mobile
+  $('.collapse').on('shown.bs.collapse', function() {
+    $(this).parent().find(".glyphicon-plus-sign").removeClass("glyphicon-plus-sign").addClass("glyphicon-minus-sign");
+  }).on('hidden.bs.collapse', function() {
+    $(this).parent().find(".glyphicon-minus-sign").removeClass("glyphicon-minus-sign").addClass("glyphicon-plus-sign");
   });
 
 });

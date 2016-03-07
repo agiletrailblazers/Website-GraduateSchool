@@ -83,6 +83,6 @@
     "maxTopNavigationLinks":24,
     "maxTopNavigationGroups":7,
     "allowedHtmlTags":"<br><a><p><i><u><ul><li><strong>",
-    "landingPageRouteEnabled":true
+    "landingPageFormDisplay":false
 
 }

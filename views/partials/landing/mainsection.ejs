@@ -1,0 +1,131 @@
+<div id="landingContent">
+<% if (maincontent) { %>
+<div id="main-container" class="container padding15">
+  <div class="row">
+      <% if (featureImageUrl) { %>
+        <div class="col-lg-12">
+          <img src="<%= featureImageUrl %>" style="width:100%;" />
+        </div>
+      <% } %>
+      <div class="col-lg-12">
+        <% if (maintitle) { %>
+        <h1><%- maintitle  %></h1>
+        <%  } %>
+
+        <% if (maincontent) { %>
+          <p><%- maincontent  %></p>
+        <%  } %>
+      </div>
+  </div>
+</div><!-- End of #Main-container  -->
+<%  } %>
+
+<div class="container">
+<div class="row padding">
+<% if ((formDisplay == false) & (imageDisplay == false) & (videosDisplay == false) ) {%>
+<%if (leftcolumncontent)  {%>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <p><%- leftcolumncontent  %></p>
+  </div>
+<% } %>
+<% } else {%>
+<%if (leftcolumncontent) { %>
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 padding-bottom30">
+      <% if (leftcolumncontent) { %>
+        <%- leftcolumncontent  %>
+      <% } %>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 padding-bottom30">
+    <%if ((formDisplay) || (landingPageFormDisplay)) {%>
+      <% include ../../forms/landing_form %>
+    <% } else if (imageDisplay) {%>
+      <img src="<%= rightcolumncontent %>" style="width:100%;" />
+    <% } else if (videosDisplay) {%>
+      <iframe src="<%= rightContentVideoUrl %>" width="99%" height="400" frameBorder="0" allowfullscreen></iframe>
+    <% } %>
+  </div>
+<%} else {%>
+  <div class="col-lg-12 col-md-12 col-sm-12 padding-bottom30">
+    <%if ((formDisplay) || (landingPageFormDisplay)) {%>
+    <% include ../../forms/landing_form %>
+    <% } else if (imageDisplay) {%>
+      <div class="center">
+        <img src="<%= rightcolumncontent %>" style="width:75%;" />
+      </div>
+    <% } else if (videosDisplay) {%>
+      <div class="center">
+        <iframe src="<%= rightContentVideoUrl %>" width="70%" height="450" frameBorder="0" allowfullscreen></iframe>
+      </div>
+    <% } %>
+  </div>
+<%}%>
+<%} %>
+</div> <!-- End of Row -->
+
+<div class="row padding10">
+  <div class="spacer25"></div>
+  <div class="col-lg-12 col-md-12 col-sm-12 ">
+  <% for (var i = 0; i < sections.length; i++) { %>
+  <% if (sections[i] && (sections[i].title || sections[i].content || sections[i].snippet)) { %>
+  <section>
+    <% if (sections[i].collapse && sections[i].title){ %>
+    <a href="#<%= i %>" class="expand-section accordion-toggle" data-toggle="collapse">
+      <span id="Section<%= i+1 %>" class="glyphicon glyphicon-plus-sign"></span><%= sections[i].title %></a>
+    <article id="<%= i %>" class="collapse nested">
+      <% if (sections[i].snippet) { %>
+        <%- markdown(sections[i].snippet || '') %>
+      <%  } %>
+      <% if (sections[i].content) { %>
+        <%- markdown(sections[i].content || '') %>
+      <%  } %>
+    </article>
+    <% } else if (sections[i].title) { %>
+    <h2><%= sections[i].title %></h2><span id="Section<%= i+1 %>"></span>
+    <article id="<%= i %>" class="genericArticle">
+      <% if (sections[i].snippet) { %>
+        <%- markdown(sections[i].snippet || '') %>
+      <%  } %>
+      <% if (sections[i].content) { %>
+        <%- markdown(sections[i].content || '') %>
+      <%  } %>
+    </article>
+    <%   } else { %>
+    <span id="Section<%= i+1 %>"></span>
+    <article id="<%= i %>" class="genericArticle">
+      <% if (sections[i].snippet) { %>
+        <%- markdown(sections[i].snippet || '') %>
+      <%  } %>
+      <% if (sections[i].content) { %>
+        <%- markdown(sections[i].content || '') %>
+      <%  } %>
+    </article>
+    <%  } %>
+    <%  } %>
+  </section>
+  <% } %>
+  </div>
+</div><!-- End of Row -->
+</div><!-- End of Container -->
+
+<% if (additionalsectioncontent) { %>
+  <div class="container-fluid nopadding">
+    <div class="divider-landing">
+      <div class="d-top"></div>
+      <div class="d-bottom"></div>
+    </div>
+    <div id="AdditionalSection" class="container padding15">
+      <div class="col-lg-offset-1 col-lg-10 padding-bottom30">
+        <% if (additionalsectiontitle) { %>
+          <h1><%- additionalsectiontitle  %></h1>
+        <%  } %>
+      <% if (additionalsectioncontent) { %>
+        <p><%- additionalsectioncontent  %></p>
+      <%  } %>
+      </div>
+
+      <div class="spacer25"></div>
+      <div class="spacer25"></div>
+    </div>
+  </div>
+<%  } %>
+</div><!-- End of #landingContent -->

@@ -23,6 +23,18 @@
       return result;
     },
 
+     validatePhone = function (validator, input, fieldName) {
+       var result ={};
+       result.status = true;
+       result.errMsg = null;
+       var re = /^(\([0-9]{3}\) )[0-9]{3}-[0-9]{4}$/g;
+       if (input.trim().match(re)==null){
+         result.status = false;
+         result.errMsg = fieldName + " is incorrect."
+       }
+       return result;
+     }
+
     exports.captcha = function(googleResponse, skipReCaptcha) {
       var result ={};
       result.status = true;
@@ -57,7 +69,12 @@
     },
 
     exports.email = function (validator, input, fieldName) {
-      var result = validateEmail(validator, input, fieldName);
+        var result = validateEmail(validator, input, fieldName);
+        return result;
+    };
+
+    exports.phone = function (validator, input, fieldName) {
+      var result = validatePhone(validator, input, fieldName);
       return result;
     };
 })(typeof exports === 'undefined'? this['validations']={}: exports);

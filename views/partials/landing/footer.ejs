@@ -1,0 +1,55 @@
+<!--nutch_noindex-->
+<div id="footer" class="container-fluid footer nopadding">
+  <div class="bar">
+    <div class="banner banner-landing center">
+      <ul class="networks-mobile">
+        <li><a id="facebook-link" href="http://www.facebook.com/GraduateSchoolUSA" target="_blank"><img src="/images/facebook-white.png" alt=""  /></a></li>
+        <li><a id="twitter-link" href="http://twitter.com/thegradschool" target="_blank"><img src="/images/twitter-white.png" alt=""  /></a></li>
+        <li><a id="youtube-link" href="http://www.youtube.com/user/TheGradSchool" target="_blank"><img src="/images/youtube-white.png" alt=""  /></a></li>
+        <li><a id="flickr-link" href="http://www.flickr.com/photos/thegradschool" target="_blank"><img src="/images/flickr-white.png" alt=""  /></a></li>
+        <li><a id="linkedin-link" href="https://www.linkedin.com/company/graduate-school-usa" target="_blank"><img src="/images/linkedin-white.png" alt=""  /></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container padding20">
+    <footer>
+      <div class="row clearfix">
+          <div class="center">
+            <img id="gs-seal" src="/images/gs-seal.png" alt="Graduate School Seal"  class="seal" />
+            <p id="copyright" class="copyright"> Copyright &copy; 2015 Graduate School USA </p>
+            <p id="disclaimer" class="disclaimer center">
+              *Graduate School USA is a private not for profit educational
+              institution not affiliated with the Federal Goverment
+              or any Federal agency or department.
+            </p>
+          </div>
+      </div><!-- END non-mobile -->
+    </footer>
+  </div><!-- END Container  -->
+</div><!-- END Footer and Container fluid -->
+<span id="back-to-top" class="non-mobile"><a id='backTop' data-toggle="tooltip" title="Back To Top"><span></span></a></span>
+<!--  Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '<%= googleAnalyticsId %>', 'auto');
+ga('send', 'pageview');
+
+</script>
+<script type="text/javascript">
+function isTouchDevice(){
+    return true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
+}
+
+  $(document).ready(function(){
+    if(isTouchDevice()===false) {
+    $('[data-toggle="tooltip"]').tooltip();
+    }
+  });
+</script>
+<!--evn:<%= env %>-->
+
+<!--/nutch_noindex-->

@@ -868,7 +868,7 @@ img.search {
 a.search {
     background-color: #337AB7;
     padding: 7px 20px;
-    color: #FFF;
+    color: #FFF !important;
     font-size: 14px;
     font-weight: normal;
     margin: 0px auto;
@@ -2202,6 +2202,10 @@ ul.see-more li {
 
 .padding-bottom {
   padding-bottom: 10px;
+}
+
+.padding-bottom30 {
+  padding-bottom: 30px;
 }
 
 .margin-reset {

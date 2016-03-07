@@ -597,22 +597,21 @@ module.exports = {
     response = {};
     response.errors = {};
 
-
     // firstName comments
     var firstName = validations.name(validator, params.firstName, "First name");
     if (!firstName.status) {
       response.errors.firstName = firstName.errMsg;
     }
 
-    var recaptcha = validations.captcha(params.captchaResponse, config("properties").skipReCaptchaVerification)
-    if (!recaptcha.status) {
-      response.errors.captchaResponse = recaptcha.errMsg;
-    }
-
-    // firstName comments
-    var email = validations.email(validator, params.email, "Email");
+    var email = validations.email(validator, params.userEmail, "Email");
     if (!email.status) {
       response.errors.email = email.errMsg;
+    }
+   if ( params.phone != "") {
+      var phone = validations.phone(validator, params.phone, "Phone");
+      if (!phone.status) {
+        response.errors.phone = phone.errMsg;
+      }
     }
     callback(response);
   },

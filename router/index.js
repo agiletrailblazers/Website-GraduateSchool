@@ -42,10 +42,7 @@ module.exports = function (app) {
         app.use('/', router.post('/manage/cart/payment/confirm', cartController.confirmPayment));
         app.use('/', router.post('/manage/cart/payment/complete', cartController.completePayment));
     }
-
-    if (config("properties").landingPageRouteEnabled === true) {
-     app.use('/', require('./routes/landing-page-route'));
-   }
+    app.use('/', require('./routes/landing-page-route'));
     app.use(defaultUrlRedirect);
 };
 
