@@ -6,13 +6,6 @@ var logger = require('../../logger');
 var marked = require('marked');
 var common = require("../../helpers/common.js");
 
-// router.get(['/landing-form'], function(req, res, next) {
-//     res.render('landing/landing_detail', {
-//       title: "landing",
-//       skipReCaptcha : config("properties").skipReCaptchaVerification
-//     });
-// });
-
 router.get(['/landing/:landing_slug'], function(req, res, next) {
   var slug = req.params.landing_slug;
   //console.log(slug);
@@ -57,11 +50,13 @@ router.get(['/landing/:landing_slug'], function(req, res, next) {
     };
     var rightContentImageUrl = null;
     if (landingcontent.rightColumnContent) {
-       response.includes.Asset.forEach(function(asset) {
-         if (landingcontent.rightColumnContent.sys.id === asset.sys.id) {
-           rightContentImageUrl = asset.fields.file.url;
-         }
-       });
+      if (response.includes && response.includes.Asset) {
+        response.includes.Asset.forEach(function (asset) {
+          if (landingcontent.rightColumnContent.sys.id === asset.sys.id) {
+            rightContentImageUrl = asset.fields.file.url;
+          }
+        });
+      }
     }
 
     res.render('landing/landing_detail', {
