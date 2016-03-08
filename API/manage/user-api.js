@@ -32,10 +32,36 @@ module.exports = {
         'Authorization': authToken
       }
     }, function (error, response, body) {
-      if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(new Error("Exception occurred registering user"), null);
+
+      var result = {
+        paymentAcceptedError: false,
+        paymentDeclinedError: false,
+        generalError: false,
+        registrationResponse: null
+      };
+
+      if (error || !response) {
+        // some other error
+        result.generalError = true;
       }
-      return callback(null, body);
+      else if (response.statusCode == 201) {
+        // payment and registration were successful
+        result.registrationResponse = body;
+      }
+      else if (response.statusCode == 202) {
+        // payment was accepted but registration not guaranteed
+        result.paymentAcceptedError = true;
+      }
+      else if (response.statusCode == 402) {
+        // payment was declined
+        result.paymentDeclinedError = true;
+      }
+      else {
+        // some other error
+        result.generalError = true;
+      }
+
+      return callback(null, result);
     });
   },
 

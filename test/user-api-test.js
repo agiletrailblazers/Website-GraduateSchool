@@ -133,25 +133,20 @@ test('registerUser success', function(t) {
   user.registerUser(userId, registrationList, function(error, response) {
     server.done();
     expect(error).to.be.a('null');
-    expect(response).to.eql(registrationResponse);
+    expect(response.paymentAcceptedError).to.eql(false);
+    expect(response.paymentDeclinedError).to.eql(false);
+    expect(response.generalError).to.eql(false);
+    expect(response.registrationResponse).to.eql(registrationResponse);
   }, authToken);
   t.end();
 });
 
-test('registerUser failure', function(t) {
+test('registerUser general failure', function(t) {
   //test a 500 internal server error
   var apiServer = config("properties").apiServer;
   var userId = "pers12345";
   var registrationList = [
       {
-        "studentId": userId,
-        "sessionId" : "session12345"
-      }
-  ];
-
-  var registrationResponse = [
-      {
-        "orderNumber": "123456789",
         "studentId": userId,
         "sessionId" : "session12345"
       }
@@ -168,9 +163,68 @@ test('registerUser failure', function(t) {
 
   server;
   user.registerUser(userId, registrationList, function(error, response) {
-    server.done();
-    expect(response).to.be.a('null');
-    expect(error).to.be.an.instanceof(Error);
+      server.done();
+      expect(response.paymentAcceptedError).to.eql(false);
+      expect(response.paymentDeclinedError).to.eql(false);
+      expect(response.generalError).to.eql(true);
+  }, authToken);
+  t.end();
+});
+
+test('registerUser payment accepted failure', function(t) {
+  var apiServer = config("properties").apiServer;
+  var userId = "pers12345";
+  var registrationList = [
+      {
+        "studentId": userId,
+        "sessionId" : "session12345"
+      }
+  ];
+
+  //test a 202 accepted
+  var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+          }
+        })
+        .post('/api/registration/user/' + userId, registrationList)
+        .reply(202, null);
+
+  server;
+  user.registerUser(userId, registrationList, function(error, response) {
+      server.done();
+      expect(response.paymentAcceptedError).to.eql(true);
+      expect(response.paymentDeclinedError).to.eql(false);
+      expect(response.generalError).to.eql(false);
+  }, authToken);
+  t.end();
+});
+
+test('registerUser payment declined failure', function(t) {
+  var apiServer = config("properties").apiServer;
+  var userId = "pers12345";
+  var registrationList = [
+      {
+        "studentId": userId,
+        "sessionId" : "session12345"
+      }
+  ];
+
+  //test a 402 payment required
+  var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+          }
+        })
+        .post('/api/registration/user/' + userId, registrationList)
+        .reply(402, null);
+
+  server;
+  user.registerUser(userId, registrationList, function(error, response) {
+      server.done();
+      expect(response.paymentAcceptedError).to.eql(false);
+      expect(response.paymentDeclinedError).to.eql(true);
+      expect(response.generalError).to.eql(false);
   }, authToken);
   t.end();
 });
