@@ -79,5 +79,21 @@ module.exports = {
       }
       return callback(null, JSON.parse(body));
     });
+  },
+
+  getRegistration: function(userId, sessionId, callback, authToken) {
+    var targetURL = config("properties").apiServer + '/api/registration/user/' + userId + '/session/' + sessionId;
+    request({
+      method: 'GET',
+      url: targetURL,
+      headers: {
+        'Authorization': authToken
+      }
+    }, function (error, response, body) {
+      if (common.checkForErrorAndLog(error, response, targetURL)) {
+        return callback(new Error("Exception occurred getting registration for user " + userId), null);
+      }
+      return callback(null, JSON.parse(body));
+    });
   }
 };
