@@ -221,7 +221,6 @@ test('homepage alert contentful test:success', function(t) {
       });
     contentfulServer;
     contentful.getAlerts(function(alerts) {
-      console.log(alerts[0].alertType);
       expect(alerts[0].fields.alertType).to.equal('ANNOUNCEMENT');
       expect(alerts[0].fields.title).to.equal('Pope Francis Visit');
     });
