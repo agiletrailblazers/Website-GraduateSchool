@@ -89,11 +89,12 @@ module.exports = {
       headers: {
         'Authorization': authToken
       }
-    }, function (error, response, body) {
-      if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(new Error("Exception occurred getting registration for user " + userId), null);
+    }, function (error, getRegResponse, body) {
+      //404 means the user is not registered and it is not an error. 408 is the DuplicateRegistrationError
+      if (common.checkForErrorAndLog(error, getRegResponse, targetURL)) {
+        return callback(new Error("Exception occurred getting registration for user " + userId), null, getRegResponse);
       }
-      return callback(null, JSON.parse(body));
+      return callback(null, JSON.parse(body), getRegResponse);
     });
   }
 };

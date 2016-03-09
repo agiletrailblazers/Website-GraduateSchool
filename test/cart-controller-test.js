@@ -68,6 +68,83 @@ test('displayCart', function(t) {
       expect(content.course).to.eql(course);
       expect(content.session).to.eql(courseSession);
       expect(content.nextpage).to.eql("/manage/user/loginCreate");
+      expect(content.registrationExistsError).to.eql(null);
+  };
+
+  controller.displayCart(req, res, null);
+
+  t.end();
+});
+
+test('displayCart with already registered error ', function(t) {
+  var expectedRegExistsError = 'User already registered for session';
+  var res = {};
+  var sessionData = {
+    cart : {
+      registrationError: expectedRegExistsError
+      }
+  };
+  var req = {
+    query : {
+      authToken : "123456789123456789",
+      courseId : "course12345",
+      sessionId : "session12345"
+    }
+  };
+  var course  = {
+    id : req.query.courseId
+  };
+  var courseSession  = {
+    classNumber : "600354",
+    startDate : {
+      date : function(format) {
+        expect(format).to.eql('MMM DD, YYYY');
+        return "Aug 08, 2016"
+      }
+    },
+    endDate : {
+      date : function(format) {
+        expect(format).to.eql('MMM DD, YYYY');
+        return "Aug 08, 2016"
+      }
+    }
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/cart-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          },
+          setSessionData: function (res, data) {
+            // verify data passed in
+            expect(data.cart.courseId).to.eql(req.query.courseId);
+            expect(data.cart.sessionId).to.eql(req.query.sessionId);
+            expect(data.cart.registrationError).to.eql(null);
+          }
+        },
+        "../../../API/course.js": {
+          performExactCourseSearch: function (cb, courseId, authToken) {
+            expect(authToken).to.eql(req.query.authToken);
+            expect(courseId).to.eql(req.query.courseId);
+            cb(null, null, course);
+          },
+          getSession: function (sessionId, cb, authToken) {
+            expect(authToken).to.eql(req.query.authToken);
+            expect(sessionId).to.eql(req.query.sessionId);
+            cb(null, courseSession);
+          }
+        }
+      });
+
+  res.render = function(page, content) {
+    expect(page).to.eql('manage/cart/cart');
+    expect(content.title).to.eql('Course Registration');
+    expect(content.course).to.eql(course);
+    expect(content.session).to.eql(courseSession);
+    expect(content.nextpage).to.eql("/manage/user/loginCreate");
+    expect(content.registrationExistsError).to.eql(expectedRegExistsError);
   };
 
   controller.displayCart(req, res, null);
@@ -489,7 +566,7 @@ test('completePayment with payment declined', function(t) {
   t.end();
 });
 
-test('completePayment with payment accepted', function(t) {
+test('completePayment with payment accepted error', function(t) {
 
   var res = {};
   var expCourseId = "course12345";
@@ -727,6 +804,331 @@ test('completePayment with general error', function(t) {
       });
 
   controller.completePayment(req, res, null);
+
+  t.end();
+});
+
+test('displayPayment with registration exists', function(t) {
+
+  var res = {};
+  var expCourseId = "course12345";
+  var expSessionId = "session12345";
+  var expOfferingSessionId = "class000012345";
+  var expUserId = "person12345";
+  var expectedUsername = "test@test.com";
+  var amount = "100.00";
+  var authId = "authid12345";
+  var referenceNumber = "refnumber12345";
+  var authorization = {
+    amount: amount,
+    authId: authId,
+    referenceNumber: referenceNumber
+  };
+
+  var sessionData = {
+    userId: expUserId,
+    cart: {
+      courseId : expCourseId,
+      sessionId : expSessionId,
+      payment : {
+        authorization : authorization
+      }
+    }
+  };
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+  var course  = {
+    id : expCourseId
+  };
+  var userData = {
+    "id": expUserId,
+    "username": expectedUsername,
+    "password": null,
+    "lastFourSSN": null,
+    "timezoneId": "tzone000000000000007",
+    "accountId": "accnt000000000582595",
+    "currencyId": "crncy000000000000167",
+    "split": "domin000000000000001",
+    "timestamp": "1456153504261",
+    "person": {
+      "firstName": "Test",
+      "middleName": null,
+      "lastName": "User",
+      "emailAddress": expectedUsername,
+      "primaryPhone": "5555555555",
+      "secondaryPhone": null,
+      "primaryAddress": {
+        "address1": "666 Test Road",
+        "address2": "ATB",
+        "city": "Testville",
+        "state": "AL",
+        "postalCode": "66666"
+      },
+      "secondaryAddress": null,
+      "veteran": null,
+      "dateOfBirth": "2011-02-10"
+    }
+  };
+  var courseSession  = {
+    classNumber : expSessionId,
+    startDate : {
+      date : function(format) {
+        expect(format).to.eql('MMM DD, YYYY');
+        return "Aug 08, 2016"
+      }
+    },
+    endDate : {
+      date : function(format) {
+        expect(format).to.eql('MMM DD, YYYY');
+        return "Aug 08, 2016"
+      }
+    },
+    offeringSessionId : expOfferingSessionId
+  };
+  var duplicateRegistrationResult = {
+        id : "regid12345",
+        studentId: expUserId,
+        sessionId: expSessionId,
+        orderNumber: "012345"
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/cart-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          },
+          setSessionData: function (res, data) {
+            expect(data.cart.sessionId).to.eql(expSessionId);
+            expect(data.userId).to.eql(expUserId);
+            should.exist(sessionData.cart.registrationError);
+            // make sure that the payment info was cleared from session data
+            expect(data.cart.payment).to.eql({});
+          }
+        },
+        "../../../API/course.js": {
+          performExactCourseSearch: function (cb, courseId, authToken) {
+            expect(authToken).to.eql(req.query.authToken);
+            expect(courseId).to.eql(expCourseId);
+            cb(null, null, course);
+          },
+          getSession: function (sessionId, cb, authToken) {
+            expect(authToken).to.eql(req.query.authToken);
+            expect(sessionId).to.eql(expSessionId);
+            cb(null, courseSession);
+          }
+        },
+        "../../../API/manage/user-api.js": {
+          getUser: function(userId, cb, authToken) {
+            expect(userId).to.eql(expUserId);
+            expect(authToken).to.eql(req.query.authToken);
+            cb(null, userData);
+          },
+          getRegistration: function (userId, sessionId, cb, authToken) {
+            expect(userId).to.eql(expUserId);
+            expect(authToken).to.eql(req.query.authToken);
+            expect(sessionId).to.eql(expSessionId);
+            cb(null, duplicateRegistrationResult);
+          }
+        },
+        "../../../helpers/common.js": {
+          isNotEmpty: function (errorString) {
+            return true;
+          }
+        },
+        "konphyg": function(configPath) {
+          var configFile = function(configName) {
+            expect(configName).to.eql("properties")
+            var config =
+            {
+              manage : {
+                payment: {
+                  "url" : "some.payment.url",
+                  "profileId" : "fakeProfileId",
+                  "accessKey" : "fakeAccessKey",
+                  "secretKey" : "fakeSecretKey"
+                }
+              }
+            }
+
+            return config;
+          };
+          return configFile;
+        }
+      });
+
+  controller.displayPayment(req, res, null);
+
+  res.redirect = function(page) {
+    expect(page).to.eql('/manage/cart');
+  };
+  t.end();
+});
+
+
+test('displayPayment with no existing registration', function(t) {
+
+  var res = {};
+  var expCourseId = "course12345";
+  var expSessionId = "session12345";
+  var expOfferingSessionId = "class000012345";
+  var expUserId = "person12345";
+  var expectedUsername = "test@test.com";
+  var amount = "100.00";
+  var authId = "authid12345";
+  var referenceNumber = "refnumber12345";
+  var authorization = {
+    amount: amount,
+    authId: authId,
+    referenceNumber: referenceNumber
+  };
+
+  var sessionData = {
+    userId: expUserId,
+    cart: {
+      courseId : expCourseId,
+      sessionId : expSessionId,
+      payment : {
+        authorization : authorization
+      }
+    }
+  };
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+  var course  = {
+    id : expCourseId
+  };
+  var userData = {
+    "id": expUserId,
+    "username": expectedUsername,
+    "password": null,
+    "lastFourSSN": null,
+    "timezoneId": "tzone000000000000007",
+    "accountId": "accnt000000000582595",
+    "currencyId": "crncy000000000000167",
+    "split": "domin000000000000001",
+    "timestamp": "1456153504261",
+    "person": {
+      "firstName": "Test",
+      "middleName": null,
+      "lastName": "User",
+      "emailAddress": expectedUsername,
+      "primaryPhone": "5555555555",
+      "secondaryPhone": null,
+      "primaryAddress": {
+        "address1": "666 Test Road",
+        "address2": "ATB",
+        "city": "Testville",
+        "state": "AL",
+        "postalCode": "66666"
+      },
+      "secondaryAddress": null,
+      "veteran": null,
+      "dateOfBirth": "2011-02-10"
+    }
+  };
+  var courseSession  = {
+    classNumber : expSessionId,
+    startDate : {
+      date : function(format) {
+        expect(format).to.eql('MMM DD, YYYY');
+        return "Aug 08, 2016"
+      }
+    },
+    endDate : {
+      date : function(format) {
+        expect(format).to.eql('MMM DD, YYYY');
+        return "Aug 08, 2016"
+      }
+    },
+    offeringSessionId : expOfferingSessionId,
+    tuition:500.50
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/cart-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          },
+          setSessionData: function (res, data) {
+            expect(data.cart.sessionId).to.eql(expSessionId);
+            expect(data.userId).to.eql(expUserId);
+            // make sure that the payment info was cleared from session data
+            should.exist(data.cart.payment);
+          }
+        },
+        "../../../API/course.js": {
+          performExactCourseSearch: function (cb, courseId, authToken) {
+            expect(authToken).to.eql(req.query.authToken);
+            expect(courseId).to.eql(expCourseId);
+            cb(null, null, course);
+          },
+          getSession: function (sessionId, cb, authToken) {
+            expect(authToken).to.eql(req.query.authToken);
+            expect(sessionId).to.eql(expSessionId);
+            cb(null, courseSession);
+          }
+        },
+        "../../../API/manage/user-api.js": {
+          getUser: function(userId, cb, authToken) {
+            expect(userId).to.eql(expUserId);
+            expect(authToken).to.eql(req.query.authToken);
+            cb(null, userData);
+          },
+          getRegistration: function (userId, sessionId, cb, authToken) {
+            expect(userId).to.eql(expUserId);
+            expect(authToken).to.eql(req.query.authToken);
+            expect(sessionId).to.eql(expSessionId);
+            cb(null, null);
+          }
+        },
+        "../../../helpers/common.js": {
+          isNotEmpty: function (errorString) {
+            return false;
+          }
+        },
+        "konphyg": function(configPath) {
+          var configFile = function(configName) {
+            expect(configName).to.eql("properties")
+            var config =
+            {
+              manage : {
+                payment: {
+                  "url" : "some.payment.url",
+                  "profileId" : "fakeProfileId",
+                  "accessKey" : "fakeAccessKey",
+                  "secretKey" : "fakeSecretKey"
+                }
+              }
+            }
+
+            return config;
+          };
+          return configFile;
+        }
+      });
+
+  res.render = function(page, content) {
+    expect(page).to.eql('manage/cart/payment');
+    should.exist(sessionData.userId);
+    expect(sessionData.cart.sessionId).to.eql(expSessionId);
+    expect(sessionData.userId).to.eql(expUserId);
+    expect(content.parameters.get("amount")).to.eql(courseSession.tuition);
+    expect(content.parameters.get("bill_to_forename")).to.eql(userData.person.firstName);
+    expect(content.parameters.get("bill_to_surname")).to.eql(userData.person.lastName);
+    expect(content.parameters.get("bill_to_address_line1")).to.eql(userData.person.primaryAddress.address1);
+  };
+
+  controller.displayPayment(req, res, null);
 
   t.end();
 });
