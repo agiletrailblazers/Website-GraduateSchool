@@ -1,17 +1,20 @@
 {
-    "env": "default",
-    "skipReCaptchaVerification":false,
-    "apiServer": "http://ec2-52-3-244-235.compute-1.amazonaws.com",
-
-    "registrationUrl" : "https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=[sessionId]",
-    "manage" : {
-      "userRouteEnabled" : false,
-      "sessionName" : "gssession"
-    },
-    "authenticate" : {
-      "tokenName" : "gstoken",
-      "tokenTimeout" : 15778476000
-    },
+  "env": "default",
+  "skipReCaptchaVerification": false,
+  "apiServer": "http://ec2-52-3-244-235.compute-1.amazonaws.com",
+  "registrationUrl": "https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=[sessionId]",
+  "manage": {
+    "userRouteEnabled": false,
+    "sessionName": "gssession",
+    "payment" : {
+      "declinedReasonCodes" : ["200", "202", "203", "204", "205", "208", "209", "210", "211", "230", "231", "232", "233"],
+      "errorReasonCodes" : ["151", "152", "250"]
+    }
+  },
+  "authenticate": {
+    "tokenName": "gstoken",
+    "tokenTimeout": 15778476000
+  },
 
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",

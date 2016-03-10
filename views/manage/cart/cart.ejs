@@ -8,18 +8,18 @@
     <% include ../../partials/header %>
       <div id="container" class="container">
         <div class="loading" style="display:none;"></div>
+        <% if (error) { %>
+        <div id="gs-cart-alert-error" class="alert alert-danger" role="alert" >
+          <span id="gs-cart-alert-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"> </span>
+          <p><%= error %></p>
+        </div>
+        <% } %>
         <div id="outer" class="col-lg-12 col-md-12 col-sm-12 form-fix padding20">
 
           <div id="gs-form">
               <div id="cart">
                 <form id="cart-form" role="form" method="get" action="<%= nextpage %>">
                   <div id="form-wrap">
-                    <% if (registrationExistsError) { %>
-                      <div id="gs-confirmation-alert-error" class="alert alert-danger" role="alert" >
-                        <span id="gs-confirmation-alert-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"> </span>
-                        <p><%= registrationExistsError %></p>
-                      </div>
-                    <% } %>
                     <div id="cart-items">
                       <table>
                         <tr>
