@@ -245,22 +245,22 @@ router.post('/mailer-landing', function (req, res, next) {
   var params = req.body;
   var landingReceiptEmail = "";
   var landingMoreInfo = "";
-  contentful.getLandingPage(function(response,error){
+  contentful.getLandingPage(function(landingResponse,error){
     if (error) {
       logger.error('Exception encountered searching for landing page, redirecting to error', error);
-      common.redirectToError(res);
+      sendErrorResponse(res, landingResponse);
       return;
     }
-    else if (!response || !response.items || !response.items[0] || !response.items[0].fields ) {
-      logger.warn('No results for landing slug ' + slug + ' from Contentful. Redirecting to page not found');
-      res.redirect('/pagenotfound');
+    else if (!landingResponse || !landingResponse.items || !landingResponse.items[0] || !landingResponse.items[0].fields ) {
+      logger.warn('No results for landing slug ' + params.slug + ' from Contentful. Redirecting to page not found');
+      sendErrorResponse(res, landingResponse);
       return;
     }
-    if (response.items[0].fields.email) {
-      landingReceiptEmail = response.items[0].fields.email;
+    if (landingResponse.items[0].fields.email) {
+      landingReceiptEmail = landingResponse.items[0].fields.email;
     }
-    if(response.items[0].fields.moreInfo) {
-      landingMoreInfo = response.items[0].fields.moreInfo;
+    if(landingResponse.items[0].fields.moreInfo) {
+      landingMoreInfo = landingResponse.items[0].fields.moreInfo;
     }
     logger.debug("In mailer-landing");
     params.email = landingReceiptEmail;
