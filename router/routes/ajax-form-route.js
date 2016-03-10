@@ -1,5 +1,6 @@
 var express = require('express');
 var contentfulForms = require('../../API/contentful_forms.js');
+var contentful = require('../../API/contentful.js');
 var routerService = require('../../helpers/ajax-form-route-service.js');
 var async = require('async');
 var router = express.Router();
@@ -242,18 +243,41 @@ function sendSubscriptionEmail(res, params) {
 
 router.post('/mailer-landing', function (req, res, next) {
   var params = req.body;
-  logger.debug("In mailer-landing");
-  //move code to router service
-  routerService.validateLandingFields(function (response) {
-    // Send email if there are no errors.
-    if (Object.keys(response.errors).length === 0) {
+  var landingReceiptEmail = "";
+  var landingMoreInfo = "";
+  contentful.getLandingPage(function(response,error){
+    if (error) {
+      logger.error('Exception encountered searching for landing page, redirecting to error', error);
+      common.redirectToError(res);
+      return;
+    }
+    else if (!response || !response.items || !response.items[0] || !response.items[0].fields ) {
+      logger.warn('No results for landing slug ' + slug + ' from Contentful. Redirecting to page not found');
+      res.redirect('/pagenotfound');
+      return;
+    }
+    if (response.items[0].fields.email) {
+      landingReceiptEmail = response.items[0].fields.email;
+    }
+    if(response.items[0].fields.moreInfo) {
+      landingMoreInfo = response.items[0].fields.moreInfo;
+    }
+    logger.debug("In mailer-landing");
+    params.email = landingReceiptEmail;
+    params.information = landingMoreInfo;
+    //move code to router service
+    routerService.validateLandingFields(function (response) {
+      // Send email if there are no errors.
+      if (Object.keys(response.errors).length === 0) {
         // send landing email
         sendLandingEmail(res, params);
-    } else {
-      sendErrorResponse(res, response);
-    }
-  }, params);
-});
+      } else {
+        sendErrorResponse(res, response);
+      }
+    }, params);
+
+  },params.urlPath);
+ });
 
 function sendLandingEmail(res, params) {
   //send mail of success

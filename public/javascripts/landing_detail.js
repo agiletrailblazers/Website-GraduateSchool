@@ -24,10 +24,9 @@ $(document).ready(function() {
     _runLandingFormValidation();
     var data = {};
     data.firstName = $("#txtFirstName").val();
-    data.email = $("#txtEmail").val();
+    data.urlPath = $("#urlPath").val();
     data.phone = $("#telPhone").val();
     data.information = $("#moreInfo").val();
-    data.email=$("#email").val();
     data.userEmail = $("#txtEmail").val();
     if (!$("#alertError p").length) {
       $(".loading").show();
