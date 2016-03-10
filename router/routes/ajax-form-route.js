@@ -1,5 +1,6 @@
 var express = require('express');
 var contentfulForms = require('../../API/contentful_forms.js');
+var contentful = require('../../API/contentful.js');
 var routerService = require('../../helpers/ajax-form-route-service.js');
 var async = require('async');
 var router = express.Router();
@@ -242,18 +243,41 @@ function sendSubscriptionEmail(res, params) {
 
 router.post('/mailer-landing', function (req, res, next) {
   var params = req.body;
-  logger.debug("In mailer-landing");
-  //move code to router service
-  routerService.validateLandingFields(function (response) {
-    // Send email if there are no errors.
-    if (Object.keys(response.errors).length === 0) {
+  var landingReceiptEmail = "";
+  var landingMoreInfo = "";
+  contentful.getLandingPage(function(landingResponse,error){
+    if (error) {
+      logger.error('Exception encountered searching for landing page, redirecting to error', error);
+      sendErrorResponse(res, landingResponse);
+      return;
+    }
+    else if (!landingResponse || !landingResponse.items || !landingResponse.items[0] || !landingResponse.items[0].fields ) {
+      logger.warn('No results for landing slug ' + params.slug + ' from Contentful. Redirecting to page not found');
+      sendErrorResponse(res, landingResponse);
+      return;
+    }
+    if (landingResponse.items[0].fields.email) {
+      landingReceiptEmail = landingResponse.items[0].fields.email;
+    }
+    if(landingResponse.items[0].fields.moreInfo) {
+      landingMoreInfo = landingResponse.items[0].fields.moreInfo;
+    }
+    logger.debug("In mailer-landing");
+    params.email = landingReceiptEmail;
+    params.information = landingMoreInfo;
+    //move code to router service
+    routerService.validateLandingFields(function (response) {
+      // Send email if there are no errors.
+      if (Object.keys(response.errors).length === 0) {
         // send landing email
         sendLandingEmail(res, params);
-    } else {
-      sendErrorResponse(res, response);
-    }
-  }, params);
-});
+      } else {
+        sendErrorResponse(res, response);
+      }
+    }, params);
+
+  },params.urlPath);
+ });
 
 function sendLandingEmail(res, params) {
   //send mail of success

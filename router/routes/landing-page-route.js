@@ -67,8 +67,6 @@ router.get(['/landing/:landing_slug'], function(req, res, next) {
       maintitle:landingcontent.mainTitle,
       maincontent:landingcontent.mainContent,
       formDisplay:landingcontent.formDisplay,
-      email:landingcontent.email,
-      moreInfo:landingcontent.moreInfo,
       imageDisplay:landingcontent.imageDisplay,
       videosDisplay:landingcontent.videosDisplay,
       leftcolumncontent:landingcontent.leftColumnContent,
