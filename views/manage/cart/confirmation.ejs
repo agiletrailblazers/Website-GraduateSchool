@@ -60,13 +60,9 @@
                     <form id="cart-form-cancel" style="display: inline;" method="post" action="/manage/cart/payment/cancel">
                       <button id="cart-form-cancel-submit" type="submit" tabindex="10">Cancel</button>
                     </form>
-                  <% if (authorization.approved) { %>
-                      <form id="cart-form-complete" style="display: inline;" method="post" action="/manage/cart/payment/complete">
-                        <button id="cart-form-complete-submit" type="submit" tabindex="11">Complete Registration</button>
-                      </form>
-                  <% } else { %>
-                    <span id="declined-message">We are sorry, but your credit card was declined.</span>
-                <% } %>
+                    <form id="cart-form-complete" style="display: inline;" method="post" action="/manage/cart/payment/complete">
+                      <button id="cart-form-complete-submit" type="submit" tabindex="11">Complete Registration</button>
+                    </form>
                 </div> <!-- END buttons -->
                 <% } %>  <!-- END if no error -->
             </div>  <!-- END cart -->

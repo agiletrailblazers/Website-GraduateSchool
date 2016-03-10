@@ -87,25 +87,21 @@ module.exports = {
                     callback(null, "/manage/user/loginCreate");
                 }
                 return;
-            },
-            registrationExistsError: function(callback) {
-                logger.debug("Student already registered for session. Displaying error and clearing out error in session");
-                var regError = sessionData.cart.registrationError;
-                sessionData.cart.registrationError = null;
-                if (common.isNotEmpty(regError)) {
-                    callback(null, regError)
-                }
-                else {
-                    callback(null, null);
-                }
             }
-
         }, function(err, content) {
             if (err) {
                 logger.error("Error rendering shopping cart", err);
                 common.redirectToError(res);
                 return;
             }
+
+            // grab any possible error message from the session data for display
+            // this error message would have been set in session by another route
+            // before redirecting back to this route
+            var tmpError = common.isNotEmpty(sessionData.cart.error) ? sessionData.cart.error: null;
+
+            // now clear out the error so that it isn't re-displayed
+            sessionData.cart.error = null;
 
             // update the session data
             session.setSessionData(res, sessionData);
@@ -115,7 +111,7 @@ module.exports = {
                 course: content.course,
                 session: content.session,
                 nextpage: content.nextpage,
-                registrationExistsError: content.registrationExistsError
+                error: tmpError
             });
         });
     },
@@ -131,36 +127,49 @@ module.exports = {
 
         async.waterfall([
             function(callback) {
-
                 // while we don't use the user id in the payment page, we don't want to send someone into
                 // payment if we don't know who they are, so this is more of sanity check / safety precaution
                 if (!sessionData.userId) {
                     return callback(new Error("No user id in session"));
                 }
 
-                logger.debug("Initiating payment processing for user " + sessionData.userId);
-
-                if (!sessionData.cart || !sessionData.cart.sessionId) {
-                    return callback(new Error("No session id in the cart"));
-                }
                 var sessionId = sessionData.cart.sessionId;
+                if (!sessionId) {
+                    return callback(new Error("Missing sessionId parameter"));
+                }
 
-                logger.debug("Looking up course session " + sessionId + " for shopping cart");
-                courseAPI.getSession(sessionId, function(error, session) {
+                logger.debug("Looking up course session " + sessionId + " for payment");
+                courseAPI.getSession(sessionId, function(error, courseSession) {
                     // callback with the error, this will cause async module to stop executing remaining
                     // functions and jump immediately to the final function, it is important to return
                     // so that the task callback isn't called twice
                     if (error) return callback(error);
 
-                    // pass the session to the next function in the waterfall
-                    return callback(null, session);
+                    // Change date format in the session.
+                    courseSession["startDate"] = courseSession["startDate"].date('MMM DD, YYYY');
+                    if (common.isNotEmpty(session["endDate"])) {
+                        courseSession["endDate"] = courseSession["endDate"].date('MMM DD, YYYY');
+                    }
+
+                    return callback(null, courseSession);
                 }, req.query["authToken"]);
             },
-            function(session, callback) {
+            function(courseSession, callback) {
+
+                logger.debug("Initiating payment processing for user " + sessionData.userId);
+
+                if (!sessionData.cart || !sessionData.cart.sessionId) {
+                    return callback(new Error("No session id in the cart"));
+                }
+
                 logger.debug("Looking up user details for user " + sessionData.userId)
 
                 user.getUser(sessionData.userId , function(error, retrievedUser) {
+                    // callback with the error, this will cause async module to stop executing remaining
+                    // functions and jump immediately to the final function, it is important to return
+                    // so that the task callback isn't called twice
                     if (error) return callback(error);
+
                     //User info manually input may be too long, so ensure strings are no longer than maximum before sending to Cybersource
                     retrievedUser.person.firstName = truncator(retrievedUser.person.firstName, 60, [truncateString = ""]);
                     retrievedUser.person.lastName = truncator(retrievedUser.person.lastName, 60, [truncateString = ""]);
@@ -171,28 +180,29 @@ module.exports = {
                     retrievedUser.person.primaryAddress.postalCode = truncator(retrievedUser.person.primaryAddress.postalCode, 10, [truncateString = ""]);
                     retrievedUser.person.emailAddress = truncator(retrievedUser.person.emailAddress, 255, [truncateString = ""]);
 
-                    return callback(null, session, retrievedUser);
+                    return callback(null, retrievedUser, courseSession);
                 }, req.query["authToken"])
             },
-            function(session, retrievedUser, callback) {
-                logger.debug("Checking if the user " + retrievedUser.id + " has already registered for session " + session.classNumber);
+            function(retrievedUser, courseSession, callback) {
+                var sessionId = sessionData.cart.sessionId;
 
-                user.getRegistration(retrievedUser.id, session.classNumber, function(error, retrievedRegistration) {
-                    if (error) {
-                        return callback (error);
+                logger.debug("Checking if the user " + retrievedUser.id + " has already registered for session " + sessionId);
+
+                user.getRegistration(retrievedUser.id, sessionId, function(error, retrievedRegistrations) {
+                    // callback with the error, this will cause async module to stop executing remaining
+                    // functions and jump immediately to the final function, it is important to return
+                    // so that the task callback isn't called twice
+                    if (error) return callback(error);
+
+                    if (retrievedRegistrations) {
+                        logger.debug(sessionData.userId + " is already registered for session " + sessionId);
+                        // callback with error will force asynce module to stop execution
+                        return callback(new Error("User is already registered"), true, retrievedUser);
                     }
-                    var registrationFoundErrorText = null;
-                    if (retrievedRegistration) {
-                        registrationFoundErrorText = retrievedUser.person.emailAddress   + " is already registered for this session. If you have any questions, please contact our please contact our Customer Service Center at (888) 744-4723."
-                    }
-                    return callback(null, session, retrievedUser, registrationFoundErrorText);
+                    return callback(null, retrievedUser, courseSession);
                 }, req.query["authToken"]);
             },
-            function(session, retrievedUser, registrationFoundErrorText, callback) {
-                if (common.isNotEmpty(registrationFoundErrorText)) {
-                    logger.debug("User is already registered for this CourseSession, skipping payment request creation");
-                    return callback(null, null, null, null, registrationFoundErrorText);
-                }
+            function(retrievedUser, courseSession, callback) {
                 logger.debug("Building and signing payment request data");
 
                 var transaction_uuid = uuid.v4();
@@ -217,12 +227,12 @@ module.exports = {
                 parameters.set("locale", "en");
                 parameters.set("transaction_type", "authorization");
                 parameters.set("reference_number", reference_number);
-                parameters.set("amount", session["tuition"]);
+                parameters.set("amount", courseSession["tuition"]);
                 parameters.set("currency", "USD");
                 // add line item info
                 parameters.set("line_item_count", 1);
-                parameters.set("item_0_name", session["classNumber"]);
-                parameters.set("item_0_unit_price", session["tuition"]);
+                parameters.set("item_0_name", courseSession["classNumber"]);
+                parameters.set("item_0_unit_price", courseSession["tuition"]);
                 parameters.set("item_0_quantity", 1);
                 // add user and address info
                 parameters.set("bill_to_forename", retrievedUser.person.firstName);
@@ -248,22 +258,29 @@ module.exports = {
                 var hash = crypto.HmacSHA256(signatureStr, paymentConfig.secretKey);
                 var signature = crypto.enc.Base64.stringify(hash);
 
-                return callback(null, parameters, signature, signatureStr, registrationFoundErrorText);
+                return callback(null, false, retrievedUser, parameters, signature);
             }
-        ], function(err, parameters, signature, signatureStr, registrationFoundErrorText) {
-            if (err) {
-                logger.error("Error rendering payment page", err);
-                common.redirectToError(res);
-                return;
-            }
-            if (common.isNotEmpty(registrationFoundErrorText)) {
-                sessionData.cart.registrationError = registrationFoundErrorText;
-                sessionData.cart.payment = {}; //Ensure there is no payment information in the cart
+        ], function(err, alreadyRegistered, retrievedUser, parameters, signature) {
 
-                session.setSessionData(res, sessionData);
-                res.redirect('/manage/cart');
-                return;
+            if (err) {
+
+                if (alreadyRegistered) {
+
+                    // user is already registered, set appropriate error message and send back to cart
+                    sessionData.cart.error = retrievedUser.person.emailAddress   + " is already registered for this session. If you have any questions, please contact our please contact our Customer Service Center at (888) 744-4723.";
+                    sessionData.cart.payment = {}; // Ensure there is no payment information in the cart
+                    session.setSessionData(res, sessionData);
+
+                    res.redirect('/manage/cart');
+                    return;
+                }
+                else {
+                    logger.error("Error rendering payment page", err);
+                    common.redirectToError(res);
+                    return;
+                }
             }
+
             // update the session data
             session.setSessionData(res, sessionData);
             res.render('manage/cart/payment', {
@@ -337,6 +354,7 @@ module.exports = {
         logger.debug("Processing payment confirm");
 
         var sessionData = session.getSessionData(req);
+        var props = config("properties");
 
         async.parallel({
             course: function(callback) {
@@ -406,20 +424,23 @@ module.exports = {
                 });
 
                 // encode the signature string
-                var hash = crypto.HmacSHA256(signatureStr, config("properties").manage.payment.secretKey);
+                var hash = crypto.HmacSHA256(signatureStr, props.manage.payment.secretKey);
                 var signature = crypto.enc.Base64.stringify(hash);
 
                 logger.debug("Generated signed signature string: " + signature);
-                logger.debug("Cybersrc  signed signature string: " + cybersourceResponse.signature);
+                logger.debug("Cybersource signed signature string: " + cybersourceResponse.signature);
                 // compare the generated signature string with the one provided by cybersource
                 if (signature !== cybersourceResponse.signature) {
                     // signature strings don't match, data may have been altered
                     return callback(new Error("Generated signature string does not match cybersource signature"));
                 }
 
+                logger.debug("Authorization response, decision: " + cybersourceResponse.decision + ", reason code: " + cybersourceResponse.reason_code);
+
                 // populate the payment authorization data from the cybersource response
                 var authorization = {
                     approved: (cybersourceResponse.decision === "ACCEPT") ? true : false,
+                    reasonCode: cybersourceResponse.reason_code,
                     cardNumber: cybersourceResponse.req_card_number,
                     cardExpiry: cybersourceResponse.req_card_expiry_date,
                     authId: cybersourceResponse.transaction_id,
@@ -427,8 +448,10 @@ module.exports = {
                     referenceNumber: cybersourceResponse.req_reference_number
                 };
 
-                // add required fields to session for completing the sale after confirmation
-                sessionData.cart.payment.authorization = authorization;
+                if (authorization.approved) {
+                    // add required fields to session for completing the sale after confirmation
+                    sessionData.cart.payment.authorization = authorization;
+                }
 
                 return callback(null, authorization);
             }
@@ -442,13 +465,53 @@ module.exports = {
             // update the session data
             session.setSessionData(res, sessionData);
 
-            res.render('manage/cart/confirmation', {
-                title: "Course Registration - Confirmation",
-                course: content.course,
-                session: content.session,
-                authorization: content.authorization,
-                error: null
-            });
+            if (content.authorization.approved) {
+                // authorization approved, display confirmation page
+                logger.debug("Payment was authorized");
+                res.render('manage/cart/confirmation', {
+                    title: "Course Registration - Confirmation",
+                    course: content.course,
+                    session: content.session,
+                    authorization: content.authorization,
+                    error: null
+                });
+            }
+            else {
+                // display cart with error message
+
+                // get the list of declined reason codes and error reason codes
+                // that need special handling
+                var declinedReasonCodes = props.manage.payment.declinedReasonCodes;
+                var errorReasonCodes = props.manage.payment.errorReasonCodes;
+
+                if (declinedReasonCodes.indexOf(content.authorization.reasonCode) > -1) {
+                    // this is a declined reason code, set error message and send to cart page
+                    logger.debug("Payment was not authorized with decline code, redirect to the cart with error message");
+
+                    // set appropriate error message and send back to cart
+                    sessionData.cart.error = "We're sorry, but your payment could not be processed. Please try another payment method or contact your financial institution if you feel this was in error.";
+                    sessionData.cart.payment = {}; // Ensure there is no payment information in the cart
+                    session.setSessionData(res, sessionData);
+
+                    res.redirect('/manage/cart');
+                }
+                else if (errorReasonCodes.indexOf(content.authorization.reasonCode) > -1) {
+                    // this is an error reason code, set error message and send to cart page
+                    logger.debug("Payment was not authorized with error code, redirect to the cart with error message");
+
+                    // set appropriate error message and send back to cart
+                    sessionData.cart.error = "We're sorry, but we've encountered an issue while processing your registration request. To finalize your registration, please contact our Customer Service Center at (888) 744-4723.";
+                    sessionData.cart.payment = {}; // Ensure there is no payment information in the cart
+                    session.setSessionData(res, sessionData);
+
+                    res.redirect('/manage/cart');
+                }
+                else {
+                    // not a reason code with specific handling, send to general error page
+                    logger.debug("Payment was not authorized, redirect to the general error page");
+                    common.redirectToError(res);
+                }
+            }
         });
     },
 
