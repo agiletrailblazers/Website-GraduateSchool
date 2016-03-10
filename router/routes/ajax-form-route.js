@@ -245,6 +245,7 @@ router.post('/mailer-landing', function (req, res, next) {
   var params = req.body;
   var landingReceiptEmail = "";
   var landingMoreInfo = "";
+  var landingPageFormDisplay = config("properties").landingPageFormDisplay;
   contentful.getLandingPage(function(landingResponse,error){
     if (error) {
       logger.error('Exception encountered searching for landing page, redirecting to error', error);
@@ -256,12 +257,15 @@ router.post('/mailer-landing', function (req, res, next) {
       sendErrorResponse(res, landingResponse);
       return;
     }
-    if (landingResponse.items[0].fields.email) {
+    if (landingPageFormDisplay) {
+      landingReceiptEmail = config("properties").landingRequestToUserName;
+    } else if(landingResponse.items[0].fields.email) {
       landingReceiptEmail = landingResponse.items[0].fields.email;
     }
     if(landingResponse.items[0].fields.moreInfo) {
       landingMoreInfo = landingResponse.items[0].fields.moreInfo;
     }
+
     logger.debug("In mailer-landing");
     params.email = landingReceiptEmail;
     params.information = landingMoreInfo;
