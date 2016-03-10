@@ -89,12 +89,22 @@ module.exports = {
       headers: {
         'Authorization': authToken
       }
-    }, function (error, getRegResponse, body) {
-      //404 means the user is not registered and it is not an error. 408 is the DuplicateRegistrationError
-      if (common.checkForErrorAndLog(error, getRegResponse, targetURL)) {
-        return callback(new Error("Exception occurred getting registration for user " + userId), null, getRegResponse);
+    }, function (error, response, body) {
+      if (error || !response) {
+        return callback(new Error("Exception occurred getting registration for user " + userId), null);
       }
-      return callback(null, JSON.parse(body), getRegResponse);
+      else if (response.statusCode == 404) {
+        // no registrations found for this user and courseSession which is a normal case
+        return callback(null, null);
+      }
+      else if (response.statusCode == 200) {
+        // successfully found registration(s)
+        return callback(null, JSON.parse(body));
+      }
+      else {
+        // other error
+        return callback(new Error("Exception occurred getting registration for user " + userId), null);
+      }
     });
   }
 };

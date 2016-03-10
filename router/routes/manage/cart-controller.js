@@ -177,11 +177,10 @@ module.exports = {
             function(session, retrievedUser, callback) {
                 logger.debug("Checking if the user " + retrievedUser.id + " has already registered for session " + session.classNumber);
 
-                user.getRegistration(retrievedUser.id, session.classNumber, function(error, retrievedRegistration, getRegResponse) {
-                    if (error && getRegResponse.statusCode != 404) { //404 just means student is not registered for the CourseSession
+                user.getRegistration(retrievedUser.id, session.classNumber, function(error, retrievedRegistration) {
+                    if (error) {
                         return callback (error);
                     }
-                    //console.log(retrievedRegistration);
                     var registrationFoundErrorText = null;
                     if (retrievedRegistration) {
                         registrationFoundErrorText = retrievedUser.person.emailAddress   + " is already registered for this session. If you have any questions, please contact our please contact our Customer Service Center at (888) 744-4723."
