@@ -87,7 +87,19 @@ module.exports = {
                     callback(null, "/manage/user/loginCreate");
                 }
                 return;
+            },
+            registrationExistsError: function(callback) {
+                logger.debug("Student already registered for session. Displaying error and clearing out error in session");
+                var regError = sessionData.cart.registrationError;
+                sessionData.cart.registrationError = null;
+                if (common.isNotEmpty(regError)) {
+                    callback(null, regError)
+                }
+                else {
+                    callback(null, null);
+                }
             }
+
         }, function(err, content) {
             if (err) {
                 logger.error("Error rendering shopping cart", err);
@@ -102,7 +114,8 @@ module.exports = {
                 title: "Course Registration",
                 course: content.course,
                 session: content.session,
-                nextpage: content.nextpage
+                nextpage: content.nextpage,
+                registrationExistsError: content.registrationExistsError
             });
         });
     },
@@ -162,6 +175,24 @@ module.exports = {
                 }, req.query["authToken"])
             },
             function(session, retrievedUser, callback) {
+                logger.debug("Checking if the user " + retrievedUser.id + " has already registered for session " + session.classNumber);
+
+                user.getRegistration(retrievedUser.id, session.classNumber, function(error, retrievedRegistration) {
+                    if (error) {
+                        return callback (error);
+                    }
+                    var registrationFoundErrorText = null;
+                    if (retrievedRegistration) {
+                        registrationFoundErrorText = retrievedUser.person.emailAddress   + " is already registered for this session. If you have any questions, please contact our please contact our Customer Service Center at (888) 744-4723."
+                    }
+                    return callback(null, session, retrievedUser, registrationFoundErrorText);
+                }, req.query["authToken"]);
+            },
+            function(session, retrievedUser, registrationFoundErrorText, callback) {
+                if (common.isNotEmpty(registrationFoundErrorText)) {
+                    logger.debug("User is already registered for this CourseSession, skipping payment request creation");
+                    return callback(null, null, null, null, registrationFoundErrorText);
+                }
                 logger.debug("Building and signing payment request data");
 
                 var transaction_uuid = uuid.v4();
@@ -217,15 +248,22 @@ module.exports = {
                 var hash = crypto.HmacSHA256(signatureStr, paymentConfig.secretKey);
                 var signature = crypto.enc.Base64.stringify(hash);
 
-                return callback(null, parameters, signature, signatureStr);
+                return callback(null, parameters, signature, signatureStr, registrationFoundErrorText);
             }
-        ], function(err, parameters, signature, signatureStr) {
+        ], function(err, parameters, signature, signatureStr, registrationFoundErrorText) {
             if (err) {
                 logger.error("Error rendering payment page", err);
                 common.redirectToError(res);
                 return;
             }
+            if (common.isNotEmpty(registrationFoundErrorText)) {
+                sessionData.cart.registrationError = registrationFoundErrorText;
+                sessionData.cart.payment = {}; //Ensure there is no payment information in the cart
 
+                session.setSessionData(res, sessionData);
+                res.redirect('/manage/cart');
+                return;
+            }
             // update the session data
             session.setSessionData(res, sessionData);
             res.render('manage/cart/payment', {

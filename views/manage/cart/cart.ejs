@@ -14,6 +14,12 @@
               <div id="cart">
                 <form id="cart-form" role="form" method="get" action="<%= nextpage %>">
                   <div id="form-wrap">
+                    <% if (registrationExistsError) { %>
+                      <div id="gs-confirmation-alert-error" class="alert alert-danger" role="alert" >
+                        <span id="gs-confirmation-alert-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"> </span>
+                        <p><%= registrationExistsError %></p>
+                      </div>
+                    <% } %>
                     <div id="cart-items">
                       <table>
                         <tr>

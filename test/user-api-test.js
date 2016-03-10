@@ -305,17 +305,19 @@ test('get user failure', function(t) {
     t.end();
 });
 
-test('get registration success', function(t) {
+test('get registration success has a reg', function(t) {
     //use endpoint from config even for tests
     var apiServer = config("properties").apiServer;
     var userId = 'persn00000012345';
-    var sessionId = 'class00000123456';
-    var regData = {
-        "id": "regdw000012345",
-        "orderNumber":"1234",
-        "studentId":userId,
-        "sessionId":sessionId
-    };
+    var sessionId = '00000123456';
+    var regData = [
+        {
+            "id": "regdw000012345",
+            "orderNumber": "123456789",
+            "studentId": userId,
+            "sessionId" : sessionId
+        }
+    ];
 
     //test a 200 ok
     var server = nock(apiServer, {
@@ -329,8 +331,71 @@ test('get registration success', function(t) {
     server;
     user.getRegistration(userId, sessionId, function(error, retrievedRegistration, body) {
         server.done();
-        expect(retrievedRegistration.studentId).to.eql(userId);
-        expect(retrievedRegistration.sessionId).to.eql(sessionId);
+        expect(retrievedRegistration[0].studentId).to.eql(userId);
+        expect(retrievedRegistration[0].sessionId).to.eql(sessionId);
+        expect(retrievedRegistration).to.eql(regData);
+    }, authToken);
+    t.end();
+});
+
+test('get registration success no registrations', function(t) {
+    //use endpoint from config even for tests
+    var apiServer = config("properties").apiServer;
+    var userId = 'persn00000012345';
+    var sessionId = '00000123456';
+    var regData = null;
+
+    //test a 404 not found
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    })
+        .get('/api/registration/user/' + userId + '/session/' + sessionId)
+        .reply(404, regData);
+
+    server;
+    user.getRegistration(userId, sessionId, function(error, retrievedRegistration, body) {
+        server.done();
+        expect(error).to.eql(null);
+        expect(retrievedRegistration).to.eql(null);
+    }, authToken);
+    t.end();
+});
+
+test('get registration success has many regs', function(t) {
+    //use endpoint from config even for tests
+    var apiServer = config("properties").apiServer;
+    var userId = 'persn00000012345';
+    var sessionId = '00000123456';
+    var regData = [
+        {
+            "id": "regdw000012345",
+            "orderNumber": "123456789",
+            "studentId": userId,
+            "sessionId" : sessionId
+        },
+        {
+            "id": "regdw000012346",
+            "orderNumber": "123456790",
+            "studentId": userId,
+            "sessionId" :sessionId
+        }
+    ];
+    //test a 200 ok
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    })
+        .get('/api/registration/user/' + userId + '/session/' + sessionId)
+        .reply(200, regData);
+
+    server;
+    user.getRegistration(userId, sessionId, function(error, retrievedRegistration, body) {
+        server.done();
+        expect(retrievedRegistration[0].studentId).to.eql(userId);
+        expect(retrievedRegistration[0].sessionId).to.eql(sessionId);
         expect(retrievedRegistration).to.eql(regData);
     }, authToken);
     t.end();
