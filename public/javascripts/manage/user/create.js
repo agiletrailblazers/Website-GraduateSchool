@@ -1,18 +1,18 @@
 var _runValidation = function (formData) {
-  $("#gs-form-alert-error").slideUp();
-  $("#gs-form-alert-error p").remove();
+  $("#gs-alert-error").slideUp();
+  $("#gs-alert-error p").remove();
 
-  if ($("#gs-form-alert-error p").length) {
-    $("#gs-form-alert-error").slideDown("slow");
+  if ($("#gs-alert-error p").length) {
+    $("#gs-alert-error").slideDown("slow");
   }
 }
 
 $(document).ready(function () {
 
-  $("#gs-form-alert-remove").css('cursor', 'pointer');
-  $("#gs-form-alert-remove").click(function() {
-    $("#gs-form-alert-error").slideUp();
-    $("#gs-form-alert-error p").remove();
+  $("#gs-alert-remove").css('cursor', 'pointer');
+  $("#gs-alert-remove").click(function() {
+    $("#gs-alert-error").slideUp();
+    $("#gs-alert-error p").remove();
   });
 
   $("#create-user-form-submit").click(function (event) {
@@ -39,7 +39,7 @@ $(document).ready(function () {
 
     _runValidation(formData);
 
-    if (!$("#gs-form-alert-error p").length) {
+    if (!$("#gs-alert-error p").length) {
       $(".loading").show();
       $.post("/manage/user/create", formData)
         .done(function () {
@@ -53,10 +53,10 @@ $(document).ready(function () {
           var errors = xhr.responseJSON;
           for (var key in errors) {
             if (errors.hasOwnProperty(key)) {
-              $("#gs-form-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] + "</p>");
+              $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] + "</p>");
             }
           }
-          $("#gs-form-alert-error").slideDown();
+          $("#gs-alert-error").slideDown();
           $("html, body").animate({
             scrollTop: 0
           }, "slow");
@@ -75,7 +75,7 @@ $(document).ready(function () {
 });
 
 function displayAlreadyHaveAccount() {
-  $("#gs-form-alert-error").remove();
+  $("#gs-alert-error").remove();
   $('#create-account-section').fadeOut();
   $('#toggle-create-account-section').fadeIn();
   $('#toggle-already-have-account-section').fadeOut();

@@ -9,6 +9,18 @@
     <% include ../../partials/header %>
       <div id="container" class="container">
         <div class="loading" style="display:none;"></div>
+        <% if (loginError) { %>
+        <div id="gs-alert-error" class="alert alert-danger" role="alert">
+          <% } else { %>
+          <div id="gs-alert-error" class="alert alert-danger" role="alert" style="display:none;">
+            <% } %>
+            <span id="gs-alert-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"> </span>
+            <p><%= loginError %></p>
+          </div>
+          <!-- alert - success -->
+          <div id="gs-form-alert-success" class="alert alert-success" role="alert" style="display:none;">
+            <p><strong>Thank you for setting up your Graduate School USA account!</strong></p>
+          </div>
         <div id="outer" class="col-lg-12 col-md-12 col-sm-12 form-fix padding20">
 
           <div id="toggle-already-have-account-section" class="row" style="display:none;">
@@ -21,13 +33,6 @@
 
           <!-- Login Form Secion -->
           <div id="login-section" class="row">
-            <% if (loginError) { %>
-            <div id="gs-loginForm-alert-error" class="alert alert-danger" role="alert" >
-                <span id="gs-loginForm-alert-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"> </span>
-                <p><%= loginError %></p>
-              </div>
-            </div>
-            <% } %>
             <div class="col-lg-4 col-md-4 col-sm-4"></div>
             <div id="login" class="col-lg-4 col-md-4 col-sm-4">
               <form id="login-form" role="form" method="post" action="/manage/user/login">
@@ -66,14 +71,6 @@
 
           <div id="create-account-section" class="row" style="display:none;">
             <div id="gs-form">
-              <!-- alert - error -->
-              <div id="gs-form-alert-error" class="alert alert-danger" role="alert" style="display:none;">
-                <span id="gs-form-alert-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-              </div>
-              <!-- alert - success -->
-              <div id="gs-form-alert-success" class="alert alert-success" role="alert" style="display:none;">
-                  <p><strong>Thank you for setting up your Graduate School USA account!</strong></p>
-              </div>
               <div id="create-user">
                 <form id="create-user-form" role="form">
                   <% if (sessionId) { %>
