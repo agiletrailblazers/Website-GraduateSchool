@@ -3,17 +3,28 @@
   <head>
     <title> Graduate School USA | <%= title %></title>
     <% include ../../partials/head %>
+    <script>
+      $(document).ready(function () {
+        $("#gs-alert-remove").css('cursor', 'pointer');
+        $("#gs-alert-remove").click(function () {
+          $("#gs-alert-error").slideUp();
+          $("#gs-alert-error p").remove();
+        });
+      });
+    </script>
   </head>
   <body>
     <% include ../../partials/header %>
       <div id="container" class="container">
         <div class="loading" style="display:none;"></div>
         <% if (error) { %>
-        <div id="gs-cart-alert-error" class="alert alert-danger" role="alert" >
-          <span id="gs-cart-alert-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"> </span>
+        <div id="gs-alert-error" class="alert alert-danger" role="alert">
+        <% } else { %>
+        <div id="gs-alert-error" class="alert alert-danger" role="alert" style="display:none;">
+        <% } %>
+          <span id="gs-alert-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"> </span>
           <p><%= error %></p>
         </div>
-        <% } %>
         <div id="outer" class="col-lg-12 col-md-12 col-sm-12 form-fix padding20">
 
           <div id="gs-form">
