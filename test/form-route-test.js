@@ -9,9 +9,9 @@ var config = require('konphyg')(__dirname + "/../config");
 test('form route test for inquiry form', function (t) {
   var contentfulformServer = nock('https://cdn.contentful.com', {
     reqheaders: {
-      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      'Authorization': config("properties").spaces.main.authorization
     }
-  }).get('/spaces/jzmztwi1xqvn/entries/80IOLAFnVuYGk6U4ocooC')
+  }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries/80IOLAFnVuYGk6U4ocooC')
     .reply(200, {
       'accept': 'application/json', "fields": {
         "howDidYouHearAboutTraining": [
@@ -34,9 +34,9 @@ test('form route test for inquiry form', function (t) {
 test('form route test for Contact us', function (t) {
   var contentfulformServer = nock('https://cdn.contentful.com', {
     reqheaders: {
-      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      'Authorization': config("properties").spaces.main.authorization
     }
-  }).get('/spaces/jzmztwi1xqvn/entries/6Av0MIjzZC2qIsGKUGyKS0')
+  }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries/6Av0MIjzZC2qIsGKUGyKS0')
     .reply(200, {
       'accept': 'application/json',
       "fields": {
@@ -55,9 +55,9 @@ test('form route test for Contact us', function (t) {
 test('form route test for Request Duplicate Form', function (t) {
   var contentfulformServer = nock('https://cdn.contentful.com', {
     reqheaders: {
-      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      'Authorization': config("properties").spaces.main.authorization
     }
-  }).get('/spaces/jzmztwi1xqvn/entries/mlBs5OCiQgW84oiMm4k2s')
+  }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries/mlBs5OCiQgW84oiMm4k2s')
     .reply(200, {
       'accept': 'application/json',
           "fields": {
@@ -77,9 +77,9 @@ test('form route test for Request Duplicate Form', function (t) {
 test('form route test for Request Duplicate Form Internal Error', function (t) {
   var contentfulformServer = nock('https://cdn.contentful.com', {
     reqheaders: {
-      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      'Authorization': config("properties").spaces.main.authorization
     }
-  }).get('/spaces/jzmztwi1xqvn/entries/mlBs5OCiQgW84oiMm4k2s')
+  }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries/mlBs5OCiQgW84oiMm4k2s')
     .reply(500, {
       'accept': 'application/json'
     });
@@ -95,9 +95,9 @@ test('form route test for Request Duplicate Form Internal Error', function (t) {
 test('Form route test for Proctor Request Form', function (t) {
   var contentfulformServer = nock('https://cdn.contentful.com', {
     reqheaders: {
-      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      'Authorization': config("properties").spaces.main.authorization
     }
-  }).get('/spaces/jzmztwi1xqvn/entries/JgpDPSNoe4kQGWIkImKAM')
+  }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries/JgpDPSNoe4kQGWIkImKAM')
     .reply(200, {
       'accept': 'application/json',
           "fields": {
@@ -117,9 +117,9 @@ test('Form route test for Proctor Request Form', function (t) {
 test('Form route test for Proctor Request Form Internal Error', function (t) {
   var contentfulformServer = nock('https://cdn.contentful.com', {
     reqheaders: {
-      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      'Authorization': config("properties").spaces.main.authorization
     }
-  }).get('/spaces/jzmztwi1xqvn/entries/JgpDPSNoe4kQGWIkImKAM')
+  }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries/JgpDPSNoe4kQGWIkImKAM')
     .reply(500, {
       'accept': 'application/json'
     });
@@ -135,9 +135,9 @@ test('Form route test for Proctor Request Form Internal Error', function (t) {
 test('Form route test for Certificate Programs Application', function (t) {
   var contentfulformServer = nock('https://cdn.contentful.com', {
     reqheaders: {
-      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      'Authorization': config("properties").spaces.main.authorization
     }
-  }).get('/spaces/jzmztwi1xqvn/entries/KbQb89jHMWceeoKIGsSgw')
+  }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries/KbQb89jHMWceeoKIGsSgw')
     .reply(200, {
       'accept': 'application/json',
       "sys": {
@@ -178,9 +178,9 @@ test('Form route test for Certificate Programs Application', function (t) {
 test('Form route test for  Certificate Programs Application Internal Error', function (t) {
   var contentfulformServer = nock('https://cdn.contentful.com', {
     reqheaders: {
-      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      'Authorization': config("properties").spaces.main.authorization
     }
-  }).get('/spaces/jzmztwi1xqvn/entries/KbQb89jHMWceeoKIGsSgw')
+  }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries/KbQb89jHMWceeoKIGsSgw')
   .reply(500, {
     'accept': 'application/json'
   });

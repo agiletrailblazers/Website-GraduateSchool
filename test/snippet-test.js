@@ -4,14 +4,15 @@ var contentful = require("../API/contentful.js");
 var nock = require('nock');
 var should = require("should");
 var test = require('tap').test;
+var config = require('konphyg')(__dirname + "/../config");
 
 // test API to get content snippet
 test("content snippet returns snippet", function(t) {
   var contentfulServerSnippet = nock('https://cdn.contentful.com', {
     reqheaders: {
-      'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
+      'Authorization': config("properties").spaces.content.authorization
     }
-  }).get('/spaces/98qeodfc03o0/entries?content_type=vWuB3fpTWge2EU8ec0OOA&fields.slug=snippet/test')
+  }).get('/spaces/'+config("properties").spaces.content.spaceId+'/entries?content_type=vWuB3fpTWge2EU8ec0OOA&fields.slug=snippet/test')
   .reply(200, {
     "sys": {
         "type": "Array"

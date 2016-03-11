@@ -5,12 +5,12 @@ var common = require("../helpers/common.js");
 
 module.exports = {
   getInquiryForm: function(callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/'+ config("properties").contentfulSpace_Main +'/entries/' + config("properties").contentfulEntry_InquiryForm;
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/'+config("properties").contentfulEntry_InquiryForm;
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer ' + config("properties").contentfulAuthKey_Main
+        'Authorization': config("properties").spaces.main.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -22,12 +22,12 @@ module.exports = {
     });
   },
   getContactUs: function(callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/'+ config("properties").contentfulSpace_Main +'/entries/' + config("properties").contentfulEntry_ContactUs;
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/'+config("properties").contentfulEntry_ContactUs;
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer ' + config("properties").contentfulAuthKey_Main
+        'Authorization':  config("properties").spaces.main.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -39,12 +39,12 @@ module.exports = {
     });
   },
   getFormWithHeaderAndFooter: function(entryId, callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/' + entryId;
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/' + entryId;
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+        'Authorization': config("properties").spaces.main.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {

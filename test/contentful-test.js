@@ -3,13 +3,14 @@ var expect = chai.expect;
 var test = require('tap').test;
 var nock = require('nock');
 var contentful = require("../API/contentful.js");
+var config = require('konphyg')(__dirname + '/../config');
 
 test("url redirect provides corresponding links", function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
     reqheaders: {
-      'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
+      'Authorization': config("properties").spaces.content.authorization
     }
-  }).get('/spaces/98qeodfc03o0/entries?content_type=redirect&limit=1000')
+  }).get('/spaces/'+config("properties").spaces.content.spaceId+'/entries?content_type=redirect&limit=1000')
   .reply(200, {
     "sys": {
       "type": "Array"

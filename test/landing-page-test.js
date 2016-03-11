@@ -3,13 +3,14 @@ var chai = require('chai');
 var expect = chai.expect;
 var contentful = require('../API/contentful.js');
 var test = require('tap').test;
+var config = require('konphyg')(__dirname + "/../config");
 
 test('landing-page:landingpage', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
       reqheaders: {
-        'Authorization': 'Bearer 58b9e19609e55070f0f46a3165e9116329acd28e3dd9495b8bccee6d2cc7deba'
+        'Authorization': config("properties").spaces.landing.authorization
       }
-    }).get('/spaces/rwpes6c9xnt6/entries/?content_type=landingGeneric&fields.slug=landingpage')
+    }).get('/spaces/'+config("properties").spaces.landing.spaceId+'/entries/?content_type=landingGeneric&fields.slug=landingpage')
     .reply(200, {
       slug: 'landingpage',
       title: 'Government Training and Professional Development',
