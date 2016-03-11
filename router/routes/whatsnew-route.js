@@ -4,12 +4,13 @@ var async = require('async');
 var router = express.Router();
 var logger = require('../../logger');
 var common = require("../../helpers/common.js");
+var config = require('konphyg')(__dirname + "/../../config");
 
 // Get What's new page.
 router.get('/whats-new', function(req, res, next) {
   var content = {};
   var assetIdList = "";
-  var spaceId = "jzmztwi1xqvn";
+  var spaceId = config("properties").spaces.main.spaceId;
   async.series([
     function(callback) {
       contentful.getWhatsNew(function(response, error) {

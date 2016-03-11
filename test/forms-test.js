@@ -4,13 +4,14 @@ var contentful = require("../API/contentful.js");
 var nock = require('nock');
 var should = require("should");
 var test = require('tap').test;
+var config = require('konphyg')(__dirname + "/../config");
 
 test('test for forms contentful service', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
     reqheaders: {
-      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      'Authorization': config("properties").spaces.main.authorization
     }
-    }).get('/spaces/jzmztwi1xqvn/entries?content_type=5Lz9bSZNE4ACoykGQgQwUu')
+    }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=5Lz9bSZNE4ACoykGQgQwUu')
     .reply(200, {
       "fields": {
         "sectionTitle": "Graduate School USA Academic Programs Forms",
@@ -57,9 +58,9 @@ test('test for forms contentful service', function(t) {
 test('test for forms contentful service with InternalError', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
   reqheaders: {
-    'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+    'Authorization': config("properties").spaces.main.authorization
     }
-  }).get('/spaces/jzmztwi1xqvn/entries?content_type=5Lz9bSZNE4ACoykGQgQwUu')
+  }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=5Lz9bSZNE4ACoykGQgQwUu')
     .reply(500, {
     "includes": {
     "Asset": [{ }

@@ -9,9 +9,9 @@ var config = require('konphyg')(__dirname + "/../config");
 test('homepage slider contentful test:success', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
         reqheaders: {
-            'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+            'Authorization': config("properties").spaces.main.authorization
         }
-    }).get('/spaces/jzmztwi1xqvn/entries?content_type=2Ak0RNhLwIwSGaiukUsCku')
+    }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=2Ak0RNhLwIwSGaiukUsCku')
       .reply(200, {
           "items": [
             {
@@ -80,9 +80,9 @@ test('homepage slider contentful test:success', function(t) {
 test('homepage slider contentful test:failure', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
         reqheaders: {
-            'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+            'Authorization': config("properties").spaces.main.authorization
         }
-    }).get('/spaces/jzmztwi1xqvn/entries?content_type=2Ak0RNhLwIwSGaiukUsCku')
+    }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=2Ak0RNhLwIwSGaiukUsCku')
       .reply(404, {});
     contentfulServer;
     contentful.getHomepageSlider(function(slides, error) {
@@ -94,9 +94,9 @@ test('homepage slider contentful test:failure', function(t) {
 test('homepage testimonial contentful test:success', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
         reqheaders: {
-            'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+            'Authorization': config("properties").spaces.main.authorization
         }
-    }).get('/spaces/jzmztwi1xqvn/entries?content_type=6xOVVkV7wc8ecwKqCaSwyW')
+    }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=6xOVVkV7wc8ecwKqCaSwyW')
       .reply(200, {
           "items": [
             {
@@ -161,9 +161,9 @@ test('homepage testimonial contentful test:success', function(t) {
 test('homepage testimonial contentful test:failure', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
         reqheaders: {
-            'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+            'Authorization': config("properties").spaces.main.authorization
         }
-    }).get('/spaces/jzmztwi1xqvn/entries?content_type=6xOVVkV7wc8ecwKqCaSwyW')
+    }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=6xOVVkV7wc8ecwKqCaSwyW')
       .reply(404, {});
     contentfulServer;
     contentful.getTestimonial(function(testimonial, error) {
@@ -175,9 +175,9 @@ test('homepage testimonial contentful test:failure', function(t) {
 test('homepage alert contentful test:success', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
         reqheaders: {
-            'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+            'Authorization': config("properties").spaces.main.authorization
         }
-    }).get('/spaces/jzmztwi1xqvn/entries?content_type=22JH0IRqc0iEqM2uMgMyyy')
+    }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=22JH0IRqc0iEqM2uMgMyyy')
       .reply(200, {
         "sys": {
           "type": "Array"

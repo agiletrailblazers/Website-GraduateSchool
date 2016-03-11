@@ -9,9 +9,9 @@ var config = require('konphyg')(__dirname + "/../config");
 test('navigation contentful test:success', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
         reqheaders: {
-            'Authorization': 'Bearer db132f1da5cc75a00f487cce1c94143798d8e5d12c65c169b2fc04febdfae44d'
+            'Authorization': config("properties").spaces.navigation.authorization
         }
-    }).get('/spaces/5tnto6ug3qkh/entries?include=2&content_type=47TLz18cmI6WaeC0KWgOIo')
+    }).get('/spaces/'+config("properties").spaces.navigation.spaceId+'/entries?include=2&content_type=47TLz18cmI6WaeC0KWgOIo')
       .reply(200, {
           "items": [
             {
@@ -81,9 +81,9 @@ test('navigation contentful test:success', function(t) {
 test('homepage contentful test:failure', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
         reqheaders: {
-            'Authorization': 'Bearer db132f1da5cc75a00f487cce1c94143798d8e5d12c65c169b2fc04febdfae44d'
+            'Authorization': config("properties").spaces.navigation.authorization
         }
-    }).get('/spaces/5tnto6ug3qkh/entries?include=2&content_type=47TLz18cmI6WaeC0KWgOIo')
+    }).get('/spaces/'+config("properties").spaces.navigation.spaceId+'/entries?include=2&content_type=47TLz18cmI6WaeC0KWgOIo')
       .reply(404, {});
     contentfulServer;
     contentful.getNavigation(function(nav) {

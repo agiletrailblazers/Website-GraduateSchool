@@ -4,13 +4,15 @@ var contentful = require("../API/contentful.js");
 var nock = require('nock');
 var should = require("should");
 var test = require('tap').test;
+var config = require('konphyg')(__dirname + "/../config");
+
 
 test('test for catalog download', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
     reqheaders: {
-      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      'Authorization': config("properties").spaces.main.authorization
     }
-    }).get('/spaces/jzmztwi1xqvn/entries?content_type=ZRkwvyMcCqK46gGOggeWs')
+    }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=ZRkwvyMcCqK46gGOggeWs')
     .reply(200, {
       "sys": {
         "type": "Array"

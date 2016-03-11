@@ -5,12 +5,12 @@ var common = require("../helpers/common.js");
 
 module.exports = {
   getWhatsNew: function(callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/4QlvJ0GeQw4AY2QOq8SUMY';
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/4QlvJ0GeQw4AY2QOq8SUMY';
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+        'Authorization': config("properties").spaces.main.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -31,7 +31,7 @@ module.exports = {
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+        'Authorization': config("properties").spaces.main.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -43,12 +43,12 @@ module.exports = {
     });
   },
   getSyllabus: function(entry, callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/0rlhdagwnyoo/entries/' + entry;
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.courseData.spaceId+'/entries/' + entry;
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer d60cc07cb9754202a1483b9e4758b9a38dae4823d6891676b7ac1640daaf09f8'
+        'Authorization': config("properties").spaces.courseData.authorization
       }
     }, function(error, response, body) {
       var httpCodesNotToLog = [404];
@@ -62,12 +62,12 @@ module.exports = {
   },
   // Pulls all news entries from newest to oldest.
   getNewsRecent: function(callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?content_type=2wKn6yEnZewu2SCCkus4as&order=-fields.date';
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.news.spaceId+'/entries?content_type=2wKn6yEnZewu2SCCkus4as&order=-fields.date';
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e'
+        'Authorization': config("properties").spaces.news.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -80,12 +80,12 @@ module.exports = {
   },
   // Pulls specific news detail (as an array).
   getNewsDetail: function(callback, slug) {
-    var targetURL = 'https://cdn.contentful.com/spaces/uoxr2n07eksi/entries?content_type=2wKn6yEnZewu2SCCkus4as&fields.slug=' + slug;
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.news.spaceId+'/entries?content_type=2wKn6yEnZewu2SCCkus4as&fields.slug=' + slug;
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e'
+        'Authorization': config("properties").spaces.news.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -103,7 +103,7 @@ module.exports = {
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+        'Authorization': config("properties").spaces.main.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -117,12 +117,12 @@ module.exports = {
   getNavigation: function(callback) {
     var MAX_LINKS = config("properties").maxTopNavigationLinks;
     var MAX_GROUPS = config("properties").maxTopNavigationGroups;
-    var targetURL = 'https://cdn.contentful.com/spaces/5tnto6ug3qkh/entries?include=2&content_type=47TLz18cmI6WaeC0KWgOIo';
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.navigation.spaceId+'/entries?include=2&content_type=47TLz18cmI6WaeC0KWgOIo';
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer db132f1da5cc75a00f487cce1c94143798d8e5d12c65c169b2fc04febdfae44d'
+        'Authorization': config("properties").spaces.navigation.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -200,12 +200,12 @@ module.exports = {
     }
   },
   getReferenceData: function(slug, callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/?content_type=rrnJXELzeC4O8Mc8oQUqK&fields.slug=' + slug;
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/?content_type=rrnJXELzeC4O8Mc8oQUqK&fields.slug=' + slug;
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+        'Authorization': config("properties").spaces.main.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -221,12 +221,12 @@ module.exports = {
     });
   },
   getContentPage: function(callback, slug) {
-    var targetURL = 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries/?content_type=4oNvURz39SeMw6EaS84gIM&fields.slug=' + slug;
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.content.spaceId+'/entries/?content_type=4oNvURz39SeMw6EaS84gIM&fields.slug=' + slug;
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
+        'Authorization': config("properties").spaces.content.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) { //This call returns 200 even when nothing found
@@ -238,12 +238,13 @@ module.exports = {
     });
   },
   getLandingPage: function(callback, slug) {
-    var targetURL = 'https://cdn.contentful.com/spaces/rwpes6c9xnt6/entries/?content_type=landingGeneric&fields.slug=' + slug;
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.landing.spaceId+
+                    '/entries/?content_type=landingGeneric&fields.slug=' + slug;
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer 58b9e19609e55070f0f46a3165e9116329acd28e3dd9495b8bccee6d2cc7deba'
+        'Authorization': config("properties").spaces.landing.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) { //This call returns 200 even when nothing found
@@ -255,12 +256,12 @@ module.exports = {
     });
   },
   getCourseSearch: function(callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/3AdFDCVaOIeQSgemcmkGqk';
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/3AdFDCVaOIeQSgemcmkGqk';
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+        'Authorization': config("properties").spaces.main.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -272,12 +273,12 @@ module.exports = {
     });
   },
   getCourseDetails: function(callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/1Cwi1ay4SEWcIYAy8EAu8U';
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/1Cwi1ay4SEWcIYAy8EAu8U';
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+        'Authorization': config("properties").spaces.main.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -289,12 +290,12 @@ module.exports = {
     });
   },
   getHomepageSlider: function(callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=2Ak0RNhLwIwSGaiukUsCku';
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=2Ak0RNhLwIwSGaiukUsCku';
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+        'Authorization': config("properties").spaces.main.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -322,12 +323,12 @@ module.exports = {
     });
   },
   getForms: function(callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=5Lz9bSZNE4ACoykGQgQwUu';
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=5Lz9bSZNE4ACoykGQgQwUu';
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      'Authorization': config("properties").spaces.main.authorization
        }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -343,12 +344,12 @@ module.exports = {
     });
   },
   getTestimonial: function(callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=6xOVVkV7wc8ecwKqCaSwyW';
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=6xOVVkV7wc8ecwKqCaSwyW';
     request({
       method: 'GET',
       url: targetURL,
       headers: {
-        'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+        'Authorization': config("properties").spaces.main.authorization
       }
     }, function(error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -373,12 +374,12 @@ module.exports = {
     });
   },
   getAlerts: function(callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=22JH0IRqc0iEqM2uMgMyyy';
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=22JH0IRqc0iEqM2uMgMyyy';
    request({
      method: 'GET',
      url: targetURL,
      headers: {
-     'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+     'Authorization': config("properties").spaces.main.authorization
       }
    }, function(error, response, body) {
      var httpCodesNotToLog = [404];
@@ -391,12 +392,12 @@ module.exports = {
    });
  },
  getDataGrouping: function(entryId, callback) {
-   var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/' + entryId;
+   var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/' + entryId;
    request({
      method: 'GET',
      url: targetURL,
      headers: {
-     'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+     'Authorization': config("properties").spaces.main.authorization
       }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -408,12 +409,12 @@ module.exports = {
    });
  },
  getCatalogType: function(callback) {
-   var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=ZRkwvyMcCqK46gGOggeWs';
+   var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=ZRkwvyMcCqK46gGOggeWs';
    request({
      method: 'GET',
      url: targetURL,
      headers: {
-     'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+     'Authorization': config("properties").spaces.main.authorization
       }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -429,12 +430,12 @@ module.exports = {
    });
  },
  getCatalogRequestHardCopy: function(callback) {
-   var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries?content_type=5SLs6g27dK2IOeuOyKyeoq';
+   var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=5SLs6g27dK2IOeuOyKyeoq';
    request({
      method: 'GET',
      url: targetURL,
      headers: {
-     'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+     'Authorization': config("properties").spaces.main.authorization
       }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -449,12 +450,12 @@ module.exports = {
    });
  },
  getFAQCategory: function(categorySlug, callback) {
-   var targetURL = 'https://cdn.contentful.com/spaces/2v0dv55ahz7w/entries?content_type=5Qnph4LqeWyqy2aeQmes4y&fields.slug=' + categorySlug;
+   var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.faq.spaceId+'/entries?content_type=5Qnph4LqeWyqy2aeQmes4y&fields.slug=' + categorySlug;
    request({
      method: 'GET',
      url: targetURL,
      headers: {
-     'Authorization': 'Bearer eb55e283a78dc7e297091e733bf374948b3361e74e6f36d36e8f880ce20a1467'
+     'Authorization': config("properties").spaces.faq.authorization
       }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -467,12 +468,12 @@ module.exports = {
  },
 
  getFAQ: function(callback) {
-   var targetURL = 'https://cdn.contentful.com/spaces/2v0dv55ahz7w/entries?content_type=5Qnph4LqeWyqy2aeQmes4y';
+   var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.faq.spaceId+'/entries?content_type=5Qnph4LqeWyqy2aeQmes4y';
    request({
      method: 'GET',
      url: targetURL,
      headers: {
-     'Authorization': 'Bearer eb55e283a78dc7e297091e733bf374948b3361e74e6f36d36e8f880ce20a1467'
+     'Authorization': config("properties").spaces.faq.authorization
       }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -485,12 +486,12 @@ module.exports = {
  },
 
  getContentSnippet: function(slug, callback) {
-   var targetURL = 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries?content_type=vWuB3fpTWge2EU8ec0OOA&fields.slug=' + slug;
+   var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.content.spaceId+'/entries?content_type=vWuB3fpTWge2EU8ec0OOA&fields.slug=' + slug;
    request({
      method: 'GET',
      url: targetURL,
      headers: {
-       'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
+       'Authorization': config("properties").spaces.content.authorization
      }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) { //This returns 200 even when nothing is found
@@ -503,12 +504,12 @@ module.exports = {
  },
 
  getContentUrlRedirect: function(callback) {
-   var targetURL = 'https://cdn.contentful.com/spaces/98qeodfc03o0/entries?content_type=redirect&limit=1000';
+   var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.content.spaceId+'/entries?content_type=redirect&limit=1000';
    request({
      method: 'GET',
      url: targetURL,
      headers: {
-       'Authorization': 'Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0'
+       'Authorization': config("properties").spaces.content.authorization
      }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {
@@ -521,12 +522,12 @@ module.exports = {
  },
 
  getCatalogArchiveLink: function(callback) {
-   var targetURL = 'https://cdn.contentful.com/spaces/jzmztwi1xqvn/entries/18K2MpUdQmysAmK4ISSeOs';
+   var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/18K2MpUdQmysAmK4ISSeOs';
    request({
      method: 'GET',
      url: targetURL,
      headers: {
-     'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+     'Authorization': config("properties").spaces.main.authorization
       }
    }, function(error, response, body) {
      if (common.checkForErrorAndLog(error, response, targetURL)) {

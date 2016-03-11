@@ -10,9 +10,9 @@ var test = require('tap').test;
 test('test for catalog download', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
     reqheaders: {
-      'Authorization': 'Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652'
+      'Authorization': config("properties").spaces.main.authorization
     }
-    }).get('/spaces/jzmztwi1xqvn/entries?content_type=5SLs6g27dK2IOeuOyKyeoq')
+    }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=5SLs6g27dK2IOeuOyKyeoq')
     .reply(200, {
       "sys": {
         "type": "Array"
