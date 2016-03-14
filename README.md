@@ -55,9 +55,11 @@ Individual unit test files can be executed as follows, with the coverage report 
 
 ## Running the Website-GraduateSchool Application Locally
 1. Change directories to the root application directory: `cd {your-dev-dir}/Website-GraduateSchool`
-2. To start node using the "dev" configuration: `NODE_ENV=dev node ./bin/www`
-3. To start node using the "test" configuration: `NODE_ENV=test node ./bin/www`
-4. Access the application via any browser: http://localhost:3000
+2. To start node using the "local" configuration: `NODE_ENV=local node ./bin/www`
+    * Running against "local" environment is required if you will be using the registration functionality or executing local Selenium tests.  It includes the required configuration for Cybersource, the 3rd party payment system, that requires environment specific configuration.
+3. To start node using the "dev" configuration: `NODE_ENV=dev node ./bin/www`
+4. To start node using the "test" configuration: `NODE_ENV=test node ./bin/www`
+5. Access the application via any browser: http://localhost:3000
 
 ## Adding Packages
 When adding packages please use the `--save` option to add to our list of dependencies in the package.json file. If you add a package please notify the team on SLACK that you have added a package so we can install the dependency on our local machines after syncing with the remote repository.

@@ -1,53 +1,17 @@
 {
-    "env": "dev",
-    "skipReCaptchaVerification":true,
-    "apiServer": "http://ec2-52-3-244-235.compute-1.amazonaws.com",
+  "env": "dev",
+  "skipReCaptchaVerification":true,
+  "apiServer": "http://ec2-52-3-244-235.compute-1.amazonaws.com",
+  "landingPageFormDisplay":true,
 
-    "registrationUrl" : "/manage/cart?courseId=[courseId]&sessionId=[sessionId]",
-    "manage" : {
-      "userRouteEnabled" : true,
-      "payment" : {
-          "url" : "https://testsecureacceptance.cybersource.com/pay",
-          "profileId" : "F6106F20-5CDE-4E46-99E6-7ED4627E07D8",
-          "accessKey" : "39c6c2335dc134bcb824d692d928c44d",
-          "secretKey" : "89421bff62bc4c0aafc4d2ffb2a1e2ccf1db5d0644a54f638a08b4e9adc25bebd2442ea0d14f41b8b7ce84243e8a42469f76e679d4e74a9a91d30bfb5f9b90793a3a1b558c5347c7970fcc6fa83f7ffc26c7e8eca284471bb87c1ec3a07d35ca7fed8502338642879e0c55f7a78fc4cc71e24d505ad44e87a7ab8017da3bb357"
+  "registrationUrl" : "/manage/cart?courseId=[courseId]&sessionId=[sessionId]",
+  "manage" : {
+    "userRouteEnabled" : true,
+    "payment" : {
+        "url" : "https://testsecureacceptance.cybersource.com/pay",
+        "profileId" : "F6106F20-5CDE-4E46-99E6-7ED4627E07D8",
+        "accessKey" : "39c6c2335dc134bcb824d692d928c44d",
+        "secretKey" : "89421bff62bc4c0aafc4d2ffb2a1e2ccf1db5d0644a54f638a08b4e9adc25bebd2442ea0d14f41b8b7ce84243e8a42469f76e679d4e74a9a91d30bfb5f9b90793a3a1b558c5347c7970fcc6fa83f7ffc26c7e8eca284471bb87c1ec3a07d35ca7fed8502338642879e0c55f7a78fc4cc71e24d505ad44e87a7ab8017da3bb357"
       }
-    },
-
-    "defaultEmailServerName": "smtp.office365.com",
-    "defaultEmailServerPort": "587",
-    "defaultEmailUserName":"atbtools@agiletrailblazers.com",
-    "defaultEmailUserPassword":"Ramo0061",
-    "defaultEmailFromUserName":"atbtools@agiletrailblazers.com",
-
-    "contactUsToUserName":"gs-dev-test-email@agiletrailblazers.com",
-    "onsiteInquiryToUserName":"gs-dev-test-email@agiletrailblazers.com",
-    "requestDuplicateCourseCompletionCertificateToUserName":"gs-dev-test-email@agiletrailblazers.com",
-    "requestDuplicateOfficialGradeReportToUserName":"gs-dev-test-email@agiletrailblazers.com",
-    "proctorRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
-    "customerFeedBackFormToUserName":"gs-dev-test-email@agiletrailblazers.com",
-    "certificateProgramFormToUserName":"gs-dev-test-email@agiletrailblazers.com",
-    "catalogRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
-    "subscriptionRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
-
-    "certificateProgramGroup": {
-      "applicationForm": {
-        "email": "gs-dev-test-email@agiletrailblazers.com",
-        "subject": "Incoming Application Form Request"
-      },
-      "progressReport": {
-        "email": "gs-dev-test-email@agiletrailblazers.com",
-        "subject": "Incoming Progress Report Request"
-      },
-      "programCompletion": {
-        "email": "gs-dev-test-email@agiletrailblazers.com",
-        "subject": "Incoming Certificate of Program Completion Request"
-      },
-      "waiverRequest" : {
-        "email": "gs-dev-test-email@agiletrailblazers.com",
-        "subject": "Incoming Waiver Request"
-      }
-    },
-    "googleAnalyticsId":"UA-66851185-2",
-    "landingPageFormDisplay":true
+    }
 }
