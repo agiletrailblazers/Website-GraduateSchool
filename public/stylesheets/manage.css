@@ -1,0 +1,83 @@
+/* Table styles */
+
+table.manage, table.manage th, table.manage tr, table.manage td {
+  border: none !important;
+  color: #545454;
+  font-size: 14px;
+}
+table.manage {
+  border: 1px solid #CCD8E3 !important;
+}
+
+table.manage th {
+  background: #82838B; /* Old browsers */
+  background-image: linear-gradient(to bottom, #A0A0A8 0px, #82838B 100%) !important;
+  border-radius: 0px !important;
+  color: #FFF;
+  padding: 15px !important;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: normal;
+  text-align: center;
+}
+
+table.manage tr {
+  background-color: #FDFDFD;
+  border-bottom: 1px solid #CCD8E3 !important;
+}
+
+table.manage tr:nth-child(even) {
+   background-color: #FFFFFF;
+ }
+
+
+table.manage td {
+  text-align: center;
+  padding: 12px !important;
+  vertical-align: middle !important;
+}
+
+.manage > tbody > tr > td {
+    vertical-align: middle !important;
+    text-align: center !important; 
+}
+
+
+/* Buttons */
+
+.white-icon {
+  color: #FFF !important;
+  top:1px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+button  {
+  font-size: 18px;
+}
+
+form button, form button:visited {
+  background-color: #427EB4;
+  padding: 7px 20px;
+  color: #FFF;
+  border: none;
+  outline-style: none;
+  transition: background-color 300ms linear 0s;
+  border-bottom: 2px solid transparent;
+}
+
+form button.red, form button.red:visited {
+  background-color: #D9124E;
+  padding: 7px 20px;
+  color: #FFF;
+  border: none;
+  outline-style: none;
+  transition: background-color 300ms linear 0s;
+  border-bottom: 2px solid transparent;
+}
+
+form button.red:hover {
+    background-color: #195181;
+    color: #FFF;
+    transition: background-color 300ms linear 0s;
+}
