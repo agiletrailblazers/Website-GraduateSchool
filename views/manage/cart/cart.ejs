@@ -25,22 +25,26 @@
           <span id="gs-alert-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"> </span>
           <p><%= error %></p>
         </div>
-        <div id="outer" class="col-lg-12 col-md-12 col-sm-12 form-fix padding20">
+        <div id="outer" class="col-lg-12 col-md-12 col-sm-12 padding20">
 
           <div id="gs-form">
               <div id="cart">
+                <p>The following courses have been added to your account. Please check to make sure the information below is accurate before continuing.</p>
+                <br>
                 <form id="cart-form" role="form" method="get" action="<%= nextpage %>">
                   <div id="form-wrap">
                     <div id="cart-items">
-                      <table>
+                      <table class="table table-striped manage">
                         <tr>
                           <th>Course</th>
                           <th>Session</th>
-                          <th>Type</th>
                           <th>Cost</th>
+                          <th>Attendees</th>
+                          <th>Details</th>
+                          <th>Action</th>
                         </tr>
                         <tr>
-                          <td><%= course.title %></td>
+                          <td><strong><%= course.title %></strong></td>
                           <td>
                             <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br/>
                               <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
@@ -50,22 +54,33 @@
                               , <%= session["days"] %>
                               <% } %>
                           </td>
-                          <td><%= course.type %></td>
                           <td>$<%= session["tuition"] %></td>
+                          <td>
+                            <div class="form-block">
+                              <input type="radio" name="radioAttendees" id="radioMe" value="" checked/>
+                              <label class="sub-label" for="radioMe">Me</label>
+                              <input type="radio" name="radioAttendees" id="radioMultiple" value="" />
+                              <label class="sub-label" for="radioMultiple">Other/Multiple</label>
+                            </div>
+                          </td>
+                          <td><a href="#" id="details"><img src="/images/details.png" alt="" /></a></td>
+                          <td><a href="#" id="removeCourse"><img src="/images/remove.png" alt="" /></a></td>
                         </tr>
                       </table>
                     </div>
                     <div class="spacer10"></div>
                     <div id="buttons" class="pull-right">
-                      <button id="cart-form-continue" type="submit" tabindex="10">Continue</button>
+                      <button id="cart-form-add-another" type="submit" tabindex="10"><span class="glyphicon glyphicon-plus white-icon"></span> Add another class</button>
+                      <button id="cart-form-continue" type="submit" tabindex="11" class="red">Continue <span class="glyphicon glyphicon-chevron-right white-icon"></span></button>
                     </div>
                   </div> <!-- END form-wrap -->
                 </form> <!-- END cart-form -->
             </div>  <!-- END cart -->
           </div> <!--END gs-form-->
-
         </div> <!--END outer-->
       </div> <!--END container-->
+      <div class="spacer60"></div>
+      <div class="spacer60"></div>
     <!-- Footer -->
     <% include ../../partials/footer %>
     <!-- END Footer  -->
