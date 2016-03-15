@@ -39,9 +39,7 @@
                           <th>Course</th>
                           <th>Session</th>
                           <th>Cost</th>
-                          <th>Attendees</th>
                           <th>Details</th>
-                          <th>Action</th>
                         </tr>
                         <tr>
                           <td><strong><%= course.title %></strong></td>
@@ -55,23 +53,13 @@
                               <% } %>
                           </td>
                           <td>$<%= session["tuition"] %></td>
-                          <td>
-                            <div class="form-block">
-                              <input type="radio" name="radioAttendees" id="radioMe" value="" checked/>
-                              <label class="sub-label" for="radioMe">Me</label>
-                              <input type="radio" name="radioAttendees" id="radioMultiple" value="" />
-                              <label class="sub-label" for="radioMultiple">Other/Multiple</label>
-                            </div>
-                          </td>
                           <td><a href="#" id="details"><img src="/images/details.png" alt="" /></a></td>
-                          <td><a href="#" id="removeCourse"><img src="/images/remove.png" alt="" /></a></td>
                         </tr>
                       </table>
                     </div>
                     <div class="spacer10"></div>
                     <div id="buttons" class="pull-right">
-                      <button id="cart-form-add-another" type="submit" tabindex="10"><span class="glyphicon glyphicon-plus white-icon"></span> Add another class</button>
-                      <button id="cart-form-continue" type="submit" tabindex="11" class="red">Continue <span class="glyphicon glyphicon-chevron-right white-icon"></span></button>
+                      <button id="cart-form-continue" type="submit" tabindex="10" class="red">Continue <span class="glyphicon glyphicon-chevron-right white-icon"></span></button>
                     </div>
                   </div> <!-- END form-wrap -->
                 </form> <!-- END cart-form -->
