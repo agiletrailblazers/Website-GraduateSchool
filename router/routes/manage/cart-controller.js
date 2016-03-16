@@ -670,19 +670,16 @@ module.exports = {
 
         var sessionData = session.getSessionData(req);
 
-        if (sessionData.cart && sessionData.cart.courseId) {
-
-            if (sessionData.userId) {
-                logger.debug("Removing data from cart for user: " + sessionData.userId);
-            }
-            else {
-                logger.debug("Removing data from cart for unknown user");
-            }
-            sessionData.cart = {};
-
-            // update the session data
-            session.setSessionData(res, sessionData);
-            res.redirect('/search');
+        if (sessionData.userId) {
+            logger.debug("Removing data from cart for user: " + sessionData.userId);
         }
+        else {
+            logger.debug("Removing data from cart for unknown user");
+        }
+        sessionData.cart = {};
+
+        // update the session data
+        session.setSessionData(res, sessionData);
+        res.redirect('/search');
     }
 } // end module.exports
