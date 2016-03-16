@@ -25,7 +25,7 @@
               <div id="cart">
                 <p>The following courses have been added to your account. Please check to make sure the information below is accurate before continuing.</p>
                 <br>
-                <form id="cart-form" role="form" method="get" action="<%= nextpage %>">
+
                   <div id="form-wrap">
                     <div id="cart-items">
                       <table class="table table-striped manage">
@@ -145,11 +145,15 @@
                     </div>
                     <div class="spacer10"></div>
                     <div id="buttons" class="pull-right">
-                      <button id="cart-form-cancel" type="submit" tabindex="11">Cancel</button>
-                      <button id="cart-form-continue" type="submit" tabindex="10" class="red">Continue <span class="glyphicon glyphicon-chevron-right white-icon"></span></button>
+                      <form id="cart-form-cancel-registration" style="display: inline;" method="post" action="/manage/cart/registration/cancel">
+                        <button id="cart-form-cancel-registration-submit" type="submit" tabindex="11">Cancel</button>
+                      </form>
+                      <form id="cart-form" role="form" method="get" style="display: inline;" action="<%= nextpage %>">
+                        <button id="cart-form-continue" type="submit" tabindex="10" class="red">Continue <span class="glyphicon glyphicon-chevron-right white-icon"></span></button>
+                      </form> <!-- END cart-form -->
                     </div>
                   </div> <!-- END form-wrap -->
-                </form> <!-- END cart-form -->
+
             </div>  <!-- END cart -->
           </div> <!--END gs-form-->
         </div> <!--END outer-->

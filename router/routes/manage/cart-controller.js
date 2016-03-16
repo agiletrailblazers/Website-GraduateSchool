@@ -661,5 +661,50 @@ module.exports = {
                 });
             }
         });
-    }
+    },
+
+    // handle the registration canceled from the cart
+    cancelRegistration: function(req, res, next) {
+
+        logger.debug("Processing registration canceled from cart");
+
+        var sessionData = session.getSessionData(req);
+
+        async.waterfall([
+            function(callback) {
+
+                // clear the cart from the sessionData
+                if (sessionData.cart && sessionData.cart.courseId) {
+
+                    if(sessionData.userId) {
+                        logger.debug("Removing data from cart for user: " + sessionData.userId);
+                    }
+                    else {
+                        logger.debug("Removing data from cart for unknown user");
+                    }
+
+                    // registration and payment were successful, clear out the cart and render the receipt
+                    sessionData.cart = {};
+
+                    // update the session data
+                    session.setSessionData(res, sessionData);
+
+                    return callback(null, "");
+                }
+                else {
+                    return callback(null, "");
+                }
+            }
+        ], function(err, content) {
+
+            if (err) {
+                logger.error("Error clearing cart", err);
+                common.redirectToError(res);
+                return;
+            }
+
+            // redirect back to the cart
+            res.redirect('/search');
+        });
+    },
 } // end module.exports
