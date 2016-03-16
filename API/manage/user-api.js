@@ -106,5 +106,32 @@ module.exports = {
         return callback(new Error("Exception occurred getting registration for user " + userId), null);
       }
     });
+  },
+
+  getTimezones: function(callback, authToken) {
+    var targetURL = config("properties").apiServer + '/api/registration/user/timezones';
+    request({
+      method: 'GET',
+      url: targetURL,
+      headers: {
+        'Authorization': authToken
+      }
+    }, function (error, response, body) {
+      if (error || !response) {
+        return callback(new Error("Exception occurred getting timezones"), null);
+      }
+      else if (response.statusCode == 404) {
+        // no timezones found
+        return callback(new Error("Exception occurred getting timezones, no timezones found"), null);
+      }
+      else if (response.statusCode == 200) {
+        // successfully found timezones
+        return callback(null, JSON.parse(body));
+      }
+      else {
+        // other error
+        return callback(new Error("Exception occurred getting timezones"), null);
+      }
+    });
   }
 };
