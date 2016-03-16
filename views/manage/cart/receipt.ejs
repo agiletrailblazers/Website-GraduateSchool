@@ -7,55 +7,64 @@
   <body>
     <% include ../../partials/header %>
       <div id="container" class="container">
-        <div class="loading" style="display:none;"></div>
-        <div id="outer" class="col-lg-12 col-md-12 col-sm-12 form-fix padding20">
-            <div>
-              <span>Your payment and registration have been completed.  Please print out this page for your records.</span>
-            </div>
-            <div class="spacer25"></div>
+        <div class="row">
+        <div id="outer" class="col-lg-12 col-md-12 col-sm-12 content-offset">
+          <div id="gs-form">
             <div id="cart">
-              <div id="cart-items">
-                <table>
-                  <tr>
-                    <th>Course</th>
-                    <th>Session</th>
-                    <th>Type</th>
-                    <th>Cost</th>
-                  </tr>
-                  <tr>
-                    <td><%= course.title %></td>
-                    <td>
-                      <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br/>
-                        <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
+              <div class="row">
+                <div class="col-lg-12">
+                  <p>Thank you. Your order has been successfully placed. Your Order Number is <strong><%= registrations[0].orderNumber %>.</strong></p>
+                  <div id="cart-items">
+                    <h2>Course Summary</h2>
+                    <table class="table table-striped manage">
+                      <tr>
+                        <th>Course</th>
+                        <th>Session</th>
+                        <th>Type</th>
+                        <th>Cost</th>
+                      </tr>
+                      <tr>
+                        <td><strong><%= course.title %></strong></td>
+                        <td>
+                          <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br/>
+                          <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
                           <%= session["startTime"]%> - <%= session["endTime"]%>
-                        <% } %>
-                        <% if (session["days"] !== null) { %>
-                        , <%= session["days"] %>
-                        <% } %>
-                    </td>
-                    <td><%= course.type %></td>
-                    <td>$<%= session["tuition"] %></td>
-                  </tr>
-                </table>
-              </div> <!-- END cart-items -->
+                          <% } %>
+                          <% if (session["days"] !== null) { %>
+                          , <%= session["days"] %>
+                          <% } %>
+                        </td>
+                        <td><%= course.type %></td>
+                        <td>$<%= session["tuition"] %></td>
+                      </tr>
+                    </table>
+                  </div> <!-- END cart-items -->
+                </div>
+              </div>
               <div class="spacer25"></div>
-              <div id="payment-info">
-                <table>
-                  <tr>
-                    <th>Payment Method</th>
-                    <th>Payment Details</th>
-                    <th>Order Number</th>
-                  </tr>
-                  <tr>
-                    <td>Credit Card</td>
-                    <td><%= payment.cardNumber %> - Expires <%= payment.cardExpiry %></td>
-                    <td><%= registrations[0].orderNumber %></td>
-                  </tr>
-                </table>
-              </div> <!-- END payment-info -->
-          </div>  <!-- END cart -->
+              <div class="row">
+                <div class="col-lg-5 col-md-5">
+                  <h2>Billing Information</h2>
+                  <div id="bill-to-info">
+                    <p class="bill-title">John Doe</p>
+                    <p>1st Street, Washingon DC</p>
+                    <p>+11231234123 john@doe.com</p>
+                  </div> <!-- END Bill-to-info -->
+                </div>
+                <div class="col-lg-7 col-md-7">
+                  <h2>Payment</h2>
+                  <div id="payment-info">
+                    <p><span class="payment-type">Credit</span> <%= authorization.cardNumber %> - Expires <%= authorization.cardExpiry %></p>
+                  </div> <!-- END payment-info -->
+                </div>
+              </div>
+            </div>  <!-- END cart -->
+          </div> <!--END gs-form-->
         </div> <!--END outer-->
-      </div> <!--END container-->
+        </div> <!--END row-->
+        </div> <!--END container-->
+      <div class="spacer60"></div>
+      <div class="spacer60"></div>
     <!-- Footer -->
     <% include ../../partials/footer %>
     <!-- END Footer  -->
