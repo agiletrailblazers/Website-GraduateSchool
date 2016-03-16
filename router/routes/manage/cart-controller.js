@@ -661,5 +661,25 @@ module.exports = {
                 });
             }
         });
+    },
+
+    // handle the registration canceled from the cart
+    cancelRegistration: function(req, res, next) {
+
+        logger.debug("Processing registration canceled from cart");
+
+        var sessionData = session.getSessionData(req);
+
+        if (sessionData.userId) {
+            logger.debug("Removing data from cart for user: " + sessionData.userId);
+        }
+        else {
+            logger.debug("Removing data from cart for unknown user");
+        }
+        sessionData.cart = {};
+
+        // update the session data
+        session.setSessionData(res, sessionData);
+        res.redirect('/search');
     }
 } // end module.exports

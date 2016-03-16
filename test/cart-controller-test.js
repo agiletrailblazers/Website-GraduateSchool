@@ -2058,3 +2058,103 @@ test('displayPayment with no existing registration', function(t) {
 
   t.end();
 });
+
+test('cancelPayment from confirmation page with api failure', function(t) {
+
+  var res = {};
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+  var sessionId = "sesssion12345";
+  var sessionData = {
+    cart : {
+      sessionId: sessionId,
+      payment: {
+        amount: "500.00",
+        authorization : {
+          amount: "500.00",
+          authId: "authid12345",
+          referenceNumber: "ref12345"
+        }
+      }
+    }
+  };
+
+  res.redirect = function(page) {
+    expect(page).to.eql('/manage/cart');
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/cart-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          },
+          setSessionData: function (res, data) {
+            // verify data passed in
+            // make sure cart contents not removed
+            expect(data.cart.sessionId).to.eql(sessionId);
+            // make sure that the payment info was cleared from session data
+            expect(data.cart.payment).to.eql({});
+          }
+        },
+        "../../../API/manage/payment-api.js": {
+          sendAuthReversal: function (payments, cb, authToken) {
+            expect(authToken).to.eql(req.query.authToken);
+            expect(payments[0].amount).to.eql(sessionData.cart.payment.authorization.amount);
+            expect(payments[0].authorizationId).to.eql(sessionData.cart.payment.authorization.authId);
+            expect(payments[0].merchantReferenceId).to.eql(sessionData.cart.payment.authorization.referenceNumber);
+            cb(new Error("I made the test fail"));
+          }
+        }
+      });
+
+  controller.cancelPayment(req, res, null);
+
+  t.end();
+});
+
+/**
+ * Test for cancel button from cart page
+ */
+test('cancelRegistration from cart page', function(t) {
+
+  var res = {};
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+  var sessionId = "sesssion12345";
+  var sessionData = {
+    cart : {
+      sessionId: sessionId
+    }
+  };
+
+  res.redirect = function(page) {
+    expect(page).to.eql('/search');
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/cart-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          },
+          setSessionData: function (res, data) {
+            // verify data passed in
+            // make sure cart contents is empty
+            expect(data.cart).to.eql({});
+          }
+        }
+      });
+
+  controller.cancelRegistration(req, res, null);
+
+  t.end();
+});
