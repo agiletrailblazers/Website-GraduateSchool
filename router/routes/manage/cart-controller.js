@@ -670,41 +670,19 @@ module.exports = {
 
         var sessionData = session.getSessionData(req);
 
-        async.waterfall([
-            function(callback) {
+        if (sessionData.cart && sessionData.cart.courseId) {
 
-                // clear the cart from the sessionData
-                if (sessionData.cart && sessionData.cart.courseId) {
-
-                    if(sessionData.userId) {
-                        logger.debug("Removing data from cart for user: " + sessionData.userId);
-                    }
-                    else {
-                        logger.debug("Removing data from cart for unknown user");
-                    }
-
-                    // registration and payment were successful, clear out the cart and render the receipt
-                    sessionData.cart = {};
-
-                    // update the session data
-                    session.setSessionData(res, sessionData);
-
-                    return callback(null, "");
-                }
-                else {
-                    return callback(null, "");
-                }
+            if (sessionData.userId) {
+                logger.debug("Removing data from cart for user: " + sessionData.userId);
             }
-        ], function(err, content) {
-
-            if (err) {
-                logger.error("Error clearing cart", err);
-                common.redirectToError(res);
-                return;
+            else {
+                logger.debug("Removing data from cart for unknown user");
             }
+            sessionData.cart = {};
 
-            // redirect back to the cart
+            // update the session data
+            session.setSessionData(res, sessionData);
             res.redirect('/search');
-        });
-    },
+        }
+    }
 } // end module.exports
