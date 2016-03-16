@@ -80,10 +80,10 @@ module.exports = {
             contentfulCourseInfo: function(callback) {
                 contentfulAPI.getCourseDetails(function(contentfulCourseInfo, error) {
                     if (error) {
-                        callback(error, null);
+                        return callback(error, null);
                     }
                     else {
-                        callback(null, contentfulCourseInfo);
+                        return callback(null, contentfulCourseInfo);
                     }
                 });
             },

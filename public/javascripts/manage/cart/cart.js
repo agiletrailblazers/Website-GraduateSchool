@@ -2,7 +2,7 @@ var map, geocoder;
 var marker;
 mapApp = {
     start: function() {
-        map = new google.maps.Map(document.getElementById('map-canvas'), {
+        map = new google.maps.Map(document.getElementById('manage-map-canvas'), {
             zoom: 15,
         });
         geocoder = new google.maps.Geocoder();
@@ -24,7 +24,7 @@ mapApp = {
     }
 }
 
-function displayCourseDetails() {
+function showCourseDetails() {
     $('#courseDetails').fadeIn("slow","swing");
 }
 
@@ -39,7 +39,7 @@ $(document).ready(function () {
         $("#gs-alert-error p").remove();
     });
     $('#details').click(function() {
-        displayCourseDetails();
+        showCourseDetails();
     });
     $('#hide-course-details').click(function() {
         hideCourseDetails();
@@ -53,7 +53,7 @@ $(document).ready(function () {
         var address = $(this).data('address');
         var destination = address.replace(/ /g, '+');
         var directionsUrl = "http://maps.google.com?saddr=Current+Location&daddr=" + destination + "";
-        $("#map-address").html(address);
+        $("#manage-map-address").html(address);
         google.maps.event.addListenerOnce(map, 'idle', function() {
             google.maps.event.trigger(map, 'resize');
             if (marker != null) {

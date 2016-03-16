@@ -54,8 +54,8 @@
                         <tr id="courseDetails" style="display:none">
                           <td colspan="5">
                               <a id="hide-course-details" href="#outer" tabindex="15"><span class="glyphicon glyphicon-remove pull-right"></span></a>
-                              <table id="course-details-table" >
-                                <tr class="course-details-table-row" rowspan="2">
+                              <table id="manage-course-details-table" >
+                                <tr class="manage-course-details-table-row" rowspan="2">
                                   <td colspan="2">
                                     <h3 class="panel-title"><%= course.title %></h3>
                                   </td>
@@ -109,11 +109,11 @@
                                     </table>
                                   </td>
                                 </tr>
-                                <tr class="course-details-table-row">
+                                <tr class="manage-course-details-table-row">
                                   <td><strong><%= contentfulCourseInfo.courseDetailTitles[0] %></strong></td><td><%= course.code %></td>
-                                </tr> <tr class="course-details-table-row">
+                                </tr> <tr class="manage-course-details-table-row">
                                   <td><strong><%= contentfulCourseInfo.courseDetailTitles[1] %></strong></td><td><%= course.type %></td>
-                                </tr> <tr class="course-details-table-row">
+                                </tr> <tr class="manage-course-details-table-row">
                                   <td><strong><%= contentfulCourseInfo.courseDetailTitles[2] %></strong></td>
                                   <td><% if (course.length.value==0 || course.length.interval=='Variable') { %>
                                     <%= course.interval %>
@@ -121,7 +121,7 @@
                                     <%= course.length.value %> <%= course.length.interval %>(s)
                                     <% } %>
                                   </td></td>
-                                </tr> <tr class="course-details-table-row">
+                                </tr> <tr class="manage-course-details-table-row">
                                   <td><strong><%= contentfulCourseInfo.courseDetailTitles[3] %></strong></td>
                                   <td><% if(course.credit) { %>
                                     <%= course.credit.value %> <%=course.credit.type %>
@@ -132,10 +132,10 @@
                                 </tr>
                                 <tr>
                                   <td colspan="3" class="center">
-                                    <span class="legend-text">Legend</span>
-                                    <span class="label label-info">O</span><span class="legend-text">Registration open</span>
-                                    <span class="label label-danger">C</span><span class="legend-text">Registration closed</span>
-                                    <span class="label label-success">G</span><span class="legend-text">Guaranteed to Go</span>
+                                    <span class="manage-legend-text">Legend</span>
+                                    <span class="label label-info">O</span><span class="manage-legend-text">Registration open</span>
+                                    <span class="label label-danger">C</span><span class="manage-legend-text">Registration closed</span>
+                                    <span class="label label-success">G</span><span class="manage-legend-text">Guaranteed to Go</span>
                                   </td>
                                 </tr>
                               </table>
@@ -166,8 +166,8 @@
 
           </div>
           <div class="modal-body">
-            <div id="map-address"></div>
-            <div id="map-canvas"></div>
+            <div id="manage-map-address"></div>
+            <div id="manage-map-canvas"></div>
           </div>
           <div class="modal-footer">
             <a id="getDirections" href="" target="_blank" class="blueish">Get Directions</a>
