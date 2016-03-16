@@ -8,6 +8,7 @@ var truncator = require("underscore.string/truncate");
 var uuid = require('uuid');
 var common = require("../../../helpers/common.js");
 var courseAPI = require('../../../API/course.js');
+var contentfulAPI = require('../../../API/contentful.js');
 var session = require('../../../API/manage/session-api.js');
 var user = require("../../../API/manage/user-api.js");
 var payment = require("../../../API/manage/payment-api.js");
@@ -62,7 +63,7 @@ module.exports = {
                 }
 
                 logger.debug("Looking up course session " + sessionId + " for shopping cart");
-                courseAPI.getSession(sessionId, function(error, session) {
+                courseAPI.getSession(sessionId, function (error, session) {
                     // callback with the error, this will cause async module to stop executing remaining
                     // functions and jump immediately to the final function, it is important to return
                     // so that the task callback isn't called twice
@@ -73,9 +74,18 @@ module.exports = {
                     if (common.isNotEmpty(session["endDate"])) {
                         session["endDate"] = session["endDate"].date('MMM DD, YYYY');
                     }
-
                     return callback(null, session);
                 }, req.query["authToken"]);
+            },
+            contentfulCourseInfo: function(callback) {
+                contentfulAPI.getCourseDetails(function(contentfulCourseInfo, error) {
+                    if (error) {
+                        return callback(error, null);
+                    }
+                    else {
+                        return callback(null, contentfulCourseInfo);
+                    }
+                });
             },
             nextpage: function(callback) {
                 // if the user is already logged in then they should go from the cart directly into payment,
@@ -105,12 +115,12 @@ module.exports = {
 
             // update the session data
             session.setSessionData(res, sessionData);
-
             res.render('manage/cart/cart', {
                 title: "Course Registration",
                 course: content.course,
                 session: content.session,
                 nextpage: content.nextpage,
+                contentfulCourseInfo: content.contentfulCourseInfo,
                 error: tmpError
             });
         });
