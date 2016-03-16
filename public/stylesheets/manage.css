@@ -81,3 +81,29 @@ form button.red:hover {
     color: #FFF;
     transition: background-color 300ms linear 0s;
 }
+
+#map-canvas{
+  height: 300px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#map-address {
+  padding: 10px 0px;
+}
+
+.legend-text {
+  margin-left:5px;
+  margin-right:15px;
+}
+
+#course-details-table {
+  border:none; !important;
+  text-align:left;
+  background-color: #CCD8E3;
+}
+
+.course-details-table-row {
+  border: none; !important;
+  text-align:left;
+}

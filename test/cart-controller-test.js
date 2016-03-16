@@ -35,6 +35,11 @@ test('displayCart', function(t) {
     }
   };
 
+  var contentfulInfo = {
+    sessionTable : ["SessionTitle1", "SessionTitle2", "SessionTitle3", "SessionTitle4"],
+    courseDetailTitles: ["CourseTitle1", "CourseTitle2", "CourseTitle3", "CourseTitle4"]
+  };
+
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
   {
@@ -59,6 +64,11 @@ test('displayCart', function(t) {
         expect(sessionId).to.eql(req.query.sessionId);
         cb(null, courseSession);
       }
+    },
+    "../../../API/contentful.js": {
+      getCourseDetails: function(cb) {
+        cb(contentfulInfo, null);
+      }
     }
    });
 
@@ -68,6 +78,7 @@ test('displayCart', function(t) {
       expect(content.course).to.eql(course);
       expect(content.session).to.eql(courseSession);
       expect(content.nextpage).to.eql("/manage/user/loginCreate");
+      expect(content.contentfulCourseInfo).to.eql(contentfulInfo);
       expect(content.error).to.eql(null);
   };
 
@@ -155,6 +166,77 @@ test('displayCart with already registered error ', function(t) {
 test('displayCart handles authenticated user', function(t) {
 
   // placeholder for real test
+
+  t.end();
+});
+
+test('displayCart handles get contentful error', function(t) {
+
+  var res = {};
+  var sessionData = {};
+  var req = {
+    query : {
+      authToken : "123456789123456789",
+      courseId : "course12345",
+      sessionId : "session12345"
+    }
+  };
+  var course  = {
+    id : req.query.courseId
+  };
+  var courseSession  = {
+    classNumber : "600354",
+    startDate : {
+      date : function(format) {
+        expect(format).to.eql('MMM DD, YYYY');
+        return "Aug 08, 2016"
+      }
+    },
+    endDate : {
+      date : function(format) {
+        expect(format).to.eql('MMM DD, YYYY');
+        return "Aug 08, 2016"
+      }
+    }
+  };
+  var expectedError = new Error("Intentional Test Error");
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/cart-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          }
+        },
+        "../../../helpers/common.js": {
+          redirectToError: function (response) {
+            expect(response).to.eql(res);
+          },
+          isNotEmpty: function (endDate) {
+            return true;
+          }
+        },
+        "../../../API/course.js": {
+          performExactCourseSearch: function (cb, courseId, authToken) {
+            expect(authToken).to.eql(req.query.authToken);
+            expect(courseId).to.eql(req.query.courseId);
+            cb(null, null, course);
+          },
+          getSession: function (sessionId, cb, authToken) {
+            expect(authToken).to.eql(req.query.authToken);
+            expect(sessionId).to.eql(req.query.sessionId);
+            cb(null, courseSession);
+          }
+        },
+        "../../../API/contentful.js": {
+          getCourseDetails: function(cb) {
+            cb(null, expectedError);
+          }
+        }
+      });
+
+  controller.displayCart(req, res, null);
 
   t.end();
 });
