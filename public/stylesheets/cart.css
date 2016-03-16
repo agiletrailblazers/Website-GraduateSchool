@@ -1,16 +1,16 @@
 /* Table styles */
 
-table.manage, table.manage th, table.manage tr, table.manage td {
+table.cart, table.cart th, table.cart tr, table.cart td {
   border: none !important;
   color: #545454;
   font-size: 14px;
 }
 
-table.manage {
+table.cart {
   border: 1px solid #CCD8E3 !important;
 }
 
-table.manage th {
+table.cart th {
   background: #82838B; /* Old browsers */
   background-image: linear-gradient(to bottom, #A0A0A8 0px, #82838B 100%) !important;
   border-radius: 0px !important;
@@ -22,22 +22,22 @@ table.manage th {
   text-align: center;
 }
 
-table.manage tr {
+table.cart tr {
   background-color: #FDFDFD;
   border-bottom: 1px solid #CCD8E3 !important;
 }
 
-table.manage tr:nth-child(even) {
+table.cart tr:nth-child(even) {
    background-color: #FFFFFF;
 }
 
-table.manage td {
+table.cart td {
   text-align: center;
   padding: 12px !important;
   vertical-align: middle !important;
 }
 
-.manage > tbody > tr > td {
+.cart > tbody > tr > td {
   vertical-align: middle !important;
   text-align: center !important;
 }
