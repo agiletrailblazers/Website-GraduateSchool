@@ -5,6 +5,7 @@ table.manage, table.manage th, table.manage tr, table.manage td {
   color: #545454;
   font-size: 14px;
 }
+
 table.manage {
   border: 1px solid #CCD8E3 !important;
 }
@@ -28,8 +29,7 @@ table.manage tr {
 
 table.manage tr:nth-child(even) {
    background-color: #FFFFFF;
- }
-
+}
 
 table.manage td {
   text-align: center;
@@ -38,48 +38,42 @@ table.manage td {
 }
 
 .manage > tbody > tr > td {
-    vertical-align: middle !important;
-    text-align: center !important; 
+  vertical-align: middle !important;
+  text-align: center !important;
 }
 
-
-/* Buttons */
-
-.white-icon {
-  color: #FFF !important;
-  top:1px !important;
-  padding: 0 !important;
-  margin: 0 !important;
+#cart p.bill-title {
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  color: #333333 !important;
 }
 
-button  {
-  font-size: 18px;
+#bill-to-info, #payment-info {
+  border: 2px solid #DDDDDD;
+  padding: 15px !important;
 }
 
-form button, form button:visited {
-  background-color: #427EB4;
-  padding: 7px 20px;
-  color: #FFF;
-  border: none;
-  outline-style: none;
-  transition: background-color 300ms linear 0s;
-  border-bottom: 2px solid transparent;
+#cart h2 {
+  color: #444444 !important;
+  font-weight: 400 !important;
+  font-size: 22px;
 }
 
-form button.red, form button.red:visited {
-  background-color: #D9124E;
-  padding: 7px 20px;
-  color: #FFF;
-  border: none;
-  outline-style: none;
-  transition: background-color 300ms linear 0s;
-  border-bottom: 2px solid transparent;
+#bill-to-info p, #payment-info p {
+    padding: 2px 0 !important;
 }
 
-form button.red:hover {
-    background-color: #195181;
-    color: #FFF;
-    transition: background-color 300ms linear 0s;
+.content-offset {
+  padding: 0px 30px !important;
+}
+
+#cart button {
+  margin-left: 15px;
+}
+
+span.payment-type {
+  padding-right: 10%;
+  font-weight: 500;
 }
 
 #manage-map-canvas{
