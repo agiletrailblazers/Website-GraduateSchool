@@ -30,6 +30,7 @@ $(document).ready(function () {
       confirmPassword: $("#confirmPassword").val(),
       street: $("#street").val(),
       suite: $("#suite").val(),
+      timezoneId: $("#timezone").val(),
       city: $("#city").val(),
       state: $("#state").val(),
       zip: $("#zip").val(),

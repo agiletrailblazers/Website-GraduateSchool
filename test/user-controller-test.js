@@ -6,7 +6,12 @@ var proxyquire = require('proxyquire').noCallThru();
 
 test('loginCreate', function(t) {
 
-  var req, res = {};
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+  var res = {};
   var expectedStates = ['Alaska'];
   var id1 = "1234";
   var name1 = "EASTERN";
@@ -68,7 +73,12 @@ test('loginCreate', function(t) {
 
 test('loginCreate handles error', function(t) {
 
-  var req, res = {};
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+  var res = {};
   var sessionData = {
     cart : {
       sessionId : "12345"
@@ -108,7 +118,12 @@ test('loginCreate handles error', function(t) {
 
 test('loginCreate handles error with getting timezones', function(t) {
 
-  var req, res = {};
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+  var res = {};
 
   var expectedStates = ['Alaska'];
 
@@ -161,6 +176,9 @@ test('login', function(t) {
     body : {
       username : "user12345",
       password : "test1234"
+    },
+    query : {
+      authToken: "123456789123456789"
     }
   };
 
@@ -210,6 +228,9 @@ test('login should handle error', function(t) {
     body : {
       username : "user12345",
       password : "test1234"
+    },
+    query : {
+      authToken : "123456789123456789"
     }
   };
 
@@ -269,6 +290,7 @@ test('createUser', function(t) {
       phone : "5555555555",
       street : "55 Test Way",
       suite : "Suite 5",
+      timezoneId : "123",
       city : "Test City",
       state : "UT",
       zip : "55555",
@@ -321,6 +343,7 @@ test('createUser', function(t) {
         expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
         expect(userData.person.secondaryAddress).to.eql(null);
         expect(userData.person.dateOfBirth).to.eql(req.body.birthMonth + "/" + req.body.birthDay + "/" + req.body.birthYear);
+        expect(userData.timezoneId).to.eql(req.body.timezoneId);
 
         expect(authToken).to.eql(req.query.authToken);
 
@@ -370,6 +393,7 @@ test('createUser handles create user error', function(t) {
       phone : "5555555555",
       street : "55 Test Way",
       suite : "Suite 5",
+      timezoneId : "123",
       city : "Test City",
       state : "UT",
       zip : "55555",
@@ -467,6 +491,7 @@ test('createUser handles login user error', function(t) {
       phone : "5555555555",
       street : "55 Test Way",
       suite : "Suite 5",
+      timezoneId : "123",
       city : "Test City",
       state : "UT",
       zip : "55555",

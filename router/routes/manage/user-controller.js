@@ -106,7 +106,8 @@ module.exports = {
                },
              "secondaryAddress" : null,
              "dateOfBirth" : formData.birthMonth + '/' + formData.birthDay + '/' + formData.birthYear
-           }
+           },
+          "timezoneId" : formData.timezoneId
         };
 
         // get the list of states required by the form
