@@ -459,6 +459,11 @@ test('confirmPayment', function(t) {
     }
   };
 
+  var contentfulCourseInfo = {
+    sessionTable : ["SessionTitle1", "SessionTitle2", "SessionTitle3", "SessionTitle4"],
+    courseDetailTitles: ["CourseTitle1", "CourseTitle2", "CourseTitle3", "CourseTitle4"]
+  };
+
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
@@ -518,6 +523,11 @@ test('confirmPayment', function(t) {
             return config;
           };
           return configFile;
+        },
+        "../../../API/contentful.js": {
+          getCourseDetails: function(cb) {
+            cb(contentfulCourseInfo, null);
+          }
         }
       });
 
@@ -533,6 +543,7 @@ test('confirmPayment', function(t) {
     expect(content.authorization.authId).to.eql(req.body.transaction_id);
     expect(content.authorization.amount).to.eql(req.body.auth_amount);
     expect(content.authorization.referenceNumber).to.eql(req.body.req_reference_number);
+    expect(content.contentfulCourseInfo).to.eql(contentfulCourseInfo);
 
     // verify that the cart in the session data has been cleared out after successful registration
     should.exist(sessionData.userId);
@@ -1145,6 +1156,12 @@ test('completePayment', function(t) {
     }
   };
 
+  var contentfulCourseInfo = {
+    sessionTable : ["SessionTitle1", "SessionTitle2", "SessionTitle3", "SessionTitle4"],
+    courseDetailTitles: ["CourseTitle1", "CourseTitle2", "CourseTitle3", "CourseTitle4"]
+  };
+
+
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
@@ -1181,6 +1198,11 @@ test('completePayment', function(t) {
             expect(registrationRequest.payments[0].merchantReferenceId).to.eql(referenceNumber);
             cb(null, registrationResult);
           }
+        },
+        "../../../API/contentful.js": {
+          getCourseDetails: function(cb) {
+            cb(contentfulCourseInfo, null);
+          }
         }
       });
 
@@ -1191,6 +1213,7 @@ test('completePayment', function(t) {
     expect(content.session).to.eql(courseSession);
     expect(content.registrations).to.eql(registrationResult.registrationResponse.registrations);
     expect(content.authorization).to.eql(authorization);
+    expect(content.contentfulCourseInfo).to.eql(contentfulCourseInfo);
 
     // verify that the cart in the session data has been cleared out after successful registration
     should.exist(sessionData.userId);

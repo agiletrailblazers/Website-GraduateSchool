@@ -464,6 +464,16 @@ module.exports = {
                 }
 
                 return callback(null, authorization);
+            },
+            contentfulCourseInfo: function(callback) {
+                contentfulAPI.getCourseDetails(function(contentfulCourseInfo, error) {
+                    if (error) {
+                        return callback(error, null);
+                    }
+                    else {
+                        return callback(null, contentfulCourseInfo);
+                    }
+                });
             }
         }, function(err, content) {
             if (err) {
@@ -483,6 +493,7 @@ module.exports = {
                     course: content.course,
                     session: content.session,
                     authorization: content.authorization,
+                    contentfulCourseInfo: content.contentfulCourseInfo,
                     error: null
                 });
             }
@@ -599,6 +610,16 @@ module.exports = {
             payment: function(callback) {
                 var payment = sessionData.cart.payment.authorization;
                 return callback(null, payment);
+            },
+            contentfulCourseInfo: function(callback) {
+                contentfulAPI.getCourseDetails(function(contentfulCourseInfo, error) {
+                    if (error) {
+                        return callback(error, null);
+                    }
+                    else {
+                        return callback(null, contentfulCourseInfo);
+                    }
+                });
             }
         }, function(err, content) {
 
@@ -630,6 +651,7 @@ module.exports = {
                     course: content.course,
                     session: content.session,
                     authorization: tmpAuthorization,
+                    contentfulCourseInfo: content.contentfulCourseInfo,
                     error: "We're sorry, but your payment could not be processed. Please contact your financial institution if you feel this was in error."
                 });
             }
@@ -641,6 +663,7 @@ module.exports = {
                     course: content.course,
                     session: content.session,
                     authorization: tmpAuthorization,
+                    contentfulCourseInfo: content.contentfulCourseInfo,
                     error: "We're sorry, but we've encountered an issue while processing your registration request. To finalize your registration, please contact our Customer Service Center at (888) 744-4723 ."
                 });
             }
@@ -657,7 +680,8 @@ module.exports = {
                     course: content.course,
                     session: content.session,
                     registrations: content.registrationResult.registrationResponse.registrations,
-                    authorization: content.payment
+                    authorization: content.payment,
+                    contentfulCourseInfo: content.contentfulCourseInfo
                 });
             }
         });
