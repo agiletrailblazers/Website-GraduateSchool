@@ -1190,7 +1190,7 @@ test('completePayment', function(t) {
     expect(content.course).to.eql(course);
     expect(content.session).to.eql(courseSession);
     expect(content.registrations).to.eql(registrationResult.registrationResponse.registrations);
-    expect(content.payment).to.eql(authorization);
+    expect(content.authorization).to.eql(authorization);
 
     // verify that the cart in the session data has been cleared out after successful registration
     should.exist(sessionData.userId);

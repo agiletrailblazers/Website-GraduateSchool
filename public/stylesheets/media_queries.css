@@ -604,6 +604,10 @@
           margin:2.5%;
           width: 95%;
         }
+
+        .content-offset {
+          padding: 0px 10px !important;
+        }
     }
 
     /* Extra Small Devices, Phones */
@@ -680,6 +684,9 @@
         font-size: 12px !important;
       }
 
+      .content-offset {
+        padding: 0px 10px !important;
+      }
 
     }
 

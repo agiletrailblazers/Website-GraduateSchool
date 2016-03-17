@@ -1,0 +1,103 @@
+/* Table styles */
+
+table.cart, table.cart th, table.cart tr, table.cart td {
+  border: none !important;
+  color: #545454;
+  font-size: 14px;
+}
+
+table.cart {
+  border: 1px solid #CCD8E3 !important;
+}
+
+table.cart th {
+  background: #82838B; /* Old browsers */
+  background-image: linear-gradient(to bottom, #A0A0A8 0px, #82838B 100%) !important;
+  border-radius: 0px !important;
+  color: #FFF;
+  padding: 15px !important;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: normal;
+  text-align: center;
+}
+
+table.cart tr {
+  background-color: #FDFDFD;
+  border-bottom: 1px solid #CCD8E3 !important;
+}
+
+table.cart tr:nth-child(even) {
+   background-color: #FFFFFF;
+}
+
+table.cart td {
+  text-align: center;
+  padding: 12px !important;
+  vertical-align: middle !important;
+}
+
+.cart > tbody > tr > td {
+  vertical-align: middle !important;
+  text-align: center !important;
+}
+
+#cart p.bill-title {
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  color: #333333 !important;
+}
+
+#bill-to-info, #payment-info {
+  border: 2px solid #DDDDDD;
+  padding: 15px !important;
+}
+
+#cart h2 {
+  color: #444444 !important;
+  font-weight: 400 !important;
+  font-size: 22px;
+}
+
+#bill-to-info p, #payment-info p {
+    padding: 2px 0 !important;
+}
+
+.content-offset {
+  padding: 0px 30px !important;
+}
+
+#cart button {
+  margin-left: 15px;
+}
+
+span.payment-type {
+  padding-right: 10%;
+  font-weight: 500;
+}
+
+#cart-map-canvas{
+  height: 300px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#cart-map-address {
+  padding: 10px 0px;
+}
+
+.cart-legend-text {
+  margin-left:5px;
+  margin-right:15px;
+}
+
+#cart-course-details-table {
+  border:none; !important;
+  text-align:left;
+  background-color: #CCD8E3;
+}
+
+.cart-course-details-table-row {
+  border: none; !important;
+  text-align:left;
+}

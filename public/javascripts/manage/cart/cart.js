@@ -2,7 +2,7 @@ var map, geocoder;
 var marker;
 mapApp = {
     start: function() {
-        map = new google.maps.Map(document.getElementById('manage-map-canvas'), {
+        map = new google.maps.Map(document.getElementById('cart-map-canvas'), {
             zoom: 15,
         });
         geocoder = new google.maps.Geocoder();
@@ -53,7 +53,7 @@ $(document).ready(function () {
         var address = $(this).data('address');
         var destination = address.replace(/ /g, '+');
         var directionsUrl = "http://maps.google.com?saddr=Current+Location&daddr=" + destination + "";
-        $("#manage-map-address").html(address);
+        $("#cart-map-address").html(address);
         google.maps.event.addListenerOnce(map, 'idle', function() {
             google.maps.event.trigger(map, 'resize');
             if (marker != null) {

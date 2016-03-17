@@ -18,6 +18,10 @@ input[type="checkbox"] {
   font-weight: normal !important;
 }
 
+#gs-form button  {
+  font-size: 16px;
+}
+
 input, select, textarea, button {
   padding:10px 0;
 }
@@ -260,4 +264,40 @@ border-bottom: 2px solid #be0f34;
        color: transparent !important;
        text-shadow: 0 0 0 #777 !important;
     }
+}
+
+
+/* Buttons */
+
+.white-icon {
+  color: #FFF !important;
+  top:1px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+form button, form button:visited {
+  background-color: #427EB4;
+  padding: 7px 20px;
+  color: #FFF;
+  border: none;
+  outline-style: none;
+  transition: background-color 300ms linear 0s;
+  border-bottom: 2px solid transparent;
+}
+
+form button.red, form button.red:visited {
+  background-color: #D9124E;
+  padding: 7px 20px;
+  color: #FFF;
+  border: none;
+  outline-style: none;
+  transition: background-color 300ms linear 0s;
+  border-bottom: 2px solid transparent;
+}
+
+form button.red:hover {
+    background-color: #195181;
+    color: #FFF;
+    transition: background-color 300ms linear 0s;
 }

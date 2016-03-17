@@ -657,7 +657,7 @@ module.exports = {
                     course: content.course,
                     session: content.session,
                     registrations: content.registrationResult.registrationResponse.registrations,
-                    payment: content.payment
+                    authorization: content.payment
                 });
             }
         });

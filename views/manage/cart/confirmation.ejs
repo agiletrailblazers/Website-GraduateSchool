@@ -3,6 +3,7 @@
   <head>
     <title> Graduate School USA | <%= title %></title>
     <% include ../../partials/head %>
+    <link rel="stylesheet" href="/stylesheets/cart.css" />
     <script>
       $(document).ready(function () {
         $("#gs-alert-remove").css('cursor', 'pointer');
@@ -16,7 +17,6 @@
   <body>
     <% include ../../partials/header %>
       <div id="container" class="container">
-        <div class="loading" style="display:none;"></div>
         <% if (error) { %>
         <div id="gs-alert-error" class="alert alert-danger" role="alert">
           <% } else { %>
@@ -25,61 +25,76 @@
             <span id="gs-alert-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"> </span>
             <p><%= error %></p>
         </div>
-        <div id="outer" class="col-lg-12 col-md-12 col-sm-12 form-fix padding20">
+        <div class="row">
+        <div id="outer" class="col-lg-12 col-md-12 col-sm-12 content-offset">
           <div id="gs-form">
               <div id="cart">
-                <div id="cart-items">
-                  <table>
-                    <tr>
-                      <th>Course</th>
-                      <th>Session</th>
-                      <th>Type</th>
-                      <th>Cost</th>
-                    </tr>
-                    <tr>
-                      <td><%= course.title %></td>
-                      <td>
-                        <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br/>
-                          <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
-                            <%= session["startTime"]%> - <%= session["endTime"]%>
-                          <% } %>
-                          <% if (session["days"] !== null) { %>
-                          , <%= session["days"] %>
-                          <% } %>
-                      </td>
-                      <td><%= course.type %></td>
-                      <td>$<%= session["tuition"] %></td>
-                    </tr>
-                  </table>
-                </div> <!-- END cart-items -->
+                <div class="row">
+                  <div class="col-lg-12">
+                    <p>Please check to make sure the information below is accurate before checkout. Registration is not complete and no seats are reserved until your full payment is received.</p>
+                    <div id="cart-items">
+                      <h2>Course Summary</h2>
+                      <table class="table table-striped cart">
+                        <tr>
+                          <th>Course</th>
+                          <th>Session</th>
+                          <th>Type</th>
+                          <th>Cost</th>
+                        </tr>
+                        <tr>
+                          <td><strong><%= course.title %></strong></td>
+                          <td>
+                            <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br/>
+                              <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
+                                <%= session["startTime"]%> - <%= session["endTime"]%>
+                              <% } %>
+                              <% if (session["days"] !== null) { %>
+                              , <%= session["days"] %>
+                              <% } %>
+                          </td>
+                          <td><%= course.type %></td>
+                          <td>$<%= session["tuition"] %></td>
+                        </tr>
+                      </table>
+                    </div> <!-- END cart-items -->
+                  </div>
+                </div>
                 <div class="spacer25"></div>
-                <div id="payment-info">
-                  <table>
-                    <tr>
-                      <th>Payment Method</th>
-                      <th>Payment Details</th>
-                    </tr>
-                    <tr>
-                      <td>Credit Card</td>
-                      <td><%= authorization.cardNumber %> - Expires <%= authorization.cardExpiry %></td>
-                    </tr>
-                  </table>
-                </div> <!-- END payment-info -->
+                <div class="row">
+                  <div class="col-lg-5 col-md-5">
+                    <h2>Billing Information</h2>
+                    <div id="bill-to-info">
+                      <p class="bill-title">John Doe</p>
+                      <p>1st Street, Washingon DC</p>
+                      <p>+11231234123 john@doe.com</p>
+                    </div> <!-- END Bill-to-info -->
+                  </div>
+                  <div class="col-lg-7 col-md-7">
+                    <h2>Payment</h2>
+                    <div id="payment-info">
+                      <p><span class="payment-type">Credit</span> <%= authorization.cardNumber %> - Expires <%= authorization.cardExpiry %></p>
+                    </div> <!-- END payment-info -->
+                  </div>
+                </div>
+
                 <% if (!error) { %>
-                <div class="spacer10"></div>
-                <div id="buttons" class="pull-right">
+                <div class="spacer60"></div>
+                    <div id="buttons" class="pull-right">
                     <form id="cart-form-cancel" style="display: inline;" method="post" action="/manage/cart/payment/cancel">
                       <button id="cart-form-cancel-submit" type="submit" tabindex="10">Cancel</button>
                     </form>
                     <form id="cart-form-complete" style="display: inline;" method="post" action="/manage/cart/payment/complete">
-                      <button id="cart-form-complete-submit" type="submit" tabindex="11">Complete Registration</button>
+                      <button id="cart-form-complete-submit" type="submit" tabindex="11" class="red">Complete Registration <span class="glyphicon glyphicon-chevron-right white-icon"></span></button>
                     </form>
                 </div> <!-- END buttons -->
                 <% } %>  <!-- END if no error -->
             </div>  <!-- END cart -->
           </div> <!--END gs-form-->
         </div> <!--END outer-->
+      </div> <!--END Row-->
       </div> <!--END container-->
+      <div class="spacer60"></div>
+      <div class="spacer60"></div>
     <!-- Footer -->
     <% include ../../partials/footer %>
     <!-- END Footer  -->
