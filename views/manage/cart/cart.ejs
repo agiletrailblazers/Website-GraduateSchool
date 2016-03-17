@@ -9,7 +9,6 @@
   <body>
     <% include ../../partials/header %>
       <div id="container" class="container">
-        <div class="loading" style="display:none;"></div>
         <% if (error) { %>
         <div id="gs-alert-error" class="alert alert-danger" role="alert">
         <% } else { %>
@@ -18,25 +17,24 @@
           <span id="gs-alert-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"> </span>
           <p><%= error %></p>
         </div>
-        <div id="outer" class="col-lg-12 col-md-12 col-sm-12 padding20">
-
-          <div id="gs-form">
+        <div class="row">
+          <div id="outer" class="col-lg-12 col-md-12 col-sm-12 content-offset">
+            <div id="gs-form">
               <div id="cart">
-                <p>The following courses have been added to your account. Please check to make sure the information below is accurate before continuing.</p>
-                <br>
-
-                  <div id="form-wrap">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <p>The following course has been added to your cart. Please check to make sure the information below is accurate before continuing.</p>
                     <div id="cart-items">
                       <table class="table table-striped cart">
                         <tr>
                           <th>Course</th>
                           <th><%= contentfulCourseInfo.sessionTable[0] %></th>
+                          <th><%= contentfulCourseInfo.sessionTable[1] %></th>
                           <th><%= contentfulCourseInfo.courseDetailTitles[1] %></th>
                           <th><%= contentfulCourseInfo.sessionTable[2] %></th>
-                          <th>Details</th>
                         </tr>
                         <tr>
-                          <td><strong><%= course.title %></strong></td>
+                          <td><a href='/courses/<%= course.code %>'><strong><%= course.title %></strong></a></td>
                           <td>
                             <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br/>
                               <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
@@ -46,146 +44,71 @@
                               , <%= session["days"] %>
                               <% } %>
                           </td>
-                          <td><%= course.type %></td>
-                          <td>$<%= session["tuition"] %></td>
-                          <td><a href="#" id="details"><img src="/images/details.png" alt="" /></a></td>
-                        </tr>
-                        <tr id="courseDetails" style="display:none">
-                          <td colspan="5">
-                              <a id="hide-course-details" href="#outer" tabindex="15"><span class="glyphicon glyphicon-remove pull-right"></span></a>
-                              <table id="cart-course-details-table" >
-                                <tr class="cart-course-details-table-row" rowspan="2">
-                                  <td colspan="2">
-                                    <h3 class="panel-title"><%= course.title %></h3>
-                                  </td>
-                                  <td rowspan="4">
-                                    <table class="table table-striped cart">
-                                      <thead>
-                                        <tr>
-                                          <th><%= contentfulCourseInfo.sessionTable[0] %></th>
-                                          <th><%= contentfulCourseInfo.sessionTable[1] %></th>
-                                          <th><%= contentfulCourseInfo.sessionTable[2] %></th>
-                                          <th><%= contentfulCourseInfo.sessionTable[3] %></th>
-                                        </tr>
-                                      </thead>
-                                      <tr>
-                                        <td>
-                                          <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br/>
-                                          <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
-                                          <%= session["startTime"]%> - <%= session["endTime"]%>
-                                          <% } %>
-                                          <% if (session["days"] !== null) { %>
-                                          , <%= session["days"] %>
-                                          <% } %>
-                                        </td>
-                                        <td>
-                                          <%= session.location["city"]%>
-                                          <% if (session.location["state"]) { %>
-                                          , <%= session.location["state"]%>
-                                          <% } %>
-                                          <% if((typeof(session.location["address1"])!='undefined') && typeof(session.location["address2"])!='undefined') {%>
-                                          <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '+ session.location["address2"] +', '%> <%= session.location["city"]  +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
-                                            <% } else if(typeof(session.location["address1"])!='undefined') {%>
-                                            <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
-                                              <% } else if(typeof(session.location["address2"])!= 'undefined') {%>
-                                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
-                                                <% } else {%>
-                                                <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
-                                                  <%}%>
-                                        </td>
-                                        <td>$<%= session["tuition"] %></td>
-                                        <td>
-                                          <% if (session["status"] === "C")  {%>
-                                            <% if (session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
-                                            <span class="label label-danger">C</span>
-                                          <% } else { %>
-                                            <span class="label label-success">G</span>
-                                          <% } %>
-                                          <% } else { %>
-                                            <span class="label label-info">O</span>
-                                          <% } %></td>
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr class="cart-course-details-table-row">
-                                  <td><strong><%= contentfulCourseInfo.courseDetailTitles[0] %></strong></td><td><%= course.code %></td>
-                                </tr> <tr class="cart-course-details-table-row">
-                                  <td><strong><%= contentfulCourseInfo.courseDetailTitles[1] %></strong></td><td><%= course.type %></td>
-                                </tr> <tr class="cart-course-details-table-row">
-                                  <td><strong><%= contentfulCourseInfo.courseDetailTitles[2] %></strong></td>
-                                  <td><% if (course.length.value==0 || course.length.interval=='Variable') { %>
-                                    <%= course.interval %>
-                                    <% } else { %>
-                                    <%= course.length.value %> <%= course.length.interval %>(s)
-                                    <% } %>
-                                  </td></td>
-                                </tr> <tr class="cart-course-details-table-row">
-                                  <td><strong><%= contentfulCourseInfo.courseDetailTitles[3] %></strong></td>
-                                  <td><% if(course.credit) { %>
-                                    <%= course.credit.value %> <%=course.credit.type %>
-                                    <% } %>
-                                  </td>
-                                  <td class="right">
-                                    <button id="cart-course-details" type="button" tabindex="10" onclick="window.open('/courses/<%= course.code %>'); return false;">View Detailed Information</button></td>
-                                </tr>
-                                <tr>
-                                  <td colspan="3" class="center">
-                                    <span class="card-legend-text">Legend</span>
-                                    <span class="label label-info">O</span><span class="cart-legend-text">Registration open</span>
-                                    <span class="label label-danger">C</span><span class="cart-legend-text">Registration closed</span>
-                                    <span class="label label-success">G</span><span class="cart-legend-text">Guaranteed to Go</span>
-                                  </td>
-                                </tr>
-                              </table>
+                          <td>
+                            <%= session.location["city"]%>
+                            <% if (session.location["state"]) { %>
+                            , <%= session.location["state"]%>
+                            <% } %>
+                            <% if((typeof(session.location["address1"])!='undefined') && typeof(session.location["address2"])!='undefined') {%>
+                            <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '+ session.location["address2"] +', '%> <%= session.location["city"]  +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
+                            <% } else if(typeof(session.location["address1"])!='undefined') {%>
+                            <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
+                            <% } else if(typeof(session.location["address2"])!= 'undefined') {%>
+                            <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
+                            <% } else {%>
+                            <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
+                            <%}%>
                           </td>
+                          <td><%= course.type %></td>
+                          <td><strong>$<%= session["tuition"] %></strong></td>
                         </tr>
                       </table>
-                    </div>
-                    <div class="spacer10"></div>
-                    <div id="buttons" class="pull-right">
-                      <form id="cart-form-cancel-registration" style="display: inline;" method="post" action="/manage/cart/registration/cancel">
-                        <button id="cart-form-cancel-registration-submit" type="submit" tabindex="11">Cancel</button>
-                      </form>
-                      <form id="cart-form" role="form" method="get" style="display: inline;" action="<%= nextpage %>">
-                        <button id="cart-form-continue" type="submit" tabindex="10" class="red">Continue <span class="glyphicon glyphicon-chevron-right white-icon"></span></button>
-                      </form> <!-- END cart-form -->
-                    </div>
-                  </div> <!-- END form-wrap -->
-
+                    </div> <!--END cart-items-->
+                  </div>
+                </div>
+                <div class="spacer25"></div>
+                <div id="buttons" class="pull-right">
+                  <form id="cart-form-cancel-registration" style="display: inline;" method="post" action="/manage/cart/registration/cancel">
+                    <button id="cart-form-cancel-registration-submit" type="submit" tabindex="11">Cancel</button>
+                  </form>
+                  <form id="cart-form" role="form" method="get" style="display: inline;" action="<%= nextpage %>">
+                    <button id="cart-form-continue" type="submit" tabindex="10" class="red">Continue <span class="glyphicon glyphicon-chevron-right white-icon"></span></button>
+                  </form> <!--END cart-form -->
+                </div> <!--END buttons-->
             </div>  <!-- END cart -->
           </div> <!--END gs-form-->
         </div> <!--END outer-->
-      </div> <!--END container-->
-      <div class="spacer60"></div>
-      <div class="spacer60"></div>
-
-    <!-- Modal dialog -->
-    <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="mapModalLabel"><%= course.title %><span id="modalSessionLocationSpan"></span></h4>
-
-          </div>
-          <div class="modal-body">
-            <div id="cart-map-address"></div>
-            <div id="cart-map-canvas"></div>
-          </div>
-          <div class="modal-footer">
-            <a id="getDirections" href="" target="_blank" class="blueish">Get Directions</a>
-            <a href="#" class="blueish" data-dismiss="modal">Close</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- END - Modal dialog -->
+        </div> <!--END Row-->
+        </div> <!--END container-->
+        <div class="spacer60"></div>
+        <div class="spacer60"></div>
     <!-- Footer -->
     <% include ../../partials/footer %>
     <!-- END Footer  -->
     <!-- Chat  -->
     <% include ../../partials/chat %>
     <!-- END of Chat  -->
+
+        <!-- Modal dialog -->
+        <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mapModalLabel"><%= course.title %><span id="modalSessionLocationSpan"></span></h4>
+
+              </div>
+              <div class="modal-body">
+                <div id="cart-map-address"></div>
+                <div id="cart-map-canvas"></div>
+              </div>
+              <div class="modal-footer">
+                <a id="getDirections" href="" target="_blank" class="blueish">Get Directions</a>
+                <a href="#" class="blueish" data-dismiss="modal">Close</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END - Modal dialog -->
   </body>
 </html>

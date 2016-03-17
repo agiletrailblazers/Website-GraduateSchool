@@ -78,17 +78,17 @@
                   </div>
                 </div>
 
-                <% if (!error) { %>
                 <div class="spacer60"></div>
                     <div id="buttons" class="pull-right">
                     <form id="cart-form-cancel" style="display: inline;" method="post" action="/manage/cart/payment/cancel">
                       <button id="cart-form-cancel-submit" type="submit" tabindex="10">Cancel</button>
                     </form>
-                    <form id="cart-form-complete" style="display: inline;" method="post" action="/manage/cart/payment/complete">
-                      <button id="cart-form-complete-submit" type="submit" tabindex="11" class="red">Complete Registration <span class="glyphicon glyphicon-chevron-right white-icon"></span></button>
-                    </form>
+                      <% if (!error) { %>
+                      <form id="cart-form-complete" style="display: inline;" method="post" action="/manage/cart/payment/complete">
+                        <button id="cart-form-complete-submit" type="submit" tabindex="11" class="red">Complete Registration <span class="glyphicon glyphicon-chevron-right white-icon"></span></button>
+                      </form>
+                      <% } %>  <!-- END if no error -->
                 </div> <!-- END buttons -->
-                <% } %>  <!-- END if no error -->
             </div>  <!-- END cart -->
           </div> <!--END gs-form-->
         </div> <!--END outer-->
