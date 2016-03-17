@@ -48,6 +48,11 @@ table.cart td {
   color: #333333 !important;
 }
 
+#cart span.registration-disclaimer {
+  color: #FF0000 !important;
+  font-size: 14px;
+}
+
 #bill-to-info, #payment-info {
   border: 2px solid #DDDDDD;
   padding: 15px !important;

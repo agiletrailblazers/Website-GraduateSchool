@@ -479,7 +479,7 @@ module.exports = {
                 // authorization approved, display confirmation page
                 logger.debug("Payment was authorized");
                 res.render('manage/cart/confirmation', {
-                    title: "Course Registration - Confirmation",
+                    title: "Course Registration - Payment Review",
                     course: content.course,
                     session: content.session,
                     authorization: content.authorization,
@@ -626,7 +626,7 @@ module.exports = {
                 logger.debug("Registration failure due to declined payment for user " + sessionData.userId);
 
                 res.render('manage/cart/confirmation', {
-                    title: "Course Registration - Confirmation",
+                    title: "Course Registration - Payment Review",
                     course: content.course,
                     session: content.session,
                     authorization: tmpAuthorization,
@@ -637,7 +637,7 @@ module.exports = {
                 logger.warn("Payment was accepted but registration not guaranteed for user " + sessionData.userId);
 
                 res.render('manage/cart/confirmation', {
-                    title: "Course Registration - Confirmation",
+                    title: "Course Registration - Payment Review",
                     course: content.course,
                     session: content.session,
                     authorization: tmpAuthorization,
