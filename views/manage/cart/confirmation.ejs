@@ -31,7 +31,7 @@
               <div id="cart">
                 <div class="row">
                   <div class="col-lg-12">
-                    <p>Please check to make sure the information below is accurate before checkout. Registration is not complete and no seats are reserved until your full payment is received.</p>
+                    <p>Please check to make sure the information below is accurate before checkout.</p>
                     <div id="cart-items">
                       <h2>Course Summary</h2>
                       <table class="table table-striped cart">
@@ -70,10 +70,11 @@
                     </div> <!-- END Bill-to-info -->
                   </div>
                   <div class="col-lg-7 col-md-7">
-                    <h2>Payment</h2>
+                    <h2>Pending Payment</h2>
                     <div id="payment-info">
                       <p><span class="payment-type">Credit</span> <%= authorization.cardNumber %> - Expires <%= authorization.cardExpiry %></p>
                     </div> <!-- END payment-info -->
+                    <p><span class="registration-disclaimer">Registration is not complete and no seats are reserved until your full payment is received.</span></p>
                   </div>
                 </div>
 

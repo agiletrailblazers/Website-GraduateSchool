@@ -523,7 +523,7 @@ test('confirmPayment', function(t) {
 
   res.render = function(page, content) {
     expect(page).to.eql('manage/cart/confirmation');
-    expect(content.title).to.eql('Course Registration - Confirmation');
+    expect(content.title).to.eql('Course Registration - Payment Review');
     expect(content.course).to.eql(course);
     expect(content.session).to.eql(courseSession);
     expect(content.authorization.approved).to.eql(true);
@@ -1307,7 +1307,7 @@ test('completePayment with payment declined', function(t) {
 
   res.render = function(page, content) {
     expect(page).to.eql('manage/cart/confirmation');
-    expect(content.title).to.eql('Course Registration - Confirmation');
+    expect(content.title).to.eql('Course Registration - Payment Review');
     expect(content.course).to.eql(course);
     expect(content.session).to.eql(courseSession);
     expect(content.authorization).to.eql(authorization);
@@ -1428,7 +1428,7 @@ test('completePayment with payment accepted error', function(t) {
 
   res.render = function(page, content) {
     expect(page).to.eql('manage/cart/confirmation');
-    expect(content.title).to.eql('Course Registration - Confirmation');
+    expect(content.title).to.eql('Course Registration - Payment Review');
     expect(content.course).to.eql(course);
     expect(content.session).to.eql(courseSession);
     expect(content.authorization).to.eql(authorization);
