@@ -38,6 +38,7 @@
                         <tr>
                           <th>Course</th>
                           <th><%= contentfulCourseInfo.sessionTable[0] %></th>
+                          <th><%= contentfulCourseInfo.sessionTable[1] %></th>
                           <th><%= contentfulCourseInfo.courseDetailTitles[1] %></th>
                           <th><%= contentfulCourseInfo.sessionTable[2] %></th>
                         </tr>
@@ -51,6 +52,9 @@
                               <% if (session["days"] !== null) { %>
                               , <%= session["days"] %>
                               <% } %>
+                          </td>
+                          <td>
+                            <%= session.location["city"]%><% if (session.location["state"]) { %>, <%= session.location["state"]%><% } %>
                           </td>
                           <td><%= course.type %></td>
                           <td>$<%= session["tuition"] %></td>

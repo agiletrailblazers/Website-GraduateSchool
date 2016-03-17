@@ -45,10 +45,7 @@
                               <% } %>
                           </td>
                           <td>
-                            <%= session.location["city"]%>
-                            <% if (session.location["state"]) { %>
-                            , <%= session.location["state"]%>
-                            <% } %>
+                            <%= session.location["city"]%><% if (session.location["state"]) { %>, <%= session.location["state"]%><%}%>
                             <% if((typeof(session.location["address1"])!='undefined') && typeof(session.location["address2"])!='undefined') {%>
                             <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '+ session.location["address2"] +', '%> <%= session.location["city"]  +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
                             <% } else if(typeof(session.location["address1"])!='undefined') {%>
