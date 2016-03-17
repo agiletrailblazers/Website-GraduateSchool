@@ -10,8 +10,8 @@
 
     "contactUsToUserName":"Customersupport@graduateschool.edu",
     "onsiteInquiryToUserName":"Shawnree.Baker@graduateschool.edu, Tonia.williams@graduateschool.edu",
-    "requestDuplicateCourseCompletionCertificateToUserName":"registrar@graduateschool.edu, niki.jackson-blake@graduateschool.edu",
-    "requestDuplicateOfficialGradeReportToUserName":"registrar@graduateschool.edu, niki.jackson-blake@graduateschool.edu",
+    "requestDuplicateCourseCompletionCertificateToUserName":"registrar@graduateschool.edu",
+    "requestDuplicateOfficialGradeReportToUserName":"registrar@graduateschool.edu",
     "proctorRequestToUserName":"registrar@graduateschool.edu",
     "customerFeedBackFormToUserName":"ivera.davis@graduateschool.edu",
     "catalogRequestToUserName":"ivera.davis@graduateschool.edu, carlene.wallace@graduateschool.edu, James.Betterson@graduateschool.edu, sergio.dasilva@graduateschool.edu, Michael.Zimmerman@graduateschool.edu,",
@@ -19,7 +19,7 @@
 
     "certificateProgramGroup": {
       "applicationForm": {
-        "email": "certificates@graduateschool.edu, niki.jackson-blake@graduateschool.edu, carolyn.nelson@graduateschool.edu",
+        "email": "certificates@graduateschool.edu, carolyn.nelson@graduateschool.edu",
         "subject": "Incoming Application Form Request"
       },
       "progressReport": {
