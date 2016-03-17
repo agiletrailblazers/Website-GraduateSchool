@@ -451,7 +451,7 @@ test('get timezones success', function(t) {
             'Authorization': authToken
         }
     })
-        .get('/api/registration/user/timezones')
+        .get('/api/user/timezones')
         .reply(200, timezoneData);
 
     server;

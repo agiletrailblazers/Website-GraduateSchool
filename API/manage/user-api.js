@@ -109,7 +109,7 @@ module.exports = {
   },
 
   getTimezones: function(callback, authToken) {
-    var targetURL = config("properties").apiServer + '/api/registration/user/timezones';
+    var targetURL = config("properties").apiServer + '/api/user/timezones';
     request({
       method: 'GET',
       url: targetURL,
@@ -119,10 +119,6 @@ module.exports = {
     }, function (error, response, body) {
       if (error || !response) {
         return callback(new Error("Exception occurred getting timezones"), null);
-      }
-      else if (response.statusCode == 404) {
-        // no timezones found
-        return callback(new Error("Exception occurred getting timezones, no timezones found"), null);
       }
       else if (response.statusCode == 200) {
         // successfully found timezones
