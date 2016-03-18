@@ -4,7 +4,7 @@ var chai = require('chai');
 var expect = chai.expect;
 var proxyquire = require('proxyquire').noCallThru();
 
-test('loginCreate', function(t) {
+test('registrationLoginCreate', function(t) {
 
   var req = {
     query : {
@@ -58,7 +58,7 @@ test('loginCreate', function(t) {
   });
 
   res.render = function(page, content) {
-      expect(page).to.eql('manage/user/loginCreate');
+      expect(page).to.eql('manage/user/registration_login_create');
       expect(content.title).to.eql('Login');
       expect(content.states[0]).to.eql(expectedStates[0]);
       expect(content.sessionId).to.eql(sessionData.cart.sessionId);
@@ -66,12 +66,12 @@ test('loginCreate', function(t) {
       expect(content.timezones[1]).to.eql(expectedTimezones[1]);
   };
 
-  controller.displayLoginCreate(req, res, null);
+  controller.displayRegistrationLoginCreate(req, res, null);
 
   t.end();
 });
 
-test('loginCreate handles error', function(t) {
+test('registrationLoginCreate handles error', function(t) {
 
   var req = {
     query : {
@@ -111,12 +111,12 @@ test('loginCreate handles error', function(t) {
     }
   });
 
-  controller.displayLoginCreate(req, res, null);
+  controller.displayRegistrationLoginCreate(req, res, null);
 
   t.end();
 });
 
-test('loginCreate handles error with getting timezones', function(t) {
+test('registrationLoginCreate handles error with getting timezones', function(t) {
 
   var req = {
     query : {
@@ -164,12 +164,12 @@ test('loginCreate handles error with getting timezones', function(t) {
         }
       });
 
-  controller.displayLoginCreate(req, res, null);
+  controller.displayRegistrationLoginCreate(req, res, null);
 
   t.end();
 });
 
-test('login', function(t) {
+test('registrationLogin', function(t) {
 
   var res = {};
   var req = {
@@ -216,12 +216,12 @@ test('login', function(t) {
       expect(page).to.eql('/manage/cart/payment');
   };
 
-  controller.login(req, res, null);
+  controller.registrationLogin(req, res, null);
 
   t.end();
 });
 
-test('login should handle error', function(t) {
+test('registrationLogin should handle error', function(t) {
 
   var res = {};
   var req = {
@@ -268,10 +268,10 @@ test('login should handle error', function(t) {
   });
 
   res.redirect = function(page) {
-      expect(page).to.eql('loginCreate');
+      expect(page).to.eql('registration_login_create');
   };
 
-  controller.login(req, res, null);
+  controller.registrationLogin(req, res, null);
 
   t.end();
 });
@@ -476,7 +476,6 @@ test('createUser handles create user error', function(t) {
   t.end();
 });
 
-
 test('createUser handles login user error', function(t) {
 
   var res = {};
@@ -579,6 +578,122 @@ test('createUser handles login user error', function(t) {
   };
 
   controller.createUser(req, res, null);
+
+  t.end();
+});
+
+test('login', function(t) {
+
+  var res = {};
+  var req = {
+    body : {
+      username : "user12345",
+      password : "test1234"
+    },
+    query : {
+      authToken: "123456789123456789"
+    }
+  };
+
+  var sessionData = {
+  };
+
+  var authUser = {
+    user : {
+      id : "pers12345"
+    }
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          },
+          setSessionData: function (res, data) {
+            // verify data passed in
+            expect(data.userId).to.eql(authUser.user.id);
+          }
+        },
+        '../../../API/authentication-api.js': {
+          loginUser: function (req, res, authCredentials, cb) {
+            expect(authCredentials.username).to.eql(req.body.username);
+            expect(authCredentials.password).to.eql(req.body.password);
+            cb(null, authUser);
+          }
+        }
+      });
+
+  res = {
+    status : function (status) {
+      expect(status).to.eql(200);
+      return {
+        send : function () {
+          // just make sure this function is called
+          expect(1).to.eql(1);
+        }
+      }
+    }
+  };
+
+  controller.login(req, res, null);
+
+  t.end();
+});
+
+test('login should handle error', function(t) {
+
+  var res = {};
+  var req = {
+    body : {
+      username : "user12345",
+      password : "test1234"
+    },
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+
+  var sessionData = {
+  };
+
+
+  var expectedError = {
+    error: "Login failed, please try again"
+  };
+
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          }
+        },
+        '../../../API/authentication-api.js': {
+          loginUser: function (req, res, authCredentials, cb) {
+            expect(authCredentials.username).to.eql(req.body.username);
+            expect(authCredentials.password).to.eql(req.body.password);
+            cb(new Error("I am not the droid you are looking for"), null);
+          }
+        }
+      });
+
+  res = {
+    status : function (status) {
+      expect(status).to.eql(500);
+      return {
+        send : function (body) {
+          // just make sure this function is called
+          expect(body).to.eql(expectedError);
+        }
+      }
+    }
+  };
+
+  controller.login(req, res, null);
 
   t.end();
 });

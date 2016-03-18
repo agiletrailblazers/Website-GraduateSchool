@@ -31,9 +31,10 @@ module.exports = function (app) {
 
     if (config("properties").manage.userRouteEnabled === true) {
         // user management routes
-        app.use('/', router.get('/manage/user/loginCreate', userController.displayLoginCreate));
-        app.use('/', router.post('/manage/user/create', userController.createUser));
         app.use('/', router.post('/manage/user/login', userController.login));
+        app.use('/', router.get('/manage/user/registration_login_create', userController.displayRegistrationLoginCreate));
+        app.use('/', router.post('/manage/user/create', userController.createUser));
+        app.use('/', router.post('/manage/user/registration_login', userController.registrationLogin));
 
         // cart routes
         app.use('/', router.get('/manage/cart', cartController.displayCart));

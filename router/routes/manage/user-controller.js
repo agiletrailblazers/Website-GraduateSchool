@@ -10,7 +10,7 @@ var authentication = require("../../../API/authentication-api.js");
 module.exports = {
 
   // Display the create user form
-  displayLoginCreate: function(req, res, next) {
+  displayRegistrationLoginCreate: function(req, res, next) {
 
     var sessionData = session.getSessionData(req);
 
@@ -65,7 +65,7 @@ module.exports = {
         return;
       }
 
-      res.render('manage/user/loginCreate', {
+      res.render('manage/user/registration_login_create', {
         title: 'Login',
         states: content.states,
         sessionId: content.sessionId,
@@ -152,11 +152,47 @@ module.exports = {
   login: function(req, res, next) {
 
     async.waterfall([
+          function (callback) {
+            // get the form data from the body of the request
+            var formData = req.body;
+
+            logger.debug("Logging in user: " + formData.username);
+            var authCredentials = {
+              "username": formData.username,
+              "password": formData.password
+            };
+            authentication.loginUser(req, res, authCredentials, function (error, authorizedUser) {
+              if (error) return callback(error);
+
+              return callback(null, authorizedUser);
+            });
+          }
+        ], function (err, authorizedUser) {
+          if (err) {
+            logger.error("Failed during login", err);
+            res.status(500).send({"error": "Login failed, please try again"});
+            return;
+          }
+
+          // add the logged in user id to the session data
+          var sessionData = session.getSessionData(req);
+          sessionData.userId = authorizedUser.user.id;
+          session.setSessionData(res, sessionData);
+
+          // send success to client
+          res.status(200).send();
+        }
+    );
+  },
+
+  registrationLogin: function(req, res, next) {
+
+    async.waterfall([
         function (callback) {
           // get the form data from the body of the request
           var formData = req.body;
 
-          logger.debug("Logging in user: " + formData.username);
+          logger.debug("Registration login for user: " + formData.username);
           var authCredentials = {
             "username": formData.username,
             "password": formData.password
@@ -174,8 +210,8 @@ module.exports = {
           sessionData.loginError = "Login failed, please try again";
           session.setSessionData(res, sessionData);
 
-          logger.debug("Failed during user login", err);
-          res.redirect('loginCreate');
+          logger.debug("Failed during registration login for user", err);
+          res.redirect('registration_login_create');
           return;
         }
         sessionData.userId = authorizedUser.user.id;
