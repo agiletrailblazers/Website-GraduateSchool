@@ -6,8 +6,27 @@ var proxyquire = require('proxyquire').noCallThru();
 
 test('loginCreate', function(t) {
 
-  var req, res = {};
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+  var res = {};
   var expectedStates = ['Alaska'];
+  var id1 = "1234";
+  var name1 = "EASTERN";
+  var id2 = "5678";
+  var name2 = "CENTRAL";
+  var expectedTimezones = [
+    {
+      "id": id1,
+      "name": name1
+    },
+    {
+      "id": id2,
+      "name": name2
+    }
+  ];
   var sessionData = {
     cart : {
       sessionId : "12345"
@@ -30,7 +49,12 @@ test('loginCreate', function(t) {
       setSessionData: function (res, data) {
         // verify data passed in
         expect(data).to.eql(sessionData);
-      }    }
+      }    },
+    "../../../API/manage/user-api.js": {
+      getTimezones: function (callback, authtoken) {
+        callback(null, expectedTimezones);
+      }
+    }
   });
 
   res.render = function(page, content) {
@@ -38,6 +62,8 @@ test('loginCreate', function(t) {
       expect(content.title).to.eql('Login');
       expect(content.states[0]).to.eql(expectedStates[0]);
       expect(content.sessionId).to.eql(sessionData.cart.sessionId);
+      expect(content.timezones[0]).to.eql(expectedTimezones[0]);
+      expect(content.timezones[1]).to.eql(expectedTimezones[1]);
   };
 
   controller.displayLoginCreate(req, res, null);
@@ -47,7 +73,12 @@ test('loginCreate', function(t) {
 
 test('loginCreate handles error', function(t) {
 
-  var req, res = {};
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+  var res = {};
   var sessionData = {
     cart : {
       sessionId : "12345"
@@ -85,6 +116,59 @@ test('loginCreate handles error', function(t) {
   t.end();
 });
 
+test('loginCreate handles error with getting timezones', function(t) {
+
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+  var res = {};
+
+  var expectedStates = ['Alaska'];
+
+  var sessionData = {
+    cart : {
+      sessionId : "12345"
+    }
+  };
+  var expectedError = new Error("Intentional Test Error");
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/contentful.js": {
+          getReferenceData: function (slug, callback) {
+            expect(slug).to.eql("us-states");
+            callback(expectedStates, null);
+          }
+        },
+        "../../../helpers/common.js": {
+          redirectToError: function (resIn) {
+            expect(resIn).to.eql(res)
+          }
+        },
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          },
+          setSessionData: function (res, data) {
+            // verify data passed in
+            expect(data).to.eql(sessionData);
+          }
+        },
+        "../../../API/manage/user-api.js": {
+          getTimezones: function (callback, authtoken) {
+            callback(expectedError, null);
+          }
+        }
+      });
+
+  controller.displayLoginCreate(req, res, null);
+
+  t.end();
+});
+
 test('login', function(t) {
 
   var res = {};
@@ -92,6 +176,9 @@ test('login', function(t) {
     body : {
       username : "user12345",
       password : "test1234"
+    },
+    query : {
+      authToken: "123456789123456789"
     }
   };
 
@@ -141,6 +228,9 @@ test('login should handle error', function(t) {
     body : {
       username : "user12345",
       password : "test1234"
+    },
+    query : {
+      authToken : "123456789123456789"
     }
   };
 
@@ -200,6 +290,7 @@ test('createUser', function(t) {
       phone : "5555555555",
       street : "55 Test Way",
       suite : "Suite 5",
+      timezoneId : "123",
       city : "Test City",
       state : "UT",
       zip : "55555",
@@ -252,6 +343,7 @@ test('createUser', function(t) {
         expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
         expect(userData.person.secondaryAddress).to.eql(null);
         expect(userData.person.dateOfBirth).to.eql(req.body.birthMonth + "/" + req.body.birthDay + "/" + req.body.birthYear);
+        expect(userData.timezoneId).to.eql(req.body.timezoneId);
 
         expect(authToken).to.eql(req.query.authToken);
 
@@ -301,6 +393,7 @@ test('createUser handles create user error', function(t) {
       phone : "5555555555",
       street : "55 Test Way",
       suite : "Suite 5",
+      timezoneId : "123",
       city : "Test City",
       state : "UT",
       zip : "55555",
@@ -398,6 +491,7 @@ test('createUser handles login user error', function(t) {
       phone : "5555555555",
       street : "55 Test Way",
       suite : "Suite 5",
+      timezoneId : "123",
       city : "Test City",
       state : "UT",
       zip : "55555",

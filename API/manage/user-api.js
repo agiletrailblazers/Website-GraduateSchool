@@ -106,5 +106,21 @@ module.exports = {
         return callback(new Error("Exception occurred getting registration for user " + userId), null);
       }
     });
+  },
+
+  getTimezones: function(callback, authToken) {
+    var targetURL = config("properties").apiServer + '/api/user/timezones';
+    request({
+      method: 'GET',
+      url: targetURL,
+      headers: {
+        'Authorization': authToken
+      }
+    }, function (error, response, body) {
+      if (common.checkForErrorAndLog(error, response, targetURL)) {
+        return callback(new Error("Exception occurred getting timezones"), null);
+      }
+      return callback(null, JSON.parse(body));
+    });
   }
 };

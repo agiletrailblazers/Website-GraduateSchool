@@ -34,6 +34,20 @@ module.exports = {
           return callback(null, states);
         });
       },
+
+      timezones: function(callback) {
+
+        //get a list of timezones
+        user.getTimezones(function (error, timezones){
+          if(error){
+            return callback(error);
+          }
+          else {
+            return callback(null, timezones);
+          }
+        }, req.query["authToken"])
+      },
+
       loginError: function(callback) {
         var loginError = sessionData.loginError;
         if (loginError) {
@@ -55,7 +69,8 @@ module.exports = {
         title: 'Login',
         states: content.states,
         sessionId: content.sessionId,
-        loginError: content.loginError
+        loginError: content.loginError,
+        timezones: content.timezones
       });
     });
   },
@@ -91,7 +106,8 @@ module.exports = {
                },
              "secondaryAddress" : null,
              "dateOfBirth" : formData.birthMonth + '/' + formData.birthDay + '/' + formData.birthYear
-           }
+           },
+          "timezoneId" : formData.timezoneId
         };
 
         // get the list of states required by the form

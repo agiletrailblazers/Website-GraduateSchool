@@ -140,6 +140,15 @@
                           <label for="suite">Suite, Mail Stop</label>
                           <input type="text" id="suite" class="form-control width-half" tabindex="26">
                         </span>
+                        <span class="form-group">
+                          <label for="timezone">*Timezone</label>
+                            <select id="timezone" class="form-control width-half" tabindex="28">
+                              <option value="">Select One</option>
+                              <% for (i = 0; i < timezones.length; i++) { %>
+                              <option value="<%= timezones[i].id %>"><%= timezones[i].name %></option>
+                              <% } %>
+                            </select>
+                        </span>
                       </div>
                       <div class="form-inline">
                         <span class="form-group">
