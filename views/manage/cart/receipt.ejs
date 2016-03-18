@@ -2,8 +2,8 @@
 <html>
   <head>
     <title> Graduate School USA | <%= title %></title>
-    <% include ../../partials/head %>
     <link rel="stylesheet" href="/stylesheets/cart.css" />
+    <% include ../../partials/head %>
   </head>
   <body>
     <% include ../../partials/header %>
@@ -12,10 +12,10 @@
         <div id="outer" class="col-lg-12 col-md-12 col-sm-12 content-offset">
           <div id="gs-form">
             <div id="cart">
-              <div class="row">
-                <div class="col-lg-12">
+              <div class="row nopadding">
+                <div class="col-lg-12 nopadding mobile-nopadding">
                   <p>Thank you. Your order has been successfully placed. Your Order Number is <strong><%= registrations[0].orderNumber %>.</strong></p>
-                  <div id="cart-items">
+                  <div id="cart-items" class="non-mobile"> <!-- start non-mobile view -->
                     <h2>Course Summary</h2>
                     <table class="table table-striped cart">
                       <tr>
@@ -43,7 +43,48 @@
                         <td>$<%= session["tuition"] %></td>
                       </tr>
                     </table>
-                  </div> <!-- END cart-items -->
+                  </div> <!-- END cart-items non-mobile view-->
+
+                  <div id="cart-mobile" class="mobile"> <!-- start mobile view -->
+                    <div class="row nopadding">
+                      <table class="table cart-mobile">
+                        <tr>
+                          <th class="header-mobile" colspan="2">Course Summary</th>
+                        </tr>
+                      <tr>
+                        <th class="cart-mobile">Course</th>
+                        <td class="cart-mobile"><strong><%= course.title %></strong></td>
+                      </tr>
+                      <tr>
+                        <th class="cart-mobile"><%= contentfulCourseInfo.sessionTable[0] %></th>
+                        <td class="cart-mobile">
+                          <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br/>
+                          <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
+                          <%= session["startTime"]%> - <%= session["endTime"]%>
+                          <% } %>
+                          <% if (session["days"] !== null) { %>
+                          , <%= session["days"] %>
+                          <% } %>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="cart-mobile"><%= contentfulCourseInfo.sessionTable[1] %></th>
+                        <td class="cart-mobile">
+                          <%= session.location["city"]%><% if (session.location["state"]) { %>, <%= session.location["state"]%><% } %>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="cart-mobile"><%= contentfulCourseInfo.courseDetailTitles[1] %></th>
+                        <td class="cart-mobile"><%= course.type %></td>
+                      </tr>
+                      <tr>
+                        <th class="cart-mobile"><%= contentfulCourseInfo.sessionTable[2] %></th>
+                        <td class="cart-mobile">$<%= session["tuition"] %></td>
+                      </tr>
+                    </table>
+                    </div>
+                    <div class="spacer10 mobile"></div>
+                  </div> <!--END cart-mobile mobile view-->
                 </div>
               </div>
               <div class="spacer25"></div>
@@ -56,6 +97,7 @@
                     <p>+11231234123 john@doe.com</p>
                   </div> <!-- END Bill-to-info -->
                 </div>
+                <div class="spacer mobile"></div>
                 <div class="col-lg-7 col-md-7">
                   <h2>Payment</h2>
                   <div id="payment-info">
