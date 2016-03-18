@@ -2,8 +2,8 @@
 <html>
   <head>
     <title> Graduate School USA | <%= title %></title>
-    <% include ../../partials/head %>
     <link rel="stylesheet" href="/stylesheets/cart.css" />
+    <% include ../../partials/head %>
     <script type="text/javascript" src="/javascripts/manage/cart/cart.js"></script>
   </head>
   <body>
@@ -18,14 +18,16 @@
           <p><%= error %></p>
         </div>
 
-          <div class="row non-mobile"> <!-- start non-mobile view -->
+          <div class="row">
           <div id="outer" class="col-lg-12 col-md-12 col-sm-12 content-offset">
           <div id="gs-form">
             <div id="cart">
-              <div class="row">
-                <div class="col-lg-12">
+              <div class="row nopadding">
+                <div class="col-lg-12 nopadding mobile-nopadding">
                   <p>The following course has been added to your cart. Please check to make sure the information below is accurate before continuing.</p>
-                  <div id="cart-items">
+
+                  <div id="cart-items" class="non-mobile"> <!-- start non-mobile view -->
+                    <h2 class="non-mobile">Course Summary</h2>
                     <table class="table table-striped cart">
                       <tr>
                         <th>Course</th>
@@ -58,10 +60,60 @@
                           <%}%>
                         </td>
                         <td><%= course.type %></td>
-                        <td><strong>$<%= session["tuition"] %></strong></td>
+                        <td>$<%= session["tuition"] %></td>
                       </tr>
                     </table>
-                  </div> <!--END cart-items-->
+                  </div> <!--END cart-items non-mobile view-->
+
+                  <div id="cart-mobile" class="mobile"> <!-- start mobile view -->
+                    <div class="row nopadding">
+                      <table class="table cart-mobile">
+                        <tr>
+                          <th class="header-mobile" colspan="2">Course Summary</th>
+                        </tr>
+                      <tr>
+                        <th class="cart-mobile">Course</th>
+                        <td class="cart-mobile"><a href='/courses/<%= course.code %>'><strong><%= course.title %></strong></a></td>
+                      </tr>
+                      <tr>
+                        <th class="cart-mobile"><%= contentfulCourseInfo.sessionTable[0] %></th>
+                        <td class="cart-mobile">
+                          <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br/>
+                          <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
+                          <%= session["startTime"]%> - <%= session["endTime"]%>
+                          <% } %>
+                          <% if (session["days"] !== null) { %>
+                          , <%= session["days"] %>
+                          <% } %>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="cart-mobile"><%= contentfulCourseInfo.sessionTable[1] %></th>
+                        <td class="cart-mobile">
+                          <%= session.location["city"]%><% if (session.location["state"]) { %>, <%= session.location["state"]%><%}%>
+                          <% if((typeof(session.location["address1"])!='undefined') && typeof(session.location["address2"])!='undefined') {%>
+                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '+ session.location["address2"] +', '%> <%= session.location["city"]  +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
+                          <% } else if(typeof(session.location["address1"])!='undefined') {%>
+                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
+                          <% } else if(typeof(session.location["address2"])!= 'undefined') {%>
+                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
+                          <% } else {%>
+                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
+                          <%}%>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="cart-mobile"><%= contentfulCourseInfo.courseDetailTitles[1] %></th>
+                        <td class="cart-mobile"><%= course.type %></td>
+                      </tr>
+                      <tr>
+                        <th class="cart-mobile"><%= contentfulCourseInfo.sessionTable[2] %></th>
+                        <td class="cart-mobile">$<%= session["tuition"] %></td>
+                      </tr>
+                    </table>
+                    </div>
+                    <div class="spacer10 mobile"></div>
+                  </div> <!--END cart-mobile mobile view-->
                 </div>
               </div>
               <div class="spacer25"></div>
@@ -76,68 +128,7 @@
             </div>  <!-- END cart -->
           </div> <!--END gs-form-->
          </div> <!--END outer-->
-         </div> <!--END row non-mobile -->
-
-        <div class="row mobile nopadding"> <!-- start row mobile -->
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mobile-nopadding">
-            <p>The following course has been added to your cart. Please check to make sure the information below is accurate before continuing.</p>
-            <div id="cart-mobile">
-              <div class="row nopadding">
-                <table class="table cart-mobile">
-                <tr>
-                  <th class="cart-mobile">Course</th>
-                  <td class="cart-mobile"><a href='/courses/<%= course.code %>'><strong><%= course.title %></strong></a></td>
-                </tr>
-                <tr>
-                  <th class="cart-mobile"><%= contentfulCourseInfo.sessionTable[0] %></th>
-                  <td class="cart-mobile">
-                    <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br/>
-                    <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
-                    <%= session["startTime"]%> - <%= session["endTime"]%>
-                    <% } %>
-                    <% if (session["days"] !== null) { %>
-                    , <%= session["days"] %>
-                    <% } %>
-                  </td>
-                </tr>
-                <tr>
-                  <th class="cart-mobile"><%= contentfulCourseInfo.sessionTable[1] %></th>
-                  <td class="cart-mobile">
-                    <%= session.location["city"]%><% if (session.location["state"]) { %>, <%= session.location["state"]%><%}%>
-                    <% if((typeof(session.location["address1"])!='undefined') && typeof(session.location["address2"])!='undefined') {%>
-                    <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '+ session.location["address2"] +', '%> <%= session.location["city"]  +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
-                    <% } else if(typeof(session.location["address1"])!='undefined') {%>
-                    <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
-                    <% } else if(typeof(session.location["address2"])!= 'undefined') {%>
-                    <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
-                    <% } else {%>
-                    <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
-                    <%}%>
-                  </td>
-                </tr>
-                <tr>
-                  <th class="cart-mobile"><%= contentfulCourseInfo.courseDetailTitles[1] %></th>
-                  <td class="cart-mobile"><%= course.type %></td>
-                </tr>
-                <tr>
-                  <th class="cart-mobile"><%= contentfulCourseInfo.sessionTable[2] %></th>
-                  <td class="cart-mobile"><strong>$<%= session["tuition"] %></strong></td>
-                </tr>
-              </table>
-              </div>
-              <div class="spacer10 mobile"></div>
-              <div id="buttons-mobile" class="pull-right">
-                <form id="cart-form-cancel-registration" style="display: inline;" method="post" action="/manage/cart/registration/cancel">
-                  <button id="cart-form-cancel-registration-submit-mobile" type="submit" tabindex="11">Cancel</button>
-                </form>
-                <form id="cart-form" role="form" method="get" style="display: inline;" action="<%= nextpage %>">
-                  <button id="cart-form-continue-mobile" type="submit" tabindex="10" class="red">Continue <span class="glyphicon glyphicon-chevron-right white-icon"></span></button>
-                </form> <!--END cart-form -->
-              </div> <!--END buttons-->
-            </div> <!--END cart-mobile-->
-          </div>
-        </div> <!-- END row mobile -->
-
+         </div> <!--END row -->
         </div> <!--END container-->
         <div class="spacer60 non-mobile"></div>
         <div class="spacer60 non-mobile"></div>
