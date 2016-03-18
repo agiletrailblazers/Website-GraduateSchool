@@ -117,17 +117,10 @@ module.exports = {
         'Authorization': authToken
       }
     }, function (error, response, body) {
-      if (error || !response) {
+      if (common.checkForErrorAndLog(error, response, targetURL)) {
         return callback(new Error("Exception occurred getting timezones"), null);
       }
-      else if (response.statusCode == 200) {
-        // successfully found timezones
-        return callback(null, JSON.parse(body));
-      }
-      else {
-        // other error
-        return callback(new Error("Exception occurred getting timezones"), null);
-      }
+      return callback(null, JSON.parse(body));
     });
   }
 };
