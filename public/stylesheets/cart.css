@@ -106,3 +106,25 @@ span.payment-type {
   border: none; !important;
   text-align:left;
 }
+
+table.cart-mobile, table.cart-mobile tr, table.cart-mobile td, table.cart-mobile th  {
+  border: 1px solid #EEE !important;
+}
+
+table.cart-mobile tr {
+  border-bottom: 1px solid #EEE !important;
+}
+
+th.cart-mobile {
+  text-transform: uppercase;
+}
+
+td.cart-mobile {
+  text-align: left;
+}
+
+#cart-mobile button {
+  margin-left: 15px;
+  padding: 7px 15px;
+  font-size: 16px !important;
+}
