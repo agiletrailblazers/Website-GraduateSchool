@@ -5,6 +5,12 @@ var expect = chai.expect;
 var should = chai.should();
 var proxyquire = require('proxyquire').noCallThru();
 
+var contentfulCourseInfo = {
+  sessionTable : ["SessionTitle1", "SessionTitle2", "SessionTitle3", "SessionTitle4"],
+  courseDetailTitles: ["CourseTitle1", "CourseTitle2", "CourseTitle3", "CourseTitle4"]
+};
+
+
 test('displayCart', function(t) {
 
   var res = {};
@@ -35,11 +41,6 @@ test('displayCart', function(t) {
     }
   };
 
-  var contentfulInfo = {
-    sessionTable : ["SessionTitle1", "SessionTitle2", "SessionTitle3", "SessionTitle4"],
-    courseDetailTitles: ["CourseTitle1", "CourseTitle2", "CourseTitle3", "CourseTitle4"]
-  };
-
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
   {
@@ -67,7 +68,7 @@ test('displayCart', function(t) {
     },
     "../../../API/contentful.js": {
       getCourseDetails: function(cb) {
-        cb(contentfulInfo, null);
+        cb(contentfulCourseInfo, null);
       }
     }
    });
@@ -78,7 +79,7 @@ test('displayCart', function(t) {
       expect(content.course).to.eql(course);
       expect(content.session).to.eql(courseSession);
       expect(content.nextpage).to.eql("/manage/user/loginCreate");
-      expect(content.contentfulCourseInfo).to.eql(contentfulInfo);
+      expect(content.contentfulCourseInfo).to.eql(contentfulCourseInfo);
       expect(content.error).to.eql(null);
   };
 
@@ -146,6 +147,11 @@ test('displayCart with already registered error ', function(t) {
             expect(sessionId).to.eql(req.query.sessionId);
             cb(null, courseSession);
           }
+        },
+        "../../../API/contentful.js": {
+          getCourseDetails: function(cb) {
+            cb(contentfulCourseInfo, null);
+          }
         }
       });
 
@@ -159,13 +165,6 @@ test('displayCart with already registered error ', function(t) {
   };
 
   controller.displayCart(req, res, null);
-
-  t.end();
-});
-
-test('displayCart handles authenticated user', function(t) {
-
-  // placeholder for real test
 
   t.end();
 });
@@ -238,12 +237,6 @@ test('displayCart handles get contentful error', function(t) {
 
   controller.displayCart(req, res, null);
 
-  t.end();
-});
-
-test('displayCart handles get course error', function(t) {
-
-  // placeholder for real test
   t.end();
 });
 
@@ -457,11 +450,6 @@ test('confirmPayment', function(t) {
         return "Aug 08, 2016"
       }
     }
-  };
-
-  var contentfulCourseInfo = {
-    sessionTable : ["SessionTitle1", "SessionTitle2", "SessionTitle3", "SessionTitle4"],
-    courseDetailTitles: ["CourseTitle1", "CourseTitle2", "CourseTitle3", "CourseTitle4"]
   };
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
@@ -684,6 +672,11 @@ test('confirmPayment handles signature mismatch', function(t) {
           isNotEmpty: function (endDate) {
             return true;
           }
+        },
+        "../../../API/contentful.js": {
+          getCourseDetails: function(cb) {
+            cb(contentfulCourseInfo, null);
+          }
         }
 
       });
@@ -806,6 +799,11 @@ test('confirmPayment handles declined reason code', function(t) {
             return config;
           };
           return configFile;
+        },
+        "../../../API/contentful.js": {
+          getCourseDetails: function(cb) {
+            cb(contentfulCourseInfo, null);
+          }
         }
       });
 
@@ -939,6 +937,11 @@ test('confirmPayment handles error reason code', function(t) {
             return config;
           };
           return configFile;
+        },
+        "../../../API/contentful.js": {
+          getCourseDetails: function(cb) {
+            cb(contentfulCourseInfo, null);
+          }
         }
       });
 
@@ -1086,6 +1089,11 @@ test('confirmPayment handles non-specific reason code', function(t) {
           isNotEmpty: function (endDate) {
             return false;
           }
+        },
+        "../../../API/contentful.js": {
+          getCourseDetails: function(cb) {
+            cb(contentfulCourseInfo, null);
+          }
         }
       });
 
@@ -1155,12 +1163,6 @@ test('completePayment', function(t) {
 
     }
   };
-
-  var contentfulCourseInfo = {
-    sessionTable : ["SessionTitle1", "SessionTitle2", "SessionTitle3", "SessionTitle4"],
-    courseDetailTitles: ["CourseTitle1", "CourseTitle2", "CourseTitle3", "CourseTitle4"]
-  };
-
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
@@ -1325,6 +1327,11 @@ test('completePayment with payment declined', function(t) {
             expect(registrationRequest.payments[0].merchantReferenceId).to.eql(referenceNumber);
             cb(null, registrationResult);
           }
+        },
+        "../../../API/contentful.js": {
+          getCourseDetails: function(cb) {
+            cb(contentfulCourseInfo, null);
+          }
         }
       });
 
@@ -1445,6 +1452,11 @@ test('completePayment with payment accepted error', function(t) {
             expect(registrationRequest.payments[0].authorizationId).to.eql(authId);
             expect(registrationRequest.payments[0].merchantReferenceId).to.eql(referenceNumber);
             cb(null, registrationResult);
+          }
+        },
+        "../../../API/contentful.js": {
+          getCourseDetails: function(cb) {
+            cb(contentfulCourseInfo, null);
           }
         }
       });
@@ -1580,6 +1592,11 @@ test('completePayment with general error', function(t) {
           },
           isNotEmpty: function (endDate) {
             return true;
+          }
+        },
+        "../../../API/contentful.js": {
+          getCourseDetails: function(cb) {
+            cb(contentfulCourseInfo, null);
           }
         }
 
