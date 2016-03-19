@@ -134,11 +134,11 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
       });
       // Do not display EP course sessions 14 days after session start
       courseData.session.forEach(function(session, index) {
-        var sessionStartDate = moment(session.startDate);
-        var epRegCutoffDate = moment(session.startDate).add(14, 'days').add(18, 'hours');
-        if (courseData.class.type === 'Classroom - Evening' && epRegCutoffDate.isBefore(moment()) && moment() > epRegCutoffDate) {
-          if((session["status"] === "C" || session["status"] === "S") ){
-            courseData.session.splice(index, 1);
+        var sessionStartDate = moment(new Date(session.startDate));
+        var epRegCutoffDate = moment(new Date(session.startDate)).add(14, 'days').add(18, 'hours');
+        if (courseData.class.type === 'Classroom - Evening' && epRegCutoffDate.isBefore(moment())) {
+          if(session["status"] === "C" || session["status"] === "S"){
+            courseData.session.splice(session);
           }
         }
       });
