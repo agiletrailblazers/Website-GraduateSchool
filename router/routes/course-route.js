@@ -145,7 +145,6 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
       content.linksSection.forEach(function(link) {
         link.url = link.url.replace('[courseCode]', courseData.class.code);
       });
-      
       courseData.isLeadershipCourse = false;
       if (common.isNotEmpty(content.leadershipCoursesScheduleLinks)) {
         if (common.isNotEmpty(content.leadershipCoursesScheduleLinks[courseData.class.code])) {
