@@ -4,6 +4,7 @@ var async = require('async');
 var course = require("../../API/course.js");
 var striptags = require('striptags');
 var dateformat = require('date-format-lite');
+var moment = require('moment');
 var prune = require('underscore.string/prune');
 var router = express.Router();
 var logger = require('../../logger');
@@ -131,10 +132,19 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           session.hide = true;
         }
       });
+      // Do not display EP course sessions 14 days after session start
+      courseData.session.forEach(function(session, index) {
+        var sessionStartDate = moment(session.startDate);
+        var epRegCutoffDate = moment(session.startDate).add(14, 'days').add(18, 'hours');
+        if (courseData.class.type === 'Classroom - Evening' && epRegCutoffDate.isBefore(moment()) && moment() > epRegCutoffDate) {
+          if((session["status"] === "C" || session["status"] === "S") ){
+            courseData.session.splice(index, 1);
+          }
+        }
+      });
       content.linksSection.forEach(function(link) {
         link.url = link.url.replace('[courseCode]', courseData.class.code);
       });
-
       courseData.isLeadershipCourse = false;
       if (common.isNotEmpty(content.leadershipCoursesScheduleLinks)) {
         if (common.isNotEmpty(content.leadershipCoursesScheduleLinks[courseData.class.code])) {
