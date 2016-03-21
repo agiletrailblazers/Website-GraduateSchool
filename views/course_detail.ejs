@@ -154,7 +154,7 @@
                 <td class="statusData">
                   <%
                     pastRegDeadline = (moment(new Date(session.startDate)).add(14, 'days').add(18, 'hours').isBefore(moment(new Date())));
-                    if ((session["status"] === 'O' || session["status"] === 'S') &&  pastRegDeadline) {session["status"] = 'C'};
+                    if (courseData.class.type === 'Classroom - Evening' && (session["status"] === 'O' || session["status"] === 'S') &&  pastRegDeadline) {session["status"] = 'C'};
                   %>
                   <% if (session["status"] === "C")  {%>
                     <% if (session["scheduleAvailable"] === session["scheduleMaximum"] || pastRegDeadline) { %>
