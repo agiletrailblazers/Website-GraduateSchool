@@ -132,6 +132,16 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           session.hide = true;
         }
       });
+      // Determine if EP registration dealine has ellapsed
+      if (courseData.class.type === 'Classroom - Evening') {
+          courseData.session.forEach(function(session) {
+            var epRegDeadline = moment(new Date(session.startDate)).add(14, 'days').add(18, 'hours');
+            if (epRegDeadline.isBefore(moment())) {
+              session.status = 'C';
+              session.epPastRegDeadline = true;
+            }
+          })
+      };
       content.linksSection.forEach(function(link) {
         link.url = link.url.replace('[courseCode]', courseData.class.code);
       });
@@ -183,8 +193,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
         courseData: courseData,
         title: 'Course Details',
         topTitle: courseData.class.title ,
-        location: location,
-        moment: moment
+        location: location
       });
     }
     else {
