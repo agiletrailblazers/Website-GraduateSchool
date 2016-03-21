@@ -132,14 +132,12 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           session.hide = true;
         }
       });
-      // Do not display EP course sessions 14 days after session start
+      // Do not display EP sessions closed for registration 1 day after session start
       courseData.session.forEach(function(session, index) {
         var sessionStartDate = moment(new Date(session.startDate));
-        var epRegCutoffDate = moment(new Date(session.startDate)).add(14, 'days').add(18, 'hours');
-        if (courseData.class.type === 'Classroom - Evening' && epRegCutoffDate.isBefore(moment())) {
-          if(session["status"] === "C" || session["status"] === "S"){
+        var epRegCutoffDate = moment(new Date(session.startDate)).add(1, 'days');
+        if (courseData.class.type === 'Classroom - Evening' && epRegCutoffDate.isBefore(moment()) && session["status"] === "C") {
             courseData.session.splice(session);
-          }
         }
       });
       content.linksSection.forEach(function(link) {
@@ -193,7 +191,8 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
         courseData: courseData,
         title: 'Course Details',
         topTitle: courseData.class.title ,
-        location: location
+        location: location,
+        moment: moment
       });
     }
     else {
