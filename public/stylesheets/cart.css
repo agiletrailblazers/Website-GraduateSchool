@@ -10,7 +10,7 @@ table.cart {
   border: 1px solid #CCD8E3 !important;
 }
 
-table.cart th {
+table.cart th, .header-mobile {
   background: #82838B; /* Old browsers */
   background-image: linear-gradient(to bottom, #A0A0A8 0px, #82838B 100%) !important;
   border-radius: 0px !important;
@@ -49,7 +49,7 @@ table.cart td {
 }
 
 #cart span.registration-disclaimer {
-  color: #FF0000 !important;
+  color: #D9124E !important;
   font-size: 14px;
 }
 
@@ -117,6 +117,8 @@ table.cart-mobile tr {
 
 th.cart-mobile {
   text-transform: uppercase;
+  color: #555;
+  padding: 15px 3% !important;
 }
 
 td.cart-mobile {
