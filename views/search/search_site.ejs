@@ -24,10 +24,31 @@
       </div>
     <% } else { %>
       <% for(var i=0; i<siteResult.pages.length; i++) { %>
-        <div id="site-result">
-          <h3><a href="<%= siteResult.pages[i].url %>"><%= siteResult.pages[i].title %></a></h3>
-          <div><%= prune(striptags(siteResult.pages[i].content), 300, "...") %></div>
-        </div>
+      <div id="site-result">
+        <% var siteTitle = siteResult.pages[i].title;
+           var siteURL = siteResult.pages[i].url;
+           var siteContent= siteResult.pages[i].content;
+           if (typeof (siteURL) !='undefined' && (siteURL.substr(siteURL.lastIndexOf('.') + 1).indexOf("pdf")> -1 ||
+                   siteURL.substr(siteURL.lastIndexOf('.') + 1).indexOf("doc")> -1 ||
+                   siteURL.substr(siteURL.lastIndexOf('.') + 1).indexOf("docx")> -1) ) {
+             var img ="/images/pdf.png";
+             siteTitle = siteTitle.replace(/.pdf(?!.*.pdf)/, '');
+             siteTitle = siteTitle.replace(/.docx(?!.*.docx)/, '');
+             siteTitle = siteTitle.replace(/.doc(?!.*.doc)/, '');
+             siteTitle = siteTitle.replace(/_/g, ' ');
+             siteTitle = prune(siteTitle, 100, "...");
+             siteContent = siteContent.replace(/_/g, ' ');
+             if (siteURL.substr(siteURL.lastIndexOf('.') + 1).indexOf("pdf") ==-1) {
+                img ="/images/doc.png";
+             }
+          %>
+            <h3><span><img src='<%=img%>'/></span> <a href="<%= siteResult.pages[i].url %>"><%= siteTitle %></a></h3>
+            <div><%= prune(striptags(siteContent), 300, "...") %></div>
+          <% } else { %>
+            <h3><span><img src='/images/link.png'/></span> <a href="<%= siteResult.pages[i].url %>"><%= siteTitle %></a></h3>
+            <div><%= prune(striptags(siteContent), 300, "...") %></div>
+          <% } %>
+      </div>
         <hr>
       <% } %>
     <% } %>
