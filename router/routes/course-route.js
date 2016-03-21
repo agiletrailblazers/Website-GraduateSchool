@@ -132,14 +132,6 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           session.hide = true;
         }
       });
-      // Do not display EP sessions closed for registration 1 day after session start
-      courseData.session.forEach(function(session, index) {
-        var sessionStartDate = moment(new Date(session.startDate));
-        var epRegCutoffDate = moment(new Date(session.startDate)).add(1, 'days');
-        if (courseData.class.type === 'Classroom - Evening' && epRegCutoffDate.isBefore(moment()) && session["status"] === "C") {
-            courseData.session.splice(session);
-        }
-      });
       content.linksSection.forEach(function(link) {
         link.url = link.url.replace('[courseCode]', courseData.class.code);
       });
