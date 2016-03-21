@@ -132,16 +132,16 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           session.hide = true;
         }
       });
-      // Do not display EP course sessions 14 days after session start
-      courseData.session.forEach(function(session, index) {
-        var sessionStartDate = moment(new Date(session.startDate));
-        var epRegCutoffDate = moment(new Date(session.startDate)).add(14, 'days').add(18, 'hours');
-        if (courseData.class.type === 'Classroom - Evening' && epRegCutoffDate.isBefore(moment())) {
-          if(session["status"] === "C" || session["status"] === "S"){
-            courseData.session.splice(session);
-          }
-        }
-      });
+      // Determine if EP registration dealine has ellapsed
+      if (courseData.class.type === 'Classroom - Evening') {
+          courseData.session.forEach(function(session) {
+            var epRegDeadline = moment(new Date(session.startDate)).add(14, 'days').add(18, 'hours');
+            if (epRegDeadline.isBefore(moment())) {
+              session.status = 'C';
+              session.epPastRegDeadline = true;
+            }
+          })
+      };
       content.linksSection.forEach(function(link) {
         link.url = link.url.replace('[courseCode]', courseData.class.code);
       });
