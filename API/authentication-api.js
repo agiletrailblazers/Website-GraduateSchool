@@ -54,7 +54,7 @@ loginUser = function(req, res, authCredentials, callback) {
         }
     }, function (error, response, body) {
         if (common.checkForErrorAndLog(error, response, targetURL)) {
-            return callback(new Error("Exception occurred logging in user"), null);
+            return callback(new Error("Exception occurred logging in user"), null, response.statusCode);
         }
         logger.info("Logged in username: " + body.user.username + " with token: " + body.authToken.token);
 
@@ -72,7 +72,7 @@ loginUser = function(req, res, authCredentials, callback) {
 
         logger.debug("New token set to: " + body.authToken.token);
 
-        return callback(null, body);
+        return callback(null, body, response.statusCode);
     });
 };
 

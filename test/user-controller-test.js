@@ -220,8 +220,62 @@ test('registrationLogin', function(t) {
 
   t.end();
 });
+test('registrationLogin should handle login failure', function(t) {
 
-test('registrationLogin should handle error', function(t) {
+  var res = {};
+  var req = {
+    body : {
+      username : "user12345",
+      password : "test1234"
+    },
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+
+  var userId = "pers12345";
+
+  var sessionData = {
+  };
+
+  var authUser = {
+    user : {
+      id : userId
+    }
+  }
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          },
+          setSessionData: function (res, data) {
+            // verify data passed in
+            expect(data.loginError).to.eql("Login failed, please try again");
+          }
+        },
+
+        '../../../API/authentication-api.js': {
+          loginUser: function (req, res, authCredentials, cb) {
+            expect(authCredentials.username).to.eql(req.body.username);
+            expect(authCredentials.password).to.eql(req.body.password);
+            cb(new Error("I am not the droid you are looking for"), authUser, 401);
+          },
+        }
+      });
+
+  res.redirect = function(page) {
+    expect(page).to.eql('registration_login_create');
+  };
+
+  controller.registrationLogin(req, res, null);
+
+  t.end();
+});
+
+test('registrationLogin should handle other error', function(t) {
 
   var res = {};
   var req = {
@@ -254,7 +308,7 @@ test('registrationLogin should handle error', function(t) {
       },
       setSessionData: function (res, data) {
         // verify data passed in
-        expect(data.loginError).to.eql("Login failed, please try again");
+        expect(data.loginError).to.eql("There was an issue with your request. Please try again in a few minutes");
       }
     },
 
@@ -262,7 +316,7 @@ test('registrationLogin should handle error', function(t) {
       loginUser: function (req, res, authCredentials, cb) {
         expect(authCredentials.username).to.eql(req.body.username);
         expect(authCredentials.password).to.eql(req.body.password);
-        cb(new Error("I am not the droid you are looking for"), authUser);
+        cb(new Error("I am not the droid you are looking for"), authUser, 500);
       },
     }
   });
@@ -641,8 +695,7 @@ test('login', function(t) {
 
   t.end();
 });
-
-test('login should handle error', function(t) {
+test('login should handle failed login error', function(t) {
 
   var res = {};
   var req = {
@@ -676,7 +729,63 @@ test('login should handle error', function(t) {
           loginUser: function (req, res, authCredentials, cb) {
             expect(authCredentials.username).to.eql(req.body.username);
             expect(authCredentials.password).to.eql(req.body.password);
-            cb(new Error("I am not the droid you are looking for"), null);
+            cb(new Error("I am not the droid you are looking for"), null, 401);
+          }
+        }
+      });
+
+  res = {
+    status : function (status) {
+      expect(status).to.eql(401);
+      return {
+        send : function (body) {
+          // just make sure this function is called
+          expect(body).to.eql(expectedError);
+        }
+      }
+    }
+  };
+
+  controller.login(req, res, null);
+
+  t.end();
+});
+
+test('login should handle other error', function(t) {
+
+  var res = {};
+  var req = {
+    body : {
+      username : "user12345",
+      password : "test1234"
+    },
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+
+  var sessionData = {
+  };
+
+
+  var expectedError = {
+    error: "There was an issue with your request. Please try again in a few minutes"
+  };
+
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          }
+        },
+        '../../../API/authentication-api.js': {
+          loginUser: function (req, res, authCredentials, cb) {
+            expect(authCredentials.username).to.eql(req.body.username);
+            expect(authCredentials.password).to.eql(req.body.password);
+            cb(new Error("I am not the droid you are looking for"), null, 500);
           }
         }
       });

@@ -150,75 +150,76 @@ module.exports = {
   },
 
   login: function(req, res, next) {
+    // get the form data from the body of the request
+    var formData = req.body;
 
-    async.waterfall([
-          function (callback) {
-            // get the form data from the body of the request
-            var formData = req.body;
-
-            logger.debug("Logging in user: " + formData.username);
-            var authCredentials = {
-              "username": formData.username,
-              "password": formData.password
-            };
-            authentication.loginUser(req, res, authCredentials, function (error, authorizedUser) {
-              if (error) return callback(error);
-
-              return callback(null, authorizedUser);
-            });
-          }
-        ], function (err, authorizedUser) {
-          if (err) {
-            logger.error("Failed during login", err);
-            res.status(500).send({"error": "Login failed, please try again"});
-            return;
-          }
-
-          // add the logged in user id to the session data
-          var sessionData = session.getSessionData(req);
-          sessionData.userId = authorizedUser.user.id;
-          session.setSessionData(res, sessionData);
-
-          // send success to client
-          res.status(200).send();
+    logger.debug("Logging in user: " + formData.username);
+    var authCredentials = {
+      "username": formData.username,
+      "password": formData.password
+    };
+    authentication.loginUser(req, res, authCredentials, function (error, authorizedUser, statusCode) {
+      if (error) {
+        if (statusCode == 401) {
+          logger.debug("User failed log in", error);
+          res.status(statusCode).send({"error": "Login failed, please try again"});
+          return;
         }
-    );
+        else {
+          logger.error("User failed to log in with a different issue", error);
+          res.status(statusCode).send({"error": "There was an issue with your request. Please try again in a few minutes"});
+          return;
+        }
+      }
+      // add the logged in user id to the session data
+      var sessionData = session.getSessionData(req);
+      sessionData.userId = authorizedUser.user.id;
+      session.setSessionData(res, sessionData);
+
+      // send success to client
+      res.status(200).send();
+    });
   },
 
   registrationLogin: function(req, res, next) {
+    // get the form data from the body of the request
+    var formData = req.body;
 
-    async.waterfall([
-        function (callback) {
-          // get the form data from the body of the request
-          var formData = req.body;
+    logger.debug("Registration login for user: " + formData.username);
 
-          logger.debug("Registration login for user: " + formData.username);
-          var authCredentials = {
-            "username": formData.username,
-            "password": formData.password
-          };
-          authentication.loginUser(req, res, authCredentials, function (error, authorizedUser) {
-            if (error) return callback(error);
+    var authCredentials = {
+      "username": formData.username,
+      "password": formData.password
+    };
 
-            return callback(null, authorizedUser);
-          });
-        }
-      ], function (err, authorizedUser) {
-        var sessionData = session.getSessionData(req);
+    authentication.loginUser(req, res, authCredentials, function (error, authorizedUser, statusCode) {
+      var sessionData = session.getSessionData(req);
 
-        if (err) {
+      if (error) {
+        if (statusCode == 401) {
           sessionData.loginError = "Login failed, please try again";
           session.setSessionData(res, sessionData);
 
-          logger.debug("Failed during registration login for user", err);
+          logger.debug("Failed during registration login for user", error);
           res.redirect('registration_login_create');
           return;
         }
-        sessionData.userId = authorizedUser.user.id;
-        session.setSessionData(res, sessionData);
-        res.redirect("/manage/cart/payment");
+        else {
+          sessionData.loginError = "There was an issue with your request. Please try again in a few minutes";
+          session.setSessionData(res, sessionData);
+
+          logger.error("User failed to log in with a different issue", error);
+          res.redirect('registration_login_create');
+          return;
+        }
       }
-    );
+      // add the logged in user id to the session data
+      var sessionData = session.getSessionData(req);
+      sessionData.userId = authorizedUser.user.id;
+      session.setSessionData(res, sessionData);
+
+      res.redirect("/manage/cart/payment");
+    });
   }
 
 } // end module.exports
