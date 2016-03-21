@@ -1,0 +1,40 @@
+/*
+    Style for header login popover box
+*/
+
+#header-login-form input {
+    border-radius: 0 !important;
+    border: 2px solid #DDDDDD;
+}
+
+#header-login-section {
+    margin: 0px 20px 0px 20px;
+}
+
+.popover-content a {
+    color: #FFFFFF;
+    font-weight: normal;
+    text-decoration: underline;
+}
+
+.popover-content {
+    padding: 20px;
+}
+
+.popover {
+    border-radius: 0;
+    border: 0px;
+    background-color: #5293C6;
+}
+
+.popover.bottom > .arrow:after {
+    border-bottom-color: #DDDDDD;
+}
+
+.popover.bottom > .arrow {
+    top: -11px;
+    left: 50%;
+    margin-left: -11px;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
