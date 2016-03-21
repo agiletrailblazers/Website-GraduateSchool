@@ -78,7 +78,7 @@ test('displayCart', function(t) {
       expect(content.title).to.eql('Course Registration');
       expect(content.course).to.eql(course);
       expect(content.session).to.eql(courseSession);
-      expect(content.nextpage).to.eql("/manage/user/loginCreate");
+      expect(content.nextpage).to.eql("/manage/user/registration_login_create");
       expect(content.contentfulCourseInfo).to.eql(contentfulCourseInfo);
       expect(content.error).to.eql(null);
   };
@@ -160,7 +160,7 @@ test('displayCart with already registered error ', function(t) {
     expect(content.title).to.eql('Course Registration');
     expect(content.course).to.eql(course);
     expect(content.session).to.eql(courseSession);
-    expect(content.nextpage).to.eql("/manage/user/loginCreate");
+    expect(content.nextpage).to.eql("/manage/user/registration_login_create");
     expect(content.error).to.eql(expectedRegExistsError);
   };
 

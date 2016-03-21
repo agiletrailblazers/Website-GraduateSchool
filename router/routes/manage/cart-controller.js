@@ -94,7 +94,7 @@ module.exports = {
                     callback(null, "/manage/cart/payment");
                 }
                 else {
-                    callback(null, "/manage/user/loginCreate");
+                    callback(null, "/manage/user/registration_login_create");
                 }
                 return;
             }
