@@ -112,6 +112,7 @@ $(document).ready(function() {
           alertify.success("Email sent!")
           $("#contact-information").toggle();
           $("#alertSuccess").toggle();
+          ga('send', 'event', 'contact-form-completion', 'sign-up', this.href);
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();

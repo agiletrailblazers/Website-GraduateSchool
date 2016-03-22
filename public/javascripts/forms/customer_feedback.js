@@ -100,6 +100,7 @@ $(document).ready(function () {
           } else {
             $("#txtCustomerName").text("Valued Customer");
           }
+          ga('send', 'event', 'feedback-form-completion', 'sign-up', this.href);
         })
         .fail(function (xhr, textStatus, errorThrown) {
           $(".loading").hide();

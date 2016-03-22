@@ -189,6 +189,7 @@ $(document).ready(function() {
           alertify.success("Email sent!");
           $("#accordion").toggle();
           $("#alertSuccess").toggle();
+          ga('send', 'event', 'catalog-request-form-completion', 'sign-up', this.href);
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();

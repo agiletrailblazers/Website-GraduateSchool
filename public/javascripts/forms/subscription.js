@@ -94,6 +94,7 @@ $(document).ready(function() {
               $("#alertSuccessModify").toggle();
               break;
           }
+          ga('send', 'event', 'email-subscription-form-completion', 'sign-up', this.href);
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();
