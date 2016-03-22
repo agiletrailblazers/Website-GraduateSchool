@@ -38,7 +38,6 @@ $(document).ready(function(){
     $("#gs-alert-remove").css('cursor', 'pointer');
     $(document).on('click', '#gs-alert-header-remove', function (){
         $("#header-login-popover").find("#gs-alert-header-error").slideUp();
-        //$("#header-login-popover").find("#gs-alert-error p").text("");
     });
 
     $('[data-toggle="popover"]').popover({
