@@ -4,6 +4,7 @@ var async = require('async');
 var course = require("../../API/course.js");
 var striptags = require('striptags');
 var dateformat = require('date-format-lite');
+var moment = require('moment');
 var prune = require('underscore.string/prune');
 var router = express.Router();
 var logger = require('../../logger');
@@ -131,10 +132,20 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           session.hide = true;
         }
       });
+      // Determine if EP registration dealine has ellapsed
+      if (courseData.class.type.indexOf('Classroom - Evening') > -1) {
+          courseData.session.epPastRegDeadline = false;
+          courseData.session.forEach(function(session) {
+            var epRegDeadline = moment(new Date(session.startDate)).add(14, 'days').add(18, 'hours');
+            if (epRegDeadline.isBefore(moment())) {
+              session.status = 'C';
+              session.epPastRegDeadline = true;
+            }
+          })
+      };
       content.linksSection.forEach(function(link) {
         link.url = link.url.replace('[courseCode]', courseData.class.code);
       });
-
       courseData.isLeadershipCourse = false;
       if (common.isNotEmpty(content.leadershipCoursesScheduleLinks)) {
         if (common.isNotEmpty(content.leadershipCoursesScheduleLinks[courseData.class.code])) {

@@ -153,7 +153,7 @@
                 <td> $<%= session["tuition"]%></td>
                 <td class="statusData">
                   <% if (session["status"] === "C")  {%>
-                    <% if (session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
+                    <% if ((session["scheduleAvailable"] === session["scheduleMaximum"]) || session.epPastRegDeadline) { %>
                       <span class="label label-danger">C</span>
                     <% } else { %>
                     <span class="label label-success">G</span>
@@ -164,7 +164,7 @@
                 </td>
                 <% if (session["status"] === 'S' && session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
                   <td></td>
-                <% } else if (session["status"] === 'C' && session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
+                <% } else if (session["status"] === 'C' && (session["scheduleAvailable"] === session["scheduleMaximum"] || (session.epPastRegDeadline))) { %>
                   <td></td>
                 <% } else { %>
                   <td><button class="register" type="button" name="button" onclick="location.href='<%= session["registrationUrl"] %>'"><%= content.registerButton %></button></td>
@@ -321,7 +321,7 @@
                                         <% if (courseData.isOnlineCourse == false) { %>
                                           <tr><th class="mob-header"><%= content.sessionTable[3] %></th><td class="statusData-mob">
                                           <% if (session["status"] === "C")  {%>
-                                            <% if (session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
+                                            <% if ((session["scheduleAvailable"] === session["scheduleMaximum"]) || session.epPastRegDeadline) { %>
                                               <span class="label label-danger">C</span>
                                             <% } else { %>
                                             <span class="label label-success">G</span>
@@ -337,7 +337,7 @@
                                         <div class="register-button col-lg-12">
                                           <% if (session["status"] === 'S' && session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
                                             <td></td>
-                                          <% } else if (session["status"] === 'C' && session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
+                                          <% } else if (session["status"] === 'C' && ((session["scheduleAvailable"] === session["scheduleMaximum"]) || session.epPastRegDeadline)) { %>
                                             <td></td>
                                           <% } else { %>
                                             <td><button class="register-mob" type="button" name="button" onclick="location.href='<%= session["registrationUrl"] %>'"><%= content.registerButton %></button></td>
