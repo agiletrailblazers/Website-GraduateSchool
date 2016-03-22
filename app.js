@@ -105,24 +105,10 @@ app.use(function (req, res, next) {
 				//Try to get user's first name from the session data
 				if(sessionData.userFirstName){
 					userFirstName = sessionData.userFirstName;
+					callback();
 				}
 
-				//First name wasn't in session data, try to get first name from user ID in sessionData
-				else if (sessionData.userId){
-					user.getUser(sessionData.userId , function(error, retrievedUser) {
-						if (error){
-							return callback(error)
-						};
-
-						userFirstName = retrievedUser.person.firstName;
-						sessionData.userFirstName = userFirstName;
-						session.setSessionData(res, sessionData);
-
-						return callback(null, retrievedUser, null);
-					}, req.query["authToken"]);
-				}
-
-				//Could not get first name or userId from sessionData
+				//Could not get first name from sessionData
 				else{
 					callback();
 				}
