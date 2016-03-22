@@ -204,7 +204,7 @@ test('registrationLogin', function(t) {
       setSessionData: function (res, data) {
         // verify data passed in
         expect(data.userId).to.eql(authUser.user.id);
-        //expect(data.person.firstName).to.eql(authUser.user.person.firstName);
+        expect(data.userFirstName).to.eql(authUser.user.person.firstName);
       }
     },
     '../../../API/authentication-api.js': {
@@ -495,6 +495,7 @@ test('createUser handles create user error', function(t) {
       setSessionData: function (res, data) {
         // verify data passed in
         expect(data.userId).to.eql(userId);
+        expect(data.userFirstName).to.eql(authUser.user.person.firstName);
       }
     },
     "../../../API/manage/user-api.js": {
@@ -595,6 +596,7 @@ test('createUser handles login user error', function(t) {
       setSessionData: function (res, data) {
         // verify data passed in
         expect(data.userId).to.eql(userId);
+        expect(data.userFirstName).to.eql(authUser.user.person.firstName);
       }
     },
     "../../../API/manage/user-api.js": {
@@ -690,6 +692,7 @@ test('login', function(t) {
           setSessionData: function (res, data) {
             // verify data passed in
             expect(data.userId).to.eql(authUser.user.id);
+            expect(data.userFirstName).to.eql(authUser.user.person.firstName);
           }
         },
         '../../../API/authentication-api.js': {
