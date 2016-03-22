@@ -174,8 +174,9 @@ module.exports = {
       // add the logged in user id to the session data
       var sessionData = session.getSessionData(req);
       sessionData.userId = authorizedUser.user.id;
+      sessionData.userFirstName = authorizedUser.user.person.firstName;
       session.setSessionData(res, sessionData);
-
+      
       // send success to client
       res.status(200).send();
     });
@@ -216,6 +217,7 @@ module.exports = {
       // add the logged in user id to the session data
       var sessionData = session.getSessionData(req);
       sessionData.userId = authorizedUser.user.id;
+      sessionData.userFirstName = authorizedUser.user.person.firstName;
       session.setSessionData(res, sessionData);
 
       res.redirect("/manage/cart/payment");
