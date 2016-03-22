@@ -176,13 +176,9 @@ module.exports = {
       sessionData.userId = authorizedUser.user.id;
       sessionData.userFirstName = authorizedUser.user.person.firstName;
       session.setSessionData(res, sessionData);
-
-      logger.error("This is after setSessionData");
+      
       // send success to client
       res.status(200).send();
-
-      logger.error("This is before return");
-      return;
     });
   },
 
