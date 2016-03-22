@@ -123,7 +123,7 @@
                 <td></td>
                 <td>$<%= session["tuition"] %></td>
                 <td></td>
-                <td><button class="register" type="button" name="button" id="registerButton<%= current %>" onclick="location.href='<%= session["registrationUrl"] %>'"><%= content.registerButton %></button></td>
+                <td><button class="register" type="button" name="button" id="registerButton<%= current %>" onclick="ga('send', 'event', 'register', 'sign-up', '<%= session["registrationUrl"] %>');location.href='<%= session["registrationUrl"] %>'"><%= content.registerButton %></button></td>
               </tr>
               <% } else { %>
               <tr class="courseDetailSessionRow" data-rowhide="<%= session.hide %>">
@@ -167,7 +167,7 @@
                 <% } else if (session["status"] === 'C' && session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
                   <td></td>
                 <% } else { %>
-                  <td><button class="register" type="button" name="button" onclick="location.href='<%= session["registrationUrl"] %>'"><%= content.registerButton %></button></td>
+                  <td><button class="register" type="button" name="button" onclick="ga('send', 'event', 'register', 'sign-up', '<%= session["registrationUrl"] %>');location.href='<%= session["registrationUrl"] %>'"><%= content.registerButton %></button></td>
                 <% } %>
               </tr>
 
@@ -340,7 +340,7 @@
                                           <% } else if (session["status"] === 'C' && session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
                                             <td></td>
                                           <% } else { %>
-                                            <td><button class="register-mob" type="button" name="button" onclick="location.href='<%= session["registrationUrl"] %>'"><%= content.registerButton %></button></td>
+                                            <td><button class="register-mob" type="button" name="button" onclick="ga('send', 'event', 'register', 'sign-up', '<%= session["registrationUrl"] %>');location.href='<%= session["registrationUrl"] %>'"><%= content.registerButton %></button></td>
                                           <% } %>
                                         </div>
                                       </div>
