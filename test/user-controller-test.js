@@ -187,7 +187,10 @@ test('registrationLogin', function(t) {
 
   var authUser = {
       user : {
-        id : "pers12345"
+        id : "pers12345",
+        person: {
+          firstName : "Joseph"
+        }
       }
   }
 
@@ -201,6 +204,7 @@ test('registrationLogin', function(t) {
       setSessionData: function (res, data) {
         // verify data passed in
         expect(data.userId).to.eql(authUser.user.id);
+        //expect(data.person.firstName).to.eql(authUser.user.person.firstName);
       }
     },
     '../../../API/authentication-api.js': {
@@ -240,7 +244,10 @@ test('registrationLogin should handle login failure', function(t) {
 
   var authUser = {
     user : {
-      id : userId
+      id : userId,
+      person: {
+        firstName : "Joseph"
+      }
     }
   }
 
@@ -295,7 +302,10 @@ test('registrationLogin should handle other error', function(t) {
 
   var authUser = {
       user : {
-        id : userId
+        id : userId,
+        person: {
+          firstName : "Joseph"
+        }
       }
   }
 
@@ -362,7 +372,10 @@ test('createUser', function(t) {
   var userId = "pers12345";
   var authUser = {
       user : {
-        id : userId
+        id : userId,
+        person: {
+          firstName : "Joseph"
+        }
       }
   }
 
@@ -465,7 +478,10 @@ test('createUser handles create user error', function(t) {
   var userId = "pers12345";
   var authUser = {
       user : {
-        id : userId
+        id : userId,
+        person: {
+          firstName : "Joseph"
+        }
       }
   }
 
@@ -562,7 +578,10 @@ test('createUser handles login user error', function(t) {
   var userId = "pers12345";
   var authUser = {
       user : {
-        id : userId
+        id : userId,
+        person: {
+          firstName : "Joseph"
+        }
       }
   }
 
@@ -654,7 +673,10 @@ test('login', function(t) {
 
   var authUser = {
     user : {
-      id : "pers12345"
+      id : "pers12345",
+      person: {
+        firstName : "Joseph"
+      }
     }
   };
 
