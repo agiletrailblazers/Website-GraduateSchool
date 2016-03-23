@@ -289,6 +289,79 @@ test('displayCreate redirects to last page', function(t) {
   t.end();
 });
 
+test('displayCreate handles error', function(t) {
+
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    },
+    body : { }
+  };
+  var res = {};
+
+  var expectedError = new Error("Intentional Test Error");
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/contentful.js": {
+          getReferenceData: function (slug, callback) {
+            expect(slug).to.eql("us-states");
+            callback(null, expectedError);
+          }
+        },
+        "../../../helpers/common.js": {
+          redirectToError: function (resIn) {
+            expect(resIn).to.eql(res)
+          }
+        }
+      });
+
+  controller.displayCreateUser(req, res, null);
+
+  t.end();
+});
+
+test('displayCreate handles error with getting timezones', function(t) {
+
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    },
+    body : { }
+  };
+  var res = {};
+
+  var expectedStates = ['Alaska'];
+
+  var expectedError = new Error("Intentional Test Error");
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/contentful.js": {
+          getReferenceData: function (slug, callback) {
+            expect(slug).to.eql("us-states");
+            callback(expectedStates, null);
+          }
+        },
+        "../../../helpers/common.js": {
+          redirectToError: function (resIn) {
+            expect(resIn).to.eql(res)
+          }
+        },
+        "../../../API/manage/user-api.js": {
+          getTimezones: function (callback, authtoken) {
+            callback(expectedError, null);
+          }
+        }
+      });
+
+  controller.displayCreateUser(req, res, null);
+
+  t.end();
+});
+
 test('registrationLogin', function(t) {
 
   var res = {};

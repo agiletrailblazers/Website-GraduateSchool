@@ -63,8 +63,6 @@ $(document).ready(function () {
                     $("html, body").animate({
                         scrollTop: 0
                     }, "slow");
-
-                    window.location.href=nextPage; //TODO Remove this line - only for testing
                 });
         }
     });
