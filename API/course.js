@@ -191,5 +191,319 @@ module.exports = {
       }
       return callback(null, JSON.parse(body));
     });
+  },
+  // API to retrieve a specific course session by its ID
+  getSessions: function(callback, authToken, sessionStatus, sessionDomain) {
+
+var sessions = [
+  {
+    "classNumber": "600471",
+    "segment": null,
+    "startDate": "2016-03-31",
+    "endDate": "2016-04-01",
+    "startTime": "08:30",
+    "endTime": "16:00",
+    "days": "Thu-Fri",
+    "scheduleMaximum": 25,
+    "scheduleAvailable": 9,
+    "scheduleMinimum": 8,
+    "status": "C",
+    "notes": null,
+    "tuition": 849,
+    "location": {
+      "id": "DCWASCAPGL",
+      "name": "Graduate School at Capital Gallery",
+      "address1": "L'Enfant Plaza Metro Stop",
+      "address2": "600 Maryland Avenue, SW",
+      "city": "Washington",
+      "state": "DC",
+      "postalCode": "20024"
+    },
+    "instructor": null,
+    "offeringSessionId": "class000000000089002",
+    "courseId": "cours000000000004381",
+    "curricumTitle": "Federal Human Resources",
+    "courseDomain": "domin000000000001085"
+  },
+  {
+    "classNumber": "00085817",
+    "segment": null,
+    "startDate": "2016-01-20",
+    "endDate": "2016-03-30",
+    "startTime": "18:30",
+    "endTime": "21:30",
+    "days": "Wednesday",
+    "scheduleMaximum": 20,
+    "scheduleAvailable": 8,
+    "scheduleMinimum": 6,
+    "status": "C",
+    "notes": null,
+    "tuition": 365,
+    "location": {
+      "id": "37",
+      "name": "Woodend Sanctuary",
+      "address1": "Free parking",
+      "address2": "8940 Jones Mill Road",
+      "city": "Chevy Chase",
+      "state": "MD"
+    },
+    "instructor": null,
+    "offeringSessionId": "class000000000090712",
+    "courseId": "cours000000000009869",
+    "curricumTitle": "Communication and Professional Skills",
+    "courseDomain": "domin000000000001089"
+  },
+  {
+    "classNumber": "00086408",
+    "segment": null,
+    "startDate": "2017-05-08",
+    "endDate": "2017-05-09",
+    "startTime": "08:30",
+    "endTime": "16:00",
+    "days": "Mon-Tue",
+    "scheduleMaximum": 2400,
+    "scheduleAvailable": 51,
+    "scheduleMinimum": 8,
+    "status": "C",
+    "notes": null,
+    "tuition": 1000,
+    "location": {
+      "id": "01",
+      "name": "National Arboretum",
+      "telephone": "2022454521",
+      "address1": "Stadium Amory Metro Stop",
+      "address2": "24th & R Streets NE",
+      "city": "Washington",
+      "state": "DC",
+      "postalCode": "20002"
+    },
+    "instructor": null,
+    "offeringSessionId": "class000000000091171",
+    "courseId": "cours000000000001652",
+    "curricumTitle": "Program and Management Analysis",
+    "courseDomain": "domin000000000001085"
+  },
+  {
+    "classNumber": "600591",
+    "segment": null,
+    "startDate": "2016-04-06",
+    "endDate": "2016-04-08",
+    "startTime": "08:30",
+    "endTime": "16:00",
+    "days": "Wed-Fri",
+    "scheduleMaximum": 25,
+    "scheduleAvailable": 8,
+    "scheduleMinimum": 8,
+    "status": "C",
+    "notes": null,
+    "tuition": 999,
+    "location": {
+      "id": "DCWASCAPGL",
+      "name": "Graduate School at Capital Gallery",
+      "address1": "L'Enfant Plaza Metro Stop",
+      "address2": "600 Maryland Avenue, SW",
+      "city": "Washington",
+      "state": "DC",
+      "postalCode": "20024"
+    },
+    "instructor": null,
+    "offeringSessionId": "class000000000089082",
+    "courseId": "cours000000000005061",
+    "curricumTitle": "Communication and Professional Skills",
+    "courseDomain": "domin000000000001085"
+  },
+  {
+    "classNumber": "601052",
+    "segment": null,
+    "startDate": "2016-03-22",
+    "endDate": "2016-03-25",
+    "startTime": "08:30",
+    "endTime": "16:00",
+    "days": "Tue-Fri",
+    "scheduleMaximum": 30,
+    "scheduleAvailable": 8,
+    "scheduleMinimum": 8,
+    "status": "C",
+    "notes": null,
+    "tuition": 899,
+    "location": {
+      "id": "DCWASCAPGL",
+      "name": "Graduate School at Capital Gallery",
+      "address1": "L'Enfant Plaza Metro Stop",
+      "address2": "600 Maryland Avenue, SW",
+      "city": "Washington",
+      "state": "DC",
+      "postalCode": "20024"
+    },
+    "instructor": null,
+    "offeringSessionId": "class000000000089650",
+    "courseId": "cours000000000009046",
+    "curricumTitle": "Federal Human Resources",
+    "courseDomain": "domin000000000001085"
+  },
+  {
+    "classNumber": "600485",
+    "segment": null,
+    "startDate": "2016-04-18",
+    "endDate": "2016-04-19",
+    "startTime": "08:30",
+    "endTime": "16:00",
+    "days": "Mon-Tue",
+    "scheduleMaximum": 25,
+    "scheduleAvailable": 9,
+    "scheduleMinimum": 8,
+    "status": "C",
+    "notes": null,
+    "tuition": 789,
+    "location": {
+      "id": "DCWASCAPGL",
+      "name": "Graduate School at Capital Gallery",
+      "address1": "L'Enfant Plaza Metro Stop",
+      "address2": "600 Maryland Avenue, SW",
+      "city": "Washington",
+      "state": "DC",
+      "postalCode": "20024"
+    },
+    "instructor": null,
+    "offeringSessionId": "class000000000089526",
+    "courseId": "cours000000000009637",
+    "curricumTitle": "Federal Human Resources",
+    "courseDomain": "domin000000000001085"
+  },
+  {
+    "classNumber": "00086407",
+    "segment": null,
+    "startDate": "2017-05-01",
+    "endDate": "2017-05-02",
+    "startTime": "08:30",
+    "endTime": "16:00",
+    "days": "Mon-Tue",
+    "scheduleMaximum": 2400,
+    "scheduleAvailable": 63,
+    "scheduleMinimum": 8,
+    "status": "C",
+    "notes": null,
+    "tuition": 1000,
+    "location": {
+      "id": "01",
+      "name": "National Arboretum",
+      "telephone": "2022454521",
+      "address1": "Stadium Amory Metro Stop",
+      "address2": "24th & R Streets NE",
+      "city": "Washington",
+      "state": "DC",
+      "postalCode": "20002"
+    },
+    "instructor": null,
+    "offeringSessionId": "class000000000091170",
+    "courseId": "cours000000000001652",
+    "curricumTitle": "Program and Management Analysis",
+    "courseDomain": "domin000000000001085"
+  },
+  {
+    "classNumber": "00086426",
+    "segment": null,
+    "startDate": "2016-03-16",
+    "endDate": "2016-04-18",
+    "startTime": "18:00",
+    "endTime": "21:00",
+    "days": "Wed/Mon 5 Weeks",
+    "scheduleMaximum": 2500,
+    "scheduleAvailable": 0,
+    "scheduleMinimum": 6,
+    "status": "C",
+    "notes": null,
+    "tuition": 405,
+    "location": {
+      "id": "01",
+      "name": "National Arboretum",
+      "telephone": "2022454521",
+      "address1": "Stadium Amory Metro Stop",
+      "address2": "24th & R Streets NE",
+      "city": "Washington",
+      "state": "DC",
+      "postalCode": "20002"
+    },
+    "instructor": null,
+    "offeringSessionId": "class000000000091189",
+    "courseId": "cours000000000007682",
+    "curricumTitle": "Federal Financial Management",
+    "courseDomain": "domin000000000001089"
+  },
+  {
+    "classNumber": "600823",
+    "segment": null,
+    "startDate": "2016-04-19",
+    "endDate": "2016-04-22",
+    "startTime": "08:30",
+    "endTime": "16:00",
+    "days": "Tue-Fri",
+    "scheduleMaximum": 30,
+    "scheduleAvailable": 15,
+    "scheduleMinimum": 8,
+    "status": "C",
+    "notes": null,
+    "tuition": 1449,
+    "location": {
+      "id": "DCWASCAPGL",
+      "name": "Graduate School at Capital Gallery",
+      "address1": "L'Enfant Plaza Metro Stop",
+      "address2": "600 Maryland Avenue, SW",
+      "city": "Washington",
+      "state": "DC",
+      "postalCode": "20024"
+    },
+    "instructor": null,
+    "offeringSessionId": "class000000000089765",
+    "courseId": "cours000000000003130",
+    "curricumTitle": "Program and Management Analysis",
+    "courseDomain": "domin000000000001085"
+  },
+  {
+    "classNumber": "601145",
+    "segment": null,
+    "startDate": "2016-03-23",
+    "endDate": "2016-03-24",
+    "startTime": "08:30",
+    "endTime": "16:00",
+    "days": "Wed-Thu",
+    "scheduleMaximum": 25,
+    "scheduleAvailable": 9,
+    "scheduleMinimum": 8,
+    "status": "C",
+    "notes": null,
+    "tuition": 799,
+    "location": {
+      "id": "DCWASCAPGL",
+      "name": "Graduate School at Capital Gallery",
+      "address1": "L'Enfant Plaza Metro Stop",
+      "address2": "600 Maryland Avenue, SW",
+      "city": "Washington",
+      "state": "DC",
+      "postalCode": "20024"
+    },
+    "instructor": null,
+    "offeringSessionId": "class000000000089739",
+    "courseId": "cours000000000002657",
+    "curricumTitle": "Communication and Professional Skills",
+    "courseDomain": "domin000000000001085"
+  }];
+
+  return callback(null, sessions);
+
+    // url for the API call
+    // ifti var sessionUrl = config("properties").apiServer + '/api/courses/sessions?' + 'status'=sessiontStatus '&' + 'sessiondomain'=sessionDomain;
+    // request({
+    //   method: 'GET',
+    //   url: sessionUrl,
+    //   headers: {
+    //     'Authorization': authToken
+    //   }
+    // }, function (error, response, body) {
+    //   if (common.checkForErrorAndLog(error, response, sessionUrl)) {
+    //     return callback(new Error("Exception occurred getting sessions " + sessionUrl), null);
+    //   }
+    //   return callback(null, JSON.parse(body));
+    // });
   }
 };
