@@ -8,6 +8,7 @@ var config = require('konphyg')(__dirname + '/../config');
 // requires for route controllers
 var userController = require('./routes/manage/user-controller.js');
 var cartController = require('./routes/manage/cart-controller.js');
+var gtogController = require('./routes/gtog-controller.js');
 
 // log some key configuration information
 logger.info("userRouteEnabled: " + config("properties").manage.userRouteEnabled);
@@ -28,6 +29,7 @@ module.exports = function (app) {
     app.use('/', require('./routes/catalog-route'));
     app.use('/', require('./routes/faq-route'));
     app.use('/', require('./routes/subscription-route'));
+    app.use('/', router.get('/gtog', gtogController.displayG2GPage));
 
     if (config("properties").manage.userRouteEnabled === true) {
         // user management routes
