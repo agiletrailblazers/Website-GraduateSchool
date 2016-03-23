@@ -45,6 +45,7 @@ app.use(function (req, res, next) {
 	mailPage.body = config("properties").mailPageBody;
 	var sessionData = session.getSessionData(req);
 	var userFirstName = "";
+	var nextPageAfterCreateUser = "";
 	async.series([
 		function(callback) {
 			//Check to see if a token exists in the cookie, and if not get one from API and put it in cookie.
@@ -112,6 +113,11 @@ app.use(function (req, res, next) {
 				else{
 					callback();
 				}
+			},
+			function(callback) {
+				//If the user clicks the create account link, this is the page to navigate to after successful creation
+				nextPageAfterCreateUser = req.url;
+				callback();
 			}
 		], function() {
 			res.locals = {navigation: navigation,
@@ -121,7 +127,9 @@ app.use(function (req, res, next) {
 				showChat: showChat,
 				mailPage: mailPage,
 				env: env,
-				userFirstName: userFirstName};
+				userFirstName: userFirstName,
+				nextPageAfterCreateUser: nextPageAfterCreateUser
+			};
 			next();
 		})
 	}

@@ -31,10 +31,12 @@ module.exports = function (app) {
 
     if (config("properties").manage.userRouteEnabled === true) {
         // user management routes
-        app.use('/', router.post('/manage/user/login', userController.login));
         app.use('/', router.get('/manage/user/registration_login_create', userController.displayRegistrationLoginCreate));
-        app.use('/', router.post('/manage/user/create', userController.createUser));
+        app.use('/', router.post('/manage/user/create', userController.displayCreateUser));
         app.use('/', router.post('/manage/user/registration_login', userController.registrationLogin));
+        // async AJAX user management routes
+        app.use('/', router.post('/manage/user/login', userController.login));
+        app.use('/', router.post('/manage/user/create_user', userController.createUser));
 
         // cart routes
         app.use('/', router.get('/manage/cart', cartController.displayCart));

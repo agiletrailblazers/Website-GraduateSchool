@@ -34,9 +34,7 @@ module.exports = {
           return callback(null, states);
         });
       },
-
       timezones: function(callback) {
-
         //get a list of timezones
         user.getTimezones(function (error, timezones){
           if(error){
@@ -55,6 +53,11 @@ module.exports = {
           sessionData.loginError = null;
         }
         return callback(null, loginError);
+      },
+      nextpage: function(callback) {
+        var nextPage = "/manage/cart/payment";
+        logger.debug("Newly created user coming from cart and will be redirected to: " + nextPage);
+        return callback(null, nextPage);
       }
     }, function(err, content) {
       session.setSessionData(res, sessionData);
@@ -70,7 +73,55 @@ module.exports = {
         states: content.states,
         sessionId: content.sessionId,
         loginError: content.loginError,
-        timezones: content.timezones
+        timezones: content.timezones,
+        nextpage: content.nextpage
+      });
+    });
+  },
+
+  displayCreateUser: function(req, res, next) {
+
+    async.series({
+      states: function(callback) {
+        // get the list of states required by the form
+        contentful.getReferenceData('us-states', function(states, error) {
+          // callback with the error, this will cause async module to stop executing remaining
+          // functions and jump immediately to the final function, it is important to return
+          // so that the task callback isn't called twice
+          if (error) return callback(error);
+
+          return callback(null, states);
+        });
+      },
+      timezones: function(callback) {
+        //get a list of timezones
+        user.getTimezones(function (error, timezones){
+          if(error){
+            return callback(error);
+          }
+          else {
+            return callback(null, timezones);
+          }
+        }, req.query["authToken"])
+      },
+      nextpage: function(callback) {
+        var nextPage = common.isNotEmpty(req.body.nextpage_after_create) ?  req.body.nextpage_after_create : "/";
+        logger.debug("Newly created user will be redirected to: " + nextPage);
+        return callback(null, nextPage);
+      }
+    }, function(err, content) {
+
+      if (err) {
+        logger.error("Error rendering createuser", err);
+        common.redirectToError(res);
+        return;
+      }
+
+      res.render('manage/user/user_create', {
+        title: 'Create Account',
+        states: content.states,
+        timezones: content.timezones,
+        nextpage: content.nextpage
       });
     });
   },
@@ -142,6 +193,7 @@ module.exports = {
       // add the created user id to the session data
       var sessionData = session.getSessionData(req);
       sessionData.userId = content.createdUser.id;
+      sessionData.userFirstName =  content.createdUser.person.firstName;
       session.setSessionData(res, sessionData);
 
       // send success to client

@@ -53,7 +53,8 @@ loginUser = function(req, res, authCredentials, callback) {
             'Authorization': currentAuthToken
         }
     }, function (error, response, body) {
-        if (common.checkForErrorAndLog(error, response, targetURL)) {
+        var httpCodesNotToLog = [401];
+        if (common.checkForErrorAndLogExceptCodes(error, response, targetURL, httpCodesNotToLog)) {
             return callback(new Error("Exception occurred logging in user"), null, response.statusCode);
         }
         logger.info("Logged in username: " + body.user.username + " with token: " + body.authToken.token);
