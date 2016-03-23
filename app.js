@@ -11,6 +11,8 @@ var logger = require('./logger');
 var async = require('async');
 var course = require("./API/course.js");
 var common = require("./helpers/common.js");
+var session = require('./API/manage/session-api.js');
+var user = require("./API/manage/user-api.js");
 
 var app = express();
 
@@ -41,6 +43,8 @@ app.use(function (req, res, next) {
 	var mailPage = {};
 	mailPage.titlePrefix = config("properties").mailPageTitlePrefix;
 	mailPage.body = config("properties").mailPageBody;
+	var sessionData = session.getSessionData(req);
+	var userFirstName = "";
 	async.series([
 		function(callback) {
 			//Check to see if a token exists in the cookie, and if not get one from API and put it in cookie.
@@ -96,6 +100,19 @@ app.use(function (req, res, next) {
 					callback();
 				}, req.query["authToken"]);
 			}
+			,
+			function(callback) {
+				//Try to get user's first name from the session data
+				if(sessionData.userFirstName){
+					userFirstName = sessionData.userFirstName;
+					callback();
+				}
+
+				//Could not get first name from sessionData
+				else{
+					callback();
+				}
+			}
 		], function() {
 			res.locals = {navigation: navigation,
 				locations: locations,
@@ -103,7 +120,8 @@ app.use(function (req, res, next) {
 				googleAnalyticsId: googleAnalyticsId,
 				showChat: showChat,
 				mailPage: mailPage,
-				env: env};
+				env: env,
+				userFirstName: userFirstName};
 			next();
 		})
 	}

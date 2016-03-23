@@ -133,7 +133,8 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
         }
       });
       // Determine if EP registration dealine has ellapsed
-      if (courseData.class.type === 'Classroom - Evening') {
+      if (courseData.class.type.indexOf('Classroom - Evening') > -1) {
+          courseData.session.epPastRegDeadline = false;
           courseData.session.forEach(function(session) {
             var epRegDeadline = moment(new Date(session.startDate)).add(14, 'days').add(18, 'hours');
             if (epRegDeadline.isBefore(moment())) {

@@ -4,7 +4,7 @@ var chai = require('chai');
 var expect = chai.expect;
 var proxyquire = require('proxyquire').noCallThru();
 
-test('loginCreate', function(t) {
+test('registrationLoginCreate', function(t) {
 
   var req = {
     query : {
@@ -58,7 +58,7 @@ test('loginCreate', function(t) {
   });
 
   res.render = function(page, content) {
-      expect(page).to.eql('manage/user/loginCreate');
+      expect(page).to.eql('manage/user/registration_login_create');
       expect(content.title).to.eql('Login');
       expect(content.states[0]).to.eql(expectedStates[0]);
       expect(content.sessionId).to.eql(sessionData.cart.sessionId);
@@ -66,12 +66,12 @@ test('loginCreate', function(t) {
       expect(content.timezones[1]).to.eql(expectedTimezones[1]);
   };
 
-  controller.displayLoginCreate(req, res, null);
+  controller.displayRegistrationLoginCreate(req, res, null);
 
   t.end();
 });
 
-test('loginCreate handles error', function(t) {
+test('registrationLoginCreate handles error', function(t) {
 
   var req = {
     query : {
@@ -111,12 +111,12 @@ test('loginCreate handles error', function(t) {
     }
   });
 
-  controller.displayLoginCreate(req, res, null);
+  controller.displayRegistrationLoginCreate(req, res, null);
 
   t.end();
 });
 
-test('loginCreate handles error with getting timezones', function(t) {
+test('registrationLoginCreate handles error with getting timezones', function(t) {
 
   var req = {
     query : {
@@ -164,12 +164,12 @@ test('loginCreate handles error with getting timezones', function(t) {
         }
       });
 
-  controller.displayLoginCreate(req, res, null);
+  controller.displayRegistrationLoginCreate(req, res, null);
 
   t.end();
 });
 
-test('login', function(t) {
+test('registrationLogin', function(t) {
 
   var res = {};
   var req = {
@@ -187,7 +187,10 @@ test('login', function(t) {
 
   var authUser = {
       user : {
-        id : "pers12345"
+        id : "pers12345",
+        person: {
+          firstName : "Joseph"
+        }
       }
   }
 
@@ -201,6 +204,7 @@ test('login', function(t) {
       setSessionData: function (res, data) {
         // verify data passed in
         expect(data.userId).to.eql(authUser.user.id);
+        expect(data.userFirstName).to.eql(authUser.user.person.firstName);
       }
     },
     '../../../API/authentication-api.js': {
@@ -216,12 +220,69 @@ test('login', function(t) {
       expect(page).to.eql('/manage/cart/payment');
   };
 
-  controller.login(req, res, null);
+  controller.registrationLogin(req, res, null);
+
+  t.end();
+});
+test('registrationLogin should handle login failure', function(t) {
+
+  var res = {};
+  var req = {
+    body : {
+      username : "user12345",
+      password : "test1234"
+    },
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+
+  var userId = "pers12345";
+
+  var sessionData = {
+  };
+
+  var authUser = {
+    user : {
+      id : userId,
+      person: {
+        firstName : "Joseph"
+      }
+    }
+  }
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          },
+          setSessionData: function (res, data) {
+            // verify data passed in
+            expect(data.loginError).to.eql("Login failed, please try again");
+          }
+        },
+
+        '../../../API/authentication-api.js': {
+          loginUser: function (req, res, authCredentials, cb) {
+            expect(authCredentials.username).to.eql(req.body.username);
+            expect(authCredentials.password).to.eql(req.body.password);
+            cb(new Error("I am not the droid you are looking for"), authUser, 401);
+          },
+        }
+      });
+
+  res.redirect = function(page) {
+    expect(page).to.eql('registration_login_create');
+  };
+
+  controller.registrationLogin(req, res, null);
 
   t.end();
 });
 
-test('login should handle error', function(t) {
+test('registrationLogin should handle other error', function(t) {
 
   var res = {};
   var req = {
@@ -241,7 +302,10 @@ test('login should handle error', function(t) {
 
   var authUser = {
       user : {
-        id : userId
+        id : userId,
+        person: {
+          firstName : "Joseph"
+        }
       }
   }
 
@@ -254,7 +318,7 @@ test('login should handle error', function(t) {
       },
       setSessionData: function (res, data) {
         // verify data passed in
-        expect(data.loginError).to.eql("Login failed, please try again");
+        expect(data.loginError).to.eql("There was an issue with your request. Please try again in a few minutes");
       }
     },
 
@@ -262,16 +326,16 @@ test('login should handle error', function(t) {
       loginUser: function (req, res, authCredentials, cb) {
         expect(authCredentials.username).to.eql(req.body.username);
         expect(authCredentials.password).to.eql(req.body.password);
-        cb(new Error("I am not the droid you are looking for"), authUser);
+        cb(new Error("I am not the droid you are looking for"), authUser, 500);
       },
     }
   });
 
   res.redirect = function(page) {
-      expect(page).to.eql('loginCreate');
+      expect(page).to.eql('registration_login_create');
   };
 
-  controller.login(req, res, null);
+  controller.registrationLogin(req, res, null);
 
   t.end();
 });
@@ -308,7 +372,10 @@ test('createUser', function(t) {
   var userId = "pers12345";
   var authUser = {
       user : {
-        id : userId
+        id : userId,
+        person: {
+          firstName : "Joseph"
+        }
       }
   }
 
@@ -411,7 +478,10 @@ test('createUser handles create user error', function(t) {
   var userId = "pers12345";
   var authUser = {
       user : {
-        id : userId
+        id : userId,
+        person: {
+          firstName : "Joseph"
+        }
       }
   }
 
@@ -425,6 +495,7 @@ test('createUser handles create user error', function(t) {
       setSessionData: function (res, data) {
         // verify data passed in
         expect(data.userId).to.eql(userId);
+        expect(data.userFirstName).to.eql(authUser.user.person.firstName);
       }
     },
     "../../../API/manage/user-api.js": {
@@ -476,7 +547,6 @@ test('createUser handles create user error', function(t) {
   t.end();
 });
 
-
 test('createUser handles login user error', function(t) {
 
   var res = {};
@@ -509,7 +579,10 @@ test('createUser handles login user error', function(t) {
   var userId = "pers12345";
   var authUser = {
       user : {
-        id : userId
+        id : userId,
+        person: {
+          firstName : "Joseph"
+        }
       }
   }
 
@@ -523,6 +596,7 @@ test('createUser handles login user error', function(t) {
       setSessionData: function (res, data) {
         // verify data passed in
         expect(data.userId).to.eql(userId);
+        expect(data.userFirstName).to.eql(authUser.user.person.firstName);
       }
     },
     "../../../API/manage/user-api.js": {
@@ -579,6 +653,181 @@ test('createUser handles login user error', function(t) {
   };
 
   controller.createUser(req, res, null);
+
+  t.end();
+});
+
+test('login', function(t) {
+
+  var res = {};
+  var req = {
+    body : {
+      username : "user12345",
+      password : "test1234"
+    },
+    query : {
+      authToken: "123456789123456789"
+    }
+  };
+
+  var sessionData = {
+  };
+
+  var authUser = {
+    user : {
+      id : "pers12345",
+      person: {
+        firstName : "Joseph"
+      }
+    }
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          },
+          setSessionData: function (res, data) {
+            // verify data passed in
+            expect(data.userId).to.eql(authUser.user.id);
+            expect(data.userFirstName).to.eql(authUser.user.person.firstName);
+          }
+        },
+        '../../../API/authentication-api.js': {
+          loginUser: function (req, res, authCredentials, cb) {
+            expect(authCredentials.username).to.eql(req.body.username);
+            expect(authCredentials.password).to.eql(req.body.password);
+            cb(null, authUser);
+          }
+        }
+      });
+
+  res = {
+    status : function (status) {
+      expect(status).to.eql(200);
+      return {
+        send : function () {
+          // just make sure this function is called
+          expect(1).to.eql(1);
+        }
+      }
+    }
+  };
+
+  controller.login(req, res, null);
+
+  t.end();
+});
+test('login should handle failed login error', function(t) {
+
+  var res = {};
+  var req = {
+    body : {
+      username : "user12345",
+      password : "test1234"
+    },
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+
+  var sessionData = {
+  };
+
+
+  var expectedError = {
+    error: "Login failed, please try again"
+  };
+
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          }
+        },
+        '../../../API/authentication-api.js': {
+          loginUser: function (req, res, authCredentials, cb) {
+            expect(authCredentials.username).to.eql(req.body.username);
+            expect(authCredentials.password).to.eql(req.body.password);
+            cb(new Error("I am not the droid you are looking for"), null, 401);
+          }
+        }
+      });
+
+  res = {
+    status : function (status) {
+      expect(status).to.eql(401);
+      return {
+        send : function (body) {
+          // just make sure this function is called
+          expect(body).to.eql(expectedError);
+        }
+      }
+    }
+  };
+
+  controller.login(req, res, null);
+
+  t.end();
+});
+
+test('login should handle other error', function(t) {
+
+  var res = {};
+  var req = {
+    body : {
+      username : "user12345",
+      password : "test1234"
+    },
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+
+  var sessionData = {
+  };
+
+
+  var expectedError = {
+    error: "There was an issue with your request. Please try again in a few minutes"
+  };
+
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          }
+        },
+        '../../../API/authentication-api.js': {
+          loginUser: function (req, res, authCredentials, cb) {
+            expect(authCredentials.username).to.eql(req.body.username);
+            expect(authCredentials.password).to.eql(req.body.password);
+            cb(new Error("I am not the droid you are looking for"), null, 500);
+          }
+        }
+      });
+
+  res = {
+    status : function (status) {
+      expect(status).to.eql(500);
+      return {
+        send : function (body) {
+          // just make sure this function is called
+          expect(body).to.eql(expectedError);
+        }
+      }
+    }
+  };
+
+  controller.login(req, res, null);
 
   t.end();
 });

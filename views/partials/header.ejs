@@ -2,6 +2,8 @@
 
 <!--  Top Nav -->
 <% include ../partials/nav_top %>
+<script type="text/javascript" src="/javascripts/manage/user/header-login.js"></script>
+<link rel="stylesheet" href="/stylesheets/header-login.css" />
 <!--  END Top Nav -->
 
 <!--  HEADER -->
@@ -22,14 +24,52 @@
 				<div class="col-lg-8 col-md-8 col-sm-5 col-xs-5 non-mobile">
 					<div class="spacer60"></div>
 					<div class="row">
-						<div class="col-lg-7 col-md-7 mob-rem register">
+						<div class="col-lg-8 col-md-8 mob-rem register">
 							<div class="header-menu">
+								<% if (typeof userFirstName === 'string' && userFirstName != ""){%>
+									<div class="inline-block"><span class="inline-block header-menu-text">Welcome, <%=userFirstName%>!</span></div>
+								<% } else { %>
+									<div class="inline-block"><a id="loginNonMob" href="#" data-toggle="popover" data-placement="bottom" data-container="body" type="button" data-html="true" ><span class="inline-block"></span><span class="inline-block header-menu-text">Login</span></a></div>
+								<% } %>
 								<div class="inline-block"><a id="gsaNonMob" href="/content/gsa"><span class="inline-block"><img src="/images/gsa-contract-icon.png" alt="" /></span><span class="inline-block header-menu-text">Contract<br>Holder</span></a></div>
 								<div class="inline-block"><a id="g2gNonMob" href="/content/gtog"><span class="inline-block"><img src="/images/gtg-icon.jpg" alt="" /></span><span class="inline-block header-menu-text">Guaranteed<br>To Go</span></a></div>
 								<div class="inline-block"><a id="registerbuttonNonMob" href="/search"><span class="inline-block"><img src="/images/register-icon.png" alt="" /></span><span class="inline-block">Register</span></a></div>
 							</div>
 						</div>
-						<div class="col-lg-5 col-md-5">
+
+						<!-- This is the content of the popover -->
+						<div id="header-login-content" class="hide">
+							<div id="gs-alert-header-error" class="alert alert-danger" role="alert" style="display:none;">
+								<span id="gs-alert-header-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"> </span>
+								<p></p>
+							</div>
+							<div id="header-login-section" class="row">
+									<form id="header-login-form" role="form">
+										<div id="header-form-wrap">
+											<div>
+												<span class="form-group">
+												  <input type="email" id="header-username" name="username" class="form-control" size="50" placeholder="Email">
+												  <div class="spacer10"></div>
+												  <input type="password" id="header-credentials" name="password" class="form-control" placeholder="Password">
+												</span>
+											</div>
+											<div id="forgot-password-wrap">
+												<a href="#">Forgot your password?</a>
+											</div>
+											<div id="header-buttons">
+												<button id="header-login-submit" type="button" class="pull-right">Log In</button>
+											</div>
+										</div>
+									</form>
+							</div>
+
+							<div id="header-create-account-section">
+								<a id="create-account" href="/manage/user/create" >Create a new account</a>
+							</div>
+						</div>
+						<!-- End content of popover -->
+
+						<div class="col-lg-4 col-md-4">
 							<div class="wrapper">
 								<div id="searchIcon">
 									<img alt="" src="/images/search.png">
