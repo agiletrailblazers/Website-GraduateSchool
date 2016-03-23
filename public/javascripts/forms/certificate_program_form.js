@@ -181,6 +181,7 @@ $(document).ready(function() {
     data.captchaResponse = $("#g-recaptcha-response").val();
     if ($("#alertError p").length == 0) {
       $(".loading").show();
+      var formType = data.formType;
       $.post("/mailer-request-certificate-program", data)
         .done(function(data) {
           $(".loading").hide();
@@ -193,6 +194,12 @@ $(document).ready(function() {
             $("#txtCustomerName").text("Valued Customer");
           }
           $("#alertSuccess").slideDown();
+          if (formType === '/forms/certificate-program-application'){
+            ga('send', 'event', 'certificate-program-application-form-completion', 'sign-up', this.href);
+          }
+          else if (formType === '/forms/certificate-completion') {
+            ga('send', 'event', 'certificate-graduation-form-completion', 'sign-up', this.href);
+          }
         })
         .fail(function(xhr, textStatus, errorThrown) {
           $(".loading").hide();
