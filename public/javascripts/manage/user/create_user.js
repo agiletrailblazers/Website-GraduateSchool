@@ -58,6 +58,7 @@ $(document).ready(function () {
                         if (key === "validationErrors"){
                             var validationErrors = errors[key];
                             for (var i=0; i<validationErrors.length; i++) {
+                                if (validationErrors[i].fieldName === "person.emailAddress") continue;
                                 $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + validationErrors[i].errorMessage +  ": " + convertFieldName(validationErrors[i].fieldName) + "</p>");
                             }
                         }
