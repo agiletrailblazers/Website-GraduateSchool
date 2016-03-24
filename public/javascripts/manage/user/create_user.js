@@ -55,7 +55,13 @@ $(document).ready(function () {
                     alertify.error("Error creating user.");
                     var errors = xhr.responseJSON;
                     for (var key in errors) {
-                        if (errors.hasOwnProperty(key)) {
+                        if (key === "validationErrors"){
+                            var validationErrors = errors[key];
+                            for (var i=0; i<validationErrors.length; i++) {
+                                $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + validationErrors[i].errorMessage +  ": " + convertFieldName(validationErrors[i].fieldName) + "</p>");
+                            }
+                        }
+                        else if (errors.hasOwnProperty(key)) {
                             $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] + "</p>");
                         }
                     }
@@ -68,3 +74,40 @@ $(document).ready(function () {
     });
 
 });
+
+function convertFieldName(fieldName) {
+    switch(fieldName){
+        case "username":
+            return "Email";
+        case "password":
+            return "Password";
+        case "lastFourSSN":
+            return "Last 4 digits of SSN";
+        case "timezoneId":
+            return "Timezone";
+        case "person.firstName":
+            return "First Name";
+        case "person.middleName":
+            return "Middle Name";
+        case "person.lastName":
+            return "Last Name";
+        case "person.emailAddress":
+            return "Email";
+        case "person.primaryPhone":
+            return "Daytime Phone Number";
+        case "person.dateOfBirth":
+            return "Date of birth";
+        case "person.primaryAddress.address1":
+            return "Street Address";
+        case "person.primaryAddress.address2":
+            return "Suite, Mail Stop";
+        case "person.primaryAddress.city":
+            return "City";
+        case "person.primaryAddress.state":
+            return "State";
+        case "person.primaryAddress.postalCode":
+            return "Zip";
+        default:
+            return fieldName;
+    }
+}

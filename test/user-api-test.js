@@ -90,7 +90,7 @@ test('createUser failure', function(t) {
           }
         })
         .post('/api/user', userData)
-        .reply(500, {});
+        .reply(500, null);
 
   server;
   user.createUser(userData, function(error, createdUser) {
@@ -99,6 +99,61 @@ test('createUser failure', function(t) {
     expect(error).to.be.an.instanceof(Error);
   }, authToken);
   t.end();
+});
+
+test('createUser failure with Validation Errors', function(t) {
+    //test a 500 internal server error
+    var apiServer = config("properties").apiServer;
+    var userData = {
+        "username" : "foo@bar.com",
+        "dateOfBirth" : "01/01/1960",
+        "lastFourSSN" : "4444",
+        "password" : "test1234",
+        "person" :
+        {
+            "firstName" : "Joe",
+            "middleName" : null,
+            "lastName" : "Smith",
+            "emailAddress" : "foo@bar.com",
+            "primaryPhone" : "555-555-5555",
+            "secondaryPhone" : null,
+            "primaryAddress" :
+            {
+                "address1" : "1313 Mockingbird Lane",
+                "address2" : null,
+                "city" : "Los Angeles",
+                "state" : "CA",
+                "postalCode" : "55555"
+            },
+            "secondaryAddress" : null
+        }
+    };
+
+    var validationErrors = {
+        "validationErrors": [
+            {
+                "fieldName": "person.dateOfBirth",
+                "errorMessage": "Date of Birth is not in yyyyMMdd format"
+            }
+        ]
+    }
+
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    })
+        .post('/api/user', userData)
+        .reply(401, validationErrors);
+
+    server;
+    user.createUser(userData, function(error, inValidationErrors) {
+        server.done();
+        expect(inValidationErrors[0].fieldName).to.eql("person.dateOfBirth");
+        expect(inValidationErrors[0].errorMessage).to.eql("Date of Birth is not in yyyyMMdd format");
+        expect(error).to.be.an.instanceof(Error);
+    }, authToken);
+    t.end();
 });
 
 test('registerUser success', function(t) {
