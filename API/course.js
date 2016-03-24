@@ -195,7 +195,25 @@ module.exports = {
   // API to retrieve a specific course session by its ID
   getSessions: function(callback, authToken, sessionStatus, sessionDomain) {
     // url for the API call
-    var url = config("properties").apiServer + '/api/courses/sessions?status=c&sessiondomain=CD';
+    var queryParameters = "";
+    if (common.isNotEmpty(sessionStatus) || common.isNotEmpty(sessionDomain)) {
+      queryParameters = queryParameters + "?";
+    }
+
+    if (common.isNotEmpty(sessionStatus)) {
+      queryParameters = queryParameters + "status=" + sessionStatus;
+    }
+
+    if (common.isNotEmpty(sessionDomain)) {
+      if (common.isNotEmpty(sessionStatus)) {
+        queryParameters = queryParameters + "&"+ "sessiondomain=" + sessionDomain;
+      } else {
+        queryParameters = queryParameters + "sessiondomain=" + sessionDomain;
+      }
+    }
+
+    var url = config("properties").apiServer + '/api/courses/sessions' + queryParameters;
+    console.log("url is " + url);
     request({
       method: 'GET',
       url: url,
