@@ -101,87 +101,52 @@
     <!-- Guaranteed to Go Classes -->
     <!-- Navigation -->
     <div id="gtog">
+      <% var keys = Object.keys(curriculumSessions); %>
         <ul class="nav nav-tabs">
-          <li class="active tab"><a data-toggle="tab" href="#a">Communication and Professional Skills</a></li>
-          <li class="tab"><a data-toggle="tab" href="#b">Federal Financial Management</a></li>
-          <li class="tab"><a data-toggle="tab" href="#c">Federal Human Resources</a></li>
-          <li class="tab"><a data-toggle="tab" href="#d">Information Technology</a></li>
-          <li class="tab"><a data-toggle="tab" href="#e">Leadership and Management</a></li>
-          <li class="tab"><a data-toggle="tab" href="#f">Program and Management Analysis</a></li>
-          <li class="tab"><a data-toggle="tab" href="#g">Government Auditing</a></li>
+          <% for (var i = 0; i < keys.length; i++) { %>
+            <% var cssClass = "active tab";%>
+            <% if (i === 0) { %>
+              <% cssClass = "tab";%>
+            <% } %>
+            <li class=<%=cssClass%>><a data-toggle="tab" href="#a<%=i%>"><%=keys[i]%></a></li>
+          <% } %>
         </ul>
-    <!-- Content -->
-    <div id="gtog-content" class="tab-content">
-        <div id="a" class="tab-pane fade in active">
-          <div id="gtog-table"> <!-- start non-mobile view -->
-            <table class="table table-striped gtog">
-              <tr>
-                <th>Title</th>
-                <th class="non-mobile">Course Code</th>
-                <th>Start Date</th>
-                <th class="non-mobile">End Date</th>
-                <th>Location</th>
-                <th>Tuition</th>
-                <th>Register</th>
-              </tr>
-              <tr>
-                <td><strong><a href="#">Introduction to Federal Accounting</a></strong></td>
-                <td class="non-mobile">ACCT7001D-0</td>
-                <td>Feb 09, 2016</td>
-                <td class="non-mobile">Feb 1, 2016</td>
-                <td>Washington , DC </td>
-                <td>$6000</td>
-                <td><button class="register" type="button" name="button" onclick="location.href='#'">Register</button></td>
-              </tr>
-              <tr>
-                <td><strong><a href="#">Introduction to Federal Accounting 2</a></strong></td>
-                <td class="non-mobile">ACCT7001D-3</td>
-                <td>Feb 09, 2011</td>
-                <td class="non-mobile">Feb 15, 2016</td>
-                <td>Washington , DC </td>
-                <td>$1123</td>
-                <td><button class="register" type="button" name="button" onclick="location.href='#'">Register</button></td>
-              </tr>
-              <tr>
-                <td><strong><a href="#">Introduction to Federal Accounting 3</a></strong></td>
-                <td class="non-mobile">ACCT7001D-2</td>
-                <td>Feb 09, 2014</td>
-                <td class="non-mobile">Feb 06, 2016</td>
-                <td>Washington , DC </td>
-                <td>$111</td>
-                <td><button class="register" type="button" name="button" onclick="location.href='#'">Register</button></td>
-              </tr>
-              <tr>
-                <td><strong><a href="#">Introduction to Federal Accounting 4</a></strong></td>
-                <td class="non-mobile">ACCT7001D-1</td>
-                <td>Feb 09, 2013</td>
-                <td class="non-mobile">Feb 09, 2015</td>
-                <td>Washington , DC </td>
-                <td>$9999</td>
-                <td><button class="register" type="button" name="button" onclick="location.href='#'">Register</button></td>
-              </tr>
-            </table>
-          </div> <!--END G2G Classes -->
-        </div>
-        <div id="b" class="tab-pane fade">
-          // table 2
-        </div>
-        <div id="c" class="tab-pane fade">
-          // table 3
-        </div>
-        <div id="d" class="tab-pane fade">
-          // table 4
-        </div>
-        <div id="e" class="tab-pane fade">
-          // table 5
-        </div>
-        <div id="f" class="tab-pane fade">
-          // table 6
-        </div>
-        <div id="g" class="tab-pane fade">
-          // table 7
-        </div>
-    </div><!--End of Content -->
+      <!-- Content -->
+      <div id="gtog-content" class="tab-content">
+           <% for (var i = 0; i < keys.length; i++) { %>
+             <% var className = "tab-pane fade";%>
+             <% if (i === 0) { %>
+               <% className = "tab-pane fade in active";%>
+             <% } %>
+             <div id="a<%=i%>" class=<%=className%>>
+              <div id="gtog-table"> <!-- start non-mobile view -->
+                <table class="table table-striped gtog">
+                  <tr>
+                    <th>Title</th>
+                    <th class="non-mobile">Course Code</th>
+                    <th>Start Date</th>
+                    <th class="non-mobile">End Date</th>
+                    <th>Location</th>
+                    <th>Tuition</th>
+                    <th>Register</th>
+                  </tr>
+                  <% var array = curriculumSessions[keys[i]]; %>
+                  <% for (var j = 0; j < array.length; j++) { %>
+                    <tr>
+                      <td><strong><a href="#"><%=array[j].courseTitle%></a></strong></td>
+                      <td class="non-mobile"><%=array[j].courseCode%></td>
+                      <td><%= array[j].startDate%></td>
+                      <td class="non-mobile"><%= array[j].endDate%></td>
+                      <td><%= array[j].location.city%>, <%= array[j].location.state%></td>
+                      <td>$<%=array[j].tuition%></td>
+                      <td><button class="register" type="button" name="button" onclick="location.href='#'">Register</button></td>
+                    </tr>
+                  <% } %>
+                </table>
+              </div> <!--END G2G Classes -->
+             </div>
+          <% } %>
+      </div><!--End of Content -->
     </div><!-- END of Navigation -->
   </div>
 </div>  <!-- End of row Guaranteed to Go Classes -->
