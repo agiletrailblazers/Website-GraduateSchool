@@ -17,7 +17,7 @@ module.exports = {
     displayG2GPage : function(req, res, next) {
       async.parallel({
         getContentPage : function (callback) {
-          // contentful.
+          //contentful.
           callback();
         },
         getSessions : function (callback) {
@@ -26,7 +26,6 @@ module.exports = {
           courseAPI.getSessions(function (error, sessions){
             // Create a map. The curriculum title will be the key.
             var orderedSessions = new Object();
-
             if (common.isEmpty(error)) {
               // If key doesn't exit we add it
               // Once the key is there the value is an array and session is added to it.
@@ -49,7 +48,12 @@ module.exports = {
         var keys = Object.keys(results.getSessions);
         for (var i = 0; i < keys.length; i++) {
           console.log("Key is " + keys[i]);
-          console.log("value is " + JSON.stringify(results.getSessions[keys[i]],null, 2));
+          var arr = results.getSessions[keys[i]];
+          for (var j = 0 ; j < arr.length; j++) {
+            console.log("value is " + JSON.stringify(arr[j].courseTitle,null, 2));
+          }
+
+          // console.log("value is " + JSON.stringify(results.getSessions[keys[i]],null, 2));
         }
         if (err) {
             logger.error("Error rendering shopping cart", err);
