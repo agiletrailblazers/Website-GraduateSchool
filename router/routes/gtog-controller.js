@@ -53,6 +53,20 @@ module.exports = {
             return;
         }
         console.log('i am done');
+        var sections = [];
+        var relatedLinks = [];
+        var imageUrl = null;
+        var intro = null;
+        var subIntro = null;
+        res.render('gtog/gtog', { seoDescription: "seoDescription",
+          seoKeywords: "seoKeywords",
+          title: 'title',
+          imageUrl: imageUrl,
+          intro: intro,
+          subIntro: subIntro,
+          sections: sections,
+          relatedLinks: relatedLinks
+        });
       });
     }
 } // end module.exports
