@@ -65,7 +65,8 @@ module.exports = {
           intro: intro,
           subIntro: subIntro,
           sections: sections,
-          relatedLinks: relatedLinks
+          relatedLinks: relatedLinks,
+          curriculumSessions: results.getSessions
         });
       });
     }
