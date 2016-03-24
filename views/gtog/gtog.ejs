@@ -139,13 +139,13 @@
                       <td class="non-mobile"><%= array[j].endDate%></td>
                       <td><%= array[j].location.city%>, <%= array[j].location.state%></td>
                       <td>$<%=array[j].tuition%></td>
-                      <td><button class="register" type="button" name="button" onclick="location.href='#'">Register</button></td>
+                      <td><button class="register" type="button" name="button" onclick="ga('send', 'event', 'register', 'sign-up', '<%=array[j].registrationUrl%>');location.href='<%=array[j].registrationUrl%>'">Register</button></td>
                     </tr>
                   <% } %>
                 </table>
               </div> <!--END G2G Classes -->
              </div>
-          <% } %>
+           <% } %>
       </div><!--End of Content -->
     </div><!-- END of Navigation -->
   </div>
