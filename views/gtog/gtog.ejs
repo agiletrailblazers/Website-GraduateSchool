@@ -104,11 +104,11 @@
       <% var keys = Object.keys(curriculumSessions); %>
         <ul class="nav nav-tabs">
           <% for (var i = 0; i < keys.length; i++) { %>
-            <% var cssClass = "active tab";%>
+            <% var cssClass = "tab";%>
             <% if (i === 0) { %>
-              <% cssClass = "tab";%>
+              <% cssClass = "active tab";%>
             <% } %>
-            <li class=<%=cssClass%>><a data-toggle="tab" href="#a<%=i%>"><%=keys[i]%></a></li>
+            <li class="<%=cssClass%>"><a data-toggle="tab" href="#a<%=i%>"><%=keys[i]%></a></li>
           <% } %>
         </ul>
       <!-- Content -->
@@ -118,7 +118,7 @@
              <% if (i === 0) { %>
                <% className = "tab-pane fade in active";%>
              <% } %>
-             <div id="a<%=i%>" class=<%=className%>>
+             <div id="a<%=i%>" class="<%=className%>">
               <div id="gtog-table"> <!-- start non-mobile view -->
                 <table class="table table-striped gtog">
                   <tr>
@@ -136,7 +136,7 @@
                       <td><strong><a href="#"><%=array[j].courseTitle%></a></strong></td>
                       <td class="non-mobile"><%=array[j].courseCode%></td>
                       <td><%= array[j].startDate%></td>
-                      <td class="non-mobile"><%= array[j].endDate%></td>
+                      <td class="non-mobile"><span style="display:none;"><%= array[j].endDate%></span><%= array[j].endDate%></td>
                       <td><%= array[j].location.city%>, <%= array[j].location.state%></td>
                       <td>$<%=array[j].tuition%></td>
                       <td><button class="register" type="button" name="button" onclick="ga('send', 'event', 'register', 'sign-up', '<%=array[j].registrationUrl%>');location.href='<%=array[j].registrationUrl%>'">Register</button></td>
@@ -151,7 +151,7 @@
   </div>
 </div>  <!-- End of row Guaranteed to Go Classes -->
 <!-- GTOG ENDS - TO BE REMOVED -->
-
+</div>
 
 <% include ../partials/chat %>
 <% include ../partials/footer %>
