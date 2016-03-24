@@ -8,9 +8,22 @@ var courseAPI = require('../../API/course.js');
 var contentfulAPI = require('../../API/contentful.js');
 var marked = require('marked');
 
+formatDate = function (inFormat) {
+  var arr = inFormat.split('-');
+
+  var outFormat = "";
+  if (arr.length == 3) {
+    outFormat = outFormat + arr[1] + '/';
+    outFormat = outFormat + arr[2] + '/';
+    outFormat = outFormat + arr[0];
+  } else {
+    outFormat = inFormat;
+  }
+  return outFormat;
+}
+
 
 // handlers for generic content papge
-
 module.exports = {
 
     // Displays the Guaranteed to Go Page
@@ -37,6 +50,9 @@ module.exports = {
                 tmpRegistrationUrl = tmpRegistrationUrl.replace("[courseId]", session.courseCode);
                 tmpRegistrationUrl = tmpRegistrationUrl.replace("[sessionId]", session.classNumber);
                 session.registrationUrl = tmpRegistrationUrl;
+                session.startDate = formatDate(session.startDate);
+                session.endDate = formatDate(session.endDate);
+
                 orderedSessions[session.curricumTitle].push(session);
               });
             }
@@ -45,16 +61,15 @@ module.exports = {
           }, req.query["authToken"], sessionStatus, sessionDomain);
         }
       }, function (err, results) {
-        var keys = Object.keys(results.getSessions);
-        for (var i = 0; i < keys.length; i++) {
-          console.log("Key is " + keys[i]);
-          var arr = results.getSessions[keys[i]];
-          for (var j = 0 ; j < arr.length; j++) {
-            console.log("value is " + JSON.stringify(arr[j].courseTitle,null, 2));
-          }
-
-          // console.log("value is " + JSON.stringify(results.getSessions[keys[i]],null, 2));
-        }
+        // var keys = Object.keys(results.getSessions);
+        // for (var i = 0; i < keys.length; i++) {
+        //   console.log("Key is " + keys[i]);
+        //   var arr = results.getSessions[keys[i]];
+        //   for (var j = 0 ; j < arr.length; j++) {
+        //     console.log("value is " + JSON.stringify(arr[j].courseTitle,null, 2));
+        //   }
+        //   // console.log("value is " + JSON.stringify(results.getSessions[keys[i]],null, 2));
+        // }
         if (err) {
             logger.error("Error rendering shopping cart", err);
             common.redirectToError(res);
