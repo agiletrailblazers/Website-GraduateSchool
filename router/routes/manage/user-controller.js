@@ -130,46 +130,46 @@ module.exports = {
   createUser: function(req, res, next) {
 
     async.series({
-      createdUser: function(callback) {
+      createdUserOrValidationErrors: function(callback) {
         // get the form data from the body of the request
         var formData = req.body;
         logger.info("Creating user: " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
 
         var userData = {
-          "username" : formData.email,
-          "password" : formData.password,
-          "lastFourSSN" : formData.lastFourSSN,
+          "username" : ((formData.email === "") ? null : formData.email),
+          "password" : ((formData.password === "") ? null : formData.password),
+          "lastFourSSN" : ((formData.lastFourSSN === "") ? null : formData.lastFourSSN),
           "person" :
            {
-             "firstName" : formData.firstName,
-             "middleName" : formData.middleName,
-             "lastName" : formData.lastName,
-             "emailAddress" : formData.email,
-             "primaryPhone" : formData.phone,
+             "firstName" : ((formData.firstName === "") ? null : formData.firstName),
+             "middleName" : ((formData.middleName === "") ? null : formData.middleName),
+             "lastName" : ((formData.lastName === "") ? null : formData.lastName),
+             "emailAddress" : ((formData.email === "") ? null : formData.email),
+             "primaryPhone" : ((formData.phone === "") ? null : formData.phone),
              "secondaryPhone" : null,
              "primaryAddress" :
                {
-                 "address1" : formData.street,
-                 "address2" : formData.suite,
-                 "city" : formData.city,
-                 "state" : formData.state,
-                 "postalCode" : formData.zip
+                 "address1" : ((formData.street === "") ? null : formData.street),
+                 "address2" : ((formData.suite === "") ? null : formData.suite),
+                 "city" : ((formData.city === "") ? null : formData.city),
+                 "state" : ((formData.state === "") ? null : formData.state),
+                 "postalCode" : ((formData.zip === "") ? null : formData.zip)
                },
              "secondaryAddress" : null,
-             "dateOfBirth" : formData.birthMonth + '/' + formData.birthDay + '/' + formData.birthYear
+             "dateOfBirth" : ((formData.birthYear === "" || formData.birthMonth === "" || formData.birthDay === "") ? null : formData.birthYear + formData.birthMonth + formData.birthDay)
            },
-          "timezoneId" : formData.timezoneId
+          "timezoneId" : ((formData.timezoneId === "") ? null : formData.timezoneId)
         };
 
         // get the list of states required by the form
-        user.createUser(userData, function(error, createdUser) {
+        user.createUser(userData, function(error, createdUserOrValidationErrors) {
           // callback with the error, this will cause async module to stop executing remaining
           // functions and jump immediately to the final function, it is important to return
           // so that the task callback isn't called twice
-          if (error) return callback(error);
+          if (error) return callback(error, createdUserOrValidationErrors);
 
           // user created successfully
-          logger.info("Created user: " + createdUser.id + " - " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
+          logger.info("Created user: " + createdUserOrValidationErrors.id + " - " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
 
           logger.debug("Authenticate the newly created user: " + userData.username);
           var authCredentials = {
@@ -179,21 +179,26 @@ module.exports = {
           authentication.loginUser(req, res, authCredentials, function (error, authUser) {
             if (error) return callback(error);
             // the login user API call will set the authenticated token, we don't need to do anything with the response
-            return callback(null, createdUser);
+            return callback(null, createdUserOrValidationErrors);
           });
         }, req.query["authToken"]);
       }
     }, function(err, content) {
       if (err) {
         logger.error("Failed during user creation", err);
-        res.status(500).send({"error": "We have experienced a problem processing your request, please try again later."});
+        if (content.createdUserOrValidationErrors){
+          res.status(400).send({"error": "We have experienced a problem creating your account. Please correct the information an try again.", "validationErrors" : content.createdUserOrValidationErrors});
+        }
+        else {
+          res.status(500).send({"error": "We have experienced a problem processing your request, please try again later."});
+        }
         return;
       }
 
       // add the created user id to the session data
       var sessionData = session.getSessionData(req);
-      sessionData.userId = content.createdUser.id;
-      sessionData.userFirstName =  content.createdUser.person.firstName;
+      sessionData.userId = content.createdUserOrValidationErrors.id;
+      sessionData.userFirstName =  content.createdUserOrValidationErrors.person.firstName;
       session.setSessionData(res, sessionData);
 
       // send success to client

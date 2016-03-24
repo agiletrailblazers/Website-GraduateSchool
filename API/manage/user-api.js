@@ -15,7 +15,7 @@ module.exports = {
       }
     }, function (error, response, body) {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(new Error("Exception occrured creating user"), null);
+        return callback(new Error("Exception occurred creating user"), body ? (body.validationErrors ? body.validationErrors : null) : null);
       }
       return callback(null, body);
     });

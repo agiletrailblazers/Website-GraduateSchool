@@ -28,7 +28,7 @@
                   <select id="birthMonth" name="birthMonth" class="form-control width-third" tabindex="19">
                     <option value='' default selected>Month</option>
                     <% for (var i = 1; i <= 12; i++) { %>
-                    <option value='<%= i %>'><%= i %> </option>
+                    <option value='<%= ("00" + i).slice(-2) %>'><%= i %> </option>
                     <% } %>
                   </select>
                 </span>
@@ -36,7 +36,7 @@
                   <select id="birthDay" name="birthDay" class="form-control width-third" tabindex="20">
                     <option value='' default selected/>Day</option>
                     <% for (var i = 1; i <= 31; i++) { %>
-                    <option value='<%= i %>'><%= i %> </option>
+                    <option value='<%= ("00" + i).slice(-2) %>'><%= i %> </option>
                     <% } %>
                   </select>
                 </span>

@@ -603,7 +603,7 @@ test('createUser', function(t) {
         expect(userData.person.primaryAddress.state).to.eql(req.body.state);
         expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
         expect(userData.person.secondaryAddress).to.eql(null);
-        expect(userData.person.dateOfBirth).to.eql(req.body.birthMonth + "/" + req.body.birthDay + "/" + req.body.birthYear);
+        expect(userData.person.dateOfBirth).to.eql(req.body.birthYear + req.body.birthMonth + req.body.birthDay);
         expect(userData.timezoneId).to.eql(req.body.timezoneId);
 
         expect(authToken).to.eql(req.query.authToken);
@@ -710,7 +710,7 @@ test('createUser handles create user error', function(t) {
         expect(userData.person.primaryAddress.state).to.eql(req.body.state);
         expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
         expect(userData.person.secondaryAddress).to.eql(null);
-        expect(userData.person.dateOfBirth).to.eql(req.body.birthMonth + "/" + req.body.birthDay + "/" + req.body.birthYear);
+        expect(userData.person.dateOfBirth).to.eql(req.body.birthYear + req.body.birthMonth + req.body.birthDay);
 
         expect(authToken).to.eql(req.query.authToken);
 
@@ -811,7 +811,7 @@ test('createUser handles login user error', function(t) {
         expect(userData.person.primaryAddress.state).to.eql(req.body.state);
         expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
         expect(userData.person.secondaryAddress).to.eql(null);
-        expect(userData.person.dateOfBirth).to.eql(req.body.birthMonth + "/" + req.body.birthDay + "/" + req.body.birthYear);
+        expect(userData.person.dateOfBirth).to.eql(req.body.birthYear + req.body.birthMonth + req.body.birthDay);
 
         expect(authToken).to.eql(req.query.authToken);
 
