@@ -17,6 +17,12 @@
     text-decoration: underline;
 }
 
+.popover-content .btn-link {
+    color: #FFFFFF;
+    font-weight: normal;
+    text-decoration: underline;
+}
+
 .popover-content {
     padding: 20px;
 }

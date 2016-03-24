@@ -64,6 +64,7 @@ test('registrationLoginCreate', function(t) {
       expect(content.sessionId).to.eql(sessionData.cart.sessionId);
       expect(content.timezones[0]).to.eql(expectedTimezones[0]);
       expect(content.timezones[1]).to.eql(expectedTimezones[1]);
+      expect(content.nextpage).to.eql('/manage/cart/payment');
   };
 
   controller.displayRegistrationLoginCreate(req, res, null);
@@ -169,6 +170,198 @@ test('registrationLoginCreate handles error with getting timezones', function(t)
   t.end();
 });
 
+test('displayCreate redirects home by default', function(t) {
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    },
+    body : {}
+  };
+
+  var res = {};
+  var expectedStates = ['Alaska'];
+  var id1 = "1234";
+  var name1 = "EASTERN";
+  var id2 = "5678";
+  var name2 = "CENTRAL";
+  var expectedTimezones = [
+    {
+      "id": id1,
+      "name": name1
+    },
+    {
+      "id": id2,
+      "name": name2
+    }
+  ];
+
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/contentful.js": {
+          getReferenceData: function (slug, callback) {
+            expect(slug).to.eql("us-states");
+            callback(expectedStates, null);
+          }
+        },
+        "../../../API/manage/user-api.js": {
+          getTimezones: function (callback, authtoken) {
+            callback(null, expectedTimezones);
+          }
+        }
+      });
+
+  res.render = function(page, content) {
+    expect(page).to.eql('manage/user/user_create');
+    expect(content.title).to.eql('Create Account');
+    expect(content.states[0]).to.eql(expectedStates[0]);
+    expect(content.timezones[0]).to.eql(expectedTimezones[0]);
+    expect(content.timezones[1]).to.eql(expectedTimezones[1]);
+    expect(content.nextpage).to.eql('/');
+  };
+
+  controller.displayCreateUser(req, res, null);
+
+  t.end();
+
+});
+
+test('displayCreate redirects to last page', function(t) {
+  var expectedNextPage = "testpage"
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    },
+    body : {
+      nextpage_after_create : expectedNextPage
+    }
+  };
+  var res = {};
+  var expectedStates = ['Alaska'];
+  var id1 = "1234";
+  var name1 = "EASTERN";
+  var id2 = "5678";
+  var name2 = "CENTRAL";
+  var expectedTimezones = [
+    {
+      "id": id1,
+      "name": name1
+    },
+    {
+      "id": id2,
+      "name": name2
+    }
+  ];
+  var sessionData = {
+    cart : {
+      sessionId : "12345"
+    }
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/contentful.js": {
+          getReferenceData: function (slug, callback) {
+            expect(slug).to.eql("us-states");
+            callback(expectedStates, null);
+          }
+        },
+        "../../../API/manage/user-api.js": {
+          getTimezones: function (callback, authtoken) {
+            callback(null, expectedTimezones);
+          }
+        }
+      });
+
+  res.render = function(page, content) {
+    expect(page).to.eql('manage/user/user_create');
+    expect(content.title).to.eql('Create Account');
+    expect(content.states[0]).to.eql(expectedStates[0]);
+    expect(content.timezones[0]).to.eql(expectedTimezones[0]);
+    expect(content.timezones[1]).to.eql(expectedTimezones[1]);
+    expect(content.nextpage).to.eql(expectedNextPage);
+  };
+
+  controller.displayCreateUser(req, res, null);
+
+  t.end();
+});
+
+test('displayCreate handles error', function(t) {
+
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    },
+    body : { }
+  };
+  var res = {};
+
+  var expectedError = new Error("Intentional Test Error");
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/contentful.js": {
+          getReferenceData: function (slug, callback) {
+            expect(slug).to.eql("us-states");
+            callback(null, expectedError);
+          }
+        },
+        "../../../helpers/common.js": {
+          redirectToError: function (resIn) {
+            expect(resIn).to.eql(res)
+          }
+        }
+      });
+
+  controller.displayCreateUser(req, res, null);
+
+  t.end();
+});
+
+test('displayCreate handles error with getting timezones', function(t) {
+
+  var req = {
+    query : {
+      authToken : "123456789123456789"
+    },
+    body : { }
+  };
+  var res = {};
+
+  var expectedStates = ['Alaska'];
+
+  var expectedError = new Error("Intentional Test Error");
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/contentful.js": {
+          getReferenceData: function (slug, callback) {
+            expect(slug).to.eql("us-states");
+            callback(expectedStates, null);
+          }
+        },
+        "../../../helpers/common.js": {
+          redirectToError: function (resIn) {
+            expect(resIn).to.eql(res)
+          }
+        },
+        "../../../API/manage/user-api.js": {
+          getTimezones: function (callback, authtoken) {
+            callback(expectedError, null);
+          }
+        }
+      });
+
+  controller.displayCreateUser(req, res, null);
+
+  t.end();
+});
+
 test('registrationLogin', function(t) {
 
   var res = {};
@@ -224,6 +417,7 @@ test('registrationLogin', function(t) {
 
   t.end();
 });
+
 test('registrationLogin should handle login failure', function(t) {
 
   var res = {};

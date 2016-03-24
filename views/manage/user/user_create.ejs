@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Graduate School USA | <%= title %></title>
+    <% include ../../partials/head %>
+    <script type="text/javascript" src="/javascripts/manage/user/create_user.js"></script>
+  </head>
+  <body>
+    <% include ../../partials/header %>
+      <div id="container" class="container">
+        <div id="gs-alert-error" class="alert alert-danger" role="alert" style="display:none;">
+          <span id="gs-alert-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"><p></p></span>
+        </div>
+        <div class="loading" style="display:none;"></div>
+          <!-- alert - success -->
+          <div id="gs-form-alert-success" class="alert alert-success" role="alert" style="display:none;">
+            <p><strong>Thank you for setting up your Graduate School USA account!</strong></p>
+          </div>
+        <div id="outer" class="col-lg-12 col-md-12 col-sm-12 form-fix padding20">
+          <% include ../../manage/user/partials/create %>
+        </div> <!--END outer-->
+      </div> <!--END container-->
+    <!-- Footer -->
+
+    <!-- END Footer  -->
+    <!-- Chat  -->
+    <% include ../../partials/chat %>
+    <!-- END of Chat  -->
+  </body>
+</html>

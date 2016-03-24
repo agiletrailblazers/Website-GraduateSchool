@@ -64,7 +64,12 @@
 							</div>
 
 							<div id="header-create-account-section">
-								<a id="create-account" href="/manage/user/create" >Create a new account</a>
+								<form id="heade-create-account-form" role="form" method="post" action="/manage/user/create">
+									<% if (nextPageAfterCreateUser) { %>
+										<input type=hidden id="nextpage_after_create" name="nextpage_after_create" value="<%= nextPageAfterCreateUser %>"/>
+									<% } %>
+									<button id="create-user-header-link" class="btn btn-link" type="submit">Create a new account</button>
+								</form>
 							</div>
 						</div>
 						<!-- End content of popover -->
