@@ -34,6 +34,10 @@ module.exports = {
                 if (common.isEmpty(orderedSessions[session.curricumTitle])) {
                   orderedSessions[session.curricumTitle] = [];
                 }
+                var tmpRegistrationUrl = config("properties").registrationUrl;
+                tmpRegistrationUrl = tmpRegistrationUrl.replace("[courseId]", session.courseCode);
+                tmpRegistrationUrl = tmpRegistrationUrl.replace("[sessionId]", session.classNumber);
+                session.registrationUrl = tmpRegistrationUrl;
                 orderedSessions[session.curricumTitle].push(session);
               });
             }
