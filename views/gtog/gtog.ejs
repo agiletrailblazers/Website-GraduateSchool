@@ -6,6 +6,7 @@
     <% if (content.seoDescription) { %><meta name="description" content="<%= content.seoDescription %>"><% } %>
     <% if (content.seoKeywords) { %><meta name="keywords" content="<%= content.seoKeywords %>"><% } %>
     <% include ../partials/head %>
+    <script type="text/javascript" src="/javascripts/library/jquery.tablesorter.min.js"></script>
     <script type="text/javascript" src="/javascripts/gtog.js"></script>
     <link rel="stylesheet" href="/stylesheets/gtog.css">
   </head>
@@ -37,7 +38,7 @@
             </section>
           </div>
           <% if (content.relatedLinks && content.relatedLinks.length > 0) { %>
-          <div class="col-lg-3 col-md-3" id="sidebar">
+          <div class="col-lg-3 col-md-3 non-mobile" id="sidebar">
             <div class="spacer mobile"></div>
             <div class="panel-group">
               <div class="panel panel-default related-links">
@@ -76,7 +77,7 @@
             <% if (i === 0) { %>
               <% cssClass = "active tab";%>
             <% } %>
-            <li class="<%=cssClass%>"><a data-toggle="tab" href="#a<%=i%>"><%=keys[i]%></a></li>
+            <li class="<%=cssClass%>"><a data-toggle="tab" href="#tab<%=i%>"><%=keys[i]%></a></li>
           <% } %>
         </ul>
       <!-- Content -->
@@ -86,25 +87,27 @@
              <% if (i === 0) { %>
                <% className = "tab-pane fade in active";%>
              <% } %>
-             <div id="a<%=i%>" class="<%=className%>">
+             <div id="tab<%=i%>" class="<%=className%>">
               <div id="gtog-table"> <!-- start non-mobile view -->
-                <table class="table table-striped gtog">
-                  <tr>
-                    <th>Title</th>
-                    <th class="non-mobile">Course Code</th>
-                    <th>Start Date</th>
-                    <th class="non-mobile">End Date</th>
-                    <th>Location</th>
-                    <th>Tuition</th>
-                    <th>Register</th>
-                  </tr>
+                <table  id="gtog<%=i%>" class="table table-striped gtog tablesorter">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th class="non-mobile">Course Code</th>
+                      <th>Start Date</th>
+                      <th class="non-mobile">End Date</th>
+                      <th>Location</th>
+                      <th>Tuition</th>
+                      <th>Register</th>
+                    </tr>
+                  </thead>
                   <% var array = curriculumSessions[keys[i]]; %>
                   <% for (var j = 0; j < array.length; j++) { %>
                     <tr>
                       <td><strong><a href="#"><%=array[j].courseTitle%></a></strong></td>
                       <td class="non-mobile"><%=array[j].courseCode%></td>
                       <td><%= array[j].startDate%></td>
-                      <td class="non-mobile"><span style="display:none;"><%= array[j].endDate%></span><%= array[j].endDate%></td>
+                      <td class="non-mobile"><%= array[j].endDate%></td>
                       <td>
                         <% if (array[j].location && array[j].location.city) {%>
                           <%= array[j].location.city%>
@@ -160,6 +163,16 @@
   </div>
 </div>
 <!-- END - Modal dialog -->
+
+<script type="text/javascript">
+
+  $(document).ready(function()
+    {
+      // $("#gtog0, #gtog1, #gtog2, #gtog3, #gtog4, #gtog5, #gtog6").tablesorter();
+    }
+  );
+
+</script>
 
 <% include ../partials/chat %>
 <% include ../partials/footer %>
