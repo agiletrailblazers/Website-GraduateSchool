@@ -63,7 +63,30 @@
     <!-- Guaranteed to Go Classes -->
     <!-- Navigation -->
     <div id="gtog">
-      <% var keys = Object.keys(curriculumSessions).sort(); %>
+
+      <!-- The requirement is to sort based on the following orderedSessions
+      Communication and Professional Skills
+      Federal Financial Management
+      Federal Human Resources
+      Government Auditing
+      Leadership and Management
+      Program and Management Analysis
+      Information Technology
+
+      Which everything alphabetical sor except for the last one. The order should be in databse.
+      will be fixed in next sprint
+      -->
+      <% var keys = Object.keys(curriculumSessions).sort(function (a,b){
+          if (a === 'Information Technology') {
+            return 1;
+          }
+          if (b === 'Information Technology') {
+            return -1;
+          }
+
+          return a.localeCompare(b);
+
+      }); %>
         <ul class="nav nav-tabs">
           <% for (var i = 0; i < keys.length; i++) { %>
             <% var cssClass = "tab";%>

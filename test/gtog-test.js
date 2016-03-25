@@ -44,7 +44,7 @@ test('test for getting G2G content', function(t) {
   t.end();
 });
 
-test('test for getting G2G curriculum', function(t) {
+test('test for getting G2G curriculum Daytime', function(t) {
   var authToken = "token123456789";
   var contentfulServer = nock(config("properties").apiServer, {
     reqheaders: {
@@ -89,5 +89,102 @@ test('test for getting G2G curriculum', function(t) {
   courseAPI.getSessions(function(error, response){
     expect(response[0].courseTitle).to.equal("Making Sense of CC Errors 101");
   }, authToken, 'c', 'CD');
+  t.end();
+});
+
+
+test('test for getting G2G curriculum', function(t) {
+  var authToken = "token123456789";
+  var contentfulServer = nock(config("properties").apiServer, {
+    reqheaders: {
+      'Authorization': authToken
+    }
+  }).get('/api/courses/sessions?status=c')
+    .reply(200, [
+      {
+        "classNumber": "00086407",
+        "segment": null,
+        "startDate": "2017-05-01",
+        "endDate": "2017-05-02",
+        "startTime": "08:30",
+        "endTime": "16:00",
+        "days": "Mon-Tue",
+        "scheduleMaximum": 2400,
+        "scheduleAvailable": 70,
+        "scheduleMinimum": 8,
+        "status": "C",
+        "notes": null,
+        "tuition": 1000,
+        "location": {
+          "id": "01",
+          "name": "National Arboretum",
+          "telephone": "2022454521",
+          "address1": "Stadium Amory Metro Stop",
+          "address2": "24th & R Streets NE",
+          "city": "Washington",
+          "state": "DC",
+          "postalCode": "20002"
+        },
+        "instructor": null,
+        "offeringSessionId": "class000000000091170",
+        "courseId": "cours000000000001652",
+        "courseCode": "PROJ8295D",
+        "courseTitle": "Making Sense of CC Errors 101",
+        "curricumTitle": "Program and Management Analysis"
+      }
+    ]
+  );
+
+  courseAPI.getSessions(function(error, response){
+    expect(response[0].courseTitle).to.equal("Making Sense of CC Errors 101");
+  }, authToken, 'c');
+  t.end();
+});
+
+test('test for getting sessions', function(t) {
+  var authToken = "token123456789";
+  var contentfulServer = nock(config("properties").apiServer, {
+    reqheaders: {
+      'Authorization': authToken
+    }
+  }).get('/api/courses/sessions')
+    .reply(200, [
+      {
+        "classNumber": "00086407",
+        "segment": null,
+        "startDate": "2017-05-01",
+        "endDate": "2017-05-02",
+        "startTime": "08:30",
+        "endTime": "16:00",
+        "days": "Mon-Tue",
+        "scheduleMaximum": 2400,
+        "scheduleAvailable": 70,
+        "scheduleMinimum": 8,
+        "status": "C",
+        "notes": null,
+        "tuition": 1000,
+        "location": {
+          "id": "01",
+          "name": "National Arboretum",
+          "telephone": "2022454521",
+          "address1": "Stadium Amory Metro Stop",
+          "address2": "24th & R Streets NE",
+          "city": "Washington",
+          "state": "DC",
+          "postalCode": "20002"
+        },
+        "instructor": null,
+        "offeringSessionId": "class000000000091170",
+        "courseId": "cours000000000001652",
+        "courseCode": "PROJ8295D",
+        "courseTitle": "Making Sense of CC Errors 101",
+        "curricumTitle": "Program and Management Analysis"
+      }
+    ]
+  );
+
+  courseAPI.getSessions(function(error, response){
+    expect(response[0].courseTitle).to.equal("Making Sense of CC Errors 101");
+  }, authToken);
   t.end();
 });

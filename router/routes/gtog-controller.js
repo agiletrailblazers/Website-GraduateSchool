@@ -48,10 +48,15 @@ module.exports = {
         },
         getSessions : function (callback) {
           var sessionStatus = 'c';
-          var sessionDomain = 'CD';
+          // var sessionDomain = 'CD';
+          var sessionDomain = null;
           courseAPI.getSessions(function (error, sessions){
 
             var formatDate = function (inFormat) {
+              if (common.isEmpty(inFormat)) {
+                return inFormat;
+              }
+
               var arr = inFormat.split('-');
 
               var outFormat = "";
@@ -71,17 +76,19 @@ module.exports = {
               // If key doesn't exit we add it
               // Once the key is there the value is an array and session is added to it.
               sessions.forEach (function(session, i) {
-                if (common.isEmpty(orderedSessions[session.curricumTitle])) {
-                  orderedSessions[session.curricumTitle] = [];
-                }
-                var tmpRegistrationUrl = config("properties").registrationUrl;
-                tmpRegistrationUrl = tmpRegistrationUrl.replace("[courseId]", session.courseCode);
-                tmpRegistrationUrl = tmpRegistrationUrl.replace("[sessionId]", session.classNumber);
-                session.registrationUrl = tmpRegistrationUrl;
-                session.startDate = formatDate(session.startDate);
-                session.endDate = formatDate(session.endDate);
+                if (session.curricumTitle) {
+                  if (common.isEmpty(orderedSessions[session.curricumTitle])) {
+                    orderedSessions[session.curricumTitle] = [];
+                  }
+                  var tmpRegistrationUrl = config("properties").registrationUrl;
+                  tmpRegistrationUrl = tmpRegistrationUrl.replace("[courseId]", session.courseCode);
+                  tmpRegistrationUrl = tmpRegistrationUrl.replace("[sessionId]", session.classNumber);
+                  session.registrationUrl = tmpRegistrationUrl;
+                  session.startDate = formatDate(session.startDate);
+                  session.endDate = formatDate(session.endDate);
 
-                orderedSessions[session.curricumTitle].push(session);
+                  orderedSessions[session.curricumTitle].push(session);
+                }
               });
             }
 
