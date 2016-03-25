@@ -157,6 +157,10 @@
 #gtog .nav-tabs > li {
     border: 1px solid transparent;
 }
+
+.nav-tabs > li.active > a {
+  background-color: transparent !important;
+}
 /* Table styles */
 
 table.gtog, table.gtog th, table.gtog tr, table.gtog td {
