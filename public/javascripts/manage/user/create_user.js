@@ -1,4 +1,4 @@
-var _runValidation = function (formData) {
+var clearErrorAlert = function (formData) {
     $("#gs-alert-error").slideUp();
     $("#gs-alert-error p").remove();
 
@@ -38,7 +38,7 @@ $(document).ready(function () {
             phone: $("#phone").val()
         };
 
-        _runValidation(formData);
+        clearErrorAlert(formData);
 
         if ($("#password").val() !== $("#confirmPassword").val()){
             $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Passwords must be the same</p>");
