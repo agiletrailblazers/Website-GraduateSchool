@@ -45,7 +45,6 @@ module.exports = {
           }
         }, req.query["authToken"])
       },
-
       loginError: function(callback) {
         var loginError = sessionData.loginError;
         if (loginError) {
@@ -69,7 +68,7 @@ module.exports = {
       }
 
       res.render('manage/user/registration_login_create', {
-        title: 'Login',
+        title: 'Course Registration',
         states: content.states,
         sessionId: content.sessionId,
         loginError: content.loginError,
@@ -135,6 +134,11 @@ module.exports = {
         var formData = req.body;
         logger.info("Creating user: " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
 
+        var dateOfBirth = ((formData.dateOfBirth == "" ) ? null : new Date(formData.dateOfBirth));
+        var dateOfBirthString = "";
+        if (dateOfBirth) {
+          dateOfBirthString = "" + dateOfBirth.getFullYear() + dateOfBirth.getDate() + dateOfBirth.getMonth(); //TODO pad month and day to be 2 characters
+        }
         var userData = {
           "username" : ((formData.email === "") ? null : formData.email),
           "password" : ((formData.password === "") ? null : formData.password),
@@ -156,12 +160,10 @@ module.exports = {
                  "postalCode" : ((formData.zip === "") ? null : formData.zip)
                },
              "secondaryAddress" : null,
-             "dateOfBirth" : ((formData.birthYear === "" || formData.birthMonth === "" || formData.birthDay === "") ? null : formData.birthYear + formData.birthMonth + formData.birthDay)
+             "dateOfBirth" : (dateOfBirthString == "" ? null : dateOfBirthString)
            },
           "timezoneId" : ((formData.timezoneId === "") ? null : formData.timezoneId)
         };
-
-        // get the list of states required by the form
         user.createUser(userData, function(error, createdUserOrValidationErrors) {
           // callback with the error, this will cause async module to stop executing remaining
           // functions and jump immediately to the final function, it is important to return

@@ -5,6 +5,8 @@
     <% include ../../partials/head %>
     <script type="text/javascript" src="/javascripts/manage/user/registration_login_create.js"></script>
     <script type="text/javascript" src="/javascripts/manage/user/create_user.js"></script>
+    <link rel="stylesheet" href="/stylesheets/library/jquery-ui.css">
+    <script src="/javascripts/library/jquery-ui.min.js"></script>
   </head>
   <body>
     <% include ../../partials/header %>
@@ -27,15 +29,20 @@
           <div id="toggle-already-have-account-section" class="row" style="display:none;">
             <div class="col-lg-4 col-md-4 col-sm-4"></div>
             <div class="col-lg-4 col-md-4 col-sm-4 center">
-              <a id="toggle-already-have-account" href="#outer" tabindex="11">Already have an account?</a>
+              <a id="toggle-already-have-account" href="#outer" tabindex="11">Already have an account?</a> <!--todo make this the x button on create -->
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4"></div>
           </div>
 
           <!-- Login Form Secion -->
+
           <div id="login-section" class="row">
             <div class="col-lg-4 col-md-4 col-sm-4"></div>
             <div id="login" class="col-lg-4 col-md-4 col-sm-4">
+              <div class="col-lg-12 center">
+                <h3 class="center">Already have an account?</h3>
+              </div>
+              <div class="col-lg-12"></div>
               <form id="login-form" role="form" method="post" action="/manage/user/registration_login">
                 <div id="form-wrap">
                   <div>
@@ -48,10 +55,14 @@
                       <div class="spacer10"></div>
                       <label for="credentials">Password</label>
                       <input type="password" id="credentials" name="password" class="form-control" tabindex="13">
+                      <div id="forgot-password" class="pull-right">
+                        <a href="#">Forgot your password?</a>
+                      </div>
                     </span>
                   </div>
-                  <div class="spacer10"></div>
-                  <div id="buttons" class="center">
+                  <div class="spacer25"></div>
+                  <div class="col-lg-4 col-md-4 col-sm-4"></div>
+                  <div class="col-lg-12 center">
                     <button id="login-submit" type="submit" tabindex="14">Log In</button>
                   </div>
                 </div> <!-- END form-wrap -->
@@ -63,11 +74,13 @@
           <div class="spacer25"></div>
 
           <div id="toggle-create-account-section" class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4"></div>
-            <div class="col-lg-4 col-md-4 col-sm-4 center">
-              <a id="toggle-create-account" href="#outer" tabindex="15">Need an account?</a>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4"></div>
+            <div class="col-lg-12 col-md-4 col-sm-4 center">
+              <div class="col-lg-12 col-md-4 col-sm-4">Don't have an account?</div>
+              <div class="spacer10"></div>
+              <span><a id="toggle-create-account-image" href="#outer">Image Goes Here</a></span>
+              <div class="spacer25"></div>
+              <span><a id="toggle-create-account" href="#outer">Click here to continue</a></span>
+              </div>
           </div>
           <% include ../../manage/user/partials/create %>
         </div> <!--END outer-->
