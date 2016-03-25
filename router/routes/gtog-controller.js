@@ -8,21 +8,6 @@ var courseAPI = require('../../API/course.js');
 var contentfulAPI = require('../../API/contentful.js');
 var marked = require('marked');
 
-formatDate = function (inFormat) {
-  var arr = inFormat.split('-');
-
-  var outFormat = "";
-  if (arr.length == 3) {
-    outFormat = outFormat + arr[1] + '/';
-    outFormat = outFormat + arr[2] + '/';
-    outFormat = outFormat + arr[0];
-  } else {
-    outFormat = inFormat;
-  }
-  return outFormat;
-}
-
-
 // handlers for generic content papge
 module.exports = {
 
@@ -41,6 +26,10 @@ module.exports = {
                 }
               }
             }
+            var section = null;
+            if (body.fields.section) {
+              section = body.fields.section;
+            }
             var content = {
               title: body.fields.title,
               subtitle: body.fields.subtitle,
@@ -48,6 +37,7 @@ module.exports = {
               relatedLinks: body.fields.relatedLinks,
               seoDescription: body.fields.seoDescription,
               seoKeywords: body.fields.seoKeywords,
+              section: section
             }
             callback(null, content);
           });
@@ -57,6 +47,21 @@ module.exports = {
           var sessionStatus = 'c';
           var sessionDomain = 'CD';
           courseAPI.getSessions(function (error, sessions){
+
+            var formatDate = function (inFormat) {
+              var arr = inFormat.split('-');
+
+              var outFormat = "";
+              if (arr.length == 3) {
+                outFormat = outFormat + arr[1] + '/';
+                outFormat = outFormat + arr[2] + '/';
+                outFormat = outFormat + arr[0];
+              } else {
+                outFormat = inFormat;
+              }
+              return outFormat;
+            }
+
             // Create a map. The curriculum title will be the key.
             var orderedSessions = new Object();
             if (common.isEmpty(error)) {
@@ -98,13 +103,13 @@ module.exports = {
         console.log('i am done');
         var sections = [];
 
-
         res.render('gtog/gtog', { seoDescription: "seoDescription",
           seoKeywords: "seoKeywords",
           title: results.getGtoGPage.title,
           sections: sections,
           content: results.getGtoGPage,
-          curriculumSessions: results.getSessions
+          curriculumSessions: results.getSessions,
+          markdown: marked
         });
       });
     }

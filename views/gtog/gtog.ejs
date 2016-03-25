@@ -27,45 +27,18 @@
                 <%- content.subtitle  %>
               <%  } %>
             </h2>
-            <% for (var i = 0; i < sections.length; i++) { %>
-              <% if (sections[i] && (sections[i].title || sections[i].content || sections[i].snippet)) { %>
+
+
 
                 <section>
-                  <% if (sections[i].collapse && sections[i].title){ %>
-                    <a href="#<%= i %>" class="expand-section accordion-toggle" data-toggle="collapse">
-                      <span id="Section<%= i+1 %>" class="glyphicon glyphicon-plus-sign"></span><%= sections[i].title %></a>
-                          <article id="<%= i %>" class="collapse nested">
-                            <% if (sections[i].snippet) { %>
-                              <%- markdown(sections[i].snippet || '') %>
-                            <%  } %>
-                            <% if (sections[i].content) { %>
-                              <%- markdown(sections[i].content || '') %>
-                            <%  } %>
-                          </article>
-                     <% } else if (sections[i].title) { %>
-                       <h2><%= sections[i].title %></h2><span id="Section<%= i+1 %>"></span>
                        <article id="<%= i %>" class="genericArticle">
-                         <% if (sections[i].snippet) { %>
-                           <%- markdown(sections[i].snippet || '') %>
-                         <%  } %>
-                         <% if (sections[i].content) { %>
-                           <%- markdown(sections[i].content || '') %>
+                         <% if (content.section) { %>
+                           <%- markdown(content.section || '') %>
                          <%  } %>
                        </article>
-                  <%   } else { %>
-                       <span id="Section<%= i+1 %>"></span>
-                       <article id="<%= i %>" class="genericArticle">
-                         <% if (sections[i].snippet) { %>
-                           <%- markdown(sections[i].snippet || '') %>
-                         <%  } %>
-                         <% if (sections[i].content) { %>
-                           <%- markdown(sections[i].content || '') %>
-                         <%  } %>
-                       </article>
-                  <%  } %>
                 </section>
-              <%  } %>
-              <% } %>
+
+
           </div>
           <% if (content.relatedLinks && content.relatedLinks.length > 0) { %>
           <div class="col-lg-3 col-md-3" id="sidebar">
