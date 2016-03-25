@@ -213,7 +213,6 @@ module.exports = {
     }
 
     var url = config("properties").apiServer + '/api/courses/sessions' + queryParameters;
-    console.log("url is " + url);
     request({
       method: 'GET',
       url: url,
