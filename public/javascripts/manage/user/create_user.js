@@ -40,37 +40,47 @@ $(document).ready(function () {
 
         _runValidation(formData);
 
-        var nextPage = $("#nextPage").val();
-        if (!$("#gs-alert-error p").length) {
-            $(".loading").show();
-            $.post("/manage/user/create_user", formData)
-                .done(function () {
-                    $(".loading").hide();
-                    // redirect to payment
-                    window.location.href=nextPage;
-                })
-                .fail(function (xhr, textStatus, errorThrown) {
-                    $(".loading").hide();
+        if ($("#password").val() !== $("#confirmPassword").val()){
+            $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Passwords must be the same</p>");
+            $("#gs-alert-error").slideDown();
+            $("html, body").animate({
+                scrollTop: 0
+            }, "slow");
+        }
 
-                    alertify.error("Error creating user.");
-                    var errors = xhr.responseJSON;
-                    for (var key in errors) {
-                        if (key === "validationErrors"){
-                            var validationErrors = errors[key];
-                            for (var i=0; i<validationErrors.length; i++) {
-                                if (validationErrors[i].fieldName === "person.emailAddress") continue;
-                                $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + validationErrors[i].errorMessage +  ": " + convertFieldName(validationErrors[i].fieldName) + "</p>");
+        else {
+            var nextPage = $("#nextPage").val();
+            if (!$("#gs-alert-error p").length) {
+                $(".loading").show();
+                $.post("/manage/user/create_user", formData)
+                    .done(function () {
+                        $(".loading").hide();
+                        // redirect to payment
+                        window.location.href = nextPage;
+                    })
+                    .fail(function (xhr, textStatus, errorThrown) {
+                        $(".loading").hide();
+
+                        alertify.error("Error creating user.");
+                        var errors = xhr.responseJSON;
+                        for (var key in errors) {
+                            if (key === "validationErrors") {
+                                var validationErrors = errors[key];
+                                for (var i = 0; i < validationErrors.length; i++) {
+                                    if (validationErrors[i].fieldName === "person.emailAddress") continue;
+                                    $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + validationErrors[i].errorMessage + ": " + convertFieldName(validationErrors[i].fieldName) + "</p>");
+                                }
+                            }
+                            else if (errors.hasOwnProperty(key)) {
+                                $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] + "</p>");
                             }
                         }
-                        else if (errors.hasOwnProperty(key)) {
-                            $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errors[key] + "</p>");
-                        }
-                    }
-                    $("#gs-alert-error").slideDown();
-                    $("html, body").animate({
-                        scrollTop: 0
-                    }, "slow");
-                });
+                        $("#gs-alert-error").slideDown();
+                        $("html, body").animate({
+                            scrollTop: 0
+                        }, "slow");
+                    });
+            }
         }
     });
 
