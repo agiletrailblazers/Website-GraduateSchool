@@ -28,17 +28,13 @@
               <%  } %>
             </h2>
 
-
-
-                <section>
-                       <article id="<%= i %>" class="genericArticle">
-                         <% if (content.section) { %>
-                           <%- markdown(content.section || '') %>
-                         <%  } %>
-                       </article>
-                </section>
-
-
+            <section>
+                   <article id="<%= i %>" class="genericArticle">
+                     <% if (content.section) { %>
+                       <%- markdown(content.section || '') %>
+                     <%  } %>
+                   </article>
+            </section>
           </div>
           <% if (content.relatedLinks && content.relatedLinks.length > 0) { %>
           <div class="col-lg-3 col-md-3" id="sidebar">
@@ -116,13 +112,13 @@
                             , <%= array[j].location.state%>
                           <% } %>
                           <% if((typeof(array[j].location["address1"])!='undefined') && typeof(array[j].location["address2"])!='undefined') {%>
-                            <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address1"] +', '+ array[j].location["address2"] +', '%> <%= array[j].location["city"]  +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
+                            <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-courseTitle='ifti' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address1"] +', '+ array[j].location["address2"] +', '%> <%= array[j].location["city"]  +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
                           <% } else if(typeof(array[j].location["address1"])!='undefined') {%>
-                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address1"] +', '%> <%= array[j].location["city"] +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
+                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-courseTitle='ifti' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address1"] +', '%> <%= array[j].location["city"] +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
                           <% } else if(typeof(array[j].location["address2"])!= 'undefined') {%>
-                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address2"] +', '%> <%= array[j].location["city"] +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
+                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-courseTitle='ifti' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address2"] +', '%> <%= array[j].location["city"] +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
                           <% } else {%>
-                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address2"] +', '%> <%= array[j].location["city"] +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
+                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-courseTitle='ifti' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address2"] +', '%> <%= array[j].location["city"] +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
                           <% } %>
                         <%}%>
                       </td>
