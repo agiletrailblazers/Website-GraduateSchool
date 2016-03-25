@@ -77,8 +77,14 @@ loginUser = function(req, res, authCredentials, callback) {
     });
 };
 
+logoutUser = function(req, res) {
+    //Replace existing token cookie with one which expires immediately
+    res.cookie(config("properties").authenticate.tokenName, null, { expires : new Date() });
+}
+
 module.exports = {
     getAuthToken: getAuthToken,
     getGuestToken: getGuestToken,
-    loginUser: loginUser
+    loginUser: loginUser,
+    logoutUser: logoutUser
 };

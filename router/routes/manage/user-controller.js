@@ -279,6 +279,18 @@ module.exports = {
 
       res.redirect("/manage/cart/payment");
     });
+  },
+
+  logout: function (req, res, next) {
+    var sessionData = session.getSessionData(req);
+    logger.info("Logging out user " + sessionData.userId);
+
+    authentication.logoutUser(req, res);
+    sessionData = {};
+    session.setSessionData(res, sessionData);
+    req.query["authToken"] = null;
+
+    res.redirect("/")
   }
 
 } // end module.exports

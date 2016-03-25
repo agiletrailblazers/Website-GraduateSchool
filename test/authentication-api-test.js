@@ -2,6 +2,7 @@ var authenticate = require('../API/authentication-api.js');
 var request = require('request');
 var nock = require('nock');
 var chai = require('chai');
+var should = chai.should();
 var expect = chai.expect;
 var config = require('konphyg')(__dirname + "/../config");
 var test = require('tap').test;
@@ -262,5 +263,23 @@ test('login user failure', function(t) {
     expect(error).to.be.an.instanceof(Error);
   });
 
+  t.end();
+});
+
+test('logout user successful', function(t) {
+  var authToken = "tokenOld123";
+  var req = {
+    cookies: {
+      gstoken: authToken
+    }
+  };
+  var res = {
+    cookie: function(name, value, props) {
+      should.exist(props["expires"]); // Cannot expect exact time since it is set as new Date() in API
+      expect(name).to.eql(tokenName);
+      expect(value).to.eql(null);
+    }
+  };
+  authenticate.logoutUser(req, res);
   t.end();
 });
