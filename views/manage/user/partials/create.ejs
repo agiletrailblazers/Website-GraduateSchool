@@ -1,4 +1,5 @@
 <div id="create-account-section" class="row">
+  <h2 class="login-title">Personal Details</h2>
   <div id="gs-form">
     <div id="create-user">
       <form id="create-user-form" role="form">
@@ -47,7 +48,7 @@
                 <input type="password" id="lastFourSSN" class="form-control" size="4" maxlength="4" tabindex="22" data-toggle="tooltip" title="Please enter the last four digits of your social security number">
               </span>
             </div>
-
+            <hr class="form-divider">
             <div class="form-inline">
               <span class="form-group">
                 <label for="street" class="pull-left">*Street Address</label>
@@ -86,20 +87,25 @@
               </span>
             </div>
             <div class="form-inline">
-              <span class="form-group">
-                <label for="timezone" class="pull-left">*Timezone</label>
-                  <select id="timezone" class="form-control full-width" tabindex="27">
-                    <option value="">Select One</option>
-                    <% for (i = 0; i < timezones.length; i++) { %>
-                    <option value="<%= timezones[i].id %>"><%= timezones[i].name %></option>
-                    <% } %>
-                  </select>
-              </span>
-            </div>
+                <span class="form-group">
+                  <label for="timezone" class="pull-left">*Timezone</label>
+                    <select id="timezone" class="form-control full-width" tabindex="27">
+                      <option value="">Select One</option>
+                      <% for (i = 0; i < timezones.length; i++) { %>
+                      <option value="<%= timezones[i].id %>"><%= timezones[i].name %></option>
+                      <% } %>
+                    </select>
+                </span>
+                <span class="form-group">
+                  <div class="form-control" id="field-fixer"></div>
+                </span>
+              </div>
           </div>
-          <div class="spacer10"></div>
-          <div id="buttons">
-            <button id="create-user-form-submit" type="submit" tabindex="33" onclick="window.location.href='#gs-form'">Submit</button>
+          <div class="spacer10 non-mobile"></div>
+          <div id="button-fixer" >
+            <div id="buttons" class="pull-right">
+              <button id="create-user-form-submit" type="submit" tabindex="33" onclick="window.location.href='#gs-form'">Submit</button>
+            </div>
           </div>
         </div> <!-- END form-wrap -->
       </form> <!-- END create-user-form -->

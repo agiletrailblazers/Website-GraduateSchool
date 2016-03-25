@@ -130,3 +130,103 @@ td.cart-mobile {
   padding: 7px 15px;
   font-size: 16px !important;
 }
+
+a#toggle-already-have-account:hover img, a#toggle-create-account-image:hover img {
+  opacity: 0.7;
+}
+
+#login-links {
+  display: block;
+}
+
+#toggle-already-have-account, #toggle-create-account-image {
+  display: inline-block;
+  padding: 10px 0 30px 0;
+}
+
+
+h2.login-title {
+  font-size: 25px !important;
+  font-weight: 400;
+  text-align: center;
+  padding: 20px;
+  color: #444444;
+  margin-top: 0;
+}
+
+#login-form .form-inline .form-group {
+  margin: 0 !important;
+}
+
+#forgot-password {
+  width: 280px !important;
+  text-align: right;
+  margin-top: -10px;
+}
+
+#forgot-password a {
+  font-size: 14px;
+  color: #878787;
+  text-decoration: underline;
+  font-weight: 400;
+
+}
+
+#forgot-password a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+hr.form-divider {
+  width: 100%;
+  max-width: 700px;
+  position: relative;
+  left: -20px;
+  background-color: #D7E1EA;
+  height: 2px;
+  border-top: none;
+  margin: 20px auto;
+}
+
+hr.login-divider {
+  width: 100%;
+  max-width: 600px;
+  background-color: #D7E1EA;
+  height: 2px;
+  border-top: none;
+}
+
+#login-submit {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+a#toggle-create-account {
+  color: #444444;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+a#toggle-create-account:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+#create-user {
+  left: 20px !important;
+  position: relative;
+}
+
+
+#field-fixer {
+  width: 290px !important;
+}
+
+
+#button-fixer {
+  width: 600px;
+  margin: 0 auto;
+  left: -20px;
+  position: relative;
+}
