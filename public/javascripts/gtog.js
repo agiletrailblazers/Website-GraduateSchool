@@ -38,8 +38,9 @@ $(document).ready(function() {
   $('.glyphicon-map-marker').click(function(e) {
     e.preventDefault();
     var cityState = $(this).data('city');
-    console.log('city is ' + cityState);
     $("#modalSessionLocationSpan").text(cityState);
+    var courseTitle = $(this).data('courseTitle');
+    console.log('courseTitle is ' + courseTitle);
     mapApp.start();
     var address = $(this).data('address');
     console.log('address is ' + address);
