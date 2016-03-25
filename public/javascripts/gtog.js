@@ -17,7 +17,6 @@ mapApp = {
           map: map,
           position: results[0].geometry.location
         });
-        console.log('good');
       } else {
         $("#mapModalLabel").append('<div id="mapAlert" class="alert alert-danger" style="display:none;"> Sorry, unable to find address. Error: ' + status + '</div>').slideDown();
       }
@@ -39,18 +38,16 @@ $(document).ready(function() {
     e.preventDefault();
     var cityState = $(this).data('city');
     $("#modalSessionLocationSpan").text(cityState);
-    var courseTitle = $(this).data('courseTitle');
-    console.log('courseTitle is ' + courseTitle);
+    var courseTitle = $(this).data('course');
+    $("#modalCourseTitleSpan").text(courseTitle);
     mapApp.start();
     var address = $(this).data('address');
-    console.log('address is ' + address);
     var destination = address.replace(/ /g, '+');
     var directionsUrl = "http://maps.google.com?saddr=Current+Location&daddr=" + destination + "";
     $("#map-address").html(address);
     google.maps.event.addListenerOnce(map, 'idle', function() {
       google.maps.event.trigger(map, 'resize');
       if (marker != null) {
-        console.log('set marker');
         map.setCenter(marker.getPosition());
       }
     });
