@@ -15,7 +15,10 @@ module.exports = {
     displayG2GPage : function(req, res, next) {
       async.parallel({
         getGtoGPage : function (callback) {
-          contentfulAPI.getGtoGPage(function(body){
+          contentfulAPI.getGtoGPage(function(body, error){
+            if (error) {
+              return callback(error);
+            }
             var imageUrl = null;
             if (body.fields.featureImage) {
               if (body.includes && body.includes.Asset) {
@@ -88,7 +91,7 @@ module.exports = {
       }, function (err, results) {
 
         if (err) {
-            logger.error("Error rendering shopping cart", err);
+            logger.error("Error rendering  G2G page", err);
             common.redirectToError(res);
             return;
         }
