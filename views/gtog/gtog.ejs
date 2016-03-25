@@ -3,8 +3,8 @@
   <head>
     <title> Graduate School USA | <%= title %></title>
     <meta charset="utf-8">
-    <% if (seoDescription) { %><meta name="description" content="<%= seoDescription %>"><% } %>
-    <% if (seoKeywords) { %><meta name="keywords" content="<%= seoKeywords %>"><% } %>
+    <% if (content.seoDescription) { %><meta name="description" content="<%= content.seoDescription %>"><% } %>
+    <% if (content.seoKeywords) { %><meta name="keywords" content="<%= content.seoKeywords %>"><% } %>
     <% include ../partials/head %>
     <script type="text/javascript" src="/javascripts/gtog.js"></script>
     <link rel="stylesheet" href="/stylesheets/gtog.css">
