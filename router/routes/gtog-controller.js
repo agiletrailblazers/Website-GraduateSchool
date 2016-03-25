@@ -29,9 +29,29 @@ module.exports = {
     // Displays the Guaranteed to Go Page
     displayG2GPage : function(req, res, next) {
       async.parallel({
-        getContentPage : function (callback) {
-          //contentful.
-          callback();
+        getGtoGPage : function (callback) {
+          contentfulAPI.getGtoGPage(function(body){
+            var imageUrl = null;
+            if (body.fields.featureImage) {
+              if (body.includes && body.includes.Asset) {
+                for (var i = 0; i < body.includes.Asset.length; i++) {
+                  if (fields.featureImage.sys.id === body.includes.Asset[i].sys.id) {
+                    imageUrl = asset.fields.file.url;
+                  }
+                }
+              }
+            }
+            var content = {
+              title: body.fields.title,
+              subtitle: body.fields.subtitle,
+              imageUrl: imageUrl,
+              relatedLinks: body.fields.relatedLinks,
+              seoDescription: body.fields.seoDescription,
+              seoKeywords: body.fields.seoKeywords,
+            }
+            callback(null, content);
+          });
+
         },
         getSessions : function (callback) {
           var sessionStatus = 'c';
@@ -77,18 +97,13 @@ module.exports = {
         }
         console.log('i am done');
         var sections = [];
-        var relatedLinks = [];
-        var imageUrl = null;
-        var intro = null;
-        var subIntro = null;
+
+
         res.render('gtog/gtog', { seoDescription: "seoDescription",
           seoKeywords: "seoKeywords",
-          title: 'title',
-          imageUrl: imageUrl,
-          intro: intro,
-          subIntro: subIntro,
+          title: results.getGtoGPage.title,
           sections: sections,
-          relatedLinks: relatedLinks,
+          content: results.getGtoGPage,
           curriculumSessions: results.getSessions
         });
       });

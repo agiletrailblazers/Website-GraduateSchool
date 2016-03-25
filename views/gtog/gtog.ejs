@@ -14,17 +14,17 @@
     <div id="main-container" class="container padding15">
         <div class="row">
           <div class="col-lg-9 col-md-9">
-            <% if (imageUrl) { %>
+            <% if (content.imageUrl) { %>
               <img src="<%= imageUrl %>" style="width:100%;" />
             <% } %>
             <h1>
-              <% if (intro) { %>
-                <%- intro  %>
+              <% if (content.title) { %>
+                <%- content.title  %>
               <%  } %>
             </h1>
             <h2>
-              <% if (subIntro) { %>
-                <%- subIntro  %>
+              <% if (content.subtitle) { %>
+                <%- content.subtitle  %>
               <%  } %>
             </h2>
             <% for (var i = 0; i < sections.length; i++) { %>
@@ -63,12 +63,11 @@
                          <%  } %>
                        </article>
                   <%  } %>
-              <%  } %>
                 </section>
-
+              <%  } %>
               <% } %>
           </div>
-          <% if (relatedLinks && relatedLinks.length > 0) { %>
+          <% if (content.relatedLinks && content.relatedLinks.length > 0) { %>
           <div class="col-lg-3 col-md-3" id="sidebar">
             <div class="spacer mobile"></div>
             <div class="panel-group">
@@ -81,7 +80,7 @@
             <div id="related-links" class="panel-collapse collapse in">
               <div class="panel-body">
                 <ul>
-                <% relatedLinks.forEach(function(link) { %>
+                <% content.relatedLinks.forEach(function(link) { %>
                   <li><a href="<%= link.url %>"><%= link.name %></a></li>
                   <hr>
                 <% }); %>
