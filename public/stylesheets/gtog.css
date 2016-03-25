@@ -115,6 +115,8 @@
 
 #gtog .nav > li > a {
   position: relative;
+  width: 100%;
+  display: block !important;
 }
 
 #gtog .nav > li > a.disabled, #gtog .nav > li:hover > a.disabled {
@@ -157,6 +159,10 @@
 #gtog .nav-tabs > li {
     border: 1px solid transparent;
 }
+
+.nav-tabs > li.active > a {
+  background-color: transparent !important;
+}
 /* Table styles */
 
 table.gtog, table.gtog th, table.gtog tr, table.gtog td {
@@ -167,6 +173,10 @@ table.gtog, table.gtog th, table.gtog tr, table.gtog td {
 
 table.gtog {
   border: 1px solid #CCD8E3 !important;
+}
+
+.table > thead > tr > th {
+    vertical-align: middle;
 }
 
 table.gtog th, .header-mobile {
@@ -233,6 +243,45 @@ h1.g2g {
   padding-bottom: 20px;
 }
 
+.glyphicon {
+    top: 0px;
+}
+
+/* TableSorter */
+
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	border: 1px solid #FFF;
+
+}
+
+table.tablesorter thead tr .header {
+	background-image: url(../images/bg.gif) !important;
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	vertical-align: top;
+}
+
+table.tablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(../images/asc.gif) !important;
+}
+
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(../images/desc.gif) !important;
+}
+
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+  background-color: #696B74 !important;
+}
+
 
 /*==========  MEDIA QUERIES  ==========*/
 
@@ -259,7 +308,7 @@ h1.g2g {
       }
 
       table.gtog th{
-        padding: 10px !important;
+        padding: 10px 17px !important;
         font-size: 12px;
       }
 
@@ -285,6 +334,10 @@ h1.g2g {
       table.gtog th, .header-mobile {
         padding: 10px !important;
         font-size: 11px;
+      }
+
+      table.gtog th{
+        padding: 10px 17px !important;
       }
 
       table.gtog, table.gtog th, table.gtog tr, table.gtog td {
@@ -330,6 +383,10 @@ h1.g2g {
 
       table.gtog, table.gtog th, table.gtog tr, table.gtog td {
         font-size: 9px;
+      }
+
+      table.gtog th{
+        padding: 10px 17px !important;
       }
 
     }

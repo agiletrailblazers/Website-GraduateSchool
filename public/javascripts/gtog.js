@@ -58,4 +58,7 @@ $(document).ready(function() {
     mapApp.codeAddress(address);
     $("#getDirections").attr("href", directionsUrl);
   });
+
+  $("#gtog0, #gtog1, #gtog2, #gtog3, #gtog4, #gtog5, #gtog6").tablesorter();
+
 });
