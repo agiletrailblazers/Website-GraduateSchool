@@ -109,7 +109,23 @@
                       <td class="non-mobile"><%=array[j].courseCode%></td>
                       <td><%= array[j].startDate%></td>
                       <td class="non-mobile"><span style="display:none;"><%= array[j].endDate%></span><%= array[j].endDate%></td>
-                      <td><%= array[j].location.city%>, <%= array[j].location.state%></td>
+                      <td>
+                        <% if (array[j].location && array[j].location.city) {%>
+                          <%= array[j].location.city%>
+                          <% if (array[j].location.state) {%>
+                            , <%= array[j].location.state%>
+                          <% } %>
+                          <% if((typeof(array[j].location["address1"])!='undefined') && typeof(array[j].location["address2"])!='undefined') {%>
+                            <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address1"] +', '+ array[j].location["address2"] +', '%> <%= array[j].location["city"]  +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
+                          <% } else if(typeof(array[j].location["address1"])!='undefined') {%>
+                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address1"] +', '%> <%= array[j].location["city"] +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
+                          <% } else if(typeof(array[j].location["address2"])!= 'undefined') {%>
+                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address2"] +', '%> <%= array[j].location["city"] +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
+                          <% } else {%>
+                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address2"] +', '%> <%= array[j].location["city"] +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
+                          <% } %>
+                        <%}%>
+                      </td>
                       <td>$<%=array[j].tuition%></td>
                       <td><button class="register" type="button" name="button" onclick="ga('send', 'event', 'register', 'sign-up', '<%=array[j].registrationUrl%>');location.href='<%=array[j].registrationUrl%>'">Register</button></td>
                     </tr>
@@ -124,6 +140,30 @@
 </div>  <!-- End of row Guaranteed to Go Classes -->
 <!-- GTOG ENDS - TO BE REMOVED -->
 </div>
+
+<!-- Modal dialog -->
+<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <% var array = curriculumSessions[keys[0]]; %>
+        <h4 class="modal-title" id="mapModalLabel"><%= array[0].courseTitle %><span id="modalSessionLocationSpan"></span></h4>
+
+
+      </div>
+      <div class="modal-body">
+        <div id="map-address"></div>
+        <div id="map-canvas"></div>
+      </div>
+      <div class="modal-footer">
+        <a id="getDirections" href="" target="_blank" class="blueish">Get Directions</a>
+        <a href="#" class="blueish" data-dismiss="modal">Close</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END - Modal dialog -->
 
 <% include ../partials/chat %>
 <% include ../partials/footer %>

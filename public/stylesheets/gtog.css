@@ -2,6 +2,12 @@
   margin-bottom: 3% !important;
 }
 
+#map-canvas{
+  height: 300px;
+  width: 100%;
+  margin: 0 auto;
+}
+
 /* Tabs section */
 .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { /* reset classes */
     color: #000;
@@ -224,7 +230,7 @@ button.register:hover {
 
 
 h1.g2g {
-  padding-bottom: 20px; 
+  padding-bottom: 20px;
 }
 
 
