@@ -239,7 +239,7 @@ module.exports = {
   },
 
   getGtoGPage: function(callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.content.spaceId+'/entries/60o2cWEaVaQAqwo2IcmcOU';
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.content.spaceId+'/entries?sys.id=60o2cWEaVaQAqwo2IcmcOU';
     request({
       method: 'GET',
       url: targetURL,

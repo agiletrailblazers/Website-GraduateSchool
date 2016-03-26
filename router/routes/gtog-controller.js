@@ -20,26 +20,27 @@ module.exports = {
               return callback(error);
             }
             var imageUrl = null;
-            if (body.fields.featureImage) {
+            if (body.items[0].fields.featureImage) {
               if (body.includes && body.includes.Asset) {
                 for (var i = 0; i < body.includes.Asset.length; i++) {
-                  if (fields.featureImage.sys.id === body.includes.Asset[i].sys.id) {
-                    imageUrl = asset.fields.file.url;
+                  if (body.items[0].fields.featureImage.sys.id === body.includes.Asset[i].sys.id) {
+                    imageUrl = body.includes.Asset[i].fields.file.url;
+                    break;
                   }
                 }
               }
             }
             var section = null;
-            if (body.fields.section) {
-              section = body.fields.section;
+            if (body.items[0].fields.section) {
+              section = body.items[0].fields.section;
             }
             var content = {
-              title: body.fields.title,
-              subtitle: body.fields.subtitle,
+              title: body.items[0].fields.title,
+              subtitle: body.items[0].fields.subtitle,
               imageUrl: imageUrl,
-              relatedLinks: body.fields.relatedLinks,
-              seoDescription: body.fields.seoDescription,
-              seoKeywords: body.fields.seoKeywords,
+              relatedLinks: body.items[0].fields.relatedLinks,
+              seoDescription: body.items[0].fields.seoDescription,
+              seoKeywords: body.items[0].fields.seoKeywords,
               section: section
             }
             callback(null, content);

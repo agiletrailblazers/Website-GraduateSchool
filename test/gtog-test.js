@@ -45,26 +45,101 @@ var sessions = [
 
 var gTogResponse = {
   "sys": {
-    "id": "60o2cWEaVaQAqwo2IcmcOU",
-    "type": "Entry",
-    "locale": "en-US"
+    "type": "Array"
   },
-  "fields": {
-    "featureImage": {
+  "total": 1,
+  "skip": 0,
+  "limit": 100,
+  "items": [
+    {
       "sys": {
-        "type": "Link",
-        "linkType": "Asset",
-        "id": "7JVkMp8CQMyW0Q0IokEaiu"
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "8geya92t3ilu"
+          }
+        },
+        "id": "7snuHLxffaCcWgo2mKgokK",
+        "type": "Entry",
+        "createdAt": "2016-03-23T19:26:30.068Z",
+        "updatedAt": "2016-03-24T20:32:32.378Z",
+        "revision": 4,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "guaranteedToGo"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "title": "Guaranteed-to-Go Classes",
+        "featureImage": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Asset",
+            "id": "1l5TQYWeBqO4Q42aoMCAuQ"
+          }
+        },
+        "section": "Graduate School USA is committed to confirming __Guaranteed-to-Go__ course sessions for our federal customers, making it easier for them to schedule and register for training through the fiscal year. We want you to be confident in planning your training expenditures.\n\n<a href=\"/search?search=&selectedG2G=true\" class=\"btn btn-primary btn-lg active\" role=\"button\">Search Guaranteed-to-Go Sessions</a>\n",
+        "relatedLinks": [
+          {
+            "url": "/search",
+            "name": "Search All Courses"
+          },
+          {
+            "url": "//assets.contentful.com/jzmztwi1xqvn/1weAu5s2XSOqO6UMUak0qa/ca9f8d05dc4d4357120dc55492106933/Nationwide_Schedule_of_Classes_FY16_040116_093016.pdf",
+            "name": "Nationwide Schedule of Classes, April 2016 – September 2016 (PDF)"
+          },
+          {
+            "url": "//assets.contentful.com/98qeodfc03o0/6x8wz5avrUaQyUuSceEseu/d12095f7c00a211eae0d37cff24170c2/Nationwide-Schedule-Oct2015-March2016.pdf",
+            "name": "Nationwide Schedule of Classes, October 2015 – March 2016 (PDF)"
+          },
+          {
+            "url": "//assets.contentful.com/98qeodfc03o0/41IJ05gtK8qgCGm8I8cMa0/41610305f7494d513df61faddad6a86d/GS_Training_and_Professional_Course_Catalog_2016.pdf ",
+            "name": "Training & Professional Course Catalog 2016 (PDF)"
+          }
+        ]
       }
-    },
-    "section": "Graduate School USA is committed to confirming __Guaranteed-to-Go__ course sessions for our federal customers, making it easier for them to schedule and register for training through the fiscal year. We want you to be confident in planning your training expenditures.\n\n<a href=\"/search?search=&selectedG2G=true\" class=\"btn btn-primary btn-lg active\" role=\"button\">Search Guaranteed-to-Go Sessions</a>",
-    "relatedLinks": [
+    }
+  ],
+  "includes": {
+    "Asset": [
       {
-        "url": "/search",
-        "name": "Search All Courses"
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "8geya92t3ilu"
+            }
+          },
+          "id": "1l5TQYWeBqO4Q42aoMCAuQ",
+          "type": "Asset",
+          "createdAt": "2016-03-24T20:30:08.411Z",
+          "updatedAt": "2016-03-24T20:30:08.411Z",
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "GTOG 1 ",
+          "file": {
+            "url": "//images.contentful.com/8geya92t3ilu/1l5TQYWeBqO4Q42aoMCAuQ/1c88139a99681cd26dfd3bba9f6644ca/GTOG_1_.jpg",
+            "details": {
+              "size": 69620,
+              "image": {
+                "width": 1100,
+                "height": 357
+              }
+            },
+            "fileName": "GTOG_1_.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
       }
-    ],
-    "title": "Guaranteed-to-Go Classes"
+    ]
   }
 }
 
@@ -73,11 +148,11 @@ test('test for getting G2G content', function(t) {
     reqheaders: {
       'Authorization': config("properties").spaces.content.authorization
     }
-    }).get('/spaces/'+config("properties").spaces.content.spaceId+'/entries/60o2cWEaVaQAqwo2IcmcOU')
+  }).get('/spaces/'+config("properties").spaces.content.spaceId+'/entries?sys.id=60o2cWEaVaQAqwo2IcmcOU')
     .reply(200, gTogResponse);
 
   contentful.getGtoGPage(function(response){
-    expect(response.fields.title).to.equal("Guaranteed-to-Go Classes");
+    expect(response.items[0].fields.title).to.equal("Guaranteed-to-Go Classes");
   });
   t.end();
 });
@@ -179,36 +254,45 @@ test('test for getting sessions error', function(t) {
   t.end();
 });
 
-// test('displayG2GPage', function(t) {
-//
-//   var res = {};
-//
-//   var req = {};
-//
-//   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
-//   var controller = proxyquire('../router/routes/gtog-controller.js',
-//   {
-//
-//     "../../API/course.js": {
-//       getSessions: function (cb, authToken, sessionStatus, sessionDomain) {
-//         cb(null, sessions);
-//       }
-//     },
-//     "../../../API/contentful.js": {
-//       getGtoGPage: function(cb) {
-//         cb(gTogResponse);
-//       }
-//     }
-//    });
-//
-//   res.render = function(page, arguments) {
-//       expect(page).to.eql('gtog/gtog');
-//       expect(arguments.title).to.eql(gTogResponse.title);
-//       expect(arguments.content).to.eql(course);
-//       expect(arguments.curriculumSessions).to.eql(courseSession);
-//   };
-//
-//   controller.displayG2GPage(req, res, null);
-//
-//   t.end();
-// });
+test('displayG2GPage', function(t) {
+
+  var res = {};
+
+  var req = {
+    query : {
+      authToken : "123456789123456789",
+      courseId : "course12345",
+      sessionId : "session12345"
+    }
+  };
+
+  var sessionStatus = 'c';
+  var sessionDomain = null;
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/gtog-controller.js',
+  {
+
+    "../../API/course.js": {
+      getSessions: function (cb, authToken, sessionStatus, sessionDomain) {
+        cb(null, sessions);
+      }
+    },
+    "../../API/contentful.js": {
+      getGtoGPage: function(cb) {
+        cb(gTogResponse);
+      }
+    }
+   });
+
+  res.render = function(page, arguments) {
+      expect(page).to.eql('gtog/gtog');
+      expect(arguments.title).to.eql(gTogResponse.items[0].fields.title);
+      expect(arguments.content.relatedLinks).to.eql(gTogResponse.items[0].fields.relatedLinks);
+      // expect(arguments.curriculumSessions).to.eql(courseSession);
+  };
+
+  controller.displayG2GPage(req, res, null);
+
+  t.end();
+});
