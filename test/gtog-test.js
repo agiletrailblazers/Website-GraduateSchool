@@ -289,6 +289,9 @@ test('displayG2GPage', function(t) {
       expect(page).to.eql('gtog/gtog');
       expect(arguments.title).to.eql(gTogResponse.items[0].fields.title);
       expect(arguments.content.relatedLinks).to.eql(gTogResponse.items[0].fields.relatedLinks);
+      expect(arguments.content.imageUrl).to.eql(gTogResponse.includes.Asset[0].fields.file.url);
+      expect(arguments.content.section).to.eql(gTogResponse.items[0].fields.section);
+      expect(arguments.curriculumSessions[sessions[0].curricumTitle][0].curricumTitle).to.eql(sessions[0].curricumTitle);
       // expect(arguments.curriculumSessions).to.eql(courseSession);
   };
 
