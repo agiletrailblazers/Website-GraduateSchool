@@ -6,6 +6,7 @@ var nock = require('nock');
 var should = require("should");
 var test = require('tap').test;
 var config = require('konphyg')(__dirname + "/../config");
+var common = require("../helpers/common.js")
 
 test('test for getting G2G content', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
@@ -185,6 +186,59 @@ test('test for getting sessions', function(t) {
 
   courseAPI.getSessions(function(error, response){
     expect(response[0].courseTitle).to.equal("Making Sense of CC Errors 101");
+  }, authToken);
+  t.end();
+});
+
+
+test('test for getting sessions error', function(t) {
+  var authToken = "token123456789";
+  var contentfulServer = nock(config("properties").apiServer, {
+    reqheaders: {
+      'Authorization': authToken
+    }
+  }).get('/api/courses/sessions')
+    .reply(100, [
+      {
+        "classNumber": "00086407",
+        "segment": null,
+        "startDate": "2017-05-01",
+        "endDate": "2017-05-02",
+        "startTime": "08:30",
+        "endTime": "16:00",
+        "days": "Mon-Tue",
+        "scheduleMaximum": 2400,
+        "scheduleAvailable": 70,
+        "scheduleMinimum": 8,
+        "status": "C",
+        "notes": null,
+        "tuition": 1000,
+        "location": {
+          "id": "01",
+          "name": "National Arboretum",
+          "telephone": "2022454521",
+          "address1": "Stadium Amory Metro Stop",
+          "address2": "24th & R Streets NE",
+          "city": "Washington",
+          "state": "DC",
+          "postalCode": "20002"
+        },
+        "instructor": null,
+        "offeringSessionId": "class000000000091170",
+        "courseId": "cours000000000001652",
+        "courseCode": "PROJ8295D",
+        "courseTitle": "Making Sense of CC Errors 101",
+        "curricumTitle": "Program and Management Analysis"
+      }
+    ]
+  );
+
+  courseAPI.getSessions(function(error, response){
+    var flag = false;
+    if (common.isNotEmpty) {
+      flag = true;
+    }
+    expect(flag).to.equal(true);
   }, authToken);
   t.end();
 });
