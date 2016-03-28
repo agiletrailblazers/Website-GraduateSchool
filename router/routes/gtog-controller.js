@@ -49,8 +49,7 @@ module.exports = {
         },
         getSessions : function (callback) {
           var sessionStatus = 'c';
-          // var sessionDomain = 'CD';
-          var sessionDomain = null;
+          var sessionDomain = 'CD';
           courseAPI.getSessions(function (error, sessions){
 
             var formatDate = function (inFormat) {
