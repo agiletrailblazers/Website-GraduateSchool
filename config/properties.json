@@ -119,6 +119,7 @@
 
     "classTypes" : {
       "evening":"Classroom - Evening",
-      "daytime": "Classroom - Daytime"
+      "daytime": "Classroom - Daytime",
+      "virtualClass": "Virtual Class"
     }
 }

@@ -63,7 +63,12 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           // Changing dateFormat for all sessions.
           for (var i = 0; i < courseData.session.length; i++) {
             var iSession = courseData.session[i];
+            // maintain the format of 'YYYY MM DD' in origStartDate. moment.tz needs it.
+            // See https://github.com/moment/moment/issues/1407
+            var tempFormat = courseData.session[i]["startDate"];
+            courseData.session[i]["origStartDate"] = tempFormat.replace("-", " ");
             iSession["startDate"] = courseData.session[i]["startDate"].date('MMM DD, YYYY');
+
             if (common.isNotEmpty(courseData.session[i]["endDate"])) {
               iSession["endDate"] = courseData.session[i]["endDate"].date('MMM DD, YYYY');
             }
@@ -132,14 +137,14 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           session.hide = true;
         }
       });
-      
+
       // Determine if EP registration dealine has ellapsed
       var classTypes = config("properties").classTypes;
       if (courseData.class.type.indexOf(classTypes.evening) > -1) {
           courseData.session.epPastRegDeadline = false;
           courseData.session.forEach(function(session) {
-            var epRegDeadline = momentTz(new Date(session.startDate), 'MMM DD, YYYY').tz("America/New_York").add(14, 'days').add(18, 'hours');
-            if (epRegDeadline.isBefore(momentTz())) {
+            var epRegDeadline = momentTz.tz(session.origStartDate, 'YYYY MM DD', "America/New_York").add(14, 'days').add(18, 'hours');
+            if (epRegDeadline.isBefore(momentTz().tz("America/New_York"))) {
               session.status = 'C';
               session.epPastRegDeadline = true;
             }
