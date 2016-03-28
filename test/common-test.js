@@ -45,12 +45,3 @@ test('checkForErrorAndLog - 204', function(t) {
 
   t.end();
 });
-
-test('test pad date', function(t) {
-  var dateToTest =  new Date("Tue Mar 15 2016 00:00:00 GMT-0400 (EDT)");
-  var formattedDateOfBirth = "" + dateToTest.getFullYear() + common.pad("00", dateToTest.getDate(), true) + common.pad("00", dateToTest.getMonth() + 1, true);
-
-  expect(formattedDateOfBirth).to.eql("20161503");
-
-  t.end();
-});

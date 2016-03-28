@@ -535,8 +535,7 @@ test('registrationLogin should handle other error', function(t) {
 });
 
 test('createUser', function(t) {
-  var dateOfBirth =  new Date("Tue Mar 15 2016 00:00:00 GMT-0400 (EDT)");
-  var formattedDateOfBirth = "20161503";
+  var formattedDateOfBirth = "20160315";
   var res = {};
   var req = {
     body : {
@@ -553,7 +552,7 @@ test('createUser', function(t) {
       city : "Test City",
       state : "UT",
       zip : "55555",
-      dateOfBirth : dateOfBirth
+      dateOfBirth : "03/15/2016"
     },
     query : {
       authToken : "123456789123456789"
@@ -737,8 +736,7 @@ test('createUser handles no dateOfBirth', function(t) {
 });
 
 test('createUser handles create user error', function(t) {
-  var dateOfBirth =  new Date("Tue Mar 15 2016 00:00:00 GMT-0400 (EDT)");
-  var formattedDateOfBirth = "20161503";
+  var formattedDateOfBirth = "20160315";
   var res = {};
   var req = {
     body : {
@@ -755,7 +753,7 @@ test('createUser handles create user error', function(t) {
       city : "Test City",
       state : "UT",
       zip : "55555",
-      dateOfBirth : dateOfBirth
+      dateOfBirth : "03/15/2016"
     },
     query : {
       authToken : "123456789123456789"
@@ -837,8 +835,7 @@ test('createUser handles create user error', function(t) {
 });
 
 test('createUser handles login user error', function(t) {
-  var dateOfBirth =  new Date("Tue Mar 15 2016 00:00:00 GMT-0400 (EDT)");
-  var formattedDateOfBirth = "20161503";
+  var formattedDateOfBirth = "20160315";
   var res = {};
   var req = {
     body : {
@@ -855,7 +852,7 @@ test('createUser handles login user error', function(t) {
       city : "Test City",
       state : "UT",
       zip : "55555",
-      dateOfBirth : dateOfBirth
+      dateOfBirth : "03/15/2016"
     },
     query : {
       authToken : "123456789123456789"

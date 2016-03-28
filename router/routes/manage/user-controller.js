@@ -5,6 +5,7 @@ var user = require("../../../API/manage/user-api.js");
 var common = require("../../../helpers/common.js");
 var session = require('../../../API/manage/session-api.js');
 var authentication = require("../../../API/authentication-api.js");
+var moment = require('moment');
 
 // handlers for the user management routes
 module.exports = {
@@ -135,11 +136,6 @@ module.exports = {
         var formData = req.body;
         logger.info("Creating user: " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
 
-        // if a date of birth was entered, format it as the API expects
-        var dateOfBirth = ((formData.dateOfBirth == "" ) ? null : new Date(formData.dateOfBirth));
-        if (common.isNotEmpty(dateOfBirth)) {
-          dateOfBirthString = "" + dateOfBirth.getFullYear() + common.pad("00", dateOfBirth.getDate(), true) + common.pad("00", dateOfBirth.getMonth() + 1, true) ;
-        }
         var userData = {
           "username" : ((formData.email === "") ? null : formData.email),
           "password" : ((formData.password === "") ? null : formData.password),
@@ -161,7 +157,7 @@ module.exports = {
                  "postalCode" : ((formData.zip === "") ? null : formData.zip)
                },
              "secondaryAddress" : null,
-             "dateOfBirth" : dateOfBirthString
+             "dateOfBirth" : ((formData.dateOfBirth == "" ) ? null : moment(new Date(formData.dateOfBirth)).format("YYYYMMDD"))
            },
           "timezoneId" : ((formData.timezoneId === "") ? null : formData.timezoneId)
         };

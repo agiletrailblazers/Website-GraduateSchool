@@ -13,7 +13,10 @@ $(document).ready(function () {
         $("#gs-alert-error").slideUp();
         $("#gs-alert-error p").remove();
     });
-    $("#dateOfBirth").datepicker();
+    $("#dateOfBirth").datepicker({
+        changeMonth: true,
+        changeYear: true
+    });
 
     $("#create-user-form-submit").click(function (event) {
         event.preventDefault();
