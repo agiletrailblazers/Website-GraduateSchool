@@ -223,7 +223,6 @@ module.exports = {
       if (common.checkForErrorAndLog(error, response, url)) {
         return callback(new Error("Exception occurred getting sessions " + url), null);
       }
-
       return callback(null, JSON.parse(body));
     });
   }
