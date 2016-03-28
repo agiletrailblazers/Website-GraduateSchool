@@ -4,7 +4,7 @@ var async = require('async');
 var course = require("../../API/course.js");
 var striptags = require('striptags');
 var dateformat = require('date-format-lite');
-var moment = require('moment');
+var momentTz = require('moment-timezone');;
 var prune = require('underscore.string/prune');
 var router = express.Router();
 var logger = require('../../logger');
@@ -132,12 +132,14 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           session.hide = true;
         }
       });
+      
       // Determine if EP registration dealine has ellapsed
-      if (courseData.class.type.indexOf('Classroom - Evening') > -1) {
+      var classTypes = config("properties").classTypes;
+      if (courseData.class.type.indexOf(classTypes.evening) > -1) {
           courseData.session.epPastRegDeadline = false;
           courseData.session.forEach(function(session) {
-            var epRegDeadline = moment(new Date(session.startDate)).add(14, 'days').add(18, 'hours');
-            if (epRegDeadline.isBefore(moment())) {
+            var epRegDeadline = momentTz(new Date(session.startDate), 'MMM DD, YYYY').tz("America/New_York").add(14, 'days').add(18, 'hours');
+            if (epRegDeadline.isBefore(momentTz())) {
               session.status = 'C';
               session.epPastRegDeadline = true;
             }

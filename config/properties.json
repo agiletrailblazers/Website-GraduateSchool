@@ -115,6 +115,10 @@
         "spaceId": "rwpes6c9xnt6",
         "authorization": "Bearer 58b9e19609e55070f0f46a3165e9116329acd28e3dd9495b8bccee6d2cc7deba"
       }
-    }
+    },
 
+    "classTypes" : {
+      "evening":"Classroom - Evening",
+      "daytime": "Classroom - Daytime"
+    }
 }
