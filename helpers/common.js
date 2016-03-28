@@ -54,6 +54,16 @@ isNotEmptyOrAll = function (val) {
   return false;
 };
 
+pad = function(pad, str, padLeft) {
+  if (typeof str === 'undefined')
+    return pad;
+  if (padLeft) {
+    return (pad + str).slice(-pad.length);
+  } else {
+    return (str + pad).substring(0, pad.length);
+  }
+}
+
 redirectToError = function (res) {
   res.writeHead(302, { 'Location': '/error_page.html' });
   res.end();
@@ -65,5 +75,6 @@ module.exports = {
   isNotEmptyOrAll: isNotEmptyOrAll,
   checkForErrorAndLog: checkForErrorAndLog,
   checkForErrorAndLogExceptCodes: checkForErrorAndLogExceptCodes,
-  redirectToError: redirectToError
+  redirectToError: redirectToError,
+  pad: pad
 };

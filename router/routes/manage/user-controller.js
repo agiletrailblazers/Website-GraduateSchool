@@ -130,14 +130,15 @@ module.exports = {
 
     async.series({
       createdUserOrValidationErrors: function(callback) {
+        var dateOfBirthString = null;
         // get the form data from the body of the request
         var formData = req.body;
         logger.info("Creating user: " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
 
+        // if a date of birth was entered, format it as the API expects
         var dateOfBirth = ((formData.dateOfBirth == "" ) ? null : new Date(formData.dateOfBirth));
-        var dateOfBirthString = "";
-        if (dateOfBirth) {
-          dateOfBirthString = "" + dateOfBirth.getFullYear() + dateOfBirth.getDate() + dateOfBirth.getMonth(); //TODO pad month and day to be 2 characters
+        if (common.isNotEmpty(dateOfBirth)) {
+          dateOfBirthString = "" + dateOfBirth.getFullYear() + common.pad("00", dateOfBirth.getDate(), true) + common.pad("00", dateOfBirth.getMonth() + 1, true) ;
         }
         var userData = {
           "username" : ((formData.email === "") ? null : formData.email),
@@ -160,7 +161,7 @@ module.exports = {
                  "postalCode" : ((formData.zip === "") ? null : formData.zip)
                },
              "secondaryAddress" : null,
-             "dateOfBirth" : (dateOfBirthString == "" ? null : dateOfBirthString)
+             "dateOfBirth" : dateOfBirthString
            },
           "timezoneId" : ((formData.timezoneId === "") ? null : formData.timezoneId)
         };

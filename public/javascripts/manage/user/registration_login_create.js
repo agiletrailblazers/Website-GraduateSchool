@@ -18,6 +18,9 @@ $(document).ready(function () {
   $('#toggle-create-account').click(function() {
       displayCreateAccount();
   });
+  $('#toggle-create-account-image').click(function() {
+    displayCreateAccount();
+  });
 
   $('#toggle-already-have-account').click(function() {
       displayAlreadyHaveAccount();

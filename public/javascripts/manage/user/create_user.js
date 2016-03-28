@@ -18,12 +18,11 @@ $(document).ready(function () {
     $("#create-user-form-submit").click(function (event) {
         event.preventDefault();
         var fullDateOfBirth = new Date($("#dateOfBirth").datepicker("getDate"));
-
         var formData = {
             firstName: $("#firstName").val(),
             middleName: $("#middleName").val(),
             lastName: $("#lastName").val(),
-            dateOfBirth: fullDateOfBirth,
+            dateOfBirth: $("#dateOfBirth").val(),
             lastFourSSN: $("#lastFourSSN").val(),
             password: $("#password").val(),
             confirmPassword: $("#confirmPassword").val(),
