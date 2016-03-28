@@ -18,6 +18,9 @@ $(document).ready(function () {
   $('#toggle-create-account').click(function() {
       displayCreateAccount();
   });
+  $('#toggle-create-account-image').click(function() {
+    displayCreateAccount();
+  });
 
   $('#toggle-already-have-account').click(function() {
       displayAlreadyHaveAccount();
@@ -31,6 +34,8 @@ function displayAlreadyHaveAccount() {
   $('#toggle-create-account-section').fadeIn();
   $('#toggle-already-have-account-section').fadeOut();
   $('#login-section').fadeIn();
+  $('#login-divider').fadeIn();
+
 }
 
 function displayCreateAccount() {
@@ -38,4 +43,6 @@ function displayCreateAccount() {
   $('#toggle-create-account-section').fadeOut();
   $('#toggle-already-have-account-section').fadeIn();
   $('#login-section').fadeOut();
+  $('#login-divider').fadeOut();
+
 }

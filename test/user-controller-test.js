@@ -59,7 +59,7 @@ test('registrationLoginCreate', function(t) {
 
   res.render = function(page, content) {
       expect(page).to.eql('manage/user/registration_login_create');
-      expect(content.title).to.eql('Login');
+      expect(content.title).to.eql('Course Registration');
       expect(content.states[0]).to.eql(expectedStates[0]);
       expect(content.sessionId).to.eql(sessionData.cart.sessionId);
       expect(content.timezones[0]).to.eql(expectedTimezones[0]);
@@ -535,7 +535,7 @@ test('registrationLogin should handle other error', function(t) {
 });
 
 test('createUser', function(t) {
-
+  var formattedDateOfBirth = "20160315";
   var res = {};
   var req = {
     body : {
@@ -552,9 +552,7 @@ test('createUser', function(t) {
       city : "Test City",
       state : "UT",
       zip : "55555",
-      birthMonth : "05",
-      birthDay : "10",
-      birthYear : "1955"
+      dateOfBirth : "03/15/2016"
     },
     query : {
       authToken : "123456789123456789"
@@ -603,7 +601,7 @@ test('createUser', function(t) {
         expect(userData.person.primaryAddress.state).to.eql(req.body.state);
         expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
         expect(userData.person.secondaryAddress).to.eql(null);
-        expect(userData.person.dateOfBirth).to.eql(req.body.birthYear + req.body.birthMonth + req.body.birthDay);
+        expect(userData.person.dateOfBirth).to.eql(formattedDateOfBirth);
         expect(userData.timezoneId).to.eql(req.body.timezoneId);
 
         expect(authToken).to.eql(req.query.authToken);
@@ -639,9 +637,7 @@ test('createUser', function(t) {
 
   t.end();
 });
-
-test('createUser handles create user error', function(t) {
-
+test('createUser handles no dateOfBirth', function(t) {
   var res = {};
   var req = {
     body : {
@@ -658,9 +654,106 @@ test('createUser handles create user error', function(t) {
       city : "Test City",
       state : "UT",
       zip : "55555",
-      birthMonth : "05",
-      birthDay : "10",
-      birthYear : "1955"
+      dateOfBirth : ""
+    },
+    query : {
+      authToken : "123456789123456789"
+    }
+  };
+
+  var sessionData = {
+  };
+  var userId = "pers12345";
+  var authUser = {
+    user : {
+      id : userId,
+      person: {
+        firstName : "Joseph"
+      }
+    }
+  }
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          },
+          setSessionData: function (res, data) {
+            // verify data passed in
+            expect(data.userId).to.eql(userId);
+            expect(data.userFirstName).to.eql(authUser.user.person.firstName);
+          }
+        },
+        "../../../API/manage/user-api.js": {
+          createUser: function (userData, cb, authToken) {
+
+            expect(userData.username).to.eql(req.body.email);
+            expect(userData.password).to.eql(req.body.password);
+            expect(userData.lastFourSSN).to.eql(req.body.lastFourSSN);
+            expect(userData.person.firstName).to.eql(req.body.firstName);
+            expect(userData.person.middleName).to.eql(req.body.middleName);
+            expect(userData.person.lastName).to.eql(req.body.lastName);
+            expect(userData.person.emailAddress).to.eql(req.body.email);
+            expect(userData.person.primaryPhone).to.eql(req.body.phone);
+            expect(userData.person.secondaryPhone).to.eql(null);
+            expect(userData.person.primaryAddress.address1).to.eql(req.body.street);
+            expect(userData.person.primaryAddress.address2).to.eql(req.body.suite);
+            expect(userData.person.primaryAddress.city).to.eql(req.body.city);
+            expect(userData.person.primaryAddress.state).to.eql(req.body.state);
+            expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
+            expect(userData.person.secondaryAddress).to.eql(null);
+            expect(userData.person.dateOfBirth).to.eql(null);
+
+            expect(authToken).to.eql(req.query.authToken);
+
+            cb(new Error("Create user failed"));
+            return;
+          }
+        }
+      });
+
+  var expectedError = {
+    error: "We have experienced a problem processing your request, please try again later."
+  };
+
+  res = {
+    status : function (status) {
+      expect(status).to.eql(500);
+      return {
+        send : function (body) {
+          // just make sure this function is called
+          expect(body).to.eql(expectedError);
+        }
+      }
+    }
+  };
+
+  controller.createUser(req, res, null);
+
+  t.end();
+});
+
+test('createUser handles create user error', function(t) {
+  var formattedDateOfBirth = "20160315";
+  var res = {};
+  var req = {
+    body : {
+      email : "test@test.com",
+      password : "test1234",
+      lastFourSSN : "5555",
+      firstName : "Joe",
+      middleName : "The",
+      lastName : "Tester",
+      phone : "5555555555",
+      street : "55 Test Way",
+      suite : "Suite 5",
+      timezoneId : "123",
+      city : "Test City",
+      state : "UT",
+      zip : "55555",
+      dateOfBirth : "03/15/2016"
     },
     query : {
       authToken : "123456789123456789"
@@ -710,7 +803,7 @@ test('createUser handles create user error', function(t) {
         expect(userData.person.primaryAddress.state).to.eql(req.body.state);
         expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
         expect(userData.person.secondaryAddress).to.eql(null);
-        expect(userData.person.dateOfBirth).to.eql(req.body.birthYear + req.body.birthMonth + req.body.birthDay);
+        expect(userData.person.dateOfBirth).to.eql(formattedDateOfBirth);
 
         expect(authToken).to.eql(req.query.authToken);
 
@@ -742,7 +835,7 @@ test('createUser handles create user error', function(t) {
 });
 
 test('createUser handles login user error', function(t) {
-
+  var formattedDateOfBirth = "20160315";
   var res = {};
   var req = {
     body : {
@@ -759,9 +852,7 @@ test('createUser handles login user error', function(t) {
       city : "Test City",
       state : "UT",
       zip : "55555",
-      birthMonth : "05",
-      birthDay : "10",
-      birthYear : "1955"
+      dateOfBirth : "03/15/2016"
     },
     query : {
       authToken : "123456789123456789"
@@ -811,7 +902,7 @@ test('createUser handles login user error', function(t) {
         expect(userData.person.primaryAddress.state).to.eql(req.body.state);
         expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
         expect(userData.person.secondaryAddress).to.eql(null);
-        expect(userData.person.dateOfBirth).to.eql(req.body.birthYear + req.body.birthMonth + req.body.birthDay);
+        expect(userData.person.dateOfBirth).to.eql(formattedDateOfBirth);
 
         expect(authToken).to.eql(req.query.authToken);
 

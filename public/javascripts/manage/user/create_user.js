@@ -8,23 +8,24 @@ var clearErrorAlert = function (formData) {
 };
 
 $(document).ready(function () {
-
     $("#gs-alert-remove").css('cursor', 'pointer');
     $("#gs-alert-remove").click(function() {
         $("#gs-alert-error").slideUp();
         $("#gs-alert-error p").remove();
     });
+    $("#dateOfBirth").datepicker({
+        changeMonth: true,
+        changeYear: true
+    });
 
     $("#create-user-form-submit").click(function (event) {
         event.preventDefault();
-
+        var fullDateOfBirth = new Date($("#dateOfBirth").datepicker("getDate"));
         var formData = {
             firstName: $("#firstName").val(),
             middleName: $("#middleName").val(),
             lastName: $("#lastName").val(),
-            birthMonth: $("#birthMonth").val(),
-            birthDay: $("#birthDay").val(),
-            birthYear: $("#birthYear").val(),
+            dateOfBirth: $("#dateOfBirth").val(),
             lastFourSSN: $("#lastFourSSN").val(),
             password: $("#password").val(),
             confirmPassword: $("#confirmPassword").val(),
@@ -120,5 +121,15 @@ function convertFieldName(fieldName) {
             return "Zip";
         default:
             return fieldName;
+    }
+}
+
+function pad(pad, str, padLeft) {
+    if (typeof str === 'undefined')
+        return pad;
+    if (padLeft) {
+        return (pad + str).slice(-pad.length);
+    } else {
+        return (str + pad).substring(0, pad.length);
     }
 }

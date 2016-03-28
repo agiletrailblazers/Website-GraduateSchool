@@ -5,6 +5,7 @@ var user = require("../../../API/manage/user-api.js");
 var common = require("../../../helpers/common.js");
 var session = require('../../../API/manage/session-api.js');
 var authentication = require("../../../API/authentication-api.js");
+var moment = require('moment');
 
 // handlers for the user management routes
 module.exports = {
@@ -45,7 +46,6 @@ module.exports = {
           }
         }, req.query["authToken"])
       },
-
       loginError: function(callback) {
         var loginError = sessionData.loginError;
         if (loginError) {
@@ -69,7 +69,7 @@ module.exports = {
       }
 
       res.render('manage/user/registration_login_create', {
-        title: 'Login',
+        title: 'Course Registration',
         states: content.states,
         sessionId: content.sessionId,
         loginError: content.loginError,
@@ -131,6 +131,7 @@ module.exports = {
 
     async.series({
       createdUserOrValidationErrors: function(callback) {
+        var dateOfBirthString = null;
         // get the form data from the body of the request
         var formData = req.body;
         logger.info("Creating user: " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
@@ -156,12 +157,10 @@ module.exports = {
                  "postalCode" : ((formData.zip === "") ? null : formData.zip)
                },
              "secondaryAddress" : null,
-             "dateOfBirth" : ((formData.birthYear === "" || formData.birthMonth === "" || formData.birthDay === "") ? null : formData.birthYear + formData.birthMonth + formData.birthDay)
+             "dateOfBirth" : ((formData.dateOfBirth == "" ) ? null : moment(new Date(formData.dateOfBirth)).format("YYYYMMDD"))
            },
           "timezoneId" : ((formData.timezoneId === "") ? null : formData.timezoneId)
         };
-
-        // get the list of states required by the form
         user.createUser(userData, function(error, createdUserOrValidationErrors) {
           // callback with the error, this will cause async module to stop executing remaining
           // functions and jump immediately to the final function, it is important to return
