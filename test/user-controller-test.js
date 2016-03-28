@@ -1025,3 +1025,59 @@ test('login should handle other error', function(t) {
 
   t.end();
 });
+
+test('logout', function(t) {
+  var authToken = "12345";
+  var req = {
+    cookies: {
+      gstoken: authToken
+    },
+    query: {
+      "authToken": authToken
+    }
+  };
+  var res = {
+    cookies: {
+      gstoken: null
+    }
+  };
+
+  var sessionData = {
+    userId: "user1234",
+    userFirstName: "TestUser",
+    cart: {
+      courseId : "course2345",
+      sessionId : "session3456",
+      payment : {
+        stuff: "4567"
+      }
+    }
+  };
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          getSessionData: function (req) {
+            return sessionData;
+          },
+          setSessionData: function (res, data) {
+            expect(data).to.eql({});
+          }
+        },
+        '../../../API/authentication-api.js': {
+          logoutUser: function (req, res) {
+            expect(req.cookies.gstoken).to.not.eql(res.cookies.gstoken);
+          }
+        }
+      });
+
+  res.redirect = function(page) {
+    expect(page).to.eql('/');
+  };
+
+  controller.logout(req, res, null);
+
+  expect(req.query["authToken"]).to.eql(null);
+
+  t.end();
+});

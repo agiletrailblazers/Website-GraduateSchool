@@ -27,7 +27,10 @@
 						<div class="col-lg-8 col-md-8 mob-rem register">
 							<div class="header-menu">
 								<% if (typeof userFirstName === 'string' && userFirstName != ""){%>
-									<div class="inline-block"><span class="inline-block header-menu-text">Welcome, <%=userFirstName%>!</span></div>
+									<div class="inline-block">
+										<span class="inline-block header-menu-text">Welcome, <%=userFirstName%>!</span> <br>
+										<a id="logoutButtonMob" href="/manage/user/logout"><span class="inline-block header-menu-text">Logout</span></a>
+									</div>
 								<% } else { %>
 									<div class="inline-block"><a id="loginNonMob" href="#" data-toggle="popover" data-placement="bottom" data-container="body" type="button" data-html="true" ><span class="inline-block"></span><span class="inline-block header-menu-text">Login</span></a></div>
 								<% } %>
