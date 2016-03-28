@@ -72,7 +72,7 @@ module.exports = {
             }
 
             // Create a map. The curriculum title will be the key.
-            var orderedSessions = new Object();
+            var orderedSessions = {};
             if (common.isEmpty(error)) {
               // If key doesn't exit we add it
               // Once the key is there the value is an array and session is added to it.

@@ -117,32 +117,33 @@
                       <th>Register</th>
                     </tr>
                   </thead>
-                  <% var array = curriculumSessions[keys[i]]; %>
-                  <% for (var j = 0; j < array.length; j++) { %>
+                  <% var arrayOfSessions = curriculumSessions[keys[i]]; %>
+                  <% for (var j = 0; j < arrayOfSessions.length; j++) { %>
+                    <% var session = arrayOfSessions[j]; %>
                     <tr>
-                      <td><strong><a href="#"><%=array[j].courseTitle%></a></strong></td>
-                      <td class="non-mobile"><%=array[j].courseCode%></td>
-                      <td><%= array[j].startDate%></td>
-                      <td class="non-mobile"><%= array[j].endDate%></td>
+                      <td><strong><a href="#"><%=session.courseTitle%></a></strong></td>
+                      <td class="non-mobile"><%=session.courseCode%></td>
+                      <td><%= session.startDate%></td>
+                      <td class="non-mobile"><%= session.endDate%></td>
                       <td>
-                        <% if (array[j].location && array[j].location.city) {%>
-                          <%= array[j].location.city%>
-                          <% if (array[j].location.state) {%>
-                            , <%= array[j].location.state%>
+                        <% if (session.location && session.location.city) {%>
+                          <%= session.location.city%>
+                          <% if (session.location.state) {%>
+                            , <%= session.location.state%>
                           <% } %>
-                          <% if((typeof(array[j].location["address1"])!='undefined') && typeof(array[j].location["address2"])!='undefined') {%>
-                            <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-course='<%=array[j].courseTitle%>' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address1"] +', '+ array[j].location["address2"] +', '%> <%= array[j].location["city"]  +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
-                          <% } else if(typeof(array[j].location["address1"])!='undefined') {%>
-                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-course='<%=array[j].courseTitle%>' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address1"] +', '%> <%= array[j].location["city"] +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
-                          <% } else if(typeof(array[j].location["address2"])!= 'undefined') {%>
-                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-course='<%=array[j].courseTitle%>' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address2"] +', '%> <%= array[j].location["city"] +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
+                          <% if((typeof(session.location["address1"])!='undefined') && typeof(session.location["address2"])!='undefined') {%>
+                            <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-course='<%=session.courseTitle%>' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '+ session.location["address2"] +', '%> <%= session.location["city"]  +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'>
+                          <% } else if(typeof(session.location["address1"])!='undefined') {%>
+                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-course='<%=session.courseTitle%>' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'>
+                          <% } else if(typeof(session.location["address2"])!= 'undefined') {%>
+                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-course='<%=session.courseTitle%>' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'>
                           <% } else {%>
-                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-course='<%=array[j].courseTitle%>' data-city=' - <%= array[j].location["city"]%>, <%= array[j].location["state"]%>' data-address='<%= array[j].location["address2"] +', '%> <%= array[j].location["city"] +', '%> <%= array[j].location["state"] %> <%= array[j].location["postalCode"] %>'>
+                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-course='<%=session.courseTitle%>' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'>
                           <% } %>
                         <%}%>
                       </td>
-                      <td>$<%=array[j].tuition%></td>
-                      <td><button class="register" type="button" name="button" onclick="ga('send', 'event', 'register', 'sign-up', '<%=array[j].registrationUrl%>');location.href='<%=array[j].registrationUrl%>'">Register</button></td>
+                      <td>$<%=session.tuition%></td>
+                      <td><button class="register" type="button" name="button" onclick="ga('send', 'event', 'register', 'sign-up', '<%=session.registrationUrl%>');location.href='<%=session.registrationUrl%>'">Register</button></td>
                     </tr>
                   <% } %>
                 </table>
