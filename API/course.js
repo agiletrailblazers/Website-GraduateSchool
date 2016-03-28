@@ -191,5 +191,39 @@ module.exports = {
       }
       return callback(null, JSON.parse(body));
     });
+  },
+  // API to retrieve a specific course session by its ID
+  getSessions: function(callback, authToken, sessionStatus, sessionDomain) {
+    // url for the API call
+    var queryParameters = "";
+    if (common.isNotEmpty(sessionStatus) || common.isNotEmpty(sessionDomain)) {
+      queryParameters = queryParameters + "?";
+    }
+
+    if (common.isNotEmpty(sessionStatus)) {
+      queryParameters = queryParameters + "status=" + sessionStatus;
+    }
+
+    if (common.isNotEmpty(sessionDomain)) {
+      if (common.isNotEmpty(sessionStatus)) {
+        queryParameters = queryParameters + "&"+ "sessiondomain=" + sessionDomain;
+      } else {
+        queryParameters = queryParameters + "sessiondomain=" + sessionDomain;
+      }
+    }
+
+    var url = config("properties").apiServer + '/api/courses/sessions' + queryParameters;
+    request({
+      method: 'GET',
+      url: url,
+      headers: {
+        'Authorization': authToken
+      }
+    }, function (error, response, body) {
+      if (common.checkForErrorAndLog(error, response, url)) {
+        return callback(new Error("Exception occurred getting sessions " + url), null);
+      }
+      return callback(null, JSON.parse(body));
+    });
   }
 };

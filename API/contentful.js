@@ -237,6 +237,26 @@ module.exports = {
       return callback(contentPage);
     });
   },
+
+  getGtoGPage: function(callback) {
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.content.spaceId+'/entries?sys.id=60o2cWEaVaQAqwo2IcmcOU';
+    request({
+      method: 'GET',
+      url: targetURL,
+      headers: {
+        'Authorization': config("properties").spaces.content.authorization
+      }
+    }, function(error, response, body) {
+      if (common.checkForErrorAndLog(error, response, targetURL)) { //This call returns 200 even when nothing found
+        return callback(response, new Error("Exception occurred in getting the G2G content page, "), null);
+      }
+      logger.debug("G2G Page Contentful: " + response.statusCode);
+      var contentPage = JSON.parse(body);
+
+      return callback(contentPage);
+    });
+  },
+
   getLandingPage: function(callback, slug) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.landing.spaceId+
                     '/entries/?content_type=landingGeneric&fields.slug=' + slug;

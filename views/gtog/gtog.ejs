@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Graduate School USA | <%= title %></title>
+    <meta charset="utf-8">
+    <% if (content.seoDescription) { %><meta name="description" content="<%= content.seoDescription %>"><% } %>
+    <% if (content.seoKeywords) { %><meta name="keywords" content="<%= content.seoKeywords %>"><% } %>
+    <% include ../partials/head %>
+    <script type="text/javascript" src="/javascripts/library/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="/javascripts/gtog.js"></script>
+    <link rel="stylesheet" href="/stylesheets/gtog.css">
+  </head>
+  <body>
+    <% include ../partials/header %>
+    <div id="main-container" class="container padding15">
+        <div class="row">
+          <div class="col-lg-9 col-md-9">
+            <% if (content.imageUrl) { %>
+              <img src="<%= content.imageUrl %>" style="width:100%;" />
+            <% } %>
+              <% if (content.subtitle) { %>
+                <h2><%- content.subtitle  %></h2>
+              <%  } %>
+
+            <section>
+                   <article id="<%= i %>" class="genericArticle">
+                     <% if (content.section) { %>
+                       <%- markdown(content.section || '') %>
+                     <%  } %>
+                   </article>
+            </section>
+          </div>
+          <% if (content.relatedLinks && content.relatedLinks.length > 0) { %>
+          <div class="col-lg-3 col-md-3 non-mobile" id="sidebar">
+            <div class="spacer mobile"></div>
+            <div class="panel-group">
+              <div class="panel panel-default related-links">
+            <div class="panel-heading related-links">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#related-links">Related links</a>
+                  </h4>
+            </div>
+            <div id="related-links" class="panel-collapse collapse in">
+              <div class="panel-body">
+                <ul>
+                <% content.relatedLinks.forEach(function(link) { %>
+                  <li><a href="<%= link.url %>"><%= link.name %></a></li>
+                  <hr>
+                <% }); %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+          <% } %>
+        </div> <!-- END row -->
+<!-- GTOG STARTS - TO BE REMOVED -->
+<hr>
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="g2g">Guaranteed-to-Go classes by Curriculum</h1>
+    <!-- Guaranteed to Go Classes -->
+    <!-- Navigation -->
+    <div id="gtog">
+
+      <!-- The requirement is to sort based on the following orderedSessions
+      Communication and Professional Skills
+      Federal Financial Management
+      Federal Human Resources
+      Government Auditing
+      Leadership and Management
+      Program and Management Analysis
+      Information Technology
+
+      Which everything alphabetical sor except for the last one. The order should be in databse.
+      will be fixed in next sprint
+      -->
+      <% var keys = Object.keys(curriculumSessions).sort(function (a,b){
+          if (a === 'Information Technology') {
+            return 1;
+          }
+          if (b === 'Information Technology') {
+            return -1;
+          }
+
+          return a.localeCompare(b);
+
+      }); %>
+        <ul class="nav nav-tabs">
+          <% for (var i = 0; i < keys.length; i++) { %>
+            <% var cssClass = "tab";%>
+            <% if (i === 0) { %>
+              <% cssClass = "active tab";%>
+            <% } %>
+            <li class="<%=cssClass%>"><a data-toggle="tab" href="#tab<%=i%>"><%=keys[i]%></a></li>
+          <% } %>
+        </ul>
+      <!-- Content -->
+      <div id="gtog-content" class="tab-content">
+           <% for (var i = 0; i < keys.length; i++) { %>
+             <% var className = "tab-pane fade";%>
+             <% if (i === 0) { %>
+               <% className = "tab-pane fade in active";%>
+             <% } %>
+             <div id="tab<%=i%>" class="<%=className%>">
+              <div id="gtog-table"> <!-- start non-mobile view -->
+                <table  id="gtog<%=i%>" class="table table-striped gtog tablesorter">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th class="non-mobile">Course Code</th>
+                      <th>Start Date</th>
+                      <th class="non-mobile">End Date</th>
+                      <th>Location</th>
+                      <th>Tuition</th>
+                      <th>Register</th>
+                    </tr>
+                  </thead>
+                  <% var arrayOfSessions = curriculumSessions[keys[i]]; %>
+                  <% for (var j = 0; j < arrayOfSessions.length; j++) { %>
+                    <% var session = arrayOfSessions[j]; %>
+                    <tr>
+                      <td><strong><a href="#"><%=session.courseTitle%></a></strong></td>
+                      <td class="non-mobile"><%=session.courseCode%></td>
+                      <td><%= session.startDate%></td>
+                      <td class="non-mobile"><%= session.endDate%></td>
+                      <td>
+                        <% if (session.location && session.location.city) {%>
+                          <%= session.location.city%>
+                          <% if (session.location.state) {%>
+                            , <%= session.location.state%>
+                          <% } %>
+                          <% if((typeof(session.location["address1"])!='undefined') && typeof(session.location["address2"])!='undefined') {%>
+                            <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-course='<%=session.courseTitle%>' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '+ session.location["address2"] +', '%> <%= session.location["city"]  +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'>
+                          <% } else if(typeof(session.location["address1"])!='undefined') {%>
+                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-course='<%=session.courseTitle%>' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'>
+                          <% } else if(typeof(session.location["address2"])!= 'undefined') {%>
+                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-course='<%=session.courseTitle%>' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'>
+                          <% } else {%>
+                              <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-course='<%=session.courseTitle%>' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'>
+                          <% } %>
+                        <%}%>
+                      </td>
+                      <td>$<%=session.tuition%></td>
+                      <td><button class="register" type="button" name="button" onclick="ga('send', 'event', 'register', 'sign-up', '<%=session.registrationUrl%>');location.href='<%=session.registrationUrl%>'">Register</button></td>
+                    </tr>
+                  <% } %>
+                </table>
+              </div> <!--END G2G Classes -->
+             </div>
+           <% } %>
+      </div><!--End of Content -->
+    </div><!-- END of Navigation -->
+  </div>
+</div>  <!-- End of row Guaranteed to Go Classes -->
+<!-- GTOG ENDS - TO BE REMOVED -->
+</div>
+
+<!-- Modal dialog -->
+<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <% var array = curriculumSessions[keys[0]]; %>
+        <h4 class="modal-title" id="mapModalLabel"><span id="modalCourseTitleSpan"></span><span id="modalSessionLocationSpan"></span></h4>
+
+
+      </div>
+      <div class="modal-body">
+        <div id="map-address"></div>
+        <div id="map-canvas"></div>
+      </div>
+      <div class="modal-footer">
+        <a id="getDirections" href="" target="_blank" class="blueish">Get Directions</a>
+        <a href="#" class="blueish" data-dismiss="modal">Close</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END - Modal dialog -->
+
+<% include ../partials/chat %>
+<% include ../partials/footer %>
+</body>
+</html>
