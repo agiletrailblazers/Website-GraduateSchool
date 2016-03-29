@@ -24,16 +24,18 @@
 				<div class="col-lg-8 col-md-8 col-sm-5 col-xs-5 non-mobile">
 					<div class="spacer60"></div>
 					<div class="row">
-						<div class="col-lg-8 col-md-8 mob-rem register">
+						<div class="col-lg-<%= userRouteEnabled === true ? "8" : "7"%> col-md-<%= userRouteEnabled === true ? "8" : "7"%> mob-rem register">
 							<div class="header-menu">
-								<% if (typeof userFirstName === 'string' && userFirstName != ""){%>
+								<% if (userRouteEnabled === true){
+								if (typeof userFirstName === 'string' && userFirstName != ""){%>
 									<div class="inline-block">
 										<span class="inline-block header-menu-text">Welcome, <%=userFirstName%>!</span> <br>
 										<a id="logoutButtonMob" href="/manage/user/logout"><span class="inline-block header-menu-text">Logout</span></a>
 									</div>
 								<% } else { %>
 									<div class="inline-block"><a id="loginNonMob" href="#" data-toggle="popover" data-placement="bottom" data-container="body" type="button" data-html="true" ><span class="inline-block"></span><span class="inline-block header-menu-text">Login</span></a></div>
-								<% } %>
+								<% }
+								}%>
 								<div class="inline-block"><a id="gsaNonMob" href="/content/gsa"><span class="inline-block"><img src="/images/gsa-contract-icon.png" alt="" /></span><span class="inline-block header-menu-text">Contract<br>Holder</span></a></div>
 								<div class="inline-block"><a id="g2gNonMob" href="/gtog"><span class="inline-block"><img src="/images/gtg-icon.jpg" alt="" /></span><span class="inline-block header-menu-text">Guaranteed<br>To Go</span></a></div>
 								<div class="inline-block"><a id="registerbuttonNonMob" href="/search"><span class="inline-block"><img src="/images/register-icon.png" alt="" /></span><span class="inline-block">Register</span></a></div>
@@ -77,7 +79,7 @@
 						</div>
 						<!-- End content of popover -->
 
-						<div class="col-lg-4 col-md-4">
+						<div class="col-lg-<%= userRouteEnabled === true ? "4" : "5"%> col-md-<%= userRouteEnabled === true ? "4" : "5"%>">
 							<div class="wrapper">
 								<div id="searchIcon">
 									<img alt="" src="/images/search.png">
