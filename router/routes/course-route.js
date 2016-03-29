@@ -154,7 +154,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
             }
           })
       } else if ((courseData.class.type.indexOf(classTypes.daytime) > -1) ||
-                 ((courseData.class.type.indexOf(classTypes.virtual) > -1) && (code.substr(code.length-1).toUpperCase=="A"))) {
+                 ((courseData.class.type.indexOf(classTypes.virtual) > -1) && (code.substr(code.length-1).toUpperCase()=="A"))) {
           // for daytime courses or for virtual courses, with course code ending with 'A' are displayed
           // only the sessions that have deadline beyond the current time are displayed.
           var sessions = [];
