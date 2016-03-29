@@ -77,20 +77,13 @@
       will be fixed in next sprint
       -->
       <% var keys = Object.keys(curriculumSessions).sort(function (a,b){
-          if (a === 'Information Technology') {
-            return 1;
-          }
-          if (b === 'Information Technology') {
-            return -1;
-          }
-
-          return a.localeCompare(b);
+          return (a.curricumTabDisplayOrder) - (b.curricumTabDisplayOrder);
 
       }); %>
         <ul class="nav nav-tabs">
-          <% for (var i = 0; i < keys.length; i++) { %>
+          <% for (var i =keys.length-1 ; i >=0 ; i--) { %>
             <% var cssClass = "tab";%>
-            <% if (i === 0) { %>
+            <% if (i ===  keys.length-1 ) { %>
               <% cssClass = "active tab";%>
             <% } %>
             <li class="<%=cssClass%>"><a data-toggle="tab" href="#tab<%=i%>"><%=keys[i]%></a></li>
@@ -98,9 +91,9 @@
         </ul>
       <!-- Content -->
       <div id="gtog-content" class="tab-content">
-           <% for (var i = 0; i < keys.length; i++) { %>
+           <% for (var i = keys.length-1 ; i >=0; i--) { %>
              <% var className = "tab-pane fade";%>
-             <% if (i === 0) { %>
+             <% if (i ===  keys.length-1 ) { %>
                <% className = "tab-pane fade in active";%>
              <% } %>
              <div id="tab<%=i%>" class="<%=className%>">
