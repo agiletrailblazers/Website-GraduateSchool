@@ -140,15 +140,29 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
 
       // Determine if EP registration dealine has ellapsed
       var classTypes = config("properties").classTypes;
+      var code = courseData.class.code;
       if (courseData.class.type.indexOf(classTypes.evening) > -1) {
           courseData.session.epPastRegDeadline = false;
           courseData.session.forEach(function(session) {
             var epRegDeadline = momentTz.tz(session.origStartDate, 'YYYY MM DD', "America/New_York").add(14, 'days').add(18, 'hours');
+            // if the deadline has gone then status is set to 'C'
             if (epRegDeadline.isBefore(momentTz().tz("America/New_York"))) {
               session.status = 'C';
               session.epPastRegDeadline = true;
             }
           })
+      } else if ((courseData.class.type.indexOf(classTypes.daytime) > -1) ||
+                 ((courseData.class.type.indexOf(classTypes.virtual) > -1) && (code.substr(code.lenght-1).toUpperCase=="A"))) {
+          // for daytime courses or for virtual courses, with course code ending with 'A' are displayed
+          // only the sessions that have deadline beyond the current time are displayed.
+          var sessions = [];
+          courseData.session.forEach(function(session) {            
+            var regDeadline = momentTz.tz(session.origStartDate, 'YYYY MM DD', "America/New_York");
+            if (regDeadline.isAfter(momentTz().tz("America/New_York"))) {
+              sessions.push(session);
+            }
+          });
+          courseData.session = sessions;
       };
       content.linksSection.forEach(function(link) {
         link.url = link.url.replace('[courseCode]', courseData.class.code);
