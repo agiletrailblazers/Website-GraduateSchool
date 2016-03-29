@@ -32,7 +32,13 @@
 
 }
 
+#nav-menu-contact-us{
+    position: relative !important;
+}
 
+#nav-menu-contact-us-link{
+    left:50%
+}
 #map-canvas{
   height: 300px;
   width: 100%;
