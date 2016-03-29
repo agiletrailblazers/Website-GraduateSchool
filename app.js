@@ -128,7 +128,8 @@ app.use(function (req, res, next) {
 				mailPage: mailPage,
 				env: env,
 				userFirstName: userFirstName,
-				nextPageAfterCreateUser: nextPageAfterCreateUser
+				nextPageAfterCreateUser: nextPageAfterCreateUser,
+				userRouteEnabled: config("properties").manage.userRouteEnabled
 			};
 			next();
 		})
