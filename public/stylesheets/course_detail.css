@@ -35,12 +35,14 @@
   height: 150px;
 }
 
-.course-message-data {
+.position-fixer {
   position: absolute;
   text-align: center;
-  width: 98%;
+  width: 95%;
   display: block;
-  margin: 0 auto;
+  margin: 0;
+  top: 120px;
+
 }
 
 /* Contact us drop-down button */
@@ -113,8 +115,9 @@
     display: block;
 }
 
-.dropdown-content a:hover { background-color: transparent}
-
+.dropdown-content a:hover {
+  background-color: transparent
+}
 
 
 .dropdown:hover .dropdown-content {
