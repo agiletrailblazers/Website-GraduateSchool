@@ -2,6 +2,7 @@ var request = require('request');
 var logger = require('../logger');
 var config = require('konphyg')(__dirname + '/../config');
 var common = require("../helpers/common.js");
+var crypto = require('crypto');
 
 getAuthToken = function (req, res, callback) {
     var tokenCookieName  = config("properties").authenticate.tokenName;
@@ -39,6 +40,10 @@ getGuestToken = function (callback) {
         }
         return callback(null, JSON.parse(body));
     });
+};
+
+encryptPassword = function (password) {
+    return crypto.createHash('sha256').update(password, 'UTF8').digest('hex').toUpperCase();
 };
 
 loginUser = function(req, res, authCredentials, callback) {
@@ -86,5 +91,6 @@ module.exports = {
     getAuthToken: getAuthToken,
     getGuestToken: getGuestToken,
     loginUser: loginUser,
-    logoutUser: logoutUser
+    logoutUser: logoutUser,
+    encryptPassword: encryptPassword
 };

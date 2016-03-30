@@ -4,6 +4,8 @@ var chai = require('chai');
 var expect = chai.expect;
 var proxyquire = require('proxyquire').noCallThru();
 
+var encryptedPassword = "encryptedPassword";
+
 test('registrationLoginCreate', function(t) {
 
   var req = {
@@ -403,9 +405,13 @@ test('registrationLogin', function(t) {
     '../../../API/authentication-api.js': {
       loginUser: function (req, res, authCredentials, cb) {
         expect(authCredentials.username).to.eql(req.body.username);
-        expect(authCredentials.password).to.eql(req.body.password);
+        expect(authCredentials.password).to.eql(encryptedPassword);
         cb(null, authUser);
       },
+      encryptPassword: function(password) {
+        expect(password).to.eql(req.body.password);
+        return encryptedPassword;
+      }
     }
   });
 
@@ -461,9 +467,14 @@ test('registrationLogin should handle login failure', function(t) {
         '../../../API/authentication-api.js': {
           loginUser: function (req, res, authCredentials, cb) {
             expect(authCredentials.username).to.eql(req.body.username);
-            expect(authCredentials.password).to.eql(req.body.password);
+            expect(authCredentials.password).to.eql(encryptedPassword);
             cb(new Error("I am not the droid you are looking for"), authUser, 401);
           },
+          encryptPassword: function(password) {
+            expect(password).to.eql(req.body.password);
+            return encryptedPassword;
+          }
+
         }
       });
 
@@ -519,9 +530,13 @@ test('registrationLogin should handle other error', function(t) {
     '../../../API/authentication-api.js': {
       loginUser: function (req, res, authCredentials, cb) {
         expect(authCredentials.username).to.eql(req.body.username);
-        expect(authCredentials.password).to.eql(req.body.password);
+        expect(authCredentials.password).to.eql(encryptedPassword);
         cb(new Error("I am not the droid you are looking for"), authUser, 500);
       },
+      encryptPassword: function(password) {
+        expect(password).to.eql(req.body.password);
+        return encryptedPassword;
+      }
     }
   });
 
@@ -587,7 +602,7 @@ test('createUser', function(t) {
       createUser: function (userData, cb, authToken) {
 
         expect(userData.username).to.eql(req.body.email);
-        expect(userData.password).to.eql(req.body.password);
+        expect(userData.password).to.eql(encryptedPassword);
         expect(userData.lastFourSSN).to.eql(req.body.lastFourSSN);
         expect(userData.person.firstName).to.eql(req.body.firstName);
         expect(userData.person.middleName).to.eql(req.body.middleName);
@@ -615,9 +630,13 @@ test('createUser', function(t) {
     '../../../API/authentication-api.js': {
       loginUser: function (req, res, authCredentials, cb) {
         expect(authCredentials.username).to.eql(req.body.email);
-        expect(authCredentials.password).to.eql(req.body.password);
+        expect(authCredentials.password).to.eql(encryptedPassword);
         cb(null, authUser);
       },
+      encryptPassword: function(password) {
+        expect(password).to.eql(req.body.password);
+        return encryptedPassword;
+      }
     }
   });
 
@@ -690,7 +709,7 @@ test('createUser handles no dateOfBirth', function(t) {
           createUser: function (userData, cb, authToken) {
 
             expect(userData.username).to.eql(req.body.email);
-            expect(userData.password).to.eql(req.body.password);
+            expect(userData.password).to.eql(encryptedPassword);
             expect(userData.lastFourSSN).to.eql(req.body.lastFourSSN);
             expect(userData.person.firstName).to.eql(req.body.firstName);
             expect(userData.person.middleName).to.eql(req.body.middleName);
@@ -710,6 +729,12 @@ test('createUser handles no dateOfBirth', function(t) {
 
             cb(new Error("Create user failed"));
             return;
+          }
+        },
+        '../../../API/authentication-api.js': {
+          encryptPassword: function(password) {
+            expect(password).to.eql(req.body.password);
+            return encryptedPassword;
           }
         }
       });
@@ -789,7 +814,7 @@ test('createUser handles create user error', function(t) {
       createUser: function (userData, cb, authToken) {
 
         expect(userData.username).to.eql(req.body.email);
-        expect(userData.password).to.eql(req.body.password);
+        expect(userData.password).to.eql(encryptedPassword);
         expect(userData.lastFourSSN).to.eql(req.body.lastFourSSN);
         expect(userData.person.firstName).to.eql(req.body.firstName);
         expect(userData.person.middleName).to.eql(req.body.middleName);
@@ -809,6 +834,12 @@ test('createUser handles create user error', function(t) {
 
         cb(new Error("Create user failed"));
         return;
+      }
+    },
+    '../../../API/authentication-api.js': {
+      encryptPassword: function(password) {
+        expect(password).to.eql(req.body.password);
+        return encryptedPassword;
       }
     }
   });
@@ -888,7 +919,7 @@ test('createUser handles login user error', function(t) {
       createUser: function (userData, cb, authToken) {
 
         expect(userData.username).to.eql(req.body.email);
-        expect(userData.password).to.eql(req.body.password);
+        expect(userData.password).to.eql(encryptedPassword);
         expect(userData.lastFourSSN).to.eql(req.body.lastFourSSN);
         expect(userData.person.firstName).to.eql(req.body.firstName);
         expect(userData.person.middleName).to.eql(req.body.middleName);
@@ -915,9 +946,13 @@ test('createUser handles login user error', function(t) {
     '../../../API/authentication-api.js': {
       loginUser: function (req, res, authCredentials, cb) {
         expect(authCredentials.username).to.eql(req.body.email);
-        expect(authCredentials.password).to.eql(req.body.password);
+        expect(authCredentials.password).to.eql(encryptedPassword);
         cb(new Error("I man authentication fail"), null);
       },
+      encryptPassword: function(password) {
+        expect(password).to.eql(req.body.password);
+        return encryptedPassword;
+      }
     }
   });
 
@@ -983,8 +1018,12 @@ test('login', function(t) {
         '../../../API/authentication-api.js': {
           loginUser: function (req, res, authCredentials, cb) {
             expect(authCredentials.username).to.eql(req.body.username);
-            expect(authCredentials.password).to.eql(req.body.password);
+            expect(authCredentials.password).to.eql(encryptedPassword);
             cb(null, authUser);
+          },
+          encryptPassword: function(password) {
+            expect(password).to.eql(req.body.password);
+            return encryptedPassword;
           }
         }
       });
@@ -1038,8 +1077,12 @@ test('login should handle failed login error', function(t) {
         '../../../API/authentication-api.js': {
           loginUser: function (req, res, authCredentials, cb) {
             expect(authCredentials.username).to.eql(req.body.username);
-            expect(authCredentials.password).to.eql(req.body.password);
+            expect(authCredentials.password).to.eql(encryptedPassword);
             cb(new Error("I am not the droid you are looking for"), null, 401);
+          },
+          encryptPassword: function(password) {
+            expect(password).to.eql(req.body.password);
+            return encryptedPassword;
           }
         }
       });
@@ -1094,8 +1137,12 @@ test('login should handle other error', function(t) {
         '../../../API/authentication-api.js': {
           loginUser: function (req, res, authCredentials, cb) {
             expect(authCredentials.username).to.eql(req.body.username);
-            expect(authCredentials.password).to.eql(req.body.password);
+            expect(authCredentials.password).to.eql(encryptedPassword);
             cb(new Error("I am not the droid you are looking for"), null, 500);
+          },
+          encryptPassword: function(password) {
+            expect(password).to.eql(req.body.password);
+            return encryptedPassword;
           }
         }
       });
