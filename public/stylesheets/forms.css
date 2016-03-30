@@ -50,12 +50,14 @@ input, select, textarea, button {
 
 #gs-form label {
   display: inline-block;
-  max-width: 100%;
+  width: 100%;
   margin-bottom: 4px;
   font-weight: normal !important;
   padding-right: 15px !important;
   font-size: 13px;
   color: #666 !important;
+  text-align:left;
+  vertical-align: top;
 }
 
 #gs-form select, #gs-form input, #gs-form textarea, #gs-form button.ms-choice {
