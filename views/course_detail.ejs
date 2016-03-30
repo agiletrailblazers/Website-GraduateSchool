@@ -108,6 +108,7 @@
                   <% if (true === courseData.isLeadershipCourse) { %>
                     <a href=<%= courseData.leadershipCourseScheduleLink %>><%= content.leadershipCourseScheduleLinkText %></a>
                   <% } else if(courseData && courseData.class && courseData.class.type && courseData.class.type.indexOf(classTypes.evening) > -1 ) {%>
+
                         <P>This Course is Currently Not Scheduled. For Further Information,</p>
                           <div class="center">
                             <div class="dropdown">
