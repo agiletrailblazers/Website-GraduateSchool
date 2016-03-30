@@ -107,7 +107,7 @@
                 <tr class="course-message"><td colspan="5" class="course-message-data">
                   <% if (true === courseData.isLeadershipCourse) { %>
                     <a href=<%= courseData.leadershipCourseScheduleLink %>><%= content.leadershipCourseScheduleLinkText %></a>
-                  <% } else if(courseData && courseData.class && courseData.class.type && courseData.class.type.indexOf('Classroom - Evening') > -1 ) {%>
+                  <% } else if(courseData && courseData.class && courseData.class.type && courseData.class.type.indexOf(classTypes.evening) > -1 ) {%>
                         <P>This Course is Currently Not Scheduled. For Further Information,</p>
                           <div class="center">
                             <div class="dropdown">
@@ -282,7 +282,7 @@
                           <p class="padding10f">
                             <% if (true === courseData.isLeadershipCourse) { %>
                               <a href=<%= courseData.leadershipCourseScheduleLink %>><%= content.leadershipCourseScheduleLinkText %></a>
-                            <% } else if(courseData && courseData.class && courseData.class.type && courseData.class.type.indexOf('Classroom - Evening') > -1 ) {%>
+                            <% } else if(courseData && courseData.class && courseData.class.type && courseData.class.type.indexOf(classTypes.evening) > -1 ) {%>
                                   <p class="center">This Course is Currently Not Scheduled. For Further Information,</p>
                                     <div class="center">
                                       <div class="dropdown">
