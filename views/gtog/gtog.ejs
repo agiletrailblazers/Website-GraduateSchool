@@ -64,23 +64,15 @@
     <!-- Navigation -->
     <div id="gtog">
 
-      <!-- The requirement is to sort based on the following orderedSessions
-      Communication and Professional Skills
-      Federal Financial Management
-      Federal Human Resources
-      Government Auditing
-      Leadership and Management
-      Program and Management Analysis
-      Information Technology
-
-      Which everything alphabetical sor except for the last one. The order should be in databse.
-      will be fixed in next sprint
-      -->
+      <!-- The requirement is to sort based on the order comming from database-->
       <% var keys = Object.keys(curriculumSessions).sort(function (a,b){
           return (a.curricumTabDisplayOrder) - (b.curricumTabDisplayOrder);
 
       }); %>
         <ul class="nav nav-tabs">
+            <!-- Sort function above will bring the first tab to be displayed in the last element of the array.
+            So  when looping through we should start with the last element in the array.
+            -->
           <% for (var i =keys.length-1 ; i >=0 ; i--) { %>
             <% var cssClass = "tab";%>
             <% if (i ===  keys.length-1 ) { %>
