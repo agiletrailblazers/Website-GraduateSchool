@@ -102,7 +102,7 @@
                   <% for (var j = 0; j < arrayOfSessions.length; j++) { %>
                     <% var session = arrayOfSessions[j]; %>
                     <tr>
-                      <td><strong><a href="#"><%=session.courseTitle%></a></strong></td>
+                      <td><strong><a href='/courses/<%=session.courseCode %>'><%=session.courseTitle%></a></strong></td>
                       <td class="non-mobile"><%=session.courseCode%></td>
                       <td><%= session.startDate%></td>
                       <td class="non-mobile"><%= session.endDate%></td>
