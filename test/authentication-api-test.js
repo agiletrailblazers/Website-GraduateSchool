@@ -6,6 +6,7 @@ var should = chai.should();
 var expect = chai.expect;
 var config = require('konphyg')(__dirname + "/../config");
 var test = require('tap').test;
+var proxyquire = require('proxyquire').noCallThru();
 
 var tokenName = config("properties").authenticate.tokenName;
 
@@ -281,5 +282,42 @@ test('logout user successful', function(t) {
     }
   };
   authenticate.logoutUser(req, res);
+  t.end();
+});
+
+test('encrypt password', function(t) {
+
+  var password = "clearPassword";
+  var encryptedPassword = "encryptedPassword";
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var proxiedAuthentication = proxyquire('../API/authentication-api.js',
+      {
+        "crypto": {
+          createHash: function (algorithm) {
+            expect(algorithm).to.eql('sha256');
+            return {
+              update : function (password, encoding) {
+                expect(password).to.eql(password);
+                expect(encoding).to.eql('UTF8');
+                return {
+                  digest : function (encoding) {
+                    expect(encoding).to.eql('hex');
+                    return {
+                      toUpperCase: function (){
+                        return encryptedPassword;
+                      }
+                    }
+                  }
+                }
+              }
+            };
+          }
+        }
+      });
+
+  var epwd = proxiedAuthentication.encryptPassword(password);
+  expect(epwd).to.eql(encryptedPassword);
+
   t.end();
 });

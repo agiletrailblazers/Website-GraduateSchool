@@ -138,7 +138,7 @@ module.exports = {
 
         var userData = {
           "username" : ((formData.email === "") ? null : formData.email),
-          "password" : ((formData.password === "") ? null : formData.password),
+          "password" : ((formData.password === "") ? null : authentication.encryptPassword(formData.password)),
           "lastFourSSN" : ((formData.lastFourSSN === "") ? null : formData.lastFourSSN),
           "person" :
            {
@@ -173,7 +173,7 @@ module.exports = {
           logger.debug("Authenticate the newly created user: " + userData.username);
           var authCredentials = {
             "username": userData.username,
-            "password": userData.password
+            "password": userData.password  // don't re-encrypt the password, it is already encrypted from the user creation
           };
           authentication.loginUser(req, res, authCredentials, function (error, authUser) {
             if (error) return callback(error);
@@ -212,7 +212,7 @@ module.exports = {
     logger.debug("Logging in user: " + formData.username);
     var authCredentials = {
       "username": formData.username,
-      "password": formData.password
+      "password": authentication.encryptPassword(formData.password)
     };
     authentication.loginUser(req, res, authCredentials, function (error, authorizedUser, statusCode) {
       if (error) {
@@ -246,7 +246,7 @@ module.exports = {
 
     var authCredentials = {
       "username": formData.username,
-      "password": formData.password
+      "password": authentication.encryptPassword(formData.password)
     };
 
     authentication.loginUser(req, res, authCredentials, function (error, authorizedUser, statusCode) {
