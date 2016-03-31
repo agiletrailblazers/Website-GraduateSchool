@@ -65,17 +65,13 @@
     <div id="gtog">
 
       <!-- The requirement is to sort based on the order comming from database-->
-      <% var keys = Object.keys(curriculumSessions).sort(function (a,b){
-          return (a.curricumTabDisplayOrder) - (b.curricumTabDisplayOrder);
-
-      }); %>
+        <%var keys = Object.keys(curriculumSessions).sort(function (a,b){
+            return curriculumSessions[a][0].curricumTabDisplayOrder - curriculumSessions[b][0].curricumTabDisplayOrder
+        }) %>
         <ul class="nav nav-tabs">
-            <!-- Sort function above will bring the first tab to be displayed in the last element of the array.
-            So  when looping through we should start with the last element in the array.
-            -->
-          <% for (var i =keys.length-1 ; i >=0 ; i--) { %>
+          <% for (var i = 0; i < keys.length; i++) { %>
             <% var cssClass = "tab";%>
-            <% if (i ===  keys.length-1 ) { %>
+            <% if (i ===  0 ) { %>
               <% cssClass = "active tab";%>
             <% } %>
             <li class="<%=cssClass%>"><a data-toggle="tab" href="#tab<%=i%>"><%=keys[i]%></a></li>
@@ -83,9 +79,9 @@
         </ul>
       <!-- Content -->
       <div id="gtog-content" class="tab-content">
-           <% for (var i = keys.length-1 ; i >=0; i--) { %>
+           <% for (var i = 0; i < keys.length; i++) { %>
              <% var className = "tab-pane fade";%>
-             <% if (i ===  keys.length-1 ) { %>
+             <% if (i ===  0 ) { %>
                <% className = "tab-pane fade in active";%>
              <% } %>
              <div id="tab<%=i%>" class="<%=className%>">
