@@ -5,7 +5,7 @@
   border: 1px solid #ccc;
 }
 
-#txtComments, #txtCustomization, #txtDeliveryDate{
+#txtComments, #txtCustomization,#txtDeliveryStartDate,#txtDeliveryEndDate{
   border: 1px solid #ccc;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;

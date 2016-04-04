@@ -128,11 +128,10 @@ module.exports = {
     if (!params.hearAbout) {
       response.errors.hearAbout = "Please tell us where you heard about Graduate School USA.";
     }
-
-    if (!params.captchaResponse) {
-      response.errors.captchaResponse = "Please select recaptcha.";
-    }
-
+    var recaptcha = validations.captcha(params.captchaResponse, config("properties").skipReCaptchaVerification)
+    if (!recaptcha.status && !params.captchaResponse) {
+        response.errors.captchaResponse = "Please select recaptcha.";
+      }
     callback(response);
   },
   validateRequestDuplicate: function(callback, params) {

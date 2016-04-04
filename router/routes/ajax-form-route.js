@@ -71,17 +71,26 @@ router.post('/mailer-onsite-inquiry', function (req, res, next) {
   //move code to router service
   routerService.validateOnsiteInquiryfields(function (response) {
     if (Object.keys(response.errors).length === 0) {
-      //verify captcha
-      google.verifyCaptcha(function (response, error) {
-        if ((response != null) && (response.statusCode == 200)) {
-          //send mail of success
-          mailer.sendOnsiteInquiry(function (response) {
-            handleResponse(res, response);
-          }, params);
-        } else {
-          sendErrorResponse(res, response);
-        }
-      }, params.onSiteInquirycaptchaResponse);
+      if (config("properties").skipReCaptchaVerification) {
+        logger.debug("onsite-inquiry- reCaptcha verification is turned off");
+        // send subscription email
+        mailer.sendOnsiteInquiry(function (response) {
+          handleResponse(res, response);
+        }, params);
+      } else {
+        //verify captcha
+        google.verifyCaptcha(function (response, error) {
+          if ((response != null) && (response.statusCode == 200)) {
+            //send mail of success
+            mailer.sendOnsiteInquiry(function (response) {
+              handleResponse(res, response);
+            }, params);
+          } else {
+            sendErrorResponse(res, response);
+          }
+        }, params.onSiteInquirycaptchaResponse);
+
+      }
     } else {
       sendErrorResponse(res, response);
     }

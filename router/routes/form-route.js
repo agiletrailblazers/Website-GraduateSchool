@@ -60,7 +60,8 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
       relatedLinks: fields.relatedLinks,
       prefix: fields.namePrefix,
       courses: courses,
-      states: states
+      states: states,
+      skipReCaptcha : config("properties").skipReCaptchaVerification
     });
   });
 });
