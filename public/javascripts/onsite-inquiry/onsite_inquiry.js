@@ -52,12 +52,6 @@ var Validate = {
 	      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> <strong>Student Count</strong> should be at least 1 digit.</p>");
 	    }
 	  },
-  captcha: function() {
-    var googleResponse = $('#g-recaptcha-response').val();
-    if (!googleResponse) {
-      $("#alertError").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>For security, please verify you are a real person below.</p>");
-    }
-  },
   courses: function() {
     var inputSelCourses = $("[name='selCourses']").val();
     var inputOtherCourse = $("#txtOtherCourse").val();
@@ -79,7 +73,7 @@ var _runValidation = function() {
   Validate.phone();
   Validate.studentCount();
   Validate.courses();
-  Validate.captcha();
+  validate.captcha("#g-recaptcha-response", "#alertError");
   if ($("#alertError p").length) {
     $("#alertError").slideDown("slow");
   }
@@ -95,7 +89,8 @@ $(document).ready(function() {
     width: '100%'
   });
 
-  $( "#txtDeliveryDate" ).datepicker();
+  $( "#txtDeliveryStartDate" ).datepicker();
+  $( "#txtDeliveryEndDate" ).datepicker();
 
 
   $("form").keyup(function(e) {
@@ -160,7 +155,8 @@ $(document).ready(function() {
     data.course.names = courseNames;
     data.course.studentCount = $("#txtStudentCount").val();
     data.course.customization = $("#txtCustomization").val();
-    data.course.deliveryDate = $("#txtDeliveryDate").val();
+    data.course.deliveryStartDate = $("#txtDeliveryStartDate").val();
+    data.course.deliveryEndDate = $("#txtDeliveryEndDate").val();
     data.course.instructor = $("#txtInstructor").val();
     data.course.deliveryMethod = $("[name='radDeliveryMethod']:checked").val()
     data.course.helpWithEnrollment = $("#chkHelpWithEnrollment").is(':checked');
