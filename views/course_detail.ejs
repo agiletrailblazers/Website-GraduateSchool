@@ -122,7 +122,7 @@
                     <a href=<%= courseData.leadershipCourseScheduleLink %>><%= content.leadershipCourseScheduleLinkText %></a>
                   <% } else if(courseData && courseData.class && courseData.class.type && courseData.class.type.indexOf('Classroom - Evening') > -1 ) {%>
                     <div class="center position-fixer">
-                      <p>This Course is Currently Not Scheduled. For Further Information,</p>
+                      <p>This Course is currently not scheduled. For further information, click the Contact Us button below.</p>
                         <div class="dropdown">
                           <button class="dropbtn underlined"><img src="/images/contact-us.png" alt="" />Contact Us</button>
                           <div class="dropdown-content">
@@ -295,7 +295,7 @@
                             <% if (true === courseData.isLeadershipCourse) { %>
                               <a href=<%= courseData.leadershipCourseScheduleLink %>><%= content.leadershipCourseScheduleLinkText %></a>
                             <% } else if(courseData && courseData.class && courseData.class.type && courseData.class.type.indexOf(classTypes.evening) > -1 ) {%>
-                                  <p class="center">This Course is Currently Not Scheduled. For Further Information,</p>
+                                  <p class="center">This Course is currently not scheduled. For further information, click the Contact Us button below.</p>
                                     <div class="center">
                                       <div class="dropdown">
                                         <button class="dropbtn underlined"><img src="/images/contact-us.png" alt="" />Contact Us</button>
