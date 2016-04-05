@@ -568,3 +568,8 @@ span.display-of-sessions {
 #map-address {
   padding: 10px 0px;
 }
+
+ #multipleRegistrationNonMobileIcon{
+    float: right !important;
+}
+

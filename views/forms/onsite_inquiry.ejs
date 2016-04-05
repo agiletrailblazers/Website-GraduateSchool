@@ -211,37 +211,37 @@
                           </span>
                           <span class="form-group">
                             <label for="dateStart">Start Date</label>
-                            <input type="text" id="txtDeliveryStartDate" class="form-control"  name="txtDeliveryStartDate" placeholder="MM/DD/YYYY" tabindex="12">
+                            <input type="text" id="txtDeliveryStartDate" class="form-control"  name="txtDeliveryStartDate" placeholder="MM/DD/YYYY" tabindex="23">
                           </span>
                           <span class="form-group">
                             <label for="txtDeliveryEndDate">End Date</label>
-                            <input type="text" id="txtDeliveryEndDate"  class="form-control" name="txtDeliveryEndDate" placeholder="MM/DD/YYYY"  tabindex="13">
+                            <input type="text" id="txtDeliveryEndDate"  class="form-control" name="txtDeliveryEndDate" placeholder="MM/DD/YYYY"  tabindex="24">
                           </span>
                           </div>
                         <div class="form-inline">
                           <span class="form-group">
                             <label for="radDeliveryMethod">HOW would you like the course(s) to be delivered? (select one)</label>
                             <br>
-                              <div class="form-block"><input type="radio" id="radClassroom" name="radDeliveryMethod" value="Classroom" tabindex="24"><label for="radClassroom" class="sub-label">Classroom</label></div>
-                              <div class="form-block"><input type="radio" id="radDistance" name="radDeliveryMethod" value="Distance Education" tabindex="25"><label for="radDistance" class="sub-label">Distance Education (Web, CD-ROM, and other options)</label></div>
-                              <div class="form-block"><input type="radio" id="radBlended" name="radDeliveryMethod" value="Blended Learning" tabindex="26"><label for="radBlended" class="sub-label">Blended Learning (both classroom and distance education delivery methods)</label></div>
+                              <div class="form-block"><input type="radio" id="radClassroom" name="radDeliveryMethod" value="Classroom" tabindex="25"><label for="radClassroom" class="sub-label">Classroom</label></div>
+                              <div class="form-block"><input type="radio" id="radDistance" name="radDeliveryMethod" value="Distance Education" tabindex="26"><label for="radDistance" class="sub-label">Distance Education (Web, CD-ROM, and other options)</label></div>
+                              <div class="form-block"><input type="radio" id="radBlended" name="radDeliveryMethod" value="Blended Learning" tabindex="27"><label for="radBlended" class="sub-label">Blended Learning (both classroom and distance education delivery methods)</label></div>
                           </span>
                         </div>
                         <div class="form-inline">
                           <span class="form-group">
                             <label for="txtInstructor">If you have a PREFERRED INSTRUCTOR(S), please list the name(s)?</label>
-                            <input type="text" id="txtInstructor" class="form-control" tabindex="27">
+                            <input type="text" id="txtInstructor" class="form-control" tabindex="28">
                           </span>
                         </div>
                         <div class="form-inline">
                           <span class="form-group">
-                            <input type="checkbox" id="chkHelpWithEnrollment" value="" tabindex="28"><label for="chkHelpWithEnrollment" class="sub-label">Would like our help with building enrollment?</label>
+                            <input type="checkbox" id="chkHelpWithEnrollment" value="" tabindex="29"><label for="chkHelpWithEnrollment" class="sub-label">Would like our help with building enrollment?</label>
                           </span>
                         </div>
                       </div><!-- END Course delivery -->
                       <br>
-                      <button type="button" name="toContact" id="toContactButton" tabindex="29" onclick="window.location.href='#accordion-top'">Previous</button>
-                      <button type="button" name="toCDI" id="toFormSubButton" tabindex="30" class="next-button" onclick="window.location.href='#accordion-top'">Next</button>
+                      <button type="button" name="toContact" id="toContactButton" tabindex="30" onclick="window.location.href='#accordion-top'">Previous</button>
+                      <button type="button" name="toCDI" id="toFormSubButton" tabindex="31" class="next-button" onclick="window.location.href='#accordion-top'">Next</button>
                     </div><!-- END Panel-body -->
                   </div>
                   </div>
@@ -257,7 +257,7 @@
                             <div class="form-inline">
                               <span class="form-group">
                                 <label for="selHearAbout">*How did you hear about training at Graduate School USA?</label>
-                                <select id="selHearAbout" class="form-control" tabindex="31">
+                                <select id="selHearAbout" class="form-control" tabindex="32">
                                   <option id="">Select One</option>
                                   <% for (i=0; i< hearAboutTraining.length; i++) { %>
                                     <option id="<%= hearAboutTraining[i].name %>"><%= hearAboutTraining[i].name %></option>
@@ -276,18 +276,18 @@
                                 <div class="comments">
                                   <label for="txtComments">Comments or Questions</label>
                                   <br>
-                                  <textarea class="form-control" name="comments" id="txtComments" rows="8" cols="80" tabindex="32"></textarea>
+                                  <textarea class="form-control" name="comments" id="txtComments" rows="8" cols="80" tabindex="33"></textarea>
                                 </div>
                               </span>
                             </div>
                             <% include ../forms/partials/footnote %>
                             <br>
                             <div id="onSiteInguiryCaptcha">
-                              <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh" tabindex="33"></div>
+                              <div class="g-recaptcha" data-sitekey="6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh" tabindex="34"></div>
                             </div>
                             <br>
-                            <button type="button" name="toCDI" id="backToCDIButton" tabindex="34" onclick="window.location.href='#accordion-top'">Previous</button>
-                            <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="35" onclick="window.location.href='#gs-form'">Submit Request</button>
+                            <button type="button" name="toCDI" id="backToCDIButton" tabindex="35" onclick="window.location.href='#accordion-top'">Previous</button>
+                            <button type="submit" id="submitForm" name="submitForm" value="submitForm" tabindex="36" onclick="window.location.href='#gs-form'">Submit Request</button>
                           </div> <!-- END Panel-body -->
                          </div>
                         </div>
