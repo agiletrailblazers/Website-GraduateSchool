@@ -44,7 +44,7 @@ app.use(function (req, res, next) {
 	var mailPage = {};
 	mailPage.titlePrefix = config("properties").mailPageTitlePrefix;
 	mailPage.body = config("properties").mailPageBody;
-	var sessionData = session.getSessionData(req);
+	var sessionData = session.getSessionData(req); //TODO This seems to be undefined at the time when the user's name is read
 	var userFirstName = "";
 	var nextPageAfterCreateUser = "";
 	async.series([
@@ -105,7 +105,7 @@ app.use(function (req, res, next) {
 			,
 			function(callback) {
 				//Try to get user's first name from the session data
-				if(sessionData.userFirstName){
+				if(sessionData.userFirstName){ //TODO this is blowing up
 					userFirstName = sessionData.userFirstName;
 					callback();
 				}
@@ -149,8 +149,6 @@ if (config("properties").useCache === true) {
 	var cache = new Redis(config("properties").redis);
 
 	app.set('cache', cache);
-
-	app.
 
 	cache.on("connect", function () {
 		console.log("Redis connected")

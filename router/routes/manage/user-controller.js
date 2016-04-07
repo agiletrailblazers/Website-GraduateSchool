@@ -60,7 +60,7 @@ module.exports = {
         return callback(null, nextPage);
       }
     }, function(err, content) {
-      session.setSessionData(res, sessionData);
+      session.setSessionData(req, res, sessionData);
 
       if (err) {
         logger.error("Error rendering createuser", err);
@@ -198,7 +198,7 @@ module.exports = {
       var sessionData = session.getSessionData(req);
       sessionData.userId = content.createdUserOrValidationErrors.id;
       sessionData.userFirstName =  content.createdUserOrValidationErrors.person.firstName;
-      session.setSessionData(res, sessionData);
+      session.setSessionData(req, res, sessionData);
 
       // send success to client
       res.status(201).send();
@@ -231,7 +231,7 @@ module.exports = {
       var sessionData = session.getSessionData(req);
       sessionData.userId = authorizedUser.user.id;
       sessionData.userFirstName = authorizedUser.user.person.firstName;
-      session.setSessionData(res, sessionData);
+      session.setSessionData(req, res, sessionData);
       
       // send success to client
       res.status(200).send();
@@ -255,7 +255,7 @@ module.exports = {
       if (error) {
         if (statusCode == 401) {
           sessionData.loginError = "Login failed, please try again";
-          session.setSessionData(res, sessionData);
+          session.setSessionData(req, res, sessionData);
 
           logger.debug("Failed during registration login for user", error);
           res.redirect('registration_login_create');
@@ -263,7 +263,7 @@ module.exports = {
         }
         else {
           sessionData.loginError = "There was an issue with your request. Please try again in a few minutes";
-          session.setSessionData(res, sessionData);
+          session.setSessionData(req, res, sessionData);
 
           logger.error("User failed to log in with a different issue", error);
           res.redirect('registration_login_create');
@@ -274,7 +274,7 @@ module.exports = {
       var sessionData = session.getSessionData(req);
       sessionData.userId = authorizedUser.user.id;
       sessionData.userFirstName = authorizedUser.user.person.firstName;
-      session.setSessionData(res, sessionData);
+      session.setSessionData(req, res, sessionData);
 
       res.redirect("/manage/cart/payment");
     });
@@ -286,7 +286,7 @@ module.exports = {
 
     authentication.logoutUser(req, res);
     sessionData = {};
-    session.setSessionData(res, sessionData);
+    session.setSessionData(req, res, sessionData);
     req.query["authToken"] = null;
 
     res.redirect("/")
