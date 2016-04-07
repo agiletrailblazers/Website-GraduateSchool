@@ -9,6 +9,10 @@ log4js.configure({
           "maxLogSize": 5000000,
           "backups": 10,
           "category": "app",
+      },
+      {
+          "type": "console",
+          "category": "app",
       }
   ],
   "levels": {

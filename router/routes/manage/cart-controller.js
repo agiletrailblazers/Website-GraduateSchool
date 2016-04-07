@@ -23,7 +23,7 @@ module.exports = {
     // already be contained in the session data
     displayCart : function(req, res, next) {
 
-        var sessionData = session.getSessionData(req);
+        var sessionData = req.app.get('sessionData');
         if (!sessionData.cart) {
             // no cart in session, initialize it
             sessionData.cart = {};
@@ -114,7 +114,7 @@ module.exports = {
             sessionData.cart.error = null;
 
             // update the session data
-            session.setSessionData(res, sessionData);
+            session.setSessionData(req, res, sessionData);
             res.render('manage/cart/cart', {
                 title: "Course Registration",
                 course: content.course,
@@ -130,7 +130,7 @@ module.exports = {
     displayPayment: function(req, res, next) {
 
         // get the session data, it contains the cart data
-        var sessionData = session.getSessionData(req);
+        var sessionData = req.app.get('sessionData');
 
         // payment related configuration properties
         var paymentConfig = config("properties").manage.payment;
@@ -279,7 +279,7 @@ module.exports = {
                     // user is already registered, set appropriate error message and send back to cart
                     sessionData.cart.error = retrievedUser.person.emailAddress   + " is already registered for this session. If you have any questions, please contact our please contact our Customer Service Center at (888) 744-4723.";
                     sessionData.cart.payment = {}; // Ensure there is no payment information in the cart
-                    session.setSessionData(res, sessionData);
+                    session.setSessionData(req, res, sessionData);
 
                     res.redirect('/manage/cart');
                     return;
@@ -292,7 +292,7 @@ module.exports = {
             }
 
             // update the session data
-            session.setSessionData(res, sessionData);
+            session.setSessionData(req, res, sessionData);
             res.render('manage/cart/payment', {
                 parameters: parameters,
                 signature: signature,
@@ -306,7 +306,7 @@ module.exports = {
 
         logger.debug("Processing payment canceled");
 
-        var sessionData = session.getSessionData(req);
+        var sessionData = req.app.get('sessionData');
 
         async.series({
             authReversal: function(callback) {
@@ -351,7 +351,7 @@ module.exports = {
 
             // remove all payment data from the cart, but leave all other contents
             sessionData.cart.payment = {};
-            session.setSessionData(res, sessionData);
+            session.setSessionData(req, res, sessionData);
 
             // redirect back to the cart
             res.redirect('/manage/cart');
@@ -363,7 +363,7 @@ module.exports = {
 
         logger.debug("Processing payment confirm");
 
-        var sessionData = session.getSessionData(req);
+        var sessionData = req.app.get('sessionData');
         var props = config("properties");
 
         async.parallel({
@@ -483,7 +483,7 @@ module.exports = {
             }
 
             // update the session data
-            session.setSessionData(res, sessionData);
+            session.setSessionData(req, res, sessionData);
 
             if (content.authorization.approved) {
                 // authorization approved, display confirmation page
@@ -512,7 +512,7 @@ module.exports = {
                     // set appropriate error message and send back to cart
                     sessionData.cart.error = "We're sorry, but your payment could not be processed. Please try another payment method or contact your financial institution if you feel this was in error.";
                     sessionData.cart.payment = {}; // Ensure there is no payment information in the cart
-                    session.setSessionData(res, sessionData);
+                    session.setSessionData(req, res, sessionData);
 
                     res.redirect('/manage/cart');
                 }
@@ -523,7 +523,7 @@ module.exports = {
                     // set appropriate error message and send back to cart
                     sessionData.cart.error = "We're sorry, but we've encountered an issue while processing your registration request. To finalize your registration, please contact our Customer Service Center at (888) 744-4723.";
                     sessionData.cart.payment = {}; // Ensure there is no payment information in the cart
-                    session.setSessionData(res, sessionData);
+                    session.setSessionData(req, res, sessionData);
 
                     res.redirect('/manage/cart');
                 }
@@ -541,7 +541,7 @@ module.exports = {
 
         logger.debug("Processing payment complete");
 
-        var sessionData = session.getSessionData(req);
+        var sessionData = req.app.get('sessionData');
 
         async.series({
             course: function(callback) {
@@ -635,7 +635,7 @@ module.exports = {
 
             // in every case, we want to clear the payment information out of the session data at this point
             sessionData.cart.payment = {};
-            session.setSessionData(res, sessionData);
+            session.setSessionData(req, res, sessionData);
 
             // inspect the registration result to determine appropriate action
             if (content.registrationResult.generalError) {
@@ -673,7 +673,7 @@ module.exports = {
                 sessionData.cart = {};
 
                 // update the session data
-                session.setSessionData(res, sessionData);
+                session.setSessionData(req, res, sessionData);
 
                 res.render('manage/cart/receipt', {
                     title: "Course Registration - Receipt",
@@ -692,7 +692,7 @@ module.exports = {
 
         logger.debug("Processing registration canceled from cart");
 
-        var sessionData = session.getSessionData(req);
+        var sessionData = req.app.get('sessionData');
 
         if (sessionData.userId) {
             logger.debug("Removing data from cart for user: " + sessionData.userId);
@@ -703,7 +703,7 @@ module.exports = {
         sessionData.cart = {};
 
         // update the session data
-        session.setSessionData(res, sessionData);
+        session.setSessionData(req, res, sessionData);
         res.redirect('/search');
     }
 } // end module.exports

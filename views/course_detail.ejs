@@ -92,22 +92,27 @@
             <li><span class="label label-danger">C</span>Registration closed</li>
             <li><span class="label label-success">G</span>Guaranteed to Go</li>
           </ul>
-            <a id="multipleRegistrationNonMobileIcon"href="#" data-toggle="modal" data-target="#multipleRegistrationModal"><span class="glyphicon glyphicon-info-sign"></span></a>
+            <a id="multipleRegistrationNonMobileIcon"href="#" data-toggle="modal" data-target="#multipleRegistrationModal"><span class="glyphicon glyphicon-info-sign"></span>Multiple Registrations?</a>
         </div>
 
       </div> <!-- End of Legend -->
         <!-- START modal popup container -->
         <div class="modal fade" id="multipleRegistrationModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
-            <div class="modal-dialog">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-body" id="modalBody">Do you need to enroll others? Do you need to register multiple people? Call our Customer Service Center at 888-744-4723 for assistance.</div>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalLabel"><span class="glyphicon glyphicon-info-sign"></span>Multiple Registrations?</h4>
+                    </div>
+                    <div class="modal-body" id="modalBody">Do you need to enroll others? Do you need to register multiple students? Please call our Customer Service Center at 888-744-4723 for assistance. Thank you!</div>
                     <div class="modal-footer">
                         <a href="#" class="blueish" data-dismiss="modal">Close</a>
                     </div>
                 </div>
             </div>
-        </div><!-- END modal popup container -->
-        <table id="courseSessionTable" class="table table-striped session-schedule" data-totaltr="<%= courseData.session.length %>">
+        </div>
+        <!-- END modal popup container -->
+         <table id="courseSessionTable" class="table table-striped session-schedule" data-totaltr="<%= courseData.session.length %>">
           <thead>
             <tr>
               <th><%= content.sessionTable[0] %></th>
@@ -122,7 +127,7 @@
                     <a href=<%= courseData.leadershipCourseScheduleLink %>><%= content.leadershipCourseScheduleLinkText %></a>
                   <% } else if(courseData && courseData.class && courseData.class.type && courseData.class.type.indexOf('Classroom - Evening') > -1 ) {%>
                     <div class="center position-fixer">
-                      <p>This Course is Currently Not Scheduled. For Further Information,</p>
+                      <p>This Course is currently not scheduled. For further information, click the Contact Us button below.</p>
                         <div class="dropdown">
                           <button class="dropbtn underlined"><img src="/images/contact-us.png" alt="" />Contact Us</button>
                           <div class="dropdown-content">
@@ -295,7 +300,7 @@
                             <% if (true === courseData.isLeadershipCourse) { %>
                               <a href=<%= courseData.leadershipCourseScheduleLink %>><%= content.leadershipCourseScheduleLinkText %></a>
                             <% } else if(courseData && courseData.class && courseData.class.type && courseData.class.type.indexOf(classTypes.evening) > -1 ) {%>
-                                  <p class="center">This Course is Currently Not Scheduled. For Further Information,</p>
+                                  <p class="center">This Course is currently not scheduled. For further information, click the Contact Us button below.</p>
                                     <div class="center">
                                       <div class="dropdown">
                                         <button class="dropbtn underlined"><img src="/images/contact-us.png" alt="" />Contact Us</button>
@@ -426,22 +431,27 @@
               <li><span class="label label-info">O</span>Registration open</li>
               <li><span class="label label-danger">C</span>Registration closed</li>
               <li><span class="label label-success">G</span>Guaranteed to Go class/session</li>
-                <li><a href="#" data-toggle="modal" data-target="#multipleRegistrationMobileModal"><span class="glyphicon glyphicon-info-sign"></span></a></li>
+                <li><a href="#" data-toggle="modal" data-target="#multipleRegistrationMobileModal"><span class="glyphicon glyphicon-info-sign"></span>Multiple Registrations?</a></li>
             </ul>
           </div>
         </div> <!-- End of Legend -->
       </div><!-- End of Row -->
-          <!-- START modal popup container -->
-          <div class="modal fade" id="multipleRegistrationMobileModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                      <div class="modal-body" id="modalBody">Do you need to enroll others? Do you need to register multiple people? Call our Customer Service Center at 888-744-4723 for assistance.</div>
-                      <div class="modal-footer">
-                          <a href="#" class="blueish" data-dismiss="modal">Close</a>
-                      </div>
-                  </div>
-              </div>
-          </div><!-- END modal popup container -->
+        <!-- START modal popup container -->
+      <div class="modal fade" id="multipleRegistrationMobileModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               <h4 class="modal-title" id="modalLabel"><span class="glyphicon glyphicon-info-sign"></span>Multiple Registrations?</h4>
+             </div>
+             <div class="modal-body" id="modalBody">Do you need to enroll others? Do you need to register multiple students? Please call our Customer Service Center at 888-744-4723 for assistance. Thank you!</div>
+             <div class="modal-footer">
+               <a href="#" class="blueish" data-dismiss="modal">Close</a>
+             </div>
+            </div>
+           </div>
+         </div>
+          <!-- END modal popup container -->
 
           <div class="spacer mobile"></div>
     </div><!-- End Mobile Course Session Schedule table -->

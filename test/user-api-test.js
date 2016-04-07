@@ -147,7 +147,8 @@ test('createUser failure with Validation Errors', function(t) {
         .reply(401, validationErrors);
 
     server;
-    user.createUser(userData, function(error, inValidationErrors) {
+    var expectedNullUserData = null;
+    user.createUser(userData, function(error, expectedNullUserData, inValidationErrors) {
         server.done();
         expect(inValidationErrors[0].fieldName).to.eql("person.dateOfBirth");
         expect(inValidationErrors[0].errorMessage).to.eql("Date of Birth is not in yyyyMMdd format");
