@@ -13,6 +13,7 @@ var course = require("./API/course.js");
 var common = require("./helpers/common.js");
 var session = require('./API/manage/session-api.js');
 var user = require("./API/manage/user-api.js");
+var Redis = require('ioredis');
 
 var app = express();
 
@@ -136,6 +137,40 @@ app.use(function (req, res, next) {
 	}
 	]);
 });
+if (config("properties").useCache === true) {
+	// setup Redis connection
+	Redis.Promise.onPossiblyUnhandledRejection(function (error) {
+		// you can log the error here.
+		// error.command.name is the command name, here is 'set'
+		// error.command.args is the command arguments, here is ['foo']
+		console.log("Redis Error: ", error);
+	});
+
+	var cache = new Redis(config("properties").redis);
+
+	app.set('cache', cache);
+
+	app.
+
+	cache.on("connect", function () {
+		console.log("Redis connected")
+	});
+	cache.on("ready", function () {
+		console.log("Redis ready");
+	});
+	cache.on("error", function (err) {
+		console.log("Redis error: " + err);
+	});
+	cache.on("close", function () {
+		console.log("Redis close");
+	});
+	cache.on("reconnecting", function (time) {
+		console.log("Redis reconnecting in " + time + " msec");
+	});
+	cache.on("end", function () {
+		console.log("Redis end")
+	});
+}
 
 //app.use('/', require('./routes'));
 var router = require('./router')(app);

@@ -121,5 +121,9 @@
       "evening":"Classroom - Evening",
       "daytime": "Classroom - Daytime",
       "virtual": "Virtual Class"
-    }
+    },
+  "redis": {
+    "name": "mymaster"
+  },
+  "useCache": false
 }
