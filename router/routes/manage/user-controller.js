@@ -13,7 +13,7 @@ module.exports = {
   // Display the create user form
   displayRegistrationLoginCreate: function(req, res, next) {
 
-    var sessionData = session.getSessionData(req);
+    var sessionData = req.app.get('sessionData');
 
     async.series({
       sessionId: function(callback) {
@@ -60,7 +60,7 @@ module.exports = {
         return callback(null, nextPage);
       }
     }, function(err, content) {
-      session.setSessionData(res, sessionData);
+      session.setSessionData(req, res, sessionData);
 
       if (err) {
         logger.error("Error rendering createuser", err);
@@ -129,8 +129,8 @@ module.exports = {
   // Handle request to create the user; this is an AJAX call.
   createUser: function(req, res, next) {
 
-    async.series({
-      createdUserOrValidationErrors: function(callback) {
+    async.waterfall([
+      function(callback) {
         var dateOfBirthString = null;
         // get the form data from the body of the request
         var formData = req.body;
@@ -160,15 +160,15 @@ module.exports = {
              "dateOfBirth" : ((formData.dateOfBirth == "" ) ? null : moment(new Date(formData.dateOfBirth)).format("YYYYMMDD"))
            },
           "timezoneId" : ((formData.timezoneId === "") ? null : formData.timezoneId)
-        };
-        user.createUser(userData, function(error, createdUserOrValidationErrors) {
+        }
+        user.createUser(userData, function(error, createdUser, validationErrors) {
           // callback with the error, this will cause async module to stop executing remaining
           // functions and jump immediately to the final function, it is important to return
           // so that the task callback isn't called twice
-          if (error) return callback(error, createdUserOrValidationErrors);
+          if (error) return callback(error, null, validationErrors);
 
           // user created successfully
-          logger.info("Created user: " + createdUserOrValidationErrors.id + " - " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
+          logger.info("Created user: " + createdUser.id + " - " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
 
           logger.debug("Authenticate the newly created user: " + userData.username);
           var authCredentials = {
@@ -178,28 +178,23 @@ module.exports = {
           authentication.loginUser(req, res, authCredentials, function (error, authUser) {
             if (error) return callback(error);
             // the login user API call will set the authenticated token, we don't need to do anything with the response
-            return callback(null, createdUserOrValidationErrors);
+            session.setGuestSessionToUserSession(req, res, authUser.user, function () {
+              callback(null, authUser, null);
+            });
           });
         }, req.query["authToken"]);
       }
-    }, function(err, content) {
-      if (err) {
-        logger.error("Failed during user creation", err);
-        if (content.createdUserOrValidationErrors){
-          res.status(400).send({"error": "We have experienced a problem creating your account. Please correct the information an try again.", "validationErrors" : content.createdUserOrValidationErrors});
+    ], function(error, createdUser, validationErrors) {
+      if (error) {
+        logger.error("Failed during user creation", error);
+        if (validationErrors){
+          res.status(400).send({"error": "We have experienced a problem creating your account. Please correct the information an try again.", "validationErrors" : valdationErrors});
         }
         else {
           res.status(500).send({"error": "We have experienced a problem processing your request, please try again later."});
         }
         return;
       }
-
-      // add the created user id to the session data
-      var sessionData = session.getSessionData(req);
-      sessionData.userId = content.createdUserOrValidationErrors.id;
-      sessionData.userFirstName =  content.createdUserOrValidationErrors.person.firstName;
-      session.setSessionData(res, sessionData);
-
       // send success to client
       res.status(201).send();
     });
@@ -216,25 +211,20 @@ module.exports = {
     };
     authentication.loginUser(req, res, authCredentials, function (error, authorizedUser, statusCode) {
       if (error) {
-        if (statusCode == 401) {
-          logger.debug("User failed log in", error);
-          res.status(statusCode).send({"error": "Login failed, please try again"});
-          return;
-        }
-        else {
-          logger.error("User failed to log in with a different issue", error);
-          res.status(statusCode).send({"error": "There was an issue with your request. Please try again in a few minutes"});
-          return;
-        }
+          if (statusCode == 401) {
+            logger.debug("User failed log in", error);
+            res.status(statusCode).send({"error": "Login failed, please try again"});
+            return;
+          }
+          else {
+            logger.error("User failed to log in with a different issue", error);
+            res.status(statusCode).send({"error": "There was an issue with your request. Please try again in a few minutes"});
+            return;
+          }
       }
-      // add the logged in user id to the session data
-      var sessionData = session.getSessionData(req);
-      sessionData.userId = authorizedUser.user.id;
-      sessionData.userFirstName = authorizedUser.user.person.firstName;
-      session.setSessionData(res, sessionData);
-      
-      // send success to client
-      res.status(200).send();
+      session.setGuestSessionToUserSession(req, res, authorizedUser.user, function() {
+        res.status(200).send();
+      });
     });
   },
 
@@ -250,12 +240,12 @@ module.exports = {
     };
 
     authentication.loginUser(req, res, authCredentials, function (error, authorizedUser, statusCode) {
-      var sessionData = session.getSessionData(req);
+      var sessionData = req.app.get('sessionData');
 
       if (error) {
         if (statusCode == 401) {
           sessionData.loginError = "Login failed, please try again";
-          session.setSessionData(res, sessionData);
+          session.setSessionData(req, res, sessionData);
 
           logger.debug("Failed during registration login for user", error);
           res.redirect('registration_login_create');
@@ -263,30 +253,26 @@ module.exports = {
         }
         else {
           sessionData.loginError = "There was an issue with your request. Please try again in a few minutes";
-          session.setSessionData(res, sessionData);
+          session.setSessionData(req, res, sessionData);
 
           logger.error("User failed to log in with a different issue", error);
           res.redirect('registration_login_create');
           return;
         }
       }
-      // add the logged in user id to the session data
-      var sessionData = session.getSessionData(req);
-      sessionData.userId = authorizedUser.user.id;
-      sessionData.userFirstName = authorizedUser.user.person.firstName;
-      session.setSessionData(res, sessionData);
-
-      res.redirect("/manage/cart/payment");
+      session.setGuestSessionToUserSession(req, res, authorizedUser.user, function() {
+        res.redirect("/manage/cart/payment");
+      });
     });
   },
 
   logout: function (req, res, next) {
-    var sessionData = session.getSessionData(req);
+    var sessionData = req.app.get('sessionData');
     logger.info("Logging out user " + sessionData.userId);
 
     authentication.logoutUser(req, res);
     sessionData = {};
-    session.setSessionData(res, sessionData);
+    session.setSessionData(req, res, sessionData);
     req.query["authToken"] = null;
 
     res.redirect("/")
