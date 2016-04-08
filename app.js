@@ -44,7 +44,8 @@ app.use(function (req, res, next) {
 	var mailPage = {};
 	mailPage.titlePrefix = config("properties").mailPageTitlePrefix;
 	mailPage.body = config("properties").mailPageBody;
-	var sessionData = session.getSessionData(req); //TODO This seems to be undefined at the time when the user's name is read
+	//If session data is null try to get it. If you can't return to error page
+	 //TODO call this once, then put it in app.set(sessionData). Routes should do req.app.sessiondata to get sessionData
 	var userFirstName = "";
 	var nextPageAfterCreateUser = "";
 	async.series([
@@ -104,16 +105,21 @@ app.use(function (req, res, next) {
 			}
 			,
 			function(callback) {
-				//Try to get user's first name from the session data
-				if(sessionData.userFirstName){ //TODO this is blowing up
-					userFirstName = sessionData.userFirstName;
-					callback();
-				}
-
-				//Could not get first name from sessionData
-				else{
-					callback();
-				}
+				session.getSessionData(req, function(error, sessionData) {
+					if (error) {
+						logger.error('Could not retrieve session from Cache. Redirecting to error page', error);
+					}
+					app.set('sessionData', sessionData);
+					//Try to get user's first name from the session data
+					if(sessionData.userFirstName){
+						userFirstName = sessionData.userFirstName;
+						callback();
+					}
+					//Could not get first name from sessionData
+					else{
+						callback();
+					}
+				});
 			},
 			function(callback) {
 				//If the user clicks the create account link, this is the page to navigate to after successful creation
