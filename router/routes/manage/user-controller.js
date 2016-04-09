@@ -178,17 +178,11 @@ module.exports = {
           authentication.loginUser(req, res, authCredentials, function (error, authUser) {
             if (error) return callback(error);
             // the login user API call will set the authenticated token, we don't need to do anything with the response
-            return callback(null, null, authUser);
+            session.setGuestSessionToUserSession(req, res, authUser.user, function () {
+              callback(null, authUser, null);
+            });
           });
         }, req.query["authToken"]);
-      },
-      function(createdUser, validationErrors, callback) {
-        if (createdUser) {
-          session.setGuestSessionToUserSession(req, res, createdUser.user, function () {
-            callback(createdUser, validationErrors);
-          });
-        }
-        callback(createdUser, validationErrors);
       }
     ], function(error, createdUser, validationErrors) {
       if (error) {
