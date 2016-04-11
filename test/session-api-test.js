@@ -372,7 +372,47 @@ test('cacheEnabled - set session success with key cookie', function(t) {
     t.end();
 });
 
-test('cacheEnabled - set session success with key cookie', function(t) {t.end});
+//test('cacheEnabled - set session success with key cookie', function(t) {t.end});
+
+test('cacheEnabled - delete session', function(t) {
+    var expectedSessionKey = "abc123";
+    var expectedSessionName = "gssession";
+    var cache = {};
+    var expectedSessionData = {
+        foo: "bar",
+        bar: "foo"
+    };
+    cache.del = function(key){
+        expect(key).to.eql(expectedSessionKey);
+    };
+    var apiController = proxyquire('../api/manage/session-api.js', {
+        "konphyg": function (configPath) {
+            var configFile = function (configName) {
+                expect(configName).to.eql("properties");
+                var config = {
+                    manage : {
+                        useCache: true,
+                        sessionName: expectedSessionName
+                    }
+                };
+                return config;
+            };
+            return configFile;
+        }
+    });
+    var req = {
+        app: {
+            cache: cache
+        }
+    };
+    req.app.get = function(parameter) {
+        expect(parameter).to.eql('cache');
+        return cache;
+    };
+    apiController.deleteSessionData(req, expectedSessionKey);
+
+    t.end();
+});
 
 //Todo - test loginSession, delete, logout
 

@@ -123,5 +123,6 @@ module.exports = {
   getSessionData: getSessionData,
   setSessionData: setSessionData,
   setLoggedInUserSession: setLoggedInUserSession,
-  logoutUserSession: logoutUserSession
+  logoutUserSession: logoutUserSession,
+  deleteSessionData: deleteSessionData
 };
