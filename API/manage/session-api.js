@@ -5,7 +5,7 @@ var uuid = require('uuid');
 
 // get the session data associated with the specified http request
 getSessionData = function(req, callback) {
-  if (config("properties").useCache === true) {
+  if (config("properties").manage.useCache === true) {
     var sessionName = config("properties").manage.sessionName;
     var cacheAccessKey = req.cookies[sessionName];
     if (cacheAccessKey) {
@@ -21,16 +21,19 @@ getSessionData = function(req, callback) {
               callback(null, JSON.parse(result));
             }
             else {
+              //If no sessionData exists for the key in the cache, create a new empty sessionData object
               callback(null, {});
             }
           }
         });
       }
       else {
+        //If no cache exists in the request, create a new empty sessionData object
         callback(null, {});
       }
     }
     else {
+      //If user does not have a cookie containing a key, create a new empty sessionData object
       callback(null, {});
     }
   }
@@ -51,7 +54,7 @@ setSessionData = function(req, res, sessionData) {
 };
 
 setLoggedInUserSession = function(req, res, sessionData) {
-  var sessionName = config("properties").manage.sessionName; //TODO getting the key from the last login
+  var sessionName = config("properties").manage.sessionName;
   var originalCacheAccessKey = req.cookies[sessionName];
   var newSessionAccessKey = sessionData.userId + config("properties").env;
   setSessionDataWithKey(req, res, sessionData, newSessionAccessKey);
@@ -65,8 +68,8 @@ logoutUserSession = function(req, res) {
 };
 
 //The newSessionAccessKey should only be used when switching an existing cache to a new cache
-function setSessionDataWithKey(req, res, sessionData, newSessionAccessKey) { //TODO should probably update
-  if (config("properties").useCache === true) {
+function setSessionDataWithKey(req, res, sessionData, newSessionAccessKey) {
+  if (config("properties").manage.useCache === true) {
     var sessionName = config("properties").manage.sessionName;
     var cache = req.app.get('cache');
     if (cache) {
@@ -77,16 +80,19 @@ function setSessionDataWithKey(req, res, sessionData, newSessionAccessKey) { //T
       else {
         cacheSessionDataAccessKey = req.cookies[sessionName];
         if (common.isEmpty(cacheSessionDataAccessKey)) {
-          cacheSessionDataAccessKey = uuid.v4(); //TODO is this going to be a GUID or GUID + env
+          cacheSessionDataAccessKey = uuid.v4() + config("properties").env;
         }
       }
       sessionData.lastUpdated = Date.now();
       var sessionDataStr = JSON.stringify(sessionData);
       cache.set(cacheSessionDataAccessKey, sessionDataStr);
-      console.log("ASHLEY - - - - -  - - - - - - " + sessionDataStr);
       logger.debug("Set session data: " + sessionDataStr);
       res.cookie(config("properties").manage.sessionName, cacheSessionDataAccessKey);
       req.app.set("sessionData", sessionData);
+    }
+    else {
+      //TODO This may cause an indefinite wait as Redis tries to reconnect
+      logger.error("Could not reach cache");
     }
   }
   else {
@@ -104,7 +110,7 @@ function setSessionDataWithKey(req, res, sessionData, newSessionAccessKey) { //T
 
 // delete a session data in the cache if it is no longer needed.
 function deleteSessionData(req, sessionDataAccessKey) {
-  if (config("properties").useCache === true) {
+  if (config("properties").manage.useCache === true) {
     var cache = req.app.get('cache');
     if (cache) {
       cache.del(sessionDataAccessKey);

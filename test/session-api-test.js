@@ -3,9 +3,25 @@ var chai = require('chai');
 var expect = chai.expect;
 var config = require('konphyg')(__dirname + "/../config");
 var test = require('tap').test;
+var proxyquire = require('proxyquire').noCallThru();
 
-test('set session data success', function(t) {
-  var sessionName = config("properties").manage.sessionName;
+test('cacheDisabled - set session data success', function(t) {
+    var req = {};
+    var apiController = proxyquire('../api/manage/session-api.js', {
+        "konphyg": function (configPath) {
+            var configFile = function (configName) {
+                expect(configName).to.eql("properties");
+                var config = {
+                    manage : {
+                        useCache: false,
+                        sessionName: "gssession"
+                    }
+                };
+                return config;
+            };
+            return configFile;
+        }
+    });
   var sessionData = {
     data1 : "foo",
     data2 : "bar"
@@ -22,28 +38,57 @@ test('set session data success', function(t) {
   };
 
   // call the object under test
-  session.setSessionData(res, sessionData);
+  apiController.setSessionData(req, res, sessionData);
 
   t.end();
  });
 
-test('get session data empty success', function(t) {
-
+test('cacheDisabled - get session data empty success', function(t) {
+    var apiController = proxyquire('../api/manage/session-api.js', {
+        "konphyg": function (configPath) {
+            var configFile = function (configName) {
+                expect(configName).to.eql("properties");
+                var config = {
+                    manage : {
+                        useCache: false,
+                        sessionName: "gssession"
+                    }
+                };
+                return config;
+            };
+            return configFile;
+        }
+    });
    // setup our mock request object
    var req = {
      cookies: {}
    };
 
    // call the object under test
-   var sessionData = session.getSessionData(req);
-
-   expect(sessionData).to.eql({});
+   apiController.getSessionData(req,function(error, sessionData) {
+        expect(sessionData).to.eql({});
+        expect(error).to.eql(null)
+    });
 
    t.end();
 });
 
-test('get session data success', function(t) {
-
+test('cacheDisabled - get session data success', function(t) {
+    var apiController = proxyquire('../api/manage/session-api.js', {
+        "konphyg": function (configPath) {
+            var configFile = function (configName) {
+                expect(configName).to.eql("properties");
+                var config = {
+                    manage : {
+                        useCache: false,
+                        sessionName: "gssession"
+                    }
+                };
+                return config;
+            };
+            return configFile;
+        }
+    });
   // setup our mock request object
   var gssessionObj = {
     lastUpdated: 123456,
@@ -56,10 +101,278 @@ test('get session data success', function(t) {
     }
   };
 
-   // call the object under test
-   var sessionData = session.getSessionData(req);
-
-   expect(sessionData).to.eql(gssessionObj);
+    // call the object under test
+    apiController.getSessionData(req,function(error, sessionData) {
+        expect(sessionData).to.eql(gssessionObj);
+        expect(error).to.eql(null)
+    });
 
    t.end();
   });
+
+test('cacheEnabled - get session success with no key', function(t) {
+    var apiController = proxyquire('../api/manage/session-api.js', {
+        "konphyg": function (configPath) {
+            var configFile = function (configName) {
+                expect(configName).to.eql("properties");
+                var config = {
+                    manage : {
+                        useCache: true,
+                        sessionName: "gssession"
+                    }
+                };
+                return config;
+            };
+            return configFile;
+        }
+    });
+    var req = {
+        cookies: {}
+    };
+    var expectedSessionData = {};
+    apiController.getSessionData(req, function(error, sessionData) {
+        expect(sessionData).to.eql(expectedSessionData);
+    });
+
+    t.end();
+});
+
+test('cacheEnabled - get session with key success', function(t) {
+    var expectedSessionKey = "abc123";
+    var expectedSessionData = {
+        foo: "bar",
+        bar: "foo"
+    };
+    var cache = {};
+    cache.get = function(key, callback){
+        expect(key).to.eql(expectedSessionKey);
+        callback(null, JSON.stringify(expectedSessionData));
+    };
+    var apiController = proxyquire('../api/manage/session-api.js', {
+        "konphyg": function (configPath) {
+            var configFile = function (configName) {
+                expect(configName).to.eql("properties");
+                var config = {
+                    manage : {
+                        useCache: true,
+                        sessionName: "gssession"
+                    }
+                };
+                return config;
+            };
+            return configFile;
+        }
+    });
+    var req = {
+        cookies: {
+            gssession: expectedSessionKey
+        },
+        app: {
+            cache: cache
+        }
+    };
+
+    req.app.get = function(parameter) {
+        expect(parameter).to.eql('cache');
+        return cache;
+    };
+
+    apiController.getSessionData(req, function(error, sessionData) {
+        expect(sessionData).to.eql(expectedSessionData);
+    });
+
+    t.end();
+});
+
+test('cacheEnabled - get session with no cache success', function(t) {
+    var expectedSessionKey = "abc123";
+    var apiController = proxyquire('../api/manage/session-api.js', {
+        "konphyg": function (configPath) {
+            var configFile = function (configName) {
+                expect(configName).to.eql("properties");
+                var config = {
+                    manage : {
+                        useCache: true,
+                        sessionName: "gssession"
+                    }
+                };
+                return config;
+            };
+            return configFile;
+        }
+    });
+    var req = {
+        cookies: {
+            gssession: expectedSessionKey
+        },
+        app: {}
+    };
+    req.app.get = function(parameter) {
+        expect(parameter).to.eql('cache');
+        return null;
+    };
+
+    apiController.getSessionData(req, function(error, sessionData) {
+        expect(sessionData).to.eql({});
+    });
+    t.end();
+});
+
+test('cacheEnabled - get session error', function(t) {
+    var expectedSessionKey = "abc123";
+    var expectedSessionData = {
+        foo: "bar",
+        bar: "foo"
+    };
+    var cache = {};
+    cache.get = function(key, callback){
+        expect(key).to.eql(expectedSessionKey);
+        callback(new Error("Intentional test failure"), null);
+    };
+    var apiController = proxyquire('../api/manage/session-api.js', {
+        "konphyg": function (configPath) {
+            var configFile = function (configName) {
+                expect(configName).to.eql("properties");
+                var config = {
+                    manage : {
+                        useCache: true,
+                        sessionName: "gssession"
+                    }
+                };
+                return config;
+            };
+            return configFile;
+        }
+    });
+    var req = {
+        cookies: {
+            gssession: expectedSessionKey
+        },
+        app: {
+            cache: cache
+        }
+    };
+
+    req.app.get = function(parameter) {
+        expect(parameter).to.eql('cache');
+        return cache;
+    };
+
+    apiController.getSessionData(req, function(error, sessionData) {
+        expect(error).to.be.an.instanceof(Error);
+        expect(sessionData).to.eql({});
+    });
+    t.end();
+});
+
+test('cacheEnabled - set session success no key cookie', function(t) {
+    var expectedSessionName = "gssession";
+    var cache = {};
+    var expectedSessionData = {
+        foo: "bar",
+        bar: "foo"
+    };
+    cache.set = function(key, dataString){
+        //expect(key).to.eql(expectedSessionKey); //This should be a new uuid in this context?
+        expect(key).to.exist;
+        expect(dataString).to.eql(JSON.stringify(expectedSessionData));
+    };
+    var apiController = proxyquire('../api/manage/session-api.js', {
+        "konphyg": function (configPath) {
+            var configFile = function (configName) {
+                expect(configName).to.eql("properties");
+                var config = {
+                    manage : {
+                        useCache: true,
+                        sessionName: expectedSessionName
+                    }
+                };
+                return config;
+            };
+            return configFile;
+        }
+    });
+    var req = {
+        cookies: {},
+        app: {
+            cache: cache
+        }
+    };
+    req.app.set = function(name, value) {
+        expect(name).to.eql("sessionData");
+        expect(value).to.eql(expectedSessionData);
+    };
+    var res = {
+        cookie: function(name, value) {
+            expect(name).to.eql(expectedSessionName);
+            expect(value).to.exist;
+        }
+    };
+
+    req.app.get = function(parameter) {
+        expect(parameter).to.eql('cache');
+        return cache;
+    };
+    apiController.setSessionData(req, res, expectedSessionData);
+    t.end();
+});
+
+test('cacheEnabled - set session success with key cookie', function(t) {
+    var expectedSessionKey = "abc123";
+    var expectedSessionName = "gssession";
+    var cache = {};
+    var expectedSessionData = {
+        foo: "bar",
+        bar: "foo"
+    };
+    cache.set = function(key, dataString){
+        //expect(key).to.eql(expectedSessionKey); //This should be a new uuid in this context?
+        expect(key).to.eql(expectedSessionKey);
+        expect(dataString).to.eql(JSON.stringify(expectedSessionData));
+    };
+    var apiController = proxyquire('../api/manage/session-api.js', {
+        "konphyg": function (configPath) {
+            var configFile = function (configName) {
+                expect(configName).to.eql("properties");
+                var config = {
+                    manage : {
+                        useCache: true,
+                        sessionName: expectedSessionName
+                    }
+                };
+                return config;
+            };
+            return configFile;
+        }
+    });
+    var req = {
+        cookies: {
+            gssession: expectedSessionKey
+        },
+        app: {
+            cache: cache
+        }
+    };
+    req.app.set = function(name, value) {
+        expect(name).to.eql("sessionData");
+        expect(value).to.eql(expectedSessionData);
+    };
+    var res = {
+        cookie: function(name, value) {
+            expect(name).to.eql(expectedSessionName);
+            expect(value).to.eql(expectedSessionKey);
+        }
+    };
+
+    req.app.get = function(parameter) {
+        expect(parameter).to.eql('cache');
+        return cache;
+    };
+    apiController.setSessionData(req, res, expectedSessionData);
+    t.end();
+});
+
+test('cacheEnabled - set session success with key cookie', function(t) {t.end});
+
+//Todo - test loginSession, delete, logout
+

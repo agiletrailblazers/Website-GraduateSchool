@@ -44,8 +44,6 @@ app.use(function (req, res, next) {
 	var mailPage = {};
 	mailPage.titlePrefix = config("properties").mailPageTitlePrefix;
 	mailPage.body = config("properties").mailPageBody;
-	//If session data is null try to get it. If you can't return to error page
-	 //TODO call this once, then put it in app.set(sessionData). Routes should do req.app.sessiondata to get sessionData
 	var userFirstName = "";
 	var nextPageAfterCreateUser = "";
 	async.series([
@@ -143,7 +141,7 @@ app.use(function (req, res, next) {
 	}
 	]);
 });
-if (config("properties").useCache === true) {
+if (config("properties").manage.useCache === true) {
 	// setup Redis connection
 	Redis.Promise.onPossiblyUnhandledRejection(function (error) {
 		// you can log the error here.
