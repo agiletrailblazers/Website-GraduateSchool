@@ -178,9 +178,12 @@ module.exports = {
           authentication.loginUser(req, res, authCredentials, function (error, authUser) {
             if (error) return callback(error);
             // the login user API call will set the authenticated token, we don't need to do anything with the response
-            session.setGuestSessionToUserSession(req, res, authUser.user, function () {
-              callback(null, authUser, null);
-            });
+            var sessionData = req.app.get('sessionData');
+
+            sessionData.userId = authUser.user.id;
+            sessionData.userFirstName = authUser.user.person.firstName;
+            session.setLoggedInUserSession(req, res, sessionData);
+            callback(null, authUser, null);
           });
         }, req.query["authToken"]);
       }
@@ -188,7 +191,7 @@ module.exports = {
       if (error) {
         logger.error("Failed during user creation", error);
         if (validationErrors){
-          res.status(400).send({"error": "We have experienced a problem creating your account. Please correct the information an try again.", "validationErrors" : valdationErrors});
+          res.status(400).send({"error": "We have experienced a problem creating your account. Please correct the information an try again.", "validationErrors" : validationErrors});
         }
         else {
           res.status(500).send({"error": "We have experienced a problem processing your request, please try again later."});
@@ -203,7 +206,7 @@ module.exports = {
   login: function(req, res, next) {
     // get the form data from the body of the request
     var formData = req.body;
-
+    var sessionData = req.app.get('sessionData');
     logger.debug("Logging in user: " + formData.username);
     var authCredentials = {
       "username": formData.username,
@@ -222,9 +225,11 @@ module.exports = {
             return;
           }
       }
-      session.setGuestSessionToUserSession(req, res, authorizedUser.user, function() {
-        res.status(200).send();
-      });
+
+      sessionData.userId = authorizedUser.user.id;
+      sessionData.userFirstName = authorizedUser.user.person.firstName;
+      session.setLoggedInUserSession(req, res, sessionData);
+      res.status(200).send();
     });
   },
 
@@ -260,9 +265,10 @@ module.exports = {
           return;
         }
       }
-      session.setGuestSessionToUserSession(req, res, authorizedUser.user, function() {
-        res.redirect("/manage/cart/payment");
-      });
+      sessionData.userId = authorizedUser.user.id;
+      sessionData.userFirstName = authorizedUser.user.person.firstName;
+      session.setLoggedInUserSession(req, res, sessionData);
+      res.redirect("/manage/cart/payment");
     });
   },
 
@@ -271,8 +277,8 @@ module.exports = {
     logger.info("Logging out user " + sessionData.userId);
 
     authentication.logoutUser(req, res);
-    sessionData = {};
-    session.setSessionData(req, res, sessionData);
+
+    session.logoutUserSession(req, res);
     req.query["authToken"] = null;
 
     res.redirect("/")

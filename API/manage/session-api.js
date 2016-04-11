@@ -50,6 +50,20 @@ setSessionData = function(req, res, sessionData) {
   setSessionDataWithKey(req, res, sessionData, null);
 };
 
+setLoggedInUserSession = function(req, res, sessionData) {
+  var sessionName = config("properties").manage.sessionName; //TODO getting the key from the last login
+  var originalCacheAccessKey = req.cookies[sessionName];
+  var newSessionAccessKey = sessionData.userId + config("properties").env;
+  setSessionDataWithKey(req, res, sessionData, newSessionAccessKey);
+  deleteSessionData(req, originalCacheAccessKey);
+};
+
+logoutUserSession = function(req, res) {
+  var sessionData = {};
+  setSessionDataWithKey(req, res, sessionData);
+  res.cookie(config("properties").manage.sessionName, null, { expires : new Date() });
+};
+
 //The newSessionAccessKey should only be used when switching an existing cache to a new cache
 function setSessionDataWithKey(req, res, sessionData, newSessionAccessKey) { //TODO should probably update
   if (config("properties").useCache === true) {
@@ -61,7 +75,6 @@ function setSessionDataWithKey(req, res, sessionData, newSessionAccessKey) { //T
         cacheSessionDataAccessKey = newSessionAccessKey;
       }
       else {
-
         cacheSessionDataAccessKey = req.cookies[sessionName];
         if (common.isEmpty(cacheSessionDataAccessKey)) {
           cacheSessionDataAccessKey = uuid.v4(); //TODO is this going to be a GUID or GUID + env
@@ -70,7 +83,7 @@ function setSessionDataWithKey(req, res, sessionData, newSessionAccessKey) { //T
       sessionData.lastUpdated = Date.now();
       var sessionDataStr = JSON.stringify(sessionData);
       cache.set(cacheSessionDataAccessKey, sessionDataStr);
-
+      console.log("ASHLEY - - - - -  - - - - - - " + sessionDataStr);
       logger.debug("Set session data: " + sessionDataStr);
       res.cookie(config("properties").manage.sessionName, cacheSessionDataAccessKey);
       req.app.set("sessionData", sessionData);
@@ -89,19 +102,20 @@ function setSessionDataWithKey(req, res, sessionData, newSessionAccessKey) { //T
   }
 };
 
-setGuestSessionToUserSession = function(req, res, authorizedUser, callback) {
-  getSessionData(req, function(error, sessionData) {
-    sessionData.userId = authorizedUser.id;
-    sessionData.userFirstName = authorizedUser.person.firstName;
-    //todo delete old session data in cache
-    var newSessionAccessKey = authorizedUser.id + config("properties").env;
-    setSessionDataWithKey(req, res, sessionData, newSessionAccessKey);
-    callback()
-  });
-};
+// delete a session data in the cache if it is no longer needed.
+function deleteSessionData(req, sessionDataAccessKey) {
+  if (config("properties").useCache === true) {
+    var cache = req.app.get('cache');
+    if (cache) {
+      cache.del(sessionDataAccessKey);
+      logger.debug("Deleted session from the cache with key " + sessionDataAccessKey)
+    }
+  }
+}
 
 module.exports = {
   getSessionData: getSessionData,
   setSessionData: setSessionData,
-  setGuestSessionToUserSession: setGuestSessionToUserSession
+  setLoggedInUserSession: setLoggedInUserSession,
+  logoutUserSession: logoutUserSession
 };
