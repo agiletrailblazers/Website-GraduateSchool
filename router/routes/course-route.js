@@ -268,10 +268,8 @@ router.get('/course_details.php', function(req, res, next) {
 });
 
 function cleanHtml(badHtml) {
-    // var allowedHtmlTags = config("properties").allowedHtmlTags;
-    // console.log(badHtml);
-    // return striptags(badHtml, allowedHtmlTags);
-    return badHtml;
+    var allowedHtmlTags = config("properties").allowedHtmlTags;
+    return striptags(badHtml, allowedHtmlTags);
 }
 
 module.exports = router;
