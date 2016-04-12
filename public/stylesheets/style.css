@@ -1504,10 +1504,18 @@ footer a.address {
     padding: 0px 0 !important;
 }
 
+footer span.address {
+    display: inline-block;
+}
+
 .address a:hover {
     color: #3A6799 !important;
 }
 
+img.address {
+    width : 25px;
+    height: auto;
+}
 p.disclaimer {
   color: #999;
   font-size: 12px;
