@@ -41,7 +41,15 @@ $(document).ready(function () {
 
         clearErrorAlert(formData);
 
-        if ($("#password").val() !== $("#confirmPassword").val()){
+        if ($("#password").val().length < 5 || $("#password").val().length > 20){
+            $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Length must be between 5 and 20 characters: Password</p>");
+            $("#gs-alert-error").slideDown();
+            $("html, body").animate({
+                scrollTop: 0
+            }, "slow");
+        }
+
+        else if ($("#password").val() !== $("#confirmPassword").val()){
             $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Passwords must be the same</p>");
             $("#gs-alert-error").slideDown();
             $("html, body").animate({
