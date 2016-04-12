@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var contentful = require('./API/contentful.js');
@@ -149,7 +148,7 @@ if (config("properties").manage.useCache === true) {
 		// you can log the error here.
 		// error.command.name is the command name, here is 'set'
 		// error.command.args is the command arguments, here is ['foo']
-		console.log("Redis Error: ", error);
+		logger.error("Redis Error: ", error);
 	});
 
 	//Create Redis client with custom retry limit functions
@@ -157,15 +156,15 @@ if (config("properties").manage.useCache === true) {
 	var redisRetryLimit = config("properties").manage.redisRetryLimit;
 	var redisRetryDelay = config("properties").manage.redisRetryDelay;
 	var retryFunction = function (times) {
-							if (times < redisRetryLimit){
-								console.log("This is try number " + times);
-								return redisRetryDelay;
-							}
-							else{
-								return;
-							}
-						};
-	console.log(redisRetryLimit + " " + redisRetryDelay);
+		if (times < redisRetryLimit){
+			logger.warn("Could not connect to Redis, try number: " + times);
+			return redisRetryDelay;
+		}
+		else{
+			return;
+		}
+	};
+	logger.debug("Redis Retry limit: " + redisRetryLimit + "  and redisRetryDelay: " + redisRetryDelay);
 	redisConfig.retryStrategy = retryFunction;
 	redisConfig.sentinelRetryStrategy = retryFunction;
 	var cache = new Redis(config("properties").redis);
@@ -175,22 +174,22 @@ if (config("properties").manage.useCache === true) {
 
 	//Redis cache logging
 	cache.on("connect", function () {
-		console.log("Redis connected")
+		logger.debug("Redis connected")
 	});
 	cache.on("ready", function () {
-		console.log("Redis ready");
+		logger.info("Redis ready");
 	});
 	cache.on("error", function (err) {
-		console.log("Redis error: " + err);
+		logger.error("Redis error: " + err);
 	});
 	cache.on("close", function () {
-		console.log("Redis close");
+		logger.debug("Redis close");
 	});
 	cache.on("reconnecting", function (time) {
-		console.log("Redis reconnecting in " + time + " msec");
+		logger.debug("Redis reconnecting in " + time + " msec");
 	});
 	cache.on("end", function () {
-		console.log("Redis end")
+		logger.info("Redis end")
 	});
 }
 
