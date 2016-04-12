@@ -182,24 +182,23 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
         courseData.isOnlineCourse  = true;
       }
 
-      var allowedHtmlTags = config("properties").allowedHtmlTags;
       if (common.isNotEmpty(courseData.class.description)) {
         // add empty string to avoid exception
-        courseData.class.description.formatted = striptags(courseData.class.description.formatted + "", allowedHtmlTags);
+        courseData.class.description.formatted = cleanHtml(courseData.class.description.formatted + "");
         // replace old urls specified within course overview  with new ones provided by graduate school
         courseData.class.description.formatted = replaceUrl(courseData.class.description.formatted);
       }
 
       // add empty string to avoid exception
       if (courseData && courseData.class && common.isNotEmpty(courseData.class.objective)) {
-        courseData.class.objective = striptags(courseData.class.objective, allowedHtmlTags);
+        courseData.class.objective = cleanHtml(courseData.class.objective);
         courseData.class.objective = replaceUrl(courseData.class.objective);
       }
 
       if (common.isNotEmpty(courseData.class.outcomes)) {
         courseData.class.outcomes.forEach(function(outcome) {
           if (outcome) {
-            courseData.class.outcomes[courseData.class.outcomes.indexOf(outcome)] = striptags(outcome, allowedHtmlTags);
+            courseData.class.outcomes[courseData.class.outcomes.indexOf(outcome)] = cleanHtml(outcome);
           }
         });
       }
@@ -208,7 +207,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
         if (common.isNotEmpty(courseData.syllabus.fields)) {
           if (common.isNotEmpty(courseData.syllabus.fields.syllabusContent)) {
             // add empty string to avoid exception in case courseData.class.objective is null
-            courseData.syllabus.fields.syllabusContent = striptags(courseData.syllabus.fields.syllabusContent + "", allowedHtmlTags);
+            courseData.syllabus.fields.syllabusContent = cleanHtml(courseData.syllabus.fields.syllabusContent + "");
           }
         }
       }
@@ -267,5 +266,10 @@ router.get('/course_details.php', function(req, res, next) {
     res.redirect('/pagenotfound');
   }
 });
+
+function cleanHtml(badHtml) {
+    var allowedHtmlTags = config("properties").allowedHtmlTags;
+    return striptags(badHtml, allowedHtmlTags);
+}
 
 module.exports = router;
