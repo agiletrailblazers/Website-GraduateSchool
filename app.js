@@ -106,6 +106,7 @@ app.use(function (req, res, next) {
 				session.getSessionData(req, function(error, sessionData) {
 					if (error) {
 						logger.error('Could not retrieve session from Cache. Redirecting to error page', error);
+						common.redirectToError(res);
 					}
 					app.set('sessionData', sessionData);
 					//Try to get user's first name from the session data
@@ -142,6 +143,7 @@ app.use(function (req, res, next) {
 	]);
 });
 if (config("properties").manage.useCache === true) {
+
 	// setup Redis connection
 	Redis.Promise.onPossiblyUnhandledRejection(function (error) {
 		// you can log the error here.
@@ -150,10 +152,28 @@ if (config("properties").manage.useCache === true) {
 		console.log("Redis Error: ", error);
 	});
 
+	//Create Redis client with custom retry limit functions
+	var redisConfig = config("properties").redis;
+	var redisRetryLimit = config("properties").manage.redisRetryLimit;
+	var redisRetryDelay = config("properties").manage.redisRetryDelay;
+	var retryFunction = function (times) {
+							if (times < redisRetryLimit){
+								console.log("This is try number " + times);
+								return redisRetryDelay;
+							}
+							else{
+								return;
+							}
+						};
+	console.log(redisRetryLimit + " " + redisRetryDelay);
+	redisConfig.retryStrategy = retryFunction;
+	redisConfig.sentinelRetryStrategy = retryFunction;
 	var cache = new Redis(config("properties").redis);
 
+	//set the cache in express
 	app.set('cache', cache);
 
+	//Redis cache logging
 	cache.on("connect", function () {
 		console.log("Redis connected")
 	});
