@@ -139,26 +139,5 @@
     <!-- Chat  -->
     <% include ../../partials/chat %>
     <!-- END of Chat  -->
-
-        <!-- Modal dialog -->
-        <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button id="map-dismiss-button" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="mapModalLabel"><%= course.title %><span id="modalSessionLocationSpan"></span></h4>
-              </div>
-              <div class="modal-body">
-                <div id="cart-map-address"></div>
-                <div id="cart-map-canvas"></div>
-              </div>
-              <div class="modal-footer">
-                <a id="getDirections" href="" target="_blank" class="blueish">Get Directions</a>
-                <a href="#" class="blueish" data-dismiss="modal">Close</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- END - Modal dialog -->
   </body>
 </html>
