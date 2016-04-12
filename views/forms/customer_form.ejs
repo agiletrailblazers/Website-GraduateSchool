@@ -7,6 +7,7 @@
         var skipReCaptcha = <%= skipReCaptcha %>;
     </script>
     <link rel="stylesheet" href="/stylesheets/library/spinners.css">
+    <link rel="stylesheet" href="/stylesheets/course_detail.css">
     <script type="text/javascript" src="/javascripts/library/validator.min.js"></script>
     <script type="text/javascript" src="/javascripts/forms/clientServerValidations/validations.js"></script>
     <script type="text/javascript"
@@ -96,8 +97,8 @@
                   <li></li>
                   <li data-placement="left" data-toggle="tooltip" title="Email to Graduate School">
                       <a id="nav-menu-contact-email" href="mailto:customersupport@graduateschool.edu">customersupport@graduateschool.edu</a></li>
+                   <li><a id="emailNow" class="btn btn-primary" href="mailto:customersupport@graduateschool.edu" role="button">EMAIL NOW!</a></li>
 
-                      <a id="emailNow" class="btn btn-primary" href="mailto:customersupport@graduateschool.edu" role="button">EMAIL NOW!</a>
               </ul>
             </div>
           </div>
@@ -108,7 +109,28 @@
   </div>
  </div>
 </div>
+
 <% include ../partials/chat %>
 <% include ../partials/footer %>
+
+<!-- Modal dialog -->
+<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div id="map-address"></div>
+                <div id="map-canvas"></div>
+            </div>
+            <div class="modal-footer">
+                <a id="getDirections" href="" target="_blank" class="blueish">Get Directions</a>
+                <a href="#" class="blueish" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END - Modal dialog -->
 </body>
 </html>

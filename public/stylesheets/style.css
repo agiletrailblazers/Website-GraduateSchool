@@ -52,7 +52,6 @@ body {
 }
 
 img.responsive {
-  width : 100%;
   max-width: 100%;
   height: auto;
 }
@@ -2401,4 +2400,16 @@ ul.see-more li {
     height: 300px;
     width: 100%;
     margin: 0 auto;
+}
+
+#contactUSNav{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.navbar-nav>li>.dropdown-menu {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    width: 100% !important;
 }
