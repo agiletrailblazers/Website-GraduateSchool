@@ -58,16 +58,18 @@ setLoggedInUserSession = function(req, res, sessionData) {
   var originalCacheAccessKey = req.cookies[sessionName];
   var newSessionAccessKey = sessionData.userId + config("properties").env;
   setSessionDataWithKey(req, res, sessionData, newSessionAccessKey);
-  deleteSessionData(req, originalCacheAccessKey);
+  if (config("properties").manage.useCache === true) {
+    deleteSessionData(req, originalCacheAccessKey);
+  }
 };
 
+// Remove the session from the request and lose the key to the cache so the session can be retrieved later
 logoutUserSession = function(req, res) {
-  var sessionData = {};
-  setSessionDataWithKey(req, res, sessionData);
   res.cookie(config("properties").manage.sessionName, null, { expires : new Date() });
+  req.app.set("sessionData", {});
 };
 
-//The newSessionAccessKey should only be used when switching an existing cache to a new cache
+//The setSessionDataWithKey should only be used when switching an existing cache to a new cache
 function setSessionDataWithKey(req, res, sessionData, newSessionAccessKey) {
   if (config("properties").manage.useCache === true) {
     var sessionName = config("properties").manage.sessionName;
