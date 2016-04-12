@@ -89,7 +89,7 @@
         <div><span class="legend-title">Legend</span>
           <ul>
             <li><span class="label label-info">O</span>Registration open</li>
-            <li><span class="label label-danger">C</span>Registration closed</li>
+            <li><span class="label label-warning">F</span>Class full</li>
             <li><span class="label label-success">G</span>Guaranteed to Go</li>
           </ul>
             <a id="multipleRegistrationNonMobileIcon"href="#" data-toggle="modal" data-target="#multipleRegistrationModal"><span class="glyphicon glyphicon-info-sign"></span>Multiple Registrations?</a>
@@ -195,7 +195,7 @@
                 <td class="statusData">
                   <% if (session["status"] === "C")  {%>
                     <% if ((session["scheduleAvailable"] === session["scheduleMaximum"]) || session.epPastRegDeadline) { %>
-                      <span class="label label-danger">C</span>
+                      <span class="label label-warning">F</span>
                     <% } else { %>
                     <span class="label label-success">G</span>
                     <% } %>
@@ -386,7 +386,7 @@
                                           <tr><th class="mob-header"><%= content.sessionTable[3] %></th><td class="statusData-mob">
                                           <% if (session["status"] === "C")  {%>
                                             <% if ((session["scheduleAvailable"] === session["scheduleMaximum"]) || session.epPastRegDeadline) { %>
-                                              <span class="label label-danger">C</span>
+                                              <span class="label label-warning">F</span>
                                             <% } else { %>
                                             <span class="label label-success">G</span>
                                             <% } %>
@@ -429,7 +429,7 @@
           <div><span class="legend-title">Legend</span>
             <ul>
               <li><span class="label label-info">O</span>Registration open</li>
-              <li><span class="label label-danger">C</span>Registration closed</li>
+              <li><span class="label label-warning">F</span>Class full</li>
               <li><span class="label label-success">G</span>Guaranteed to Go class/session</li>
                 <li><a href="#" data-toggle="modal" data-target="#multipleRegistrationMobileModal"><span class="glyphicon glyphicon-info-sign"></span>Multiple Registrations?</a></li>
             </ul>
