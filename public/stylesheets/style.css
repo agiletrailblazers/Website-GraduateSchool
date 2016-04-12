@@ -1492,6 +1492,22 @@ p.copyright {
   padding: 15px 0;
 }
 
+footer p.address {
+  font-size: 13px;
+  padding: 0px 0 !important;
+}
+
+footer a.address {
+    font-size: 13px;
+    font-weight:normal;
+    color: #222222;
+    padding: 0px 0 !important;
+}
+
+.address a:hover {
+    color: #3A6799 !important;
+}
+
 p.disclaimer {
   color: #999;
   font-size: 12px;
@@ -2367,4 +2383,14 @@ ul.see-more li {
 
 .spacer60 {
   height: 60px !important;
+}
+
+#map-address {
+    padding: 10px 0px;
+}
+
+#map-canvas{
+    height: 300px;
+    width: 100%;
+    margin: 0 auto;
 }

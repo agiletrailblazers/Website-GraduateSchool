@@ -126,12 +126,6 @@
 /* End Contact us dropdown button */
 
 
-#map-canvas{
-  height: 300px;
-  width: 100%;
-  margin: 0 auto;
-}
-
 ul {padding-left: 10px;}
 
 .course_related_information nav ul li {list-style: none; padding: 5px;}
@@ -563,10 +557,6 @@ span.display-of-sessions {
 .panel-default > .panel-heading {
     background-image: linear-gradient(to bottom, #FFF 0px, #EFEFEF 100%) !important;
     background-repeat: repeat-x;
-}
-
-#map-address {
-  padding: 10px 0px;
 }
 
  #multipleRegistrationNonMobileIcon{

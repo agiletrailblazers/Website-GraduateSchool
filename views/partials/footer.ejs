@@ -1,4 +1,26 @@
 <!--nutch_noindex-->
+<!-- Map modal dialog -->
+<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="mapModalLabel">Graduate School USA<span id="modalSessionLocationSpan"></span></h4>
+
+      </div>
+      <div class="modal-body">
+        <div id="map-address"></div>
+        <div id="map-canvas"></div>
+      </div>
+      <div class="modal-footer">
+        <a id="getDirections" href="" target="_blank" class="blueish">Get Directions</a>
+        <a href="#" class="blueish" data-dismiss="modal">Close</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END - Map modal dialog -->
+
 <div id="footer" class="container-fluid footer nopadding">
   <div class="bar">
     <div id="footer-social-networks-mobile" class="banner mobile">
@@ -17,6 +39,7 @@
       <div class="col-lg-3 col-md-3 col-sm-3">
         <img id="gs-logo" class="responsive" src="/images/gs-logo-footer.png" alt="" />
         <p id="copyright" class="copyright"> Copyright &copy; 2015 Graduate School USA </p>
+        <p id="footer-gs-address" class="address"><a class="address" href="/content/location/washington-dc#section-3">600 Maryland Avenue, S.W. Washington, DC 20024-2520</a></p>
         <br>
         <div class="footer-menu">
           <a id="contract-holder-logo" href="/content/gsa"><img src="/images/gsa-contract-icon.png" alt="" /> Contract Holder</a> <br>
