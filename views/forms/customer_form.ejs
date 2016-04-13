@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Graduate School USA | <%= title %></title>
-    <% include ../partials/head %>
-    <script>
-        var skipReCaptcha = <%= skipReCaptcha %>;
-    </script>
-    <link rel="stylesheet" href="/stylesheets/library/spinners.css">
-    <script type="text/javascript" src="/javascripts/library/validator.min.js"></script>
-    <script type="text/javascript" src="/javascripts/forms/clientServerValidations/validations.js"></script>
-    <script type="text/javascript" src="/javascripts/forms/clientServerValidations/customer_feedback_validations.js"></script>
-    <script type="text/javascript" src="/javascripts/forms/contact_us.js"></script>
-    <script type="text/javascript" src="/javascripts/forms/customer_feedback.js"></script>
-    <script type="text/javascript">
-        var onloadCallback = function () {
-            contactusCaptchaID = grecaptcha.render('contactusCaptcha', {
-                'sitekey': '6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh',
-            });
-            customerFeedbackCaptchaID = grecaptcha.render('customerFeedbackCaptcha', {
-                'sitekey': '6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh',
-            });
-        };
-    </script>
-    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+<title> Graduate School USA | <%= title %></title>
+<% include ../partials/head %>
+<script>
+  var skipReCaptcha = <%= skipReCaptcha %>;
+</script>
+<link rel="stylesheet" href="/stylesheets/library/spinners.css">
+<script type="text/javascript" src="/javascripts/library/validator.min.js"></script>
+<script type="text/javascript" src="/javascripts/forms/clientServerValidations/validations.js"></script>
+<script type="text/javascript" src="/javascripts/forms/clientServerValidations/customer_feedback_validations.js"></script>
+<script type="text/javascript" src="/javascripts/forms/contact_us.js"></script>
+<script type="text/javascript" src="/javascripts/forms/customer_feedback.js"></script>
+<script type="text/javascript">
+  var onloadCallback = function () {
+    contactusCaptchaID = grecaptcha.render('contactusCaptcha', {
+      'sitekey': '6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh',
+    });
+    customerFeedbackCaptchaID = grecaptcha.render('customerFeedbackCaptcha', {
+      'sitekey': '6Lfj4AsTAAAAAB0NCpQUY3AEeoisB-iNUvzbFsbh',
+    });
+  };
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 </head>
 <body>
 <% include ../partials/header %>
