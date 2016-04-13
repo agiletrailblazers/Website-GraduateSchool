@@ -36,6 +36,9 @@
         text-align: center;
       }
 
+      .address-contact-form-footer {
+        font-size: 11px;
+      }
     }
 
     /* Medium Devices, Desktops */
@@ -234,6 +237,10 @@
       .email-address-link {
         font-size: 10px !important;
         text-align: center;
+      }
+
+      .address-contact-form-footer {
+        font-size: 11px;
       }
 
     }
@@ -692,7 +699,7 @@
         }
 
         .address-block {
-          width: 300px;
+          width: 250px;
         }
 
         .address-contact-form {
