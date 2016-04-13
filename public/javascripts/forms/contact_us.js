@@ -86,7 +86,6 @@ $(document).ready(function() {
   $("#alertError").hide();
   $(".loading").hide();
   $("#removeAlert").css('cursor', 'pointer');
-
   $("#submitForm").click(function(e) {
     e.preventDefault();
     _runContactUsFormValidation();

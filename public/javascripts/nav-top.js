@@ -22,8 +22,6 @@ $(document).ready(function() {
   });
 });
 
-
-
 //Hide/Show close button while animating.
 $(document).ready(function() {
   $('#close-button').click(function() {
