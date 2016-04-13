@@ -22,6 +22,20 @@
         padding-left: 20px;
       }
 
+      .address-block {
+        width: 190px;
+      }
+
+      .address-contact-form {
+        font-size: 11px !important;
+        padding-top: 5px;
+      }
+
+      .email-address-link {
+        font-size: 10px !important;
+        text-align: center;
+      }
+
     }
 
     /* Medium Devices, Desktops */
@@ -206,6 +220,20 @@
         left: -20px;
         position: relative;
         text-align: right;
+      }
+
+      .address-block {
+        width: 190px;
+      }
+
+      .address-contact-form {
+        font-size: 11px !important;
+        padding-top: 5px;
+      }
+
+      .email-address-link {
+        font-size: 10px !important;
+        text-align: center;
       }
 
     }
@@ -661,6 +689,19 @@
 
         hr.form-divider {
           left: 0px;
+        }
+
+        .address-block {
+          width: 300px;
+        }
+
+        .address-contact-form {
+          font-size: 14px !important;
+        }
+
+        .email-address-link {
+          font-size: 14px !important;
+          text-align: center;
         }
     }
 

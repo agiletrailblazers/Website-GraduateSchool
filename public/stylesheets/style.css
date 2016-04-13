@@ -2288,6 +2288,29 @@ ul.see-more li {
   text-align: left;
 }
 
+/* Contact us top menu mobile + contact us page */
+.address-block {
+  width: 220px;
+}
+
+.email-address-link {
+  font-size: 13px !important;
+  text-align: center;
+}
+
+.address-contact-form {
+  color: #AAAAAA;
+}
+
+.address-contact-form-mobile {
+  color: #777;
+  font-weight: 500;
+}
+
+.glyphicon-contact-us {
+  font-size: 33px !important;
+}
+
 
 /* FIXES */
 *:focus {
@@ -2412,4 +2435,8 @@ ul.see-more li {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     width: 100% !important;
+}
+
+.block {
+  display: block;
 }

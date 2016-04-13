@@ -7,11 +7,9 @@
         var skipReCaptcha = <%= skipReCaptcha %>;
     </script>
     <link rel="stylesheet" href="/stylesheets/library/spinners.css">
-    <link rel="stylesheet" href="/stylesheets/course_detail.css">
     <script type="text/javascript" src="/javascripts/library/validator.min.js"></script>
     <script type="text/javascript" src="/javascripts/forms/clientServerValidations/validations.js"></script>
-    <script type="text/javascript"
-            src="/javascripts/forms/clientServerValidations/customer_feedback_validations.js"></script>
+    <script type="text/javascript" src="/javascripts/forms/clientServerValidations/customer_feedback_validations.js"></script>
     <script type="text/javascript" src="/javascripts/forms/contact_us.js"></script>
     <script type="text/javascript" src="/javascripts/forms/customer_feedback.js"></script>
     <script type="text/javascript">
@@ -31,7 +29,7 @@
 <div class="container">
   <div class="loading" style="display:none;"></div>
     <div id="customerForm" class="row">
-      <div class="col-lg-8 col-md-8 col-sm-8">
+      <div class="col-lg-9 col-md-9 col-sm-12">
         <div id="gs-tabs">
           <div class="tabs">
             <ul id="formTabs" class="nav nav-tabs">
@@ -66,7 +64,7 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-4 col-md-4 col-sm-4" id="sidebar">
+  <div class="col-lg-3 col-md-3 col-sm-12" id="sidebar">
     <div class="spacer mobile"></div>
       <div class="panel-group">
         <div class="panel panel-default related-links">
@@ -77,29 +75,32 @@
           </div>
           <div id="related-links" class="panel-collapse collapse in">
             <div class="panel-body">
-              <ul> <li data-placement="left" data-toggle="tooltip" title="Call Graduate School">
-                      <a id="nav-menu-contact-us-phone" href="tel:+18887444723"><img src="/images/call-us.png" alt="" />(888) 744-4723</a>
-                  </li>
-                  <hr>
-                  <li data-placement="left" data-toggle="tooltip" title="Fax Graduate School">
-                      <a id="nav-menu-contact-us-fax" href="#"><img src="/images/fax-us.png" alt=""/>(866) 329-4723</a>
-                  </li>
-                  <hr>
-                  <li data-placement="left" data-toggle="tooltip" title="Chat with Graduate School">
-                      <a id="nav-menu-contact-us-chat" href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;"><img src="/images/chat-with-us.png" alt="" />Chat</a>
-                  </li>
-                  <hr>
-                  <li>
-                   <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal"
-                         aria-hidden='true' data-city=' - Washington,DC' data-address='600 Maryland Avenue,S.W.,Washington,DC 20024-2520'>600 Maryland Avenue,S.W.,<br>Washington,DC 20024-2520</span>
-                  </li>
-                  <li></li>
-                  <li></li>
-                  <li data-placement="left" data-toggle="tooltip" title="Email to Graduate School">
-                      <a id="nav-menu-contact-email" href="mailto:customersupport@graduateschool.edu">customersupport@graduateschool.edu</a></li>
-                   <li><a id="emailNow" class="btn btn-primary" href="mailto:customersupport@graduateschool.edu" role="button">EMAIL NOW!</a></li>
-
+              <ul>
+                <li data-placement="top" data-toggle="tooltip" title="Call Graduate School">
+                  <a id="nav-menu-contact-us-phone" href="tel:+18887444723"><img src="/images/call-us.png" alt="" />(888) 744-4723</a>
+                </li>
+                <hr>
+                <li data-placement="top" data-toggle="tooltip" title="Fax Graduate School">
+                  <a id="nav-menu-contact-us-fax" href="#"><img src="/images/fax-us.png" alt=""/>(866) 329-4723</a>
+                </li>
+                <hr>
+                <li data-placement="top" data-toggle="tooltip" title="Chat with Graduate School">
+                  <a id="nav-menu-contact-us-chat" href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;"><img src="/images/chat-with-us.png" alt="" />Chat</a>
+                </li>
               </ul>
+              <hr>
+              <p>
+                <div class="center address-block block">
+                  <span class="inline-block glyphicon glyphicon-map-marker glyphicon-contact-us pull-left" data-toggle="modal"  data-target="#mapModal"
+                        aria-hidden='true' data-city=' - Washington,DC' data-address='600 Maryland Avenue,S.W.,Washington,DC 20024-2520'></span><span class="inline-block address-contact-form">600 Maryland Avenue, S.W.,<br>Washington, DC 20024-2520</span>
+                </div>
+              </p>
+              <p class="center" data-placement="top" data-toggle="tooltip" title="Email to Graduate School">
+                <a class="email-address-link" id="nav-menu-contact-email" href="mailto:customersupport@graduateschool.edu">customersupport@graduateschool.edu</a>
+              </p>
+              <p class="center">
+                <a id="emailNow" class="blueish" href="mailto:customersupport@graduateschool.edu" role="button">EMAIL NOW!</a>
+              </p>
             </div>
           </div>
         </div>
