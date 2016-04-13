@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var contentful = require('./API/contentful.js');
@@ -13,6 +12,7 @@ var course = require("./API/course.js");
 var common = require("./helpers/common.js");
 var session = require('./API/manage/session-api.js');
 var user = require("./API/manage/user-api.js");
+var Redis = require('ioredis');
 
 var app = express();
 
@@ -43,7 +43,6 @@ app.use(function (req, res, next) {
 	var mailPage = {};
 	mailPage.titlePrefix = config("properties").mailPageTitlePrefix;
 	mailPage.body = config("properties").mailPageBody;
-	var sessionData = session.getSessionData(req);
 	var userFirstName = "";
 	var nextPageAfterCreateUser = "";
 	async.series([
@@ -103,16 +102,22 @@ app.use(function (req, res, next) {
 			}
 			,
 			function(callback) {
-				//Try to get user's first name from the session data
-				if(sessionData.userFirstName){
-					userFirstName = sessionData.userFirstName;
-					callback();
-				}
-
-				//Could not get first name from sessionData
-				else{
-					callback();
-				}
+				session.getSessionData(req, function(error, sessionData) {
+					if (error) {
+						logger.error('Could not retrieve session from Cache. Redirecting to error page', error);
+						common.redirectToError(res);
+					}
+					app.set('sessionData', sessionData);
+					//Try to get user's first name from the session data
+					if(sessionData.userFirstName){
+						userFirstName = sessionData.userFirstName;
+						callback();
+					}
+					//Could not get first name from sessionData
+					else{
+						callback();
+					}
+				});
 			},
 			function(callback) {
 				//If the user clicks the create account link, this is the page to navigate to after successful creation
@@ -136,6 +141,54 @@ app.use(function (req, res, next) {
 	}
 	]);
 });
+if (config("properties").manage.useCache === true) {
+
+	// setup Redis connection
+	Redis.Promise.onPossiblyUnhandledRejection(function (error) {
+		logger.error("Redis Error: ", error);
+	});
+
+	//Create Redis client with custom retry limit functions
+	var redisConfig = config("properties").redis;
+	var redisRetryLimit = config("properties").manage.redisRetryLimit;
+	var redisRetryDelay = config("properties").manage.redisRetryDelay;
+	var retryFunction = function (times) {
+		if (times < redisRetryLimit){
+			logger.warn("Could not connect to Redis, try number: " + times);
+			return redisRetryDelay;
+		}
+		else{
+			return;
+		}
+	};
+	logger.debug("Redis Retry limit: " + redisRetryLimit + "  and redisRetryDelay: " + redisRetryDelay);
+	redisConfig.retryStrategy = retryFunction;
+	redisConfig.sentinelRetryStrategy = retryFunction;
+	var cache = new Redis(config("properties").redis);
+
+	//set the cache in express
+	app.set('cache', cache);
+
+	//Redis cache logging
+	cache.on("connect", function () {
+		logger.debug("Redis connected")
+	});
+	cache.on("ready", function () {
+		logger.info("Redis ready");
+	});
+	cache.on("error", function (err) {
+		logger.error("Redis error: " + err);
+	});
+	cache.on("close", function () {
+		logger.debug("Redis close");
+	});
+	cache.on("reconnecting", function (time) {
+		logger.debug("Redis reconnecting in " + time + " msec");
+	});
+	cache.on("end", function () {
+		logger.info("Redis end")
+	});
+}
 
 //app.use('/', require('./routes'));
 var router = require('./router')(app);
