@@ -16,7 +16,7 @@ log4js.configure({
       }
   ],
   "levels": {
-    "app":  "DEBUG"
+    "app":  "INFO"
   }
 });
 

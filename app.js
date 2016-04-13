@@ -145,9 +145,6 @@ if (config("properties").manage.useCache === true) {
 
 	// setup Redis connection
 	Redis.Promise.onPossiblyUnhandledRejection(function (error) {
-		// you can log the error here.
-		// error.command.name is the command name, here is 'set'
-		// error.command.args is the command arguments, here is ['foo']
 		logger.error("Redis Error: ", error);
 	});
 

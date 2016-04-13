@@ -93,7 +93,6 @@ function setSessionDataWithKey(req, res, sessionData, newSessionAccessKey) {
       req.app.set("sessionData", sessionData);
     }
     else {
-      //TODO This may cause an indefinite wait as Redis tries to reconnect
       logger.error("Could not reach cache");
     }
   }
