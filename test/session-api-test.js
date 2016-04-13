@@ -8,7 +8,7 @@ var proxyquire = require('proxyquire').noCallThru();
 
 test('cacheDisabled - set session data success', function(t) {
     var req = {};
-    var apiController = proxyquire('../api/manage/session-api.js', {
+    var apiController = proxyquire('../API/manage/session-api.js', {
         "konphyg": function (configPath) {
             var configFile = function (configName) {
                 expect(configName).to.eql("properties");
@@ -45,7 +45,7 @@ test('cacheDisabled - set session data success', function(t) {
  });
 
 test('cacheDisabled - get session data empty success', function(t) {
-    var apiController = proxyquire('../api/manage/session-api.js', {
+    var apiController = proxyquire('../API/manage/session-api.js', {
         "konphyg": function (configPath) {
             var configFile = function (configName) {
                 expect(configName).to.eql("properties");
@@ -75,7 +75,7 @@ test('cacheDisabled - get session data empty success', function(t) {
 });
 
 test('cacheDisabled - get session data success', function(t) {
-    var apiController = proxyquire('../api/manage/session-api.js', {
+    var apiController = proxyquire('../API/manage/session-api.js', {
         "konphyg": function (configPath) {
             var configFile = function (configName) {
                 expect(configName).to.eql("properties");
@@ -112,7 +112,7 @@ test('cacheDisabled - get session data success', function(t) {
   });
 
 test('cacheEnabled - get session success with no key', function(t) {
-    var apiController = proxyquire('../api/manage/session-api.js', {
+    var apiController = proxyquire('../API/manage/session-api.js', {
         "konphyg": function (configPath) {
             var configFile = function (configName) {
                 expect(configName).to.eql("properties");
@@ -149,7 +149,7 @@ test('cacheEnabled - get session with key success', function(t) {
         expect(key).to.eql(expectedSessionKey);
         callback(null, JSON.stringify(expectedSessionData));
     };
-    var apiController = proxyquire('../api/manage/session-api.js', {
+    var apiController = proxyquire('../API/manage/session-api.js', {
         "konphyg": function (configPath) {
             var configFile = function (configName) {
                 expect(configName).to.eql("properties");
@@ -187,7 +187,7 @@ test('cacheEnabled - get session with key success', function(t) {
 
 test('cacheEnabled - get session with no cache success', function(t) {
     var expectedSessionKey = "abc123";
-    var apiController = proxyquire('../api/manage/session-api.js', {
+    var apiController = proxyquire('../API/manage/session-api.js', {
         "konphyg": function (configPath) {
             var configFile = function (configName) {
                 expect(configName).to.eql("properties");
@@ -230,7 +230,7 @@ test('cacheEnabled - get session error', function(t) {
         expect(key).to.eql(expectedSessionKey);
         callback(new Error("Intentional test failure"), null);
     };
-    var apiController = proxyquire('../api/manage/session-api.js', {
+    var apiController = proxyquire('../API/manage/session-api.js', {
         "konphyg": function (configPath) {
             var configFile = function (configName) {
                 expect(configName).to.eql("properties");
@@ -278,7 +278,7 @@ test('cacheEnabled - setSession success no key cookie', function(t) {
         expect(key).to.exist;
         expect(dataString).to.eql(JSON.stringify(expectedSessionData));
     };
-    var apiController = proxyquire('../api/manage/session-api.js', {
+    var apiController = proxyquire('../API/manage/session-api.js', {
         "konphyg": function (configPath) {
             var configFile = function (configName) {
                 expect(configName).to.eql("properties");
@@ -331,7 +331,7 @@ test('cacheEnabled - setSession success with key cookie', function(t) {
         expect(key).to.eql(expectedSessionKey);
         expect(dataString).to.eql(JSON.stringify(expectedSessionData));
     };
-    var apiController = proxyquire('../api/manage/session-api.js', {
+    var apiController = proxyquire('../API/manage/session-api.js', {
         "konphyg": function (configPath) {
             var configFile = function (configName) {
                 expect(configName).to.eql("properties");
@@ -379,7 +379,7 @@ test('cacheEnabled - delete session', function(t) {
     cache.del = function(key){
         expect(key).to.eql(expectedSessionKey);
     };
-    var apiController = proxyquire('../api/manage/session-api.js', {
+    var apiController = proxyquire('../API/manage/session-api.js', {
         "konphyg": function (configPath) {
             var configFile = function (configName) {
                 expect(configName).to.eql("properties");
@@ -449,7 +449,7 @@ test('cacheEnabled - setLogin success', function(t) {
             expect(value).to.eql(expectedUserId + expectedEnvironment);
         }
     };
-    var apiController = proxyquire('../api/manage/session-api.js', {
+    var apiController = proxyquire('../API/manage/session-api.js', {
         "konphyg": function (configPath) {
             var configFile = function (configName) {
                 expect(configName).to.eql("properties");
@@ -490,7 +490,7 @@ test('cacheEnabled - logout success', function(t) {
         expect(name).to.eql("sessionData");
         expect(value).to.eql({});
     };
-    var apiController = proxyquire('../api/manage/session-api.js', {
+    var apiController = proxyquire('../API/manage/session-api.js', {
         "konphyg": function (configPath) {
             var configFile = function (configName) {
                 expect(configName).to.eql("properties");
