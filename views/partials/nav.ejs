@@ -85,23 +85,48 @@
 					<% columnCount++; %>
 				<% }); %>
 
-				<li class="dropdown gs w5 non-mobile"><a id="nav-menu-contact-us-link" aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle underlined"><div class="icon"><img src="/images/contact-us.png" alt="" /></div><div >Contact Us</div></a>
-          <ul id="nav-menu-contact-us" class="dropdown-menu">
-            <li data-placement="left" data-toggle="tooltip" title="Call Graduate School">
-							<a id="nav-menu-contact-us-phone" href="tel:+18887444723"><img src="/images/call-us.png" alt="" />(888) 744-4723</a>
-						</li>
-            <li data-placement="left" data-toggle="tooltip" title="Fax Graduate School">
-							<a id="nav-menu-contact-us-fax" href="#"><img src="/images/fax-us.png" alt=""/>(866) 329-4723</a>
-						</li>
-            <li data-placement="left" data-toggle="tooltip" title="Email Graduate School or leave feedback">
-							<a id="nav-menu-contact-us-email" href="/forms/contact-us"><img src="/images/email-us.png" alt="" />Contact GS</a>
-						</li>
-            <li data-placement="left" data-toggle="tooltip" title="Chat with Graduate School">
-							<a id="nav-menu-contact-us-chat" href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;"><img src="/images/chat-with-us.png" alt="" />Chat</a>
-						</li>
+            <li class="dropdown gs gs-fw w5 non-mobile"><a id="nav-menu-contact-us-link" aria-expanded="false" href="#" data-toggle="dropdown" class="dropdown-toggle underlined">
+							<div class="icon"><img src="/images/contact-us.png" alt="" /></div><div>Contact Us</div></a>
+                <ul class="dropdown-menu contact-us-fix">
+                  <li class ="grid-demo">
+                      <div class="row border-between">
+                          <div class="col-sm-8">
+														<div class="map-holder">
+															<span id="addressCityNav" class="pull-right" data-toggle="modal"  data-target="#mapModal"
+                                    aria-hidden='true' data-city=' - Washington,DC' data-address='600 Maryland Avenue,S.W.,Washington,DC 20024-2520'></span>
+                              	<div id="map-addressNav"></div>
+                                <div id="map-canvas-nav"></div>
+																<br>
+                                <a id="getDirectionsNav" class="blueish pull-right" href="" target="_blank" role="button">Get Directions</a>
+															</div>
+                              </div>
+                          <div class="col-sm-4">
+															<p class="center padding0" accesskey=""><img id="gs-logo" class="responsive" src="/images/gs-logo-footer.png" alt="" /></p>
+															<p class="center padding5 address" >600 Maryland Avenue, S.W.,<br>Washington, DC 20024-2520</p>
+															<p class="center padding0" data-placement="top" data-toggle="tooltip" title="Email to Graduate School"><a id="nav-menu-contact-email" href="mailto:customersupport@graduateschool.edu">customersupport@graduateschool.edu</a></p>
+															<p class="center padding5"><a id="emailNow" class="btn blueish" href="mailto:customersupport@graduateschool.edu" role="button">EMAIL NOW!</a></p>
+															<hr class="divider contact-us-dropdown">
+															<ul class="contact-us-dropdown">
+																<li id="contactUSNav"><span class="contact-us-dropdown-title">CONTACT US</span></li>
+																<li data-placement="top" data-toggle="tooltip" title="Call Graduate School">
+																		<a id="nav-menu-contact-us-phone" href="tel:+18887444723"><img src="/images/call-us.png" alt="" />(888) 744-4723</a>
+																</li>
+																<li data-placement="top" data-toggle="tooltip" title="Fax Graduate School">
+																		<a id="nav-menu-contact-us-fax" href="#"><img src="/images/fax-us.png" alt=""/>(866) 329-4723</a>
+																</li>
+																<li data-placement="top" data-toggle="tooltip" title="Email Graduate School or leave feedback">
+																		<a id="nav-menu-contact-us-email" href="/forms/contact-us"><img src="/images/email-us.png" alt="" />Contact GS</a>
+																</li>
+																<li data-placement="top" data-toggle="tooltip" title="Chat with Graduate School">
+																		<a id="nav-menu-contact-us-chat" href="https://livechat.boldchat.com/aid/391752780525725401/bc.chat?resize=true&amp;cbdid=387983771792672006" target="_blank" onclick="window.open((window.pageViewer &amp;&amp; pageViewer.link || function(link){return link;})(this.href + (this.href.indexOf('?')>=0 ? '&amp;' : '?') + 'url=' + escape(document.location.href)), 'Chat391752780525725401', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480');return false;"><img src="/images/chat-with-us.png" alt="" />Chat</a>
+																</li>
+															</ul>
+                          </div>
+                      </div>
+	                </li>
+	            	</ul>
+            </li>
           </ul>
-        </li>
-			</ul>
 			</div>
 		</div><!-- END of row -->
 	</div><!-- END Container  -->

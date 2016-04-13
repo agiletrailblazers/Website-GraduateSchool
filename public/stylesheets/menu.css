@@ -637,3 +637,64 @@ transition: background-color 300ms linear;
 .footer-menu a img, .header-menu a img {
   margin-bottom: 6px;
 }
+
+/* Contact Us Dropdown - full width */
+#map-canvas-nav{
+    height: 300px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+#contactUSNav{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.navbar-nav>li>.dropdown-menu {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    width: 100% !important;
+}
+
+.contact-us-fix {
+  left: 0px !important;
+}
+
+ul.contact-us-dropdown {
+  max-width: 180px;
+  margin: 0 auto !important;
+  padding-top: 15px !important;
+}
+
+.dropdown ul.contact-us-dropdown {
+  margin: 0 auto !important;
+  padding-top: 15px !important;
+}
+
+.contact-us-dropdown-title {
+  padding-left: 20px;
+  font-size: 16px;
+}
+
+p.address {
+  font-weight: 500;
+}
+
+hr.contact-us-dropdown {
+  max-width: 75% !important;
+  margin: 10px auto !important;
+  text-align: center;
+}
+
+.map-holder {
+  margin-top: 30px;
+}
+
+.dropdown ul li.grid-demo {
+  padding: 10px 30px !important;
+}
+
+.map-holder a, .map-holder  a:hover {
+  padding: 7px 15px !important;
+}

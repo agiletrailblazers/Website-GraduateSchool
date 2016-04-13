@@ -52,7 +52,6 @@ body {
 }
 
 img.responsive {
-  width : 100%;
   max-width: 100%;
   height: auto;
 }
@@ -154,7 +153,7 @@ a.red:hover {
 a.blueish, a.blueish:visited {
     color: #FFF;
     background-color: #427EB4 !important;
-    padding: 7px 15px;
+    padding: 7px 15px !important;
     box-shadow: none;
     border: medium none;
     border-radius: 2px;
@@ -168,7 +167,7 @@ a.blueish, a.blueish:visited {
 a.blueish:hover, a.blueish:focus {
     color: #FFF;
     background-color: #195181 !important;
-    padding: 7px 15px;
+    padding: 7px 15px !important;
     box-shadow: none;
     border: medium none;
     border-radius: 2px;
@@ -2289,6 +2288,39 @@ ul.see-more li {
   text-align: left;
 }
 
+/* Contact us top menu mobile + contact us page */
+.address-block {
+  width: 220px;
+}
+
+.email-address-link {
+  font-size: 13px !important;
+  text-align: center;
+}
+
+.address-contact-form {
+  color: #AAAAAA;
+}
+
+.address-contact-form-footer {
+  color: #666666 !important;
+  font-weight: normal !important;
+  font-size: 13px;
+}
+
+.address-contact-form-footer:hover {
+  color: #3A6799 !important;
+}
+
+.address-contact-form-mobile {
+  color: #777;
+  font-weight: 500;
+}
+
+.glyphicon-contact-us {
+  font-size: 33px !important;
+}
+
 
 /* FIXES */
 *:focus {
@@ -2401,4 +2433,20 @@ ul.see-more li {
     height: 300px;
     width: 100%;
     margin: 0 auto;
+}
+
+#contactUSNav{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.navbar-nav>li>.dropdown-menu {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    width: 100% !important;
+}
+
+.block {
+  display: block;
 }

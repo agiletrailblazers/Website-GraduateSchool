@@ -22,7 +22,6 @@ $(document).ready(function() {
   });
 });
 
-
 //Hide/Show close button while animating.
 $(document).ready(function() {
   $('#close-button').click(function() {
@@ -31,7 +30,50 @@ $(document).ready(function() {
   $('.toggle').click(function() {
     $('#close-button').fadeIn();
   });
+
+  $('#nav-menu-contact-us-link').click(function(e) {
+    var map, geocoder;
+    var marker;
+    mapApp = {
+      start: function() {
+        map = new google.maps.Map(document.getElementById('map-canvas-nav'), {
+          zoom: 15,
+        });
+        geocoder = new google.maps.Geocoder();
+        marker = null;
+      },
+      codeAddress: function(address) {
+        geocoder.geocode({
+          'address': address
+        }, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+            });
+          } else {
+            $("#mapModalLabel").append('<div id="mapAlert" class="alert alert-danger" style="display:none;"> Sorry, unable to find address. Error: ' + status + '</div>').slideDown();
+          }
+        });
+      }
+    }
+
+    var cityStateNav = $('#addressCityNav').data('city');
+    mapApp.start();
+    var addressNav = $('#addressCityNav').data('address');
+    var destinationNav = addressNav.replace(/ /g, '+');
+    var directionsUrlNav = "http://maps.google.com?saddr=Current+Location&daddr=" + destinationNav + "";
+    google.maps.event.addListenerOnce(map, 'idle', function() {
+      google.maps.event.trigger(map, 'resize');
+      if (marker != null) {
+        map.setCenter(marker.getPosition());
+      }
+    });
+    mapApp.codeAddress(addressNav);
+    $("#getDirectionsNav").attr("href", directionsUrlNav);
+  });
 });
+
 
 $(document).ready(function() {
   //Controls plus-minus sign on top nav on mobile
