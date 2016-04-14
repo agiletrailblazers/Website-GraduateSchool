@@ -82,6 +82,10 @@ $(document).ready(function() {
   }).on('hidden.bs.collapse', function() {
     $(this).parent().find(".glyphicon-minus-sign").removeClass("glyphicon-minus-sign").addClass("glyphicon-plus-sign");
   });
+  $("#footer-map").click(function(e) {
+    e.preventDefault();
+    window.location="/content/location/washington-dc#section-3";
+  })
 });
 
 
