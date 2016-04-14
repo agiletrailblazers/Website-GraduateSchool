@@ -86,7 +86,7 @@
     "mailPageBody":"Hi,%20I%20found%20this%20on%20the%20Graduate%20School%20USA%20website%20and%20thought%20you%20might%20like%20it:%20",
     "maxTopNavigationLinks":24,
     "maxTopNavigationGroups":7,
-    "allowedHtmlTags":"<br><a><p><i><u><ul><li><strong><td><tr><table><th><font><caption><b><tbody><thead><tfoot><ol><nl>",
+    "allowedHtmlTags":"<a><abbr><acronym><address><applet><area><article><aside><audio><b><base><basefont><bdi><bdo><big><blockquote><body><br><button><canvas><caption><center><cite><code><col><colgroup><datalist><dd><del><details><dfn><dialog><dir><dl><dt><em><embed><fieldset><figcaption><figure><font><footer><form><frame><frameset><h1><head><header><hr><html><i><iframe><img><input><ins><kbd><keygen><label><legend><li><link><main><map><mark><menu><menuitem><meta><meter><nav><nl><noframes><noscript><object><ol><optgroup><option><output><p><param><pre><progress><q><rp><rt><ruby><s><samp><script><section><select><small><source><span><strike><strong><style><sub><summary><sup><table><tbody><td><textarea><tfoot><th><thead><time><title><tr><track><tt><u><ul><var><video><wbr>",
     "landingPageFormDisplay":false,
     "spaces": {
       "main" : {
