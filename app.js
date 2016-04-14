@@ -13,6 +13,8 @@ var common = require("./helpers/common.js");
 var session = require('./API/manage/session-api.js');
 var user = require("./API/manage/user-api.js");
 var Redis = require('ioredis');
+var expressSession = require('express-session');
+var RedisStore = require('connect-redis')(expressSession);
 
 var app = express();
 
@@ -166,9 +168,6 @@ if (config("properties").manage.useCache === true) {
 	redisConfig.sentinelRetryStrategy = retryFunction;
 	var cache = new Redis(config("properties").redis);
 
-	//set the cache in express
-	app.set('cache', cache);
-
 	//Redis cache logging
 	cache.on("connect", function () {
 		logger.debug("Redis connected")
@@ -188,6 +187,13 @@ if (config("properties").manage.useCache === true) {
 	cache.on("end", function () {
 		logger.info("Redis end")
 	});
+
+	app.use(expressSession({
+		secret: 'ssshhhhh',
+		store: new RedisStore({client: cache}),
+		saveUninitialized: false,
+		resave: false
+	}));
 }
 
 //app.use('/', require('./routes'));
