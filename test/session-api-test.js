@@ -49,6 +49,17 @@ test('get session data value when sessionData exists but key does not exist', fu
     t.end();
 });
 
+test('get session data when session object does not exist', function(t) {
+    var req = {
+    };
+
+    expect(req.session).to.be.undefined;
+    expect(session.getSessionData(req, "foo")).to.be.undefined;
+    expect(session.getSessionData(req, "bar")).to.be.undefined;
+
+    t.end();
+});
+
 test('set session data value to existing sessionData object and existing key ', function(t) {
     var req = {
         session : {
