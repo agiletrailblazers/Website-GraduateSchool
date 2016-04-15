@@ -8,7 +8,6 @@
     "redisRetryLimit": 30,
     "redisRetryDelay": 1000,
     "sessionName": "gssession",
-    "useCache": false,
     "payment" : {
       "declinedReasonCodes" : ["200", "202", "203", "204", "205", "208", "209", "210", "211", "230", "231", "232", "233"],
       "errorReasonCodes" : ["151", "152", "250"]
