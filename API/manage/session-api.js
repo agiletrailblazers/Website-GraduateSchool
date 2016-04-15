@@ -4,6 +4,9 @@ var common = require("../../helpers/common.js");
 var uuid = require('uuid');
 
 getSessionData = function(req, key){
+  if (!req.session){
+    return undefined;
+  }
   if(!req.session.sessionData){
     req.session.sessionData = {};
     return undefined;

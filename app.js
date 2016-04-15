@@ -104,22 +104,8 @@ app.use(function (req, res, next) {
 			}
 			,
 			function(callback) {
-				session.getSessionData(req, function(error, sessionData) {
-					if (error) {
-						logger.error('Could not retrieve session from Cache. Redirecting to error page', error);
-						common.redirectToError(res);
-					}
-					app.set('sessionData', sessionData);
-					//Try to get user's first name from the session data
-					if(sessionData.userFirstName){
-						userFirstName = sessionData.userFirstName;
-						callback();
-					}
-					//Could not get first name from sessionData
-					else{
-						callback();
-					}
-				});
+				userFirstName = session.getSessionData(req, "userFirstName");
+				callback();
 			},
 			function(callback) {
 				//If the user clicks the create account link, this is the page to navigate to after successful creation
