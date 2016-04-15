@@ -46,7 +46,7 @@ var retryFunction = function (times) {
 logger.debug("Redis Retry limit: " + redisRetryLimit + "  and redisRetryDelay: " + redisRetryDelay);
 redisConfig.retryStrategy = retryFunction;
 redisConfig.sentinelRetryStrategy = retryFunction;
-var cache = new Redis(config("properties").redis);
+var cache = new Redis(redisConfig);
 
 //Redis cache logging
 cache.on("connect", function () {
