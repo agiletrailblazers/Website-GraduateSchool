@@ -13,9 +13,5 @@
           "accessKey" : "2fb718e93f8530d2b9ebee52e612f42f",
           "secretKey" : "f6d92fb24fd84360a553b06f80c4489767628d70cce449f0aa729b541dda9e99e99d001941ac4dd58c8f8eed4902cf487d2d3496ffd0404997e3a1bf0d49c50c07c22210a5304bbb85d2abbc3af491b18508ee17f3d0450197f318133fdc5598731a28c87a9f4ff3b27e89262cbb197a3544864c7ad24f60b304547950b839e7"
       }
-    },
-  "redis": {
-    "host": "127.0.0.1",
-    "port": "6379"
-  }
+    }
 }
