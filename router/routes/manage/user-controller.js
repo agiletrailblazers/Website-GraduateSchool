@@ -200,7 +200,6 @@ module.exports = {
   login: function(req, res, next) {
     // get the form data from the body of the request
     var formData = req.body;
-    //var sessionData = req.app.get('sessionData');
     logger.debug("Logging in user: " + formData.username);
     var authCredentials = {
       "username": formData.username,

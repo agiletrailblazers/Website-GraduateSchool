@@ -25,6 +25,56 @@ logger.info('starting app for environment ' + env);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// setup Redis connection
+Redis.Promise.onPossiblyUnhandledRejection(function (error) {
+	logger.error("Redis Error: ", error);
+});
+
+//Create Redis client with custom retry limit functions
+var redisConfig = config("properties").redis;
+var redisRetryLimit = config("properties").manage.redisRetryLimit;
+var redisRetryDelay = config("properties").manage.redisRetryDelay;
+var retryFunction = function (times) {
+	if (times < redisRetryLimit){
+		logger.warn("Could not connect to Redis, try number: " + times);
+		return redisRetryDelay;
+	}
+	else{
+		return;
+	}
+};
+logger.debug("Redis Retry limit: " + redisRetryLimit + "  and redisRetryDelay: " + redisRetryDelay);
+redisConfig.retryStrategy = retryFunction;
+redisConfig.sentinelRetryStrategy = retryFunction;
+var cache = new Redis(config("properties").redis);
+
+//Redis cache logging
+cache.on("connect", function () {
+	logger.debug("Redis connected")
+});
+cache.on("ready", function () {
+	logger.info("Redis ready");
+});
+cache.on("error", function (err) {
+	logger.error("Redis error: " + err);
+});
+cache.on("close", function () {
+	logger.debug("Redis close");
+});
+cache.on("reconnecting", function (time) {
+	logger.debug("Redis reconnecting in " + time + " msec");
+});
+cache.on("end", function () {
+	logger.info("Redis end")
+});
+
+app.use(expressSession({
+	secret: 'thisisthegraduateschoolsecretphrase',
+	store: new RedisStore({client: cache}),
+	saveUninitialized: false,
+	resave: false
+}));
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(bodyParser.json());
@@ -45,7 +95,7 @@ app.use(function (req, res, next) {
 	var mailPage = {};
 	mailPage.titlePrefix = config("properties").mailPageTitlePrefix;
 	mailPage.body = config("properties").mailPageBody;
-	var userFirstName = "";
+	var userFirstName = session.getSessionData(req, "userFirstName");
 	var nextPageAfterCreateUser = "";
 	async.series([
 		function(callback) {
@@ -104,10 +154,6 @@ app.use(function (req, res, next) {
 			}
 			,
 			function(callback) {
-				userFirstName = session.getSessionData(req, "userFirstName");
-				callback();
-			},
-			function(callback) {
 				//If the user clicks the create account link, this is the page to navigate to after successful creation
 				nextPageAfterCreateUser = req.url;
 				callback();
@@ -129,56 +175,6 @@ app.use(function (req, res, next) {
 	}
 	]);
 });
-
-// setup Redis connection
-Redis.Promise.onPossiblyUnhandledRejection(function (error) {
-	logger.error("Redis Error: ", error);
-});
-
-//Create Redis client with custom retry limit functions
-var redisConfig = config("properties").redis;
-var redisRetryLimit = config("properties").manage.redisRetryLimit;
-var redisRetryDelay = config("properties").manage.redisRetryDelay;
-var retryFunction = function (times) {
-	if (times < redisRetryLimit){
-		logger.warn("Could not connect to Redis, try number: " + times);
-		return redisRetryDelay;
-	}
-	else{
-		return;
-	}
-};
-logger.debug("Redis Retry limit: " + redisRetryLimit + "  and redisRetryDelay: " + redisRetryDelay);
-redisConfig.retryStrategy = retryFunction;
-redisConfig.sentinelRetryStrategy = retryFunction;
-var cache = new Redis(config("properties").redis);
-
-//Redis cache logging
-cache.on("connect", function () {
-	logger.debug("Redis connected")
-});
-cache.on("ready", function () {
-	logger.info("Redis ready");
-});
-cache.on("error", function (err) {
-	logger.error("Redis error: " + err);
-});
-cache.on("close", function () {
-	logger.debug("Redis close");
-});
-cache.on("reconnecting", function (time) {
-	logger.debug("Redis reconnecting in " + time + " msec");
-});
-cache.on("end", function () {
-	logger.info("Redis end")
-});
-
-app.use(expressSession({
-	secret: 'ssshhhhh',
-	store: new RedisStore({client: cache}),
-	saveUninitialized: false,
-	resave: false
-}));
 
 //app.use('/', require('./routes'));
 var router = require('./router')(app);
