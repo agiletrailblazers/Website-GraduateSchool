@@ -25,55 +25,67 @@ logger.info('starting app for environment ' + env);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// setup Redis connection
-Redis.Promise.onPossiblyUnhandledRejection(function (error) {
-	logger.error("Redis Error: ", error);
-});
+var useCache = config("properties").session.useCache;
+logger.info("Use cache backed sessions: " + useCache);
 
-//Create Redis client with custom retry limit functions
-var redisConfig = config("properties").redis;
-var redisRetryLimit = config("properties").manage.redisRetryLimit;
-var redisRetryDelay = config("properties").manage.redisRetryDelay;
-var retryFunction = function (times) {
-	if (times < redisRetryLimit){
-		logger.warn("Could not connect to Redis, try number: " + times);
-		return redisRetryDelay;
-	}
-	else{
-		return;
-	}
-};
-logger.debug("Redis Retry limit: " + redisRetryLimit + "  and redisRetryDelay: " + redisRetryDelay);
-redisConfig.retryStrategy = retryFunction;
-redisConfig.sentinelRetryStrategy = retryFunction;
-var cache = new Redis(redisConfig);
+if (useCache) {
+	// setup Redis connection
+	Redis.Promise.onPossiblyUnhandledRejection(function (error) {
+		logger.error("Redis Error: ", error);
+	});
 
-//Redis cache logging
-cache.on("connect", function () {
-	logger.debug("Redis connected")
-});
-cache.on("ready", function () {
-	logger.info("Redis ready");
-});
-cache.on("error", function (err) {
-	logger.error("Redis error: " + err);
-});
-cache.on("close", function () {
-	logger.debug("Redis close");
-});
-cache.on("reconnecting", function (time) {
-	logger.debug("Redis reconnecting in " + time + " msec");
-});
-cache.on("end", function () {
-	logger.info("Redis end")
-});
+	//Create Redis client with custom retry limit functions
+	var redisConfig = config("properties").cache.redis;
+	var redisRetryLimit = config("properties").cache.redisRetryLimit;
+	var redisRetryDelay = config("properties").cache.redisRetryDelay;
+	var retryFunction = function (times) {
+		if (times < redisRetryLimit){
+			logger.warn("Could not connect to Redis, try number: " + times);
+			return redisRetryDelay;
+		}
+		else{
+			return;
+		}
+	};
+	logger.debug("Redis Retry limit: " + redisRetryLimit + "  and redisRetryDelay: " + redisRetryDelay);
+	redisConfig.retryStrategy = retryFunction;
+	redisConfig.sentinelRetryStrategy = retryFunction;
+	var cache = new Redis(redisConfig);
 
-app.use(expressSession({
-	secret: 'thisisthegraduateschoolsecretphrase',
-	store: new RedisStore({client: cache}),
-	saveUninitialized: false,
-	resave: false
-}));
+	//Redis cache logging
+	cache.on("connect", function () {
+		logger.debug("Redis connected")
+	});
+	cache.on("ready", function () {
+		logger.info("Redis ready");
+	});
+	cache.on("error", function (err) {
+		logger.error("Redis error: " + err);
+	});
+	cache.on("close", function () {
+		logger.debug("Redis close");
+	});
+	cache.on("reconnecting", function (time) {
+		logger.debug("Redis reconnecting in " + time + " msec");
+	});
+	cache.on("end", function () {
+		logger.info("Redis end")
+	});
+
+	app.use(expressSession({
+		secret: 'thisisthegraduateschoolsecretphrase',
+		store: new RedisStore({client: cache}),
+		saveUninitialized: false,
+		resave: false
+	}));
+}
+else {
+	app.use(expressSession({
+		secret: 'thisisthegraduateschoolsecretphrase',
+		saveUninitialized: false,
+		resave: false
+	}));
+}
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
