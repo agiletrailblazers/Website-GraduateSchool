@@ -1,7 +1,6 @@
 var logger = require('../../logger');
 var config = require('konphyg')(__dirname + '/../../config');
 var common = require("../../helpers/common.js");
-var uuid = require('uuid');
 
 getSessionData = function(req, key){
   if (!req.session){

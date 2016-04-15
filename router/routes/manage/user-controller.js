@@ -127,7 +127,6 @@ module.exports = {
 
     async.waterfall([
       function(callback) {
-        var dateOfBirthString = null;
         // get the form data from the body of the request
         var formData = req.body;
         logger.info("Creating user: " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
@@ -261,14 +260,21 @@ module.exports = {
   },
 
   logout: function (req, res, next) {
-    logger.info("Logging out user " + session.getSessionData(req, "userId"));
-
-    authentication.logoutUser(req, res);
-
-    session.clearSessionData(req);
-    req.query["authToken"] = null;
-
+    doLogout(req, res);
     res.redirect("/")
+  },
+
+  logoutAsync: function (req, res, next) {
+    doLogout(req, res);
+    res.status(200).send();
   }
 
 } // end module.exports
+
+function doLogout(req, res) {
+
+  logger.info("Logging out user " + session.getSessionData(req, "userId"));
+  authentication.logoutUser(req, res);
+  session.clearSessionData(req);
+  req.query["authToken"] = null;
+}
