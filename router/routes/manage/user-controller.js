@@ -12,16 +12,13 @@ module.exports = {
 
   // Display the create user form
   displayRegistrationLoginCreate: function(req, res, next) {
-
-    var sessionData = req.app.get('sessionData');
-
     async.series({
       sessionId: function(callback) {
-        if (!sessionData.cart) {
+        if (!session.getSessionData(req,"cart")) {
           return callback(new Error("No session ID exists"), null);
         }
 
-        var sessionId = sessionData.cart.sessionId;
+        var sessionId = session.getSessionData(req,"cart").sessionId;
         return callback(null, sessionId);
       },
       states: function(callback) {
@@ -47,10 +44,10 @@ module.exports = {
         }, req.query["authToken"])
       },
       loginError: function(callback) {
-        var loginError = sessionData.loginError;
+        var loginError = session.getSessionData(req, "loginError");
         if (loginError) {
           logger.debug("Error logging in, displaying alert and clearing the warning from session");
-          sessionData.loginError = null;
+          session.setSessionData(req, "loginError", null);
         }
         return callback(null, loginError);
       },
@@ -60,7 +57,6 @@ module.exports = {
         return callback(null, nextPage);
       }
     }, function(err, content) {
-      session.setSessionData(req, res, sessionData);
 
       if (err) {
         logger.error("Error rendering createuser", err);
@@ -178,11 +174,9 @@ module.exports = {
           authentication.loginUser(req, res, authCredentials, function (error, authUser) {
             if (error) return callback(error);
             // the login user API call will set the authenticated token, we don't need to do anything with the response
-            var sessionData = req.app.get('sessionData');
 
-            sessionData.userId = authUser.user.id;
-            sessionData.userFirstName = authUser.user.person.firstName;
-            session.setLoggedInUserSession(req, res, sessionData);
+            session.setSessionData(req, "userId", authUser.user.id);
+            session.setSessionData(req, "userFirstName", authUser.user.person.firstName);
             callback(null, authUser, null);
           });
         }, req.query["authToken"]);
@@ -206,7 +200,7 @@ module.exports = {
   login: function(req, res, next) {
     // get the form data from the body of the request
     var formData = req.body;
-    var sessionData = req.app.get('sessionData');
+    //var sessionData = req.app.get('sessionData');
     logger.debug("Logging in user: " + formData.username);
     var authCredentials = {
       "username": formData.username,
@@ -226,9 +220,8 @@ module.exports = {
           }
       }
 
-      sessionData.userId = authorizedUser.user.id;
-      sessionData.userFirstName = authorizedUser.user.person.firstName;
-      session.setLoggedInUserSession(req, res, sessionData);
+      session.setSessionData(req, "userId", authorizedUser.user.id);
+      session.setSessionData(req, "userFirstName", authorizedUser.user.person.firstName);
       res.status(200).send();
     });
   },
@@ -245,40 +238,35 @@ module.exports = {
     };
 
     authentication.loginUser(req, res, authCredentials, function (error, authorizedUser, statusCode) {
-      var sessionData = req.app.get('sessionData');
 
       if (error) {
         if (statusCode == 401) {
-          sessionData.loginError = "Login failed, please try again";
-          session.setSessionData(req, res, sessionData);
+          session.setSessionData(req, "loginError", "Login failed, please try again");
 
           logger.debug("Failed during registration login for user", error);
           res.redirect('registration_login_create');
           return;
         }
         else {
-          sessionData.loginError = "There was an issue with your request. Please try again in a few minutes";
-          session.setSessionData(req, res, sessionData);
+          session.setSessionData(req, "loginError", "There was an issue with your request. Please try again in a few minutes")
 
           logger.error("User failed to log in with a different issue", error);
           res.redirect('registration_login_create');
           return;
         }
       }
-      sessionData.userId = authorizedUser.user.id;
-      sessionData.userFirstName = authorizedUser.user.person.firstName;
-      session.setLoggedInUserSession(req, res, sessionData);
+      session.setSessionData(req, "userId", authorizedUser.user.id);
+      session.setSessionData(req, "userFirstName", authorizedUser.user.person.firstName);
       res.redirect("/manage/cart/payment");
     });
   },
 
   logout: function (req, res, next) {
-    var sessionData = req.app.get('sessionData');
-    logger.info("Logging out user " + sessionData.userId);
+    logger.info("Logging out user " + session.getSessionData(req, "userId"));
 
     authentication.logoutUser(req, res);
 
-    session.logoutUserSession(req, res);
+    session.clearSessionData(req);
     req.query["authToken"] = null;
 
     res.redirect("/")

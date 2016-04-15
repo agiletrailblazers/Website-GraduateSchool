@@ -129,58 +129,56 @@ app.use(function (req, res, next) {
 	}
 	]);
 });
-if (config("properties").manage.useCache === true) {
 
-	// setup Redis connection
-	Redis.Promise.onPossiblyUnhandledRejection(function (error) {
-		logger.error("Redis Error: ", error);
-	});
+// setup Redis connection
+Redis.Promise.onPossiblyUnhandledRejection(function (error) {
+	logger.error("Redis Error: ", error);
+});
 
-	//Create Redis client with custom retry limit functions
-	var redisConfig = config("properties").redis;
-	var redisRetryLimit = config("properties").manage.redisRetryLimit;
-	var redisRetryDelay = config("properties").manage.redisRetryDelay;
-	var retryFunction = function (times) {
-		if (times < redisRetryLimit){
-			logger.warn("Could not connect to Redis, try number: " + times);
-			return redisRetryDelay;
-		}
-		else{
-			return;
-		}
-	};
-	logger.debug("Redis Retry limit: " + redisRetryLimit + "  and redisRetryDelay: " + redisRetryDelay);
-	redisConfig.retryStrategy = retryFunction;
-	redisConfig.sentinelRetryStrategy = retryFunction;
-	var cache = new Redis(config("properties").redis);
+//Create Redis client with custom retry limit functions
+var redisConfig = config("properties").redis;
+var redisRetryLimit = config("properties").manage.redisRetryLimit;
+var redisRetryDelay = config("properties").manage.redisRetryDelay;
+var retryFunction = function (times) {
+	if (times < redisRetryLimit){
+		logger.warn("Could not connect to Redis, try number: " + times);
+		return redisRetryDelay;
+	}
+	else{
+		return;
+	}
+};
+logger.debug("Redis Retry limit: " + redisRetryLimit + "  and redisRetryDelay: " + redisRetryDelay);
+redisConfig.retryStrategy = retryFunction;
+redisConfig.sentinelRetryStrategy = retryFunction;
+var cache = new Redis(config("properties").redis);
 
-	//Redis cache logging
-	cache.on("connect", function () {
-		logger.debug("Redis connected")
-	});
-	cache.on("ready", function () {
-		logger.info("Redis ready");
-	});
-	cache.on("error", function (err) {
-		logger.error("Redis error: " + err);
-	});
-	cache.on("close", function () {
-		logger.debug("Redis close");
-	});
-	cache.on("reconnecting", function (time) {
-		logger.debug("Redis reconnecting in " + time + " msec");
-	});
-	cache.on("end", function () {
-		logger.info("Redis end")
-	});
+//Redis cache logging
+cache.on("connect", function () {
+	logger.debug("Redis connected")
+});
+cache.on("ready", function () {
+	logger.info("Redis ready");
+});
+cache.on("error", function (err) {
+	logger.error("Redis error: " + err);
+});
+cache.on("close", function () {
+	logger.debug("Redis close");
+});
+cache.on("reconnecting", function (time) {
+	logger.debug("Redis reconnecting in " + time + " msec");
+});
+cache.on("end", function () {
+	logger.info("Redis end")
+});
 
-	app.use(expressSession({
-		secret: 'ssshhhhh',
-		store: new RedisStore({client: cache}),
-		saveUninitialized: false,
-		resave: false
-	}));
-}
+app.use(expressSession({
+	secret: 'ssshhhhh',
+	store: new RedisStore({client: cache}),
+	saveUninitialized: false,
+	resave: false
+}));
 
 //app.use('/', require('./routes'));
 var router = require('./router')(app);
