@@ -84,4 +84,5 @@
    background: -o-linear-gradient(left,  #A0A0A8  0%,#82838B  80%);
    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A0A0A8 ', endColorstr='#82838B ',GradientType=1 );
    border-radius: 0 !important;
+   background-color:rgb(66,126,180) !important;
 }
