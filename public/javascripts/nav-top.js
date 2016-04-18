@@ -84,7 +84,7 @@ $(document).ready(function() {
   });
   $("#footer-map").click(function(e) {
     e.preventDefault();
-    window.location="/content/location/washington-dc#section-3";
+    window.location="/content/location/washington-dc#Section3";
   })
 });
 
