@@ -21,13 +21,9 @@ test('displayCart', function(t) {
       courseId : "course12345",
       sessionId : "session12345"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
   var course  = {
     id : req.query.courseId
@@ -51,13 +47,6 @@ test('displayCart', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
   {
-    "../../../API/manage/session-api.js": {
-      setSessionData: function (req, res, data) {
-        // verify data passed in
-        expect(data.cart.courseId).to.eql(req.query.courseId);
-        expect(data.cart.sessionId).to.eql(req.query.sessionId);
-      }
-    },
     "../../../API/course.js": {
       performExactCourseSearch: function (cb, courseId, authToken) {
         expect(authToken).to.eql(req.query.authToken);
@@ -89,6 +78,9 @@ test('displayCart', function(t) {
 
   controller.displayCart(req, res, null);
 
+  expect(req.session.sessionData.cart.courseId).to.eql(req.query.courseId);
+  expect(req.session.sessionData.cart.sessionId).to.eql(req.query.sessionId);
+
   t.end();
 });
 
@@ -106,13 +98,9 @@ test('displayCart with already registered error ', function(t) {
       courseId : "course12345",
       sessionId : "session12345"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var course  = {
@@ -137,14 +125,6 @@ test('displayCart with already registered error ', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // verify data passed in
-            expect(data.cart.courseId).to.eql(req.query.courseId);
-            expect(data.cart.sessionId).to.eql(req.query.sessionId);
-            expect(data.cart.error).to.eql(null);
-          }
-        },
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -175,6 +155,10 @@ test('displayCart with already registered error ', function(t) {
 
   controller.displayCart(req, res, null);
 
+  expect(req.session.sessionData.cart.courseId).to.eql(req.query.courseId);
+  expect(req.session.sessionData.cart.sessionId).to.eql(req.query.sessionId);
+  expect(req.session.sessionData.cart.error).to.eql(null);
+
   t.end();
 });
 
@@ -188,13 +172,9 @@ test('displayCart handles get contentful error', function(t) {
       courseId : "course12345",
       sessionId : "session12345"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
   var course  = {
     id : req.query.courseId
@@ -262,13 +242,9 @@ test('cancelPayment from CyberSource page', function(t) {
     }
   };
   var req = {
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var res = {};
@@ -279,15 +255,6 @@ test('cancelPayment from CyberSource page', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // verify data passed in
-            // make sure cart contents not removed
-            expect(data.cart.sessionId).to.eql(sessionId);
-            // make sure that the payment info was cleared from session data
-            expect(data.cart.payment).to.eql({});
-          }
-        },
         "../../../API/manage/payment-api.js": {
           // this api should not be called since no authorization data in session
           // no functions mocked, so test will fail if attempt is made to call this api
@@ -295,6 +262,10 @@ test('cancelPayment from CyberSource page', function(t) {
       });
 
   controller.cancelPayment(req, res, null);
+
+  expect(req.session.sessionData.cart.sessionId).to.eql(sessionId);
+  // make sure that the payment info was cleared from session data
+  expect(req.session.sessionData.cart.payment).to.eql({});
 
   t.end();
 });
@@ -324,27 +295,14 @@ test('cancelPayment from confirmation page', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // verify data passed in
-            // make sure cart contents not removed
-            expect(data.cart.sessionId).to.eql(sessionId);
-            // make sure that the payment info was cleared from session data
-            expect(data.cart.payment).to.eql({});
-          }
-        },
         "../../../API/manage/payment-api.js": {
           sendAuthReversal: function (payments, cb, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -357,6 +315,10 @@ test('cancelPayment from confirmation page', function(t) {
       });
 
   controller.cancelPayment(req, res, null);
+
+  expect(req.session.sessionData.cart.sessionId).to.eql(sessionId);
+  // make sure that the payment info was cleared from session data
+  expect(req.session.sessionData.cart.payment).to.eql({});
 
   t.end();
 });
@@ -382,13 +344,9 @@ test('cancelPayment from confirmation page with api failure', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   res.redirect = function(page) {
@@ -398,15 +356,6 @@ test('cancelPayment from confirmation page with api failure', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // verify data passed in
-            // make sure cart contents not removed
-            expect(data.cart.sessionId).to.eql(sessionId);
-            // make sure that the payment info was cleared from session data
-            expect(data.cart.payment).to.eql({});
-          }
-        },
         "../../../API/manage/payment-api.js": {
           sendAuthReversal: function (payments, cb, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -419,6 +368,11 @@ test('cancelPayment from confirmation page with api failure', function(t) {
       });
 
   controller.cancelPayment(req, res, null);
+
+  // make sure cart contents not removed
+  expect(req.session.sessionData.cart.sessionId).to.eql(sessionId);
+  // make sure that the payment info was cleared from session data
+  expect(req.session.sessionData.cart.payment).to.eql({});
 
   t.end();
 });
@@ -456,13 +410,9 @@ test('confirmPayment', function(t) {
       req_reference_number : "ref12345",
       signature : "IAmTheRealDeal"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var course  = {
@@ -487,12 +437,6 @@ test('confirmPayment', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // state of the session data will be verified later in test
-            // as it may change as a result of multiple calls
-          }
-        },
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -608,13 +552,9 @@ test('confirmPayment handles signature mismatch', function(t) {
       req_reference_number : "ref12345",
       signature : "IAmTheRealDeal"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var course  = {
@@ -639,12 +579,6 @@ test('confirmPayment handles signature mismatch', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // state of the session data will be verified later in test
-            // as it may change as a result of multiple calls
-          }
-        },
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -754,13 +688,9 @@ test('confirmPayment handles declined reason code', function(t) {
       req_reference_number : "ref12345",
       signature : "IAmTheRealDeal"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var course  = {
@@ -785,12 +715,6 @@ test('confirmPayment handles declined reason code', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // state of the session data will be verified later in test
-            // as it may change as a result of multiple calls
-          }
-        },
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -897,13 +821,9 @@ test('confirmPayment handles error reason code', function(t) {
       req_reference_number : "ref12345",
       signature : "IAmTheRealDeal"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var course  = {
@@ -928,12 +848,6 @@ test('confirmPayment handles error reason code', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // state of the session data will be verified later in test
-            // as it may change as a result of multiple calls
-          }
-        },
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -1040,13 +954,9 @@ test('confirmPayment handles non-specific reason code', function(t) {
       req_reference_number : "ref12345",
       signature : "IAmTheRealDeal"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var course  = {
@@ -1071,12 +981,6 @@ test('confirmPayment handles non-specific reason code', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // state of the session data will be verified later in test
-            // as it may change as a result of multiple calls
-          }
-        },
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -1180,13 +1084,9 @@ test('completePayment', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var course  = {
@@ -1224,12 +1124,6 @@ test('completePayment', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // state of the session data will be verified later in test
-            // as it may change as a result of multiple calls
-          }
-        },
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -1312,13 +1206,9 @@ test('completePayment with payment declined', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var course  = {
@@ -1356,12 +1246,6 @@ test('completePayment with payment declined', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // state of the session data will be verified later in test
-            // as it may change as a result of multiple calls
-          }
-        },
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -1443,13 +1327,9 @@ test('completePayment with payment accepted error', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var course  = {
@@ -1487,12 +1367,6 @@ test('completePayment with payment accepted error', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // state of the session data will be verified later in test
-            // as it may change as a result of multiple calls
-          }
-        },
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -1574,13 +1448,9 @@ test('completePayment with general error', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var course  = {
@@ -1618,12 +1488,6 @@ test('completePayment with general error', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // state of the session data will be verified later in test
-            // as it may change as a result of multiple calls
-          }
-        },
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -1727,13 +1591,9 @@ test('displayPayment with registration exists', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var userData = {
@@ -1776,15 +1636,6 @@ test('displayPayment with registration exists', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            expect(data.cart.sessionId).to.eql(expSessionId);
-            expect(data.userId).to.eql(expUserId);
-            should.exist(sessionData.cart.error);
-            // make sure that the payment info was cleared from session data
-            expect(data.cart.payment).to.eql({});
-          }
-        },
         "../../../API/course.js": {
           getSession: function (sessionId, cb, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -1822,6 +1673,9 @@ test('displayPayment with registration exists', function(t) {
                   "accessKey" : "fakeAccessKey",
                   "secretKey" : "fakeSecretKey"
                 }
+              },
+              session: {
+                "useCache": false
               }
             }
 
@@ -1833,6 +1687,11 @@ test('displayPayment with registration exists', function(t) {
 
   res.redirect = function(page) {
     expect(page).to.eql('/manage/cart');
+    expect(req.session.sessionData.cart.sessionId).to.eql(expSessionId);
+    expect(req.session.sessionData.userId).to.eql(expUserId);
+    should.exist(sessionData.cart.error);
+    // make sure that the payment info was cleared from session data
+    expect(req.session.sessionData.cart.payment).to.eql({});
   };
 
   controller.displayPayment(req, res, null);
@@ -1871,13 +1730,9 @@ test('displayPayment with multiple registrations exist', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var course  = {
@@ -1947,12 +1802,20 @@ test('displayPayment with multiple registrations exist', function(t) {
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
         "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            expect(data.cart.sessionId).to.eql(expSessionId);
-            expect(data.userId).to.eql(expUserId);
+          setSessionData: function (req, key, value) {
+            req.session.sessionData[key] = value;
             should.exist(sessionData.cart.error);
-            // make sure that the payment info was cleared from session data
-            expect(data.cart.payment).to.eql({});
+          },
+          getSessionData: function(req, key){
+            if (!req.session){
+              return undefined;
+            }
+            if(!req.session.sessionData){
+              req.session.sessionData = {};
+              return undefined;
+            } else {
+              return req.session.sessionData[key];
+            }
           }
         },
         "../../../API/course.js": {
@@ -1996,6 +1859,9 @@ test('displayPayment with multiple registrations exist', function(t) {
                   "profileId" : "fakeProfileId",
                   "accessKey" : "fakeAccessKey",
                   "secretKey" : "fakeSecretKey"
+                },
+                session: {
+                  "useCache": false
                 }
               }
             }
@@ -2008,6 +1874,11 @@ test('displayPayment with multiple registrations exist', function(t) {
 
   res.redirect = function(page) {
     expect(page).to.eql('/manage/cart');
+    expect(req.session.sessionData.cart.sessionId).to.eql(expSessionId);
+    expect(req.session.sessionData.userId).to.eql(expUserId);
+    should.exist(sessionData.cart.error);
+    // make sure that the payment info was cleared from session data
+    expect(req.session.sessionData.cart.payment).to.eql({});
   };
 
   controller.displayPayment(req, res, null);
@@ -2046,13 +1917,9 @@ test('displayPayment with no existing registration', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
   var course  = {
     id : expCourseId
@@ -2107,14 +1974,6 @@ test('displayPayment with no existing registration', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            expect(data.cart.sessionId).to.eql(expSessionId);
-            expect(data.userId).to.eql(expUserId);
-            // make sure that the payment info was cleared from session data
-            should.exist(data.cart.payment);
-          }
-        },
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -2175,6 +2034,11 @@ test('displayPayment with no existing registration', function(t) {
     expect(content.parameters.get("bill_to_forename")).to.eql(userData.person.firstName);
     expect(content.parameters.get("bill_to_surname")).to.eql(userData.person.lastName);
     expect(content.parameters.get("bill_to_address_line1")).to.eql(userData.person.primaryAddress.address1);
+
+    expect(req.session.sessionData.cart.sessionId).to.eql(expSessionId);
+    expect(req.session.sessionData.userId).to.eql(expUserId);
+    // make sure that the payment info was cleared from session data
+    should.exist(req.session.sessionData.cart.payment);
   };
 
   controller.displayPayment(req, res, null);
@@ -2203,13 +2067,9 @@ test('cancelPayment from confirmation page with api failure', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   res.redirect = function(page) {
@@ -2219,15 +2079,6 @@ test('cancelPayment from confirmation page with api failure', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/cart-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // verify data passed in
-            // make sure cart contents not removed
-            expect(data.cart.sessionId).to.eql(sessionId);
-            // make sure that the payment info was cleared from session data
-            expect(data.cart.payment).to.eql({});
-          }
-        },
         "../../../API/manage/payment-api.js": {
           sendAuthReversal: function (payments, cb, authToken) {
             expect(authToken).to.eql(req.query.authToken);
@@ -2240,6 +2091,11 @@ test('cancelPayment from confirmation page with api failure', function(t) {
       });
 
   controller.cancelPayment(req, res, null);
+
+  // make sure cart contents not removed
+  expect(req.session.sessionData.cart.sessionId).to.eql(sessionId);
+  // make sure that the payment info was cleared from session data
+  expect(req.session.sessionData.cart.payment).to.eql({});
 
   t.end();
 });
@@ -2260,13 +2116,9 @@ test('cancelRegistration from cart page', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   res.redirect = function(page) {
@@ -2274,18 +2126,11 @@ test('cancelRegistration from cart page', function(t) {
   };
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
-  var controller = proxyquire('../router/routes/manage/cart-controller.js',
-      {
-        "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
-            // verify data passed in
-            // make sure cart contents is empty
-            expect(data.cart).to.eql({});
-          }
-        }
-      });
+  var controller = proxyquire('../router/routes/manage/cart-controller.js', {});
 
   controller.cancelRegistration(req, res, null);
+
+  expect(req.session.sessionData.cart).to.eql({});
 
   t.end();
 });
