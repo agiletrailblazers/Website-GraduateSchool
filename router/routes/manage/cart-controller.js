@@ -23,25 +23,26 @@ module.exports = {
     // already be contained in the session data
     displayCart : function(req, res, next) {
 
-        var sessionData = req.app.get('sessionData');
-        if (!sessionData.cart) {
+        var cart = session.getSessionData(req,"cart");
+        if (!cart) {
             // no cart in session, initialize it
-            sessionData.cart = {};
+            cart = {};
+            session.setSessionData(req, "cart", cart);
         }
 
         // update the course and session ids in the cart if they were passed in as query parameters,
         // this is how they will be initially passed in from the course details page. They may also already
         // be in the session data if we are getting back to the cart by some other means
         if (req.query.courseId) {
-            sessionData.cart.courseId = req.query.courseId;
+            cart.courseId = req.query.courseId;
         }
         if (req.query.sessionId) {
-            sessionData.cart.sessionId = req.query.sessionId;
+            cart.sessionId = req.query.sessionId;
         }
 
         async.parallel({
             course: function(callback) {
-                var courseId = sessionData.cart.courseId;
+                var courseId = cart.courseId;
                 if (!courseId) {
                     return callback(new Error("Missing courseId parameter"));
                 }
@@ -57,7 +58,7 @@ module.exports = {
                 }, courseId, req.query["authToken"]);
             },
             session: function(callback) {
-                var sessionId = sessionData.cart.sessionId;
+                var sessionId = cart.sessionId;
                 if (!sessionId) {
                     return callback(new Error("Missing sessionId parameter"));
                 }
@@ -90,7 +91,7 @@ module.exports = {
             nextpage: function(callback) {
                 // if the user is already logged in then they should go from the cart directly into payment,
                 // if they are not logged in then they should go from the cart to login/create user
-                if (sessionData.userId) {
+                if (session.getSessionData(req, "userId")) {
                     callback(null, "/manage/cart/payment");
                 }
                 else {
@@ -108,13 +109,11 @@ module.exports = {
             // grab any possible error message from the session data for display
             // this error message would have been set in session by another route
             // before redirecting back to this route
-            var tmpError = common.isNotEmpty(sessionData.cart.error) ? sessionData.cart.error: null;
+            var tmpError = common.isNotEmpty(cart.error) ? cart.error: null;
 
             // now clear out the error so that it isn't re-displayed
-            sessionData.cart.error = null;
+            cart.error = null;
 
-            // update the session data
-            session.setSessionData(req, res, sessionData);
             res.render('manage/cart/cart', {
                 title: "Course Registration",
                 course: content.course,
@@ -129,9 +128,6 @@ module.exports = {
     // Display the payment page.  All necessary information about the cart must be in the session data.
     displayPayment: function(req, res, next) {
 
-        // get the session data, it contains the cart data
-        var sessionData = req.app.get('sessionData');
-
         // payment related configuration properties
         var paymentConfig = config("properties").manage.payment;
 
@@ -139,11 +135,11 @@ module.exports = {
             function(callback) {
                 // while we don't use the user id in the payment page, we don't want to send someone into
                 // payment if we don't know who they are, so this is more of sanity check / safety precaution
-                if (!sessionData.userId) {
+                if (!session.getSessionData(req, "userId")) {
                     return callback(new Error("No user id in session"));
                 }
 
-                var sessionId = sessionData.cart.sessionId;
+                var sessionId = session.getSessionData(req, "cart").sessionId;
                 if (!sessionId) {
                     return callback(new Error("Missing sessionId parameter"));
                 }
@@ -166,15 +162,13 @@ module.exports = {
             },
             function(courseSession, callback) {
 
-                logger.debug("Initiating payment processing for user " + sessionData.userId);
-
-                if (!sessionData.cart || !sessionData.cart.sessionId) {
+                if (!session.getSessionData(req, "cart") || !session.getSessionData(req, "cart").sessionId) {
                     return callback(new Error("No session id in the cart"));
                 }
 
-                logger.debug("Looking up user details for user " + sessionData.userId)
+                logger.debug("Looking up user details for user " + session.getSessionData(req, "userId"))
 
-                user.getUser(sessionData.userId , function(error, retrievedUser) {
+                user.getUser(session.getSessionData(req, "userId") , function(error, retrievedUser) {
                     // callback with the error, this will cause async module to stop executing remaining
                     // functions and jump immediately to the final function, it is important to return
                     // so that the task callback isn't called twice
@@ -194,7 +188,7 @@ module.exports = {
                 }, req.query["authToken"])
             },
             function(retrievedUser, courseSession, callback) {
-                var sessionId = sessionData.cart.sessionId;
+                var sessionId = session.getSessionData(req, "cart").sessionId;
 
                 logger.debug("Checking if the user " + retrievedUser.id + " has already registered for session " + sessionId);
 
@@ -205,7 +199,6 @@ module.exports = {
                     if (error) return callback(error);
 
                     if (retrievedRegistrations) {
-                        logger.debug(sessionData.userId + " is already registered for session " + sessionId);
                         // callback with error will force asynce module to stop execution
                         return callback(new Error("User is already registered"), true, retrievedUser);
                     }
@@ -221,11 +214,12 @@ module.exports = {
                 var signed_date_time = now.toISOString().slice(0, 19) + 'Z'; // must remove millis
 
                 // initialize payment data in cart
-                if (!sessionData.cart.payment) {
-                    sessionData.cart.payment = {};
+                var cart = session.getSessionData(req, "cart");
+                if (!cart.payment) {
+                    cart.payment = {};
                 }
-                sessionData.cart.payment.transaction_uuid = transaction_uuid;
-                sessionData.cart.payment.reference_number = reference_number;
+                cart.payment.transaction_uuid = transaction_uuid;
+                cart.payment.reference_number = reference_number;
 
                 var parameters = new Map();
                 parameters.set("access_key", paymentConfig.accessKey);
@@ -277,9 +271,8 @@ module.exports = {
                 if (alreadyRegistered) {
 
                     // user is already registered, set appropriate error message and send back to cart
-                    sessionData.cart.error = retrievedUser.person.emailAddress   + " is already registered for this session. If you have any questions, please contact our please contact our Customer Service Center at (888) 744-4723.";
-                    sessionData.cart.payment = {}; // Ensure there is no payment information in the cart
-                    session.setSessionData(req, res, sessionData);
+                    session.getSessionData(req, "cart").error = retrievedUser.person.emailAddress   + " is already registered for this session. If you have any questions, please contact our please contact our Customer Service Center at (888) 744-4723.";
+                    session.getSessionData(req, "cart").payment = {}; // Ensure there is no payment information in the cart
 
                     res.redirect('/manage/cart');
                     return;
@@ -291,8 +284,6 @@ module.exports = {
                 }
             }
 
-            // update the session data
-            session.setSessionData(req, res, sessionData);
             res.render('manage/cart/payment', {
                 parameters: parameters,
                 signature: signature,
@@ -306,23 +297,19 @@ module.exports = {
 
         logger.debug("Processing payment canceled");
 
-        var sessionData = req.app.get('sessionData');
-
         async.series({
             authReversal: function(callback) {
 
                 // can arrive here in one of two ways, having canceled from the CyberSource page
                 // or having canceled from the confirmation page
                 // only have to reverse authorization if cancel from confirmation page
-                if (sessionData.cart && sessionData.cart.payment && sessionData.cart.payment.authorization) {
-
-                    logger.debug("Sending payment authorization reversal for user " + sessionData.userId);
+                if (session.getSessionData(req, "cart") && session.getSessionData(req, "cart").payment && session.getSessionData(req, "cart").payment.authorization) {
 
                     var payments = [
                         {
-                            amount: sessionData.cart.payment.authorization.amount,
-                            authorizationId: sessionData.cart.payment.authorization.authId,
-                            merchantReferenceId: sessionData.cart.payment.authorization.referenceNumber
+                            amount: session.getSessionData(req, "cart").payment.authorization.amount,
+                            authorizationId: session.getSessionData(req, "cart").payment.authorization.authId,
+                            merchantReferenceId: session.getSessionData(req, "cart").payment.authorization.referenceNumber
                         }
                     ];
 
@@ -350,8 +337,7 @@ module.exports = {
             }
 
             // remove all payment data from the cart, but leave all other contents
-            sessionData.cart.payment = {};
-            session.setSessionData(req, res, sessionData);
+            session.getSessionData(req, "cart").payment = {};
 
             // redirect back to the cart
             res.redirect('/manage/cart');
@@ -363,12 +349,11 @@ module.exports = {
 
         logger.debug("Processing payment confirm");
 
-        var sessionData = req.app.get('sessionData');
         var props = config("properties");
 
         async.parallel({
             course: function(callback) {
-                var courseId = sessionData.cart.courseId;
+                var courseId = session.getSessionData(req, "cart").courseId;
                 if (!courseId) {
                     return callback(new Error("Missing courseId parameter"));
                 }
@@ -384,7 +369,7 @@ module.exports = {
                 }, courseId, req.query["authToken"]);
             },
             session: function(callback) {
-                var sessionId = sessionData.cart.sessionId;
+                var sessionId = session.getSessionData(req, "cart").sessionId;
                 if (!sessionId) {
                     return callback(new Error("Missing sessionId parameter"));
                 }
@@ -408,7 +393,7 @@ module.exports = {
             authorization: function(callback) {
 
                 // this is more of sanity check / safety precaution
-                if (!sessionData.userId) {
+                if (!session.getSessionData(req, "userId")) {
                     return callback(new Error("No user id in session"));
                 }
 
@@ -460,7 +445,7 @@ module.exports = {
 
                 if (authorization.approved) {
                     // add required fields to session for completing the sale after confirmation
-                    sessionData.cart.payment.authorization = authorization;
+                    session.getSessionData(req, "cart").payment.authorization = authorization;
                 }
 
                 return callback(null, authorization);
@@ -481,9 +466,6 @@ module.exports = {
                 common.redirectToError(res);
                 return;
             }
-
-            // update the session data
-            session.setSessionData(req, res, sessionData);
 
             if (content.authorization.approved) {
                 // authorization approved, display confirmation page
@@ -510,9 +492,8 @@ module.exports = {
                     logger.debug("Payment was not authorized with decline code, redirect to the cart with error message");
 
                     // set appropriate error message and send back to cart
-                    sessionData.cart.error = "We're sorry, but your payment could not be processed. Please try another payment method or contact your financial institution if you feel this was in error.";
-                    sessionData.cart.payment = {}; // Ensure there is no payment information in the cart
-                    session.setSessionData(req, res, sessionData);
+                    session.getSessionData(req, "cart").error = "We're sorry, but your payment could not be processed. Please try another payment method or contact your financial institution if you feel this was in error.";
+                    session.getSessionData(req, "cart").payment = {}; // Ensure there is no payment information in the cart
 
                     res.redirect('/manage/cart');
                 }
@@ -521,9 +502,8 @@ module.exports = {
                     logger.debug("Payment was not authorized with error code, redirect to the cart with error message");
 
                     // set appropriate error message and send back to cart
-                    sessionData.cart.error = "We're sorry, but we've encountered an issue while processing your registration request. To finalize your registration, please contact our Customer Service Center at (888) 744-4723.";
-                    sessionData.cart.payment = {}; // Ensure there is no payment information in the cart
-                    session.setSessionData(req, res, sessionData);
+                    session.getSessionData(req, "cart").error = "We're sorry, but we've encountered an issue while processing your registration request. To finalize your registration, please contact our Customer Service Center at (888) 744-4723.";
+                    session.getSessionData(req, "cart").payment = {}; // Ensure there is no payment information in the cart
 
                     res.redirect('/manage/cart');
                 }
@@ -541,11 +521,9 @@ module.exports = {
 
         logger.debug("Processing payment complete");
 
-        var sessionData = req.app.get('sessionData');
-
         async.series({
             course: function(callback) {
-                var courseId = sessionData.cart.courseId;
+                var courseId = session.getSessionData(req, "cart").courseId;
                 if (!courseId) {
                     return callback(new Error("Missing courseId parameter"));
                 }
@@ -561,7 +539,7 @@ module.exports = {
                 }, courseId, req.query["authToken"]);
             },
             session: function(callback) {
-                var sessionId = sessionData.cart.sessionId;
+                var sessionId = session.getSessionData(req, "cart").sessionId;
                 if (!sessionId) {
                     return callback(new Error("Missing sessionId parameter"));
                 }
@@ -588,27 +566,27 @@ module.exports = {
                     registrations:[
                         {
                             orderNumber: null,
-                            studentId: sessionData.userId,
-                            sessionId: sessionData.cart.sessionId
+                            studentId: session.getSessionData(req, "userId"),
+                            sessionId: session.getSessionData(req, "cart").sessionId
                         }
                     ],
                     payments:[
                         {
-                            amount: sessionData.cart.payment.authorization.amount,
-                            authorizationId: sessionData.cart.payment.authorization.authId,
-                            merchantReferenceId: sessionData.cart.payment.authorization.referenceNumber
+                            amount: session.getSessionData(req, "cart").payment.authorization.amount,
+                            authorizationId: session.getSessionData(req, "cart").payment.authorization.authId,
+                            merchantReferenceId: session.getSessionData(req, "cart").payment.authorization.referenceNumber
                         }
                     ]
                 };
 
                 // register the user
-                user.registerUser(sessionData.userId, registrationRequest, function(error, registrationResult) {
+                user.registerUser(session.getSessionData(req, "userId"), registrationRequest, function(error, registrationResult) {
                     // the success or failure of registration is contained in the result, so ignore the error parameter
                     return callback(null, registrationResult);
                 }, req.query["authToken"]);
             },
             payment: function(callback) {
-                var payment = sessionData.cart.payment.authorization;
+                var payment = session.getSessionData(req, "cart").payment.authorization;
                 return callback(null, payment);
             },
             contentfulCourseInfo: function(callback) {
@@ -631,11 +609,10 @@ module.exports = {
             }
 
             // hold onto authorization for last display of page
-            var tmpAuthorization = sessionData.cart.payment.authorization;
+            var tmpAuthorization = session.getSessionData(req, "cart").payment.authorization;
 
             // in every case, we want to clear the payment information out of the session data at this point
-            sessionData.cart.payment = {};
-            session.setSessionData(req, res, sessionData);
+            session.getSessionData(req, "cart").payment = {};
 
             // inspect the registration result to determine appropriate action
             if (content.registrationResult.generalError) {
@@ -644,7 +621,7 @@ module.exports = {
                 common.redirectToError(res);
             }
             else if (content.registrationResult.paymentDeclinedError) {
-                logger.debug("Registration failure due to declined payment for user " + sessionData.userId);
+                logger.debug("Registration failure due to declined payment for user " + session.getSessionData(req, "userId"));
 
                 res.render('manage/cart/confirmation', {
                     title: "Course Registration - Payment Review",
@@ -656,7 +633,7 @@ module.exports = {
                 });
             }
             else if (content.registrationResult.paymentAcceptedError) {
-                logger.warn("Payment was accepted but registration not guaranteed for user " + sessionData.userId);
+                logger.warn("Payment was accepted but registration not guaranteed for user " + session.getSessionData(req, "userId"));
 
                 res.render('manage/cart/confirmation', {
                     title: "Course Registration - Payment Review",
@@ -670,10 +647,7 @@ module.exports = {
             else {
 
                 // registration and payment were successful, clear out the cart and render the receipt
-                sessionData.cart = {};
-
-                // update the session data
-                session.setSessionData(req, res, sessionData);
+                session.setSessionData(req, "cart", {});
 
                 res.render('manage/cart/receipt', {
                     title: "Course Registration - Receipt",
@@ -692,18 +666,13 @@ module.exports = {
 
         logger.debug("Processing registration canceled from cart");
 
-        var sessionData = req.app.get('sessionData');
-
-        if (sessionData.userId) {
-            logger.debug("Removing data from cart for user: " + sessionData.userId);
+        if (session.getSessionData(req, "userId")) {
+            logger.debug("Removing data from cart for user: " + session.getSessionData(req, "userId"));
         }
         else {
             logger.debug("Removing data from cart for unknown user");
         }
-        sessionData.cart = {};
-
-        // update the session data
-        session.setSessionData(req, res, sessionData);
+        session.setSessionData(req, "cart", {});
         res.redirect('/search');
     }
 } // end module.exports

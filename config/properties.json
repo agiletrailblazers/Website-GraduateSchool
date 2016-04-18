@@ -5,10 +5,6 @@
   "registrationUrl": "https://teams.graduateschool.edu/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=[sessionId]",
   "manage": {
     "userRouteEnabled": false,
-    "redisRetryLimit": 30,
-    "redisRetryDelay": 1000,
-    "sessionName": "gssession",
-    "useCache": false,
     "payment" : {
       "declinedReasonCodes" : ["200", "202", "203", "204", "205", "208", "209", "210", "211", "230", "231", "232", "233"],
       "errorReasonCodes" : ["151", "152", "250"]
@@ -18,7 +14,18 @@
     "tokenName": "gstoken",
     "tokenTimeout": 15778476000
   },
-
+  "session": {
+    "timeout": 1200000,
+    "secure": false,
+    "useCache": false
+  },
+  "cache" : {
+    "redis": {
+      "name": "mymaster"
+    },
+    "redisRetryLimit": 30,
+    "redisRetryDelay": 1000
+  },
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
     "defaultEmailUserName":"atbtools@agiletrailblazers.com",
@@ -124,8 +131,5 @@
       "evening":"Classroom - Evening",
       "daytime": "Classroom - Daytime",
       "virtual": "Virtual Class"
-    },
-  "redis": {
-    "name": "mymaster"
-  }
+    }
 }

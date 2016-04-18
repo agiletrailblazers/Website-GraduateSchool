@@ -2,7 +2,7 @@ var config = require('konphyg')(__dirname + "/../config");
 var test = require('tap').test;
 var chai = require('chai');
 var expect = chai.expect;
-var proxyquire = require('proxyquire').noCallThru();
+var proxyquire = require('proxyquire');
 
 var encryptedPassword = "encryptedPassword";
 
@@ -17,13 +17,9 @@ test('registrationLoginCreate', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
   var res = {};
 
@@ -53,9 +49,14 @@ test('registrationLoginCreate', function(t) {
       }
     },
     "../../../API/manage/session-api.js": {
-      setSessionData: function (req, res, data) {
+      setSessionData: function (req, key, value) {
+        if (!req.session.sessionData){
+          req.session.sessionData = {};
+        }
+        req.session.sessionData[key] = value;
+
         // verify data passed in
-        expect(data).to.eql(sessionData);
+        expect(value).to.eql(sessionData[key]);
       }
     },
     "../../../API/manage/user-api.js": {
@@ -90,14 +91,11 @@ test('registrationLoginCreate handles error', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
   };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
-  };
+
   var res = {};
 
   var expectedError = new Error("Intentional Test Error");
@@ -117,9 +115,14 @@ test('registrationLoginCreate handles error', function(t) {
       }
     },
     "../../../API/manage/session-api.js": {
-      setSessionData: function (req, res, data) {
+      setSessionData: function (req, key, value) {
+        if (!req.session.sessionData){
+          req.session.sessionData = {};
+        }
+        req.session.sessionData[key] = value;
+
         // verify data passed in
-        expect(data).to.eql(sessionData);
+        expect(value).to.eql(sessionData[key]);
       }
     }
   });
@@ -139,13 +142,9 @@ test('registrationLoginCreate handles error with getting timezones', function(t)
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
   var res = {};
 
@@ -168,9 +167,14 @@ test('registrationLoginCreate handles error with getting timezones', function(t)
           }
         },
         "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
+          setSessionData: function (req, key, value) {
+            if (!req.session.sessionData){
+              req.session.sessionData = {};
+            }
+            req.session.sessionData[key] = value;
+
             // verify data passed in
-            expect(data).to.eql(sessionData);
+            expect(value).to.eql(sessionData[key]);
           }
         },
         "../../../API/manage/user-api.js": {
@@ -389,13 +393,9 @@ test('registrationLogin', function(t) {
     query : {
       authToken: "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var authUser = {
@@ -407,14 +407,29 @@ test('registrationLogin', function(t) {
       }
   };
 
+  var setSessionCheckedCounter = 0;
+
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/user-controller.js',
   {
     "../../../API/manage/session-api.js": {
-      setLoggedInUserSession: function (req, res, data) {
-        // verify data passed in
-        expect(data.userId).to.eql(authUser.user.id);
-        expect(data.userFirstName).to.eql(authUser.user.person.firstName);
+      setSessionData: function (req, key, value) {
+        if (!req.session.sessionData){
+          req.session.sessionData = {};
+        }
+        req.session.sessionData[key] = value;
+
+        if (key==="userId"){
+          expect(value).to.eql(authUser.user.id);
+          setSessionCheckedCounter++;
+        } else if (key==="userFirstName"){
+          expect(value).to.eql(authUser.user.person.firstName);
+          setSessionCheckedCounter++;
+        }
+        else {
+          // if called with any other data then throw error
+          expect(true).to.eql(false);
+        }
       }
     },
     '../../../API/authentication-api.js': {
@@ -432,6 +447,7 @@ test('registrationLogin', function(t) {
 
   res.redirect = function(page) {
       expect(page).to.eql('/manage/cart/payment');
+      expect(setSessionCheckedCounter).to.eql(2);
   };
 
   controller.registrationLogin(req, res, null);
@@ -450,13 +466,9 @@ test('registrationLogin should handle login failure', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var userId = "pers12345";
@@ -474,9 +486,15 @@ test('registrationLogin should handle login failure', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js',
       {
         "../../../API/manage/session-api.js": {
-          setSessionData: function (req, res, data) {
+          setSessionData: function (req, key, value) {
+            if (!req.session.sessionData){
+              req.session.sessionData = {};
+            }
+            req.session.sessionData[key] = value;
+
             // verify data passed in
-            expect(data.loginError).to.eql("Login failed, please try again");
+            expect(key).to.eql("loginError");
+            expect(value).to.eql("Login failed, please try again");
           }
         },
 
@@ -514,13 +532,9 @@ test('registrationLogin should handle other error', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var userId = "pers12345";
@@ -538,9 +552,15 @@ test('registrationLogin should handle other error', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js',
   {
     "../../../API/manage/session-api.js": {
-      setSessionData: function (req, res, data) {
+      setSessionData: function (req, key, value) {
+        if (!req.session.sessionData) {
+          req.session.sessionData = {};
+        }
+        req.session.sessionData[key] = value;
+
         // verify data passed in
-        expect(data.loginError).to.eql("There was an issue with your request. Please try again in a few minutes");
+        expect(key).to.eql("loginError");
+        expect(value).to.eql("There was an issue with your request. Please try again in a few minutes");
       }
     },
 
@@ -590,13 +610,9 @@ test('createUser', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var userId = "pers12345";
@@ -613,9 +629,13 @@ test('createUser', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js',
   {
     "../../../API/manage/session-api.js": {
-      setLoggedInUserSession: function (req, res, data) {
-        // verify data passed in
-        expect(data.userId).to.eql(userId);
+      setSessionData: function (req, key, value) {
+        if (!req.session.sessionData){
+          req.session.sessionData = {};
+        }
+        req.session.sessionData[key] = value;
+
+        expect(value).to.eql(sessionData[key]);
       }
     },
     "../../../API/manage/user-api.js": {
@@ -700,13 +720,9 @@ test('createUser handles no dateOfBirth', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var userId = "pers12345";
@@ -723,10 +739,21 @@ test('createUser handles no dateOfBirth', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js',
       {
         "../../../API/manage/session-api.js": {
-          setLoggedInUserSession: function (req, res, data) {
-            // verify data passed in
-            expect(data.userId).to.eql(userId);
-            expect(data.userFirstName).to.eql(authUser.user.person.firstName);
+          setSessionData: function (req, key, value) {
+            if (!req.session.sessionData){
+              req.session.sessionData = {};
+            }
+            req.session.sessionData[key] = value;
+
+            if (key==="userId"){
+              expect(value).to.eql(authUser.user.id);
+            } else if (key==="userFirstName"){
+              expect(value).to.eql(authUser.user.person.firstName);
+            }
+            else {
+              // if called with any other data then throw error
+              expect(true).to.eql(false);
+            }
           }
         },
         "../../../API/manage/user-api.js": {
@@ -808,13 +835,9 @@ test('createUser handles create user error', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var userId = "pers12345";
@@ -831,10 +854,21 @@ test('createUser handles create user error', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js',
   {
     "../../../API/manage/session-api.js": {
-      setLoggedInUserSession: function (req, res, data) {
-        // verify data passed in
-        expect(data.userId).to.eql(userId);
-        expect(data.userFirstName).to.eql(authUser.user.person.firstName);
+      setSessionData: function (req, key, value) {
+        if (!req.session.sessionData){
+          req.session.sessionData = {};
+        }
+        req.session.sessionData[key] = value;
+
+        if (key==="userId"){
+          expect(value).to.eql(authUser.user.id);
+        } else if (key==="userFirstName"){
+          expect(value).to.eql(authUser.user.person.firstName);
+        }
+        else {
+          // if called with any other data then throw error
+          expect(true).to.eql(false);
+        }
       }
     },
     "../../../API/manage/user-api.js": {
@@ -916,13 +950,9 @@ test('createUser handles login user error', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var userId = "pers12345";
@@ -939,10 +969,13 @@ test('createUser handles login user error', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js',
   {
     "../../../API/manage/session-api.js": {
-      setLoggedInUserSession: function (req, res, data) {
-        // verify data passed in
-        expect(data.userId).to.eql(userId);
-        expect(data.userFirstName).to.eql(authUser.user.person.firstName);
+      setSessionData: function (req, key, value) {
+        if (!req.session.sessionData){
+          req.session.sessionData = {};
+        }
+        req.session.sessionData[key] = value;
+
+        expect(value).to.eql(sessionData[key]);
       }
     },
     "../../../API/manage/user-api.js": {
@@ -1018,13 +1051,9 @@ test('login', function(t) {
     query : {
       authToken: "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var authUser = {
@@ -1040,10 +1069,21 @@ test('login', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js',
       {
         "../../../API/manage/session-api.js": {
-          setLoggedInUserSession: function (req, res, data) {
-            // verify data passed in
-            expect(data.userId).to.eql(authUser.user.id);
-            expect(data.userFirstName).to.eql(authUser.user.person.firstName);
+          setSessionData: function (req, key, value) {
+            if (!req.session.sessionData){
+              req.session.sessionData = {};
+            }
+            req.session.sessionData[key] = value;
+
+            if (key==="userId"){
+              expect(value).to.eql(authUser.user.id);
+            } else if (key==="userFirstName"){
+              expect(value).to.eql(authUser.user.person.firstName);
+            }
+            else {
+              // if called with any other data then throw error
+              expect(true).to.eql(false);
+            }
           }
         },
         '../../../API/authentication-api.js': {
@@ -1075,6 +1115,7 @@ test('login', function(t) {
 
   t.end();
 });
+
 test('login should handle failed login error', function(t) {
   var sessionData = {};
   var res = {};
@@ -1086,13 +1127,9 @@ test('login should handle failed login error', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
 
@@ -1144,13 +1181,9 @@ test('login should handle other error', function(t) {
     query : {
       authToken : "123456789123456789"
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var expectedError = {
@@ -1211,13 +1244,9 @@ test('logout', function(t) {
     query: {
       "authToken": authToken
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var res = {
@@ -1230,11 +1259,6 @@ test('logout', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/user-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          logoutUserSession: function (req, res) {
-            expect(req.cookies.gssession).to.not.eql(res.cookies.gssession);
-          }
-        },
         '../../../API/authentication-api.js': {
           logoutUser: function (req, res) {
             expect(req.cookies.gstoken).to.not.eql(res.cookies.gstoken);

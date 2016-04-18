@@ -13,5 +13,12 @@
         "accessKey" : "79a86f216b533f4e8780c21673d3b929",
         "secretKey" : "8c09edd9fef14c0e96fb92571d38cc122d6c478df78b48fea9a0e870366f58ce193200bea841458daabfbf51aa684699182b649dc5c5443fb859e8de81d9cf11864c08bf3e63456783f7b38df92aecefca907d2bd727416bba53ee3b344d9e667e140fd5090f4fcfb561db11e1afbd1bfe240eecd0ec4324adde5f5bbfa0f4da"
       }
-    }
+    },
+  "session": {
+    "useCache": true
+  },
+  "redis": {
+    "host": "10.0.1.7",
+    "port": "6379"
+  }
 }
