@@ -43,7 +43,7 @@
                             <%  } %>
                           </article>
                      <% } else if (sections[i].title) { %>
-                       <h2><%= sections[i].title %></h2><span id="Section<%= i+1 %>"></span>
+                       <h2><%- sections[i].title %></h2><span id="Section<%= i+1 %>"></span>
                        <article id="<%= i %>" class="genericArticle">
                          <% if (sections[i].snippet) { %>
                            <%- markdown(sections[i].snippet || '') %>
