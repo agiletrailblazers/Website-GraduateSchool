@@ -128,8 +128,6 @@ module.exports = {
     // Display the payment page.  All necessary information about the cart must be in the session data.
     displayPayment: function(req, res, next) {
 
-        // get the session data, it contains the cart data
-
         // payment related configuration properties
         var paymentConfig = config("properties").manage.payment;
 
@@ -163,8 +161,6 @@ module.exports = {
                 }, req.query["authToken"]);
             },
             function(courseSession, callback) {
-
-                logger.debug("Initiating payment processing for user " + session.getSessionData(req, "userId"));
 
                 if (!session.getSessionData(req, "cart") || !session.getSessionData(req, "cart").sessionId) {
                     return callback(new Error("No session id in the cart"));
@@ -203,7 +199,6 @@ module.exports = {
                     if (error) return callback(error);
 
                     if (retrievedRegistrations) {
-                        logger.debug(session.getSessionData(req, "userId") + " is already registered for session " + sessionId);
                         // callback with error will force asynce module to stop execution
                         return callback(new Error("User is already registered"), true, retrievedUser);
                     }
@@ -219,11 +214,12 @@ module.exports = {
                 var signed_date_time = now.toISOString().slice(0, 19) + 'Z'; // must remove millis
 
                 // initialize payment data in cart
-                if (!session.getSessionData(req, "cart").payment) {
-                    session.getSessionData(req, "cart").payment = {};
+                var cart = session.getSessionData(req, "cart");
+                if (!cart.payment) {
+                    cart.payment = {};
                 }
-                session.getSessionData(req, "cart").payment.transaction_uuid = transaction_uuid;
-                session.getSessionData(req, "cart").payment.reference_number = reference_number;
+                cart.payment.transaction_uuid = transaction_uuid;
+                cart.payment.reference_number = reference_number;
 
                 var parameters = new Map();
                 parameters.set("access_key", paymentConfig.accessKey);
@@ -288,8 +284,6 @@ module.exports = {
                 }
             }
 
-            // update the session data
-            //session.setSessionData(req, res, sessionData);
             res.render('manage/cart/payment', {
                 parameters: parameters,
                 signature: signature,
@@ -310,8 +304,6 @@ module.exports = {
                 // or having canceled from the confirmation page
                 // only have to reverse authorization if cancel from confirmation page
                 if (session.getSessionData(req, "cart") && session.getSessionData(req, "cart").payment && session.getSessionData(req, "cart").payment.authorization) {
-
-                    logger.debug("Sending payment authorization reversal for user " + session.getSessionData(req, "userId"));
 
                     var payments = [
                         {
