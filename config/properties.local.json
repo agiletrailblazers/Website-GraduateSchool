@@ -7,7 +7,6 @@
   "registrationUrl" : "/manage/cart?courseId=[courseId]&sessionId=[sessionId]",
     "manage" : {
       "userRouteEnabled" : true,
-      "useCache": false,
       "payment" : {
           "url" : "https://testsecureacceptance.cybersource.com/pay",
           "profileId" : "C13216DC-219F-47CE-BDA3-3B953A618823",
