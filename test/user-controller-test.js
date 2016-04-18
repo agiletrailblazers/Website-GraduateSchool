@@ -1293,24 +1293,18 @@ test('logoutAsync', function(t) {
   var req = {
     cookies: {
       gstoken: authToken,
-      gssession: sessionData.userId
     },
     query: {
       "authToken": authToken
     },
-    app : {
+    session : {
       sessionData : sessionData
     }
-  };
-  req.app.get = function(parameter) {
-    expect(parameter).to.eql('sessionData');
-    return sessionData;
   };
 
   var res = {
     cookies: {
       gstoken: null,
-      gssession: null
     },
     status : function (status) {
       expect(status).to.eql(200);
@@ -1318,6 +1312,7 @@ test('logoutAsync', function(t) {
         send : function () {
           // just make sure this function is called
           expect(1).to.eql(1);
+          expect(req.session.sessionData).to.eql({});
         }
       }
     }
@@ -1326,11 +1321,6 @@ test('logoutAsync', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/user-controller.js',
       {
-        "../../../API/manage/session-api.js": {
-          logoutUserSession: function (req, res) {
-            expect(req.cookies.gssession).to.not.eql(res.cookies.gssession);
-          }
-        },
         '../../../API/authentication-api.js': {
           logoutUser: function (req, res) {
             expect(req.cookies.gstoken).to.not.eql(res.cookies.gstoken);
