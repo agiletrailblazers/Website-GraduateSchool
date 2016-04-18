@@ -1310,8 +1310,6 @@ test('logoutAsync', function(t) {
       expect(status).to.eql(200);
       return {
         send : function () {
-          // just make sure this function is called
-          expect(1).to.eql(1);
           expect(req.session.sessionData).to.eql({});
         }
       }
