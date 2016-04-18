@@ -26,7 +26,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 var useCache = config("properties").session.useCache;
-logger.info("Use cache backed sessions: " + useCache);
+logger.info("use cache backed sessions: " + useCache);
+
+var sessionTimeout = config("properties").session.timeout;
+logger.info("session timeout: " + sessionTimeout);
+
+var secureCookies = config("properties").session.secure;
+logger.info("secure cookies: " + secureCookies);
 
 if (useCache) {
 	// setup Redis connection
@@ -74,17 +80,32 @@ if (useCache) {
 
 	app.use(expressSession({
 		secret: 'thisisthegraduateschoolsecretphrase',
-		store: new RedisStore({client: cache}),
+		store: new RedisStore({client: cache, ttl: sessionTimeout}),
 		saveUninitialized: false,
-		resave: false
+		resave: false,
+		rolling: true,
+		cookie: {
+			maxAge: sessionTimeout,
+			secure: secureCookies
+		}
 	}));
 }
 else {
 	app.use(expressSession({
 		secret: 'thisisthegraduateschoolsecretphrase',
 		saveUninitialized: false,
-		resave: false
+		resave: false,
+		rolling: true,
+		cookie: {
+			maxAge: sessionTimeout,
+			secure: secureCookies
+		}
 	}));
+}
+
+if (secureCookies) {
+	// set express trust proxy
+	app.set('trust proxy', 1);
 }
 
 // uncomment after placing your favicon in /public
@@ -108,6 +129,7 @@ app.use(function (req, res, next) {
 	mailPage.titlePrefix = config("properties").mailPageTitlePrefix;
 	mailPage.body = config("properties").mailPageBody;
 	var userFirstName = session.getSessionData(req, "userFirstName");
+	var userId = session.getSessionData(req, "userId");
 	var nextPageAfterCreateUser = "";
 	async.series([
 		function(callback) {
@@ -179,6 +201,8 @@ app.use(function (req, res, next) {
 				mailPage: mailPage,
 				env: env,
 				userFirstName: userFirstName,
+				userId: userId,
+				sessionTimeout: sessionTimeout,
 				nextPageAfterCreateUser: nextPageAfterCreateUser,
 				userRouteEnabled: config("properties").manage.userRouteEnabled
 			};

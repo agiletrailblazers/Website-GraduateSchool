@@ -40,6 +40,7 @@ module.exports = function (app) {
         // async AJAX user management routes
         app.use('/', router.post('/manage/user/login', userController.login));
         app.use('/', router.post('/manage/user/create_user', userController.createUser));
+        app.use('/', router.post('/manage/user/logout', userController.logoutAsync));
 
         // cart routes
         app.use('/', router.get('/manage/cart', cartController.displayCart));

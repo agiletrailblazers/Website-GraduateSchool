@@ -2450,3 +2450,25 @@ ul.see-more li {
 .block {
   display: block;
 }
+
+/* styles for session timeout modal */
+.gs-modal-footer {
+    background-color: #E6EBF1 !important;
+}
+
+.gs-modal-header {
+    background: #2a4d77; /* Old browsers */
+    background: -moz-linear-gradient(left,  #2a4d77 0%, #3971ab 26%, #3971ab 51%, #01274f 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#2a4d77), color-stop(26%,#3971ab), color-stop(51%,#3971ab), color-stop(100%,#01274f)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #2a4d77 0%,#3971ab 26%,#3971ab 51%,#01274f 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #2a4d77 0%,#3971ab 26%,#3971ab 51%,#01274f 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #2a4d77 0%,#3971ab 26%,#3971ab 51%,#01274f 100%); /* IE10+ */
+    background: linear-gradient(to right,  #2a4d77 0%,#3971ab 26%,#3971ab 51%,#01274f 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a4d77', endColorstr='#01274f',GradientType=1 ); /* IE6-9 */
+}
+
+.gs-modal-title {
+    font-weight: 300 !important;
+    color: #FFF !important;
+}
+
