@@ -15,10 +15,12 @@
       }
     },
   "session": {
-    "useCache": true
+    "useCache": false
   },
-  "redis": {
-    "host": "10.0.1.7",
-    "port": "6379"
+  "cache" : {
+    "redis": {
+      "host": "10.0.1.7",
+      "port": "6379"
+    }
   }
 }
