@@ -15,7 +15,7 @@
       }
     },
   "session": {
-    "useCache": true
+    "useCache": false
   },
   "cache" : {
     "redis": {
