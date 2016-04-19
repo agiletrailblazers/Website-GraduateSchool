@@ -1330,3 +1330,34 @@ test('logoutAsync', function(t) {
 
   t.end();
 });
+
+test('displayLogin', function(t) {
+
+  var loginMessage = "blah blah blah";
+  var req = {};
+  var res = {};
+  res.render = function(page, content) {
+    expect(page).to.eql('manage/user/standalone_login');
+    expect(content.title).to.eql('Login');
+    expect(content.loginMessage).to.eql(loginMessage);
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        '../../../API/manage/session-api.js': {
+          getSessionData: function (req, key) {
+            expect(key).to.eql("loginMessage");
+            return loginMessage;
+          },
+          setSessionData: function (req, key, value) {
+            expect(key).to.eql("loginMessage");
+            expect(value).to.eql(null);
+          }
+        }
+      });
+
+  controller.displayLogin(req, res, null);
+
+  t.end();
+});

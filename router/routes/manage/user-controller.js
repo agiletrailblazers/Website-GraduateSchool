@@ -224,6 +224,22 @@ module.exports = {
     });
   },
 
+  // Display the standalone login page
+  displayLogin: function(req, res, next) {
+
+    // see if there is a login message to display
+    var loginMessage = session.getSessionData(req, "loginMessage");
+    if (loginMessage) {
+      // remove the message from session
+      session.setSessionData(req, "loginMessage", null);
+    }
+
+    res.render('manage/user/standalone_login', {
+      title: 'Login',
+      loginMessage: loginMessage
+    });
+  },
+
   registrationLogin: function(req, res, next) {
     // get the form data from the body of the request
     var formData = req.body;

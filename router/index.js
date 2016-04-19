@@ -33,6 +33,7 @@ module.exports = function (app) {
 
     if (config("properties").manage.userRouteEnabled === true) {
         // user management routes
+        app.use('/', router.get('/manage/user/login', userController.displayLogin));
         app.use('/', router.get('/manage/user/registration_login_create', userController.displayRegistrationLoginCreate));
         app.use('/', router.post('/manage/user/create', userController.displayCreateUser));
         app.use('/', router.post('/manage/user/registration_login', userController.registrationLogin));
