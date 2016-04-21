@@ -55,7 +55,7 @@ module.exports = {
                     if (error) return callback(error);
 
                     return callback(null, course);
-                }, courseId, req.query["authToken"]);
+                }, courseId, session.getSessionData(req, "authToken"));
             },
             session: function(callback) {
                 var sessionId = cart.sessionId;
@@ -76,7 +76,7 @@ module.exports = {
                         session["endDate"] = session["endDate"].date('MMM DD, YYYY');
                     }
                     return callback(null, session);
-                }, req.query["authToken"]);
+                }, session.getSessionData(req, "authToken"));
             },
             contentfulCourseInfo: function(callback) {
                 contentfulAPI.getCourseDetails(function(contentfulCourseInfo, error) {
@@ -158,7 +158,7 @@ module.exports = {
                     }
 
                     return callback(null, courseSession);
-                }, req.query["authToken"]);
+                }, session.getSessionData(req, "authToken"));
             },
             function(courseSession, callback) {
 
@@ -185,7 +185,7 @@ module.exports = {
                     retrievedUser.person.emailAddress = truncator(retrievedUser.person.emailAddress, 255, [truncateString = ""]);
 
                     return callback(null, retrievedUser, courseSession);
-                }, req.query["authToken"])
+                }, session.getSessionData(req, "authToken"))
             },
             function(retrievedUser, courseSession, callback) {
                 var sessionId = session.getSessionData(req, "cart").sessionId;
@@ -203,7 +203,7 @@ module.exports = {
                         return callback(new Error("User is already registered"), true, retrievedUser);
                     }
                     return callback(null, retrievedUser, courseSession);
-                }, req.query["authToken"]);
+                }, session.getSessionData(req, "authToken"));
             },
             function(retrievedUser, courseSession, callback) {
                 logger.debug("Building and signing payment request data");
@@ -322,7 +322,7 @@ module.exports = {
                         // there is nothing to return for a payment authorization reversal
                         return callback(null, "");
 
-                    }, req.query["authToken"]);
+                    }, session.getSessionData(req, "authToken"));
                 }
                 else {
                     return callback(null, "");
@@ -366,7 +366,7 @@ module.exports = {
                     if (error) return callback(error);
 
                     return callback(null, course);
-                }, courseId, req.query["authToken"]);
+                }, courseId, session.getSessionData(req, "authToken"));
             },
             session: function(callback) {
                 var sessionId = session.getSessionData(req, "cart").sessionId;
@@ -388,7 +388,7 @@ module.exports = {
                     }
 
                     return callback(null, session);
-                }, req.query["authToken"]);
+                }, session.getSessionData(req, "authToken"));
             },
             authorization: function(callback) {
 
@@ -536,7 +536,7 @@ module.exports = {
                     if (error) return callback(error);
 
                     return callback(null, course);
-                }, courseId, req.query["authToken"]);
+                }, courseId, session.getSessionData(req, "authToken"));
             },
             session: function(callback) {
                 var sessionId = session.getSessionData(req, "cart").sessionId;
@@ -558,7 +558,7 @@ module.exports = {
                     }
 
                     return callback(null, session);
-                }, req.query["authToken"]);
+                }, session.getSessionData(req, "authToken"));
             },
             registrationResult: function(callback) {
 
@@ -583,7 +583,7 @@ module.exports = {
                 user.registerUser(session.getSessionData(req, "userId"), registrationRequest, function(error, registrationResult) {
                     // the success or failure of registration is contained in the result, so ignore the error parameter
                     return callback(null, registrationResult);
-                }, req.query["authToken"]);
+                }, session.getSessionData(req, "authToken"));
             },
             payment: function(callback) {
                 var payment = session.getSessionData(req, "cart").payment.authorization;

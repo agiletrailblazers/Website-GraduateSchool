@@ -1,6 +1,7 @@
 var express = require('express');
 var contentfulForms = require('../../API/contentful_forms.js');
 var contentful = require('../../API/contentful.js');
+var session = require("../../API/manage/session-api.js");
 var course = require('../../API/course.js');
 var async = require('async');
 var router = express.Router();
@@ -36,7 +37,7 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
           courses = result;
           callback();
         }
-      }, req.query["authToken"]);
+      }, session.getSessionData(req, "authToken"));
     },
     function(callback) {
       logger.debug("Get us states");

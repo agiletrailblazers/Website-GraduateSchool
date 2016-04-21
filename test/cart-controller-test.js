@@ -10,14 +10,14 @@ var contentfulCourseInfo = {
   courseDetailTitles: ["CourseTitle1", "CourseTitle2", "CourseTitle3", "CourseTitle4"]
 };
 
+var authToken = "123456789123456789";
 
 test('displayCart', function(t) {
 
   var res = {};
-  var sessionData = {};
+  var sessionData = { authToken : authToken};
   var req = {
     query : {
-      authToken : "123456789123456789",
       courseId : "course12345",
       sessionId : "session12345"
     },
@@ -49,12 +49,12 @@ test('displayCart', function(t) {
   {
     "../../../API/course.js": {
       performExactCourseSearch: function (cb, courseId, authToken) {
-        expect(authToken).to.eql(req.query.authToken);
+        expect(authToken).to.eql(authToken);
         expect(courseId).to.eql(req.query.courseId);
         cb(null, null, course);
       },
       getSession: function (sessionId, cb, authToken) {
-        expect(authToken).to.eql(req.query.authToken);
+        expect(authToken).to.eql(authToken);
         expect(sessionId).to.eql(req.query.sessionId);
         cb(null, courseSession);
       }
@@ -88,13 +88,13 @@ test('displayCart with already registered error ', function(t) {
   var expectedRegExistsError = 'User already registered for session';
   var res = {};
   var sessionData = {
+    authToken : authToken,
     cart : {
       error: expectedRegExistsError
       }
   };
   var req = {
     query : {
-      authToken : "123456789123456789",
       courseId : "course12345",
       sessionId : "session12345"
     },
@@ -127,12 +127,12 @@ test('displayCart with already registered error ', function(t) {
       {
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(courseId).to.eql(req.query.courseId);
             cb(null, null, course);
           },
           getSession: function (sessionId, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(req.query.sessionId);
             cb(null, courseSession);
           }
@@ -165,10 +165,9 @@ test('displayCart with already registered error ', function(t) {
 test('displayCart handles get contentful error', function(t) {
 
   var res = {};
-  var sessionData = {};
+  var sessionData = { authToken : authToken};
   var req = {
     query : {
-      authToken : "123456789123456789",
       courseId : "course12345",
       sessionId : "session12345"
     },
@@ -209,12 +208,12 @@ test('displayCart handles get contentful error', function(t) {
         },
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(courseId).to.eql(req.query.courseId);
             cb(null, null, course);
           },
           getSession: function (sessionId, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(req.query.sessionId);
             cb(null, courseSession);
           }
@@ -280,6 +279,7 @@ test('cancelPayment from confirmation page', function(t) {
   var sessionId = "sesssion12345";
   var sessionData = {
     cart : {
+        authToken : authToken,
         sessionId: sessionId,
         payment: {
           amount: "500.00",
@@ -292,9 +292,6 @@ test('cancelPayment from confirmation page', function(t) {
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -305,7 +302,7 @@ test('cancelPayment from confirmation page', function(t) {
       {
         "../../../API/manage/payment-api.js": {
           sendAuthReversal: function (payments, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(payments[0].amount).to.eql(sessionData.cart.payment.authorization.amount);
             expect(payments[0].authorizationId).to.eql(sessionData.cart.payment.authorization.authId);
             expect(payments[0].merchantReferenceId).to.eql(sessionData.cart.payment.authorization.referenceNumber);
@@ -327,6 +324,7 @@ test('cancelPayment from confirmation page with api failure', function(t) {
   var sessionId = "sesssion12345";
   var sessionData = {
     cart : {
+      authToken : authToken,
       sessionId: sessionId,
       payment: {
         amount: "500.00",
@@ -341,9 +339,6 @@ test('cancelPayment from confirmation page with api failure', function(t) {
 
   var res = {};
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -358,7 +353,7 @@ test('cancelPayment from confirmation page with api failure', function(t) {
       {
         "../../../API/manage/payment-api.js": {
           sendAuthReversal: function (payments, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(payments[0].amount).to.eql(sessionData.cart.payment.authorization.amount);
             expect(payments[0].authorizationId).to.eql(sessionData.cart.payment.authorization.authId);
             expect(payments[0].merchantReferenceId).to.eql(sessionData.cart.payment.authorization.referenceNumber);
@@ -385,6 +380,7 @@ test('confirmPayment', function(t) {
   var expUserId = "person12345";
 
   var sessionData = {
+    authToken : authToken,
     userId: expUserId,
     cart: {
       courseId : expCourseId,
@@ -394,9 +390,6 @@ test('confirmPayment', function(t) {
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     body : {
       signed_field_names : "field1,field2",
       field1 : "value1",
@@ -439,12 +432,12 @@ test('confirmPayment', function(t) {
       {
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(courseId).to.eql(expCourseId);
             cb(null, null, course);
           },
           getSession: function (sessionId, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, courseSession);
           }
@@ -527,6 +520,7 @@ test('confirmPayment handles signature mismatch', function(t) {
   var expUserId = "person12345";
 
   var sessionData = {
+    authToken : authToken,
     userId: expUserId,
     cart: {
       courseId : expCourseId,
@@ -536,9 +530,6 @@ test('confirmPayment handles signature mismatch', function(t) {
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     body : {
       signed_field_names : "field1,field2",
       field1 : "value1",
@@ -581,12 +572,12 @@ test('confirmPayment handles signature mismatch', function(t) {
       {
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(courseId).to.eql(expCourseId);
             cb(null, null, course);
           },
           getSession: function (sessionId, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, courseSession);
           }
@@ -663,6 +654,7 @@ test('confirmPayment handles declined reason code', function(t) {
   var declinedReasonCode = "666";
 
   var sessionData = {
+    authToken : authToken,
     userId: expUserId,
     cart: {
       courseId : expCourseId,
@@ -672,9 +664,6 @@ test('confirmPayment handles declined reason code', function(t) {
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     body : {
       signed_field_names : "field1,field2",
       field1 : "value1",
@@ -717,12 +706,12 @@ test('confirmPayment handles declined reason code', function(t) {
       {
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(courseId).to.eql(expCourseId);
             cb(null, null, course);
           },
           getSession: function (sessionId, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, courseSession);
           }
@@ -796,6 +785,7 @@ test('confirmPayment handles error reason code', function(t) {
   var errorReasonCode = "152";
 
   var sessionData = {
+    authToken : authToken,
     userId: expUserId,
     cart: {
       courseId : expCourseId,
@@ -805,9 +795,6 @@ test('confirmPayment handles error reason code', function(t) {
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     body : {
       signed_field_names : "field1,field2",
       field1 : "value1",
@@ -850,12 +837,12 @@ test('confirmPayment handles error reason code', function(t) {
       {
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(courseId).to.eql(expCourseId);
             cb(null, null, course);
           },
           getSession: function (sessionId, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, courseSession);
           }
@@ -929,6 +916,7 @@ test('confirmPayment handles non-specific reason code', function(t) {
   var errorReasonCode = "999";
 
   var sessionData = {
+    authToken : authToken,
     userId: expUserId,
     cart: {
       courseId : expCourseId,
@@ -938,9 +926,6 @@ test('confirmPayment handles non-specific reason code', function(t) {
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     body : {
       signed_field_names : "field1,field2",
       field1 : "value1",
@@ -983,12 +968,12 @@ test('confirmPayment handles non-specific reason code', function(t) {
       {
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(courseId).to.eql(expCourseId);
             cb(null, null, course);
           },
           getSession: function (sessionId, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, courseSession);
           }
@@ -1071,6 +1056,7 @@ test('completePayment', function(t) {
   };
 
   var sessionData = {
+    authToken : authToken,
     userId: expUserId,
     cart: {
       courseId : expCourseId,
@@ -1081,9 +1067,6 @@ test('completePayment', function(t) {
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -1126,12 +1109,12 @@ test('completePayment', function(t) {
       {
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(courseId).to.eql(expCourseId);
             cb(null, null, course);
           },
           getSession: function (sessionId, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, courseSession);
           }
@@ -1139,7 +1122,7 @@ test('completePayment', function(t) {
         "../../../API/manage/user-api.js": {
           registerUser: function (userId, registrationRequest, cb, authToken) {
             expect(userId).to.eql(expUserId);
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(registrationRequest.registrations[0].orderNumber).to.be.an('null');
             expect(registrationRequest.registrations[0].studentId).to.eql(expUserId);
             expect(registrationRequest.registrations[0].sessionId).to.eql(expSessionId);
@@ -1193,6 +1176,7 @@ test('completePayment with payment declined', function(t) {
   };
 
   var sessionData = {
+    authToken : authToken,
     userId: expUserId,
     cart: {
       courseId : expCourseId,
@@ -1203,9 +1187,6 @@ test('completePayment with payment declined', function(t) {
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -1248,12 +1229,12 @@ test('completePayment with payment declined', function(t) {
       {
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(courseId).to.eql(expCourseId);
             cb(null, null, course);
           },
           getSession: function (sessionId, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, courseSession);
           }
@@ -1261,7 +1242,7 @@ test('completePayment with payment declined', function(t) {
         "../../../API/manage/user-api.js": {
           registerUser: function (userId, registrationRequest, cb, authToken) {
             expect(userId).to.eql(expUserId);
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(registrationRequest.registrations[0].orderNumber).to.be.an('null');
             expect(registrationRequest.registrations[0].studentId).to.eql(expUserId);
             expect(registrationRequest.registrations[0].sessionId).to.eql(expSessionId);
@@ -1314,6 +1295,7 @@ test('completePayment with payment accepted error', function(t) {
   };
 
   var sessionData = {
+    authToken : authToken,
     userId: expUserId,
     cart: {
       courseId : expCourseId,
@@ -1324,9 +1306,6 @@ test('completePayment with payment accepted error', function(t) {
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -1369,12 +1348,12 @@ test('completePayment with payment accepted error', function(t) {
       {
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(courseId).to.eql(expCourseId);
             cb(null, null, course);
           },
           getSession: function (sessionId, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, courseSession);
           }
@@ -1382,7 +1361,7 @@ test('completePayment with payment accepted error', function(t) {
         "../../../API/manage/user-api.js": {
           registerUser: function (userId, registrationRequest, cb, authToken) {
             expect(userId).to.eql(expUserId);
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(registrationRequest.registrations[0].orderNumber).to.be.an('null');
             expect(registrationRequest.registrations[0].studentId).to.eql(expUserId);
             expect(registrationRequest.registrations[0].sessionId).to.eql(expSessionId);
@@ -1435,6 +1414,7 @@ test('completePayment with general error', function(t) {
   };
 
   var sessionData = {
+    authToken : authToken,
     userId: expUserId,
     cart: {
       courseId : expCourseId,
@@ -1445,9 +1425,6 @@ test('completePayment with general error', function(t) {
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -1490,12 +1467,12 @@ test('completePayment with general error', function(t) {
       {
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(courseId).to.eql(expCourseId);
             cb(null, null, course);
           },
           getSession: function (sessionId, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, courseSession);
           }
@@ -1503,7 +1480,7 @@ test('completePayment with general error', function(t) {
         "../../../API/manage/user-api.js": {
           registerUser: function (userId, registrationRequest, cb, authToken) {
             expect(userId).to.eql(expUserId);
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(registrationRequest.registrations[0].orderNumber).to.be.an('null');
             expect(registrationRequest.registrations[0].studentId).to.eql(expUserId);
             expect(registrationRequest.registrations[0].sessionId).to.eql(expSessionId);
@@ -1578,6 +1555,7 @@ test('displayPayment with registration exists', function(t) {
   };
 
   var sessionData = {
+    authToken : authToken,
     userId: expUserId,
     cart: {
       courseId : expCourseId,
@@ -1588,9 +1566,6 @@ test('displayPayment with registration exists', function(t) {
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -1638,7 +1613,7 @@ test('displayPayment with registration exists', function(t) {
       {
         "../../../API/course.js": {
           getSession: function (sessionId, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, courseSession);
           }
@@ -1646,12 +1621,12 @@ test('displayPayment with registration exists', function(t) {
         "../../../API/manage/user-api.js": {
           getUser: function(userId, cb, authToken) {
             expect(userId).to.eql(expUserId);
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             cb(null, userData);
           },
           getRegistration: function (userId, sessionId, cb, authToken) {
             expect(userId).to.eql(expUserId);
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, duplicateRegistrationResult);
           }
@@ -1717,6 +1692,7 @@ test('displayPayment with multiple registrations exist', function(t) {
   };
 
   var sessionData = {
+    authToken : authToken,
     userId: expUserId,
     cart: {
       courseId : expCourseId,
@@ -1727,9 +1703,6 @@ test('displayPayment with multiple registrations exist', function(t) {
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -1820,12 +1793,12 @@ test('displayPayment with multiple registrations exist', function(t) {
         },
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(courseId).to.eql(expCourseId);
             cb(null, null, course);
           },
           getSession: function (sessionId, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, courseSession);
           }
@@ -1833,12 +1806,12 @@ test('displayPayment with multiple registrations exist', function(t) {
         "../../../API/manage/user-api.js": {
           getUser: function(userId, cb, authToken) {
             expect(userId).to.eql(expUserId);
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             cb(null, userData);
           },
           getRegistration: function (userId, sessionId, cb, authToken) {
             expect(userId).to.eql(expUserId);
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, duplicateRegistrationResult);
           }
@@ -1904,6 +1877,7 @@ test('displayPayment with no existing registration', function(t) {
   };
 
   var sessionData = {
+    authToken : authToken,
     userId: expUserId,
     cart: {
       courseId : expCourseId,
@@ -1914,9 +1888,6 @@ test('displayPayment with no existing registration', function(t) {
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -1976,12 +1947,12 @@ test('displayPayment with no existing registration', function(t) {
       {
         "../../../API/course.js": {
           performExactCourseSearch: function (cb, courseId, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(courseId).to.eql(expCourseId);
             cb(null, null, course);
           },
           getSession: function (sessionId, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, courseSession);
           }
@@ -1989,12 +1960,12 @@ test('displayPayment with no existing registration', function(t) {
         "../../../API/manage/user-api.js": {
           getUser: function(userId, cb, authToken) {
             expect(userId).to.eql(expUserId);
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             cb(null, userData);
           },
           getRegistration: function (userId, sessionId, cb, authToken) {
             expect(userId).to.eql(expUserId);
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(sessionId).to.eql(expSessionId);
             cb(null, null);
           }
@@ -2049,6 +2020,7 @@ test('displayPayment with no existing registration', function(t) {
 test('cancelPayment from confirmation page with api failure', function(t) {
   var sessionId = "sesssion12345";
   var sessionData = {
+    authToken : authToken,
     cart : {
       sessionId: sessionId,
       payment: {
@@ -2064,9 +2036,6 @@ test('cancelPayment from confirmation page with api failure', function(t) {
 
   var res = {};
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -2081,7 +2050,7 @@ test('cancelPayment from confirmation page with api failure', function(t) {
       {
         "../../../API/manage/payment-api.js": {
           sendAuthReversal: function (payments, cb, authToken) {
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
             expect(payments[0].amount).to.eql(sessionData.cart.payment.authorization.amount);
             expect(payments[0].authorizationId).to.eql(sessionData.cart.payment.authorization.authId);
             expect(payments[0].merchantReferenceId).to.eql(sessionData.cart.payment.authorization.referenceNumber);
@@ -2107,15 +2076,13 @@ test('cancelRegistration from cart page', function(t) {
   var sessionId = "sesssion12345";
   var sessionData = {
     cart : {
+      authToken : authToken,
       sessionId: sessionId
     }
   };
   
   var res = {};
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }

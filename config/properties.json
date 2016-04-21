@@ -10,10 +10,6 @@
       "errorReasonCodes" : ["151", "152", "250"]
     }
   },
-  "authenticate": {
-    "tokenName": "gstoken",
-    "tokenTimeout": 15778476000
-  },
   "session": {
     "timeout": 1200000,
     "secure": false,

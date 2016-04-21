@@ -5,18 +5,17 @@ var expect = chai.expect;
 var proxyquire = require('proxyquire');
 
 var encryptedPassword = "encryptedPassword";
+var authToken =  "123456789123456789"
 
 test('registrationLoginCreate', function(t) {
   var sessionData = {
+    authToken : authToken,
     cart : {
       sessionId : "12345"
     }
   };
 
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -83,14 +82,12 @@ test('registrationLoginCreate', function(t) {
 
 test('registrationLoginCreate handles error', function(t) {
   var sessionData = {
+    authToken : authToken,
     cart : {
       sessionId : "12345"
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -134,14 +131,12 @@ test('registrationLoginCreate handles error', function(t) {
 
 test('registrationLoginCreate handles error with getting timezones', function(t) {
   var sessionData = {
+    authToken : authToken,
     cart : {
       sessionId : "12345"
     }
   };
   var req = {
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -191,8 +186,10 @@ test('registrationLoginCreate handles error with getting timezones', function(t)
 
 test('displayCreate redirects home by default', function(t) {
   var req = {
-    query : {
-      authToken : "123456789123456789"
+    session : {
+      sessionData : {
+        authToken: "123456789123456789"
+      }
     },
     body : {}
   };
@@ -247,10 +244,12 @@ test('displayCreate redirects home by default', function(t) {
 });
 
 test('displayCreate redirects to last page', function(t) {
-  var expectedNextPage = "testpage"
+  var expectedNextPage = "testpage";
   var req = {
-    query : {
-      authToken : "123456789123456789"
+    session : {
+      sessionData : {
+        authToken: "123456789123456789"
+      }
     },
     body : {
       nextpage_after_create : expectedNextPage
@@ -272,11 +271,6 @@ test('displayCreate redirects to last page', function(t) {
       "name": name2
     }
   ];
-  var sessionData = {
-    cart : {
-      sessionId : "12345"
-    }
-  };
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/user-controller.js',
@@ -311,8 +305,10 @@ test('displayCreate redirects to last page', function(t) {
 test('displayCreate handles error', function(t) {
 
   var req = {
-    query : {
-      authToken : "123456789123456789"
+    session : {
+      sessionData : {
+        authToken: "123456789123456789"
+      }
     },
     body : { }
   };
@@ -344,8 +340,10 @@ test('displayCreate handles error', function(t) {
 test('displayCreate handles error with getting timezones', function(t) {
 
   var req = {
-    query : {
-      authToken : "123456789123456789"
+    session : {
+      sessionData : {
+        authToken: "123456789123456789"
+      }
     },
     body : { }
   };
@@ -382,16 +380,12 @@ test('displayCreate handles error with getting timezones', function(t) {
 });
 
 test('registrationLogin', function(t) {
-  var sessionData = {
-  };
+  var sessionData = { authToken : authToken };
   var res = {};
   var req = {
     body : {
       username : "user12345",
       password : "test1234"
-    },
-    query : {
-      authToken: "123456789123456789"
     },
     session : {
       sessionData : sessionData
@@ -399,6 +393,7 @@ test('registrationLogin', function(t) {
   };
 
   var authUser = {
+      authToken : authToken,
       user : {
         id : "pers12345",
         person: {
@@ -456,15 +451,12 @@ test('registrationLogin', function(t) {
 });
 
 test('registrationLogin should handle login failure', function(t) {
-  var sessionData = {};
+  var sessionData = {authToken : authToken };
   var res = {};
   var req = {
     body : {
       username : "user12345",
       password : "test1234"
-    },
-    query : {
-      authToken : "123456789123456789"
     },
     session : {
       sessionData : sessionData
@@ -474,6 +466,7 @@ test('registrationLogin should handle login failure', function(t) {
   var userId = "pers12345";
 
   var authUser = {
+    authToken : authToken,
     user : {
       id : userId,
       person: {
@@ -522,15 +515,12 @@ test('registrationLogin should handle login failure', function(t) {
 });
 
 test('registrationLogin should handle other error', function(t) {
-  var sessionData = {};
+  var sessionData = {authToken : authToken };
   var res = {};
   var req = {
     body : {
       username : "user12345",
       password : "test1234"
-    },
-    query : {
-      authToken : "123456789123456789"
     },
     session : {
       sessionData : sessionData
@@ -540,6 +530,7 @@ test('registrationLogin should handle other error', function(t) {
   var userId = "pers12345";
 
   var authUser = {
+      authToken : authToken,
       user : {
         id : userId,
         person: {
@@ -587,7 +578,7 @@ test('registrationLogin should handle other error', function(t) {
 });
 
 test('createUser', function(t) {
-  var sessionData = {};
+  var sessionData = { authToken : authToken };
   var formattedDateOfBirth = "20160315";
   var res = {};
   var req = {
@@ -607,9 +598,6 @@ test('createUser', function(t) {
       zip : "55555",
       dateOfBirth : "03/15/2016"
     },
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -617,6 +605,7 @@ test('createUser', function(t) {
 
   var userId = "pers12345";
   var authUser = {
+      authToken : authToken,
       user : {
         id : userId,
         person: {
@@ -659,7 +648,7 @@ test('createUser', function(t) {
         expect(userData.person.dateOfBirth).to.eql(formattedDateOfBirth);
         expect(userData.timezoneId).to.eql(req.body.timezoneId);
 
-        expect(authToken).to.eql(req.query.authToken);
+        expect(authToken).to.eql(authToken);
 
         // put an id in the user data and return it as created userData
         userData.id = userId;
@@ -698,7 +687,7 @@ test('createUser', function(t) {
 });
 
 test('createUser handles no dateOfBirth', function(t) {
-  var sessionData = {};
+  var sessionData = { authToken : authToken };
   var res = {};
   var req = {
     body : {
@@ -717,9 +706,6 @@ test('createUser handles no dateOfBirth', function(t) {
       zip : "55555",
       dateOfBirth : ""
     },
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -727,6 +713,7 @@ test('createUser handles no dateOfBirth', function(t) {
 
   var userId = "pers12345";
   var authUser = {
+    authToken : authToken,
     user : {
       id : userId,
       person: {
@@ -776,7 +763,7 @@ test('createUser handles no dateOfBirth', function(t) {
             expect(userData.person.secondaryAddress).to.eql(null);
             expect(userData.person.dateOfBirth).to.eql(null);
 
-            expect(authToken).to.eql(req.query.authToken);
+            expect(authToken).to.eql(authToken);
 
             cb(new Error("Create user failed"));
             return;
@@ -812,7 +799,7 @@ test('createUser handles no dateOfBirth', function(t) {
 });
 
 test('createUser handles create user error', function(t) {
-  var sessionData = {};
+  var sessionData = { authToken : authToken };
   var formattedDateOfBirth = "20160315";
   var res = {};
   var req = {
@@ -832,9 +819,6 @@ test('createUser handles create user error', function(t) {
       zip : "55555",
       dateOfBirth : "03/15/2016"
     },
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -842,6 +826,7 @@ test('createUser handles create user error', function(t) {
 
   var userId = "pers12345";
   var authUser = {
+    authToken : authToken,
       user : {
         id : userId,
         person: {
@@ -891,7 +876,7 @@ test('createUser handles create user error', function(t) {
         expect(userData.person.secondaryAddress).to.eql(null);
         expect(userData.person.dateOfBirth).to.eql(formattedDateOfBirth);
 
-        expect(authToken).to.eql(req.query.authToken);
+        expect(authToken).to.eql(authToken);
 
         cb(new Error("Create user failed"));
         return;
@@ -927,7 +912,7 @@ test('createUser handles create user error', function(t) {
 });
 
 test('createUser handles login user error', function(t) {
-  var sessionData = {};
+  var sessionData = { authToken : authToken };
   var formattedDateOfBirth = "20160315";
   var res = {};
   var req = {
@@ -947,9 +932,6 @@ test('createUser handles login user error', function(t) {
       zip : "55555",
       dateOfBirth : "03/15/2016"
     },
-    query : {
-      authToken : "123456789123456789"
-    },
     session : {
       sessionData : sessionData
     }
@@ -957,13 +939,14 @@ test('createUser handles login user error', function(t) {
 
   var userId = "pers12345";
   var authUser = {
-      user : {
-        id : userId,
-        person: {
-          firstName : "Joseph"
-        }
+    authToken : authToken,
+    user : {
+      id : userId,
+      person: {
+        firstName : "Joseph"
       }
-  }
+    }
+  };
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/user-controller.js',
@@ -998,7 +981,7 @@ test('createUser handles login user error', function(t) {
         expect(userData.person.secondaryAddress).to.eql(null);
         expect(userData.person.dateOfBirth).to.eql(formattedDateOfBirth);
 
-        expect(authToken).to.eql(req.query.authToken);
+        expect(authToken).to.eql(authToken);
 
         // put an id in the user data and return it as created userData
         userData.id = userId;
@@ -1041,15 +1024,12 @@ test('createUser handles login user error', function(t) {
 });
 
 test('login', function(t) {
-  var sessionData = {};
+  var sessionData = { authToken : authToken };
   var res = {};
   var req = {
     body : {
       username : "user12345",
       password : "test1234"
-    },
-    query : {
-      authToken: "123456789123456789"
     },
     session : {
       sessionData : sessionData
@@ -1057,6 +1037,7 @@ test('login', function(t) {
   };
 
   var authUser = {
+    authToken : authToken,
     user : {
       id : "pers12345",
       person: {
@@ -1117,15 +1098,12 @@ test('login', function(t) {
 });
 
 test('login should handle failed login error', function(t) {
-  var sessionData = {};
+  var sessionData = { authToken : authToken };
   var res = {};
   var req = {
     body : {
       username : "user12345",
       password : "test1234"
-    },
-    query : {
-      authToken : "123456789123456789"
     },
     session : {
       sessionData : sessionData
@@ -1171,15 +1149,12 @@ test('login should handle failed login error', function(t) {
 });
 
 test('login should handle other error', function(t) {
-  var sessionData = {};
+  var sessionData = { authToken : authToken };
   var res = {};
   var req = {
     body : {
       username : "user12345",
       password : "test1234"
-    },
-    query : {
-      authToken : "123456789123456789"
     },
     session : {
       sessionData : sessionData
@@ -1226,6 +1201,7 @@ test('login should handle other error', function(t) {
 test('logout', function(t) {
   var authToken = "12345";
   var sessionData = {
+    authToken : authToken,
     userId: "user1234",
     userFirstName: "TestUser",
     cart: {
@@ -1238,11 +1214,7 @@ test('logout', function(t) {
   };
   var req = {
     cookies: {
-      gstoken: authToken,
       gssession: sessionData.userId
-    },
-    query: {
-      "authToken": authToken
     },
     session : {
       sessionData : sessionData
@@ -1251,7 +1223,6 @@ test('logout', function(t) {
 
   var res = {
     cookies: {
-      gstoken: null,
       gssession: null
     }
   };
@@ -1259,9 +1230,10 @@ test('logout', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/user-controller.js',
       {
-        '../../../API/authentication-api.js': {
-          logoutUser: function (req, res) {
-            expect(req.cookies.gstoken).to.not.eql(res.cookies.gstoken);
+        "../../../API/manage/session-api.js": {
+          clearSessionData: function (reqParameter) {
+            expect(reqParameter).to.eql(req);
+            req.session.sessionData = {};
           }
         }
       });
@@ -1272,14 +1244,13 @@ test('logout', function(t) {
 
   controller.logout(req, res, null);
 
-  expect(req.query["authToken"]).to.eql(null);
-
   t.end();
 });
 
 test('logoutAsync', function(t) {
   var authToken = "12345";
   var sessionData = {
+    authToken : authToken,
     userId: "user1234",
     userFirstName: "TestUser",
     cart: {
@@ -1291,21 +1262,12 @@ test('logoutAsync', function(t) {
     }
   };
   var req = {
-    cookies: {
-      gstoken: authToken,
-    },
-    query: {
-      "authToken": authToken
-    },
     session : {
       sessionData : sessionData
     }
   };
 
   var res = {
-    cookies: {
-      gstoken: null,
-    },
     status : function (status) {
       expect(status).to.eql(200);
       return {
@@ -1319,9 +1281,10 @@ test('logoutAsync', function(t) {
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/user-controller.js',
       {
-        '../../../API/authentication-api.js': {
-          logoutUser: function (req, res) {
-            expect(req.cookies.gstoken).to.not.eql(res.cookies.gstoken);
+        "../../../API/manage/session-api.js": {
+          clearSessionData: function (reqParameter) {
+            expect(reqParameter).to.eql(req);
+            req.session.sessionData = {};
           }
         }
       });

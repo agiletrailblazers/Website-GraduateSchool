@@ -11,7 +11,7 @@ $(document).ready(function(){
             password: $("#credentials").val()
         };
 
-        $.post("/manage/user/login", formData)
+        $.post("/manage/user/login_user", formData)
             .done(function () {
                 // go to home page on success
                 window.location = "/";

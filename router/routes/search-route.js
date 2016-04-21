@@ -2,6 +2,7 @@ var express = require('express');
 var contentful = require('../../API/contentful.js');
 var async = require('async');
 var course = require("../../API/course.js");
+var session = require("../../API/manage/session-api.js");
 var striptags = require('striptags');
 var dateformat = require('date-format-lite');
 var prune = require('underscore.string/prune');
@@ -57,7 +58,7 @@ router.get('/search', function(req, res, next){
           courseResult = result;
           callback();
         }
-      }, params, req.query["authToken"]);
+      }, params, session.getSessionData(req, "authToken"));
     },
     function(callback) {
       contentful.getCourseSearch(function(fields, error) {
@@ -84,7 +85,7 @@ router.get('/search', function(req, res, next){
           siteResult = result;
         }
         callback();
-      }, params, req.query["authToken"]);
+      }, params, session.getSessionData(req, "authToken"));
     }
     ], function(results) {
       if (courseResult && courseResult.exactMatch && !params.partial) {
