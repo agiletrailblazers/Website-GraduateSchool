@@ -5,6 +5,7 @@ var chai = require('chai');
 var expect = chai.expect;
 var config = require('konphyg')(__dirname + "/../config");
 var test = require('tap').test;
+var proxyquire = require('proxyquire').noCallThru();
 
 var authToken = "token123456789";
 
@@ -519,6 +520,131 @@ test('get timezones success', function(t) {
         expect(retrievedTimezones[1].name).to.eql(name2);
         expect(retrievedTimezones).to.eql(timezoneData);
     }, authToken);
+
+    t.end();
+});
+
+test('resetPassword', function(t) {
+    var apiServer = config("properties").apiServer;
+
+    var expectedUsername = "JoeSmith@test.com";
+    var authCredentials = {
+        "username": expectedUsername
+    };
+
+    var req = {};
+
+    var sessionData = {
+        "authToken": authToken
+    };
+
+    var proxiedUser = proxyquire('../API/manage/user-api.js',
+        {
+            "./session-api.js": {
+                getSessionData: function (req, key) {
+                    expect(key).to.eql("authToken");
+                    return sessionData[key];
+                }
+            }
+        });
+
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    })
+    .post('/api/user/password/forgot', authCredentials)
+    .reply(204);
+    server;
+
+    proxiedUser.forgotPassword(req, authCredentials, function (error, passwordReset, userNotFound) {
+        server.done();
+        expect(passwordReset).to.eql(true);
+        expect(userNotFound).to.eql(false);
+    });
+
+    t.end();
+});
+
+test('resetPassword handles user not found', function(t) {
+    var apiServer = config("properties").apiServer;
+    var expectedUsername = "JoeSmith@test.com";
+    var authCredentials = {
+        "username": expectedUsername
+    };
+
+    var req = {};
+
+    var sessionData = {
+        "authToken": authToken
+    };
+
+    var proxiedUser = proxyquire('../API/manage/user-api.js',
+        {
+            "./session-api.js": {
+                getSessionData: function (req, key) {
+                    expect(key).to.eql("authToken");
+                    return sessionData[key];
+                }
+            }
+        });
+
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    })
+    .post('/api/user/password/forgot', authCredentials)
+    .reply(404);
+    server;
+
+    proxiedUser.forgotPassword(req, authCredentials, function (error, passwordReset, userNotFound) {
+        server.done();
+        expect(passwordReset).to.eql(false);
+        expect(userNotFound).to.eql(true);
+    });
+
+    t.end();
+});
+
+test('resetPassword handles error', function(t) {
+    var apiServer = config("properties").apiServer;
+    var expectedUsername = "JoeSmith@test.com";
+    var authCredentials = {
+        "username": expectedUsername
+    };
+
+    var req = {};
+
+    var sessionData = {
+        "authToken": authToken
+    };
+
+    var proxiedUser = proxyquire('../API/manage/user-api.js',
+        {
+            "./session-api.js": {
+                getSessionData: function (req, key) {
+                    expect(key).to.eql("authToken");
+                    return sessionData[key];
+                }
+            }
+        });
+
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    })
+        .post('/api/user/password/forgot', authCredentials)
+        .reply(500);
+    server;
+
+    proxiedUser.forgotPassword(req, authCredentials, function (error, passwordReset, userNotFound) {
+        server.done();
+        expect(error).to.be.an.instanceof(Error);
+        expect(passwordReset).to.eql(null);
+        expect(userNotFound).to.eql(null);
+    });
 
     t.end();
 });
