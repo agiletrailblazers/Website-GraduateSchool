@@ -11,7 +11,7 @@ $(document).ready(function(){
                 password: $("#header-login-popover").find("#header-credentials").val()
             };
 
-            $.post("/manage/user/login", formData)
+            $.post("/manage/user/login_user", formData)
                 .done(function () {
                     // reload current page on success
                     location.reload();

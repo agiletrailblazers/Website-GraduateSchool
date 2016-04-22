@@ -41,7 +41,7 @@ module.exports = {
           else {
             return callback(null, timezones);
           }
-        }, req.query["authToken"])
+        }, session.getSessionData(req, "authToken"))
       },
       loginError: function(callback) {
         var loginError = session.getSessionData(req, "loginError");
@@ -98,7 +98,7 @@ module.exports = {
           else {
             return callback(null, timezones);
           }
-        }, req.query["authToken"])
+        }, session.getSessionData(req, "authToken"))
       },
       nextpage: function(callback) {
         var nextPage = common.isNotEmpty(req.body.nextpage_after_create) ?  req.body.nextpage_after_create : "/";
@@ -178,7 +178,7 @@ module.exports = {
             session.setSessionData(req, "userFirstName", authUser.user.person.firstName);
             callback(null, authUser, null);
           });
-        }, req.query["authToken"]);
+        }, session.getSessionData(req, "authToken"));
       }
     ], function(error, createdUser, validationErrors) {
       if (error) {
@@ -224,6 +224,22 @@ module.exports = {
     });
   },
 
+  // Display the standalone login page
+  displayLogin: function(req, res, next) {
+
+    // see if there is a login message to display
+    var loginMessage = session.getSessionData(req, "loginMessage");
+    if (loginMessage) {
+      // remove the message from session
+      session.setSessionData(req, "loginMessage", null);
+    }
+
+    res.render('manage/user/standalone_login', {
+      title: 'Login',
+      loginMessage: loginMessage
+    });
+  },
+
   registrationLogin: function(req, res, next) {
     // get the form data from the body of the request
     var formData = req.body;
@@ -246,7 +262,7 @@ module.exports = {
           return;
         }
         else {
-          session.setSessionData(req, "loginError", "There was an issue with your request. Please try again in a few minutes")
+          session.setSessionData(req, "loginError", "There was an issue with your request. Please try again in a few minutes");
 
           logger.error("User failed to log in with a different issue", error);
           res.redirect('registration_login_create');
@@ -272,9 +288,6 @@ module.exports = {
 } // end module.exports
 
 function doLogout(req, res) {
-
   logger.info("Logging out user " + session.getSessionData(req, "userId"));
-  authentication.logoutUser(req, res);
   session.clearSessionData(req);
-  req.query["authToken"] = null;
 }

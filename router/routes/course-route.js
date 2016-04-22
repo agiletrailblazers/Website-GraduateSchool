@@ -2,9 +2,10 @@ var express = require('express');
 var contentful = require('../../API/contentful.js');
 var async = require('async');
 var course = require("../../API/course.js");
+var session = require("../../API/manage/session-api.js");
 var striptags = require('striptags');
 var dateformat = require('date-format-lite');
-var momentTz = require('moment-timezone');;
+var momentTz = require('moment-timezone');
 var prune = require('underscore.string/prune');
 var router = express.Router();
 var logger = require('../../logger');
@@ -47,7 +48,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           }
           callback();
     	}
-      }, courseIdOrCode, req.query["authToken"]);
+      }, courseIdOrCode, session.getSessionData(req, "authToken"));
     },
     function(callback) {
       function compare(a,b) {
@@ -88,7 +89,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
           courseData.session = []; //return empty array
           callback();
         }
-      }, courseId, req.query["authToken"]);
+      }, courseId, session.getSessionData(req, "authToken"));
     },
     function(callback) {
       //use the courseData as returned from the 1st call (this is important)

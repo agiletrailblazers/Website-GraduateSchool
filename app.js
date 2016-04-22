@@ -130,23 +130,63 @@ app.use(function (req, res, next) {
 	mailPage.body = config("properties").mailPageBody;
 	var userFirstName = session.getSessionData(req, "userFirstName");
 	var userId = session.getSessionData(req, "userId");
+	var authToken = session.getSessionData(req, "authToken");
 	var nextPageAfterCreateUser = "";
 	async.series([
 		function(callback) {
-			//Check to see if a token exists in the cookie, and if not get one from API and put it in cookie.
-			authentication.getAuthToken(req, res, function(error, token) {
-				if (error) {
-					logger.error(error);
-					common.redirectToError(res);
-				}
-				logger.debug("Token returned is ", token);
-				//Set token to request variable for use in API calls
-				req.query["authToken"] = token;
+			//Check to see if a token exists, and if not get one from API and put it in session.
+			logger.debug("Existing token is", authToken);
+			if (common.isEmpty(authToken)) {
+				authentication.getAuthToken(req, res, function(error, token) {
+					if (error) {
+						logger.error(error);
+						common.redirectToError(res);
+						return;
+					}
+					session.setSessionData(req, "authToken", token);
+					authToken = token;
+					callback();
+				});
+			}
+			else {
 				callback();
-			});
+			}
 		},
-		//get data for all pages
+		function(callback) {
+			if (common.isNotEmpty(userId)) {
+				logger.debug("User " + userId + " is logged in, verifying token is valid");
+				authentication.validateAuthToken(req, res, function (error, token, statusCode) {
+					if (error) {
+						logger.error(error);
+						common.redirectToError(res);
+					}
+					else if (statusCode == 401) {
+						logger.info("User token has expired, logging user out and redirecting to login");
+						session.clearSessionData(req);
+						session.setSessionData(req, "loginMessage", "In order to protect your privacy, you have been logged out and must log back in");
+						session.setSessionData(req, "nextPage", req.url);
+						res.redirect('/manage/user/login');
+						return;
+					}
+					else if (statusCode == 200) {
+						if (token) {
+							session.setSessionData(req, "authToken", token);
+							logger.debug("Token expired, replacing with new token " + token);
 
+						}
+						else {
+							logger.debug("Token is valid and does not need to be replaced");
+						}
+						callback();
+					}
+				})
+			}
+			else {
+				callback();
+			}
+
+		},
+	//get data for all pages
 	function() {
 		async.parallel([
 			function(callback) {
@@ -173,7 +213,7 @@ app.use(function (req, res, next) {
 						locations.sort();
 					}
 					callback();
-				}, req.query["authToken"]);
+				}, session.getSessionData(req, "authToken"));
 			},
 			function(callback) {
 				course.getCategories(function (response, error, result) {
@@ -184,7 +224,7 @@ app.use(function (req, res, next) {
 						courseSubjectResult = result;
 					}
 					callback();
-				}, req.query["authToken"]);
+				}, session.getSessionData(req, "authToken"));
 			}
 			,
 			function(callback) {

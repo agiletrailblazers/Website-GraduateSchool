@@ -5,6 +5,7 @@ var logger = require('../../logger');
 var async = require('async');
 var common = require("../../helpers/common.js");
 var courseAPI = require('../../API/course.js');
+var session = require("../../API/manage/session-api.js");
 var contentfulAPI = require('../../API/contentful.js');
 var marked = require('marked');
 
@@ -93,7 +94,7 @@ module.exports = {
             }
 
             callback(error, orderedSessions);
-          }, req.query["authToken"], sessionStatus, sessionDomain);
+          }, session.getSessionData(req, "authToken"), sessionStatus, sessionDomain);
         }
       }, function (err, results) {
 
