@@ -193,7 +193,7 @@ test('encrypt password', function(t) {
   t.end();
 });
 
-test('validateAuthToken success with token reurned', function(t) {
+test('validateAuthToken success with token returned', function(t) {
   var apiServer = config("properties").apiServer;
   var newAuthToken = "new123";
   var renewalToken = "bcd631";
@@ -233,9 +233,8 @@ test('validateAuthToken success with token reurned', function(t) {
   t.end();
 });
 
-test('validateAuthToken success with token reurned', function(t) {
+test('validateAuthToken success with no token returned', function(t) {
   var apiServer = config("properties").apiServer;
-  var newAuthToken = "new123";
   var renewalToken = "bcd631";
   var sessionData = {
     "authToken": authToken,
