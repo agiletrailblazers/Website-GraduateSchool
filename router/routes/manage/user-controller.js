@@ -283,6 +283,40 @@ module.exports = {
   logoutAsync: function (req, res, next) {
     doLogout(req, res);
     res.status(200).send();
+  },
+
+  displayForgotPassword: function (req, res, next) {
+
+    logger.debug("Displaying forgot password page");
+
+    res.render('manage/user/forgot_password', {
+      title: "Forgot Password"
+    });
+  },
+
+  forgotPassword : function(req, res, next) {
+
+    var authCredentials = {
+      "username": req.body.email
+    };
+
+    logger.debug("Forgot password, resetting password for user: " + authCredentials.username);
+
+    // reset the password
+    user.forgotPassword(req, authCredentials, function(error, passwordReset, userNotFound) {
+
+      if (error) {
+        logger.error("Error resetting password", error);
+        common.redirectToError(res);
+        return;
+      }
+
+      res.render('manage/user/forgot_password', {
+        title: "Forgot Password",
+        passwordReset: passwordReset,
+        userNotFound: userNotFound
+      });
+    });
   }
 
 } // end module.exports

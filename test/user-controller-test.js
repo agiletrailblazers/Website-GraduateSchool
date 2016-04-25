@@ -1324,3 +1324,114 @@ test('displayLogin', function(t) {
 
   t.end();
 });
+
+test('displayForgotPassword', function(t) {
+
+  var req = {};
+  var res = {};
+  res.render = function(page, content) {
+    expect(page).to.eql('manage/user/forgot_password');
+    expect(content.title).to.eql('Forgot Password');
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+      });
+
+  controller.displayForgotPassword(req, res, null);
+
+  t.end();
+});
+
+test('forgotPassword', function(t) {
+
+  var req = {
+    body: {
+      email: "test@test.com"
+    }
+  };
+  var res = {};
+  res.render = function(page, content) {
+    expect(page).to.eql('manage/user/forgot_password');
+    expect(content.title).to.eql('Forgot Password');
+    expect(content.passwordReset).to.eql(true);
+    expect(content.userNotFound).to.eql(false);
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        '../../../API/manage/user-api.js': {
+          forgotPassword: function (req, authCredentials, callback) {
+            expect(authCredentials.username).to.eql(req.body.email);
+            callback(null, true, false);
+          }
+        }
+      });
+
+  controller.forgotPassword(req, res, null);
+
+  t.end();
+});
+
+test('forgotPassword when user not found', function(t) {
+
+  var req = {
+    body: {
+      email: "test@test.com"
+    }
+  };
+  var res = {};
+  res.render = function(page, content) {
+    expect(page).to.eql('manage/user/forgot_password');
+    expect(content.title).to.eql('Forgot Password');
+    expect(content.passwordReset).to.eql(false);
+    expect(content.userNotFound).to.eql(true);
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        '../../../API/manage/user-api.js': {
+          forgotPassword: function (req, authCredentials, callback) {
+            expect(authCredentials.username).to.eql(req.body.email);
+            callback(null, false, true);
+          }
+        }
+      });
+
+  controller.forgotPassword(req, res, null);
+
+  t.end();
+});
+
+test('forgotPassword when error', function(t) {
+
+  var req = {
+    body: {
+      email: "test@test.com"
+    }
+  };
+  var res = {};
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        '../../../API/manage/user-api.js': {
+          forgotPassword: function (req, authCredentials, callback) {
+            expect(authCredentials.username).to.eql(req.body.email);
+            callback(new Error("I made forgot password fail"), null, null);
+          }
+        },
+        '../../../helpers/common.js': {
+          redirectToError: function (response) {
+            expect(res).to.eql(response);
+          }
+        }
+      });
+
+  controller.forgotPassword(req, res, null);
+
+  t.end();
+});

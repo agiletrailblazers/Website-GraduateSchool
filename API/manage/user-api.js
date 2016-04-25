@@ -2,6 +2,7 @@ var request = require('request');
 var logger = require('../../logger');
 var config = require('konphyg')(__dirname + '/../../config');
 var common = require("../../helpers/common.js");
+var session = require("./session-api.js");
 
 module.exports = {
   createUser: function(userData, callback, authToken) {
@@ -122,5 +123,44 @@ module.exports = {
       }
       return callback(null, JSON.parse(body));
     });
+  },
+
+  forgotPassword: function(req, authCredentials, callback) {
+
+    var targetURL = config("properties").apiServer + '/api/user/password/forgot';
+    var authToken = session.getSessionData(req, "authToken");
+    var passwordReset = null;
+    var userNotFound = null;
+    var exception = null;
+
+    request({
+      method: 'POST',
+      url: targetURL,
+      json: authCredentials,
+      headers: {
+        'Authorization': authToken
+      }
+    }, function (error, response, body) {
+      var httpCodesNotToLog = [404];
+      if (common.checkForErrorAndLogExceptCodes(error, response, targetURL, httpCodesNotToLog)) {
+        if (response.statusCode == 404) {
+          logger.debug("Password has not been reset for user: " + authCredentials.username + ", because user does not exist");
+          passwordReset = false;
+          userNotFound = true;
+        }
+        else {
+          exception = new Error("Exception occurred resetting user password");
+        }
+      }
+
+      if (response.statusCode == 204) {
+        logger.info("Password has been reset for user: " + authCredentials.username);
+        passwordReset = true;
+        userNotFound = false;
+      }
+
+      return callback(exception, passwordReset, userNotFound);
+    });
   }
+
 };
