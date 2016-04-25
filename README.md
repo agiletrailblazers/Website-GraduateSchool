@@ -3,6 +3,8 @@
 # Website-GraduateSchool
 This is the source repository for the GraduateSchool's new website.
 
+test
+
 ## Core Application Technologies
 * [Node.js](https://nodejs.org/en/) (Javascript Framework)
 * [Express.js](http://expressjs.com/) (Web Framework for Node.js)
