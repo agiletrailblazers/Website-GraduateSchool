@@ -24,7 +24,7 @@ test('sendAuthReversal', function(t) {
         'Authorization': authToken
       }
     })
-    .post('/api/payment/reverse', testPayments)
+    .post('/api/payments/reversals', testPayments)
     .reply(204);
 
   server;
@@ -44,7 +44,7 @@ test('sendAuthReversal with failure', function(t) {
         'Authorization': authToken
       }
     })
-    .post('/api/payment/reverse', testPayments)
+    .post('/api/payments/reversals', testPayments)
     .reply(500);
 
   server;

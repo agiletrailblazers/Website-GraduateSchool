@@ -7,7 +7,7 @@ var crypto = require('crypto');
 
 getAuthToken = function (req, res, callback) {
     logger.debug("No token found, retrieving a new one");
-    var targetURL = config("properties").apiServer + '/api/token';
+    var targetURL = config("properties").apiServer + '/api/tokens';
     request({
         method: 'GET',
         url: targetURL

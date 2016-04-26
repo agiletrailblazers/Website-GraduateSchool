@@ -4,7 +4,7 @@ var common = require("../../helpers/common.js");
 
 module.exports = {
   sendAuthReversal: function(payments, callback, authToken) {
-    var targetURL = config("properties").apiServer + '/api/payment/reverse';
+    var targetURL = config("properties").apiServer + '/api/payments/reversals';
     request({
       method: 'POST',
       url: targetURL,

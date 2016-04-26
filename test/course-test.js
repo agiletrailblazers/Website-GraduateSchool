@@ -276,7 +276,7 @@ test('getSession success', function(t) {
           'Authorization': authToken
         }
       })
-        .get('/api/courses/session/' + sessionId)
+        .get('/api/courses/sessions/' + sessionId)
         .reply(200, expectedResponse);
 
   courseServer;
@@ -300,7 +300,7 @@ test('getSession failure', function(t) {
           'Authorization': authToken
         }
       })
-      .get('/api/courses/session/' + sessionId)
+      .get('/api/courses/sessions/' + sessionId)
       .reply(400, {});
 
     courseServer;

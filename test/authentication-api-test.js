@@ -19,7 +19,7 @@ test('get token from api success', function(t) {
 
   //test a 200 ok
   var tokenApiServer = nock(apiServer)
-    .get('/api/token')
+    .get('/api/tokens')
     .reply(200, {
         "token": authToken
     });
