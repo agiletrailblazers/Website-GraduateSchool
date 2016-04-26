@@ -20,7 +20,6 @@ $(document).ready(function () {
 
     $("#create-user-form-submit").click(function (event) {
         event.preventDefault();
-        var fullDateOfBirth = new Date($("#dateOfBirth").datepicker("getDate"));
         var formData = {
             firstName: $("#firstName").val(),
             middleName: $("#middleName").val(),
@@ -42,7 +41,7 @@ $(document).ready(function () {
         clearErrorAlert(formData);
 
         if ($("#password").val().length < 5 || $("#password").val().length > 20){
-            $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Length must be between 5 and 20 characters: Password</p>");
+            $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Password is required and must be at least 5 characters.</p>");
             $("#gs-alert-error").slideDown();
             $("html, body").animate({
                 scrollTop: 0
@@ -50,7 +49,7 @@ $(document).ready(function () {
         }
 
         else if ($("#password").val() !== $("#confirmPassword").val()){
-            $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Passwords must be the same</p>");
+            $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Password and Confirm Password must be the same.</p>");
             $("#gs-alert-error").slideDown();
             $("html, body").animate({
                 scrollTop: 0
@@ -77,7 +76,7 @@ $(document).ready(function () {
                                 var validationErrors = errors[key];
                                 for (var i = 0; i < validationErrors.length; i++) {
                                     if (validationErrors[i].fieldName === "person.emailAddress") continue;
-                                    $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + validationErrors[i].errorMessage + ": " + convertFieldName(validationErrors[i].fieldName) + "</p>");
+                                    $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> " + errorMessageForFieldName(validationErrors[i].fieldName) + "</p>");
                                 }
                             }
                             else if (errors.hasOwnProperty(key)) {
@@ -95,49 +94,39 @@ $(document).ready(function () {
 
 });
 
-function convertFieldName(fieldName) {
+function errorMessageForFieldName(fieldName) {
     switch(fieldName){
         case "username":
-            return "Email";
+            return "Email is required and must be a properly formatted email address.";
         case "password":
-            return "Password";
+            return "Password is required and must be at least 5 characters.";
         case "lastFourSSN":
-            return "Last 4 digits of SSN";
+            return "Last 4 digits of SSN are required and must be 4 characters.";
         case "timezoneId":
-            return "Timezone";
+            return "Timezone is required.";
         case "person.firstName":
-            return "First Name";
+            return "First Name is required.";
         case "person.middleName":
             return "Middle Name";
         case "person.lastName":
-            return "Last Name";
+            return "Last Name is required.";
         case "person.emailAddress":
-            return "Email";
+            return "Email is required and must be a properly formatted email address.";
         case "person.primaryPhone":
-            return "Daytime Phone Number";
+            return "Daytime Phone Number is required.";
         case "person.dateOfBirth":
-            return "Date of birth";
+            return "Date of birth is required.";
         case "person.primaryAddress.address1":
-            return "Street Address";
+            return "Street Address is required.";
         case "person.primaryAddress.address2":
             return "Suite, Mail Stop";
         case "person.primaryAddress.city":
-            return "City";
+            return "City is required.";
         case "person.primaryAddress.state":
-            return "State";
+            return "State is required.";
         case "person.primaryAddress.postalCode":
-            return "Zip";
+            return "Zip is required and must be at least 5 characters.";
         default:
             return fieldName;
-    }
-}
-
-function pad(pad, str, padLeft) {
-    if (typeof str === 'undefined')
-        return pad;
-    if (padLeft) {
-        return (pad + str).slice(-pad.length);
-    } else {
-        return (str + pad).substring(0, pad.length);
     }
 }
