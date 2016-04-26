@@ -109,22 +109,6 @@ module.exports = {
     });
   },
 
-  getTimezones: function(callback, authToken) {
-    var targetURL = config("properties").apiServer + '/api/users/timezones';
-    request({
-      method: 'GET',
-      url: targetURL,
-      headers: {
-        'Authorization': authToken
-      }
-    }, function (error, response, body) {
-      if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(new Error("Exception occurred getting timezones"), null);
-      }
-      return callback(null, JSON.parse(body));
-    });
-  },
-
   forgotPassword: function(req, authCredentials, callback) {
 
     var targetURL = config("properties").apiServer + '/api/users/password/forgot';
