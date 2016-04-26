@@ -6,7 +6,7 @@ var session = require("./session-api.js");
 
 module.exports = {
   createUser: function(userData, callback, authToken) {
-    var targetURL = config("properties").apiServer + '/api/user';
+    var targetURL = config("properties").apiServer + '/api/users';
     request({
       method: 'POST',
       url: targetURL,
@@ -24,7 +24,7 @@ module.exports = {
 
   // registrationRequest is an object containing a List of Registration objects and a List of Payment objects
   registerUser: function(userId, registrationRequest, callback, authToken) {
-    var targetURL = config("properties").apiServer + '/api/registration/user/' + userId;
+    var targetURL = config("properties").apiServer + '/api/registrations/users/' + userId;
     request({
       method: 'POST',
       url: targetURL,
@@ -67,7 +67,7 @@ module.exports = {
   },
 
   getUser: function(userId, callback, authToken) {
-    var targetURL = config("properties").apiServer + '/api/user/' + userId;
+    var targetURL = config("properties").apiServer + '/api/users/' + userId;
     request({
       method: 'GET',
       url: targetURL,
@@ -83,7 +83,7 @@ module.exports = {
   },
 
   getRegistration: function(userId, sessionId, callback, authToken) {
-    var targetURL = config("properties").apiServer + '/api/registration/user/' + userId + '/session/' + sessionId;
+    var targetURL = config("properties").apiServer + '/api/registrations/users/' + userId + '/sessions/' + sessionId;
     request({
       method: 'GET',
       url: targetURL,
@@ -109,25 +109,9 @@ module.exports = {
     });
   },
 
-  getTimezones: function(callback, authToken) {
-    var targetURL = config("properties").apiServer + '/api/user/timezones';
-    request({
-      method: 'GET',
-      url: targetURL,
-      headers: {
-        'Authorization': authToken
-      }
-    }, function (error, response, body) {
-      if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(new Error("Exception occurred getting timezones"), null);
-      }
-      return callback(null, JSON.parse(body));
-    });
-  },
-
   forgotPassword: function(req, authCredentials, callback) {
 
-    var targetURL = config("properties").apiServer + '/api/user/password/forgot';
+    var targetURL = config("properties").apiServer + '/api/users/password/forgot';
     var authToken = session.getSessionData(req, "authToken");
     var passwordReset = null;
     var userNotFound = null;

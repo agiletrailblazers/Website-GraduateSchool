@@ -178,7 +178,7 @@ module.exports = {
   // API to retrieve a specific course session by its ID
   getSession: function(sessionId, callback, authToken) {
     // url for the API call
-    var sessionUrl = config("properties").apiServer + '/api/courses/session/' + sessionId;
+    var sessionUrl = config("properties").apiServer + '/api/courses/sessions/' + sessionId;
     request({
       method: 'GET',
       url: sessionUrl,

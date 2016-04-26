@@ -6,6 +6,7 @@ var common = require("../../../helpers/common.js");
 var session = require('../../../API/manage/session-api.js');
 var authentication = require("../../../API/authentication-api.js");
 var moment = require('moment');
+var commonAPI = require("../../../API/common-api.js");
 
 // handlers for the user management routes
 module.exports = {
@@ -34,7 +35,7 @@ module.exports = {
       },
       timezones: function(callback) {
         //get a list of timezones
-        user.getTimezones(function (error, timezones){
+        commonAPI.getTimezones(function (error, timezones){
           if(error){
             return callback(error);
           }
@@ -91,7 +92,7 @@ module.exports = {
       },
       timezones: function(callback) {
         //get a list of timezones
-        user.getTimezones(function (error, timezones){
+        commonAPI.getTimezones(function (error, timezones){
           if(error){
             return callback(error);
           }

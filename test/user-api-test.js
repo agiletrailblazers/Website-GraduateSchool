@@ -45,7 +45,7 @@ test('createUser success', function(t) {
             'Authorization': authToken
           }
         })
-        .post('/api/user', userData)
+        .post('/api/users', userData)
         .reply(200, expectedResponse);
 
   server;
@@ -90,7 +90,7 @@ test('createUser failure', function(t) {
             'Authorization': authToken
           }
         })
-        .post('/api/user', userData)
+        .post('/api/users', userData)
         .reply(500, null);
 
   server;
@@ -144,7 +144,7 @@ test('createUser failure with Validation Errors', function(t) {
             'Authorization': authToken
         }
     })
-        .post('/api/user', userData)
+        .post('/api/users', userData)
         .reply(401, validationErrors);
 
     server;
@@ -183,7 +183,7 @@ test('registerUser success', function(t) {
             'Authorization': authToken
           }
         })
-        .post('/api/registration/user/' + userId, registrationList)
+        .post('/api/registrations/users/' + userId, registrationList)
         .reply(201, registrationResponse);
 
   server;
@@ -215,7 +215,7 @@ test('registerUser general failure', function(t) {
             'Authorization': authToken
           }
         })
-        .post('/api/registration/user/' + userId, registrationList)
+        .post('/api/registrations/users/' + userId, registrationList)
         .reply(500, null);
 
   server;
@@ -244,7 +244,7 @@ test('registerUser payment accepted failure', function(t) {
             'Authorization': authToken
           }
         })
-        .post('/api/registration/user/' + userId, registrationList)
+        .post('/api/registrations/users/' + userId, registrationList)
         .reply(202, null);
 
   server;
@@ -273,7 +273,7 @@ test('registerUser payment declined failure', function(t) {
             'Authorization': authToken
           }
         })
-        .post('/api/registration/user/' + userId, registrationList)
+        .post('/api/registrations/users/' + userId, registrationList)
         .reply(402, null);
 
   server;
@@ -327,7 +327,7 @@ test('get user success', function(t) {
             'Authorization': authToken
         }
     })
-        .get('/api/user/' + userId)
+        .get('/api/users/' + userId)
         .reply(200, userData);
 
     server;
@@ -350,7 +350,7 @@ test('get user failure', function(t) {
             'Authorization': authToken
         }
     })
-        .get('/api/user/' + userId)
+        .get('/api/users/' + userId)
         .reply(500, null);
 
     server;
@@ -382,7 +382,7 @@ test('get registration success has a reg', function(t) {
             'Authorization': authToken
         }
     })
-        .get('/api/registration/user/' + userId + '/session/' + sessionId)
+        .get('/api/registrations/users/' + userId + '/sessions/' + sessionId)
         .reply(200, regData);
 
     server;
@@ -408,7 +408,7 @@ test('get registration success no registrations', function(t) {
             'Authorization': authToken
         }
     })
-        .get('/api/registration/user/' + userId + '/session/' + sessionId)
+        .get('/api/registrations/users/' + userId + '/sessions/' + sessionId)
         .reply(404, regData);
 
     server;
@@ -445,7 +445,7 @@ test('get registration success has many regs', function(t) {
             'Authorization': authToken
         }
     })
-        .get('/api/registration/user/' + userId + '/session/' + sessionId)
+        .get('/api/registrations/users/' + userId + '/sessions/' + sessionId)
         .reply(200, regData);
 
     server;
@@ -470,7 +470,7 @@ test('get registration failure', function(t) {
             'Authorization': authToken
         }
     })
-        .get('/api/registration/user/' + userId + '/session/' + sessionId)
+        .get('/api/registrations/users/' + userId + '/sessions/' + sessionId)
         .reply(500, null);
 
     server;
@@ -479,48 +479,6 @@ test('get registration failure', function(t) {
         expect(retrievedRegistration).to.be.a('null');
         expect(error).to.be.an.instanceof(Error);
     }, authToken);
-    t.end();
-});
-
-test('get timezones success', function(t) {
-    //use endpoint from config even for tests
-    var apiServer = config("properties").apiServer;
-
-    var id1 = "1234";
-    var name1 = "EASTERN";
-    var id2 = "5678";
-    var name2 = "CENTRAL";
-
-    var timezoneData = [
-        {
-            "id": id1,
-            "name": name1
-        },
-        {
-            "id": id2,
-            "name": name2
-        }
-    ];
-
-    //test a 200 ok
-    var server = nock(apiServer, {
-        reqheaders: {
-            'Authorization': authToken
-        }
-    })
-        .get('/api/user/timezones')
-        .reply(200, timezoneData);
-
-    server;
-    user.getTimezones(function(error, retrievedTimezones, body) {
-        server.done();
-        expect(retrievedTimezones[0].id).to.eql(id1);
-        expect(retrievedTimezones[0].name).to.eql(name1);
-        expect(retrievedTimezones[1].id).to.eql(id2);
-        expect(retrievedTimezones[1].name).to.eql(name2);
-        expect(retrievedTimezones).to.eql(timezoneData);
-    }, authToken);
-
     t.end();
 });
 
@@ -553,7 +511,7 @@ test('resetPassword', function(t) {
             'Authorization': authToken
         }
     })
-    .post('/api/user/password/forgot', authCredentials)
+    .post('/api/users/password/forgot', authCredentials)
     .reply(204);
     server;
 
@@ -594,7 +552,7 @@ test('resetPassword handles user not found', function(t) {
             'Authorization': authToken
         }
     })
-    .post('/api/user/password/forgot', authCredentials)
+    .post('/api/users/password/forgot', authCredentials)
     .reply(404);
     server;
 
@@ -635,7 +593,7 @@ test('resetPassword handles error', function(t) {
             'Authorization': authToken
         }
     })
-        .post('/api/user/password/forgot', authCredentials)
+        .post('/api/users/password/forgot', authCredentials)
         .reply(500);
     server;
 

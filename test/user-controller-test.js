@@ -58,7 +58,7 @@ test('registrationLoginCreate', function(t) {
         expect(value).to.eql(sessionData[key]);
       }
     },
-    "../../../API/manage/user-api.js": {
+    "../../../API/common-api.js": {
       getTimezones: function (callback, authtoken) {
         callback(null, expectedTimezones);
       }
@@ -172,7 +172,7 @@ test('registrationLoginCreate handles error with getting timezones', function(t)
             expect(value).to.eql(sessionData[key]);
           }
         },
-        "../../../API/manage/user-api.js": {
+        "../../../API/common-api.js": {
           getTimezones: function (callback, authtoken) {
             callback(expectedError, null);
           }
@@ -221,7 +221,7 @@ test('displayCreate redirects home by default', function(t) {
             callback(expectedStates, null);
           }
         },
-        "../../../API/manage/user-api.js": {
+        "../../../API/common-api.js": {
           getTimezones: function (callback, authtoken) {
             callback(null, expectedTimezones);
           }
@@ -281,7 +281,7 @@ test('displayCreate redirects to last page', function(t) {
             callback(expectedStates, null);
           }
         },
-        "../../../API/manage/user-api.js": {
+        "../../../API/common-api.js": {
           getTimezones: function (callback, authtoken) {
             callback(null, expectedTimezones);
           }
@@ -367,7 +367,7 @@ test('displayCreate handles error with getting timezones', function(t) {
             expect(resIn).to.eql(res)
           }
         },
-        "../../../API/manage/user-api.js": {
+        "../../../API/common-api.js": {
           getTimezones: function (callback, authtoken) {
             callback(expectedError, null);
           }
