@@ -144,8 +144,13 @@ h2.login-title {
   margin-top: 0;
 }
 
+#create-user .form-inline .form-group {
+  text-align: left;
+}
+
 #login-form .form-inline .form-group {
   margin: 0 !important;
+  text-align: left;
 }
 
 #forgot-password {

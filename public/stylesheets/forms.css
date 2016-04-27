@@ -67,7 +67,7 @@ input, select, textarea, button {
   border: 1px solid #EEEEEE !important;
 }
 
-#gs-form select, #gs-form input[type="text"], #gs-form input[type="email"], #gs-form input[type="tel"] {
+#gs-form select, #gs-form input[type="text"], #gs-form input[type="email"], #gs-form input[type="password"], #gs-form input[type="tel"] {
   height: 40px !important;
 
 }
