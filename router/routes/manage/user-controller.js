@@ -185,7 +185,7 @@ module.exports = {
       if (error) {
         logger.error("Failed during user creation", error);
         if (validationErrors){
-          res.status(400).send({"error": "We have experienced a problem creating your account. Please correct the information an try again.", "validationErrors" : validationErrors});
+          res.status(400).send({"error": "We have experienced a problem creating your account. Please correct the information and try again.", "validationErrors" : validationErrors});
         }
         else {
           res.status(500).send({"error": "We have experienced a problem processing your request, please try again later."});
