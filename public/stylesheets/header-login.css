@@ -8,7 +8,7 @@
 }
 
 #header-login-section {
-    margin: 0px 20px 0px 20px;
+    margin: 0px 10px 0px 10px;
 }
 
 .popover-content a {
@@ -24,7 +24,7 @@
 }
 
 .popover-content {
-    padding: 20px;
+    padding: 30px 15px;
 }
 
 .popover {
@@ -43,4 +43,8 @@
     margin-left: -11px;
     border-top-width: 0;
     border-bottom-width: 0;
+}
+
+.popover.bottom {
+    margin-top: 20px;
 }

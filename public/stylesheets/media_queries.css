@@ -710,10 +710,49 @@
           font-size: 14px !important;
           text-align: center;
         }
+
+        .right-menu {
+          position: absolute !important;
+          bottom: 35px !important;
+          right: 0px !important;
+        }
+
+        #login-box, #logged-box {
+          top: 110px;
+          width: 100% !important;
+          right: 0;
+          padding: 30px 5%;
+        }
+
+        .arrow-up-mobile {
+          top: 98px;
+        }
+
+        #header-login-content {
+          width: 85%;
+          margin: 20px auto;
+        }
+
+        .arrow-up-mobile {
+          top: 98px;
+          right: 45px;
+        }
+
     }
 
     /* Extra Small Devices, Phones */
     @media only screen and (max-width : 480px) {
+
+      #login-box, #logged-box {
+        top: 105px;
+        width: 100% !important;
+        right: 0;
+        padding: 30px 5%;
+      }
+
+      .arrow-up-mobile {
+        top: 93px;
+      }
 
       .carousel-caption h1 {
         font-size: 20px !important;
@@ -792,9 +831,34 @@
 
     }
 
+    /* Custom */
+    @media only screen and (max-width : 400px) {
+
+      #login-box, #logged-box {
+        top: 95px;
+        width: 100% !important;
+        right: 0 !important;
+        padding: 30px 5%;
+      }
+
+      .arrow-up-mobile {
+        top: 83px;
+      }
+
+    }
 
     /* Custom, iPhone Retina */
     @media only screen and (max-width : 320px) {
 
+      #login-box, #logged-box {
+        top: 90px;
+        width: 100% !important;
+        right: 0 !important;
+        padding: 30px 5%;
+      }
+
+      .arrow-up-mobile {
+        top: 78px;
+      }
 
     }
