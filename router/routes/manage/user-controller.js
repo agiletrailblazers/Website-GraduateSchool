@@ -157,14 +157,14 @@ module.exports = {
            },
           "timezoneId" : ((formData.timezoneId === "") ? null : formData.timezoneId)
         }
-        user.createUser(userData, function(error, createdUser, validationErrors) {
-          // callback with the error, this will cause async module to stop executing remaining
-          // functions and jump immediately to the final function, it is important to return
-          // so that the task callback isn't called twice
-          if (error) return callback(error, null, validationErrors);
+        user.createUser(userData, function(error, result) {
+          // callback with the error, to cause async to exit out and send error
+          if (error) {
+            return callback(error, null, result);
+          }
 
           // user created successfully
-          logger.info("Created user: " + createdUser.id + " - " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
+          logger.info("Created user: " + result.createdUser.id + " - " + formData.firstName + " " + formData.middleName + " " + formData.lastName);
 
           logger.debug("Authenticate the newly created user: " + userData.username);
           var authCredentials = {
@@ -177,15 +177,25 @@ module.exports = {
 
             session.setSessionData(req, "userId", authUser.user.id);
             session.setSessionData(req, "userFirstName", authUser.user.person.firstName);
-            callback(null, authUser, null);
+            callback(null, authUser);
           });
         }, session.getSessionData(req, "authToken"));
       }
-    ], function(error, createdUser, validationErrors) {
+    ], function(error, createdUser, creationErrorDetails) {
       if (error) {
-        logger.error("Failed during user creation", error);
-        if (validationErrors){
-          res.status(400).send({"error": "We have experienced a problem creating your account. Please correct the information and try again.", "validationErrors" : validationErrors});
+        logger.error("There was an error during user creation", error);
+        if (creationErrorDetails) {
+          if (creationErrorDetails.validationErrors) {
+            res.status(400).send({
+              "error": "We have experienced a problem creating your account. Please correct the information and try again.",
+              "validationErrors": creationErrorDetails.validationErrors
+            });
+          }
+          else if (creationErrorDetails.duplicateUserError) {
+            res.status(409).send({
+              "error": "The email address you specified is already in use. If you forgot your password, you can reset it ​<a href='/manage/user/password/forgot'>here</a>.",
+            });
+          }
         }
         else {
           res.status(500).send({"error": "We have experienced a problem processing your request, please try again later."});
