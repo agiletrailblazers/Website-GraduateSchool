@@ -128,8 +128,9 @@
       "daytime": "Classroom - Daytime",
       "virtual": "Virtual Class"
     },
+
     "contentfulCache" : {
-    "location":"/tmp/cache",
-    "timeout":180000
+      "location":"/tmp/cache",
+      "timeout":180000
     }
 }
