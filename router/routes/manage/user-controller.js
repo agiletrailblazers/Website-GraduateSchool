@@ -193,7 +193,7 @@ module.exports = {
           }
           else if (creationErrorDetails.duplicateUserError) {
             res.status(409).send({
-              "error": "The email address you specified is already in use. If you forgot your password, click ​<a href='/manage/user/password/forgot'>here</a>​ to reset your password.",
+              "error": "The email address you specified is already in use. If you forgot your password, you can reset it ​<a href='/manage/user/password/forgot'>here</a>.",
             });
           }
         }
