@@ -652,7 +652,14 @@ test('createUser', function(t) {
 
         // put an id in the user data and return it as created userData
         userData.id = userId;
-        cb(null, userData);
+        var result = {
+          createdUser : userData,
+          generalError : false,
+          duplicateUserError : false,
+          validationErrors : null
+        };
+
+        cb(null, result);
         return;
       }
     },
@@ -686,7 +693,7 @@ test('createUser', function(t) {
   t.end();
 });
 
-test('createUser handles no dateOfBirth', function(t) {
+test('createUser handles validation error', function(t) {
   var sessionData = { authToken : authToken };
   var res = {};
   var req = {
@@ -720,7 +727,13 @@ test('createUser handles no dateOfBirth', function(t) {
         firstName : "Joseph"
       }
     }
-  }
+  };
+  var validationErrors = [
+    {
+      "fieldName": "person.dateOfBirth",
+      "errorMessage": "Date of Birth is not in yyyyMMdd format"
+    }
+  ];
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/user-controller.js',
@@ -764,8 +777,13 @@ test('createUser handles no dateOfBirth', function(t) {
             expect(userData.person.dateOfBirth).to.eql(null);
 
             expect(authToken).to.eql(authToken);
-
-            cb(new Error("Create user failed"));
+            var result = {
+              createdUser : null,
+              generalError : false,
+              duplicateUserError : false,
+              validationErrors : validationErrors
+            };
+            cb(new Error("Intentional test failure"), result);
             return;
           }
         },
@@ -778,16 +796,17 @@ test('createUser handles no dateOfBirth', function(t) {
       });
 
   var expectedError = {
-    error: "We have experienced a problem processing your request, please try again later."
+    error: "We have experienced a problem creating your account. Please correct the information and try again."
   };
 
   res = {
     status : function (status) {
-      expect(status).to.eql(500);
+      expect(status).to.eql(400);
       return {
         send : function (body) {
           // just make sure this function is called
-          expect(body).to.eql(expectedError);
+          expect(body.error).to.eql(expectedError.error);
+          expect(body.validationErrors).to.eql(validationErrors)
         }
       }
     }
@@ -798,7 +817,7 @@ test('createUser handles no dateOfBirth', function(t) {
   t.end();
 });
 
-test('createUser handles create user error', function(t) {
+test('createUser handles general error', function(t) {
   var sessionData = { authToken : authToken };
   var formattedDateOfBirth = "20160315";
   var res = {};
@@ -877,8 +896,13 @@ test('createUser handles create user error', function(t) {
         expect(userData.person.dateOfBirth).to.eql(formattedDateOfBirth);
 
         expect(authToken).to.eql(authToken);
-
-        cb(new Error("Create user failed"));
+        var result = {
+          createdUser : null,
+          generalError : true,
+          duplicateUserError : false,
+          validationErrors : null
+        };
+        cb(new Error("Intentional test failure"), result);
         return;
       }
     },
@@ -985,7 +1009,13 @@ test('createUser handles login user error', function(t) {
 
         // put an id in the user data and return it as created userData
         userData.id = userId;
-        cb(null, userData);
+        var result = {
+          createdUser : userData,
+          generalError : false,
+          duplicateUserError : false,
+          validationErrors : null
+        };
+        cb(null, result);
         return;
       }
     },

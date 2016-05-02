@@ -37,22 +37,22 @@ test('createUser success', function(t) {
      }
   };
 
-  var expectedResponse = {"key" : "value"};
+  var expectedResponse = {"user" : "userValues"};
 
-  //test a 200 ok
+  //test a 201 created
   var server = nock(apiServer, {
         reqheaders: {
             'Authorization': authToken
           }
         })
         .post('/api/users', userData)
-        .reply(200, expectedResponse);
+        .reply(201, expectedResponse);
 
   server;
-  user.createUser(userData, function(error, createdUser) {
+  user.createUser(userData, function(error, results) {
     server.done();
     expect(error).to.be.a('null');
-    expect(createdUser).to.eql(expectedResponse);
+    expect(results.createdUser).to.eql(expectedResponse);
   }, authToken);
   t.end();
 });
@@ -94,10 +94,10 @@ test('createUser failure', function(t) {
         .reply(500, null);
 
   server;
-  user.createUser(userData, function(error, createdUser) {
+  user.createUser(userData, function(error, results) {
     server.done();
-    expect(createdUser).to.be.a('null');
-    expect(error).to.be.an.instanceof(Error);
+    expect(results.createdUser).to.be.a('null');
+    expect(results.generalError).to.eql(true);
   }, authToken);
   t.end();
 });
@@ -145,15 +145,61 @@ test('createUser failure with Validation Errors', function(t) {
         }
     })
         .post('/api/users', userData)
-        .reply(401, validationErrors);
+        .reply(400, validationErrors);
 
     server;
     var expectedNullUserData = null;
-    user.createUser(userData, function(error, expectedNullUserData, inValidationErrors) {
+    user.createUser(userData, function(error, results) {
         server.done();
-        expect(inValidationErrors[0].fieldName).to.eql("person.dateOfBirth");
-        expect(inValidationErrors[0].errorMessage).to.eql("Date of Birth is not in yyyyMMdd format");
+        expect(results.createdUser).to.be.a('null');
+        expect(results.validationErrors[0].fieldName).to.eql("person.dateOfBirth");
+        expect(results.validationErrors[0].errorMessage).to.eql("Date of Birth is not in yyyyMMdd format");
         expect(error).to.be.an.instanceof(Error);
+    }, authToken);
+    t.end();
+});
+
+test('createUser failure duplicate user', function(t) {
+    //test a 500 internal server error
+    var apiServer = config("properties").apiServer;
+    var userData = {
+        "username" : "foo@bar.com",
+        "dateOfBirth" : "01/01/1960",
+        "lastFourSSN" : "4444",
+        "password" : "test1234",
+        "person" :
+        {
+            "firstName" : "Joe",
+            "middleName" : null,
+            "lastName" : "Smith",
+            "emailAddress" : "foo@bar.com",
+            "primaryPhone" : "555-555-5555",
+            "secondaryPhone" : null,
+            "primaryAddress" :
+            {
+                "address1" : "1313 Mockingbird Lane",
+                "address2" : null,
+                "city" : "Los Angeles",
+                "state" : "CA",
+                "postalCode" : "55555"
+            },
+            "secondaryAddress" : null
+        }
+    };
+
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    })
+        .post('/api/users', userData)
+        .reply(409, null);
+
+    server;
+    user.createUser(userData, function(error, results) {
+        server.done();
+        expect(results.createdUser).to.be.a('null');
+        expect(results.duplicateUserError).to.eql(true);
     }, authToken);
     t.end();
 });

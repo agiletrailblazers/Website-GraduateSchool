@@ -15,10 +15,39 @@ module.exports = {
         'Authorization': authToken
       }
     }, function (error, response, body) {
-      if (common.checkForErrorAndLog(error, response, targetURL)) {
-        return callback(new Error("Exception occurred creating user"), null, body ? (body.validationErrors ? body.validationErrors : null) : null);
+      var result = {
+        validationErrors: null,
+        duplicateUserError: false,
+        generalError: false,
+        createdUser: null
+      };
+      var errorMessage;
+      if (error || !response) {
+        // some other error
+        result.generalError = true;
+        errorMessage = "Failed during user creation due to other error"
       }
-      return callback(null, body, null);
+      else if (response.statusCode == 201) {
+        // creation of user successful
+        result.createdUser = body;
+      }
+      else if (response.statusCode == 400 && body && body.validationErrors) {
+        // user not created and validation errors exist
+        errorMessage = "Failed during user creation due to validation errors";
+        result.validationErrors = body.validationErrors;
+      }
+      else if (response.statusCode == 409) {
+        // user already exists
+        errorMessage = "Failed during user creation due to username already in use";
+        result.duplicateUserError = true;
+      }
+      else {
+        // some other error
+        result.generalError = true;
+
+      }
+
+      return callback((errorMessage ? new Error(errorMessage) : null), result);
     });
   },
 
