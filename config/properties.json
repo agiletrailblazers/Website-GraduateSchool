@@ -22,29 +22,32 @@
     "redisRetryLimit": 30,
     "redisRetryDelay": 1000
   },
+
     "defaultEmailServerName": "smtp.office365.com",
     "defaultEmailServerPort": "587",
-    "defaultEmailUserName":"atbtools@agiletrailblazers.com",
-    "defaultEmailUserPassword":"Ramo0061",
-    "defaultEmailFromUserName":"atbtools@agiletrailblazers.com",
+    "defaultEmailUserName":"GSWebsiteForm@graduateschool.edu",
+    "defaultEmailUserPassword":"Mana1974",
+    "defaultEmailFromUserName":"GSWebsiteForm@graduateschool.edu",
 
     "contactUsToUserName":"gs-dev-test-email@agiletrailblazers.com",
     "onsiteInquiryToUserName":"gs-dev-test-email@agiletrailblazers.com",
-    "onsiteInquiryEmailSubject":"Request for Training",
-    "requestDuplicateFormEmailSubject":"Request for Duplicate",
     "requestDuplicateCourseCompletionCertificateToUserName":"gs-dev-test-email@agiletrailblazers.com",
     "requestDuplicateOfficialGradeReportToUserName":"gs-dev-test-email@agiletrailblazers.com",
     "proctorRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
-    "proctorRequestEmailSubject":"Request for Proctor",
     "customerFeedBackFormToUserName":"gs-dev-test-email@agiletrailblazers.com",
     "certificateProgramFormToUserName":"gs-dev-test-email@agiletrailblazers.com",
+    "catalogRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
+    "subscriptionRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
+    "landingRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
+
+
+    "onsiteInquiryEmailSubject":"Request for Training",
+    "requestDuplicateFormEmailSubject":"Request for Duplicate",
+    "proctorRequestEmailSubject":"Request for Proctor",
     "customerFeedBackFormEmailSubject":"Customer FeedBack Form",
     "catalogRequestEmailSubject":"Request for Catalog",
-    "catalogRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
     "subscriptionRequestEmailSubject":"Request for Subscription/Unsubscription/Modification",
-    "subscriptionRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
     "landingRequestEmailSubject":"Request for landing Page",
-    "landingRequestToUserName":"gs-dev-test-email@agiletrailblazers.com",
 
     "googleAnalyticsId":"UA-66851185-2",
 
