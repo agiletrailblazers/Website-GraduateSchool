@@ -4,11 +4,14 @@ var cachedRequest = require('cached-request')(request);
 var logger = require('../logger');
 var common = require("../helpers/common.js");
 
-cachedRequest.setCacheDirectory(config("properties").contentfulCache.location);
+
+
 
 module.exports = {
+
   getWhatsNew: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/4QlvJ0GeQw4AY2QOq8SUMY';
+    cachedRequest =  common.setCachedDirectory(cachedRequest);
     cachedRequest({
       method: 'GET',
       url: targetURL,

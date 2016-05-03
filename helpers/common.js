@@ -1,4 +1,5 @@
 var logger = require('../logger');
+var config = require('konphyg')(__dirname + '/../config');
 
 checkForErrorAndLogExceptCodes = function(error, response, url, httpCodesNotToLog) {
   // all 2xx status codes should be considered successful, not just 200
@@ -59,7 +60,13 @@ redirectToError = function (res) {
   res.end();
 };
 
+setCachedDirectory =  function(cachedRequest) {
+  cachedRequest.setCacheDirectory(config("properties").contentfulCache.location);
+  return(cachedRequest);
+}
+
 module.exports = {
+  setCachedDirectory,setCachedDirectory,
   isNotEmpty: isNotEmpty,
   isEmpty: isEmpty,
   isNotEmptyOrAll: isNotEmptyOrAll,
