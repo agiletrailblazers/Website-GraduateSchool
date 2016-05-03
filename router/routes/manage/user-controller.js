@@ -8,6 +8,8 @@ var authentication = require("../../../API/authentication-api.js");
 var moment = require('moment');
 var commonAPI = require("../../../API/common-api.js");
 
+var passwordResetMessage = "For security purposes, please reset your password";
+
 // handlers for the user management routes
 module.exports = {
 
@@ -219,9 +221,15 @@ module.exports = {
           }
       }
 
-      session.setSessionData(req, "userId", authorizedUser.user.id);
-      session.setSessionData(req, "userFirstName", authorizedUser.user.person.firstName);
-      res.status(200).send();
+      if (authorizedUser.resetRequired){
+        logger.debug("User "+ authorizedUser.user.id +" must reset password");
+        session.setSessionData(req, "pwResetRequiredMessage", passwordResetMessage);
+        res.status(401).send({"passwordChangeRequired": true});
+      } else {
+        session.setSessionData(req, "userId", authorizedUser.user.id);
+        session.setSessionData(req, "userFirstName", authorizedUser.user.person.firstName);
+        res.status(200).send();
+      }
     });
   },
 
@@ -270,9 +278,16 @@ module.exports = {
           return;
         }
       }
-      session.setSessionData(req, "userId", authorizedUser.user.id);
-      session.setSessionData(req, "userFirstName", authorizedUser.user.person.firstName);
-      res.redirect("/manage/cart/payment");
+
+      if (authorizedUser.resetRequired){
+        logger.debug("User "+ authorizedUser.user.id +" must reset password");
+        session.setSessionData(req, "pwResetRequiredMessage", passwordResetMessage);
+        res.redirect("/manage/user/password/change");
+      } else {
+        session.setSessionData(req, "userId", authorizedUser.user.id);
+        session.setSessionData(req, "userFirstName", authorizedUser.user.person.firstName);
+        res.redirect("/manage/cart/payment");
+      }
     });
   },
 
@@ -317,6 +332,81 @@ module.exports = {
         passwordReset: passwordReset,
         userNotFound: userNotFound
       });
+    });
+  },
+
+  //Display the change password form
+  displayChangePassword: function(req, res) {
+    var pwResetRequiredMessage = session.getSessionData(req, "pwResetRequiredMessage");
+    var pwChangeResult = session.getSessionData(req, "pwChangeResult");
+    if (pwResetRequiredMessage) {
+      // remove the message from session
+      session.setSessionData(req, "pwResetRequiredMessage", null);
+    }
+
+    if (pwChangeResult) {
+      // remove the change result from session
+      session.setSessionData(req, "pwChangeResult", null);
+    }
+
+    res.render('manage/user/change_password', {
+      title: 'Update Your Password',
+      pwResetRequiredMessage: pwResetRequiredMessage,
+      pwChangeResult: pwChangeResult
+    });
+  },
+
+  changePassword: function(req, res, next) {
+    // get the form data from the body of the request
+    var formData = req.body;
+    logger.debug("Change password for user: " + formData.username);
+    var pwChangeCredentials = {
+      "username": formData.username,
+      "password": authentication.encryptPassword(formData.oldPassword),
+      "newPassword": authentication.encryptPassword(formData.newPassword)
+    };
+
+    user.changeUserPassword(req, pwChangeCredentials, function (error, statusCode) {
+      if (error) {
+        if (statusCode == 404) {
+          logger.debug("User failed log in", error);
+          res.status(statusCode).send({"error": "Username or password incorrect, please try again"});
+          return;
+        } else if (statusCode == 409) {
+          logger.debug("Cannot Reuse password", error);
+          res.status(statusCode).send({"error": "Previously used passwords cannot be reused, please try again"});
+          return;
+        } else {
+          logger.error("Password change failed with a different issue", error);
+          res.status(statusCode).send({"error": "There was an issue with your request. Please try again in a few minutes"});
+          return;
+        }
+      }
+
+      //Login User after changing password
+      var authCredentials = {
+        "username": pwChangeCredentials.username,
+        "password": pwChangeCredentials.newPassword
+      }
+      authentication.loginUser(req, res, authCredentials, function (error, authorizedUser, statusCode) {
+        if (error) {
+          if (statusCode == 401) {
+            logger.debug("User failed log in", error);
+            res.status(statusCode).send({"error": "Password changed but could not login"});
+            return;
+          }
+          else {
+            logger.error("User failed to log in with a different issue", error);
+            res.status(statusCode).send({"error": "There was an issue with your request. Please try again in a few minutes"});
+            return;
+          }
+        }
+        session.setSessionData(req, "userId", authorizedUser.user.id);
+        session.setSessionData(req, "userFirstName", authorizedUser.user.person.firstName);
+        session.setSessionData(req, "pwChangeResult", "success");
+        res.status(200).send();
+      });
+
     });
   }
 

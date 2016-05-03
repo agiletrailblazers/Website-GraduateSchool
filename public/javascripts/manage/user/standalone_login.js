@@ -17,8 +17,12 @@ $(document).ready(function(){
                 window.location = "/";
             })
             .fail(function (xhr, textStatus, errorThrown) {
-                $("#gs-alert-error").find('p').text(xhr.responseJSON.error);
-                $("#gs-alert-error").slideDown();
+                if (xhr.responseJSON.passwordChangeRequired){
+                    location = "/manage/user/password/change";
+                } else {
+                    $("#header-login-popover").find("#gs-alert-header-error").find('p').text(xhr.responseJSON.error);
+                    $("#header-login-popover").find("#gs-alert-header-error").slideDown();
+                }
             });
     });
 
