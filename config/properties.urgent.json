@@ -4,12 +4,6 @@
 
     "registrationUrl" : "http://saba-test-loadbalancer-1038476084.us-east-1.elb.amazonaws.com/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=[sessionId]",
 
-    "defaultEmailServerName": "smtp.office365.com",
-    "defaultEmailServerPort": "587",
-    "defaultEmailUserName":"GSWebsiteForm@graduateschool.edu",
-    "defaultEmailUserPassword":"Mana1974",
-    "defaultEmailFromUserName":"GSWebsiteForm@graduateschool.edu",
-
     "contactUsToUserName":"GSWebsiteForm@graduateschool.edu",
     "onsiteInquiryToUserName":"GSWebsiteForm@graduateschool.edu",
     "requestDuplicateCourseCompletionCertificateToUserName":"GSWebsiteForm@graduateschool.edu",

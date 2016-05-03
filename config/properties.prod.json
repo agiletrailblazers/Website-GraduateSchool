@@ -2,12 +2,6 @@
     "env": "prod",
     "apiServer": "http://gs-prod-api-2108241904.us-east-1.elb.amazonaws.com",
 
-    "defaultEmailServerName": "smtp.office365.com",
-    "defaultEmailServerPort": "587",
-    "defaultEmailUserName":"GSWebsiteForm@graduateschool.edu",
-    "defaultEmailUserPassword":"Mana1974",
-    "defaultEmailFromUserName":"GSWebsiteForm@graduateschool.edu",
-
     "contactUsToUserName":"Customersupport@graduateschool.edu",
     "onsiteInquiryToUserName":"Shawnree.Baker@graduateschool.edu, Tonia.williams@graduateschool.edu",
     "requestDuplicateCourseCompletionCertificateToUserName":"registrar@graduateschool.edu",
