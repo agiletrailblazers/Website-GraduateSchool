@@ -15,7 +15,8 @@ $(document).ready(function () {
     });
     $("#dateOfBirth").datepicker({
         changeMonth: true,
-        changeYear: true
+        changeYear: true,
+        yearRange: "-100:+0"
     });
 
     $("#create-user-form-submit").click(function (event) {
