@@ -1599,6 +1599,103 @@ test('forgotPassword', function(t) {
   t.end();
 });
 
+test('displayMyAccount', function(t) {
+  var expectedTab = "testTab";
+  var expUserId = "person12345";
+  var sessionData = {
+    authToken: authToken,
+    userId: expUserId
+  };
+  var req = {
+    query : {
+      tab: expectedTab
+    },
+    session : sessionData
+  };
+  var res = {};
+  res.render = function(page, content) {
+    expect(page).to.eql('manage/user/account');
+    expect(content.title).to.eql('My Account');
+    expect(content.activeTab).to.eql(expectedTab);
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js', {
+    '../../../API/manage/session-api.js': {
+      getSessionData: function (req, key) {
+        expect(key).to.eql("userId");
+        return expUserId;
+      }
+    }
+  });
+
+  controller.displayMyAccount(req, res, null);
+
+  t.end();
+});
+
+
+test('displayMyAccount default tab', function(t) {
+  var expUserId = "person12345";
+  var sessionData = {
+    authToken: authToken,
+    userId: expUserId
+  };
+  var req = {
+    query : {},
+    session :sessionData
+  };
+  var res = {};
+  res.render = function(page, content) {
+    expect(page).to.eql('manage/user/account');
+    expect(content.title).to.eql('My Account');
+    expect(content.activeTab).to.eql("my-profile");
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js', {
+    '../../../API/manage/session-api.js': {
+      getSessionData: function (req, key) {
+        expect(key).to.eql("userId");
+        return expUserId;
+      }
+    }
+  });
+
+  controller.displayMyAccount(req, res, null);
+
+  t.end();
+});
+
+
+test('displayMyAccount error if not logged in', function(t) {
+
+  var req = {
+    query : {},
+    session :{}
+  };
+  var res = {};
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js', {
+    '../../../API/manage/session-api.js': {
+      getSessionData: function (req, key) {
+        expect(key).to.eql("userId");
+        return undefined;
+      }
+    },
+    "../../../helpers/common.js": {
+      redirectToError: function (response) {
+        expect(response).to.eql(res);
+      }
+    }
+  });
+
+  controller.displayMyAccount(req, res, null);
+
+  t.end();
+});
+
 test('forgotPassword when user not found', function(t) {
 
   var req = {

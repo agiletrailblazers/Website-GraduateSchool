@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Graduate School USA | <%= title %></title>
+    <% include ../../partials/head %>
+    <link rel="stylesheet" href="/stylesheets/course_search.css" />
+    <link rel="stylesheet" href="/stylesheets/cart.css" />
+    <script type="text/javascript" src="/javascripts/manage/user/my_account.js"></script>
+  </head>
+  <body>
+    <% include ../../partials/header %>
+      <div id="container" class="container">
+        <div class="spacer10"></div>
+          <div class="row tabs">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding">
+              <div id="tabContainer">
+                <ul class="nav nav-tabs">
+                  <li class="<%= (activeTab == 'my-profile') ? 'active' : '' %>">
+                    <a data-toggle="tab" href="#my-profile" data-tab="my-profile" class="mob-tab"><span id="profile-tab-nav" class="tab-fix"> <img src="../../images/r_my_account_gray.png" alt=""> My Profile </span></a>
+                  </li>
+                  <li class="<%= (activeTab == 'my-registrations') ? 'active' : '' %>">
+                    <a data-toggle="tab" href="#my-registrations" data-tab="my-registrations" class="mob-tab"><span id="registrations-tab-nav" class="tab-fix"> <img src="../../images/r_my_registrations.png" alt=""> My Registrations </span></a>
+                  </li>
+                </ul>
+                <input type="hidden" id="txtSelectedTab" value="<%= activeTab %>" />
+              </div>
+            </div>
+          </div> <!-- END Nav-tabs -->
+          <div class="tab-content">
+            <!-- My Profile Tab -->
+            <div id="my-profile" class="tab-pane fade <%= (activeTab == 'my-profile') ? 'in active' : '' %>">
+              <div class="panel panel-default gs">
+                This is where the partial for My Profile goes <br /> Test to show <br /> what the box looks like when <br /> it is full of stuff <br />
+                <div class="spacer10"></div>
+              </div>
+            </div><!-- END My Profile tab content -->
+            <!-- My Registration Tab -->
+            <div id="my-registrations" class="tab-pane fade <%= (activeTab == 'my-registrations') ? 'in active' : '' %>">
+              <div class="panel panel-default gs">
+                This is where the partial for My Registration goes<br />
+              </div>
+            </div><!-- END My Registration tab -->
+          </div>
+        </div> <!-- END tab content -->
+      </div> <!--END container-->
+    <!-- Footer -->
+    <% include ../../partials/footer %>
+    <!-- END Footer  -->
+    <!-- Chat  -->
+    <% include ../../partials/chat %>
+    <!-- END of Chat  -->
+  </body>
+</html>

@@ -421,8 +421,22 @@ module.exports = {
       });
 
     });
-  }
+  },
 
+  displayMyAccount: function (req, res, next) {
+    if (!session.getSessionData(req, "userId")) {
+      logger.debug("User navigated to MyAccount page but is not logged in");
+      common.redirectToError(res);
+      return;
+    }
+    var tabToShow = tab = (typeof(req.query["tab"])!='undefined' ? req.query["tab"] : "my-profile");
+    logger.debug("Displaying MyAccount page with tab " + tabToShow);
+
+    res.render('manage/user/account', {
+      title: "My Account",
+      activeTab: tabToShow
+    });
+  }
 } // end module.exports
 
 function doLogout(req, res) {
