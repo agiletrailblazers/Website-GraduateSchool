@@ -610,6 +610,8 @@ test('resetPassword handles error', function(t) {
 test('changePassword', function(t) {
     var apiServer = config("properties").apiServer;
 
+    var userId = "prsn0000123123123123";
+
     var expectedUsername = "JoeSmith@test.com";
     var expectedOldPassword = "oldPassword";
     var expectedNewPassword = "newPassword";
@@ -641,11 +643,11 @@ test('changePassword', function(t) {
             'Authorization': authToken
         }
     })
-    .post('/api/users/password/change', pwChangeCredentials)
+    .post('/api/users/' + userId + '/password', pwChangeCredentials)
     .reply(204);
     server;
 
-    proxiedUser.changeUserPassword(req, pwChangeCredentials, function (error, statusCode) {
+    proxiedUser.changeUserPassword(req, pwChangeCredentials, userId, function (error, statusCode) {
         server.done();
         expect(error).to.be.null;
         expect(statusCode).to.eql(204);
@@ -656,6 +658,7 @@ test('changePassword', function(t) {
 
 test('changePassword handles exception', function(t) {
     var apiServer = config("properties").apiServer;
+    var userId = "prsn0000123123123123";
 
     var expectedUsername = "JoeSmith@test.com";
     var expectedOldPassword = "oldPassword";
@@ -688,11 +691,11 @@ test('changePassword handles exception', function(t) {
             'Authorization': authToken
         }
     })
-    .post('/api/users/password/change', pwChangeCredentials)
+    .post('/api/users/' + userId + '/password', pwChangeCredentials)
     .reply(404);
     server;
 
-    proxiedUser.changeUserPassword(req, pwChangeCredentials, function (error, statusCode) {
+    proxiedUser.changeUserPassword(req, pwChangeCredentials, userId, function (error, statusCode) {
         server.done();
         expect(error).to.not.be.null;
         expect(statusCode).to.eql(404);

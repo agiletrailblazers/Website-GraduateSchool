@@ -147,8 +147,8 @@ module.exports = {
     });
   },
 
-  changeUserPassword: function(req, pwChangeCredentials, callback) {
-    var targetURL = config("properties").apiServer + '/api/users/password/change';
+  changeUserPassword: function(req, pwChangeCredentials, userId, callback) {
+    var targetURL = config("properties").apiServer + '/api/users/' + userId + '/password';
     var currentAuthToken = session.getSessionData(req, "authToken");
 
     request({

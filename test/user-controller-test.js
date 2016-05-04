@@ -400,7 +400,7 @@ test('registrationLogin', function(t) {
           firstName : "Joseph"
         }
       },
-    resetRequired: false
+    passwordChangeRequired: false
   };
 
   var setSessionCheckedCounter = 0;
@@ -420,6 +420,12 @@ test('registrationLogin', function(t) {
           setSessionCheckedCounter++;
         } else if (key==="userFirstName"){
           expect(value).to.eql(authUser.user.person.firstName);
+          setSessionCheckedCounter++;
+        } else if (key==="passwordChangeAuthUserId"){
+          expect(value).to.eql(authUser.user.id);
+          setSessionCheckedCounter++;
+        } else if (key==="passwordChangeAuthUsername"){
+          expect(value).to.eql(authUser.user.username);
           setSessionCheckedCounter++;
         }
         else {
@@ -443,7 +449,7 @@ test('registrationLogin', function(t) {
 
   res.redirect = function(page) {
       expect(page).to.eql('/manage/cart/payment');
-      expect(setSessionCheckedCounter).to.eql(2);
+      expect(setSessionCheckedCounter).to.eql(4);
       expect(req.session.sessionData["pwResetRequiredMessage"]).to.be.undefined;
   };
 
@@ -473,7 +479,7 @@ test('registrationLogin needs password change', function(t) {
         firstName : "Joseph"
       }
     },
-    resetRequired: true
+    passwordChangeRequired: true
   };
 
   var setSessionCheckedCounter = 0;
@@ -490,6 +496,15 @@ test('registrationLogin needs password change', function(t) {
 
             if (key==="pwResetRequiredMessage"){
               expect(value).to.eql("For security purposes, please reset your password");
+              setSessionCheckedCounter++;
+            } else if (key==="passwordChangeAuthUserId"){
+              expect(value).to.eql(authUser.user.id);
+              setSessionCheckedCounter++;
+            } else if (key==="passwordChangeAuthUsername"){
+              expect(value).to.eql(authUser.user.username);
+              setSessionCheckedCounter++;
+            } else if (key==="passwordResetRequired"){
+              expect(value).to.eql(true);
               setSessionCheckedCounter++;
             }
             else {
@@ -513,8 +528,8 @@ test('registrationLogin needs password change', function(t) {
 
   res.redirect = function(page) {
     expect(page).to.eql('/manage/user/password/change');
-    expect(setSessionCheckedCounter).to.eql(1);
-    expect(req.session.sessionData["pwResetRequiredMessage"]).to.eq("For security purposes, please reset your password");
+    expect(setSessionCheckedCounter).to.eql(3);
+    expect(req.session.sessionData["passwordResetRequired"]).to.eq(true);
   };
 
   controller.registrationLogin(req, res, null);
@@ -1116,7 +1131,7 @@ test('login', function(t) {
         firstName : "Joseph"
       }
     },
-    resetRequired: false
+    passwordChangeRequired: false
   };
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
@@ -1133,6 +1148,12 @@ test('login', function(t) {
               expect(value).to.eql(authUser.user.id);
             } else if (key==="userFirstName"){
               expect(value).to.eql(authUser.user.person.firstName);
+            } else if (key==="passwordChangeAuthUserId"){
+              expect(value).to.eql(authUser.user.id);
+            } else if (key==="passwordChangeAuthUsername"){
+              expect(value).to.eql(authUser.user.username);
+            }else if (key==="passwordResetRequired"){
+              expect(value).to.eql(true);
             }
             else {
               // if called with any other data then throw error
@@ -1192,7 +1213,7 @@ test('login success needs password change', function(t) {
         firstName : "Joseph"
       }
     },
-    resetRequired: true
+    passwordChangeRequired: true
   };
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
@@ -1207,6 +1228,12 @@ test('login success needs password change', function(t) {
 
             if (key==="pwResetRequiredMessage"){
               expect(value).to.eql("For security purposes, please reset your password");
+            } else if (key==="passwordChangeAuthUserId"){
+              expect(value).to.eql(authUser.user.id);
+            } else if (key==="passwordChangeAuthUsername"){
+              expect(value).to.eql(authUser.user.username);
+            }else if (key==="passwordResetRequired"){
+              expect(value).to.eql(true);
             }
             else {
               // if called with any other data then throw error
@@ -1234,7 +1261,7 @@ test('login success needs password change', function(t) {
         send : function () {
           // just make sure this function is called
           expect(1).to.eql(1);
-          expect(req.session.sessionData["pwResetRequiredMessage"]).to.eq("For security purposes, please reset your password");
+          expect(req.session.sessionData["passwordResetRequired"]).to.eq(true);
         }
       }
     }
@@ -1604,15 +1631,19 @@ test('forgotPassword when error', function(t) {
 });
 
 test('changePassword', function(t) {
+  var username = "test@test.com";
+  var userId = "prsn1234";
+
   var req = {
     body: {
-      username : "user12345",
       oldPassword : "test1234",
       newPassword : "test2345"
     },
     session : {
       sessionData : {
-        authToken : authToken
+        authToken : authToken,
+        passwordChangeAuthUsername: username,
+        passwordChangeAuthUserId: userId
       }
     }
   };
@@ -1620,12 +1651,13 @@ test('changePassword', function(t) {
   var authUser = {
     authToken : authToken,
     user : {
-      id : "pers12345",
+      id : userId,
+      username: username,
       person: {
         firstName : "Joseph"
       }
     },
-    resetRequired: false
+    passwordChangeRequired: false
   };
 
   var res = {
@@ -1643,8 +1675,8 @@ test('changePassword', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js',
       {
         '../../../API/manage/user-api.js': {
-          changeUserPassword: function (req, pwChangeCredentials, callback) {
-            expect(pwChangeCredentials.username).to.eql(req.body.username);
+          changeUserPassword: function (req, pwChangeCredentials, userId, callback) {
+            expect(pwChangeCredentials.username).to.eql(username);
             expect(pwChangeCredentials.password).to.eql(req.body.oldPassword);
             expect(pwChangeCredentials.newPassword).to.eql(req.body.newPassword);
             callback(null, 204);
@@ -1652,7 +1684,7 @@ test('changePassword', function(t) {
         },
         '../../../API/authentication-api.js' : {
           loginUser: function (req, res, authCredentials, cb) {
-            expect(authCredentials.username).to.eql(req.body.username);
+            expect(authCredentials.username).to.eql(username);
             expect(authCredentials.password).to.eql(req.body.newPassword);
             cb(null, authUser);
           },
@@ -1669,15 +1701,19 @@ test('changePassword', function(t) {
 });
 
 test('changePassword user not found', function(t) {
+  var username = "test@test.com";
+  var userId = "prsn1234";
+
   var req = {
     body: {
-      username : "user12345",
       oldPassword : "test1234",
       newPassword : "test2345"
     },
     session : {
       sessionData : {
-        authToken : authToken
+        authToken : authToken,
+        passwordChangeAuthUsername: username,
+        passwordChangeAuthUserId: userId
       }
     }
   };
@@ -1685,7 +1721,7 @@ test('changePassword user not found', function(t) {
 
   var res = {
     status : function (status) {
-      expect(status).to.eql(404);
+      expect(status).to.eql(401);
       return {
         send : function (errorObject) {
           expect(req.session.sessionData["pwChangeResult"]).to.be.undefined;
@@ -1699,11 +1735,11 @@ test('changePassword user not found', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js',
       {
         '../../../API/manage/user-api.js': {
-          changeUserPassword: function (req, pwChangeCredentials, callback) {
-            expect(pwChangeCredentials.username).to.eql(req.body.username);
+          changeUserPassword: function (req, pwChangeCredentials, userId, callback) {
+            expect(pwChangeCredentials.username).to.eql(username);
             expect(pwChangeCredentials.password).to.eql(req.body.oldPassword);
             expect(pwChangeCredentials.newPassword).to.eql(req.body.newPassword);
-            callback(new Error("Cannot find username/password"), 404);
+            callback(new Error("Cannot find username/password"), 401);
           }
         },
         '../../../API/authentication-api.js' : {
@@ -1720,15 +1756,19 @@ test('changePassword user not found', function(t) {
 });
 
 test('changePassword reused password', function(t) {
+  var username = "test@test.com";
+  var userId = "prsn1234";
+
   var req = {
     body: {
-      username : "user12345",
       oldPassword : "test1234",
       newPassword : "test2345"
     },
     session : {
       sessionData : {
-        authToken : authToken
+        authToken : authToken,
+        passwordChangeAuthUsername: username,
+        passwordChangeAuthUserId: userId
       }
     }
   };
@@ -1750,8 +1790,8 @@ test('changePassword reused password', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js',
       {
         '../../../API/manage/user-api.js': {
-          changeUserPassword: function (req, pwChangeCredentials, callback) {
-            expect(pwChangeCredentials.username).to.eql(req.body.username);
+          changeUserPassword: function (req, pwChangeCredentials, userId, callback) {
+            expect(pwChangeCredentials.username).to.eql(username);
             expect(pwChangeCredentials.password).to.eql(req.body.oldPassword);
             expect(pwChangeCredentials.newPassword).to.eql(req.body.newPassword);
             callback(new Error("Cannot reuse password"), 409);
@@ -1771,15 +1811,19 @@ test('changePassword reused password', function(t) {
 });
 
 test('changePassword other error', function(t) {
+  var username = "test@test.com";
+  var userId = "prsn1234";
+
   var req = {
     body: {
-      username : "user12345",
       oldPassword : "test1234",
       newPassword : "test2345"
     },
     session : {
       sessionData : {
-        authToken : authToken
+        authToken : authToken,
+        passwordChangeAuthUsername: username,
+        passwordChangeAuthUserId: userId
       }
     }
   };
@@ -1801,8 +1845,8 @@ test('changePassword other error', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js',
       {
         '../../../API/manage/user-api.js': {
-          changeUserPassword: function (req, pwChangeCredentials, callback) {
-            expect(pwChangeCredentials.username).to.eql(req.body.username);
+          changeUserPassword: function (req, pwChangeCredentials, userId, callback) {
+            expect(pwChangeCredentials.username).to.eql(username);
             expect(pwChangeCredentials.password).to.eql(req.body.oldPassword);
             expect(pwChangeCredentials.newPassword).to.eql(req.body.newPassword);
             callback(new Error("General Error"), 400);

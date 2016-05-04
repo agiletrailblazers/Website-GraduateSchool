@@ -221,9 +221,11 @@ module.exports = {
           }
       }
 
-      if (authorizedUser.resetRequired){
+      session.setSessionData(req, "passwordChangeAuthUserId", authorizedUser.user.id);
+      session.setSessionData(req, "passwordChangeAuthUsername", authorizedUser.user.username);
+      if (authorizedUser.passwordChangeRequired){
         logger.debug("User "+ authorizedUser.user.id +" must reset password");
-        session.setSessionData(req, "pwResetRequiredMessage", passwordResetMessage);
+        session.setSessionData(req, "passwordResetRequired", authorizedUser.passwordChangeRequired);
         res.status(401).send({"passwordChangeRequired": true});
       } else {
         session.setSessionData(req, "userId", authorizedUser.user.id);
@@ -279,9 +281,11 @@ module.exports = {
         }
       }
 
-      if (authorizedUser.resetRequired){
+      session.setSessionData(req, "passwordChangeAuthUserId", authorizedUser.user.id);
+      session.setSessionData(req, "passwordChangeAuthUsername", authorizedUser.user.username);
+      if (authorizedUser.passwordChangeRequired){
         logger.debug("User "+ authorizedUser.user.id +" must reset password");
-        session.setSessionData(req, "pwResetRequiredMessage", passwordResetMessage);
+        session.setSessionData(req, "passwordResetRequired", authorizedUser.passwordChangeRequired);
         res.redirect("/manage/user/password/change");
       } else {
         session.setSessionData(req, "userId", authorizedUser.user.id);
@@ -337,11 +341,11 @@ module.exports = {
 
   //Display the change password form
   displayChangePassword: function(req, res) {
-    var pwResetRequiredMessage = session.getSessionData(req, "pwResetRequiredMessage");
+    var passwordResetRequired = session.getSessionData(req, "passwordResetRequired");
     var pwChangeResult = session.getSessionData(req, "pwChangeResult");
-    if (pwResetRequiredMessage) {
+    if (passwordResetRequired) {
       // remove the message from session
-      session.setSessionData(req, "pwResetRequiredMessage", null);
+      session.setSessionData(req, "passwordResetRequired", null);
     }
 
     if (pwChangeResult) {
@@ -351,7 +355,7 @@ module.exports = {
 
     res.render('manage/user/change_password', {
       title: 'Update Your Password',
-      pwResetRequiredMessage: pwResetRequiredMessage,
+      passwordResetRequired: passwordResetRequired,
       pwChangeResult: pwChangeResult
     });
   },
@@ -359,17 +363,18 @@ module.exports = {
   changePassword: function(req, res, next) {
     // get the form data from the body of the request
     var formData = req.body;
-    logger.debug("Change password for user: " + formData.username);
     var pwChangeCredentials = {
-      "username": formData.username,
+      "username": session.getSessionData(req, "passwordChangeAuthUsername"),
       "password": authentication.encryptPassword(formData.oldPassword),
       "newPassword": authentication.encryptPassword(formData.newPassword)
     };
 
-    user.changeUserPassword(req, pwChangeCredentials, function (error, statusCode) {
+    var userId = session.getSessionData(req, "passwordChangeAuthUserId");
+
+    user.changeUserPassword(req, pwChangeCredentials, userId, function (error, statusCode) {
       if (error) {
-        if (statusCode == 404) {
-          logger.debug("User failed log in", error);
+        if (statusCode == 401) {
+          logger.debug("User could not be authenticated", error);
           res.status(statusCode).send({"error": "Username or password incorrect, please try again"});
           return;
         } else if (statusCode == 409) {
