@@ -652,3 +652,100 @@ test('resetPassword handles error', function(t) {
 
     t.end();
 });
+
+test('changePassword', function(t) {
+    var apiServer = config("properties").apiServer;
+
+    var userId = "prsn0000123123123123";
+
+    var expectedUsername = "JoeSmith@test.com";
+    var expectedOldPassword = "oldPassword";
+    var expectedNewPassword = "newPassword";
+
+    var pwChangeCredentials = {
+        "username" : expectedUsername,
+        "password" : expectedOldPassword,
+        "newPassword" : expectedNewPassword
+    };
+
+    var req = {};
+
+    var sessionData = {
+        "authToken": authToken
+    };
+
+    var proxiedUser = proxyquire('../API/manage/user-api.js',
+        {
+            "./session-api.js": {
+                getSessionData: function (req, key) {
+                    expect(key).to.eql("authToken");
+                    return sessionData[key];
+                }
+            }
+        });
+
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    })
+    .post('/api/users/' + userId + '/password', pwChangeCredentials)
+    .reply(204);
+    server;
+
+    proxiedUser.changeUserPassword(req, pwChangeCredentials, userId, function (error, statusCode) {
+        server.done();
+        expect(error).to.be.null;
+        expect(statusCode).to.eql(204);
+    });
+
+    t.end();
+});
+
+test('changePassword handles exception', function(t) {
+    var apiServer = config("properties").apiServer;
+    var userId = "prsn0000123123123123";
+
+    var expectedUsername = "JoeSmith@test.com";
+    var expectedOldPassword = "oldPassword";
+    var expectedNewPassword = "newPassword";
+
+    var pwChangeCredentials = {
+        "username" : expectedUsername,
+        "password" : expectedOldPassword,
+        "newPassword" : expectedNewPassword
+    };
+
+    var req = {};
+
+    var sessionData = {
+        "authToken": authToken
+    };
+
+    var proxiedUser = proxyquire('../API/manage/user-api.js',
+        {
+            "./session-api.js": {
+                getSessionData: function (req, key) {
+                    expect(key).to.eql("authToken");
+                    return sessionData[key];
+                }
+            }
+        });
+
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    })
+    .post('/api/users/' + userId + '/password', pwChangeCredentials)
+    .reply(404);
+    server;
+
+    proxiedUser.changeUserPassword(req, pwChangeCredentials, userId, function (error, statusCode) {
+        server.done();
+        expect(error).to.not.be.null;
+        expect(statusCode).to.eql(404);
+    });
+
+    t.end();
+});

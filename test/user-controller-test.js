@@ -399,7 +399,8 @@ test('registrationLogin', function(t) {
         person: {
           firstName : "Joseph"
         }
-      }
+      },
+    passwordChangeRequired: false
   };
 
   var setSessionCheckedCounter = 0;
@@ -419,6 +420,12 @@ test('registrationLogin', function(t) {
           setSessionCheckedCounter++;
         } else if (key==="userFirstName"){
           expect(value).to.eql(authUser.user.person.firstName);
+          setSessionCheckedCounter++;
+        } else if (key==="passwordChangeAuthUserId"){
+          expect(value).to.eql(authUser.user.id);
+          setSessionCheckedCounter++;
+        } else if (key==="passwordChangeAuthUsername"){
+          expect(value).to.eql(authUser.user.username);
           setSessionCheckedCounter++;
         }
         else {
@@ -442,7 +449,87 @@ test('registrationLogin', function(t) {
 
   res.redirect = function(page) {
       expect(page).to.eql('/manage/cart/payment');
-      expect(setSessionCheckedCounter).to.eql(2);
+      expect(setSessionCheckedCounter).to.eql(4);
+      expect(req.session.sessionData["pwResetRequiredMessage"]).to.be.undefined;
+  };
+
+  controller.registrationLogin(req, res, null);
+
+  t.end();
+});
+
+test('registrationLogin needs password change', function(t) {
+  var sessionData = { authToken : authToken };
+  var res = {};
+  var req = {
+    body : {
+      username : "user12345",
+      password : "test1234"
+    },
+    session : {
+      sessionData : sessionData
+    }
+  };
+
+  var authUser = {
+    authToken : authToken,
+    user : {
+      id : "pers12345",
+      person: {
+        firstName : "Joseph"
+      }
+    },
+    passwordChangeRequired: true
+  };
+
+  var setSessionCheckedCounter = 0;
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          setSessionData: function (req, key, value) {
+            if (!req.session.sessionData){
+              req.session.sessionData = {};
+            }
+            req.session.sessionData[key] = value;
+
+            if (key==="pwResetRequiredMessage"){
+              expect(value).to.eql("For security purposes, please reset your password");
+              setSessionCheckedCounter++;
+            } else if (key==="passwordChangeAuthUserId"){
+              expect(value).to.eql(authUser.user.id);
+              setSessionCheckedCounter++;
+            } else if (key==="passwordChangeAuthUsername"){
+              expect(value).to.eql(authUser.user.username);
+              setSessionCheckedCounter++;
+            } else if (key==="passwordResetRequired"){
+              expect(value).to.eql(true);
+              setSessionCheckedCounter++;
+            }
+            else {
+              // if called with any other data then throw error
+              expect(true).to.eql(false);
+            }
+          }
+        },
+        '../../../API/authentication-api.js': {
+          loginUser: function (req, res, authCredentials, cb) {
+            expect(authCredentials.username).to.eql(req.body.username);
+            expect(authCredentials.password).to.eql(encryptedPassword);
+            cb(null, authUser);
+          },
+          encryptPassword: function(password) {
+            expect(password).to.eql(req.body.password);
+            return encryptedPassword;
+          }
+        }
+      });
+
+  res.redirect = function(page) {
+    expect(page).to.eql('/manage/user/password/change');
+    expect(setSessionCheckedCounter).to.eql(3);
+    expect(req.session.sessionData["passwordResetRequired"]).to.eq(true);
   };
 
   controller.registrationLogin(req, res, null);
@@ -1073,7 +1160,8 @@ test('login', function(t) {
       person: {
         firstName : "Joseph"
       }
-    }
+    },
+    passwordChangeRequired: false
   };
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
@@ -1090,6 +1178,12 @@ test('login', function(t) {
               expect(value).to.eql(authUser.user.id);
             } else if (key==="userFirstName"){
               expect(value).to.eql(authUser.user.person.firstName);
+            } else if (key==="passwordChangeAuthUserId"){
+              expect(value).to.eql(authUser.user.id);
+            } else if (key==="passwordChangeAuthUsername"){
+              expect(value).to.eql(authUser.user.username);
+            }else if (key==="passwordResetRequired"){
+              expect(value).to.eql(true);
             }
             else {
               // if called with any other data then throw error
@@ -1117,6 +1211,87 @@ test('login', function(t) {
         send : function () {
           // just make sure this function is called
           expect(1).to.eql(1);
+          expect(req.session.sessionData["pwResetRequiredMessage"]).to.be.undefined;
+        }
+      }
+    }
+  };
+
+  controller.login(req, res, null);
+
+  t.end();
+});
+
+test('login success needs password change', function(t) {
+  var sessionData = { authToken : authToken };
+  var res = {};
+  var req = {
+    body : {
+      username : "user12345",
+      password : "test1234"
+    },
+    session : {
+      sessionData : sessionData
+    }
+  };
+
+  var authUser = {
+    authToken : authToken,
+    user : {
+      id : "pers12345",
+      person: {
+        firstName : "Joseph"
+      }
+    },
+    passwordChangeRequired: true
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          setSessionData: function (req, key, value) {
+            if (!req.session.sessionData){
+              req.session.sessionData = {};
+            }
+            req.session.sessionData[key] = value;
+
+            if (key==="pwResetRequiredMessage"){
+              expect(value).to.eql("For security purposes, please reset your password");
+            } else if (key==="passwordChangeAuthUserId"){
+              expect(value).to.eql(authUser.user.id);
+            } else if (key==="passwordChangeAuthUsername"){
+              expect(value).to.eql(authUser.user.username);
+            }else if (key==="passwordResetRequired"){
+              expect(value).to.eql(true);
+            }
+            else {
+              // if called with any other data then throw error
+              expect(true).to.eql(false);
+            }
+          }
+        },
+        '../../../API/authentication-api.js': {
+          loginUser: function (req, res, authCredentials, cb) {
+            expect(authCredentials.username).to.eql(req.body.username);
+            expect(authCredentials.password).to.eql(encryptedPassword);
+            cb(null, authUser);
+          },
+          encryptPassword: function(password) {
+            expect(password).to.eql(req.body.password);
+            return encryptedPassword;
+          }
+        }
+      });
+
+  res = {
+    status : function (status) {
+      expect(status).to.eql(401);
+      return {
+        send : function () {
+          // just make sure this function is called
+          expect(1).to.eql(1);
+          expect(req.session.sessionData["passwordResetRequired"]).to.eq(true);
         }
       }
     }
@@ -1374,6 +1549,25 @@ test('displayForgotPassword', function(t) {
   t.end();
 });
 
+test('displayChangePassword', function(t) {
+
+  var req = {};
+  var res = {};
+  res.render = function(page, content) {
+    expect(page).to.eql('manage/user/change_password');
+    expect(content.title).to.eql('Update Your Password');
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+      });
+
+  controller.displayChangePassword(req, res, null);
+
+  t.end();
+});
+
 test('forgotPassword', function(t) {
 
   var req = {
@@ -1462,6 +1656,241 @@ test('forgotPassword when error', function(t) {
       });
 
   controller.forgotPassword(req, res, null);
+
+  t.end();
+});
+
+test('changePassword', function(t) {
+  var username = "test@test.com";
+  var userId = "prsn1234";
+
+  var req = {
+    body: {
+      oldPassword : "test1234",
+      newPassword : "test2345"
+    },
+    session : {
+      sessionData : {
+        authToken : authToken,
+        passwordChangeAuthUsername: username,
+        passwordChangeAuthUserId: userId
+      }
+    }
+  };
+
+  var authUser = {
+    authToken : authToken,
+    user : {
+      id : userId,
+      username: username,
+      person: {
+        firstName : "Joseph"
+      }
+    },
+    passwordChangeRequired: false
+  };
+
+  var res = {
+    status : function (status) {
+      expect(status).to.eql(200);
+      return {
+        send : function () {
+          expect(req.session.sessionData["pwChangeResult"]).to.eq("success");
+        }
+      }
+    }
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        '../../../API/manage/user-api.js': {
+          changeUserPassword: function (req, pwChangeCredentials, userId, callback) {
+            expect(pwChangeCredentials.username).to.eql(username);
+            expect(pwChangeCredentials.password).to.eql(req.body.oldPassword);
+            expect(pwChangeCredentials.newPassword).to.eql(req.body.newPassword);
+            callback(null, 204);
+          }
+        },
+        '../../../API/authentication-api.js' : {
+          loginUser: function (req, res, authCredentials, cb) {
+            expect(authCredentials.username).to.eql(username);
+            expect(authCredentials.password).to.eql(req.body.newPassword);
+            cb(null, authUser);
+          },
+          encryptPassword: function(pw) {
+            expect(pw).to.not.be.null;
+            return pw;
+          }
+        }
+      });
+
+  controller.changePassword(req, res, null);
+
+  t.end();
+});
+
+test('changePassword user not found', function(t) {
+  var username = "test@test.com";
+  var userId = "prsn1234";
+
+  var req = {
+    body: {
+      oldPassword : "test1234",
+      newPassword : "test2345"
+    },
+    session : {
+      sessionData : {
+        authToken : authToken,
+        passwordChangeAuthUsername: username,
+        passwordChangeAuthUserId: userId
+      }
+    }
+  };
+
+
+  var res = {
+    status : function (status) {
+      expect(status).to.eql(401);
+      return {
+        send : function (errorObject) {
+          expect(req.session.sessionData["pwChangeResult"]).to.be.undefined;
+          expect(errorObject.error).to.eq("Username or password incorrect, please try again");
+        }
+      }
+    }
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        '../../../API/manage/user-api.js': {
+          changeUserPassword: function (req, pwChangeCredentials, userId, callback) {
+            expect(pwChangeCredentials.username).to.eql(username);
+            expect(pwChangeCredentials.password).to.eql(req.body.oldPassword);
+            expect(pwChangeCredentials.newPassword).to.eql(req.body.newPassword);
+            callback(new Error("Cannot find username/password"), 401);
+          }
+        },
+        '../../../API/authentication-api.js' : {
+          encryptPassword: function(pw) {
+            expect(pw).to.not.be.null;
+            return pw;
+          }
+        }
+      });
+
+  controller.changePassword(req, res, null);
+
+  t.end();
+});
+
+test('changePassword reused password', function(t) {
+  var username = "test@test.com";
+  var userId = "prsn1234";
+
+  var req = {
+    body: {
+      oldPassword : "test1234",
+      newPassword : "test2345"
+    },
+    session : {
+      sessionData : {
+        authToken : authToken,
+        passwordChangeAuthUsername: username,
+        passwordChangeAuthUserId: userId
+      }
+    }
+  };
+
+
+  var res = {
+    status : function (status) {
+      expect(status).to.eql(409);
+      return {
+        send : function (errorObject) {
+          expect(req.session.sessionData["pwChangeResult"]).to.be.undefined;
+          expect(errorObject.error).to.eq("Previously used passwords cannot be reused, please try again");
+        }
+      }
+    }
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        '../../../API/manage/user-api.js': {
+          changeUserPassword: function (req, pwChangeCredentials, userId, callback) {
+            expect(pwChangeCredentials.username).to.eql(username);
+            expect(pwChangeCredentials.password).to.eql(req.body.oldPassword);
+            expect(pwChangeCredentials.newPassword).to.eql(req.body.newPassword);
+            callback(new Error("Cannot reuse password"), 409);
+          }
+        },
+        '../../../API/authentication-api.js' : {
+          encryptPassword: function(pw) {
+            expect(pw).to.not.be.null;
+            return pw;
+          }
+        }
+      });
+
+  controller.changePassword(req, res, null);
+
+  t.end();
+});
+
+test('changePassword other error', function(t) {
+  var username = "test@test.com";
+  var userId = "prsn1234";
+
+  var req = {
+    body: {
+      oldPassword : "test1234",
+      newPassword : "test2345"
+    },
+    session : {
+      sessionData : {
+        authToken : authToken,
+        passwordChangeAuthUsername: username,
+        passwordChangeAuthUserId: userId
+      }
+    }
+  };
+
+
+  var res = {
+    status : function (status) {
+      expect(status).to.eql(400);
+      return {
+        send : function (errorObject) {
+          expect(req.session.sessionData["pwChangeResult"]).to.be.undefined;
+          expect(errorObject.error).to.eq("There was an issue with your request. Please try again in a few minutes");
+        }
+      }
+    }
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        '../../../API/manage/user-api.js': {
+          changeUserPassword: function (req, pwChangeCredentials, userId, callback) {
+            expect(pwChangeCredentials.username).to.eql(username);
+            expect(pwChangeCredentials.password).to.eql(req.body.oldPassword);
+            expect(pwChangeCredentials.newPassword).to.eql(req.body.newPassword);
+            callback(new Error("General Error"), 400);
+          }
+        },
+        '../../../API/authentication-api.js' : {
+          encryptPassword: function(pw) {
+            expect(pw).to.not.be.null;
+            return pw;
+          }
+        }
+      });
+
+  controller.changePassword(req, res, null);
 
   t.end();
 });

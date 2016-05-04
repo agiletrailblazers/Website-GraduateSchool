@@ -174,6 +174,26 @@ module.exports = {
 
       return callback(exception, passwordReset, userNotFound);
     });
+  },
+
+  changeUserPassword: function(req, pwChangeCredentials, userId, callback) {
+    var targetURL = config("properties").apiServer + '/api/users/' + userId + '/password';
+    var currentAuthToken = session.getSessionData(req, "authToken");
+
+    request({
+      method: 'POST',
+      url: targetURL,
+      json: pwChangeCredentials,
+      headers: {
+        'Authorization': currentAuthToken
+      }
+    }, function (error, response) {
+      if (common.checkForErrorAndLog(error, response, targetURL)) {
+        return callback(new Error("Exception occurred changing user password"), response.statusCode);
+      }
+
+      return callback(null, response.statusCode);
+    });
   }
 
 };

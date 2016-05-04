@@ -40,10 +40,12 @@ module.exports = function (app) {
         app.use('/', router.get('/manage/user/logout', userController.logout));
         app.use('/', router.get('/manage/user/password/forgot', userController.displayForgotPassword));
         app.use('/', router.post('/manage/user/password/forgot', userController.forgotPassword));
+        app.use('/', router.get('/manage/user/password/change', userController.displayChangePassword));
         // async AJAX user management routes
         app.use('/', router.post('/manage/user/login_user', userController.login));
         app.use('/', router.post('/manage/user/create_user', userController.createUser));
         app.use('/', router.post('/manage/user/logout', userController.logoutAsync));
+        app.use('/', router.post('/manage/user/password/change', userController.changePassword));
 
         // cart routes
         app.use('/', router.get('/manage/cart', cartController.displayCart));
