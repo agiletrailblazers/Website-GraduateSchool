@@ -12,12 +12,6 @@ input[type="checkbox"] {
     height: 20px;
   }
 
-.gs-image-button {
-    vertical-align: middle;
-    border: 0 none !important;
-    background: transparent !important;
-}
-
 #gs-form p {
   font-size: 14px;
   color: #666 !important;
