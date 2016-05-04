@@ -8,8 +8,6 @@ var authentication = require("../../../API/authentication-api.js");
 var moment = require('moment');
 var commonAPI = require("../../../API/common-api.js");
 
-var passwordResetMessage = "For security purposes, please reset your password";
-
 // handlers for the user management routes
 module.exports = {
 
