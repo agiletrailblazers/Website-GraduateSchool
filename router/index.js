@@ -41,6 +41,7 @@ module.exports = function (app) {
         app.use('/', router.get('/manage/user/password/forgot', userController.displayForgotPassword));
         app.use('/', router.post('/manage/user/password/forgot', userController.forgotPassword));
         app.use('/', router.get('/manage/user/password/change', userController.displayChangePassword));
+        app.use('/', router.get('/manage/user/account', userController.displayMyAccount));
         // async AJAX user management routes
         app.use('/', router.post('/manage/user/login_user', userController.login));
         app.use('/', router.post('/manage/user/create_user', userController.createUser));
