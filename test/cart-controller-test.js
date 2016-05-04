@@ -267,47 +267,11 @@ test('displayCart handles get contentful error', function(t) {
   t.end();
 });
 
-test('displayCartPost handles empty cart', function(t) {
-
+test('updateCart removes course from session', function(t) {
   var res = {};
-  var sessionData = { authToken : authToken};
-  var req = {
-    query : {},
-    body : {},
-    session : {
-      sessionData : sessionData
-    }
+  res.redirect = function(page) {
+    expect(page).to.eql('/manage/cart');
   };
-
-
-  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
-  var controller = proxyquire('../router/routes/manage/cart-controller.js',
-      {
-        "../../../API/contentful.js": {
-          getCourseDetails: function(cb) {
-            cb(contentfulCourseInfo, null);
-          }
-        }
-      });
-
-  res.render = function(page, content) {
-    expect(page).to.eql('manage/cart/cart');
-    expect(content.title).to.eql('Course Registration');
-    expect(content.course).to.be.an('undefined');
-    expect(content.session).to.be.an('undefined');
-    expect(content.nextpage).to.eql("/manage/user/registration_login_create");
-    expect(content.contentfulCourseInfo).to.eql(contentfulCourseInfo);
-    expect(content.error).to.eql(null);
-  };
-
-  controller.displayCartPost(req, res, null);
-
-  t.end();
-});
-
-test('displayCartPost removes course from session', function(t) {
-
-  var res = {};
   var expCourseId = "course12345";
   var expSessionId = "session12345";
 
@@ -329,65 +293,12 @@ test('displayCartPost removes course from session', function(t) {
   };
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
-  var controller = proxyquire('../router/routes/manage/cart-controller.js',
-      {
-        "../../../API/contentful.js": {
-          getCourseDetails: function(cb) {
-            cb(contentfulCourseInfo, null);
-          }
-        }
-      });
+  var controller = proxyquire('../router/routes/manage/cart-controller.js', {});
 
-  res.render = function(page, content) {
-    expect(page).to.eql('manage/cart/cart');
-    expect(content.title).to.eql('Course Registration');
-    expect(content.course).to.be.an('undefined');
-    expect(content.session).to.be.an('undefined');
-    expect(content.nextpage).to.eql("/manage/user/registration_login_create");
-    expect(content.contentfulCourseInfo).to.eql(contentfulCourseInfo);
-    expect(content.error).to.eql(null);
-  };
-
-  controller.displayCartPost(req, res, null);
+  controller.updateCart(req, res, null);
 
   expect(req.session.sessionData.cart.courseId).to.eql(null);
   expect(req.session.sessionData.cart.sessionId).to.eql(null);
-
-  t.end();
-});
-
-test('displayCartPost handles get contentful error', function(t) {
-
-  var res = {};
-  var sessionData = { authToken : authToken};
-  var req = {
-    query : { },
-    body : {},
-    session : {
-      sessionData : sessionData
-    }
-  };
-  var expectedError = new Error("Intentional Test Error");
-
-  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
-  var controller = proxyquire('../router/routes/manage/cart-controller.js',
-      {
-        "../../../helpers/common.js": {
-          redirectToError: function (response) {
-            expect(response).to.eql(res);
-          },
-          isNotEmpty: function (endDate) {
-            return true;
-          }
-        },
-        "../../../API/contentful.js": {
-          getCourseDetails: function(cb) {
-            cb(null, expectedError);
-          }
-        }
-      });
-
-  controller.displayCartPost(req, res, null);
 
   t.end();
 });

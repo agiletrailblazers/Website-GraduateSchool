@@ -132,8 +132,8 @@
                         <th class="cart-mobile">Action</th>
                         <td class="cart-mobile">
                           <form id="cart-form-remove-course-mobile" style="display: inline;" method="post" action="/manage/cart">
-                            <input type="hidden" id="course-to-remove-mobile" name="course-to-remove-mobile" value="<%= course.id%>">
-                            <input type="hidden" id="session-to-remove-mobile" name="session-to-remove-mobile" value="<%= session["classNumber"] %>">
+                            <input type="hidden" id="course-to-remove-mobile" name="course-to-remove" value="<%= course.id%>">
+                            <input type="hidden" id="session-to-remove-mobile" name="session-to-remove" value="<%= session["classNumber"] %>">
                             <a id="cart-remove-button-mobile" href="" onclick="parentNode.submit();return false;">
                               <image id="cart-remove_image-mobile" src="/images/remove.png"></image>
                             </a>
