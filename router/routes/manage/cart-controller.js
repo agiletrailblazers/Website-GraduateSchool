@@ -44,7 +44,7 @@ module.exports = {
             course: function(callback) {
                 var courseId = cart.courseId;
                 if (!courseId) {
-                    return callback(new Error("Missing courseId parameter"));
+                    return callback(null);
                 }
 
                 logger.debug("Looking up course " + courseId + " for shopping cart");
@@ -60,7 +60,111 @@ module.exports = {
             session: function(callback) {
                 var sessionId = cart.sessionId;
                 if (!sessionId) {
-                    return callback(new Error("Missing sessionId parameter"));
+                    return callback(null);
+                }
+
+                logger.debug("Looking up course session " + sessionId + " for shopping cart");
+                courseAPI.getSession(sessionId, function (error, session) {
+                    // callback with the error, this will cause async module to stop executing remaining
+                    // functions and jump immediately to the final function, it is important to return
+                    // so that the task callback isn't called twice
+                    if (error) return callback(error);
+
+                    // Change date format in the session.
+                    session["startDate"] = session["startDate"].date('MMM DD, YYYY');
+                    if (common.isNotEmpty(session["endDate"])) {
+                        session["endDate"] = session["endDate"].date('MMM DD, YYYY');
+                    }
+                    return callback(null, session);
+                }, session.getSessionData(req, "authToken"));
+            },
+            contentfulCourseInfo: function(callback) {
+                contentfulAPI.getCourseDetails(function(contentfulCourseInfo, error) {
+                    if (error) {
+                        return callback(error, null);
+                    }
+                    else {
+                        return callback(null, contentfulCourseInfo);
+                    }
+                });
+            },
+            nextpage: function(callback) {
+                // if the user is already logged in then they should go from the cart directly into payment,
+                // if they are not logged in then they should go from the cart to login/create user
+                if (session.getSessionData(req, "userId")) {
+                    callback(null, "/manage/cart/payment");
+                }
+                else {
+                    callback(null, "/manage/user/registration_login_create");
+                }
+                return;
+            }
+        }, function(err, content) {
+            if (err) {
+                logger.error("Error rendering shopping cart", err);
+                common.redirectToError(res);
+                return;
+            }
+
+            // grab any possible error message from the session data for display
+            // this error message would have been set in session by another route
+            // before redirecting back to this route
+            var tmpError = common.isNotEmpty(cart.error) ? cart.error: null;
+
+            // now clear out the error so that it isn't re-displayed
+            cart.error = null;
+
+            res.render('manage/cart/cart', {
+                title: "Course Registration",
+                course: content.course,
+                session: content.session,
+                nextpage: content.nextpage,
+                contentfulCourseInfo: content.contentfulCourseInfo,
+                error: tmpError
+            });
+        });
+    },
+
+    displayCartPost : function(req, res, next) {
+        var formData = req.body;
+        var cart = session.getSessionData(req,"cart");
+        if (!cart) {
+            // no cart in session, initialize it
+            cart = {};
+            session.setSessionData(req, "cart", cart);
+        }
+
+        //Check if any items in the cart should be removed
+        var courseToRemove = formData["course-to-remove"] ? formData["course-to-remove"] : formData["course-to-remove-mobile"];
+        var sessionToRemove = formData["session-to-remove"] ? formData["session-to-remove"] : formData["session-to-remove-mobile"];
+        if (courseToRemove && cart.courseId == courseToRemove) {
+            cart.courseId = null;
+        }
+        if (sessionToRemove && cart.sessionId == sessionToRemove) {
+            cart.sessionId = null;
+        }
+
+        async.parallel({
+            course: function(callback) {
+                var courseId = cart.courseId;
+                if (!courseId) {
+                    return callback(null);
+                }
+
+                logger.debug("Looking up course " + courseId + " for shopping cart");
+                courseAPI.performExactCourseSearch(function(response, error, course) {
+                    // callback with the error, this will cause async module to stop executing remaining
+                    // functions and jump immediately to the final function, it is important to return
+                    // so that the task callback isn't called twice
+                    if (error) return callback(error);
+
+                    return callback(null, course);
+                }, courseId, session.getSessionData(req, "authToken"));
+            },
+            session: function(callback) {
+                var sessionId = cart.sessionId;
+                if (!sessionId) {
+                    return callback(null);
                 }
 
                 logger.debug("Looking up course session " + sessionId + " for shopping cart");

@@ -24,8 +24,9 @@
             <div id="cart">
               <div class="row nopadding">
                 <div class="col-lg-12 nopadding mobile-nopadding">
-                  <p>The following course has been added to your cart. Please check to make sure the information below is accurate before continuing.</p>
-
+                  <% if (course != null && session != null ) {%>
+                    <p>The following course has been added to your cart. Please check to make sure the information below is accurate before continuing.</p>
+                  <% } %>
                   <div id="cart-items" class="non-mobile"> <!-- start non-mobile view -->
                     <h2 class="non-mobile">Course Summary</h2>
                     <table class="table table-striped cart">
@@ -35,7 +36,9 @@
                         <th><%= contentfulCourseInfo.sessionTable[1] %></th>
                         <th><%= contentfulCourseInfo.courseDetailTitles[1] %></th>
                         <th><%= contentfulCourseInfo.sessionTable[2] %></th>
+                        <th>Action</th>
                       </tr>
+                      <% if (course != null && session != null ) {%>
                       <tr>
                         <td><a href='/courses/<%= course.code %>'><strong><%= course.title %></strong></a></td>
                         <td>
@@ -61,7 +64,21 @@
                         </td>
                         <td><%= course.type %></td>
                         <td>$<%= session["tuition"] %></td>
+                        <td>
+                          <form id="cart-form-remove-course" style="display: inline;" method="post" action="/manage/cart">
+                            <input type="hidden" id="course-to-remove" name="course-to-remove" value="<%= course.id%>">
+                            <input type="hidden" id="session-to-remove" name="session-to-remove" value="<%= session["classNumber"] %>">
+                            <a id="cart-remove-button" href="" onclick="parentNode.submit();return false;">
+                              <image id="cart-remove_image" src="/images/remove.png"></image>
+                            </a>
+                          </form>
+                        </td>
                       </tr>
+                      <% } else { %>
+                      <tr>
+                        <td colspan="6"><strong><span id="empty-cart-message">Your cart is currently empty, click <a id='empty-cart-search-link' href='/search'>here</a> to search for courses.</span></strong></td>
+                      </tr>
+                      <% }%>
                     </table>
                   </div> <!--END cart-items non-mobile view-->
 
@@ -71,6 +88,7 @@
                         <tr>
                           <th class="header-mobile" colspan="2">Course Summary</th>
                         </tr>
+                        <% if (course != null && session != null ) {%>
                       <tr>
                         <th class="cart-mobile">Course</th>
                         <td class="cart-mobile"><a href='/courses/<%= course.code %>'><strong><%= course.title %></strong></a></td>
@@ -110,6 +128,24 @@
                         <th class="cart-mobile"><%= contentfulCourseInfo.sessionTable[2] %></th>
                         <td class="cart-mobile">$<%= session["tuition"] %></td>
                       </tr>
+                      <tr>
+                        <th class="cart-mobile">Action</th>
+                        <td class="cart-mobile">
+                          <form id="cart-form-remove-course-mobile" style="display: inline;" method="post" action="/manage/cart">
+                            <input type="hidden" id="course-to-remove-mobile" name="course-to-remove-mobile" value="<%= course.id%>">
+                            <input type="hidden" id="session-to-remove-mobile" name="session-to-remove-mobile" value="<%= session["classNumber"] %>">
+                            <a id="cart-remove-button-mobile" href="" onclick="parentNode.submit();return false;">
+                              <image id="cart-remove_image-mobile" src="/images/remove.png"></image>
+                            </a>
+                          </form>
+                        </td>
+                      </tr>
+                        <% } else { %>
+                        <tr>
+                          <td class="cart-mobile" colspan="2"><strong>
+                              <span id="empty-cart-message-mobile">Your cart is currently empty, click <a id='empty-cart-search-link-mobile' href='/search'>here</a> to search for courses.</span></strong></td>
+                        </tr>
+                        <% } %>
                     </table>
                     </div>
                     <div class="spacer10 mobile"></div>
@@ -122,7 +158,9 @@
                   <button id="cart-form-cancel-registration-submit" type="submit" tabindex="11">Cancel</button>
                 </form>
                 <form id="cart-form" role="form" method="get" style="display: inline;" action="<%= nextpage %>">
+                  <% if (course != null && session != null ) {%>
                   <button id="cart-form-continue" type="submit" tabindex="10" class="red">Continue <span class="glyphicon glyphicon-chevron-right white-icon"></span></button>
+                  <% } %>
                 </form> <!--END cart-form -->
               </div> <!--END buttons-->
             </div>  <!-- END cart -->
