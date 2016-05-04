@@ -44,7 +44,7 @@ module.exports = {
             course: function(callback) {
                 var courseId = cart.courseId;
                 if (!courseId) {
-                    return callback(new Error("Missing courseId parameter"));
+                    return callback(null);
                 }
 
                 logger.debug("Looking up course " + courseId + " for shopping cart");
@@ -60,7 +60,7 @@ module.exports = {
             session: function(callback) {
                 var sessionId = cart.sessionId;
                 if (!sessionId) {
-                    return callback(new Error("Missing sessionId parameter"));
+                    return callback(null);
                 }
 
                 logger.debug("Looking up course session " + sessionId + " for shopping cart");
@@ -123,6 +123,27 @@ module.exports = {
                 error: tmpError
             });
         });
+    },
+
+    updateCart : function(req, res, next) {
+        var formData = req.body;
+        var cart = session.getSessionData(req,"cart");
+        if (!cart) {
+            // no cart in session, initialize it
+            cart = {};
+            session.setSessionData(req, "cart", cart);
+        }
+
+        //Check if any items in the cart should be removed
+        var courseToRemove = formData["course-to-remove"];
+        var sessionToRemove = formData["session-to-remove"];
+        if (courseToRemove && cart.courseId == courseToRemove) {
+            cart.courseId = null;
+        }
+        if (sessionToRemove && cart.sessionId == sessionToRemove) {
+            cart.sessionId = null;
+        }
+        res.redirect('/manage/cart');
     },
 
     // Display the payment page.  All necessary information about the cart must be in the session data.

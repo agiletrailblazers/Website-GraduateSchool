@@ -84,6 +84,43 @@ test('displayCart', function(t) {
   t.end();
 });
 
+test('displayCart handles empty cart', function(t) {
+
+  var res = {};
+  var sessionData = { authToken : authToken};
+  var req = {
+    query : {},
+    session : {
+      sessionData : sessionData
+    }
+  };
+
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/cart-controller.js',
+      {
+        "../../../API/contentful.js": {
+          getCourseDetails: function(cb) {
+            cb(contentfulCourseInfo, null);
+          }
+        }
+      });
+
+  res.render = function(page, content) {
+    expect(page).to.eql('manage/cart/cart');
+    expect(content.title).to.eql('Course Registration');
+    expect(content.course).to.be.an('undefined');
+    expect(content.session).to.be.an('undefined');
+    expect(content.nextpage).to.eql("/manage/user/registration_login_create");
+    expect(content.contentfulCourseInfo).to.eql(contentfulCourseInfo);
+    expect(content.error).to.eql(null);
+  };
+
+  controller.displayCart(req, res, null);
+
+  t.end();
+});
+
 test('displayCart with already registered error ', function(t) {
   var expectedRegExistsError = 'User already registered for session';
   var res = {};
@@ -226,6 +263,42 @@ test('displayCart handles get contentful error', function(t) {
       });
 
   controller.displayCart(req, res, null);
+
+  t.end();
+});
+
+test('updateCart removes course from session', function(t) {
+  var res = {};
+  res.redirect = function(page) {
+    expect(page).to.eql('/manage/cart');
+  };
+  var expCourseId = "course12345";
+  var expSessionId = "session12345";
+
+  var sessionData = {
+    authToken: authToken,
+    cart: {
+      courseId: expCourseId,
+      sessionId: expSessionId
+    }
+  };
+  var req = {
+    body : {
+      "course-to-remove" : expCourseId,
+      "session-to-remove" : expSessionId
+    },
+    session : {
+      sessionData : sessionData
+    }
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/cart-controller.js', {});
+
+  controller.updateCart(req, res, null);
+
+  expect(req.session.sessionData.cart.courseId).to.eql(null);
+  expect(req.session.sessionData.cart.sessionId).to.eql(null);
 
   t.end();
 });

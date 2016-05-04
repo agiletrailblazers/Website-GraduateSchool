@@ -47,6 +47,7 @@ module.exports = function (app) {
 
         // cart routes
         app.use('/', router.get('/manage/cart', cartController.displayCart));
+        app.use('/', router.post('/manage/cart', cartController.updateCart));
         app.use('/', router.get('/manage/cart/payment', cartController.displayPayment));
         app.use('/', router.post('/manage/cart/payment/cancel', cartController.cancelPayment));
         app.use('/', router.post('/manage/cart/payment/confirm', cartController.confirmPayment));
