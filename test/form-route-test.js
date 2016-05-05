@@ -5,6 +5,21 @@ var nock = require('nock');
 var should = require("should");
 var test = require('tap').test;
 var config = require('konphyg')(__dirname + "/../config");
+var temp = require('temp').track();
+var request = require('request');
+var cachedRequest = require('cached-request')(request);
+var proxyquire = require('proxyquire');
+cacheDir = temp.mkdirSync("cache");
+cachedRequest.setCacheDirectory(cacheDir);
+var contentful = proxyquire('../API/contentful.js',
+  {
+    "../helpers/common.js": {
+      setCacheDirectory: function (cachedRequestParam) {
+        return cachedRequest;
+      }
+    }
+  });
+
 
 test('form route test for inquiry form', function (t) {
   var contentfulformServer = nock('https://cdn.contentful.com', {

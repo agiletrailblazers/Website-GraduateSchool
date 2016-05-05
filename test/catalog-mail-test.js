@@ -6,6 +6,21 @@ var nock = require('nock');
 
 var config = require('konphyg')(__dirname + "/../config");
 var test = require('tap').test;
+var temp = require('temp').track();
+var request = require('request');
+var cachedRequest = require('cached-request')(request);
+var proxyquire = require('proxyquire');
+cacheDir = temp.mkdirSync("cache");
+cachedRequest.setCacheDirectory(cacheDir);
+var contentful = proxyquire('../API/contentful.js',
+  {
+    "../helpers/common.js": {
+      setCacheDirectory: function (cachedRequestParam) {
+        return cachedRequest;
+      }
+    }
+  });
+
 
 test('test for catalog download', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
