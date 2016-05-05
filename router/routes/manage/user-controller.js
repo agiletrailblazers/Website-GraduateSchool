@@ -429,7 +429,7 @@ module.exports = {
       common.redirectToError(res);
       return;
     }
-    var tabToShow = tab = (typeof(req.query["tab"])!='undefined' ? req.query["tab"] : "my-profile");
+    var tabToShow = (typeof(req.query["tab"])!='undefined' ? req.query["tab"] : "my-profile");
     logger.debug("Displaying MyAccount page with tab " + tabToShow);
 
     res.render('manage/user/account', {
