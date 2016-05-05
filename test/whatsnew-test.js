@@ -38,6 +38,25 @@ test('what new page testcase 1', function(t) {
   t.end();
 });
 
+test('what new page testcase 2', function(t) {
+  var contentfulServer = nock('https://cdn.contentful.com', {
+    reqheaders: {
+      'Authorization': config("properties").spaces.main.authorization
+    }
+  }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries/4QlvJ0GeQw4AY2QOq8SUMY')
+    .reply(500, {
+      sidebarHeader: 'http://graduateschool.edu/images/whats_new_success.jpg',
+      sidebarTitle: 'LET US WORK WITH YOU TO ACHIEVE GREAT RESULTS. SEE WHAT SOME OF OUR CLIENTS HAVE TO SAY:',
+    });
+  contentfulServer;
+  contentful.getWhatsNew(function(response){
+    var badStatus = 500;
+    expect(response.statusCode).to.equal(badStatus);
+
+  });
+  t.end();
+});
+
 test('what new page testcase 3', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
     reqheaders: {
