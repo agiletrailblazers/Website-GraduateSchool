@@ -4,8 +4,11 @@ var config = require('konphyg')(__dirname + "/../config");
 var common = require("../helpers/common.js");
 var request = require('request');
 
-var cachedRequest = require('cached-request')(request);
-cachedRequest =  common.setCacheDirectoryAndTimeOut(cachedRequest);
+var cachedRequest = request;
+if (config("properties").contentfulCache.turnOn) {
+  cachedRequest = require('cached-request')(request);
+  cachedRequest =  common.setCacheDirectoryAndTimeOut(cachedRequest);
+}
 
 module.exports = {
   getInquiryForm: function(callback) {

@@ -130,6 +130,7 @@
     },
 
     "contentfulCache" : {
+      "turnOn":true,
       "location":"/tmp/cache",
       "timeout":180000
     }

@@ -3,8 +3,11 @@ var request = require('request');
 var logger = require('../logger');
 var common = require("../helpers/common.js");
 
-var cachedRequest = require('cached-request')(request);
-cachedRequest =  common.setCacheDirectoryAndTimeOut(cachedRequest);
+var cachedRequest = request;
+if (config("properties").contentfulCache.turnOn) {
+  cachedRequest = require('cached-request')(request);
+  cachedRequest =  common.setCacheDirectoryAndTimeOut(cachedRequest);
+}
 
 module.exports = {
 
