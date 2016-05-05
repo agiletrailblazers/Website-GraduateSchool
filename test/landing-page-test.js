@@ -1,7 +1,6 @@
 var nock = require('nock');
 var chai = require('chai');
 var expect = chai.expect;
-var contentful = require('../API/contentful.js');
 var test = require('tap').test;
 var config = require('konphyg')(__dirname + "/../config");
 var temp = require('temp').track();

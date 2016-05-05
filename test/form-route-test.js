@@ -1,6 +1,5 @@
 var chai = require('chai');
 var expect = require('chai').expect;
-var contentful_forms = require("../API/contentful_forms.js");
 var nock = require('nock');
 var should = require("should");
 var test = require('tap').test;
@@ -11,7 +10,7 @@ var cachedRequest = require('cached-request')(request);
 var proxyquire = require('proxyquire');
 cacheDir = temp.mkdirSync("cache");
 cachedRequest.setCacheDirectory(cacheDir);
-var contentful = proxyquire('../API/contentful.js',
+var contentful_forms = proxyquire('../API/contentful_forms.js',
   {
     "../helpers/common.js": {
       setCacheDirectory: function (cachedRequestParam) {

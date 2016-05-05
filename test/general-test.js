@@ -1,6 +1,5 @@
 var chai = require('chai');
 var expect = require('chai').expect;
-var contentful = require("../API/contentful.js");
 var nock = require('nock');
 var should = require("should");
 var test = require('tap').test;

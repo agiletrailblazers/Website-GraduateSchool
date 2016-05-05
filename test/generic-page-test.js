@@ -1,9 +1,22 @@
 var nock = require('nock');
 var chai = require('chai');
 var expect = chai.expect;
-var contentful = require('../API/contentful.js');
 var test = require('tap').test;
 var config = require('konphyg')(__dirname + "/../config");
+var temp = require('temp').track();
+var request = require('request');
+var cachedRequest = require('cached-request')(request);
+var proxyquire = require('proxyquire');
+cacheDir = temp.mkdirSync("cache");
+cachedRequest.setCacheDirectory(cacheDir);
+var contentful = proxyquire('../API/contentful.js',
+  {
+    "../helpers/common.js": {
+      setCacheDirectory: function (cachedRequestParam) {
+        return cachedRequest;
+      }
+    }
+  });
 
 test('generic-page:financial-aid:success', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
