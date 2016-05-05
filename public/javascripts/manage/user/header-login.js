@@ -60,13 +60,13 @@ $(document).ready(function(){
         }
     }).click(function() {
       $('.popover').css({
-        "left":"0",
-	       "max-width":"100%",
-         "width":"100%"
+          "left":"0",
+          "max-width":"100%",
+          "width":"100%"
       });
       $('.arrow').css({
-        "left":"unset",
-	       "right":"55px"
+          "left":"unset",
+          "right":"55px"
       });
     });
 

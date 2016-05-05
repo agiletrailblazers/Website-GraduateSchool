@@ -8,8 +8,8 @@
                 </a>
             </div>
             <div class="col-lg-5 col-md-6 col-sm-7 col-xs-4 right-menu">
-              <% if (userRouteEnabled === true){
-              if (typeof userFirstName === 'string' && userFirstName != ""){%>
+              <% if (typeof userFirstName === 'string' && userFirstName != ""){%>
+                <!-- LoggedBox when user is logged in - Desktop -->
                 <div class="non-mobile">
                   <div class="center">
                     <span id="loggedLabel" class="login"><img src="/images/h_cart_circle.png" alt="" /> <%=userFirstName%> </span><img style="display:none;" id="dropdown-arrow" src="/images/h_arrow_down.png" alt="" />
@@ -41,9 +41,9 @@
                     <span class="menutext">Login</span>
                   </a>
                 </div>
-              <% }
-              }%>
+              <% } %>
             </div>
+            <!-- Includes Login popover content and LoggedBox Dropdown for Mobile -->
             <% include ../partials/login_widget %>
         </header>
     </div> <!-- END Row -->
