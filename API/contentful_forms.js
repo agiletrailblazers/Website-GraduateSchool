@@ -5,7 +5,7 @@ var common = require("../helpers/common.js");
 var request = require('request');
 
 var cachedRequest = require('cached-request')(request);
-cachedRequest =  common.setCacheDirectory(cachedRequest);
+cachedRequest =  common.setCacheDirectoryAndTimeOut(cachedRequest);
 
 module.exports = {
   getInquiryForm: function(callback) {
@@ -13,7 +13,6 @@ module.exports = {
     cachedRequest({
       method: 'GET',
       url: targetURL,
-      ttl: config("properties").contentfulCache.timeout,
       headers: {
         'Authorization': config("properties").spaces.main.authorization
       }
@@ -31,7 +30,6 @@ module.exports = {
     cachedRequest({
       method: 'GET',
       url: targetURL,
-      ttl: config("properties").contentfulCache.timeout,
       headers: {
         'Authorization':  config("properties").spaces.main.authorization
       }
@@ -49,7 +47,6 @@ module.exports = {
     cachedRequest({
       method: 'GET',
       url: targetURL,
-      ttl: config("properties").contentfulCache.timeout,
       headers: {
         'Authorization': config("properties").spaces.main.authorization
       }

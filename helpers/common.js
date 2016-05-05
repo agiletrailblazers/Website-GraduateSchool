@@ -60,13 +60,14 @@ redirectToError = function (res) {
   res.end();
 };
 
-setCacheDirectory =  function(cachedRequest) {
+setCacheDirectoryAndTimeOut =  function(cachedRequest) {
   cachedRequest.setCacheDirectory(config("properties").contentfulCache.location);
+  cachedRequest.set('ttl', config("properties").contentfulCache.timeout);
   return(cachedRequest);
 }
 
 module.exports = {
-  setCacheDirectory: setCacheDirectory,
+  setCacheDirectoryAndTimeOut: setCacheDirectoryAndTimeOut,
   isNotEmpty: isNotEmpty,
   isEmpty: isEmpty,
   isNotEmptyOrAll: isNotEmptyOrAll,

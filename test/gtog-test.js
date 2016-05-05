@@ -18,7 +18,7 @@ cachedRequest.setCacheDirectory(cacheDir);
 var contentful = proxyquire('../API/contentful.js',
   {
     "../helpers/common.js": {
-      setCacheDirectory: function (cachedRequestParam) {
+      setCacheDirectoryAndTimeOut: function (cachedRequestParam) {
         return cachedRequest;
       }
     }

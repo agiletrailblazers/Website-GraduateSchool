@@ -13,7 +13,7 @@ cachedRequest.setCacheDirectory(cacheDir);
 var contentful_forms = proxyquire('../API/contentful_forms.js',
   {
     "../helpers/common.js": {
-      setCacheDirectory: function (cachedRequestParam) {
+      setCacheDirectoryAndTimeOut: function (cachedRequestParam) {
         return cachedRequest;
       }
     }
