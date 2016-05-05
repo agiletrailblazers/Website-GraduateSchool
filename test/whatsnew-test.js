@@ -14,7 +14,7 @@ cachedRequest.setCacheDirectory(cacheDir);
 var contentful = proxyquire('../API/contentful.js',
   {
     "../helpers/common.js": {
-      setCacheDirectory: function (cachedRequestParam) {
+      setCacheDirectoryAndTimeOut: function (cachedRequestParam) {
         return cachedRequest;
       }
     }
@@ -34,6 +34,25 @@ test('what new page testcase 1', function(t) {
   contentful.getWhatsNew(function(response){
     var goodStatus = 200;
     expect(response.statusCode).to.equal(goodStatus);
+  });
+  t.end();
+});
+
+test('what new page testcase 2', function(t) {
+  var contentfulServer = nock('https://cdn.contentful.com', {
+    reqheaders: {
+      'Authorization': config("properties").spaces.main.authorization
+    }
+  }).get('/spaces/'+config("properties").spaces.main.spaceId+'/entries/4QlvJ0GeQw4AY2QOq8SUMY')
+    .reply(500, {
+      sidebarHeader: 'http://graduateschool.edu/images/whats_new_success.jpg',
+      sidebarTitle: 'LET US WORK WITH YOU TO ACHIEVE GREAT RESULTS. SEE WHAT SOME OF OUR CLIENTS HAVE TO SAY:',
+    });
+  contentfulServer;
+  contentful.getWhatsNew(function(response){
+    var badStatus = 500;
+    expect(response.statusCode).to.equal(badStatus);
+
   });
   t.end();
 });
