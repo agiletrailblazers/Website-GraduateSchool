@@ -5,7 +5,7 @@ var common = require("../helpers/common.js");
 var request = require('request');
 
 var cachedRequest = require('cached-request')(request);
-cachedRequest.setCacheDirectory(config("properties").contentfulCache.location);
+cachedRequest =  common.setCacheDirectory(cachedRequest);
 
 module.exports = {
   getInquiryForm: function(callback) {

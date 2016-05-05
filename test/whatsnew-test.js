@@ -1,6 +1,5 @@
 var chai = require('chai');
 var expect = require('chai').expect;
-var contentful = require("../API/contentful.js");
 var nock = require('nock');
 var should = require("should");
 var test = require('tap').test;
@@ -15,7 +14,7 @@ cachedRequest.setCacheDirectory(cacheDir);
 var contentful = proxyquire('../API/contentful.js',
   {
     "../helpers/common.js": {
-      setCachedDirectory: function (cachedRequest) {
+      setCacheDirectory: function (cachedRequestParam) {
         return cachedRequest;
       }
     }

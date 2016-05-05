@@ -60,13 +60,13 @@ redirectToError = function (res) {
   res.end();
 };
 
-setCachedDirectory =  function(cachedRequest) {
+setCacheDirectory =  function(cachedRequest) {
   cachedRequest.setCacheDirectory(config("properties").contentfulCache.location);
   return(cachedRequest);
 }
 
 module.exports = {
-  setCachedDirectory,setCachedDirectory,
+  setCacheDirectory: setCacheDirectory,
   isNotEmpty: isNotEmpty,
   isEmpty: isEmpty,
   isNotEmptyOrAll: isNotEmptyOrAll,

@@ -1,17 +1,15 @@
 var config = require('konphyg')(__dirname + '/../config');
 var request = require('request');
-var cachedRequest = require('cached-request')(request);
 var logger = require('../logger');
 var common = require("../helpers/common.js");
 
-
-
+var cachedRequest = require('cached-request')(request);
+cachedRequest =  common.setCacheDirectory(cachedRequest);
 
 module.exports = {
 
   getWhatsNew: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/4QlvJ0GeQw4AY2QOq8SUMY';
-    cachedRequest =  common.setCachedDirectory(cachedRequest);
     cachedRequest({
       method: 'GET',
       url: targetURL,
