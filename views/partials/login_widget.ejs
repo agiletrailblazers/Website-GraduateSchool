@@ -1,0 +1,53 @@
+<!-- Content of dropdown for mobile/Popover -->
+<div id="login-box">
+    <div id="header-login-content" class="hide">
+      <div id="gs-alert-header-error" class="alert alert-danger" role="alert" style="display:none;">
+        <span id="gs-alert-header-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"> </span>
+        <p></p>
+      </div>
+      <div id="header-login-section" class="row">
+          <form id="header-login-form" role="form">
+            <div id="header-form-wrap">
+              <div>
+                <span class="form-group">
+                  <input type="email" id="header-username" name="username" class="form-control" size="50" placeholder="Email">
+                  <div class="spacer10"></div>
+                  <input type="password" id="header-credentials" name="password" class="form-control" placeholder="Password">
+                </span>
+              </div>
+              <div id="forgot-password-wrap">
+                <a href="/manage/user/password/forgot">Forgot your password?</a>
+              </div>
+              <div id="header-buttons">
+                <button id="header-login-submit" type="button" class="pull-right">Log In</button>
+              </div>
+            </div>
+          </form>
+      </div>
+      <div id="header-create-account-section">
+        <form id="heade-create-account-form" role="form" method="post" action="/manage/user/create">
+          <% if (nextPageAfterCreateUser) { %>
+            <input type=hidden id="nextpage_after_create" name="nextpage_after_create" value="<%= nextPageAfterCreateUser %>"/>
+          <% } %>
+          <button id="create-user-header-link" class="btn btn-link" type="submit"><img src="/images/h_new_account_white.png" alt="" /> Create a new account</button>
+        </form>
+      </div>
+  </div>
+</div>
+
+<!-- Content of LoggedBox dropdown when user is logged in - Mobile-->
+<div class="arrow-up-mobile" style="display:none;"></div>
+<div id="logged-box">
+  <div id="login-sub-menu-mob">
+    <div class="row padding0">
+      <span>Welcome, <%=userFirstName%>!</span>
+        <div class="">
+          <ul class="logged-menu-mobile">
+            <li><a id="viewCartButtonMob" href="#"><img src="/images/h_cart_white.png" alt="" /> View Cart</a></li>
+            <li><a id="myProfileButtonMob" href="#"><img src="/images/h_my_profile_white.png" alt="" /> My Profile</a></li>
+            <li><a id="logoutButtonMob" href="/manage/user/logout"><img src="/images/h_logout_white.png" alt="" /> Log Out</a></li>
+          </ul>
+        </div>
+    </div>
+  </div>
+</div>

@@ -44,12 +44,36 @@ $(document).ready(function(){
         $("#header-login-popover").find("#gs-alert-header-error").slideUp();
     });
 
-    $('[data-toggle="popover"]').popover({
+    //Login Popovers for Desktop Login buttons - slim and regular header
+    $("#login-non-mob-slim, #login-non-mob").popover({
         html: true,
         content: function() {
             return "<div id='header-login-popover'>" + $('#header-login-content').html() + "</div>";
         }
     });
 
-});
+    //Login Popover for Mobile Login button
+    $("#login-mob").popover({
+        html: true,
+        content: function() {
+            return "<div id='header-login-popover'>" + $('#header-login-content').html() + "</div>";
+        }
+    }).click(function() {
+      $('.popover').css({
+          "left":"0",
+          "max-width":"100%",
+          "width":"100%"
+      });
+      $('.arrow').css({
+          "left":"unset",
+          "right":"55px"
+      });
+    });
 
+    //Displays Logged Box for MyAccount button on mobile
+    $("#login-mob-logged").click(function() {
+        $("#logged-box").toggle();
+        $(".arrow-up-mobile").toggle();
+    });
+
+});

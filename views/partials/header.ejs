@@ -2,8 +2,6 @@
 
 <!--  Top Nav -->
 <% include ../partials/nav_top %>
-<script type="text/javascript" src="/javascripts/manage/user/header-login.js"></script>
-<link rel="stylesheet" href="/stylesheets/header-login.css" />
 <!--  END Top Nav -->
 
 <!-- set session timeout and user id, used for browser side session timeout warning (only if authenticated session) -->
@@ -55,7 +53,7 @@
 										<a id="logoutButtonMob" href="/manage/user/logout"><span class="inline-block header-menu-text">Logout</span></a>
 									</div>
 								<% } else { %>
-									<div class="inline-block"><a id="loginNonMob" href="#" data-toggle="popover" data-placement="bottom" data-container="body" type="button" data-html="true" ><span class="inline-block"></span><span class="inline-block header-menu-text">Login</span></a></div>
+									<div class="inline-block"><a id="login-non-mob" href="#" href="#" data-toggle="popover" data-placement="bottom" data-container="body" type="button" data-html="true"><span class="inline-block"></span><span class="inline-block header-menu-text">Login</span></a></div>
 								<% }
 								}%>
 								<div class="inline-block"><a id="gsaNonMob" href="/content/gsa"><span class="inline-block"><img src="/images/gsa-contract-icon.png" alt="" /></span><span class="inline-block header-menu-text">Contract<br>Holder</span></a></div>
@@ -64,42 +62,8 @@
 							</div>
 						</div>
 
-						<!-- This is the content of the popover -->
-						<div id="header-login-content" class="hide">
-							<div id="gs-alert-header-error" class="alert alert-danger" role="alert" style="display:none;">
-								<span id="gs-alert-header-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"> </span>
-								<p></p>
-							</div>
-							<div id="header-login-section" class="row">
-									<form id="header-login-form" role="form">
-										<div id="header-form-wrap">
-											<div>
-												<span class="form-group">
-												  <input type="email" id="header-username" name="username" class="form-control" size="50" placeholder="Email">
-												  <div class="spacer10"></div>
-												  <input type="password" id="header-credentials" name="password" class="form-control" placeholder="Password">
-												</span>
-											</div>
-											<div id="forgot-password-wrap">
-												<a href="/manage/user/password/forgot">Forgot your password?</a>
-											</div>
-											<div id="header-buttons">
-												<button id="header-login-submit" type="button" class="pull-right">Log In</button>
-											</div>
-										</div>
-									</form>
-							</div>
+						<% include ../partials/login_widget %>
 
-							<div id="header-create-account-section">
-								<form id="heade-create-account-form" role="form" method="post" action="/manage/user/create">
-									<% if (nextPageAfterCreateUser) { %>
-										<input type=hidden id="nextpage_after_create" name="nextpage_after_create" value="<%= nextPageAfterCreateUser %>"/>
-									<% } %>
-									<button id="create-user-header-link" class="btn btn-link" type="submit">Create a new account</button>
-								</form>
-							</div>
-						</div>
-						<!-- End content of popover -->
 
 						<div class="col-lg-<%= userRouteEnabled === true ? "4" : "5"%> col-md-<%= userRouteEnabled === true ? "4" : "5"%>">
 							<div class="wrapper">

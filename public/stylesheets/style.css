@@ -699,13 +699,13 @@ table.generic td {
   z-index: 22;
 }
 
-
 /* HEADER  */
 .header {
   background-color: #FFFFFF;
   padding-top: 18px;
   padding-bottom: 17px;
 }
+
 
 header {
   margin-top: -10px;
@@ -748,7 +748,228 @@ ul.customer-support li a:hover {
 
 }
 
+/* Slim HEADER  */
+.headerslim {
+    position: relative;
+    background-color: #FFFFFF;
+    padding-top: 20px;
+    padding-bottom: 17px;
+}
 
+.headerslim #gs-logo img {
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+
+.title-divider {
+  border-top: 1px solid #DDD;
+  height: 1px !important;
+}
+
+h1.header-title {
+  color: #666666;
+  font-size: 25px;
+  font-weight: normal;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+a.back-to-homepage {
+  color: #337AB7;
+  text-decoration: underline;
+  font-weight: normal;
+  font-size: 16px;
+  margin: 15px 0;
+  text-align: right;
+  display: block;
+}
+
+a.back-to-homepage:hover {
+  color: #000;
+}
+
+.nav-top-slim {
+   border-bottom: 2px solid #01274F;
+ }
+
+a.login {
+  font-weight: normal;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.login-sub-menu {
+  position: relative;
+  border-top: 1px solid #DDD;
+  top: 15px;
+}
+
+.login-sub-menu ul {
+  display: block;
+  list-style: none;
+  margin: 0px 15px;
+  padding: 0 !important;
+  text-align: center;
+
+}
+
+.login-sub-menu ul li {
+  display: inline-block;
+  padding: 5px 15px;
+}
+
+.login-sub-menu ul li a {
+  font-weight: normal !important;
+}
+
+.arrow-up {
+  top: -10px;
+  position: relative;
+  left: 50%;
+}
+
+.arrow-up {
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+
+	border-bottom: 10px solid #DDD;
+}
+
+.login-mobile {
+vertical-align: bottom;
+  margin-right: 20px;
+}
+
+.login-mobile {
+  background: transparent;
+  border: 2px solid #EEEEEE !important;
+  width: 50px;
+  height: 50px;
+  text-indent: 0;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  display: block;
+  float: right;
+  clear: both;
+  font-size: 10px;
+  vertical-align: baseline;
+  padding: 0;
+}
+
+.login-mobile:hover, .login-mobile:active, .login-mobile:focus {
+  border: 2px solid #AAA !important;
+}
+
+.login-mobile span.block {
+  padding: 2px 0 !important;
+}
+
+.login-mobile span.icon {
+  padding-top: 4px !important;
+}
+
+.logged span.icon {
+  padding: 0 !important;
+}
+
+.logged span.menutext > span {
+  position: relative;
+  top: -3px;
+}
+
+.logged span.menutext > span.account {
+  position: relative;
+  top: -4px;
+}
+
+.logged span.menutext {
+    position: relative;
+    text-align: center;
+    top: 0;
+    left: 0;
+    color: #07325A;
+    line-height: 8px;
+}
+
+.login-mobile .menutext {
+  font-weight: normal;
+}
+
+#header-login-content {
+  width: 100%;
+  margin: 10px auto;
+}
+
+#logged-box #header-login-content {
+  width: 75%;
+}
+
+#login-box, #logged-box {
+  display: none;
+  position: absolute;
+  overflow-x: hidden;
+  width: 100%;
+  height: auto;
+  top: 54px;
+  background-color: #5293C6;
+  z-index: 999;
+  padding: 30px 3%;
+}
+
+#login-box {
+width: 300px;
+right: 85px;
+}
+
+#login-box a, #logged-box a, #login-box button, #logged-box button, #logged-box span {
+  color: #FFF;
+  font-weight: normal;
+}
+
+#login-box a:hover, #logged-box a:hover, #login-box button:hover, #logged-box button:hover {
+  color: #000;
+  font-weight: normal;
+}
+
+.arrow-up-mobile {
+  top: 42px;
+  position: absolute;
+  right: 220px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid #DDD;
+  z-index: 999;
+}
+
+
+ul.logged-menu-mobile {
+  list-style: none;
+  margin: 25px 0 0 0;
+  padding: 0;
+  text-align: center;
+}
+
+ul.logged-menu-mobile li {
+  padding: 15px;
+}
+
+ul.logged-menu-mobile li + li {
+  border-top: 1px solid #DDD;
+}
+
+span#loggedLabel {
+  color: #337AB7;
+}
+
+#gs-alert-header-remove {
+  cursor: pointer;
+}
 
 /*  SEARCH  */
 #search-form {
@@ -2421,6 +2642,10 @@ ul.see-more li {
   height: 25px !important;
 }
 
+.spacer40 {
+  height: 40px !important;
+}
+
 .spacer60 {
   height: 60px !important;
 }
@@ -2471,4 +2696,3 @@ ul.see-more li {
     font-weight: 300 !important;
     color: #FFF !important;
 }
-
