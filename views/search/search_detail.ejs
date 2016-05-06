@@ -11,7 +11,7 @@
   <div class="col-lg-9 col-md-8 col-sm-8">
     <div class="row tabs">
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding">
-          <div id="searchResults">
+          <div id="tabContainer">
             <ul class="nav nav-tabs">
               <li class="<%= (params.tab == 'course') ? 'active' : '' %>">
                 <a data-toggle="tab" href="#course-search-results" data-tab="course" class="<%= (courseResult && courseResult.numFound > 0) ? '' : 'disabled' %>mob-tab"><span class="tab-fix"> <img src="../images/course-icon.png" alt=""> Courses  <span class="badge"><%= (courseResult && courseResult.numFound) ? courseResult.numFound : 0 %></span></span></a>
