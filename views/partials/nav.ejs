@@ -34,6 +34,25 @@
 			  <li><a href="/search" target='_self' id="registerbuttonMob">Register</a></li>
 					 </ul>
 			 </div><!-- END MOBILE MENU -->
+
+			 <div id="main-header" class="mobile">
+			 	<% if (typeof userFirstName === 'string' && userFirstName != ""){%>
+			 		<div>
+			 			<a href="#" class="login-mobile login-mobile-full logged" id="login-mob-logged-full" href="#">
+			 				<span class="block icon"><img src="/images/h_login_icon_small.png" alt="" /></span>
+			 				<span class="menutext"><span class="block">My</span><span class="block account">Account</span></span>
+			 			</a>
+			 		</div>
+			 	<% } else { %>
+			 		<div>
+			 			<a href="#" class="login-mobile login-mobile-full" id="login-mob-full" href="#" data-toggle="popover" data-placement="bottom" data-container="body" type="button" data-html="true">
+			 				<span class="block icon"><img src="/images/h_login_icon_big.png" alt="" /></span>
+			 				<span class="menutext">Login</span>
+			 			</a>
+			 		</div>
+			 	<% } %>
+			 </div>
+
 		</div>
 	</div>
 	<div class="row padding non-mobile mob-rem">

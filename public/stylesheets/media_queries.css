@@ -829,10 +829,24 @@
         padding: 0px 20px !important;
       }
 
+
+      .logged-box-full {
+        top: 155px !important;
+      }
+
+      .arrow-up-mobile-full {
+        top: 145px !important;
+      }
+
     }
 
     /* Custom */
     @media only screen and (max-width : 400px) {
+      .logo-mob {
+        width: 90%;
+        top: 8px;
+        position: relative;
+      }
 
       #login-box, #logged-box {
         top: 95px;
@@ -845,10 +859,23 @@
         top: 83px;
       }
 
+      .logged-box-full {
+        top: 135px !important;
+      }
+
+      .arrow-up-mobile-full {
+        top: 125px !important;
+      }
+
     }
 
     /* Custom, iPhone Retina */
     @media only screen and (max-width : 320px) {
+      .logo-mob {
+        width: 90%;
+        top: 8px;
+        position: relative;
+      }
 
       #login-box, #logged-box {
         top: 90px;
@@ -859,6 +886,14 @@
 
       .arrow-up-mobile {
         top: 78px;
+      }
+
+      .logged-box-full {
+        top: 135px !important;
+      }
+
+      .arrow-up-mobile-full {
+        top: 125px !important;
       }
 
     }
