@@ -787,9 +787,8 @@ test('get registrations success has reg details', function(t) {
         }
     ];
 
-    //test a 200 ok
     var server = nock(apiServer, {
-        reqheaders: {
+        headers: {
             'Authorization': authToken
         }
     })
@@ -812,7 +811,7 @@ test('get registrations success has reg details', function(t) {
         expect(retrievedRegistrationDetails[0].address.postalCode).to.eql("12345");
         expect(retrievedRegistrationDetails[0].type).to.eql("CLASSROOM");
         expect(retrievedRegistrationDetails).to.eql(regDetailsList);
-    }, authToken);
+    });
     t.end();
 });
 
@@ -831,14 +830,11 @@ test('get registrations handles error', function(t) {
             }
         });
 
-    var req = {}
-
-    var startDateTime = ((new Date().getTime()) - 86400000).toString();
-    var endDateTime = ((new Date().getTime()) + 86400000).toString();
+    var req = {};
 
     //test a 200 ok
     var server = nock(apiServer, {
-        reqheaders: {
+        headers: {
             'Authorization': authToken
         }
     })
@@ -851,6 +847,48 @@ test('get registrations handles error', function(t) {
         server.done();
         expect(error).to.not.be.null;
         expect(error.message).to.eq("Exception occurred getting user registrations");
-    }, authToken);
+    });
+    t.end();
+});
+
+test('get registrations handles error no user ID', function(t) {
+    var proxiedUser = proxyquire('../API/manage/user-api.js',
+        {
+            "./session-api.js": {
+                getSessionData: function (req, key) {
+                    expect(key).to.eql("authToken");
+                    return "token1234";
+                }
+            }
+        });
+
+    var req = {};
+
+    proxiedUser.getUserRegistrations(req, null, function(error, retrievedRegistrationDetails) {
+        expect(error).to.not.be.null;
+        expect(error.message).to.eq("User ID cannot be empty");
+    });
+    t.end();
+});
+
+test('get registrations handles error no auth Token', function(t) {
+    var userId = 'persn00000012345';
+
+    var proxiedUser = proxyquire('../API/manage/user-api.js',
+        {
+            "./session-api.js": {
+                getSessionData: function (req, key) {
+                    expect(key).to.eql("authToken");
+                    return "";
+                }
+            }
+        });
+
+    var req = {};
+
+    proxiedUser.getUserRegistrations(req, userId, function(error, retrievedRegistrationDetails) {
+        expect(error).to.not.be.null;
+        expect(error.message).to.eq("AuthToken cannot be empty");
+    });
     t.end();
 });
