@@ -745,7 +745,8 @@ ul.customer-support li a:hover {
 .logo-mob {
   width: 100%;
   max-width: 290px !important;
-
+  top: 10px;
+  position: relative;
 }
 
 /* Slim HEADER  */
@@ -860,6 +861,15 @@ vertical-align: bottom;
   padding: 0;
 }
 
+.login-mobile-full {
+  position: absolute !important;
+  float: none !important;
+  right: 45px !important;
+  top: 0 !important;
+  z-index: 50;
+
+}
+
 .login-mobile:hover, .login-mobile:active, .login-mobile:focus {
   border: 2px solid #AAA !important;
 }
@@ -921,8 +931,8 @@ vertical-align: bottom;
 }
 
 #login-box {
-width: 300px;
-right: 85px;
+  width: 300px;
+  right: 85px;
 }
 
 #login-box a, #logged-box a, #login-box button, #logged-box button, #logged-box span {
@@ -933,6 +943,15 @@ right: 85px;
 #login-box a:hover, #logged-box a:hover, #login-box button:hover, #logged-box button:hover {
   color: #000;
   font-weight: normal;
+}
+
+.logged-box-full {
+  top: 160px !important;
+}
+
+.arrow-up-mobile-full {
+  top: 150px !important;
+  right: 85px !important;
 }
 
 .arrow-up-mobile {
