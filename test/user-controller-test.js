@@ -1602,6 +1602,27 @@ test('forgotPassword', function(t) {
 test('displayMyAccount', function(t) {
   var expectedTab = "testTab";
   var expUserId = "person12345";
+  var startDateTime = ((new Date().getTime()) - 86400000).toString();
+  var endDateTime = ((new Date().getTime()) + 86400000).toString();
+  var regDetailsList = [
+    {
+      "sessionNo": "1234567",
+      "courseNo": "COURSE1234",
+      "courseTitle": "Introduction to Testing",
+      "startDate" : startDateTime,
+      "endDate" : endDateTime,
+      "address" : {
+        "address1": "123 Main Street",
+        "address2": "Suite 100",
+        "city": "Washington",
+        "state": "DC",
+        "postalCode": "12345"
+      },
+      "type" : "CLASSROOM"
+    }
+  ];
+  var body = {"body": regDetailsList };
+
   var sessionData = {
     authToken: authToken,
     userId: expUserId
@@ -1617,6 +1638,7 @@ test('displayMyAccount', function(t) {
     expect(page).to.eql('manage/user/account');
     expect(content.title).to.eql('My Account');
     expect(content.activeTab).to.eql(expectedTab);
+    expect(content.registrations).to.eql(regDetailsList);
   };
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
@@ -1625,6 +1647,12 @@ test('displayMyAccount', function(t) {
       getSessionData: function (req, key) {
         expect(key).to.eql("userId");
         return expUserId;
+      }
+    },
+    '../../../API/manage/user-api.js': {
+      getUserRegistrations: function (req, userId, callback) {
+        expect(userId).to.eql(expUserId);
+        callback(null, JSON.stringify(body));
       }
     }
   });

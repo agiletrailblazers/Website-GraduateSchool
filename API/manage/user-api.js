@@ -194,6 +194,24 @@ module.exports = {
 
       return callback(null, response.statusCode);
     });
+  },
+
+  getUserRegistrations: function(req, userId, callback){
+    var targetURL = config("properties").apiServer + '/api/registrations/users/' + userId ;
+    var currentAuthToken = session.getSessionData(req, "authToken");
+
+    request({
+      method: 'GET',
+      url: targetURL,
+      headers: {
+        'Authorization': currentAuthToken
+      }
+    }, function (error, response) {
+      if (common.checkForErrorAndLog(error, response, targetURL)) {
+        return callback(new Error("Exception occurred getting user registrations"), null);
+      }
+      return callback(null, response);
+    })
   }
 
 };

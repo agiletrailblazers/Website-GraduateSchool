@@ -1,7 +1,7 @@
 {
   "env": "local",
   "skipReCaptchaVerification":true,
-  "apiServer": "http://ec2-52-3-244-235.compute-1.amazonaws.com",
+  "apiServer": "http://localhost:8080",
   "landingPageFormDisplay":true,
 
   "registrationUrl" : "/manage/cart?courseId=[courseId]&sessionId=[sessionId]",

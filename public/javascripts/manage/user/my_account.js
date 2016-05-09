@@ -6,5 +6,17 @@ $(document).ready(function() {
         $("span[data-hidefor~='" + tab + "']").addClass('hidden');
         var selectedTab = $('#txtSelectedTab').val();
         history.pushState({state:1}, "", "?" + "tab=" + selectedTab);
-    })
+    });
+
+    var $height = 0 ;
+    $("li.tab").each(function(){
+        if(($(this).height())>$height){
+            $height = $(this).height();
+        }
+    });
+    $("li.tab").each(function(){
+        $(this).css("height",$height)
+    });
+
+    $("#gtog").tablesorter();
 });
