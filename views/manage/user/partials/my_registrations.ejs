@@ -3,6 +3,7 @@
     <!-- Content -->
     <div id="myReg-content" class="tab-content">
       <div id="tab">
+        <% if (registrations && registrations.length!= 0){%>
         <div id="myReg-table"> <!-- start non-mobile view -->
           <table id="myReg" class="table myReg table-striped tablesorter">
             <thead>
@@ -72,6 +73,9 @@
             <span class="legend-item"><img src="../../images/r_ended.png" alt="ended"> ended </span>
           </div>
         </div> <!--END myReg Table -->
+        <% } else { %>
+        <div id="noReg-content">You are currently not registered for any sessions.</div>
+        <% }%>
       </div>
     </div><!--End of Content -->
   </div>
