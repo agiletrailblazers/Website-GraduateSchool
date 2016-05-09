@@ -424,8 +424,13 @@ module.exports = {
   },
 
   displayMyAccount: function (req, res, next) {
-    async.series({
+    if (!session.getSessionData(req, "userId")) {
+      logger.debug("User navigated to MyAccount page but is not logged in");
+      common.redirectToError(res);
+      return;
+    }
 
+    async.series({
       registrations: function (callback) {
         var userId = session.getSessionData(req, "userId");
         user.getUserRegistrations(req, userId, function (error, registrations){
@@ -433,7 +438,7 @@ module.exports = {
             return callback(error, null);
           }
           else {
-            return callback(null, JSON.parse(registrations.body));
+            return callback(null, registrations);
           }
         });
       }
@@ -460,12 +465,6 @@ module.exports = {
 
       if (err) {
         logger.error("Error rendering my account", err);
-        common.redirectToError(res);
-        return;
-      }
-
-      if (!session.getSessionData(req, "userId")) {
-        logger.debug("User navigated to MyAccount page but is not logged in");
         common.redirectToError(res);
         return;
       }
