@@ -424,17 +424,60 @@ module.exports = {
   },
 
   displayMyAccount: function (req, res, next) {
-    if (!session.getSessionData(req, "userId")) {
-      logger.debug("User navigated to MyAccount page but is not logged in");
-      common.redirectToError(res);
-      return;
-    }
-    var tabToShow = (typeof(req.query["tab"])!='undefined' ? req.query["tab"] : "my-profile");
-    logger.debug("Displaying MyAccount page with tab " + tabToShow);
+    async.series({
 
-    res.render('manage/user/account', {
-      title: "My Account",
-      activeTab: tabToShow
+      registrations: function (callback) {
+        var userId = session.getSessionData(req, "userId");
+        user.getUserRegistrations(req, userId, function (error, registrations){
+          if(error){
+            return callback(error, null);
+          }
+          else {
+            return callback(null, JSON.parse(registrations.body));
+          }
+        });
+      }
+
+    }, function (err, content) {
+
+      //Gets the status for display on the registrations page
+      var getSessionStatus = function (startDate, endDate){
+        var currentDate = new Date();
+
+        if (endDate < startDate){
+          return "Session start date cannot be before the end date";
+        } else if (currentDate < startDate){
+          return "pending";
+        } else if (currentDate >= startDate && currentDate <=endDate){
+          return "in progress";
+        } else if (currentDate > endDate){
+          return "ended";
+        } else {
+          logger.error("An error occurred converting status");
+          return "something went wrong";
+        }
+      }
+
+      if (err) {
+        logger.error("Error rendering my account", err);
+        common.redirectToError(res);
+        return;
+      }
+
+      if (!session.getSessionData(req, "userId")) {
+        logger.debug("User navigated to MyAccount page but is not logged in");
+        common.redirectToError(res);
+        return;
+      }
+      var tabToShow = (typeof(req.query["tab"]) != 'undefined' ? req.query["tab"] : "my-profile");
+      logger.debug("Displaying MyAccount page with tab " + tabToShow);
+
+      res.render('manage/user/account', {
+            title: "My Account",
+            activeTab: tabToShow,
+            registrations: content.registrations,
+            getSessionStatus: getSessionStatus
+          });
     });
   }
 } // end module.exports
