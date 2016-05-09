@@ -2678,6 +2678,18 @@ ul.see-more li {
   height: 60px !important;
 }
 
+.spacer80 {
+  height: 80px !important;
+}
+
+.spacer100 {
+  height: 100px !important;
+}
+
+.spacer120 {
+  height: 120px !important;
+}
+
 #map-address {
     padding: 10px 0px;
 }
