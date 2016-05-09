@@ -1,4 +1,5 @@
 var logger = require('../logger');
+var config = require('konphyg')(__dirname + '/../config');
 
 checkForErrorAndLogExceptCodes = function(error, response, url, httpCodesNotToLog) {
   // all 2xx status codes should be considered successful, not just 200
@@ -59,7 +60,15 @@ redirectToError = function (res) {
   res.end();
 };
 
+// set the location and time for the cache used for contentful API calls.
+setCacheDirectoryAndTimeOut =  function(cachedRequest) {
+  cachedRequest.setCacheDirectory(config("properties").contentfulCache.location);
+  cachedRequest.set('ttl', config("properties").contentfulCache.timeout);
+  return(cachedRequest);
+}
+
 module.exports = {
+  setCacheDirectoryAndTimeOut: setCacheDirectoryAndTimeOut,
   isNotEmpty: isNotEmpty,
   isEmpty: isEmpty,
   isNotEmptyOrAll: isNotEmptyOrAll,

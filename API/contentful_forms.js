@@ -2,11 +2,18 @@ var request = require('request');
 var logger = require('../logger');
 var config = require('konphyg')(__dirname + "/../config");
 var common = require("../helpers/common.js");
+var request = require('request');
+
+var cachedRequest = request;
+if (config("properties").contentfulCache.turnOn) {
+  cachedRequest = require('cached-request')(request);
+  cachedRequest =  common.setCacheDirectoryAndTimeOut(cachedRequest);
+}
 
 module.exports = {
   getInquiryForm: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/'+config("properties").contentfulEntry_InquiryForm;
-    request({
+    cachedRequest({
       method: 'GET',
       url: targetURL,
       headers: {
@@ -23,7 +30,7 @@ module.exports = {
   },
   getContactUs: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/'+config("properties").contentfulEntry_ContactUs;
-    request({
+    cachedRequest({
       method: 'GET',
       url: targetURL,
       headers: {
@@ -40,7 +47,7 @@ module.exports = {
   },
   getFormWithHeaderAndFooter: function(entryId, callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/' + entryId;
-    request({
+    cachedRequest({
       method: 'GET',
       url: targetURL,
       headers: {

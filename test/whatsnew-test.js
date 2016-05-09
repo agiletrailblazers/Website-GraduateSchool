@@ -1,10 +1,24 @@
 var chai = require('chai');
 var expect = require('chai').expect;
-var contentful = require("../API/contentful.js");
 var nock = require('nock');
 var should = require("should");
 var test = require('tap').test;
 var config = require('konphyg')(__dirname + "/../config");
+var temp = require('temp').track();
+var request = require('request');
+var cachedRequest = require('cached-request')(request);
+var proxyquire = require('proxyquire');
+cacheDir = temp.mkdirSync("cache");
+cachedRequest.setCacheDirectory(cacheDir);
+
+var contentful = proxyquire('../API/contentful.js',
+  {
+    "../helpers/common.js": {
+      setCacheDirectoryAndTimeOut: function (cachedRequestParam) {
+        return cachedRequest;
+      }
+    }
+  });
 
 test('what new page testcase 1', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {
@@ -42,7 +56,6 @@ test('what new page testcase 2', function(t) {
   });
   t.end();
 });
-
 
 test('what new page testcase 3', function(t) {
   var contentfulServer = nock('https://cdn.contentful.com', {

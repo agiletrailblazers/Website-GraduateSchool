@@ -1,10 +1,24 @@
 var chai = require('chai');
 var expect = require('chai').expect;
-var contentful_forms = require("../API/contentful_forms.js");
 var nock = require('nock');
 var should = require("should");
 var test = require('tap').test;
 var config = require('konphyg')(__dirname + "/../config");
+var temp = require('temp').track();
+var request = require('request');
+var cachedRequest = require('cached-request')(request);
+var proxyquire = require('proxyquire');
+cacheDir = temp.mkdirSync("cache");
+cachedRequest.setCacheDirectory(cacheDir);
+var contentful_forms = proxyquire('../API/contentful_forms.js',
+  {
+    "../helpers/common.js": {
+      setCacheDirectoryAndTimeOut: function (cachedRequestParam) {
+        return cachedRequest;
+      }
+    }
+  });
+
 
 test('form route test for inquiry form', function (t) {
   var contentfulformServer = nock('https://cdn.contentful.com', {
