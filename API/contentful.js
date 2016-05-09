@@ -255,7 +255,7 @@ module.exports = {
   },
 
   getGtoGPage: function(callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.content.spaceId+'/entries?sys.id=7snuHLxffaCcWgo2mKgokK';
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.content.spaceId+'/entries?sys.id=60o2cWEaVaQAqwo2IcmcOU';
     cachedRequest({
       method: 'GET',
       url: targetURL,
