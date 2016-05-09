@@ -2,11 +2,15 @@
 <html>
   <head>
     <title> Graduate School USA | <%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/cart.css" />
     <% include ../../partials/head %>
     <link rel="stylesheet" href="/stylesheets/course_search.css" />
-    <link rel="stylesheet" href="/stylesheets/cart.css" />
+    <link rel="stylesheet" href="/stylesheets/account.css" />
     <script type="text/javascript" src="/javascripts/manage/user/my_account.js"></script>
     <script type="text/javascript" src="/javascripts/library/jquery.tablesorter.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/library/jquery-ui.css">
+    <script src="/javascripts/library/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/javascripts/manage/user/update_user.js"></script>
   </head>
   <body>
   <% include ../../partials/header_slim %>
@@ -30,9 +34,8 @@
           <div class="tab-content">
             <!-- My Profile Tab -->
             <div id="my-profile" class="tab-pane fade <%= (activeTab == 'my-profile') ? 'in active' : '' %>">
-              <div class="panel panel-default gs">
-                This is where the partial for My Profile goes <br /> Test to show <br /> what the box looks like when <br /> it is full of stuff <br />
-                <div class="spacer10"></div>
+              <div class="content-offset panel panel-default gs">
+                <% include ../../manage/user/partials/update %>
               </div>
             </div><!-- END My Profile tab content -->
             <!-- My Registration Tab -->

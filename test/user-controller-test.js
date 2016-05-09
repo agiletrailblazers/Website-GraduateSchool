@@ -415,13 +415,7 @@ test('registrationLogin', function(t) {
         }
         req.session.sessionData[key] = value;
 
-        if (key==="userId"){
-          expect(value).to.eql(authUser.user.id);
-          setSessionCheckedCounter++;
-        } else if (key==="userFirstName"){
-          expect(value).to.eql(authUser.user.person.firstName);
-          setSessionCheckedCounter++;
-        } else if (key==="passwordChangeAuthUserId"){
+        if (key==="passwordChangeAuthUserId"){
           expect(value).to.eql(authUser.user.id);
           setSessionCheckedCounter++;
         } else if (key==="passwordChangeAuthUsername"){
@@ -449,7 +443,7 @@ test('registrationLogin', function(t) {
 
   res.redirect = function(page) {
       expect(page).to.eql('/manage/cart/payment');
-      expect(setSessionCheckedCounter).to.eql(4);
+      expect(setSessionCheckedCounter).to.eql(2);
       expect(req.session.sessionData["pwResetRequiredMessage"]).to.be.undefined;
   };
 
@@ -1407,8 +1401,12 @@ test('logout', function(t) {
   var authToken = "12345";
   var sessionData = {
     authToken : authToken,
-    userId: "user1234",
-    userFirstName: "TestUser",
+    user : {
+      id: "user1234",
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : "course2345",
       sessionId : "session3456",
@@ -1456,8 +1454,12 @@ test('logoutAsync', function(t) {
   var authToken = "12345";
   var sessionData = {
     authToken : authToken,
-    userId: "user1234",
-    userFirstName: "TestUser",
+    user : {
+      id: "user1234",
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : "course2345",
       sessionId : "session3456",
@@ -1601,7 +1603,6 @@ test('forgotPassword', function(t) {
 
 test('displayMyAccount', function(t) {
   var expectedTab = "testTab";
-  var expUserId = "person12345";
   var startDateTime = ((new Date().getTime()) - 86400000).toString();
   var endDateTime = ((new Date().getTime()) + 86400000).toString();
   var regDetailsList = [
@@ -1624,7 +1625,12 @@ test('displayMyAccount', function(t) {
 
   var sessionData = {
     authToken: authToken,
-    userId: expUserId
+    user : {
+      id: "person12345",
+      person: {
+        firstName: "TestUser"
+      }
+    }
   };
   var req = {
     query : {
@@ -1638,19 +1644,48 @@ test('displayMyAccount', function(t) {
     expect(content.title).to.eql('My Account');
     expect(content.activeTab).to.eql(expectedTab);
     expect(content.registrations).to.eql(regDetailsList);
+    expect(content.states).to.eql(expectedStates);
+    expect(content.timezones).to.eql(expectedTimezones);
+    expect(content.user).to.eql(sessionData.user);
   };
+
+  var expectedStates = ['Alaska'];
+  var expectedTimezones = [
+    {
+      "id": "11111",
+      "name": "Test Zone"
+    }
+  ];
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/user-controller.js', {
+    "../../../API/contentful.js": {
+      getReferenceData: function (slug, callback) {
+        expect(slug).to.eql("us-states");
+        callback(expectedStates, null);
+      }
+    },
+    "../../../API/common-api.js": {
+      getTimezones: function (callback, authtoken) {
+        callback(null, expectedTimezones);
+      }
+    },
     '../../../API/manage/session-api.js': {
       getSessionData: function (req, key) {
-        expect(key).to.eql("userId");
-        return expUserId;
+        if (key == "user") {
+          return sessionData.user;
+        }
+        else if (key == "authToken") {
+          return sessionData.authToken;
+        }
+        else {
+          return undefined;
+        }
       }
     },
     '../../../API/manage/user-api.js': {
       getUserRegistrations: function (req, userId, callback) {
-        expect(userId).to.eql(expUserId);
+        expect(userId).to.eql(sessionData.user.id);
         callback(null, regDetailsList);
       }
     }
@@ -1662,7 +1697,6 @@ test('displayMyAccount', function(t) {
 });
 
 test('displayMyAccount default tab', function(t) {
-  var expUserId = "person12345";
   var startDateTime = ((new Date().getTime()) - 86400000).toString();
   var endDateTime = ((new Date().getTime()) + 86400000).toString();
   var regDetailsList = [
@@ -1682,9 +1716,15 @@ test('displayMyAccount default tab', function(t) {
       "type" : "CLASSROOM"
     }
   ];
+
   var sessionData = {
     authToken: authToken,
-    userId: expUserId
+    user : {
+      id: "person12345",
+      person: {
+        firstName: "TestUser"
+      }
+    }
   };
   var req = {
     query : {},
@@ -1698,19 +1738,48 @@ test('displayMyAccount default tab', function(t) {
     expect(content.title).to.eql('My Account');
     expect(content.activeTab).to.eql("my-profile");
     expect(content.registrations).to.eql(regDetailsList);
+    expect(content.states).to.eql(expectedStates);
+    expect(content.timezones).to.eql(expectedTimezones);
+    expect(content.user).to.eql(sessionData.user);
   };
+
+  var expectedStates = ['Alaska'];
+  var expectedTimezones = [
+    {
+      "id": "11111",
+      "name": "Test Zone"
+    }
+  ];
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/user-controller.js', {
+    "../../../API/contentful.js": {
+      getReferenceData: function (slug, callback) {
+        expect(slug).to.eql("us-states");
+        callback(expectedStates, null);
+      }
+    },
+    "../../../API/common-api.js": {
+      getTimezones: function (callback, authtoken) {
+        callback(null, expectedTimezones);
+      }
+    },
     '../../../API/manage/session-api.js': {
       getSessionData: function (req, key) {
-        expect(key).to.eql("userId");
-        return expUserId;
+        if (key == "user") {
+          return sessionData.user;
+        }
+        else if (key == "authToken") {
+          return sessionData.authToken;
+        }
+        else {
+          return undefined;
+        }
       }
     },
     '../../../API/manage/user-api.js': {
       getUserRegistrations: function (req, userId, callback) {
-        expect(userId).to.eql(expUserId);
+        expect(userId).to.eql(sessionData.user.id);
         callback(null, regDetailsList);
       }
     }
@@ -1732,8 +1801,10 @@ test('displayMyAccount error if not logged in', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js', {
     '../../../API/manage/session-api.js': {
       getSessionData: function (req, key) {
-        expect(key).to.eql("userId");
-        return undefined;
+        if (key == "user") {
+          return undefined;
+        }
+        return {};
       }
     },
     "../../../helpers/common.js": {
@@ -1775,8 +1846,15 @@ test('displayMyAccount error getting registrations', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js', {
     '../../../API/manage/session-api.js': {
       getSessionData: function (req, key) {
-        expect(key).to.eql("userId");
-        return expUserId;
+        if (key == "user") {
+          return sessionData.user;
+        }
+        else if (key == "authToken") {
+          return sessionData.authToken;
+        }
+        else {
+          return undefined;
+        }
       }
     },
     '../../../API/manage/user-api.js': {

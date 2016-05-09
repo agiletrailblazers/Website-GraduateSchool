@@ -91,7 +91,7 @@ module.exports = {
             nextpage: function(callback) {
                 // if the user is already logged in then they should go from the cart directly into payment,
                 // if they are not logged in then they should go from the cart to login/create user
-                if (session.getSessionData(req, "userId")) {
+                if (session.getSessionData(req, "user")) {
                     callback(null, "/manage/cart/payment");
                 }
                 else {
@@ -156,8 +156,8 @@ module.exports = {
             function(callback) {
                 // while we don't use the user id in the payment page, we don't want to send someone into
                 // payment if we don't know who they are, so this is more of sanity check / safety precaution
-                if (!session.getSessionData(req, "userId")) {
-                    return callback(new Error("No user id in session"));
+                if (!session.getSessionData(req, "user")) {
+                    return callback(new Error("No user in session"));
                 }
 
                 var sessionId = session.getSessionData(req, "cart").sessionId;
@@ -187,9 +187,9 @@ module.exports = {
                     return callback(new Error("No session id in the cart"));
                 }
 
-                logger.debug("Looking up user details for user " + session.getSessionData(req, "userId"))
+                logger.debug("Looking up user details for user " + session.getSessionData(req, "user").id);
 
-                user.getUser(session.getSessionData(req, "userId") , function(error, retrievedUser) {
+                user.getUser(session.getSessionData(req, "user").id , function(error, retrievedUser) {
                     // callback with the error, this will cause async module to stop executing remaining
                     // functions and jump immediately to the final function, it is important to return
                     // so that the task callback isn't called twice
@@ -414,8 +414,8 @@ module.exports = {
             authorization: function(callback) {
 
                 // this is more of sanity check / safety precaution
-                if (!session.getSessionData(req, "userId")) {
-                    return callback(new Error("No user id in session"));
+                if (!session.getSessionData(req, "user")) {
+                    return callback(new Error("No user in session"));
                 }
 
                 // get the cybersource response
@@ -587,7 +587,7 @@ module.exports = {
                     registrations:[
                         {
                             orderNumber: null,
-                            studentId: session.getSessionData(req, "userId"),
+                            studentId: session.getSessionData(req, "user").id,
                             sessionId: session.getSessionData(req, "cart").sessionId
                         }
                     ],
@@ -601,7 +601,7 @@ module.exports = {
                 };
 
                 // register the user
-                user.registerUser(session.getSessionData(req, "userId"), registrationRequest, function(error, registrationResult) {
+                user.registerUser(session.getSessionData(req, "user").id, registrationRequest, function(error, registrationResult) {
                     // the success or failure of registration is contained in the result, so ignore the error parameter
                     return callback(null, registrationResult);
                 }, session.getSessionData(req, "authToken"));
@@ -642,7 +642,7 @@ module.exports = {
                 common.redirectToError(res);
             }
             else if (content.registrationResult.paymentDeclinedError) {
-                logger.debug("Registration failure due to declined payment for user " + session.getSessionData(req, "userId"));
+                logger.debug("Registration failure due to declined payment for user " + session.getSessionData(req, "user").id);
 
                 res.render('manage/cart/confirmation', {
                     title: "Course Registration - Payment Review",
@@ -654,7 +654,7 @@ module.exports = {
                 });
             }
             else if (content.registrationResult.paymentAcceptedError) {
-                logger.warn("Payment was accepted but registration not guaranteed for user " + session.getSessionData(req, "userId"));
+                logger.warn("Payment was accepted but registration not guaranteed for user " + session.getSessionData(req, "user").id);
 
                 res.render('manage/cart/confirmation', {
                     title: "Course Registration - Payment Review",
@@ -687,8 +687,8 @@ module.exports = {
 
         logger.debug("Processing registration canceled from cart");
 
-        if (session.getSessionData(req, "userId")) {
-            logger.debug("Removing data from cart for user: " + session.getSessionData(req, "userId"));
+        if (session.getSessionData(req, "user").id) {
+            logger.debug("Removing data from cart for user: " + session.getSessionData(req, "user").id);
         }
         else {
             logger.debug("Removing data from cart for unknown user");

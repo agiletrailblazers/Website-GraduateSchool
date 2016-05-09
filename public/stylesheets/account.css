@@ -1,0 +1,51 @@
+
+.content-offset {
+  padding: 0px 30px !important;
+}
+
+span.account-title {
+  font-size: 25px !important;
+  font-weight: 400;
+  text-align: left;
+  padding: 20px;
+  color: #444444;
+  margin-top: 0;
+}
+
+#update-user .form-inline .form-group {
+  text-align: left;
+}
+
+hr.account-form-divider {
+  width: 100%;
+  max-width: 640px;
+  position: relative;
+  left: -20px;
+  background-color: #D7E1EA;
+  height: 2px;
+  border-top: none;
+  margin: 20px 0px;
+}
+
+#update-user {
+  left: 20px !important;
+  position: relative;
+}
+
+.ui-datepicker-month, .ui-datepicker-year {
+  font-size: 12px !important;
+  font-weight: 200;
+}
+
+.update-account-links ul {
+  display: block;
+  list-style: none;
+  text-align: right;
+}
+
+.update-account-links ul li a {
+  font-weight: normal !important;
+}
+.update-account-links ul li {
+  padding: 5px 20px;
+}

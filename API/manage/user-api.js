@@ -51,6 +51,47 @@ module.exports = {
     });
   },
 
+  updateUser: function(req, userData, callback) {
+    var targetURL = config("properties").apiServer + '/api/users/' + userData.id;
+    var authToken = session.getSessionData(req, "authToken");
+    request({
+      method: 'POST',
+      url: targetURL,
+      json: userData,
+      headers: {
+        'Authorization': authToken
+      }
+    }, function (error, response, body) {
+      var result = {
+        validationErrors: null,
+        generalError: false,
+        updatedUser: null
+      };
+      var errorMessage;
+      if (error || !response) {
+        // some other error
+        result.generalError = true;
+        errorMessage = "Failed during user update due to other error"
+      }
+      else if (response.statusCode == 200) {
+        // creation of user successful
+        session.setSessionData(req, "user", body);
+        result.updatedUser = body;
+      }
+      else if (response.statusCode == 400 && body && body.validationErrors) {
+        // user not updated and validation errors exist
+        errorMessage = "Failed during user update due to validation errors";
+        result.validationErrors = body.validationErrors;
+      }
+      else {
+        // some other error
+        result.generalError = true;
+      }
+
+      return callback((errorMessage ? new Error(errorMessage) : null), result);
+    });
+  },
+
   // registrationRequest is an object containing a List of Registration objects and a List of Payment objects
   registerUser: function(userId, registrationRequest, callback, authToken) {
     var targetURL = config("properties").apiServer + '/api/registrations/users/' + userId;

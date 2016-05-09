@@ -454,7 +454,12 @@ test('confirmPayment', function(t) {
 
   var sessionData = {
     authToken : authToken,
-    userId: expUserId,
+    user : {
+      id: expUserId,
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : expCourseId,
       sessionId : expSessionId,
@@ -573,7 +578,7 @@ test('confirmPayment', function(t) {
     expect(content.contentfulCourseInfo).to.eql(contentfulCourseInfo);
 
     // verify that the cart in the session data has been cleared out after successful registration
-    should.exist(sessionData.userId);
+    should.exist(sessionData.user);
     should.exist(sessionData.cart.sessionId);
     should.exist(sessionData.cart.courseId);
     should.exist(sessionData.cart.payment);
@@ -594,7 +599,12 @@ test('confirmPayment handles signature mismatch', function(t) {
 
   var sessionData = {
     authToken : authToken,
-    userId: expUserId,
+    user : {
+      id: expUserId,
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : expCourseId,
       sessionId : expSessionId,
@@ -696,7 +706,7 @@ test('confirmPayment handles signature mismatch', function(t) {
             expect(response).to.eql(res);
 
             // verify that the authorization cart in the session data has been cleared out after successful registration
-            should.exist(sessionData.userId);
+            should.exist(sessionData.user);
             should.exist(sessionData.cart.sessionId);
             should.exist(sessionData.cart.courseId);
             should.not.exist(sessionData.cart.payment.authorization);
@@ -728,7 +738,12 @@ test('confirmPayment handles declined reason code', function(t) {
 
   var sessionData = {
     authToken : authToken,
-    userId: expUserId,
+    user : {
+      id: expUserId,
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : expCourseId,
       sessionId : expSessionId,
@@ -836,7 +851,7 @@ test('confirmPayment handles declined reason code', function(t) {
     expect(page).to.eql('/manage/cart');
 
     // verify that the cart in the session data has been cleared out after successful registration
-    should.exist(sessionData.userId);
+    should.exist(sessionData.user);
     should.exist(sessionData.cart.sessionId);
     should.exist(sessionData.cart.courseId);
     should.exist(sessionData.cart.payment);
@@ -859,7 +874,12 @@ test('confirmPayment handles error reason code', function(t) {
 
   var sessionData = {
     authToken : authToken,
-    userId: expUserId,
+    user : {
+      id: expUserId,
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : expCourseId,
       sessionId : expSessionId,
@@ -967,7 +987,7 @@ test('confirmPayment handles error reason code', function(t) {
     expect(page).to.eql('/manage/cart');
 
     // verify that the cart in the session data has been cleared out after successful registration
-    should.exist(sessionData.userId);
+    should.exist(sessionData.user);
     should.exist(sessionData.cart.sessionId);
     should.exist(sessionData.cart.courseId);
     should.exist(sessionData.cart.payment);
@@ -990,7 +1010,12 @@ test('confirmPayment handles non-specific reason code', function(t) {
 
   var sessionData = {
     authToken : authToken,
-    userId: expUserId,
+    user : {
+      id: expUserId,
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : expCourseId,
       sessionId : expSessionId,
@@ -1092,7 +1117,7 @@ test('confirmPayment handles non-specific reason code', function(t) {
             expect(response).to.eql(res);
 
             // verify that the authorization cart in the session data has been cleared out after successful registration
-            should.exist(sessionData.userId);
+            should.exist(sessionData.user);
             should.exist(sessionData.cart.sessionId);
             should.exist(sessionData.cart.courseId);
             should.not.exist(sessionData.cart.payment.authorization);
@@ -1130,7 +1155,12 @@ test('completePayment', function(t) {
 
   var sessionData = {
     authToken : authToken,
-    userId: expUserId,
+    user : {
+      id: expUserId,
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : expCourseId,
       sessionId : expSessionId,
@@ -1222,7 +1252,7 @@ test('completePayment', function(t) {
     expect(content.contentfulCourseInfo).to.eql(contentfulCourseInfo);
 
     // verify that the cart in the session data has been cleared out after successful registration
-    should.exist(sessionData.userId);
+    should.exist(sessionData.user);
     should.not.exist(sessionData.cart.sessionId);
     should.not.exist(sessionData.cart.courseId);
     should.not.exist(sessionData.cart.payment);
@@ -1250,7 +1280,12 @@ test('completePayment with payment declined', function(t) {
 
   var sessionData = {
     authToken : authToken,
-    userId: expUserId,
+    user : {
+      id: expUserId,
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : expCourseId,
       sessionId : expSessionId,
@@ -1341,7 +1376,7 @@ test('completePayment with payment declined', function(t) {
     expect(content.error).to.eql("We're sorry, but your payment could not be processed. Please contact your financial institution if you feel this was in error.");
 
     // verify that the authorization cart in the session data has been cleared out after successful registration
-    should.exist(sessionData.userId);
+    should.exist(sessionData.user);
     should.exist(sessionData.cart.sessionId);
     should.exist(sessionData.cart.courseId);
     should.not.exist(sessionData.cart.payment.authorization);
@@ -1369,7 +1404,12 @@ test('completePayment with payment accepted error', function(t) {
 
   var sessionData = {
     authToken : authToken,
-    userId: expUserId,
+    user : {
+      id: expUserId,
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : expCourseId,
       sessionId : expSessionId,
@@ -1460,7 +1500,7 @@ test('completePayment with payment accepted error', function(t) {
     expect(content.error).to.eql("We're sorry, but we've encountered an issue while processing your registration request. To finalize your registration, please contact our Customer Service Center at (888) 744-4723 .");
 
     // verify that the authorization cart in the session data has been cleared out after successful registration
-    should.exist(sessionData.userId);
+    should.exist(sessionData.user);
     should.exist(sessionData.cart.sessionId);
     should.exist(sessionData.cart.courseId);
     should.not.exist(sessionData.cart.payment.authorization);
@@ -1488,7 +1528,12 @@ test('completePayment with general error', function(t) {
 
   var sessionData = {
     authToken : authToken,
-    userId: expUserId,
+    user : {
+      id: expUserId,
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : expCourseId,
       sessionId : expSessionId,
@@ -1568,7 +1613,7 @@ test('completePayment with general error', function(t) {
             expect(response).to.eql(res);
 
             // verify that the authorization cart in the session data has been cleared out after successful registration
-            should.exist(sessionData.userId);
+            should.exist(sessionData.user.id);
             should.exist(sessionData.cart.sessionId);
             should.exist(sessionData.cart.courseId);
             should.not.exist(sessionData.cart.payment.authorization);
@@ -1629,7 +1674,12 @@ test('displayPayment with registration exists', function(t) {
 
   var sessionData = {
     authToken : authToken,
-    userId: expUserId,
+    user : {
+      id: expUserId,
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : expCourseId,
       sessionId : expSessionId,
@@ -1736,7 +1786,7 @@ test('displayPayment with registration exists', function(t) {
   res.redirect = function(page) {
     expect(page).to.eql('/manage/cart');
     expect(req.session.sessionData.cart.sessionId).to.eql(expSessionId);
-    expect(req.session.sessionData.userId).to.eql(expUserId);
+    expect(req.session.sessionData.user.id).to.eql(expUserId);
     should.exist(sessionData.cart.error);
     // make sure that the payment info was cleared from session data
     expect(req.session.sessionData.cart.payment).to.eql({});
@@ -1766,7 +1816,12 @@ test('displayPayment with multiple registrations exist', function(t) {
 
   var sessionData = {
     authToken : authToken,
-    userId: expUserId,
+    user : {
+      id: expUserId,
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : expCourseId,
       sessionId : expSessionId,
@@ -1921,7 +1976,7 @@ test('displayPayment with multiple registrations exist', function(t) {
   res.redirect = function(page) {
     expect(page).to.eql('/manage/cart');
     expect(req.session.sessionData.cart.sessionId).to.eql(expSessionId);
-    expect(req.session.sessionData.userId).to.eql(expUserId);
+    expect(req.session.sessionData.user.id).to.eql(expUserId);
     should.exist(sessionData.cart.error);
     // make sure that the payment info was cleared from session data
     expect(req.session.sessionData.cart.payment).to.eql({});
@@ -1951,7 +2006,12 @@ test('displayPayment with no existing registration', function(t) {
 
   var sessionData = {
     authToken : authToken,
-    userId: expUserId,
+    user : {
+      id: expUserId,
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : expCourseId,
       sessionId : expSessionId,
@@ -2071,16 +2131,16 @@ test('displayPayment with no existing registration', function(t) {
 
   res.render = function(page, content) {
     expect(page).to.eql('manage/cart/payment');
-    should.exist(sessionData.userId);
+    should.exist(sessionData.user.id);
     expect(sessionData.cart.sessionId).to.eql(expSessionId);
-    expect(sessionData.userId).to.eql(expUserId);
+    expect(sessionData.user.id).to.eql(expUserId);
     expect(content.parameters.get("amount")).to.eql(courseSession.tuition);
     expect(content.parameters.get("bill_to_forename")).to.eql(userData.person.firstName);
     expect(content.parameters.get("bill_to_surname")).to.eql(userData.person.lastName);
     expect(content.parameters.get("bill_to_address_line1")).to.eql(userData.person.primaryAddress.address1);
 
     expect(req.session.sessionData.cart.sessionId).to.eql(expSessionId);
-    expect(req.session.sessionData.userId).to.eql(expUserId);
+    expect(req.session.sessionData.user.id).to.eql(expUserId);
     // make sure that the payment info was cleared from session data
     should.exist(req.session.sessionData.cart.payment);
   };
@@ -2094,6 +2154,12 @@ test('cancelPayment from confirmation page with api failure', function(t) {
   var sessionId = "sesssion12345";
   var sessionData = {
     authToken : authToken,
+    user : {
+      id: "perstest1234",
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart : {
       sessionId: sessionId,
       payment: {
@@ -2148,6 +2214,12 @@ test('cancelPayment from confirmation page with api failure', function(t) {
 test('cancelRegistration from cart page', function(t) {
   var sessionId = "sesssion12345";
   var sessionData = {
+    user : {
+      id: "testpers1234",
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart : {
       authToken : authToken,
       sessionId: sessionId

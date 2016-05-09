@@ -45,6 +45,7 @@ module.exports = function (app) {
         // async AJAX user management routes
         app.use('/', router.post('/manage/user/login_user', userController.login));
         app.use('/', router.post('/manage/user/create_user', userController.createUser));
+        app.use('/', router.post('/manage/user/update_user', userController.updateUser));
         app.use('/', router.post('/manage/user/logout', userController.logoutAsync));
         app.use('/', router.post('/manage/user/password/change', userController.changePassword));
 
