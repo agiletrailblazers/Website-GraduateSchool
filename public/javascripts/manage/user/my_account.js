@@ -18,5 +18,6 @@ $(document).ready(function() {
         $(this).css("height",$height)
     });
 
-    $("#gtog").tablesorter();
+    $("#myReg").tablesorter();
+
 });
