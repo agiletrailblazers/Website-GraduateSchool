@@ -16,6 +16,7 @@ module.exports = {
     cachedRequest({
       method: 'GET',
       url: targetURL,
+      ttl: config("properties").contentfulCache.timeout,
       headers: {
         'Authorization': config("properties").spaces.main.authorization
       }
@@ -33,6 +34,7 @@ module.exports = {
     cachedRequest({
       method: 'GET',
       url: targetURL,
+      ttl: config("properties").contentfulCache.timeout,
       headers: {
         'Authorization':  config("properties").spaces.main.authorization
       }
@@ -50,6 +52,7 @@ module.exports = {
     cachedRequest({
       method: 'GET',
       url: targetURL,
+      ttl: config("properties").contentfulCache.timeout,
       headers: {
         'Authorization': config("properties").spaces.main.authorization
       }
