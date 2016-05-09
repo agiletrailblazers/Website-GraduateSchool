@@ -200,6 +200,13 @@ module.exports = {
     var targetURL = config("properties").apiServer + '/api/registrations/users/' + userId ;
     var currentAuthToken = session.getSessionData(req, "authToken");
 
+    if (!userId || userId==""){
+      return callback(new Error("User ID cannot be empty"), null);
+    }
+    if (!currentAuthToken || currentAuthToken==""){
+      return callback(new Error("AuthToken cannot be empty"), null);
+    }
+
     request({
       method: 'GET',
       url: targetURL,
@@ -210,7 +217,7 @@ module.exports = {
       if (common.checkForErrorAndLog(error, response, targetURL)) {
         return callback(new Error("Exception occurred getting user registrations"), null);
       }
-      return callback(null, response);
+      return callback(null, JSON.parse(response.body));
     })
   }
 
