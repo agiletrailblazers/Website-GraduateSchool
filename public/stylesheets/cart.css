@@ -240,6 +240,10 @@ a#toggle-create-account:hover {
   padding-right: 10px;
 }
 
+.limiter {
+  max-width: 150px;
+}
+
 /* Table MyRegistration styles */
 
 table.myReg, table.myReg th, table.myReg tr, table.myReg td {

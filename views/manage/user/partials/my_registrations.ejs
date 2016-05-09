@@ -32,7 +32,7 @@
                }
             %>
             <tr>
-              <td><strong><a href='/courses/<%=registrationDetails.courseNo %>'><%=registrationDetails.courseTitle%></a></strong></td>
+              <td class="limiter"><strong><a href='/courses/<%=registrationDetails.courseNo %>'><%=registrationDetails.courseTitle%></a></strong></td>
               <td><%= startDate.toLocaleDateString()%></td>
               <td><%= endDate.toLocaleDateString()%></td>
               <td>
@@ -56,25 +56,27 @@
               </td>
               <td><%=registrationDetails.type%></td>
               <td>
-                <%if (status=="pending"){%>
-                <img src="../../images/r_pending.png" alt="pending">
-                <%} else if (status=="in progress") {%>
-                <img src="../../images/r_in_progress.png" alt="in progress">
+                <%if (status=="in progress"){%>
+                  <span class="hidden">01</span><img src="../../images/r_in_progress.png" alt="in progress">
+                <%} else if (status=="pending") {%>
+                  <span class="hidden">02</span><img src="../../images/r_pending.png" alt="pending">
                 <%} else if (status=="ended") {%>
-                <img src="../../images/r_ended.png" alt="ended">
+                <span class="hidden">03</span><img src="../../images/r_ended.png" alt="ended">
                 <%}%>
               </td>
             </tr>
             <% } %>
           </table>
           <div id="statusKey" style="float: right;">
-            <span class="legend-item"><img src="../../images/r_pending.png" alt="pending"> pending </span>
             <span class="legend-item"><img src="../../images/r_in_progress.png" alt="in progress"> in progress </span>
+            <span class="legend-item"><img src="../../images/r_pending.png" alt="pending"> pending </span>
             <span class="legend-item"><img src="../../images/r_ended.png" alt="ended"> ended </span>
           </div>
         </div> <!--END myReg Table -->
         <% } else { %>
-        <div id="noReg-content">You are currently not registered for any sessions.</div>
+        <div id="noReg-content">You are currently not registered for any sessions. <br><br>
+        Click <a id='empty-cart-search-link' href='/search'>here</a> to search for courses.</div>
+        <div class="spacer120"></div>
         <% }%>
       </div>
     </div><!--End of Content -->
