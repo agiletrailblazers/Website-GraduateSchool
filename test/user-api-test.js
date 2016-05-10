@@ -832,7 +832,7 @@ test('get registrations handles error', function(t) {
 
     var req = {};
 
-    //test a 200 ok
+    //test a 404 Error
     var server = nock(apiServer, {
         headers: {
             'Authorization': authToken
@@ -867,28 +867,6 @@ test('get registrations handles error no user ID', function(t) {
     proxiedUser.getUserRegistrations(req, null, function(error, retrievedRegistrationDetails) {
         expect(error).to.not.be.null;
         expect(error.message).to.eq("User ID cannot be empty");
-    });
-    t.end();
-});
-
-test('get registrations handles error no auth Token', function(t) {
-    var userId = 'persn00000012345';
-
-    var proxiedUser = proxyquire('../API/manage/user-api.js',
-        {
-            "./session-api.js": {
-                getSessionData: function (req, key) {
-                    expect(key).to.eql("authToken");
-                    return "";
-                }
-            }
-        });
-
-    var req = {};
-
-    proxiedUser.getUserRegistrations(req, userId, function(error, retrievedRegistrationDetails) {
-        expect(error).to.not.be.null;
-        expect(error.message).to.eq("AuthToken cannot be empty");
     });
     t.end();
 });
