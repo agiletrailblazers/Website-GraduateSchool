@@ -229,3 +229,130 @@ a#toggle-create-account:hover {
   font-size: 12px !important;
   font-weight: 200;
 }
+
+.legend-item {
+  padding: 5px 20px;
+  color: #777;
+  font-size: 14px;
+}
+
+.legend-item img {
+  padding-right: 10px;
+}
+
+.limiter {
+  max-width: 150px;
+}
+
+/* Table MyRegistration styles */
+
+table.myReg, table.myReg th, table.myReg tr, table.myReg td {
+  border: none !important;
+  color: #545454;
+  font-size: 14px;
+}
+
+table.myReg {
+  border: 1px solid #CCD8E3 !important;
+}
+
+.table > thead > tr > th {
+    vertical-align: middle;
+}
+
+table.myReg th, .header-mobile {
+  background: #82838B; /* Old browsers */
+  background-image: linear-gradient(to bottom, #A0A0A8 0px, #82838B 100%) !important;
+  border-radius: 0px !important;
+  color: #FFF;
+  padding: 15px !important;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: normal;
+  text-align: center;
+}
+
+table.myReg tr {
+  background-color: #FDFDFD;
+  border-bottom: 1px solid #CCD8E3 !important;
+}
+
+table.myReg tr:nth-child(even) {
+   background-color: #FFFFFF;
+}
+
+table.myReg td {
+  text-align: center;
+  padding: 12px !important;
+  vertical-align: middle !important;
+}
+
+.myReg > tbody > tr > td {
+  vertical-align: middle !important;
+  text-align: center !important;
+}
+
+button.register, button.register:visited {
+    color: #FFF;
+    background-color: #67C067;
+    padding: 5px 15px;
+    box-shadow: none;
+    border: none;
+    border-radius: 2px;
+    -webkit-transition: background-color 300ms linear;
+    -moz-transition: background-color 300ms linear;
+    -o-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
+}
+
+button.register:hover {
+  color: #FFF;
+  background-color: #008C23;
+  padding: 5px 15px;
+  box-shadow: none;
+  border: none;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+.glyphicon {
+    top: 0px;
+}
+
+/* TableSorter */
+
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	border: 1px solid #FFF;
+
+}
+
+table.tablesorter thead tr .header {
+	background-image: url(../images/bg.gif) !important;
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+
+table.tablesorter tbody td {
+	vertical-align: top;
+}
+
+table.tablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(../images/asc.gif) !important;
+}
+
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(../images/desc.gif) !important;
+}
+
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+  background-color: #696B74 !important;
+}

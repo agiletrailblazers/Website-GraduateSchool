@@ -2581,6 +2581,15 @@ ul.see-more li {
   padding: 15px !important;
 }
 
+.padding25 {
+  padding: 25px !important;
+}
+
+
+.padding45 {
+  padding: 45px !important;
+}
+
 .nopadding {
    padding: 0 !important;
    margin: 0 !important;
@@ -2667,6 +2676,18 @@ ul.see-more li {
 
 .spacer60 {
   height: 60px !important;
+}
+
+.spacer80 {
+  height: 80px !important;
+}
+
+.spacer100 {
+  height: 100px !important;
+}
+
+.spacer120 {
+  height: 120px !important;
 }
 
 #map-address {

@@ -429,12 +429,54 @@ module.exports = {
       common.redirectToError(res);
       return;
     }
-    var tabToShow = (typeof(req.query["tab"])!='undefined' ? req.query["tab"] : "my-profile");
-    logger.debug("Displaying MyAccount page with tab " + tabToShow);
 
-    res.render('manage/user/account', {
-      title: "My Account",
-      activeTab: tabToShow
+    async.series({
+      registrations: function (callback) {
+        var userId = session.getSessionData(req, "userId");
+        user.getUserRegistrations(req, userId, function (error, registrations){
+          if(error){
+            return callback(error, null);
+          }
+          else {
+            return callback(null, registrations);
+          }
+        });
+      }
+
+    }, function (err, content) {
+
+      //Gets the status for display on the registrations page
+      var getSessionStatus = function (startDate, endDate){
+        var currentDate = new Date();
+
+        if (endDate < startDate){
+          return "Session start date cannot be before the end date";
+        } else if (currentDate < startDate){
+          return "pending";
+        } else if (currentDate >= startDate && currentDate <=endDate){
+          return "in progress";
+        } else if (currentDate > endDate){
+          return "ended";
+        } else {
+          logger.error("An error occurred converting status");
+          return "something went wrong";
+        }
+      }
+
+      if (err) {
+        logger.error("Error rendering my account", err);
+        common.redirectToError(res);
+        return;
+      }
+      var tabToShow = (typeof(req.query["tab"]) != 'undefined' ? req.query["tab"] : "my-profile");
+      logger.debug("Displaying MyAccount page with tab " + tabToShow);
+
+      res.render('manage/user/account', {
+            title: "My Account",
+            activeTab: tabToShow,
+            registrations: content.registrations,
+            getSessionStatus: getSessionStatus
+          });
     });
   }
 } // end module.exports

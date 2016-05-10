@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/stylesheets/course_search.css" />
     <link rel="stylesheet" href="/stylesheets/cart.css" />
     <script type="text/javascript" src="/javascripts/manage/user/my_account.js"></script>
+    <script type="text/javascript" src="/javascripts/library/jquery.tablesorter.min.js"></script>
   </head>
   <body>
   <% include ../../partials/header_slim %>
@@ -37,12 +38,11 @@
             <!-- My Registration Tab -->
             <div id="my-registrations" class="tab-pane fade <%= (activeTab == 'my-registrations') ? 'in active' : '' %>">
               <div class="panel panel-default gs">
-                This is where the partial for My Registration goes<br />
+                <% include ../../manage/user/partials/my_registrations.ejs %>
               </div>
             </div><!-- END My Registration tab -->
-          </div>
-        </div> <!-- END tab content -->
-      </div> <!--END container-->
+          </div><!-- END tab content -->
+        </div> <!--END container-->
     <!-- Footer -->
     <% include ../../partials/footer %>
     <!-- END Footer  -->

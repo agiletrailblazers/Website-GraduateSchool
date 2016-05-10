@@ -1602,6 +1602,26 @@ test('forgotPassword', function(t) {
 test('displayMyAccount', function(t) {
   var expectedTab = "testTab";
   var expUserId = "person12345";
+  var startDateTime = ((new Date().getTime()) - 86400000).toString();
+  var endDateTime = ((new Date().getTime()) + 86400000).toString();
+  var regDetailsList = [
+    {
+      "sessionNo": "1234567",
+      "courseNo": "COURSE1234",
+      "courseTitle": "Introduction to Testing",
+      "startDate" : startDateTime,
+      "endDate" : endDateTime,
+      "address" : {
+        "address1": "123 Main Street",
+        "address2": "Suite 100",
+        "city": "Washington",
+        "state": "DC",
+        "postalCode": "12345"
+      },
+      "type" : "CLASSROOM"
+    }
+  ];
+
   var sessionData = {
     authToken: authToken,
     userId: expUserId
@@ -1617,6 +1637,7 @@ test('displayMyAccount', function(t) {
     expect(page).to.eql('manage/user/account');
     expect(content.title).to.eql('My Account');
     expect(content.activeTab).to.eql(expectedTab);
+    expect(content.registrations).to.eql(regDetailsList);
   };
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
@@ -1626,6 +1647,12 @@ test('displayMyAccount', function(t) {
         expect(key).to.eql("userId");
         return expUserId;
       }
+    },
+    '../../../API/manage/user-api.js': {
+      getUserRegistrations: function (req, userId, callback) {
+        expect(userId).to.eql(expUserId);
+        callback(null, regDetailsList);
+      }
     }
   });
 
@@ -1634,22 +1661,43 @@ test('displayMyAccount', function(t) {
   t.end();
 });
 
-
 test('displayMyAccount default tab', function(t) {
   var expUserId = "person12345";
+  var startDateTime = ((new Date().getTime()) - 86400000).toString();
+  var endDateTime = ((new Date().getTime()) + 86400000).toString();
+  var regDetailsList = [
+    {
+      "sessionNo": "1234567",
+      "courseNo": "COURSE1234",
+      "courseTitle": "Introduction to Testing",
+      "startDate" : startDateTime,
+      "endDate" : endDateTime,
+      "address" : {
+        "address1": "123 Main Street",
+        "address2": "Suite 100",
+        "city": "Washington",
+        "state": "DC",
+        "postalCode": "12345"
+      },
+      "type" : "CLASSROOM"
+    }
+  ];
   var sessionData = {
     authToken: authToken,
     userId: expUserId
   };
   var req = {
     query : {},
-    session :sessionData
+    session : {
+      sessionData: sessionData
+    }
   };
   var res = {};
   res.render = function(page, content) {
     expect(page).to.eql('manage/user/account');
     expect(content.title).to.eql('My Account');
     expect(content.activeTab).to.eql("my-profile");
+    expect(content.registrations).to.eql(regDetailsList);
   };
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
@@ -1659,6 +1707,12 @@ test('displayMyAccount default tab', function(t) {
         expect(key).to.eql("userId");
         return expUserId;
       }
+    },
+    '../../../API/manage/user-api.js': {
+      getUserRegistrations: function (req, userId, callback) {
+        expect(userId).to.eql(expUserId);
+        callback(null, regDetailsList);
+      }
     }
   });
 
@@ -1667,9 +1721,7 @@ test('displayMyAccount default tab', function(t) {
   t.end();
 });
 
-
 test('displayMyAccount error if not logged in', function(t) {
-
   var req = {
     query : {},
     session :{}
@@ -1682,6 +1734,55 @@ test('displayMyAccount error if not logged in', function(t) {
       getSessionData: function (req, key) {
         expect(key).to.eql("userId");
         return undefined;
+      }
+    },
+    "../../../helpers/common.js": {
+      redirectToError: function (response) {
+        expect(response).to.eql(res);
+      }
+    }
+  });
+
+  controller.displayMyAccount(req, res, null);
+
+  t.end();
+});
+
+test('displayMyAccount error getting registrations', function(t) {
+  var expUserId = "person12345";
+
+  var expError = new Error("Intentional Error");
+
+  var sessionData = {
+    authToken: authToken,
+    userId: expUserId
+  };
+  var req = {
+    query : {},
+    session : {
+      sessionData: sessionData
+    }
+  };
+  var res = {};
+  res.render = function(page, content) {
+    expect(page).to.eql('manage/user/account');
+    expect(content.title).to.eql('My Account');
+    expect(content.activeTab).to.eql("my-profile");
+    expect(content.registrations).to.eql(regDetailsList);
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js', {
+    '../../../API/manage/session-api.js': {
+      getSessionData: function (req, key) {
+        expect(key).to.eql("userId");
+        return expUserId;
+      }
+    },
+    '../../../API/manage/user-api.js': {
+      getUserRegistrations: function (req, userId, callback) {
+        expect(userId).to.eql(expUserId);
+        callback(expError, null);
       }
     },
     "../../../helpers/common.js": {
@@ -1976,7 +2077,7 @@ test('changePassword other error', function(t) {
             expect(pwChangeCredentials.username).to.eql(username);
             expect(pwChangeCredentials.password).to.eql(req.body.oldPassword);
             expect(pwChangeCredentials.newPassword).to.eql(req.body.newPassword);
-            callback(new Error("General Error"), 400);
+            callback(new Error("Intentional Error"), 400);
           }
         },
         '../../../API/authentication-api.js' : {

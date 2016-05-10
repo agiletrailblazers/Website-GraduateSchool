@@ -1,0 +1,84 @@
+<div id="my-registrations-section" class="row padding45">
+  <div id="gs-form">
+    <!-- Content -->
+    <div id="myReg-content" class="tab-content">
+      <div id="tab">
+        <% if (registrations && registrations.length!= 0){%>
+        <div id="myReg-table"> <!-- start non-mobile view -->
+          <table id="myReg" class="table myReg table-striped tablesorter">
+            <thead>
+            <tr>
+              <th>Course</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Location</th>
+              <th>Type</th>
+              <th>Status</th>
+            </tr>
+            </thead>
+            <% for (var j = 0; j < registrations.length; j++) { %>
+            <% var registrationDetails = registrations[j];
+               var startDate = null;
+               var endDate = null;
+               var status = null;
+               if (registrationDetails.startDate){
+                 startDate = new Date(registrationDetails.startDate)
+               }
+               if (registrationDetails.endDate){
+                 endDate = new Date(registrationDetails.endDate)
+               }
+               if (startDate && endDate){
+                 status = getSessionStatus(startDate, endDate)
+               }
+            %>
+            <tr>
+              <td class="limiter"><strong><a id="course-link<%=j%>" href='/courses/<%=registrationDetails.courseNo %>'><%=registrationDetails.courseTitle%></a></strong></td>
+              <td><%= startDate.toLocaleDateString()%></td>
+              <td><%= endDate.toLocaleDateString()%></td>
+              <td>
+                <% if (registrationDetails.address) {
+                    if (registrationDetails.address.city) {%>
+                      <%= registrationDetails.address.city%>
+                  <% if (registrationDetails.address.state) {%>
+                , <%= registrationDetails.address.state%>
+                <%  }
+                  }
+                if((typeof(registrationDetails.address.address1)!='undefined') && typeof(registrationDetails.address.address2)!='undefined') {%>
+                  <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= registrationDetails.address.city%>, <%= registrationDetails.address.state%>' data-address='<%= registrationDetails.address.address1 +', '+ registrationDetails.address.address2 +', '%> <%= registrationDetails.address.city  +', '%> <%= registrationDetails.address.state %> <%= registrationDetails.address.postalCode %>'></span>
+                  <% } else if(typeof(registrationDetails.address.address1)!='undefined') {%>
+                  <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= registrationDetails.address.city%>, <%= registrationDetails.address.state%>' data-address='<%= registrationDetails.address.address1 +', '%> <%= registrationDetails.address.city +', '%> <%= registrationDetails.address.state %> <%= registrationDetails.address.postalCode %>'></span>
+                  <% } else if(typeof(registrationDetails.address.address2)!= 'undefined') {%>
+                  <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= registrationDetails.address.city%>, <%= registrationDetails.address.state%>' data-address='<%= registrationDetails.address.address2 +', '%> <%= registrationDetails.address.city +', '%> <%= registrationDetails.address.state %> <%= registrationDetails.address.postalCode %>'></span>
+                  <% } else if (typeof(registrationDetails.address.city) != 'undefined') {%>
+                  <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= registrationDetails.address.city%>, <%= registrationDetails.address.state%>' data-address='<%= registrationDetails.address.city +', '%> <%= registrationDetails.address.state %> <%= registrationDetails.address.postalCode %>'></span>
+                  <%}
+                }%>
+              </td>
+              <td><%=registrationDetails.type%></td>
+              <td>
+                <%if (status=="in progress"){%>
+                  <span class="hidden">01</span><img src="../../images/r_in_progress.png" alt="in progress">
+                <%} else if (status=="pending") {%>
+                  <span class="hidden">02</span><img src="../../images/r_pending.png" alt="pending">
+                <%} else if (status=="ended") {%>
+                <span class="hidden">03</span><img src="../../images/r_ended.png" alt="ended">
+                <%}%>
+              </td>
+            </tr>
+            <% } %>
+          </table>
+          <div id="statusKey" style="float: right;">
+            <span class="legend-item"><img src="../../images/r_in_progress.png" alt="in progress"> in progress </span>
+            <span class="legend-item"><img src="../../images/r_pending.png" alt="pending"> pending </span>
+            <span class="legend-item"><img src="../../images/r_ended.png" alt="ended"> ended </span>
+          </div>
+        </div> <!--END myReg Table -->
+        <% } else { %>
+        <div id="noReg-content">You are currently not registered for any sessions. <br><br>
+        Click <a id='no-reg-search-link' href='/search'>here</a> to search for courses.</div>
+        <div class="spacer120"></div>
+        <% }%>
+      </div>
+    </div><!--End of Content -->
+  </div>
+</div>

@@ -749,3 +749,124 @@ test('changePassword handles exception', function(t) {
 
     t.end();
 });
+
+test('get registrations success has reg details', function(t) {
+    //use endpoint from config even for tests
+    var apiServer = config("properties").apiServer;
+    var userId = 'persn00000012345';
+
+    var req = {}
+
+    var proxiedUser = proxyquire('../API/manage/user-api.js',
+        {
+            "./session-api.js": {
+                getSessionData: function (req, key) {
+                    expect(key).to.eql("authToken");
+                    return authToken;
+                }
+            }
+        });
+
+    var startDateTime = ((new Date().getTime()) - 86400000).toString();
+    var endDateTime = ((new Date().getTime()) + 86400000).toString();
+    var regDetailsList = [
+        {
+            "sessionNo": "1234567",
+            "courseNo": "COURSE1234",
+            "courseTitle": "Introduction to Testing",
+            "startDate" : startDateTime,
+            "endDate" : endDateTime,
+            "address" : {
+                "address1": "123 Main Street",
+                "address2": "Suite 100",
+                "city": "Washington",
+                "state": "DC",
+                "postalCode": "12345"
+            },
+            "type" : "CLASSROOM"
+        }
+    ];
+
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    })
+        .get('/api/registrations/users/' + userId)
+        .reply(200, regDetailsList);
+
+    server;
+
+    proxiedUser.getUserRegistrations(req, userId, function(error, retrievedRegistrationDetails) {
+        server.done();
+        expect(retrievedRegistrationDetails[0].sessionNo).to.eql("1234567");
+        expect(retrievedRegistrationDetails[0].courseNo).to.eql("COURSE1234");
+        expect(retrievedRegistrationDetails[0].courseTitle).to.eql("Introduction to Testing");
+        expect(retrievedRegistrationDetails[0].startDate).to.eql(startDateTime);
+        expect(retrievedRegistrationDetails[0].endDate).to.eql(endDateTime);
+        expect(retrievedRegistrationDetails[0].address.address1).to.eql("123 Main Street");
+        expect(retrievedRegistrationDetails[0].address.address2).to.eql("Suite 100");
+        expect(retrievedRegistrationDetails[0].address.city).to.eql("Washington");
+        expect(retrievedRegistrationDetails[0].address.state).to.eql("DC");
+        expect(retrievedRegistrationDetails[0].address.postalCode).to.eql("12345");
+        expect(retrievedRegistrationDetails[0].type).to.eql("CLASSROOM");
+        expect(retrievedRegistrationDetails).to.eql(regDetailsList);
+    });
+    t.end();
+});
+
+test('get registrations handles error', function(t) {
+    //use endpoint from config even for tests
+    var apiServer = config("properties").apiServer;
+    var userId = 'persn00000012345';
+
+    var proxiedUser = proxyquire('../API/manage/user-api.js',
+        {
+            "./session-api.js": {
+                getSessionData: function (req, key) {
+                    expect(key).to.eql("authToken");
+                    return authToken;
+                }
+            }
+        });
+
+    var req = {};
+
+    //test a 404 Error
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    })
+        .get('/api/registrations/users/' + userId)
+        .reply(404);
+
+    server;
+
+    proxiedUser.getUserRegistrations(req, userId, function(error, retrievedRegistrationDetails) {
+        server.done();
+        expect(error).to.not.be.null;
+        expect(error.message).to.eq("Exception occurred getting user registrations");
+    });
+    t.end();
+});
+
+test('get registrations handles error no user ID', function(t) {
+    var proxiedUser = proxyquire('../API/manage/user-api.js',
+        {
+            "./session-api.js": {
+                getSessionData: function (req, key) {
+                    expect(key).to.eql("authToken");
+                    return "token1234";
+                }
+            }
+        });
+
+    var req = {};
+
+    proxiedUser.getUserRegistrations(req, null, function(error, retrievedRegistrationDetails) {
+        expect(error).to.not.be.null;
+        expect(error.message).to.eq("User ID cannot be empty");
+    });
+    t.end();
+});
