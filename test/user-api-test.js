@@ -762,7 +762,7 @@ test('get registrations success has reg details', function(t) {
             "./session-api.js": {
                 getSessionData: function (req, key) {
                     expect(key).to.eql("authToken");
-                    return "token1234";
+                    return authToken;
                 }
             }
         });
@@ -788,7 +788,7 @@ test('get registrations success has reg details', function(t) {
     ];
 
     var server = nock(apiServer, {
-        headers: {
+        reqheaders: {
             'Authorization': authToken
         }
     })
@@ -825,7 +825,7 @@ test('get registrations handles error', function(t) {
             "./session-api.js": {
                 getSessionData: function (req, key) {
                     expect(key).to.eql("authToken");
-                    return "token1234";
+                    return authToken;
                 }
             }
         });
@@ -834,7 +834,7 @@ test('get registrations handles error', function(t) {
 
     //test a 404 Error
     var server = nock(apiServer, {
-        headers: {
+        reqheaders: {
             'Authorization': authToken
         }
     })
