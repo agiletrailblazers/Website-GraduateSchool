@@ -238,7 +238,11 @@ h1.g2g {
 }
 
 .glyphicon {
-    top: 0px;
+  top: 0px;
+}
+
+.limiter {
+  max-width: 170px;
 }
 
 /* TableSorter */

@@ -106,7 +106,7 @@
                   <% for (var j = 0; j < arrayOfSessions.length; j++) { %>
                     <% var session = arrayOfSessions[j]; %>
                     <tr>
-                      <td><strong><a href='/courses/<%=session.courseCode %>'><%=session.courseTitle%></a></strong></td>
+                      <td class="limiter"><strong><a href='/courses/<%=session.courseCode %>'><%=session.courseTitle%></a></strong></td>
                       <td class="non-mobile"><%=session.courseCode%></td>
                       <td><%= session.startDate%></td>
                       <td class="non-mobile"><%= session.endDate%></td>
@@ -139,8 +139,7 @@
     </div><!-- END of Navigation -->
   </div>
 </div>  <!-- End of row Guaranteed to Go Classes -->
-<!-- GTOG ENDS - TO BE REMOVED -->
-</div>
+</div><!-- End of row  -->
 
 <% include ../partials/chat %>
 <% include ../partials/footer %>
