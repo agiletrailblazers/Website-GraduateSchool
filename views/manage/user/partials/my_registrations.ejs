@@ -32,7 +32,7 @@
                }
             %>
             <tr>
-              <td class="limiter"><strong><a href='/courses/<%=registrationDetails.courseNo %>'><%=registrationDetails.courseTitle%></a></strong></td>
+              <td class="limiter"><strong><a id="course-link<%=j%>" href='/courses/<%=registrationDetails.courseNo %>'><%=registrationDetails.courseTitle%></a></strong></td>
               <td><%= startDate.toLocaleDateString()%></td>
               <td><%= endDate.toLocaleDateString()%></td>
               <td>
