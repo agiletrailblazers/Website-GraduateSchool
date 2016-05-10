@@ -200,11 +200,8 @@ module.exports = {
     var targetURL = config("properties").apiServer + '/api/registrations/users/' + userId ;
     var currentAuthToken = session.getSessionData(req, "authToken");
 
-    if (!userId || userId==""){
+    if (common.isEmpty(userId)){
       return callback(new Error("User ID cannot be empty"), null);
-    }
-    if (!currentAuthToken || currentAuthToken==""){
-      return callback(new Error("AuthToken cannot be empty"), null);
     }
 
     request({
