@@ -20,28 +20,39 @@ module.exports = {
             if (error) {
               return callback(error);
             }
+            var title = "";
+            var subtitle = "";
             var imageUrl = null;
-            if (body.items[0].fields.featureImage) {
-              if (body.includes && body.includes.Asset) {
-                for (var i = 0; i < body.includes.Asset.length; i++) {
-                  if (body.items[0].fields.featureImage.sys.id === body.includes.Asset[i].sys.id) {
-                    imageUrl = body.includes.Asset[i].fields.file.url;
-                    break;
+            var relatedLinks = null;
+            var section = null;
+            var seoDescription = "";
+            var seoKeywords = "";
+            if (body.items[0] && body.items[0].fields) {
+              if (body.items[0].fields.featureImage) {
+                if (body.includes && body.includes.Asset) {
+                  for (var i = 0; i < body.includes.Asset.length; i++) {
+                    if (body.items[0].fields.featureImage.sys.id === body.includes.Asset[i].sys.id) {
+                      imageUrl = body.includes.Asset[i].fields.file.url;
+                      break;
+                    }
                   }
                 }
               }
-            }
-            var section = null;
-            if (body.items[0].fields.section) {
+              title = body.items[0].fields.title;
+              subtitle = body.items[0].fields.subtitle;
+              seoDescription = body.items[0].fields.seoDescription;
+              seoKeywords = body.items[0].fields.seoKeywords;
+              relatedLinks = body.items[0].fields.relatedLinks;
               section = body.items[0].fields.section;
             }
+
             var content = {
-              title: body.items[0].fields.title,
-              subtitle: body.items[0].fields.subtitle,
+              title: title,
+              subtitle: subtitle,
               imageUrl: imageUrl,
-              relatedLinks: body.items[0].fields.relatedLinks,
-              seoDescription: body.items[0].fields.seoDescription,
-              seoKeywords: body.items[0].fields.seoKeywords,
+              relatedLinks: relatedLinks,
+              seoDescription: seoDescription,
+              seoKeywords: seoKeywords,
               section: section
             }
             callback(null, content);
