@@ -148,7 +148,7 @@ h2.login-title {
   text-align: left;
 }
 
-#login-form .form-inline .form-group {
+#login-form .form-inline .form-group, #pwChange .form-inline .form-group {
   margin: 0 !important;
   text-align: left;
 }
