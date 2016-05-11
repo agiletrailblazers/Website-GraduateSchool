@@ -2170,3 +2170,316 @@ test('changePassword other error', function(t) {
 
   t.end();
 });
+
+
+
+
+
+
+test('updateUser', function(t) {
+
+  var userId = "pers12345";
+  var username = "test.user@test.com";
+
+  var originalUser = {
+    id: userId,
+    username: username,
+    person: {
+      primaryAddress: {}
+    }
+  };
+
+  var updatedUser = JSON.parse(JSON.stringify(originalUser));
+
+  var sessionData = {
+    authToken: authToken,
+    user : originalUser
+  };
+
+  var body = {
+    firstName : "Joe",
+    middleName : "The",
+    lastName : "Tester",
+    lastFourSSN : "5555",
+    phone : "5555555555",
+    dateOfBirth : "03/15/2016",
+    street : "55 Test Way",
+    suite : "Suite 5",
+    city : "Test City",
+    state : "UT",
+    zip : "55555",
+    timezoneId : "123"
+  };
+
+  var req = {
+    body : body,
+    session : {
+      sessionData: sessionData
+    }
+  };
+
+  var formattedDateOfBirth = "20160315";
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          setSessionData: function (req, key, value) {
+            if (!req.session.sessionData){
+              req.session.sessionData = {};
+            }
+            req.session.sessionData[key] = value;
+          }
+        },
+        "../../../API/manage/user-api.js": {
+          updateUser: function (req, userData, cb) {
+
+            expect(userData.id).to.eql(userId);
+            expect(userData.username).to.eql(username);
+            expect(userData.person.firstName).to.eql(req.body.firstName);
+            expect(userData.person.middleName).to.eql(req.body.middleName);
+            expect(userData.person.lastName).to.eql(req.body.lastName);
+            expect(userData.person.primaryPhone).to.eql(req.body.phone);
+            expect(userData.person.primaryAddress.address1).to.eql(req.body.street);
+            expect(userData.person.primaryAddress.address2).to.eql(req.body.suite);
+            expect(userData.person.primaryAddress.city).to.eql(req.body.city);
+            expect(userData.person.primaryAddress.state).to.eql(req.body.state);
+            expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
+            expect(userData.person.dateOfBirth).to.eql(formattedDateOfBirth);
+            expect(userData.timezoneId).to.eql(req.body.timezoneId);
+
+            var result = {
+              updatedUser : updatedUser,
+              generalError : false,
+              validationErrors : null
+            };
+
+            cb(null, result);
+            return;
+          }
+        }
+      });
+
+  var res = {
+    status : function (status) {
+      expect(status).to.eql(200);
+      return {
+        send : function () {
+          // verify the data in session
+          expect(sessionData.user).to.eql(updatedUser);
+          expect(sessionData.isSuccessfulUserUpdate).to.eql(true);
+        }
+      }
+    }
+  };
+
+  controller.updateUser(req, res, null);
+
+  t.end();
+});
+
+test('updateUser handles validation errors', function(t) {
+
+  var userId = "pers12345";
+  var username = "test.user@test.com";
+
+  var originalUser = {
+    id: userId,
+    username: username,
+    person: {
+      primaryAddress: {}
+    }
+  };
+
+  var sessionData = {
+    authToken: authToken,
+    user : originalUser
+  };
+
+  var body = {
+    firstName : "Joe",
+    middleName : "The",
+    lastName : "Tester",
+    lastFourSSN : "5555",
+    phone : "5555555555",
+    dateOfBirth : "03/15/2016",
+    street : "55 Test Way",
+    suite : "Suite 5",
+    city : "Test City",
+    state : "UT",
+    zip : "55555",
+    timezoneId : "123"
+  };
+
+  var req = {
+    body : body,
+    session : {
+      sessionData: sessionData
+    }
+  };
+
+  var formattedDateOfBirth = "20160315";
+
+  var validationErrors = {
+    firstName : "Invalid first name"
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          setSessionData: function (req, key, value) {
+            if (!req.session.sessionData){
+              req.session.sessionData = {};
+            }
+            req.session.sessionData[key] = value;
+          }
+        },
+        "../../../API/manage/user-api.js": {
+          updateUser: function (req, userData, cb) {
+
+            expect(userData.id).to.eql(userId);
+            expect(userData.username).to.eql(username);
+            expect(userData.person.firstName).to.eql(req.body.firstName);
+            expect(userData.person.middleName).to.eql(req.body.middleName);
+            expect(userData.person.lastName).to.eql(req.body.lastName);
+            expect(userData.person.primaryPhone).to.eql(req.body.phone);
+            expect(userData.person.primaryAddress.address1).to.eql(req.body.street);
+            expect(userData.person.primaryAddress.address2).to.eql(req.body.suite);
+            expect(userData.person.primaryAddress.city).to.eql(req.body.city);
+            expect(userData.person.primaryAddress.state).to.eql(req.body.state);
+            expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
+            expect(userData.person.dateOfBirth).to.eql(formattedDateOfBirth);
+            expect(userData.timezoneId).to.eql(req.body.timezoneId);
+
+            var result = {
+              updatedUser : null,
+              generalError : false,
+              validationErrors : validationErrors
+            };
+
+            cb(new Error("I made update user test fail"), result);
+            return;
+          }
+        }
+      });
+
+  var res = {
+    status : function (status) {
+      expect(status).to.eql(400);
+      return {
+        send : function (result) {
+          // verify the data in session
+          expect(sessionData.user).to.eql(originalUser);
+          expect(sessionData.isSuccessfulUserUpdate).to.be.undefined;
+          expect(result.validationErrors).to.eql(validationErrors);
+        }
+      }
+    }
+  };
+
+  controller.updateUser(req, res, null);
+
+  t.end();
+});
+
+test('updateUser handles general error', function(t) {
+
+  var userId = "pers12345";
+  var username = "test.user@test.com";
+
+  var originalUser = {
+    id: userId,
+    username: username,
+    person: {
+      primaryAddress: {}
+    }
+  };
+
+  var sessionData = {
+    authToken: authToken,
+    user : originalUser
+  };
+
+  var body = {
+    firstName : "Joe",
+    middleName : "The",
+    lastName : "Tester",
+    lastFourSSN : "5555",
+    phone : "5555555555",
+    dateOfBirth : "03/15/2016",
+    street : "55 Test Way",
+    suite : "Suite 5",
+    city : "Test City",
+    state : "UT",
+    zip : "55555",
+    timezoneId : "123"
+  };
+
+  var req = {
+    body : body,
+    session : {
+      sessionData: sessionData
+    }
+  };
+
+  var formattedDateOfBirth = "20160315";
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          setSessionData: function (req, key, value) {
+            if (!req.session.sessionData){
+              req.session.sessionData = {};
+            }
+            req.session.sessionData[key] = value;
+          }
+        },
+        "../../../API/manage/user-api.js": {
+          updateUser: function (req, userData, cb) {
+
+            expect(userData.id).to.eql(userId);
+            expect(userData.username).to.eql(username);
+            expect(userData.person.firstName).to.eql(req.body.firstName);
+            expect(userData.person.middleName).to.eql(req.body.middleName);
+            expect(userData.person.lastName).to.eql(req.body.lastName);
+            expect(userData.person.primaryPhone).to.eql(req.body.phone);
+            expect(userData.person.primaryAddress.address1).to.eql(req.body.street);
+            expect(userData.person.primaryAddress.address2).to.eql(req.body.suite);
+            expect(userData.person.primaryAddress.city).to.eql(req.body.city);
+            expect(userData.person.primaryAddress.state).to.eql(req.body.state);
+            expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
+            expect(userData.person.dateOfBirth).to.eql(formattedDateOfBirth);
+            expect(userData.timezoneId).to.eql(req.body.timezoneId);
+
+            var result = {
+              updatedUser : null,
+              generalError : true,
+              validationErrors : null
+            };
+
+            cb(new Error("I made update user test fail"), result);
+            return;
+          }
+        }
+      });
+
+  var res = {
+    status : function (status) {
+      expect(status).to.eql(500);
+      return {
+        send : function (result) {
+          // verify the data in session
+          expect(sessionData.user).to.eql(originalUser);
+          expect(sessionData.isSuccessfulUserUpdate).to.be.undefined;
+          expect(result.error).to.be.not.null;
+        }
+      }
+    }
+  };
+
+  controller.updateUser(req, res, null);
+
+  t.end();
+});
