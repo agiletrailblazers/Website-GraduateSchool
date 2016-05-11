@@ -27,13 +27,7 @@ module.exports = {
             var section = null;
             var seoDescription = "";
             var seoKeywords = "";
-            if (body.items[0].fields) {
-              if (body.items[0].fields.title) {
-                title = body.items[0].fields.title;
-              }
-              if (body.items[0].fields.subtitle) {
-                subtitle = body.items[0].fields.subtitle;
-              }
+            if (body.items[0] && body.items[0].fields) {
               if (body.items[0].fields.featureImage) {
                 if (body.includes && body.includes.Asset) {
                   for (var i = 0; i < body.includes.Asset.length; i++) {
@@ -43,18 +37,6 @@ module.exports = {
                     }
                   }
                 }
-              }
-              if (body.items[0].fields.seoDescription) {
-                seoDescription = body.items[0].fields.seoDescription;
-              }
-              if (body.items[0].fields.seoKeywords) {
-                seoKeywords = body.items[0].fields.seoKeywords;
-              }
-              if (body.items[0].fields.relatedLinks) {
-                relatedLinks = body.items[0].fields.relatedLinks;
-              }
-              if (body.items[0].fields.section) {
-                section = body.items[0].fields.section;
               }
             }
 
