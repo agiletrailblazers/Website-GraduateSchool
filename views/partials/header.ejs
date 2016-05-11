@@ -6,26 +6,8 @@
 <% include ../partials/nav_top %>
 <!--  END Top Nav -->
 
-<!-- set session timeout and user id, used for browser side session timeout warning (only if authenticated session) -->
-<input id="userId" type="hidden" value="<%= userId %>">
-<input id="sessionTimeout" type="hidden" value="<%= sessionTimeout %>">
-
 <!-- session timeout modal dialog -->
-<div class="modal fade" id="sessionTimeoutModal" tabindex="-1" role="dialog" aria-labelledby="sessionTimeoutModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header gs-modal-header">
-				<h4 class="modal-title gs-modal-title" id="sessionTimeoutModalLabel">Graduate School USA - Session Timeout</h4>
-			</div>
-			<div class="modal-body">
-				<p>To protect your privacy, your session has expired and you have been logged out.</p>
-			</div>
-			<div class="modal-footer gs-modal-footer">
-				<a href="#" class="blueish" data-dismiss="modal">Close</a>
-			</div>
-		</div>
-	</div>
-</div>
+<% include ../partials/timeout.ejs %>
 <!-- END - session timeout modal dialog -->
 
 <!--  HEADER -->
