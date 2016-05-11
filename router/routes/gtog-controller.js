@@ -38,6 +38,12 @@ module.exports = {
                   }
                 }
               }
+              title = body.items[0].fields.title;
+              subtitle = body.items[0].fields.subtitle;
+              seoDescription = body.items[0].fields.seoDescription;
+              seoKeywords = body.items[0].fields.seoKeywords;
+              relatedLinks = body.items[0].fields.relatedLinks;
+              section = body.items[0].fields.section;
             }
 
             var content = {
