@@ -48,8 +48,10 @@ $(document).ready(function () {
         if (!$("#gs-alert-error p").length) {
             $.post("/manage/user/update_user", formData)
                 .done(function () {
+
                     // reload the page to reflect new user info
                     window.location.reload();
+
                 })
                 .fail(function (xhr, textStatus, errorThrown) {
                     alertify.error("Error updating user.");
@@ -68,7 +70,7 @@ $(document).ready(function () {
                     }
                     $("#gs-alert-error").slideDown();
                     $("html, body").animate({
-                        scrollTop: 0
+                        scrollTop: 220
                     }, "slow");
                 });
         }
