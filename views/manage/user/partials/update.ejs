@@ -67,7 +67,7 @@
               <span class="form-group">
                 <label for="dateOfBirth" >*Date of birth</label>
                 <% if (user.person.dateOfBirth) { %>
-                <input type="text" id="dateOfBirth" class="form-control" size="4" maxlength="4" tabindex="22" value="<%= moment(new Date(user.person.dateOfBirth)).format('MM/DD/YYYY') %>">
+                <input type="text" id="dateOfBirth" class="form-control" size="4" maxlength="4" tabindex="22" value="<%= user.person.dateOfBirth %>">
                 <% } else { %>
                 <input type="text" id="dateOfBirth" class="form-control" size="4" maxlength="4" tabindex="22">
                 <% } %>
@@ -210,7 +210,7 @@
               <span class="form-group">
                 <label for="dateOfBirth" >*Date of birth</label>
                 <% if (user.person.dateOfBirth) { %>
-                <span><%= moment(new Date(user.person.dateOfBirth)).format('MM/DD/YYYY') %></span>
+                <span><%= user.person.dateOfBirth %></span>
                 <% } else { %>
                 <span></span>
                 <% } %>

@@ -660,7 +660,7 @@ test('registrationLogin should handle other error', function(t) {
 
 test('createUser', function(t) {
   var sessionData = { authToken : authToken };
-  var formattedDateOfBirth = "20160315";
+  var formattedDateOfBirth = "03/15/2016";
   var res = {};
   var req = {
     body : {
@@ -900,7 +900,7 @@ test('createUser handles validation error', function(t) {
 
 test('createUser handles general error', function(t) {
   var sessionData = { authToken : authToken };
-  var formattedDateOfBirth = "20160315";
+  var formattedDateOfBirth = "03/15/2016";
   var res = {};
   var req = {
     body : {
@@ -1018,7 +1018,7 @@ test('createUser handles general error', function(t) {
 
 test('createUser handles login user error', function(t) {
   var sessionData = { authToken : authToken };
-  var formattedDateOfBirth = "20160315";
+  var formattedDateOfBirth = "03/15/2016";
   var res = {};
   var req = {
     body : {
@@ -2218,7 +2218,7 @@ test('updateUser', function(t) {
     }
   };
 
-  var formattedDateOfBirth = "20160315";
+  var formattedDateOfBirth = "03/15/2016";
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/user-controller.js',
@@ -2318,7 +2318,7 @@ test('updateUser handles validation errors', function(t) {
     }
   };
 
-  var formattedDateOfBirth = "20160315";
+  var formattedDateOfBirth = "03/15/2016";
 
   var validationErrors = {
     firstName : "Invalid first name"
@@ -2423,7 +2423,7 @@ test('updateUser handles general error', function(t) {
     }
   };
 
-  var formattedDateOfBirth = "20160315";
+  var formattedDateOfBirth = "03/15/2016";
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/user-controller.js',

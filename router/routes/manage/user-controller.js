@@ -153,7 +153,7 @@ module.exports = {
                  "postalCode" : ((formData.zip === "") ? null : formData.zip)
                },
              "secondaryAddress" : null,
-             "dateOfBirth" : ((formData.dateOfBirth == "" ) ? null : moment(new Date(formData.dateOfBirth)).format("YYYYMMDD"))
+             "dateOfBirth" : ((formData.dateOfBirth == "" ) ? null : formData.dateOfBirth)
            },
           "timezoneId" : ((formData.timezoneId === "") ? null : formData.timezoneId)
         }
@@ -532,9 +532,7 @@ module.exports = {
         //updatedUser.username = ((formData.email === "") ? null : formData.email);
         //updatedUser.person.emailAddress = ((formData.email === "") ? null : formData.email);
         updatedUser.person.primaryPhone = ((formData.phone === "") ? null : formData.phone);
-        updatedUser.person.dateOfBirth =
-            ((formData.dateOfBirth === "") ? null
-                : moment(new Date(formData.dateOfBirth)).format("YYYYMMDD"));
+        updatedUser.person.dateOfBirth = ((formData.dateOfBirth === "") ? null: formData.dateOfBirth);
         updatedUser.person.primaryAddress.address1 =
             ((formData.street === "") ? null : formData.street);
         updatedUser.person.primaryAddress.address2 =
