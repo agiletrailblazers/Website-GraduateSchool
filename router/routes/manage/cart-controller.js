@@ -687,7 +687,7 @@ module.exports = {
 
         logger.debug("Processing registration canceled from cart");
 
-        if (session.getSessionData(req, "user").id) {
+        if (session.getSessionData(req, "user")) {
             logger.debug("Removing data from cart for user: " + session.getSessionData(req, "user").id);
         }
         else {
