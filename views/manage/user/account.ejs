@@ -20,10 +20,10 @@
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding">
               <div id="tabContainer">
                 <ul class="nav nav-tabs">
-                  <li class="<%= (activeTab == 'my-profile') ? 'active' : '' %>">
+                  <li class="tab <%= (activeTab == 'my-profile') ? 'active' : '' %>">
                     <a data-toggle="tab" href="#my-profile" data-tab="my-profile" class="mob-tab"><span id="profile-tab-nav" class="tab-fix"> <img src="../../images/r_my_account_gray.png" alt=""> My Profile </span></a>
                   </li>
-                  <li class="<%= (activeTab == 'my-registrations') ? 'active' : '' %>">
+                  <li class="tab <%= (activeTab == 'my-registrations') ? 'active' : '' %>">
                     <a data-toggle="tab" href="#my-registrations" data-tab="my-registrations" class="mob-tab"><span id="registrations-tab-nav" class="tab-fix"> <img src="../../images/r_my_registrations.png" alt=""> My Registrations </span></a>
                   </li>
                 </ul>
@@ -46,6 +46,7 @@
             </div><!-- END My Registration tab -->
           </div><!-- END tab content -->
         </div> <!--END container-->
+        <div class="spacer60"></div>
     <!-- Footer -->
     <% include ../../partials/footer %>
     <!-- END Footer  -->

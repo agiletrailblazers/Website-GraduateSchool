@@ -81,7 +81,7 @@ function toggleReadOnlyMode() {
     $("#gs-form-view-only").toggle();
     $("#account-modify-link").toggle();
     $("html, body").animate({
-        scrollTop: 0
+        scrollTop: 220
     }, "slow");
 
 }
