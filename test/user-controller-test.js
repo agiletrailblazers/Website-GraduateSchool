@@ -415,13 +415,7 @@ test('registrationLogin', function(t) {
         }
         req.session.sessionData[key] = value;
 
-        if (key==="userId"){
-          expect(value).to.eql(authUser.user.id);
-          setSessionCheckedCounter++;
-        } else if (key==="userFirstName"){
-          expect(value).to.eql(authUser.user.person.firstName);
-          setSessionCheckedCounter++;
-        } else if (key==="passwordChangeAuthUserId"){
+        if (key==="passwordChangeAuthUserId"){
           expect(value).to.eql(authUser.user.id);
           setSessionCheckedCounter++;
         } else if (key==="passwordChangeAuthUsername"){
@@ -449,7 +443,7 @@ test('registrationLogin', function(t) {
 
   res.redirect = function(page) {
       expect(page).to.eql('/manage/cart/payment');
-      expect(setSessionCheckedCounter).to.eql(4);
+      expect(setSessionCheckedCounter).to.eql(2);
       expect(req.session.sessionData["pwResetRequiredMessage"]).to.be.undefined;
   };
 
@@ -666,7 +660,7 @@ test('registrationLogin should handle other error', function(t) {
 
 test('createUser', function(t) {
   var sessionData = { authToken : authToken };
-  var formattedDateOfBirth = "20160315";
+  var formattedDateOfBirth = "03/15/2016";
   var res = {};
   var req = {
     body : {
@@ -906,7 +900,7 @@ test('createUser handles validation error', function(t) {
 
 test('createUser handles general error', function(t) {
   var sessionData = { authToken : authToken };
-  var formattedDateOfBirth = "20160315";
+  var formattedDateOfBirth = "03/15/2016";
   var res = {};
   var req = {
     body : {
@@ -1024,7 +1018,7 @@ test('createUser handles general error', function(t) {
 
 test('createUser handles login user error', function(t) {
   var sessionData = { authToken : authToken };
-  var formattedDateOfBirth = "20160315";
+  var formattedDateOfBirth = "03/15/2016";
   var res = {};
   var req = {
     body : {
@@ -1407,8 +1401,12 @@ test('logout', function(t) {
   var authToken = "12345";
   var sessionData = {
     authToken : authToken,
-    userId: "user1234",
-    userFirstName: "TestUser",
+    user : {
+      id: "user1234",
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : "course2345",
       sessionId : "session3456",
@@ -1456,8 +1454,12 @@ test('logoutAsync', function(t) {
   var authToken = "12345";
   var sessionData = {
     authToken : authToken,
-    userId: "user1234",
-    userFirstName: "TestUser",
+    user : {
+      id: "user1234",
+      person: {
+        firstName: "TestUser"
+      }
+    },
     cart: {
       courseId : "course2345",
       sessionId : "session3456",
@@ -1601,7 +1603,6 @@ test('forgotPassword', function(t) {
 
 test('displayMyAccount', function(t) {
   var expectedTab = "testTab";
-  var expUserId = "person12345";
   var startDateTime = ((new Date().getTime()) - 86400000).toString();
   var endDateTime = ((new Date().getTime()) + 86400000).toString();
   var regDetailsList = [
@@ -1624,7 +1625,12 @@ test('displayMyAccount', function(t) {
 
   var sessionData = {
     authToken: authToken,
-    userId: expUserId
+    user : {
+      id: "person12345",
+      person: {
+        firstName: "TestUser"
+      }
+    }
   };
   var req = {
     query : {
@@ -1638,19 +1644,48 @@ test('displayMyAccount', function(t) {
     expect(content.title).to.eql('My Account');
     expect(content.activeTab).to.eql(expectedTab);
     expect(content.registrations).to.eql(regDetailsList);
+    expect(content.states).to.eql(expectedStates);
+    expect(content.timezones).to.eql(expectedTimezones);
+    expect(content.user).to.eql(sessionData.user);
   };
+
+  var expectedStates = ['Alaska'];
+  var expectedTimezones = [
+    {
+      "id": "11111",
+      "name": "Test Zone"
+    }
+  ];
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/user-controller.js', {
+    "../../../API/contentful.js": {
+      getReferenceData: function (slug, callback) {
+        expect(slug).to.eql("us-states");
+        callback(expectedStates, null);
+      }
+    },
+    "../../../API/common-api.js": {
+      getTimezones: function (callback, authtoken) {
+        callback(null, expectedTimezones);
+      }
+    },
     '../../../API/manage/session-api.js': {
       getSessionData: function (req, key) {
-        expect(key).to.eql("userId");
-        return expUserId;
+        if (key == "user") {
+          return sessionData.user;
+        }
+        else if (key == "authToken") {
+          return sessionData.authToken;
+        }
+        else {
+          return undefined;
+        }
       }
     },
     '../../../API/manage/user-api.js': {
       getUserRegistrations: function (req, userId, callback) {
-        expect(userId).to.eql(expUserId);
+        expect(userId).to.eql(sessionData.user.id);
         callback(null, regDetailsList);
       }
     }
@@ -1662,7 +1697,6 @@ test('displayMyAccount', function(t) {
 });
 
 test('displayMyAccount default tab', function(t) {
-  var expUserId = "person12345";
   var startDateTime = ((new Date().getTime()) - 86400000).toString();
   var endDateTime = ((new Date().getTime()) + 86400000).toString();
   var regDetailsList = [
@@ -1682,9 +1716,15 @@ test('displayMyAccount default tab', function(t) {
       "type" : "CLASSROOM"
     }
   ];
+
   var sessionData = {
     authToken: authToken,
-    userId: expUserId
+    user : {
+      id: "person12345",
+      person: {
+        firstName: "TestUser"
+      }
+    }
   };
   var req = {
     query : {},
@@ -1698,19 +1738,48 @@ test('displayMyAccount default tab', function(t) {
     expect(content.title).to.eql('My Account');
     expect(content.activeTab).to.eql("my-profile");
     expect(content.registrations).to.eql(regDetailsList);
+    expect(content.states).to.eql(expectedStates);
+    expect(content.timezones).to.eql(expectedTimezones);
+    expect(content.user).to.eql(sessionData.user);
   };
+
+  var expectedStates = ['Alaska'];
+  var expectedTimezones = [
+    {
+      "id": "11111",
+      "name": "Test Zone"
+    }
+  ];
 
   // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
   var controller = proxyquire('../router/routes/manage/user-controller.js', {
+    "../../../API/contentful.js": {
+      getReferenceData: function (slug, callback) {
+        expect(slug).to.eql("us-states");
+        callback(expectedStates, null);
+      }
+    },
+    "../../../API/common-api.js": {
+      getTimezones: function (callback, authtoken) {
+        callback(null, expectedTimezones);
+      }
+    },
     '../../../API/manage/session-api.js': {
       getSessionData: function (req, key) {
-        expect(key).to.eql("userId");
-        return expUserId;
+        if (key == "user") {
+          return sessionData.user;
+        }
+        else if (key == "authToken") {
+          return sessionData.authToken;
+        }
+        else {
+          return undefined;
+        }
       }
     },
     '../../../API/manage/user-api.js': {
       getUserRegistrations: function (req, userId, callback) {
-        expect(userId).to.eql(expUserId);
+        expect(userId).to.eql(sessionData.user.id);
         callback(null, regDetailsList);
       }
     }
@@ -1732,8 +1801,10 @@ test('displayMyAccount error if not logged in', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js', {
     '../../../API/manage/session-api.js': {
       getSessionData: function (req, key) {
-        expect(key).to.eql("userId");
-        return undefined;
+        if (key == "user") {
+          return undefined;
+        }
+        return {};
       }
     },
     "../../../helpers/common.js": {
@@ -1775,8 +1846,15 @@ test('displayMyAccount error getting registrations', function(t) {
   var controller = proxyquire('../router/routes/manage/user-controller.js', {
     '../../../API/manage/session-api.js': {
       getSessionData: function (req, key) {
-        expect(key).to.eql("userId");
-        return expUserId;
+        if (key == "user") {
+          return sessionData.user;
+        }
+        else if (key == "authToken") {
+          return sessionData.authToken;
+        }
+        else {
+          return undefined;
+        }
       }
     },
     '../../../API/manage/user-api.js': {
@@ -2089,6 +2167,319 @@ test('changePassword other error', function(t) {
       });
 
   controller.changePassword(req, res, null);
+
+  t.end();
+});
+
+
+
+
+
+
+test('updateUser', function(t) {
+
+  var userId = "pers12345";
+  var username = "test.user@test.com";
+
+  var originalUser = {
+    id: userId,
+    username: username,
+    person: {
+      primaryAddress: {}
+    }
+  };
+
+  var updatedUser = JSON.parse(JSON.stringify(originalUser));
+
+  var sessionData = {
+    authToken: authToken,
+    user : originalUser
+  };
+
+  var body = {
+    firstName : "Joe",
+    middleName : "The",
+    lastName : "Tester",
+    lastFourSSN : "5555",
+    phone : "5555555555",
+    dateOfBirth : "03/15/2016",
+    street : "55 Test Way",
+    suite : "Suite 5",
+    city : "Test City",
+    state : "UT",
+    zip : "55555",
+    timezoneId : "123"
+  };
+
+  var req = {
+    body : body,
+    session : {
+      sessionData: sessionData
+    }
+  };
+
+  var formattedDateOfBirth = "03/15/2016";
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          setSessionData: function (req, key, value) {
+            if (!req.session.sessionData){
+              req.session.sessionData = {};
+            }
+            req.session.sessionData[key] = value;
+          }
+        },
+        "../../../API/manage/user-api.js": {
+          updateUser: function (req, userData, cb) {
+
+            expect(userData.id).to.eql(userId);
+            expect(userData.username).to.eql(username);
+            expect(userData.person.firstName).to.eql(req.body.firstName);
+            expect(userData.person.middleName).to.eql(req.body.middleName);
+            expect(userData.person.lastName).to.eql(req.body.lastName);
+            expect(userData.person.primaryPhone).to.eql(req.body.phone);
+            expect(userData.person.primaryAddress.address1).to.eql(req.body.street);
+            expect(userData.person.primaryAddress.address2).to.eql(req.body.suite);
+            expect(userData.person.primaryAddress.city).to.eql(req.body.city);
+            expect(userData.person.primaryAddress.state).to.eql(req.body.state);
+            expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
+            expect(userData.person.dateOfBirth).to.eql(formattedDateOfBirth);
+            expect(userData.timezoneId).to.eql(req.body.timezoneId);
+
+            var result = {
+              updatedUser : updatedUser,
+              generalError : false,
+              validationErrors : null
+            };
+
+            cb(null, result);
+            return;
+          }
+        }
+      });
+
+  var res = {
+    status : function (status) {
+      expect(status).to.eql(200);
+      return {
+        send : function () {
+          // verify the data in session
+          expect(sessionData.user).to.eql(updatedUser);
+          expect(sessionData.isSuccessfulUserUpdate).to.eql(true);
+        }
+      }
+    }
+  };
+
+  controller.updateUser(req, res, null);
+
+  t.end();
+});
+
+test('updateUser handles validation errors', function(t) {
+
+  var userId = "pers12345";
+  var username = "test.user@test.com";
+
+  var originalUser = {
+    id: userId,
+    username: username,
+    person: {
+      primaryAddress: {}
+    }
+  };
+
+  var sessionData = {
+    authToken: authToken,
+    user : originalUser
+  };
+
+  var body = {
+    firstName : "Joe",
+    middleName : "The",
+    lastName : "Tester",
+    lastFourSSN : "5555",
+    phone : "5555555555",
+    dateOfBirth : "03/15/2016",
+    street : "55 Test Way",
+    suite : "Suite 5",
+    city : "Test City",
+    state : "UT",
+    zip : "55555",
+    timezoneId : "123"
+  };
+
+  var req = {
+    body : body,
+    session : {
+      sessionData: sessionData
+    }
+  };
+
+  var formattedDateOfBirth = "03/15/2016";
+
+  var validationErrors = {
+    firstName : "Invalid first name"
+  };
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          setSessionData: function (req, key, value) {
+            if (!req.session.sessionData){
+              req.session.sessionData = {};
+            }
+            req.session.sessionData[key] = value;
+          }
+        },
+        "../../../API/manage/user-api.js": {
+          updateUser: function (req, userData, cb) {
+
+            expect(userData.id).to.eql(userId);
+            expect(userData.username).to.eql(username);
+            expect(userData.person.firstName).to.eql(req.body.firstName);
+            expect(userData.person.middleName).to.eql(req.body.middleName);
+            expect(userData.person.lastName).to.eql(req.body.lastName);
+            expect(userData.person.primaryPhone).to.eql(req.body.phone);
+            expect(userData.person.primaryAddress.address1).to.eql(req.body.street);
+            expect(userData.person.primaryAddress.address2).to.eql(req.body.suite);
+            expect(userData.person.primaryAddress.city).to.eql(req.body.city);
+            expect(userData.person.primaryAddress.state).to.eql(req.body.state);
+            expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
+            expect(userData.person.dateOfBirth).to.eql(formattedDateOfBirth);
+            expect(userData.timezoneId).to.eql(req.body.timezoneId);
+
+            var result = {
+              updatedUser : null,
+              generalError : false,
+              validationErrors : validationErrors
+            };
+
+            cb(new Error("I made update user test fail"), result);
+            return;
+          }
+        }
+      });
+
+  var res = {
+    status : function (status) {
+      expect(status).to.eql(400);
+      return {
+        send : function (result) {
+          // verify the data in session
+          expect(sessionData.user).to.eql(originalUser);
+          expect(sessionData.isSuccessfulUserUpdate).to.be.undefined;
+          expect(result.validationErrors).to.eql(validationErrors);
+        }
+      }
+    }
+  };
+
+  controller.updateUser(req, res, null);
+
+  t.end();
+});
+
+test('updateUser handles general error', function(t) {
+
+  var userId = "pers12345";
+  var username = "test.user@test.com";
+
+  var originalUser = {
+    id: userId,
+    username: username,
+    person: {
+      primaryAddress: {}
+    }
+  };
+
+  var sessionData = {
+    authToken: authToken,
+    user : originalUser
+  };
+
+  var body = {
+    firstName : "Joe",
+    middleName : "The",
+    lastName : "Tester",
+    lastFourSSN : "5555",
+    phone : "5555555555",
+    dateOfBirth : "03/15/2016",
+    street : "55 Test Way",
+    suite : "Suite 5",
+    city : "Test City",
+    state : "UT",
+    zip : "55555",
+    timezoneId : "123"
+  };
+
+  var req = {
+    body : body,
+    session : {
+      sessionData: sessionData
+    }
+  };
+
+  var formattedDateOfBirth = "03/15/2016";
+
+  // mock out our collaborators (i.e. the required libraries) so that we can verify behavior of our controller
+  var controller = proxyquire('../router/routes/manage/user-controller.js',
+      {
+        "../../../API/manage/session-api.js": {
+          setSessionData: function (req, key, value) {
+            if (!req.session.sessionData){
+              req.session.sessionData = {};
+            }
+            req.session.sessionData[key] = value;
+          }
+        },
+        "../../../API/manage/user-api.js": {
+          updateUser: function (req, userData, cb) {
+
+            expect(userData.id).to.eql(userId);
+            expect(userData.username).to.eql(username);
+            expect(userData.person.firstName).to.eql(req.body.firstName);
+            expect(userData.person.middleName).to.eql(req.body.middleName);
+            expect(userData.person.lastName).to.eql(req.body.lastName);
+            expect(userData.person.primaryPhone).to.eql(req.body.phone);
+            expect(userData.person.primaryAddress.address1).to.eql(req.body.street);
+            expect(userData.person.primaryAddress.address2).to.eql(req.body.suite);
+            expect(userData.person.primaryAddress.city).to.eql(req.body.city);
+            expect(userData.person.primaryAddress.state).to.eql(req.body.state);
+            expect(userData.person.primaryAddress.postalCode).to.eql(req.body.zip);
+            expect(userData.person.dateOfBirth).to.eql(formattedDateOfBirth);
+            expect(userData.timezoneId).to.eql(req.body.timezoneId);
+
+            var result = {
+              updatedUser : null,
+              generalError : true,
+              validationErrors : null
+            };
+
+            cb(new Error("I made update user test fail"), result);
+            return;
+          }
+        }
+      });
+
+  var res = {
+    status : function (status) {
+      expect(status).to.eql(500);
+      return {
+        send : function (result) {
+          // verify the data in session
+          expect(sessionData.user).to.eql(originalUser);
+          expect(sessionData.isSuccessfulUserUpdate).to.be.undefined;
+          expect(result.error).to.be.not.null;
+        }
+      }
+    }
+  };
+
+  controller.updateUser(req, res, null);
 
   t.end();
 });

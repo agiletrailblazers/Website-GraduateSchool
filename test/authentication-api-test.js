@@ -18,15 +18,16 @@ test('get token from api success', function(t) {
   var res = {};
 
   //test a 200 ok
-  var tokenApiServer = nock(apiServer)
+  var server = nock(apiServer)
     .get('/api/tokens')
     .reply(200, {
         "token": authToken
     });
 
-  tokenApiServer;
+  server;
   authenticate.getAuthToken(req, res, function(error, tokenData) {
-      expect(authToken).to.eql(tokenData);
+    server.done();
+    expect(authToken).to.eql(tokenData);
   });
   t.end();
 });
@@ -35,6 +36,7 @@ test('login user successful', function(t) {
   var apiServer = config("properties").apiServer;
   var oldAuthToken = "tokenOld123";
   var newAuthToken = "token123456789";
+  var renewalToken = "abc1234";
 
   var expectedUsername = "JoeSmith@test.com";
   var expectedPassword = "test1234";
@@ -51,54 +53,51 @@ test('login user successful', function(t) {
     }
   };
 
+  var user = {
+    "username" : expectedUsername,
+    "dateOfBirth" : "01/01/1960",
+    "lastFourSSN" : "4444",
+    "password" : expectedPassword,
+    "person" :
+    {
+      "firstName" : "Joe",
+      "middleName" : null,
+      "lastName" : "Smith",
+      "emailAddress" : expectedUsername,
+      "primaryPhone" : "555-555-5555",
+      "secondaryPhone" : null,
+      "primaryAddress" :
+      {
+        "address1" : "1313 Mockingbird Lane",
+        "address2" : null,
+        "city" : "Los Angeles",
+        "state" : "CA",
+        "postalCode" : "55555"
+      },
+      "secondaryAddress" : null
+    }
+  };
+
   var loginResponse =
   {
-    "authToken": newAuthToken,
-    "renewalToken": "abc1234",
-    "user": {
-      "username" : expectedUsername,
-      "dateOfBirth" : "01/01/1960",
-      "lastFourSSN" : "4444",
-      "password" : expectedPassword,
-      "person" :
-      {
-        "firstName" : "Joe",
-        "middleName" : null,
-        "lastName" : "Smith",
-        "emailAddress" : expectedUsername,
-        "primaryPhone" : "555-555-5555",
-        "secondaryPhone" : null,
-        "primaryAddress" :
-        {
-          "address1" : "1313 Mockingbird Lane",
-          "address2" : null,
-          "city" : "Los Angeles",
-          "state" : "CA",
-          "postalCode" : "55555"
-        },
-        "secondaryAddress" : null
-      }
-    }
+    "authToken": {
+      token : newAuthToken
+    },
+    "renewalToken": {
+      token : renewalToken
+    },
+    "user": user
   };
 
   var controller = proxyquire('../API/authentication-api.js',
       {
-        "../../../API/manage/session-api.js": {
+        "./manage/session-api.js": {
           setSessionData: function (req, key, value) {
-            if(key == "authToken") {
-              expect(value).to.eql(newAuthToken)
-            }
+            // put the key/values in the test session data for later verification
+            req.session.sessionData[key] = value;
           },
           getSessionData: function (req, key) {
-            if (!req.session) {
-              return undefined;
-            }
-            if (!req.session.sessionData) {
-              req.session.sessionData = {};
-              return undefined;
-            } else {
-              return req.session.sessionData[key];
-            }
+            return req.session.sessionData[key];
           }
         }
       });
@@ -112,11 +111,11 @@ test('login user successful', function(t) {
   server;
   controller.loginUser(req, loginResponse, authCredentials, function (error, response, body) {
     server.done();
-    expect(newAuthToken).to.eql(response.authToken);
 
-    var user = response.user;
-    expect(expectedUsername).to.eql(user.username);
-    expect(expectedPassword).to.eql(user.password);
+    expect(req.session.sessionData["user"]).to.eql(user);
+    expect(req.session.sessionData["authToken"]).to.eql(newAuthToken);
+    expect(req.session.sessionData["renewalToken"]).to.eql(renewalToken);
+
   });
 
   t.end();
@@ -139,7 +138,7 @@ test('login user failure', function(t) {
   var res = { };
 
   var server = nock(apiServer, {
-        reqheaders: {
+    reqheaders: {
           'Authorization': authToken
         }
       })

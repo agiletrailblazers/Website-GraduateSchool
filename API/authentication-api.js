@@ -43,6 +43,10 @@ loginUser = function(req, res, authCredentials, callback) {
         }
         logger.info("Logged in username: " + body.user.username + " with token: " + body.authToken.token + " and renewalToken : " + body.renewalToken.token);
 
+        // add the user to session
+        session.setSessionData(req, "user", body.user);
+
+        // add tokens to session
         session.setSessionData(req, "authToken", body.authToken.token);
         session.setSessionData(req, "renewalToken", body.renewalToken.token);
 

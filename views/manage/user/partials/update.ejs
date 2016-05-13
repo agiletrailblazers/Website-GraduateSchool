@@ -1,0 +1,304 @@
+<div id="update-account-section" class="row">
+  <div id="outer" class="col-lg-12 col-md-12 col-sm-12 content-offset30tb">
+    <div class="row content-offset">
+      <div id="gs-alert-error" class="alert alert-danger" role="alert" style="display:none;">
+        <span id="gs-alert-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"><p></p></span>
+      </div>
+      <% if (isSuccessfulUserUpdate) { %>
+      <!-- alert - success -->
+      <div id="gs-alert-success" class="alert alert-success" role="alert">
+        <span id="gs-success-remove" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span><p><strong>Your Graduate School USA account has been updated!</strong></p>
+      </div>
+      <% } %>
+    </div> <!--END container-->
+    <div class="row content-offset10tb header-wrapper">
+      <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" id="account-title">
+        <span class="account-title">Personal Details</span>
+      </div>
+      <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 update-account-links nopadding">
+        <ul>
+          <li class="inline-block"><a id="account-modify-link" href="javascript:toggleReadOnlyMode();" ><img src="/images/r_modify.png" alt="" />Modify</a></li>
+          <li class="inline-block"><a id="account-change-password-link" href="/manage/user/password/change" ><img src="/images/r_change_password.png" alt="" />Change Password</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="gs-form" class="content-offset-desktop" style="display:none;">
+      <div id="update-user">
+        <form id="update-user-form" role="form">
+          <div id="form-wrap">
+            <div id="personal-info">
+              <div class="form-inline">
+              <span class="form-group">
+                <label for="firstName">*First Name</label>
+                <% if (user.person.firstName) { %>
+                <input type="text" id="firstName" class="form-control" tabindex="16" value="<%= user.person.firstName %>">
+                <% } else { %>
+                <input type="text" id="firstName" class="form-control" tabindex="16">
+                <% } %>
+              </span>
+              <span class="form-group">
+                <label for="middleName">Middle Name</label>
+                <% if (user.person.middleName) { %>
+                <input type="text" id="middleName" class="form-control" tabindex="17" value="<%= user.person.middleName %>">
+                <% } else { %>
+                <input type="text" id="middleName" class="form-control" tabindex="17">
+                <% } %>
+              </span>
+              </div>
+              <div class="form-inline">
+              <span class="form-group">
+                <label for="lastName" >*Last Name</label>
+                <% if (user.person.lastName) { %>
+                <input type="text" id="lastName" class="form-control" tabindex="18" value="<%= user.person.lastName %>">
+                <% } else { %>
+                <input type="text" id="lastName" class="form-control" tabindex="18">
+                <% } %>
+              </span>
+               <span class="form-group">
+                <label for="email" >*Email</label>
+                 <% if (user.person.emailAddress) { %>
+                 <input type="text" id="email" class="form-control" tabindex="19" value="<%= user.person.emailAddress %>">
+                 <% } else { %>
+                 <input type="text" id="email" class="form-control" tabindex="19">
+                 <% } %>
+               </span>
+              </div>
+              <div class="form-inline">
+              <span class="form-group">
+                <label for="dateOfBirth" >*Date of birth</label>
+                <% if (user.person.dateOfBirth) { %>
+                <input type="text" id="dateOfBirth" class="form-control" size="4" maxlength="4" tabindex="22" value="<%= user.person.dateOfBirth %>">
+                <% } else { %>
+                <input type="text" id="dateOfBirth" class="form-control" size="4" maxlength="4" tabindex="22">
+                <% } %>
+              </span>
+              </div>
+              <hr class="account-form-divider">
+              <div class="form-inline">
+              <span class="form-group">
+                <label for="street" >*Street Address</label>
+                <% if (user.person.primaryAddress && user.person.primaryAddress.address1) { %>
+                <input type="text" id="street" class="form-control" tabindex="24" value="<%= user.person.primaryAddress.address1 %>">
+                <% } else { %>
+                <input type="text" id="street" class="form-control" tabindex="24">
+                <% } %>
+              </span>
+              <span class="form-group">
+                <label for="suite" >Suite, Mail Stop</label>
+                <% if (user.person.primaryAddress && user.person.primaryAddress.address2) { %>
+                <input type="text" id="suite" class="form-control" tabindex="25" value="<%= user.person.primaryAddress.address2 %>">
+                <% } else { %>
+                <input type="text" id="suite" class="form-control" tabindex="25">
+                <% } %>
+              </span>
+              </div>
+              <div class="form-inline">
+              <span class="form-group">
+                <label for="city" >*City</label>
+                <% if (user.person.primaryAddress && user.person.primaryAddress.city) { %>
+                <input type="text" id="city" class="form-control" tabindex="26" value="<%= user.person.primaryAddress.city %>">
+                <% } else { %>
+                <input type="text" id="city" class="form-control" tabindex="26">
+                <% } %>
+              </span>
+              <span class="form-group">
+                <label for="state" >*State</label>
+            <!--nutch_noindex-->
+                <select id="state" class="form-control" tabindex="27">
+                  <option value="">Select One</option>
+                  <% for (var i = 0; i < states.length; i++) { %>
+                  <% if (user.person.primaryAddress && user.person.primaryAddress.state && (states[i].abbreviation == user.person.primaryAddress.state)) { %>
+                  <option selected value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
+                  <% } else { %>
+                  <option value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
+                  <% } %>
+                  <% } %>
+                </select>
+            <!--/nutch_noindex-->
+              </span>
+              </div>
+              <div class="form-inline">
+              <span class="form-group">
+                <label for="zip" >*Zip</label>
+                <% if (user.person.primaryAddress && user.person.primaryAddress.postalCode) { %>
+                <input type="text" id="zip" class="form-control" tabindex="28" value="<%= user.person.primaryAddress.postalCode %>">
+                <% } else { %>
+                <input type="text" id="zip" class="form-control" tabindex="28">
+                <% } %>
+              </span>
+              <span class="form-group">
+                <label for="phone" >*Daytime Phone Number</label>
+                <% if (user.person.primaryPhone) { %>
+                <input type="text" id="phone" class="form-control" tabindex="29" value="<%= user.person.primaryPhone %>">
+                <% } else { %>
+                <input type="text" id="phone" class="form-control" tabindex="29">
+                <% } %>
+              </span>
+              </div>
+              <div class="form-inline">
+                <span class="form-group">
+                  <label for="timezone" >*Timezone</label>
+                    <select id="timezone" class="form-control full-width" tabindex="30">
+                      <option value="">Select One</option>
+                      <% for (i = 0; i < timezones.length; i++) { %>
+                      <% if (user.timezoneId && (timezones[i].id == user.timezoneId)) { %>
+                      <option selected value="<%= timezones[i].id %>"><%= timezones[i].name %></option>
+                      <% } else { %>
+                      <option value="<%= timezones[i].id %>"><%= timezones[i].name %></option>
+                      <% } %>
+                      <% } %>
+                    </select>
+                </span>
+                <span class="form-group">
+                  <div class="form-control" id="field-fixer"></div>
+                </span>
+              </div>
+            </div>
+            <div class="form-inline action-buttons">
+              <div id="buttons">
+                <button id="update-user-form-cancel" type="button" onclick="toggleReadOnlyMode();" tabindex="30">Cancel</button>
+                <button id="update-user-form-submit" class="red" type="button" tabindex="31" onclick="window.location.href='#container'">Save</button>
+              </div>
+            </div>
+
+          </div> <!-- END form-wrap -->
+        </form> <!-- END update-user-form -->
+      </div>  <!-- END update-user -->
+    </div> <!--END gs-form-->
+
+    <div id="gs-form-view-only" class="content-offset-desktop">
+      <div id="update-user-view-only">
+          <div id="form-wrap-view-only">
+            <div id="personal-info-view-only">
+              <div class="form-inline">
+              <span class="form-group">
+                <label for="firstName">*First Name</label>
+                <% if (user.person.firstName) { %>
+                <span><%= user.person.firstName %></span>
+                <% } else { %>
+                <span></span>
+                <% } %>
+              </span>
+              <span class="form-group">
+                <label for="middleName">Middle Name</label>
+                <% if (user.person.middleName) { %>
+                <span><%= user.person.middleName %></span>
+                <% } else { %>
+                <span></span>
+                <% } %>
+              </span>
+              </div>
+              <div class="form-inline">
+              <span class="form-group">
+                <label for="lastName" >*Last Name</label>
+                <% if (user.person.lastName) { %>
+                <span><%= user.person.lastName %></span>
+                <% } else { %>
+                <span></span>
+                <% } %>
+              </span>
+               <span class="form-group">
+                <label for="email" >*Email</label>
+                 <% if (user.person.emailAddress) { %>
+                 <span><%= user.person.emailAddress %></span>
+                 <% } else { %>
+                 <span></span>
+                 <% } %>
+               </span>
+              </div>
+              <div class="form-inline">
+              <span class="form-group">
+                <label for="dateOfBirth" >*Date of birth</label>
+                <% if (user.person.dateOfBirth) { %>
+                <span><%= user.person.dateOfBirth %></span>
+                <% } else { %>
+                <span></span>
+                <% } %>
+              </span>
+              </div>
+              <hr class="account-form-divider">
+              <div class="form-inline">
+              <span class="form-group">
+                <label for="street" >*Street Address</label>
+                <% if (user.person.primaryAddress && user.person.primaryAddress.address1) { %>
+                <span><%= user.person.primaryAddress.address1 %></span>
+                <% } else { %>
+                <span></span>
+                <% } %>
+              </span>
+              <span class="form-group">
+                <label for="suite" >Suite, Mail Stop</label>
+                <% if (user.person.primaryAddress && user.person.primaryAddress.address2) { %>
+                <span><%= user.person.primaryAddress.address2 %></span>
+                <% } else { %>
+                <span></span>
+                <% } %>
+              </span>
+              </div>
+              <div class="form-inline">
+              <span class="form-group">
+                <label for="city" >*City</label>
+                <% if (user.person.primaryAddress && user.person.primaryAddress.city) { %>
+                <span><%= user.person.primaryAddress.city %></span>
+                <% } else { %>
+                <span></span>
+                <% } %>
+              </span>
+              <span class="form-group">
+                <label for="state" >*State</label>
+            <!--nutch_noindex-->
+                <select disabled id="state" class="form-control" tabindex="27">
+                  <option value="">Select One</option>
+                  <% for (var i = 0; i < states.length; i++) { %>
+                  <% if (user.person.primaryAddress && user.person.primaryAddress.state && (states[i].abbreviation == user.person.primaryAddress.state)) { %>
+                  <option selected value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
+                  <% } else { %>
+                  <option value="<%= states[i].abbreviation %>"><%= states[i].name %></option>
+                  <% } %>
+                  <% } %>
+                </select>
+            <!--/nutch_noindex-->
+              </span>
+              </div>
+              <div class="form-inline">
+              <span class="form-group">
+                <label for="zip" >*Zip</label>
+                <% if (user.person.primaryAddress && user.person.primaryAddress.postalCode) { %>
+                <span><%= user.person.primaryAddress.postalCode %></span>
+                <% } else { %>
+                <span></span>
+                <% } %>
+              </span>
+              <span class="form-group">
+                <label for="phone" >*Daytime Phone Number</label>
+                <% if (user.person.primaryPhone) { %>
+                <span><%= user.person.primaryPhone %></span>
+                <% } else { %>
+                <span></span>
+                <% } %>
+              </span>
+              </div>
+              <div class="form-inline">
+                <span class="form-group">
+                  <label for="timezone" >*Timezone</label>
+                    <select disabled id="timezone" class="form-control full-width" tabindex="30">
+                      <option value="">Select One</option>
+                      <% for (i = 0; i < timezones.length; i++) { %>
+                      <% if (user.timezoneId && (timezones[i].id == user.timezoneId)) { %>
+                      <option selected value="<%= timezones[i].id %>"><%= timezones[i].name %></option>
+                      <% } else { %>
+                      <option value="<%= timezones[i].id %>"><%= timezones[i].name %></option>
+                      <% } %>
+                      <% } %>
+                    </select>
+                </span>
+             </div>
+            </div>
+          </div> <!-- END form-wrap-view-only -->
+      </div>  <!-- END update-user-view-only -->
+    </div> <!--END gs-form-view-only-->
+
+
+  </div> <!-- END outer -->
+</div> <!-- END update-account-section -->
+<div class="spacer25 non-mobile"></div>

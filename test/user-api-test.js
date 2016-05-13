@@ -870,3 +870,233 @@ test('get registrations handles error no user ID', function(t) {
     });
     t.end();
 });
+
+test('updateUser success', function(t) {
+    //use endpoint from config even for tests
+    var apiServer = config("properties").apiServer;
+    var userData = {
+        "id" : "pers66666",
+        "username" : "foo@bar.com",
+        "dateOfBirth" : "01/01/1960",
+        "lastFourSSN" : "4444",
+        "password" : "test1234",
+        "person" :
+        {
+            "firstName" : "Joe",
+            "middleName" : null,
+            "lastName" : "Smith",
+            "emailAddress" : "foo2@bar.com",
+            "primaryPhone" : "555-555-5555",
+            "secondaryPhone" : null,
+            "primaryAddress" :
+            {
+                "address1" : "1313 Mockingbird Lane",
+                "address2" : null,
+                "city" : "Los Angeles",
+                "state" : "CA",
+                "postalCode" : "55555"
+            },
+            "secondaryAddress" : null
+        }
+    };
+
+    var expectedUserResponse = {
+        "id" : "pers66666",
+        "username" : "foo2@bar.com",
+        "dateOfBirth" : "01/01/1960",
+        "lastFourSSN" : "4444",
+        "password" : "test1234",
+        "person" :
+        {
+            "firstName" : "Joe",
+            "middleName" : null,
+            "lastName" : "Smith",
+            "emailAddress" : "foo2@bar.com",
+            "primaryPhone" : "555-555-5555",
+            "secondaryPhone" : null,
+            "primaryAddress" :
+            {
+                "address1" : "1313 Mockingbird Lane",
+                "address2" : null,
+                "city" : "Los Angeles",
+                "state" : "CA",
+                "postalCode" : "55555"
+            },
+            "secondaryAddress" : null
+        }
+    };
+
+    // test a 200 success
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    }).post('/api/users/' + userData.id, userData)
+        .reply(200, expectedUserResponse);
+
+    server;
+
+    var req = {};
+    var sessionData = {
+        "authToken": authToken
+    };
+
+    var proxiedUser = proxyquire('../API/manage/user-api.js',
+        {
+            "./session-api.js": {
+                getSessionData: function (req, key) {
+                    expect(key).to.eql("authToken");
+                    return sessionData[key];
+                },
+                setSessionData: function (req, key, value) {
+                    expect(key).to.eql("user");
+                    expect(value).to.eql(expectedUserResponse);
+                }
+            }
+        });
+
+    proxiedUser.updateUser(req, userData, function(error, results) {
+        server.done();
+        expect(error).to.be.a('null');
+        expect(results.validationErrors).to.be.a('null');
+        expect(results.updatedUser).to.eql(expectedUserResponse);
+    });
+    t.end();
+});
+
+test('updateUser failure', function(t) {
+    // test a 500 internal server error
+    var apiServer = config("properties").apiServer;
+    var userData = {
+        "id" : "pers66666",
+        "username" : "foo@bar.com",
+        "dateOfBirth" : "01/01/1960",
+        "lastFourSSN" : "4444",
+        "password" : "test1234",
+        "person" :
+        {
+            "firstName" : "Joe",
+            "middleName" : null,
+            "lastName" : "Smith",
+            "emailAddress" : "foo2@bar.com",
+            "primaryPhone" : "555-555-5555",
+            "secondaryPhone" : null,
+            "primaryAddress" :
+            {
+                "address1" : "1313 Mockingbird Lane",
+                "address2" : null,
+                "city" : "Los Angeles",
+                "state" : "CA",
+                "postalCode" : "55555"
+            },
+            "secondaryAddress" : null
+        }
+    };
+
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    }).post('/api/users/' + userData.id, userData)
+        .reply(500, null);
+
+    server;
+
+    var req = {};
+    var sessionData = {
+        "authToken": authToken
+    };
+
+    var proxiedUser = proxyquire('../API/manage/user-api.js',
+        {
+            "./session-api.js": {
+                getSessionData: function (req, key) {
+                    expect(key).to.eql("authToken");
+                    return sessionData[key];
+                }
+            }
+        });
+
+    proxiedUser.updateUser(req, userData, function(error, results) {
+        server.done();
+        expect(results.validationErrors).to.be.a('null');
+        expect(results.updatedUser).to.be.a('null');
+        expect(results.generalError).to.eql(true);
+    });
+    t.end();
+});
+
+test('updateUser failure with Validation Errors', function(t) {
+    // test a 400 validation error
+    var apiServer = config("properties").apiServer;
+    var userData = {
+        "id" : "pers66666",
+        "username" : "foo@bar.com",
+        "dateOfBirth" : "01/01/1960",
+        "lastFourSSN" : "4444",
+        "password" : "test1234",
+        "person" :
+        {
+            "firstName" : "Joe",
+            "middleName" : null,
+            "lastName" : "Smith",
+            "emailAddress" : "foo2@bar.com",
+            "primaryPhone" : "555-555-5555",
+            "secondaryPhone" : null,
+            "primaryAddress" :
+            {
+                "address1" : "1313 Mockingbird Lane",
+                "address2" : null,
+                "city" : "Los Angeles",
+                "state" : "CA",
+                "postalCode" : "55555"
+            },
+            "secondaryAddress" : null
+        }
+    };
+
+    var validationErrors = {
+        "validationErrors": [
+            {
+                "fieldName": "person.dateOfBirth",
+                "errorMessage": "Date of Birth is not in yyyyMMdd format"
+            }
+        ]
+    }
+
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    }).post('/api/users/' + userData.id, userData)
+        .reply(400, validationErrors);
+
+    server;
+
+    var req = {};
+    var sessionData = {
+        "authToken": authToken
+    };
+
+    var proxiedUser = proxyquire('../API/manage/user-api.js',
+        {
+            "./session-api.js": {
+                getSessionData: function (req, key) {
+                    expect(key).to.eql("authToken");
+                    return sessionData[key];
+                }
+            }
+        });
+
+    proxiedUser.updateUser(req, userData, function(error, results) {
+        server.done();
+        expect(results.updatedUser).to.be.a('null');
+        expect(results.validationErrors[0].fieldName).to.eql("person.dateOfBirth");
+        expect(results.validationErrors[0].errorMessage).to.eql("Date of Birth is not in yyyyMMdd format");
+        expect(error).to.be.an.instanceof(Error);
+    });
+    t.end();
+});
+
+
+

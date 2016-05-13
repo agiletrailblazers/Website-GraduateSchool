@@ -1,0 +1,228 @@
+
+.content-offset, .content-offset-desktop {
+  padding: 0px 30px !important;
+}
+
+.content-offset20, .content-offset20-desktop {
+  padding: 0px 20px !important;
+}
+
+.content-offset10tb {
+  padding: 10px 0px !important;
+}
+
+.content-offset20tb {
+  padding: 20px 0px !important;
+}
+
+.content-offset30tb {
+  padding: 30px 0px !important;
+}
+
+.content-offset40tb {
+  padding: 40px 0px !important;
+}
+
+.content-offset60tb {
+  padding: 60px 0px !important;
+}
+
+span.account-title {
+  font-size: 25px !important;
+  font-weight: 400;
+  text-align: left;
+  padding: 20px;
+  color: #444444;
+  margin-top: 0;
+}
+
+#update-user .form-inline .form-group {
+  text-align: left;
+}
+
+hr.account-form-divider {
+  width: 100%;
+  max-width: 640px;
+  position: relative;
+  left: -20px;
+  background-color: #D7E1EA;
+  height: 2px;
+  border-top: none;
+  margin: 20px 0px;
+}
+
+.action-buttons {
+  width: 100%;
+  max-width: 640px;
+  text-align: right;
+  position: relative;
+  right: 35px;
+}
+
+#update-user {
+  position: relative;
+}
+
+.ui-datepicker-month, .ui-datepicker-year {
+  font-size: 12px !important;
+  font-weight: 200;
+}
+
+.update-account-links ul {
+  display: block;
+  list-style: none;
+  text-align: right;
+}
+
+.update-account-links ul li a {
+  font-weight: normal !important;
+}
+.update-account-links ul li {
+  padding: 5px 20px;
+}
+
+.header-wrapper {
+  max-width: 680px;
+  width: 100%;
+}
+
+/* Update Personal details */
+
+#personal-info-view-only .form-group > span, #personal-info-view-only .form-group > select {
+  margin: 0;
+  font: inherit;
+  display: block;
+  width: 280px !important;
+  height: 40px !important;
+  padding: 9px 30px 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #555;
+  border-radius: 1px;
+  box-shadow: none;
+  transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+  background-image: none;
+  margin-right: 10px !important;
+  background-color: #FAFAFA !important;
+  border: 1px solid #EEEEEE !important;
+  vertical-align: middle;
+  text-align: left;
+}
+
+
+#personal-info-view-only .form-group > label {
+  display: inline-block;
+  width: auto;
+  margin-bottom: 4px;
+  font-weight: normal !important;
+  padding-right: 15px !important;
+  font-size: 13px;
+  color: #666 !important;
+  text-align: left;
+  vertical-align: top;
+}
+
+#tabContainer .nav > li > a {
+    height: 100%;
+}
+
+
+.action-buttons button {
+  margin-left: 15px;
+  padding: 5px 40px !important;
+}
+
+/*==========  MEDIA QUERIES  ==========*/
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (max-width : 1200px) {
+
+
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (max-width : 992px) {
+      .form-inline .form-group {
+          display: inline-block;
+          margin-bottom: 15px;
+          vertical-align: middle;
+          margin-right: 15px;
+      }
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (max-width : 768px) {
+
+      .form-inline .form-group {
+          display: block;
+          margin-bottom: 15px;
+          vertical-align: middle;
+          margin-right: 15px;
+      }
+
+      .form-inline {
+          padding-bottom: 0px;
+      }
+
+      .content-offset-desktop, .content-offset20-desktop {
+        padding: 0 !important;
+      }
+
+      span.account-title {
+        padding: 20px 0;
+      }
+
+      #account-title {
+        margin-bottom: 10px;
+      }
+
+      #personal-info-view-only .form-group > span, #personal-info-view-only .form-group > select {
+        width: 100% !important;
+        /*max-width: 280px !important;*/
+      }
+
+      hr.account-form-divider {
+        left: 0px;
+      }
+
+      .action-buttons {
+        right: 15px;
+        padding: 15px 0;
+      }
+
+      .update-account-links {
+        width: 100%;
+      }
+
+      .update-account-links ul li {
+          padding: 5px 0px 5px 35px;
+      }
+
+      .header-wrapper {
+          padding: 0 !important;
+      }
+
+    }
+
+    /* Extra Small Devices, Phones */
+    @media only screen and (max-width : 480px) {
+
+      #personal-info-view-only .form-group > span, #personal-info-view-only .form-group > select {
+        width: 100% !important;
+      }
+
+      .update-account-links ul li {
+          padding: 5px;
+          font-size: 12px;
+      }
+
+    }
+
+    /* Custom, iPhone Retina */
+    @media only screen and (max-width : 320px) {
+
+      #personal-info-view-only .form-group > span, #personal-info-view-only .form-group > select {
+        width: 100% !important;
+      }
+
+    }

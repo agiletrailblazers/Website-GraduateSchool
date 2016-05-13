@@ -153,7 +153,7 @@ module.exports = {
                  "postalCode" : ((formData.zip === "") ? null : formData.zip)
                },
              "secondaryAddress" : null,
-             "dateOfBirth" : ((formData.dateOfBirth == "" ) ? null : moment(new Date(formData.dateOfBirth)).format("YYYYMMDD"))
+             "dateOfBirth" : ((formData.dateOfBirth == "" ) ? null : formData.dateOfBirth)
            },
           "timezoneId" : ((formData.timezoneId === "") ? null : formData.timezoneId)
         }
@@ -174,16 +174,12 @@ module.exports = {
           authentication.loginUser(req, res, authCredentials, function (error, authUser) {
             if (error) return callback(error);
             // the login user API call will set the authenticated token, we don't need to do anything with the response
-
-            session.setSessionData(req, "userId", authUser.user.id);
-            session.setSessionData(req, "userFirstName", authUser.user.person.firstName);
             callback(null, authUser);
           });
         }, session.getSessionData(req, "authToken"));
       }
     ], function(error, createdUser, creationErrorDetails) {
       if (error) {
-        logger.error("There was an error during user creation", error);
         if (creationErrorDetails) {
           if (creationErrorDetails.validationErrors) {
             res.status(400).send({
@@ -198,6 +194,7 @@ module.exports = {
           }
         }
         else {
+          logger.error("There was an error during user creation", error);
           res.status(500).send({"error": "We have experienced a problem processing your request, please try again later."});
         }
         return;
@@ -236,8 +233,6 @@ module.exports = {
         session.setSessionData(req, "passwordResetRequired", authorizedUser.passwordChangeRequired);
         res.status(401).send({"passwordChangeRequired": true});
       } else {
-        session.setSessionData(req, "userId", authorizedUser.user.id);
-        session.setSessionData(req, "userFirstName", authorizedUser.user.person.firstName);
         res.status(200).send();
       }
     });
@@ -296,8 +291,6 @@ module.exports = {
         session.setSessionData(req, "passwordResetRequired", authorizedUser.passwordChangeRequired);
         res.redirect("/manage/user/password/change");
       } else {
-        session.setSessionData(req, "userId", authorizedUser.user.id);
-        session.setSessionData(req, "userFirstName", authorizedUser.user.person.firstName);
         res.redirect("/manage/cart/payment");
       }
     });
@@ -414,8 +407,6 @@ module.exports = {
             return;
           }
         }
-        session.setSessionData(req, "userId", authorizedUser.user.id);
-        session.setSessionData(req, "userFirstName", authorizedUser.user.person.firstName);
         session.setSessionData(req, "pwChangeResult", "success");
         res.status(200).send();
       });
@@ -424,15 +415,39 @@ module.exports = {
   },
 
   displayMyAccount: function (req, res, next) {
-    if (!session.getSessionData(req, "userId")) {
+
+    if (!session.getSessionData(req, "user")) {
       logger.debug("User navigated to MyAccount page but is not logged in");
       common.redirectToError(res);
       return;
     }
 
-    async.series({
+    async.parallel({
+
+      states: function(callback) {
+        // get the list of states required by the form
+        contentful.getReferenceData('us-states', function(states, error) {
+          // callback with the error, this will cause async module to stop executing remaining
+          // functions and jump immediately to the final function, it is important to return
+          // so that the task callback isn't called twice
+          if (error) return callback(error);
+
+          return callback(null, states);
+        });
+      },
+      timezones: function(callback) {
+        //get a list of timezones
+        commonAPI.getTimezones(function (error, timezones){
+          if(error){
+            return callback(error);
+          }
+          else {
+            return callback(null, timezones);
+          }
+        }, session.getSessionData(req, "authToken"))
+      },
       registrations: function (callback) {
-        var userId = session.getSessionData(req, "userId");
+        var userId = session.getSessionData(req, "user").id;
         user.getUserRegistrations(req, userId, function (error, registrations){
           if(error){
             return callback(error, null);
@@ -442,46 +457,131 @@ module.exports = {
           }
         });
       }
-
-    }, function (err, content) {
-
-      //Gets the status for display on the registrations page
-      var getSessionStatus = function (startDate, endDate){
-        var currentDate = new Date();
-
-        if (endDate < startDate){
-          return "Session start date cannot be before the end date";
-        } else if (currentDate < startDate){
-          return "pending";
-        } else if (currentDate >= startDate && currentDate <=endDate){
-          return "in progress";
-        } else if (currentDate > endDate){
-          return "ended";
-        } else {
-          logger.error("An error occurred converting status");
-          return "something went wrong";
-        }
-      }
+    }, function(err, content) {
 
       if (err) {
         logger.error("Error rendering my account", err);
         common.redirectToError(res);
         return;
       }
-      var tabToShow = (typeof(req.query["tab"]) != 'undefined' ? req.query["tab"] : "my-profile");
+
+      //Gets the status for display on the registrations page
+      var getSessionStatus = function (startDate, endDate){
+            var currentDate = new Date();
+
+            if (endDate < startDate){
+              return "Session start date cannot be before the end date";
+            } else if (currentDate < startDate){
+              return "pending";
+            } else if (currentDate >= startDate && currentDate <=endDate){
+              return "in progress";
+            } else if (currentDate > endDate){
+              return "ended";
+            } else {
+              logger.error("An error occurred converting status");
+              return "something went wrong";
+            }
+          }
+
+      var tabToShow = (typeof(req.query["tab"])!='undefined' ? req.query["tab"] : "my-profile");
       logger.debug("Displaying MyAccount page with tab " + tabToShow);
 
+      // get success flag from update attempt, remove after
+      var isSuccessfulUserUpdate = session.getSessionData(req, "isSuccessfulUserUpdate");
+      if (isSuccessfulUserUpdate) {
+        session.setSessionData(req, "isSuccessfulUserUpdate", null);
+      }
+
       res.render('manage/user/account', {
-            title: "My Account",
-            activeTab: tabToShow,
-            registrations: content.registrations,
-            getSessionStatus: getSessionStatus
+        title: 'My Account',
+        activeTab: tabToShow,
+        states: content.states,
+        timezones: content.timezones,
+        user: session.getSessionData(req, "user"),
+        moment: moment,
+        registrations: content.registrations,
+        getSessionStatus: getSessionStatus,
+        isSuccessfulUserUpdate: isSuccessfulUserUpdate
+      });
+    });
+  },
+
+  // Handle request to update the user; this is an AJAX call.
+  updateUser: function(req, res, next) {
+
+    async.series({
+
+      updateUserResult: function(callback) {
+
+        // get the original user information from session
+        var originalUser = session.getSessionData(req, "user");
+
+        logger.info("Updating user id " + originalUser.id);
+
+        // get the form data from the body of the request
+        var formData = req.body;
+
+        // copy/clone the original user
+        var updatedUser = JSON.parse(JSON.stringify(originalUser));
+
+        // update the copy/clone with the form data (updated user info)
+        updatedUser.person.firstName = ((formData.firstName === "") ? null : formData.firstName);
+        updatedUser.person.middleName = ((formData.middleName === "") ? null : formData.middleName);
+        updatedUser.person.lastName = ((formData.lastName === "") ? null : formData.lastName);
+        // TODO leaving this for next sprint
+        //updatedUser.username = ((formData.email === "") ? null : formData.email);
+        //updatedUser.person.emailAddress = ((formData.email === "") ? null : formData.email);
+        updatedUser.person.primaryPhone = ((formData.phone === "") ? null : formData.phone);
+        updatedUser.person.dateOfBirth = ((formData.dateOfBirth === "") ? null: formData.dateOfBirth);
+        updatedUser.person.primaryAddress.address1 =
+            ((formData.street === "") ? null : formData.street);
+        updatedUser.person.primaryAddress.address2 =
+            ((formData.suite === "") ? null : formData.suite);
+        updatedUser.person.primaryAddress.city = ((formData.city === "") ? null : formData.city);
+        updatedUser.person.primaryAddress.state = ((formData.state === "") ? null : formData.state);
+        updatedUser.person.primaryAddress.postalCode = ((formData.zip === "") ? null : formData.zip);
+        updatedUser.timezoneId = ((formData.timezoneId === "") ? null : formData.timezoneId);
+
+        // update the user
+        user.updateUser(req, updatedUser, function (error, result) {
+          // callback with the error, to cause async to exit out and send error
+          if (error) {
+            return callback(error, result);
+          }
+
+          // user updated successfully
+          logger.info("Successfully updated user id " + result.updatedUser.id);
+
+          // update the user in session so that session has updated user information
+          session.setSessionData(req, "user", result.updatedUser);
+
+          // set flag in session for success
+          session.setSessionData(req, "isSuccessfulUserUpdate", true);
+
+          return callback(null, result);
+        });
+      }
+    }, function(error, content) {
+      if (error) {
+        if (content.updateUserResult.validationErrors != null) {
+          res.status(400).send({
+            "validationErrors": content.updateUserResult.validationErrors
           });
+        }
+        else {
+          logger.error("There was an error during user update", error);
+          res.status(500).send({"error": "We have experienced a problem processing your request, please try again later."});
+        }
+        return;
+      }
+      // send success to client
+      res.status(200).send();
     });
   }
+
 } // end module.exports
 
 function doLogout(req, res) {
-  logger.info("Logging out user " + session.getSessionData(req, "userId"));
+  logger.info("Logging out user " + session.getSessionData(req, "user").id);
   session.clearSessionData(req);
 }

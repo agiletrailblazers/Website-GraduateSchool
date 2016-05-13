@@ -128,8 +128,9 @@ app.use(function (req, res, next) {
 	var mailPage = {};
 	mailPage.titlePrefix = config("properties").mailPageTitlePrefix;
 	mailPage.body = config("properties").mailPageBody;
-	var userFirstName = session.getSessionData(req, "userFirstName");
-	var userId = session.getSessionData(req, "userId");
+	var user = session.getSessionData(req, "user");
+	var userFirstName = (user != undefined) ? user.person.firstName : undefined;
+	var userId = (user != undefined) ? user.id : undefined;
 	var authToken = session.getSessionData(req, "authToken");
 	var nextPageAfterCreateUser = "";
 	async.series([
