@@ -29,6 +29,15 @@
     width: auto !important;
   }
 
+  .courseDetailSessionRow {
+    display: table-row !important;
+  }
+
+  #loadMore, #currentCount, .print-fix {
+    display: none !important;
+  }
+
+
 }
 
 .course-message {
@@ -575,4 +584,3 @@ span.display-of-sessions {
     vertical-align: baseline;
     border-radius: .25em;
 }
-
