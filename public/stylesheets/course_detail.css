@@ -29,6 +29,10 @@
     width: auto !important;
   }
 
+  .courseDetailSessionRow {
+    display: table-row !important;
+  }
+
 }
 
 .course-message {
@@ -575,4 +579,3 @@ span.display-of-sessions {
     vertical-align: baseline;
     border-radius: .25em;
 }
-
