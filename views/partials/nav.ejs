@@ -34,7 +34,7 @@
 			  <li><a href="/search" target='_self' id="registerbuttonMob">Register</a></li>
 					 </ul>
 			 </div><!-- END MOBILE MENU -->
-
+			 <% if (userRouteEnabled === true){ %>
 			 <div id="main-header" class="mobile">
 			 	<% if (typeof userFirstName === 'string' && userFirstName != ""){%>
 			 		<div>
@@ -52,7 +52,7 @@
 			 		</div>
 			 	<% } %>
 			 </div>
-
+			 <% }%>
 		</div>
 	</div>
 	<div class="row padding non-mobile mob-rem">
