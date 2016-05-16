@@ -33,6 +33,11 @@
     display: table-row !important;
   }
 
+  #loadMore, #currentCount, .print-fix {
+    display: none !important;
+  }
+
+
 }
 
 .course-message {
