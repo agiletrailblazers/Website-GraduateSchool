@@ -90,6 +90,12 @@
           </ul>
         </div>
       <% }); %>
+      <!-- Non-Prod Environment Display - TODO Change to overlay as part of styling -->
+      <% if (typeof env === 'string' && env != "" && env != "prod") {  %>
+        <div class="col-lg-3 col-md-3 col-sm-2">
+            <span id="environment-display"><h4 class="center"><%= env %></h4></span>
+        </div>
+      <% } %><!-- End Non-Prod Environment Display -->
       <div class="col-lg-3 col-md-3 col-sm-2">
         <div class="center">
           <img id="gs-seal" src="/images/gs-seal.png" alt="Graduate School Seal"  class="seal" />
