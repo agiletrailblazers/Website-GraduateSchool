@@ -29,9 +29,27 @@
     width: auto !important;
   }
 
-  .courseDetailSessionRow {
-    display: table-row !important;
+  #courseSessionTable {
+    page-break-before: avoid;
+    page-break-after: avoid;
   }
+
+  #courseSessionTable tr.courseDetailSessionRow {
+    display: table-row !important;
+    page-break-inside:avoid !important;
+    width: 100%;
+
+  }
+  #courseSessionTable td {
+     page-break-inside:avoid !important;
+  }
+
+  table tbody tr td:before,
+    table tbody tr td:after {
+        content : "" ;
+        height : 10px ;
+        display : block ;
+    }
 
   #loadMore, #currentCount, .print-fix {
     display: none !important;
