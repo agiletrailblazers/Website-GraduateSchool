@@ -31,5 +31,43 @@
     },
    "landingRequestToUserName":"marketing@graduateschool.edu",
 
-    "googleAnalyticsId":"UA-66851185-1"
+    "googleAnalyticsId":"UA-66851185-1",
+  "spaces": {
+    "main" : {
+      "spaceId": "jzmztwi1xqvn",
+      "authorization": "Bearer 940e9e7a8f323bf2678b762426cc7349f2d0c339f6b6376a19e1b04e93c21652"
+    },
+    "content" : {
+      "spaceId": "98qeodfc03o0",
+      "authorization": "Bearer a7d20c0466c57d1f2fedb4043f2e7848a7d85bb3327740e3ce2dff5bafdc51f0"
+    },
+    "courseData" : {
+      "spaceId": "0rlhdagwnyoo",
+      "authorization": "Bearer d60cc07cb9754202a1483b9e4758b9a38dae4823d6891676b7ac1640daaf09f8"
+    },
+    "navigation" : {
+      "spaceId": "5tnto6ug3qkh",
+      "authorization": "Bearer db132f1da5cc75a00f487cce1c94143798d8e5d12c65c169b2fc04febdfae44d"
+    },
+    "news" : {
+      "spaceId": "uoxr2n07eksi",
+      "authorization": "Bearer a4b26b024423366c60bfc912d2b367fda2a6038f4cde24778f9b9edb5f067d2e"
+    },
+    "faq" : {
+      "spaceId": "2v0dv55ahz7w",
+      "authorization": "Bearer eb55e283a78dc7e297091e733bf374948b3361e74e6f36d36e8f880ce20a1467"
+    },
+
+    "landing" : {
+      "spaceId": "rwpes6c9xnt6",
+      "authorization": "Bearer 58b9e19609e55070f0f46a3165e9116329acd28e3dd9495b8bccee6d2cc7deba"
+    }
+  },
+  "contentfulEntry_ContactUs":"6Av0MIjzZC2qIsGKUGyKS0",
+  "contentfulEntry_InquiryForm":"80IOLAFnVuYGk6U4ocooC",
+  "contentfulCache" : {
+    "turnOn":false,
+    "location":"/tmp/cache",
+    "timeout":180000
+  }
 }
