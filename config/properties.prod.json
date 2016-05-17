@@ -62,12 +62,5 @@
       "spaceId": "rwpes6c9xnt6",
       "authorization": "Bearer 58b9e19609e55070f0f46a3165e9116329acd28e3dd9495b8bccee6d2cc7deba"
     }
-  },
-  "contentfulEntry_ContactUs":"6Av0MIjzZC2qIsGKUGyKS0",
-  "contentfulEntry_InquiryForm":"80IOLAFnVuYGk6U4ocooC",
-  "contentfulCache" : {
-    "turnOn":false,
-    "location":"/tmp/cache",
-    "timeout":180000
   }
 }
