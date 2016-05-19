@@ -12,6 +12,16 @@
             filter: gray; /* IE 6-9 */
         }
 
+        .title {
+          filter: grayscale(100%) !important;
+          -webkit-filter: grayscale(100%) !important;
+          -moz-filter: grayscale(100%) !important;
+          -ms-filter: grayscale(100%) !important;
+          -o-filter: grayscale(100%) !important;
+          filter: grayscale(100%) !important;
+          filter: gray !important; /* IE 6-9 */
+        }
+
         a[href]:after {
           content: none !important;
         }
