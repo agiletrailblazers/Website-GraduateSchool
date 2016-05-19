@@ -1,0 +1,38 @@
+{
+    "env": "beta",
+    "apiServer": "http://10.0.0.243",
+
+    "registrationUrl" : "http://saba-test-loadbalancer-1038476084.us-east-1.elb.amazonaws.com/Saba/Web/Main/goto/LearnerOffDetails?fromUSDARegistration=true&offeringId=[sessionId]",
+
+    "contactUsToUserName":"GSWebsiteForm@graduateschool.edu",
+    "onsiteInquiryToUserName":"GSWebsiteForm@graduateschool.edu",
+    "requestDuplicateCourseCompletionCertificateToUserName":"GSWebsiteForm@graduateschool.edu",
+    "requestDuplicateOfficialGradeReportToUserName":"GSWebsiteForm@graduateschool.edu",
+    "proctorRequestToUserName":"GSWebsiteForm@graduateschool.edu",
+    "customerFeedBackFormToUserName":"GSWebsiteForm@graduateschool.edu",
+    "certificateProgramFormToUserName":"GSWebsiteForm@graduateschool.edu",
+    "catalogRequestToUserName":"GSWebsiteForm@graduateschool.edu",
+    "subscriptionRequestToUserName":"GSWebsiteForm@graduateschool.edu",
+    "landingRequestToUserName":"GSWebsiteForm@graduateschool.edu",
+
+    "certificateProgramGroup": {
+      "applicationForm": {
+        "email": "GSWebsiteForm@graduateschool.edu",
+        "subject": "Incoming Application Form Request"
+      },
+      "progressReport": {
+        "email": "GSWebsiteForm@graduateschool.edu",
+        "subject": "Incoming Progress Report Request"
+      },
+      "programCompletion": {
+        "email": "GSWebsiteForm@graduateschool.edu",
+        "subject": "Incoming Certificate of Program Completion Request"
+      },
+      "waiverRequest" : {
+        "email": "GSWebsiteForm@graduateschool.edu",
+        "subject": "Incoming Waiver Request"
+      }
+    },
+
+    "googleAnalyticsId":"UA-66851185-2"
+  }
