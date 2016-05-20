@@ -400,4 +400,6 @@ h3.light {
 
 .g2g {
   font-size: 100% !important;
+  border-radius: 100%;
+  padding: 7px 11px !important;
 }
