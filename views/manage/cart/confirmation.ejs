@@ -3,6 +3,8 @@
   <head>
     <title> Graduate School USA | <%= title %></title>
     <link rel="stylesheet" href="/stylesheets/cart.css" />
+    <link rel="stylesheet" href="/stylesheets/library/spinners.css">
+    <script type="text/javascript" src="/javascripts/manage/loading.js"></script>
     <% include ../../partials/head %>
     <script>
       $(document).ready(function () {
@@ -17,6 +19,7 @@
   <body>
     <% include ../../partials/header_slim %>
       <div id="container" class="container">
+        <div id="reg-loading" class="loading" style="display:none;"></div>
         <% if (error) { %>
         <div id="gs-alert-error" class="alert alert-danger" role="alert">
           <% } else { %>
@@ -132,7 +135,7 @@
                       <button id="cart-form-cancel-submit" type="submit" tabindex="10">Cancel</button>
                     </form>
                       <% if (!error) { %>
-                      <form id="cart-form-complete" style="display: inline;" method="post" action="/manage/cart/payment/complete">
+                      <form id="cart-form-complete" style="display: inline;" method="post" onsubmit="showLoading()" action="/manage/cart/payment/complete">
                         <button id="cart-form-complete-submit" type="submit" tabindex="11" class="red">Complete Registration <span class="glyphicon glyphicon-chevron-right white-icon"></span></button>
                       </form>
                       <% } %>  <!-- END if no error -->

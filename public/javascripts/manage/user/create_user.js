@@ -21,6 +21,7 @@ $(document).ready(function () {
 
     $("#create-user-form-submit").click(function (event) {
         event.preventDefault();
+        $('.loading').show();
         var formData = {
             firstName: $("#firstName").val(),
             middleName: $("#middleName").val(),
@@ -42,6 +43,7 @@ $(document).ready(function () {
         clearErrorAlert(formData);
 
         if ($("#password").val().length < 5 || $("#password").val().length > 20){
+            $(".loading").hide();
             $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Password is required and must be at least 5 characters.</p>");
             $("#gs-alert-error").slideDown();
             $("html, body").animate({
@@ -50,6 +52,7 @@ $(document).ready(function () {
         }
 
         else if ($("#password").val() !== $("#confirmPassword").val()){
+            $(".loading").hide();
             $("#gs-alert-error").append("<p><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Password and Confirm Password must be the same.</p>");
             $("#gs-alert-error").slideDown();
             $("html, body").animate({
@@ -60,10 +63,8 @@ $(document).ready(function () {
         else {
             var nextPage = $("#nextPage").val();
             if (!$("#gs-alert-error p").length) {
-                $(".loading").show();
                 $.post("/manage/user/create_user", formData)
                     .done(function () {
-                        $(".loading").hide();
                         // redirect to payment
                         window.location.href = nextPage;
                     })
