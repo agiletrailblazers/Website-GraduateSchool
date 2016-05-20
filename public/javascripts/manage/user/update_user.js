@@ -8,6 +8,7 @@ var clearErrorAlert = function (formData) {
 };
 
 $(document).ready(function () {
+    $(".loading").hide();
     $("#gs-alert-remove").css('cursor', 'pointer');
     $("#gs-alert-remove").click(function() {
         $("#gs-alert-error").slideUp();
@@ -27,6 +28,7 @@ $(document).ready(function () {
 
     $("#update-user-form-submit").click(function (event) {
         event.preventDefault();
+        $(".loading").show();
         var formData = {
             firstName: $("#firstName").val(),
             middleName: $("#middleName").val(),
@@ -48,12 +50,12 @@ $(document).ready(function () {
         if (!$("#gs-alert-error p").length) {
             $.post("/manage/user/update_user", formData)
                 .done(function () {
-
                     // reload the page to reflect new user info
                     window.location.reload();
 
                 })
                 .fail(function (xhr, textStatus, errorThrown) {
+                    $(".loading").hide();
                     alertify.error("Error updating user.");
                     var errors = xhr.responseJSON;
                     for (var key in errors) {

@@ -8,11 +8,12 @@
     <script type="text/javascript" src="/javascripts/manage/user/create_user.js"></script>
     <link rel="stylesheet" href="/stylesheets/library/jquery-ui.css">
     <script src="/javascripts/library/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/library/spinners.css">
   </head>
   <body>
     <% include ../../partials/header_slim %>
       <div id="container" class="container">
-        <div class="loading" style="display:none;"></div>
+
         <% if (loginError) { %>
         <div id="gs-alert-error" class="alert alert-danger" role="alert">
           <% } else { %>
