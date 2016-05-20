@@ -2778,6 +2778,22 @@ ul.see-more li {
   z-index: -1;
 }
 
+#environment-display-mobile .ribbon {
+  position: absolute;
+  width: 85px; height: 25px;
+  left: 12px; top: 5px;
+}
+
+#environment-display-mobile .ribbon span {
+  position: absolute;
+  width: 85px; height: 25px;
+  transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
+  top: 0px; left: 0px;
+  font-size: 12px;
+  line-height: 25px;
+}
+
 .blue span{
   background: #2989d8;
   background: linear-gradient(#2989d8 0%, #1e5799 100%);

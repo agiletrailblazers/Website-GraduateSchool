@@ -10,6 +10,21 @@
                 <a id="gs-logo" href="/">
                     <img alt="Graduate School" src="/images/logo-mobile.png" class="logo responsive">
                 </a>
+                <% if (typeof env === 'string' && env != "" && env != "prod") {  %>
+      						<span id="environment-display-mobile">
+      							<% if (env == "local") {  %>
+      								<div class="ribbon cyan"><span><%= env %></span></div>
+      							<% }  if (env == "dev") {  %>
+      								<div class="ribbon green"><span><%= env %></span></div>
+      							<% }  if (env == "test") {  %>
+      								<div class="ribbon blue"><span><%= env %></span></div>
+      							<% }  if (env == "beta") {  %>
+      								<div class="ribbon orange"><span><%= env %></span></div>
+      							<% } if (env == "urgent") {  %>
+      								<div class="ribbon red"><span><%= env %></span></div>
+      							<% } %>
+      						</span>
+      					<% } %><!-- End Non-Prod Environment Indicator Display -->
             </div>
             <div class="col-lg-5 col-md-6 col-sm-7 col-xs-4 right-menu">
               <% if (typeof userFirstName === 'string' && userFirstName != ""){%>
