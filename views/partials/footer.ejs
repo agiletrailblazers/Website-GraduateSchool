@@ -90,12 +90,27 @@
           </ul>
         </div>
       <% }); %>
+      <!-- Non-Prod Environment Indicator Display -->
+      <% if (typeof env === 'string' && env != "" && env != "prod") {  %>
+        <span id="environment-display">
+          <% if (env == "local") {  %>
+            <div class="ribbon cyan"><span><%= env %></span></div>
+          <% }  if (env == "dev") {  %>
+            <div class="ribbon green"><span><%= env %></span></div>
+          <% }  if (env == "test") {  %>
+            <div class="ribbon blue"><span><%= env %></span></div>
+          <% }  if (env == "beta") {  %>
+            <div class="ribbon orange"><span><%= env %></span></div>
+          <% } if (env == "urgent") {  %>
+            <div class="ribbon red"><span><%= env %></span></div>
+          <% } %>
+        </span>
+      <% } %><!-- End Non-Prod Environment Indicator Display -->
       <div class="col-lg-3 col-md-3 col-sm-2">
         <div class="center">
           <img id="gs-seal" src="/images/gs-seal.png" alt="Graduate School Seal"  class="seal" />
         </div>
       </div>
-
       <div id="footer-social-networks" class="col-lg-1 col-md-1 col-sm-1">
         <ul class="networks">
           <li><a id="facebook-link" href="http://www.facebook.com/GraduateSchoolUSA" target="_blank"><img src="/images/facebook.png" alt=""  /></a></li>
