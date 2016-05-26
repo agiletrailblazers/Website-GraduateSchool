@@ -2,61 +2,40 @@
 /*==========  Course Detail Styles  ==========*/
 
 @media print {
-  body {
-    width: 100% !important;
-    margin-right: 50px !important;
-  }
+  body { width: 100% !important; margin-right: 50px !important; }
 
-  .tab-content > .tab-pane {
-    display: block !important;
-    opacity: 1 !important;
-  }
+  .container { width: auto !important; }
 
-  .related-links, ul.nav-tabs {
-    display: none;
-    visibility: hidden;
-  }
+  .tab-content > .tab-pane { display: block !important; opacity: 1 !important; }
 
-  #course-information, #sidebar, .table-responsive {
-    width: 95%;
-  }
+  .related-links, ul.nav-tabs { display: none; visibility: hidden; }
 
-  .container {
-    width: auto !important;
-  }
+  #course-information, #sidebar, .table-responsive { width: 95%; }
 
-  #courseContent {
-    width: auto !important;
-  }
+  #courseContent { width: auto !important;}
 
-  #courseSessionTable {
-    page-break-before: avoid;
-    page-break-after: avoid;
-  }
+  #courseSessionTable { page-break-before: avoid; page-break-after: avoid; }
 
-  #courseSessionTable tr.courseDetailSessionRow {
-    display: table-row !important;
-    page-break-inside:avoid !important;
-    width: 100%;
+  #courseSessionTable tr.courseDetailSessionRow {   display: table-row !important; page-break-inside:avoid !important; width: 100%; }
 
-  }
-  #courseSessionTable td {
-     page-break-inside:avoid !important;
-  }
+  #courseSessionTable td { page-break-inside:avoid !important; }
 
-  table tbody tr td:before,
-    table tbody tr td:after {
-        content : "" ;
-        height : 10px ;
-        display : block ;
-    }
+  table tbody tr td:before, table tbody tr td:after { content : "" ; height : 10px ; display: block; }
 
-  #loadMore, #currentCount, .print-fix {
-    display: none !important;
-  }
+  #loadMore, #currentCount, .print-fix { display: none !important; }
+
+  .panel > .panel-heading.course-detail { padding: 0 10px !important; }
+
+  .legend { padding: 10px 0 !important; }
+
+  table.session-schedule td, .table > thead > tr > td, td { padding: 5px !important; }
+
+  #course-information-content { padding: 5px 10px !important; }
 
 
-}
+} /* End of @Media Print */
+
+
 
 .course-message {
   height: 150px;
