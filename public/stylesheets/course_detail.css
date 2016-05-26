@@ -32,6 +32,7 @@
 
   #course-information-content { padding: 5px 10px !important; }
 
+  table.session-schedule, table.session-schedule tr, .table > thead > tr > td, .table > thead { border: 1px solid #DDD !important; }
 
 } /* End of @Media Print */
 

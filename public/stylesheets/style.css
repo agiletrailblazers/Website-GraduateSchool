@@ -3,12 +3,11 @@
 @media print {
       #top-menu, #header, #footer, #chat, .util, .ms-drop {display: none !important; }
 
-      *{ filter: grayscale(100%); -webkit-filter: grayscale(100%); -moz-filter: grayscale(100%); -ms-filter: grayscale(100%);
-          -o-filter: grayscale(100%); filter: grayscale(100%);  filter: gray; /* IE 6-9 */ }
+      *{ -ms-filter: grayscale(100%); -o-filter: grayscale(100%);  filter: gray; /* IE 6-9 */
+         color: #000 !important; background-color: transparent !important;}
 
-      .title { filter: grayscale(100%) !important; -webkit-filter: grayscale(100%) !important; -moz-filter: grayscale(100%) !important;
-        -ms-filter: grayscale(100%) !important;   -o-filter: grayscale(100%) !important; filter: grayscale(100%) !important;
-        filter: gray !important; /* IE 6-9 */ }
+      .title { -ms-filter: grayscale(100%); -o-filter: grayscale(100%);  filter: gray; /* IE 6-9 */
+         color: #000 !important; background-color: transparent !important;}
 
       a[href]:after { content: none !important; }
 
@@ -34,6 +33,7 @@
 
       .spacer, .spacer10, .spacer25, .spacer40, .spacer60, .spacer80, .spacer100, .spacer120 { display: none !important; height: 0;}
 
+      #searchResults { width: 98% !important;}
    } /* End of @Media Print */
 
 
