@@ -90,22 +90,6 @@
           </ul>
         </div>
       <% }); %>
-      <!-- Non-Prod Environment Indicator Display -->
-      <% if (typeof env === 'string' && env != "" && env != "prod") {  %>
-        <span id="environment-display">
-          <% if (env == "local") {  %>
-            <div class="ribbon cyan"><span><%= env %></span></div>
-          <% }  if (env == "dev") {  %>
-            <div class="ribbon green"><span><%= env %></span></div>
-          <% }  if (env == "test") {  %>
-            <div class="ribbon blue"><span><%= env %></span></div>
-          <% }  if (env == "beta") {  %>
-            <div class="ribbon orange"><span><%= env %></span></div>
-          <% } if (env == "urgent") {  %>
-            <div class="ribbon red"><span><%= env %></span></div>
-          <% } %>
-        </span>
-      <% } %><!-- End Non-Prod Environment Indicator Display -->
       <div class="col-lg-3 col-md-3 col-sm-2">
         <div class="center">
           <img id="gs-seal" src="/images/gs-seal.png" alt="Graduate School Seal"  class="seal" />
@@ -120,7 +104,6 @@
           <li><a id="linkedin-link" href="https://www.linkedin.com/company/graduate-school-usa" target="_blank"><img src="/images/linkedin.png" alt=""  /></a></li>
         </ul>
       </div>
-
     </div><!-- END non-mobile -->
     <div class="row padding10">
       <div class="spacer"></div>
