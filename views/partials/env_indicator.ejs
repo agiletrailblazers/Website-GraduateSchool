@@ -1,0 +1,14 @@
+<!-- Non-Prod Environment Indicator Display -->
+<% if (typeof env === 'string' && env != "" && env != "prod") {  %>
+    <% if (env == "local") {  %>
+      <div class="ribbon cyan"><span><%= env %></span></div>
+    <% }  if (env == "dev") {  %>
+      <div class="ribbon green"><span><%= env %></span></div>
+    <% }  if (env == "test") {  %>
+      <div class="ribbon blue"><span><%= env %></span></div>
+    <% }  if (env == "beta") {  %>
+      <div class="ribbon orange"><span><%= env %></span></div>
+    <% } if (env == "urgent") {  %>
+      <div class="ribbon red"><span><%= env %></span></div>
+    <% } %>
+<% } %><!-- End Non-Prod Environment Indicator Display -->
