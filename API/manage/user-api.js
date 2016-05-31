@@ -83,6 +83,11 @@ module.exports = {
         errorMessage = "Failed during user update due to validation errors";
         result.validationErrors = body.validationErrors;
       }
+      else if (response.statusCode == 409) {
+        // user not updated due to duplicate user
+        errorMessage = "Email address is already assigned to a user";
+        result.validationErrors = new Array({errorMessage : "duplicateUser", fieldName: "username.duplicate"});
+      }
       else {
         // some other error
         result.generalError = true;

@@ -64,6 +64,8 @@ function errorMessageForFieldName(fieldName) {
     switch(fieldName){
         case "username":
             return "Email is required and must be a properly formatted email address.";
+        case "username.duplicate":
+            return "Email is already used. Please try another email address.";
         case "lastFourSSN":
             return "Last 4 digits of SSN are required and must be 4 characters.";
         case "timezoneId":
