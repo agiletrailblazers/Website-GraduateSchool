@@ -1,35 +1,42 @@
 /*==========  GRADUATE SCHOOL Styles  ==========*/
 /*==============================================*/
 @media print {
-      #top-menu, #header, #footer, #chat, .util, .ms-drop {display: none !important;  }
-        *{
-            filter: grayscale(100%);
-            -webkit-filter: grayscale(100%);
-            -moz-filter: grayscale(100%);
-            -ms-filter: grayscale(100%);
-            -o-filter: grayscale(100%);
-            filter: grayscale(100%);
-            filter: gray; /* IE 6-9 */
-        }
+      #top-menu, #header, #footer, #chat, .util, .ms-drop {display: none !important; }
 
-        .title {
-          filter: grayscale(100%) !important;
-          -webkit-filter: grayscale(100%) !important;
-          -moz-filter: grayscale(100%) !important;
-          -ms-filter: grayscale(100%) !important;
-          -o-filter: grayscale(100%) !important;
-          filter: grayscale(100%) !important;
-          filter: gray !important; /* IE 6-9 */
-        }
+      *{ -ms-filter: grayscale(100%); -o-filter: grayscale(100%);  filter: gray; /* IE 6-9 */
+         color: #000 !important; background-color: transparent !important;}
 
-        a[href]:after {
-          content: none !important;
-        }
+      .title { -webkit-filter: grayscale(100%) !important; -moz-filter: grayscale(100%) !important;
+        -ms-filter: grayscale(100%) !important;   -o-filter: grayscale(100%) !important; filter: gray !important; /* IE 6-9 */
+         color: #000 !important; background-color: transparent !important;}
 
-      @page {
-        margin: 50px;
-      }
-   }
+      a[href]:after { content: none !important; }
+
+      @page {   margin: 50px;}
+
+      * { font-size: 8pt !important; line-height: 1; }
+
+      h1 { font-size: 14pt !important;  }
+
+      h2 { font-size: 12pt !important; margin-top: 15px; }
+
+      h3 { font-size: 11pt !important;}
+
+      h4 { font-size: 10pt !important; }
+
+      h1#title { margin-top: 0 !important;}
+
+      .title { margin-bottom: 0 !important; }
+
+      .panel-body { padding: 5px !important; }
+
+      .panel-group { margin: 0 !important; padding: 0 !important; }
+
+      .spacer, .spacer10, .spacer25, .spacer40, .spacer60, .spacer80, .spacer100, .spacer120 { display: none !important; height: 0;}
+
+      #searchResults { width: 98% !important;}
+   } /* End of @Media Print */
+
 
 *[id^='glyphicon'] {
   color: white !important;
