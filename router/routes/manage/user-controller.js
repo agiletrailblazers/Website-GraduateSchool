@@ -529,8 +529,8 @@ module.exports = {
         updatedUser.person.middleName = ((formData.middleName === "") ? null : formData.middleName);
         updatedUser.person.lastName = ((formData.lastName === "") ? null : formData.lastName);
         // TODO leaving this for next sprint
-        //updatedUser.username = ((formData.email === "") ? null : formData.email);
-        //updatedUser.person.emailAddress = ((formData.email === "") ? null : formData.email);
+        updatedUser.username = ((formData.email === "") ? null : formData.email);
+        updatedUser.person.emailAddress = ((formData.email === "") ? null : formData.email);
         updatedUser.person.primaryPhone = ((formData.phone === "") ? null : formData.phone);
         updatedUser.person.dateOfBirth = ((formData.dateOfBirth === "") ? null: formData.dateOfBirth);
         updatedUser.person.primaryAddress.address1 =

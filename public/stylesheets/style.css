@@ -171,6 +171,34 @@ a.red:hover {
     z-index: 9999;
 }
 
+a.reddish, a.reddish:visited {
+    color: #FFF;
+    background-color: #D9124E !important;
+    padding: 7px 15px !important;
+    box-shadow: none;
+    border: medium none;
+    border-radius: 2px;
+    font-weight: 400;
+    transition: background-color 300ms linear 0s;
+    font-size: 14px !important;
+    display: inline-block;
+    text-align: center;
+}
+
+a.reddish:hover {
+    color: #FFF;
+    background-color: #195181 !important;
+    padding: 7px 15px !important;
+    box-shadow: none;
+    border: medium none;
+    border-radius: 2px;
+    font-weight: 400;
+    transition: background-color 300ms linear 0s;
+    font-size: 14px !important;
+    display: inline-block;
+    text-align: center;
+}
+
 
 a.blueish, a.blueish:visited {
     color: #FFF;

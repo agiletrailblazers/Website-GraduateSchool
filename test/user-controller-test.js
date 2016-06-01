@@ -2208,7 +2208,8 @@ test('updateUser', function(t) {
     city : "Test City",
     state : "UT",
     zip : "55555",
-    timezoneId : "123"
+    timezoneId : "123",
+    email: username
   };
 
   var req = {
@@ -2308,7 +2309,8 @@ test('updateUser handles validation errors', function(t) {
     city : "Test City",
     state : "UT",
     zip : "55555",
-    timezoneId : "123"
+    timezoneId : "123",
+    email: username
   };
 
   var req = {
@@ -2413,7 +2415,8 @@ test('updateUser handles general error', function(t) {
     city : "Test City",
     state : "UT",
     zip : "55555",
-    timezoneId : "123"
+    timezoneId : "123",
+    email: username
   };
 
   var req = {
