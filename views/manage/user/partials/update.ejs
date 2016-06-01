@@ -1,4 +1,4 @@
-<%
+<% user.username = "SomethingElse"
   var usernameIsEmail = false;
   if (user.username && user.person.emailAddress && (user.person.emailAddress).toLowerCase() == (user.username).toLowerCase()){
     usernameIsEmail = true;
@@ -84,7 +84,7 @@
               <span class="form-group">
                 <% if (!usernameIsEmail){ %>
                   <label for="username" >Username</label>
-                  <input type="text" id="dateOfBirth" class="form-control" size="4" maxlength="4" value="<%= user.username %>" disabled>
+                  <span id="username" class="input-disabled"><%= user.username %></span>
                 <% } else { %>
                 <span></span>
                 <% } %>

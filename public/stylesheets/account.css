@@ -88,7 +88,7 @@ hr.account-form-divider {
 
 /* Update Personal details */
 
-#personal-info-view-only .form-group > span, #personal-info-view-only .form-group > select {
+#personal-info-view-only .form-group > span, #personal-info-view-only .form-group > select, .input-disabled {
   margin: 0;
   font: inherit;
   display: block;
@@ -97,7 +97,7 @@ hr.account-form-divider {
   padding: 9px 30px 6px 12px;
   font-size: 14px;
   line-height: 1.42857;
-  color: #555;
+  color: #555 !important;
   border-radius: 1px;
   box-shadow: none;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
@@ -131,6 +131,8 @@ hr.account-form-divider {
   margin-left: 15px;
   padding: 5px 40px !important;
 }
+
+
 
 /*==========  MEDIA QUERIES  ==========*/
 

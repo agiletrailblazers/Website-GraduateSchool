@@ -1098,5 +1098,68 @@ test('updateUser failure with Validation Errors', function(t) {
     t.end();
 });
 
+test('updateUser failure with Duplicate User Error', function(t) {
+    // test a 409 duplicate user error
+    var apiServer = config("properties").apiServer;
+    var userData = {
+        "id" : "pers66666",
+        "username" : "foo@bar.com",
+        "dateOfBirth" : "01/01/1960",
+        "lastFourSSN" : "4444",
+        "password" : "test1234",
+        "person" :
+        {
+            "firstName" : "Joe",
+            "middleName" : null,
+            "lastName" : "Smith",
+            "emailAddress" : "foo2@bar.com",
+            "primaryPhone" : "555-555-5555",
+            "secondaryPhone" : null,
+            "primaryAddress" :
+            {
+                "address1" : "1313 Mockingbird Lane",
+                "address2" : null,
+                "city" : "Los Angeles",
+                "state" : "CA",
+                "postalCode" : "55555"
+            },
+            "secondaryAddress" : null
+        }
+    };
+
+    var server = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    }).post('/api/users/' + userData.id, userData)
+        .reply(409);
+
+    server;
+
+    var req = {};
+    var sessionData = {
+        "authToken": authToken
+    };
+
+    var proxiedUser = proxyquire('../API/manage/user-api.js',
+        {
+            "./session-api.js": {
+                getSessionData: function (req, key) {
+                    expect(key).to.eql("authToken");
+                    return sessionData[key];
+                }
+            }
+        });
+
+    proxiedUser.updateUser(req, userData, function(error, results) {
+        server.done();
+        expect(results.updatedUser).to.be.a('null');
+        expect(results.validationErrors[0].fieldName).to.eql("username.duplicate");
+        expect(results.validationErrors[0].errorMessage).to.eql("duplicateUser");
+        expect(error).to.be.an.instanceof(Error);
+    });
+    t.end();
+});
+
 
 
