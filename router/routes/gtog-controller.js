@@ -8,6 +8,7 @@ var courseAPI = require('../../API/course.js');
 var session = require("../../API/manage/session-api.js");
 var contentfulAPI = require('../../API/contentful.js');
 var marked = require('marked');
+var momentTz = require('moment-timezone');
 
 // handlers for generic content papge
 module.exports = {
@@ -92,14 +93,22 @@ module.exports = {
                   if (common.isEmpty(orderedSessions[session.curricumTitle])) {
                     orderedSessions[session.curricumTitle] = [];
                   }
+
                   var tmpRegistrationUrl = config("properties").registrationUrl;
                   tmpRegistrationUrl = tmpRegistrationUrl.replace("[courseId]", session.courseCode);
                   tmpRegistrationUrl = tmpRegistrationUrl.replace("[sessionId]", session.classNumber);
                   session.registrationUrl = tmpRegistrationUrl;
+
+                  // use EST timezone to calculate the registration deadline before formatting the dates
+                  var registrationDeadline = momentTz.tz(session.startDate.replace("-", " "), 'YYYY MM DD', "America/New_York");
+
                   session.startDate = formatDate(session.startDate);
                   session.endDate = formatDate(session.endDate);
 
-                  orderedSessions[session.curricumTitle].push(session);
+                  //If the deadline to register has already passed for EST, do not show the session
+                  if (registrationDeadline.isAfter(momentTz().tz("America/New_York"))) {
+                    orderedSessions[session.curricumTitle].push(session);
+                  }
                 }
               });
             }
