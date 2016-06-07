@@ -8,6 +8,7 @@ var config = require('konphyg')(__dirname + '/../config');
 // requires for route controllers
 var userController = require('./routes/manage/user-controller.js');
 var cartController = require('./routes/manage/cart-controller.js');
+var timeController = require('./routes/time-controller.js');
 var gtogController = require('./routes/gtog-controller.js');
 
 // log some key configuration information
@@ -57,6 +58,9 @@ module.exports = function (app) {
         app.use('/', router.post('/manage/cart/payment/confirm', cartController.confirmPayment));
         app.use('/', router.post('/manage/cart/payment/complete', cartController.completePayment));
         app.use('/', router.post('/manage/cart/registration/cancel', cartController.cancelRegistration));
+
+        //time
+        app.use('/', router.get('/year', timeController.getYear));
     }
     app.use('/', require('./routes/landing-page-route'));
     app.use(defaultUrlRedirect);
