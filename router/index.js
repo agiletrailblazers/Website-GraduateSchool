@@ -32,6 +32,9 @@ module.exports = function (app) {
     app.use('/', require('./routes/subscription-route'));
     app.use('/', router.get('/gtog', gtogController.displayG2GPage));
 
+    //get the year from the time controller
+    app.use('/', router.get('/year', timeController.getYear));
+
     if (config("properties").manage.userRouteEnabled === true) {
         // user management routes
         app.use('/', router.get('/manage/user/login', userController.displayLogin));
@@ -58,9 +61,6 @@ module.exports = function (app) {
         app.use('/', router.post('/manage/cart/payment/confirm', cartController.confirmPayment));
         app.use('/', router.post('/manage/cart/payment/complete', cartController.completePayment));
         app.use('/', router.post('/manage/cart/registration/cancel', cartController.cancelRegistration));
-
-        //time
-        app.use('/', router.get('/year', timeController.getYear));
     }
     app.use('/', require('./routes/landing-page-route'));
     app.use(defaultUrlRedirect);
