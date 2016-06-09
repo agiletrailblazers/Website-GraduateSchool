@@ -53,9 +53,15 @@ p.footer {
 <p>Email Address: <strong><%= contact.email %></strong></p>
 <hr>
 <h2>Location</h2>
-<p>GS Location: <%= location.gs %></strong></p>
+<% if (location.gs) {%>
+<p><strong>GS Location</strong></p>
+<% }%>
+<% if (location.customer != '' && location.customer != null && typeof(location.customer) != 'undefined') {%>
 <p>Customer Location: <strong><%= location.customer %></strong></p>
+<% }%>
+<% if (location.other != '' && location.other != null && typeof(location.other) != 'undefined') {%>
 <p>Other Location: <strong><%= location.other %></strong></p>
+<% }%>
 <hr>
 <h2>Course Delivery Information</h2>
 <p>Course Names(s): </p>

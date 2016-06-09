@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="/stylesheets/library/spinners.css">
   <link rel="stylesheet" href="/stylesheets/library/jquery-ui.css">
   <script src="/javascripts/library/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="/javascripts/forms/onsite-inquiry/onsite_inquiry.js"></script>
+  <script type="text/javascript" src="/javascripts/forms/onsite-inquiry/multi-select.js"></script>
 </head>
 <body>
   <% include ../partials/header %>
@@ -179,15 +181,7 @@
                             <label>If you desire a classroom, WHERE would you like the course(s) to be delivered?</label>
                             <br>
                             <span class="form-group">
-                              <div class="form-block"><input type="checkbox" id="chkGSLocations" value="" tabindex="19"><label for="chkGSLocations" class="sub-label"> Graduate School USA facilities in (which location(s))</label></div>
-                                <span style="display:block;" >
-                                  <select class="form-control" id="selGSLocations" style="display:none;" tabindex="20">
-                                    <option value="">Select One</option>
-                                    <% locations.forEach(function(location) { %>
-                                    <option value="<%= location %>"><%= location %></option>
-                                    <% }); %>
-                                  </select>
-                                </span>
+                              <div class="form-block"><input type="checkbox" id="chkGSLocations" value="" tabindex="19"><label for="chkGSLocations" class="sub-label"> Graduate School USA facilities</label></div>
                               </span>
                             <br>
                             <span class="form-group">
@@ -302,7 +296,5 @@
 
           <% include ../partials/chat %>
           <% include ../partials/footer %>
-          <script type="text/javascript" src="/javascripts/onsite-inquiry/onsite_inquiry.js"></script>
-          <script type="text/javascript" src="/javascripts/onsite-inquiry/multi-select.js"></script>
         </body>
         </html>

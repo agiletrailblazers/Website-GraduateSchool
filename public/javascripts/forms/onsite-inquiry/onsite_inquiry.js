@@ -141,7 +141,7 @@ $(document).ready(function() {
     data.contact.fax = $("#txtFax").val();
     data.contact.email = $("#txtEmail").val();
     data.contact.phone = $("#txtPhone").val();
-    data.location.gs = $("#selGSLocations").val();
+    data.location.gs = $('#chkGSLocations').prop('checked');
     data.location.customer = $("#txtYourLocations").val();
     data.location.other = $("#txtOtherLocations").val();
     var courseNames = "";
@@ -200,9 +200,6 @@ $(document).ready(function() {
         }, "slow");
       });
     }
-  });
-  $("#chkGSLocations").click(function() {
-    $("#selGSLocations").toggle();
   });
   $("#chkYourLocations").click(function() {
     $("#txtYourLocations").toggle();
