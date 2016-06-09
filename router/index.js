@@ -10,6 +10,7 @@ var userController = require('./routes/manage/user-controller.js');
 var cartController = require('./routes/manage/cart-controller.js');
 var timeController = require('./routes/time-controller.js');
 var gtogController = require('./routes/gtog-controller.js');
+var ajaxFormController = require('./routes/ajax-form-controller.js')
 
 // log some key configuration information
 logger.info("userRouteEnabled: " + config("properties").manage.userRouteEnabled);
@@ -23,7 +24,6 @@ module.exports = function (app) {
     app.use('/', require('./routes/search-route'));
     app.use('/', require('./routes/whatsnew-route'));
     app.use('/', require('./routes/news-route'));
-    app.use('/', require('./routes/ajax-form-route'));
     app.use('/', require('./routes/form-route'));
     app.use('/', require('./routes/generic-page-route'));
     app.use('/', require('./routes/forms-route'));
@@ -35,6 +35,16 @@ module.exports = function (app) {
     //get the year from the time controller
     app.use('/', router.get('/year', timeController.getYear));
 
+    // async AJAX Email Routes
+    app.use('/', router.post('/mailer-customer-feedback', ajaxFormController.mailCustomerFeedback));
+    app.use('/', router.post('/mailer-contact-us', ajaxFormController.mailContactUs));
+    app.use('/', router.post('/mailer-onsite-inquiry', ajaxFormController.mailOnsiteInquiry));
+    app.use('/', router.post('/mailer-request-duplicate', ajaxFormController.mailRequestDuplicate));
+    app.use('/', router.post('/mailer-request-proctor', ajaxFormController.mailRequestProctor));
+    app.use('/', router.post('/mailer-request-certificate-program', ajaxFormController.mailRequestCertificateProgram));
+    app.use('/', router.post('/mailer-request-catalog', ajaxFormController.mailRequestCatalog));
+    app.use('/', router.post('/mailer-subscription', ajaxFormController.mailSubscription));
+    app.use('/', router.post('/mailer-landing', ajaxFormController.mailLanding));
     if (config("properties").manage.userRouteEnabled === true) {
         // user management routes
         app.use('/', router.get('/manage/user/login', userController.displayLogin));

@@ -1,4 +1,3 @@
-
 The following is a request for information on on-site training:
 
 Name and Address
@@ -19,16 +18,22 @@ Fax Number: <%= contact.fax %>
 Email Address: <%= contact.email %>
 
 Location
-GS Location: <%= location.gs %>
+<% if (location.gs) {%>
+GS Location
+<% }%>
+<% if (location.customer != '' && location.customer != null && typeof(location.customer) != 'undefined') {%>
 Customer Location: <%= location.customer %>
+<% }%>
+<% if (location.other != '' && location.other != null && typeof(location.other) != 'undefined') {%>
 Other Location: <%= location.other %>
+<% }%>
 
 Course Delivery Information
 Course Names:
 <%
   var courseArray = course.names.split(",");
   courseArray.forEach(function(course) { %>
-    <%= course %></strong>
+    <%= course %>
 <% }); %>
 Student Count: <%= course.studentCount %>
 Customization: <%= course.customization %>
