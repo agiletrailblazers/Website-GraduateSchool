@@ -5,6 +5,7 @@ var course = require("../API/course.js");
 var should = require("should");
 var test = require('tap').test;
 var config = require('konphyg')(__dirname + "/../config");
+var contentful = require("../API/contentful.js");
 
 var authToken = "token123456789";
 
@@ -206,5 +207,38 @@ test('course-detail testcase 7', function(t) {
     server.done();
     result.courseCredit.should.have.property('value').with.length(2);
   }, 'AUDT8002G001', authToken);
+  t.end();
+});
+
+
+test('course-detail Contentful testcase 1', function(t) {
+  var courseCode = 'acct7102d';
+  var contentfulServer = nock('https://cdn.contentful.com', {
+    reqheaders: {
+      'Authorization': config("properties").spaces.courseData.authorization
+    }
+  }).get('/spaces/'+config("properties").spaces.courseData.spaceId+'/entries?content_type=6oONI768GACooiUiqmSWIY&fields.courseCode=' + courseCode)
+  .reply(200, {
+    "sys": {
+      "type": "Array"
+    },
+    "total": 1,
+    "skip": 0,
+    "limit": 100,
+    "items": [
+      {
+        "fields": {
+          "courseCode": "acct7102d",
+          "syllabusContent": "<!--BEGIN HEADER--><HTML>\r\n<HEAD><TITLE>Syllabus -- Federal Accounting Standards, ACCT7102D, Grad. School, USDA</TITLE></HEAD>\r\n<body bgcolor=\"#ffffff\"> \r\n\r\n<!--- START TEXT --->\r\n\r\n\r\n\r\n<p><B>Day one of three</B>\r\n<UL><LI>Introduction\r\n\t<UL><LI>Course approach, description and objectives\r\n\t<LI>Course expectations\r\n\t<LI>Hypothetical agency program and mission\r\n\t<LI>Background on FASAB\r\n\t<LI>Objectives of Federal Financial Reporting SFFAC # 1\r\n\t<LI>Standards for Entity and Display, SFFAC # 2</ul>\r\n<LI>Statements of Federal Financial Accounting Standards\r\n\t<UL><LI>Accounting for Revenue and other Financing Sources SFFAS # 7\r\n\t<LI>Accounting for Direct Loans and Loan Guarantees SFFAS # 2</ul>\r\n<LI>End day one\r\n</ul>\r\n\r\n<p><B>Day two of three</B>\r\n<UL><LI>Statement of Federal Financial Accounting Standards (continued)\r\n\t<ul><LI>Questions and answers from day -1\r\n\t<LI>Accounting for Property, Plant, and Equipment SFFAS # 6\r\n\t<LI>Supplementary Stewardship Reporting SFFAS # 8\r\n\t<LI>Managerial Cost Accounting Concepts and Standards SFFAS # 4</ul>\r\n<LI>End day two\r\n</ul>\r\n\r\n<p><B>Day three of three</B>\r\n<UL><LI>Statement of Federal Financial Accounting Standards (continued)\r\n\t<UL><LI>Questions and answers from day-2\r\n\t<LI>Accounting for Selected Assets and Liabilities SFFAS # 1\r\n\t<LI>Accounting for Inventory and Related Property SFFAS # 3\r\n\t<LI>Accounting for Liabilities SFFAS # 5\r\n\t<LI>Update on FASAB activities\r\n\t<LI>Summary and evaluation</ul>\r\n<LI>End of day three\r\n</ul>\r\n\r\n<!--- END TEXT --->\r\n</body>\r\n</html>\r\n\r\n"
+        }
+      }
+    ]
+  });
+
+  // call the api
+  contentful.getSyllabus(courseCode, function(response, error, result) {
+    expect(response.items).to.exit;
+    expect(response.items[0].fields.courseCode).to.eql(courseCode);
+  });
   t.end();
 });
