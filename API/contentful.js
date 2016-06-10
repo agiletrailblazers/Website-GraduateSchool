@@ -52,8 +52,7 @@ module.exports = {
     });
   },
   getSyllabus: function(entry, callback) {
-    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.courseData.spaceId +
-                       '/entries?content_type=6oONI768GACooiUiqmSWIY&fields.courseCode=' + entry;
+    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.courseData.spaceId + '/entries?content_type=6oONI768GACooiUiqmSWIY&fields.courseCode=' + entry;
     cachedRequest({
       method: 'GET',
       url: targetURL,
