@@ -104,8 +104,11 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
         if (error && response.statusCode != 404) { //404 may be expected
           logger.warn("Error retrieving syllabus for course: " + courseId + " displaying page anyways", error);
         }
+        else if ((common.isNotEmpty(response.items)) && (common.isNotEmpty(response.items[0]))) {
+          courseData.syllabus = response.items[0];
+        }
         else {
-          courseData.syllabus = response;
+          logger.warn("Error retrieving syllabus for course: " + courseId + " displaying page anyways", error);
         }
         callback();
       });
