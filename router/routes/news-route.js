@@ -6,6 +6,7 @@ var striptags = require('striptags');
 var router = express.Router();
 var logger = require('../../logger');
 var common = require("../../helpers/common.js");
+var marked = require('marked');
 
 router.get('/news', function(req, res, next) {
   contentful.getNewsRecent(function(response, error) {
@@ -39,13 +40,14 @@ router.get('/news/:news_slug', function(req, res, next) {
       function renderNews(index, featureImageURL) {
         res.render('news/news_details', {
           title: response.items[index].fields.title,
-          body: response.items[index].fields.body,
+          body: response.items[index].fields.body.replace(/<br\/?>/gi, " "),
           featureImage: response.items[index].fields.featuredImage,
           featureImageURL: featureImageURL,
           tags: response.items[index].fields.tags,
           category: response.items[index].fields.category,
           author: response.items[index].fields.author,
-          date: response.items[index].fields.date
+          date: response.items[index].fields.date,
+          markdown: marked
         });
       }
 
