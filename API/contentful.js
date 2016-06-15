@@ -3,12 +3,6 @@ var request = require('request');
 var logger = require('../logger');
 var common = require("../helpers/common.js");
 
-var cachedRequest = request;
-if (config("properties").contentfulCache.turnOn) {
-  cachedRequest = require('cached-request')(request);
-  cachedRequest =  common.setCacheDirectoryAndTimeOut(cachedRequest);
-}
-
 module.exports = {
 
   getWhatsNew: function(callback) {
@@ -591,5 +585,5 @@ module.exports = {
        link: cmsEntry.fields.link
      });
    });
- },
+ }
 };

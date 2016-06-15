@@ -34,8 +34,11 @@ logger.info("session timeout: " + sessionTimeout);
 var secureCookies = config("properties").session.secure;
 logger.info("secure cookies: " + secureCookies);
 
+var useContentfulCache = config("properties").contentfulCache.turnOn;
+logger.info("use contentful cache: " + useContentfulCache);
+
 if (useCache) {
-	// setup Redis connection
+	// setup Redis connection for express session
 	Redis.Promise.onPossiblyUnhandledRejection(function (error) {
 		logger.error("Redis Error: ", error);
 	});

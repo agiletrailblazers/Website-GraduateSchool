@@ -1,5 +1,16 @@
 var logger = require('../logger');
 var config = require('konphyg')(__dirname + '/../config');
+var request = require('request');
+var cacheManager = require('cache-manager');
+var redisStore = require('cache-manager-redis');
+
+var contentCache = cacheManager.caching({
+  store: redisStore,
+  host: config("properties").cache.redis.host,
+  port: config("properties").cache.redis.port,
+  db: config("properties").cache.redis.db,
+  ttl: config("properties").contentfulCache.ttl
+});
 
 checkForErrorAndLogExceptCodes = function(error, response, url, httpCodesNotToLog) {
   // all 2xx status codes should be considered successful, not just 200
@@ -64,7 +75,30 @@ redirectToError = function (res) {
 setCacheDirectoryAndTimeOut =  function(cachedRequest) {
   cachedRequest.setCacheDirectory(config("properties").contentfulCache.location);
   return(cachedRequest);
-}
+};
+
+// execute an http 'request' and cache the response and use cached responses before calling
+cachedRequest = function (reqParams, callback) {
+  if (config("properties").contentfulCache.turnOn == true) {
+    contentCache.get(reqParams.url, function(err, result) {
+      if (result != undefined) {
+        callback(null, result.response, result.body);
+        if (config("properties").contentfulCache.loggerOn) logger.info('Using cached content for: ' + reqParams.url);
+        return;
+      }
+      request(reqParams, function(error, response, body) {
+        if (config("properties").contentfulCache.turnOn == true) {
+          if (!error && response && (response.statusCode >= 200 && response.statusCode < 300)) {
+            obj = { response: JSON.stringify(response), body: body };
+            contentCache.set(reqParams.url, obj);
+          }
+        }
+        if (config("properties").contentfulCache.loggerOn) logger.info('Fetching new content for: ' + reqParams.url);
+        callback(error, response, body);
+      });
+    });
+  }
+};
 
 module.exports = {
   setCacheDirectoryAndTimeOut: setCacheDirectoryAndTimeOut,
