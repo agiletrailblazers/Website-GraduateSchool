@@ -1,4 +1,4 @@
-var length = function (id, alertId, fieldName, length) {
+var lengthCheck = function (id, alertId, fieldName, length) {
   var input = $(id).val();
   var idForError = id.substring(1);
   if (input.trim().length < length) {
@@ -41,16 +41,16 @@ var validate = {
   },
 
   name : function (id, alertId, fieldName) {
-    length(id, alertId, fieldName, 2);
+    lengthCheck(id, alertId, fieldName, 2);
   },
   city : function (id, alertId, fieldName) {
-    length(id, alertId, fieldName, 3);
+    lengthCheck(id, alertId, fieldName, 3);
   },
   street : function (id, alertId, fieldName) {
-    length(id, alertId, fieldName, 5);
+    lengthCheck(id, alertId, fieldName, 5);
   },
   zip : function (id, alertId, fieldName) {
-    length(id, alertId, fieldName, 5);
+    lengthCheck(id, alertId, fieldName, 5);
   },
   state: function(id, alertId) {
     var input = $(id).val();
