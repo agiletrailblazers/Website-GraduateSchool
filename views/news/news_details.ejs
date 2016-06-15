@@ -3,6 +3,7 @@
 <head>
   <title> Graduate School USA | <%= title %> </title>
   <% include ../partials/head %>
+  <link rel="stylesheet" href="/stylesheets/news.css" />
 </head>
 <body>
   <% include ../partials/header %>
@@ -10,7 +11,7 @@
     <div class="row">
       <div id="news" class="col-md-9">
         <p class="date-posted"><span class="glyphicon glyphicon-time"></span>Posted on <%= date.date('MMM DD, YYYY') %></p>
-        <p><%- body %></p>
+        <p><%- markdown(body || '') %></p>
         <p>
           <% if (featureImageURL !="") { %>
             <img src="<%=featureImageURL %>" alt=""  class=""/>
