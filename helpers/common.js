@@ -1,7 +1,7 @@
 var logger = require('../logger');
 var config = require('konphyg')(__dirname + '/../config');
 var request = require('request');
-cacheManager = require('cache-manager');
+var cacheManager = require('cache-manager');
 var redisStore = require('cache-manager-redis');
 
 var cacheEnvPrefix = config("properties").env + "-";
@@ -114,5 +114,6 @@ module.exports = {
   checkForErrorAndLog: checkForErrorAndLog,
   checkForErrorAndLogExceptCodes: checkForErrorAndLogExceptCodes,
   redirectToError: redirectToError,
-  cachedRequest: cachedRequest
+  cachedRequest: cachedRequest,
+  cacheManager: this.cacheManager
 };
