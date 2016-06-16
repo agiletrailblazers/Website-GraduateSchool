@@ -7,7 +7,7 @@ module.exports = {
 
   getWhatsNew: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/4QlvJ0GeQw4AY2QOq8SUMY';
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -29,7 +29,7 @@ module.exports = {
   //Below function is for the future use to support image assets.
   getAsset: function(space, asset, callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/' + space + '/assets/' + asset;
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -47,7 +47,7 @@ module.exports = {
   },
   getSyllabus: function(entry, callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.courseData.spaceId + '/entries?content_type=6oONI768GACooiUiqmSWIY&fields.courseCode=' + entry;
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -67,7 +67,7 @@ module.exports = {
   // Pulls all news entries from newest to oldest.
   getNewsRecent: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.news.spaceId+'/entries?content_type=2wKn6yEnZewu2SCCkus4as&order=-fields.date';
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -86,7 +86,7 @@ module.exports = {
   // Pulls specific news detail (as an array).
   getNewsDetail: function(callback, slug) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.news.spaceId+'/entries?content_type=2wKn6yEnZewu2SCCkus4as&fields.slug=' + slug;
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -105,7 +105,7 @@ module.exports = {
   },
   getContentAsset: function(space, callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/' + space + '/assets/';
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -125,7 +125,7 @@ module.exports = {
     var MAX_LINKS = config("properties").maxTopNavigationLinks;
     var MAX_GROUPS = config("properties").maxTopNavigationGroups;
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.navigation.spaceId+'/entries?include=2&content_type=47TLz18cmI6WaeC0KWgOIo';
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -209,7 +209,7 @@ module.exports = {
   },
   getReferenceData: function(slug, callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/?content_type=rrnJXELzeC4O8Mc8oQUqK&fields.slug=' + slug;
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -231,7 +231,7 @@ module.exports = {
   },
   getContentPage: function(callback, slug) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.content.spaceId+'/entries/?content_type=4oNvURz39SeMw6EaS84gIM&fields.slug=' + slug;
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -250,7 +250,7 @@ module.exports = {
 
   getGtoGPage: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.content.spaceId+'/entries?sys.id=60o2cWEaVaQAqwo2IcmcOU';
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -271,7 +271,7 @@ module.exports = {
   getLandingPage: function(callback, slug) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.landing.spaceId+
                     '/entries/?content_type=landingGeneric&fields.slug=' + slug;
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -289,7 +289,7 @@ module.exports = {
   },
   getCourseSearch: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/3AdFDCVaOIeQSgemcmkGqk';
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -307,7 +307,7 @@ module.exports = {
   },
   getCourseDetails: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/1Cwi1ay4SEWcIYAy8EAu8U';
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -325,7 +325,7 @@ module.exports = {
   },
   getHomepageSlider: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=2Ak0RNhLwIwSGaiukUsCku';
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -359,7 +359,7 @@ module.exports = {
   },
   getForms: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=5Lz9bSZNE4ACoykGQgQwUu';
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -381,7 +381,7 @@ module.exports = {
   },
   getTestimonial: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=6xOVVkV7wc8ecwKqCaSwyW';
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -412,7 +412,7 @@ module.exports = {
   },
   getAlerts: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=22JH0IRqc0iEqM2uMgMyyy';
-   cachedRequest({
+   common.cachedRequest({
      method: 'GET',
      url: targetURL,
      ttl: config("properties").contentfulCache.timeout,
@@ -431,7 +431,7 @@ module.exports = {
  },
  getDataGrouping: function(entryId, callback) {
    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/' + entryId;
-   cachedRequest({
+   common.cachedRequest({
      method: 'GET',
      url: targetURL,
      ttl: config("properties").contentfulCache.timeout,
@@ -449,7 +449,7 @@ module.exports = {
  },
  getCatalogType: function(callback) {
    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=ZRkwvyMcCqK46gGOggeWs';
-   cachedRequest({
+   common.cachedRequest({
      method: 'GET',
      url: targetURL,
      ttl: config("properties").contentfulCache.timeout,
@@ -471,7 +471,7 @@ module.exports = {
  },
  getCatalogRequestHardCopy: function(callback) {
    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries?content_type=5SLs6g27dK2IOeuOyKyeoq';
-   cachedRequest({
+   common.cachedRequest({
      method: 'GET',
      url: targetURL,
      ttl: config("properties").contentfulCache.timeout,
@@ -492,7 +492,7 @@ module.exports = {
  },
  getFAQCategory: function(categorySlug, callback) {
    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.faq.spaceId+'/entries?content_type=5Qnph4LqeWyqy2aeQmes4y&fields.slug=' + categorySlug;
-   cachedRequest({
+   common.cachedRequest({
      method: 'GET',
      url: targetURL,
      ttl: config("properties").contentfulCache.timeout,
@@ -511,7 +511,7 @@ module.exports = {
 
  getFAQ: function(callback) {
    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.faq.spaceId+'/entries?content_type=5Qnph4LqeWyqy2aeQmes4y';
-   cachedRequest({
+   common.cachedRequest({
      method: 'GET',
      url: targetURL,
      ttl: config("properties").contentfulCache.timeout,
@@ -530,7 +530,7 @@ module.exports = {
 
  getContentSnippet: function(slug, callback) {
    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.content.spaceId+'/entries?content_type=vWuB3fpTWge2EU8ec0OOA&fields.slug=' + slug;
-   cachedRequest({
+   common.cachedRequest({
      method: 'GET',
      url: targetURL,
      ttl: config("properties").contentfulCache.timeout,
@@ -549,7 +549,7 @@ module.exports = {
 
  getContentUrlRedirect: function(callback) {
    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.content.spaceId+'/entries?content_type=redirect&limit=1000';
-   cachedRequest({
+   common.cachedRequest({
      method: 'GET',
      url: targetURL,
      ttl: config("properties").contentfulCache.timeout,
@@ -568,7 +568,7 @@ module.exports = {
 
  getCatalogArchiveLink: function(callback) {
    var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/18K2MpUdQmysAmK4ISSeOs';
-   cachedRequest({
+   common.cachedRequest({
      method: 'GET',
      url: targetURL,
      ttl: config("properties").contentfulCache.timeout,

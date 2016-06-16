@@ -6,15 +6,14 @@ var test = require('tap').test;
 var config = require('konphyg')(__dirname + "/../config");
 var temp = require('temp').track();
 var request = require('request');
-var cachedRequest = require('cached-request')(request);
 var proxyquire = require('proxyquire');
-cacheDir = temp.mkdirSync("cache");
-cachedRequest.setCacheDirectory(cacheDir);
 var contentful_forms = proxyquire('../API/contentful_forms.js',
   {
     "../helpers/common.js": {
-      setCacheDirectoryAndTimeOut: function (cachedRequestParam) {
-        return cachedRequest;
+      cachedRequest: function (reqParams, callback) {
+        request(reqParams, function (error, response, body) {
+          return callback(error, response, body);
+        });
       }
     }
   });
