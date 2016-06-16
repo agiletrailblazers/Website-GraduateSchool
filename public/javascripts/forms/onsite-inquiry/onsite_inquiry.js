@@ -184,6 +184,14 @@ $(document).ready(function() {
         $("#accordion").toggle();
         $("#alertSuccess").toggle();
         ga('send', 'event', 'contact-training-form-completion', 'sign-up', this.href);
+
+        var iframe = document.createElement('iframe');
+        iframe.src = "http://img-cdn.mediaplex.com/0/29005/universal.html?page_name=onsite_inquiry_thank_you_page&Onsite_Inquiry_Thank_You_Page=1&mpuid=";
+        iframe.width = 1;
+        iframe.height = 1;
+        iframe.frameborder = 0;
+        var ref = document.getElementsByTagName('script')[0];
+        ref.parentNode.insertBefore(iframe, ref);
       })
       .fail(function(xhr, textStatus, errorThrown) {
         $(".loading").hide();
