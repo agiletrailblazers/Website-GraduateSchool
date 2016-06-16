@@ -135,6 +135,9 @@
     "contentfulCache" : {
       "turnOn":false,
       "ttl":60,
-      "loggerOn":true
+      "loggerOn":true,
+      "redis": {
+        "name": "mymaster"
+      }
     }
 }

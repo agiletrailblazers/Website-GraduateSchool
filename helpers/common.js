@@ -4,13 +4,23 @@ var request = require('request');
 var cacheManager = require('cache-manager');
 var redisStore = require('cache-manager-redis');
 
-var contentCache = cacheManager.caching({
-  store: redisStore,
-  host: config("properties").cache.redis.host,
-  port: config("properties").cache.redis.port,
-  db: config("properties").cache.redis.db,
-  ttl: config("properties").contentfulCache.ttl
-});
+var cacheEnvPrefix = config("properties").env + "-";
+if (config("properties").contentfulCache.turnOn == true) {
+  var contentCache = cacheManager.caching({
+    store: redisStore,
+    host: config("properties").contentfulCache.redis.host,
+    port: config("properties").contentfulCache.redis.port,
+    db: config("properties").contentfulCache.redis.db,
+    ttl: config("properties").contentfulCache.ttl,
+    max_attempts: config("properties").contentfulCache.redis.max_attempts
+  });
+
+  // listen for redis connection error event
+  contentCache.store.events.on('redisError', function (error) {
+    // handle error here
+    logger.error(error);
+  });
+}
 
 checkForErrorAndLogExceptCodes = function(error, response, url, httpCodesNotToLog) {
   // all 2xx status codes should be considered successful, not just 200
@@ -80,20 +90,21 @@ setCacheDirectoryAndTimeOut =  function(cachedRequest) {
 // execute an http 'request' and cache the response and use cached responses before calling
 cachedRequest = function (reqParams, callback) {
   if (config("properties").contentfulCache.turnOn == true) {
-    contentCache.get(reqParams.url, function(err, result) {
+    contentCache.get(cacheEnvPrefix + reqParams.url, function(err, result) {
       if (result != undefined) {
         callback(null, result.response, result.body);
         if (config("properties").contentfulCache.loggerOn) logger.info('Using cached content for: ' + reqParams.url);
         return;
       }
       request(reqParams, function(error, response, body) {
+        if (config("properties").contentfulCache.loggerOn) logger.info('Fetching new content for: ' + reqParams.url);
+
         if (config("properties").contentfulCache.turnOn == true) {
           if (!error && response && (response.statusCode >= 200 && response.statusCode < 300)) {
             obj = { response: JSON.stringify(response), body: body };
-            contentCache.set(reqParams.url, obj);
+            contentCache.set(cacheEnvPrefix + reqParams.url, obj);
           }
         }
-        if (config("properties").contentfulCache.loggerOn) logger.info('Fetching new content for: ' + reqParams.url);
         callback(error, response, body);
       });
     });
