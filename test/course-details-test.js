@@ -5,7 +5,19 @@ var course = require("../API/course.js");
 var should = require("should");
 var test = require('tap').test;
 var config = require('konphyg')(__dirname + "/../config");
-var contentful = require("../API/contentful.js");
+var request = require('request');
+var proxyquire = require('proxyquire');
+
+var contentful = proxyquire('../API/contentful.js',
+    {
+        "../helpers/common.js": {
+            cachedRequest: function (reqParams, callback) {
+                request(reqParams, function(error, response, body) {
+                    return callback(error, response, body);
+                });
+            }
+        }
+    });
 
 var authToken = "token123456789";
 

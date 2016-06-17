@@ -1,0 +1,17 @@
+{
+  "env": "unitTest",
+  "cache" : {
+    "redis": {
+      "host": "10.0.1.7",
+      "port": "6379"
+    }
+  },
+  "contentfulCache" : {
+    "turnOn":true,
+    "redis": {
+      "host": "10.0.1.7",
+      "port": "6379",
+      "max_attempts": 1
+    }
+  }
+}

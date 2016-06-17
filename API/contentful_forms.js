@@ -4,16 +4,10 @@ var config = require('konphyg')(__dirname + "/../config");
 var common = require("../helpers/common.js");
 var request = require('request');
 
-var cachedRequest = request;
-if (config("properties").contentfulCache.turnOn) {
-  cachedRequest = require('cached-request')(request);
-  cachedRequest =  common.setCacheDirectoryAndTimeOut(cachedRequest);
-}
-
 module.exports = {
   getInquiryForm: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/'+config("properties").contentfulEntry_InquiryForm;
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -31,7 +25,7 @@ module.exports = {
   },
   getContactUs: function(callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/'+config("properties").contentfulEntry_ContactUs;
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,
@@ -49,7 +43,7 @@ module.exports = {
   },
   getFormWithHeaderAndFooter: function(entryId, callback) {
     var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.main.spaceId+'/entries/' + entryId;
-    cachedRequest({
+    common.cachedRequest({
       method: 'GET',
       url: targetURL,
       ttl: config("properties").contentfulCache.timeout,

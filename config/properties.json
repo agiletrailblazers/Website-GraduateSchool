@@ -134,7 +134,10 @@
 
     "contentfulCache" : {
       "turnOn":false,
-      "location":"/tmp/cache",
-      "timeout":180000
+      "ttl":60,
+      "loggerOn":true,
+      "redis": {
+        "name": "mymaster"
+      }
     }
 }
