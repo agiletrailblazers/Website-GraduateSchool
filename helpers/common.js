@@ -5,9 +5,6 @@ var cacheManager = require('cache-manager');
 var redisStore = require('cache-manager-redis');
 
 var cacheEnvPrefix = config("properties").env + "-";
-if (config("properties").contentfulCache.turnOn == true) {
-
-}
 
 checkForErrorAndLogExceptCodes = function(error, response, url, httpCodesNotToLog) {
   // all 2xx status codes should be considered successful, not just 200
@@ -70,22 +67,22 @@ redirectToError = function (res) {
 
 // execute an http 'request' and cache the response and use cached responses before calling
 cachedRequest = function (reqParams, callback) {
-  var contentCache = cacheManager.caching({
-    store: redisStore,
-    host: config("properties").contentfulCache.redis.host,
-    port: config("properties").contentfulCache.redis.port,
-    db: config("properties").contentfulCache.redis.db,
-    ttl: config("properties").contentfulCache.ttl,
-    max_attempts: config("properties").contentfulCache.redis.max_attempts
-  });
-
-  // listen for redis connection error event
-  contentCache.store.events.on('redisError', function (error) {
-    // handle error here
-    logger.error(error);
-  });
-
   if (config("properties").contentfulCache.turnOn == true) {
+    var contentCache = cacheManager.caching({
+      store: redisStore,
+      host: config("properties").contentfulCache.redis.host,
+      port: config("properties").contentfulCache.redis.port,
+      db: config("properties").contentfulCache.redis.db,
+      ttl: config("properties").contentfulCache.ttl,
+      max_attempts: config("properties").contentfulCache.redis.max_attempts
+    });
+
+    // listen for redis connection error event
+    contentCache.store.events.on('redisError', function (error) {
+      // handle error here
+      logger.error(error);
+    });
+
     contentCache.get(cacheEnvPrefix + reqParams.url, function(err, result) {
       if (result != undefined) {
         callback(null, result.response, result.body);
@@ -94,15 +91,17 @@ cachedRequest = function (reqParams, callback) {
       }
       request(reqParams, function(error, response, body) {
         if (config("properties").contentfulCache.loggerOn) logger.info('Fetching new content for: ' + reqParams.url);
-
-        if (config("properties").contentfulCache.turnOn == true) {
-          if (!error && response && (response.statusCode >= 200 && response.statusCode < 300)) {
-            obj = { response: JSON.stringify(response), body: body };
-            contentCache.set(cacheEnvPrefix + reqParams.url, obj);
-          }
+        if (!error && response && (response.statusCode >= 200 && response.statusCode < 300)) {
+          obj = { response: JSON.stringify(response), body: body };
+          contentCache.set(cacheEnvPrefix + reqParams.url, obj);
         }
         callback(error, response, body);
       });
+    });
+  } else {
+    request(reqParams, function(error, response, body) {
+      logger.info('Fetching new content for: ' + reqParams.url);
+      callback(error, response, body);
     });
   }
 };
@@ -115,5 +114,6 @@ module.exports = {
   checkForErrorAndLogExceptCodes: checkForErrorAndLogExceptCodes,
   redirectToError: redirectToError,
   cachedRequest: cachedRequest,
-  cacheManager: this.cacheManager
+  cacheManager: this.cacheManager,
+  config: this.config
 };

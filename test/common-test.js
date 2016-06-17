@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'unitTest';
+
 var common = require('../helpers/common.js');
 var chai = require('chai');
 var expect = chai.expect;
