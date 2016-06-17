@@ -42,7 +42,7 @@
     }
   },
   "contentfulCache" : {
-    "turnOn":true,
+    "turnOn":false,
     "redis": {
       "host": "10.0.1.7",
       "port": "6379",
