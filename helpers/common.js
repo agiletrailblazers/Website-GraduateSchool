@@ -89,7 +89,7 @@ cachedRequest = function (reqParams, callback) {
         if (config("properties").contentfulCache.loggerOn) logger.info('Using cached content for: ' + reqParams.url);
         return;
       }
-      requestWithPagination(reqParams, function(error, response, body) {
+      request(reqParams, function(error, response, body) {
         if (config("properties").contentfulCache.loggerOn) logger.info('Fetching new content for: ' + reqParams.url);
         if (!error && response && (response.statusCode >= 200 && response.statusCode < 300)) {
           obj = { response: JSON.stringify(response), body: body };
@@ -99,7 +99,7 @@ cachedRequest = function (reqParams, callback) {
       });
     });
   } else {
-    requestWithPagination(reqParams, function(error, response, body) {
+    request(reqParams, function(error, response, body) {
       callback(error, response, body);
     });
   }
