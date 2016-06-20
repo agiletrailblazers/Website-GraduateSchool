@@ -24,7 +24,7 @@ test("url redirect provides corresponding links", function(t) {
     reqheaders: {
       'Authorization': config("properties").spaces.content.authorization
     }
-  }).get('/spaces/'+config("properties").spaces.content.spaceId+'/entries?content_type=redirect&limit=1000')
+  }).get('/spaces/'+config("properties").spaces.content.spaceId+'/entries?content_type=redirect')
   .reply(200, {
     "sys": {
       "type": "Array"
