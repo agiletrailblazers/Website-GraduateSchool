@@ -89,7 +89,7 @@ cachedRequest = function (reqParams, callback) {
         if (config("properties").contentfulCache.loggerOn) logger.info('Using cached content for: ' + reqParams.url);
         return;
       }
-      request(reqParams, function(error, response, body) {
+      requestWithPagination(reqParams, function(error, response, body) {
         if (config("properties").contentfulCache.loggerOn) logger.info('Fetching new content for: ' + reqParams.url);
         if (!error && response && (response.statusCode >= 200 && response.statusCode < 300)) {
           obj = { response: JSON.stringify(response), body: body };
@@ -99,11 +99,74 @@ cachedRequest = function (reqParams, callback) {
       });
     });
   } else {
-    request(reqParams, function(error, response, body) {
-      logger.info('Fetching new content for: ' + reqParams.url);
+    requestWithPagination(reqParams, function(error, response, body) {
       callback(error, response, body);
     });
   }
+};
+
+// Contentful API uses pagination, by default it returns 100 elements in one page.
+// If there are more than 100 elements then we need to call the API multiple times.
+// skip parameter is used to specify the offset. With skip one should always use order
+// parameter. The total number of elements is read from total field.
+// Rather than loops with callback function, we will be using recursive function
+requestWithPagination = function (reqParams, callback) {
+  if (config("properties").contentfulCache.loggerOn) {
+    logger.info('Fetching new content for: ' + reqParams.url);
+  }
+
+  // make the request
+  request(reqParams, function(error, response, body) {
+    if (!error && response && (response.statusCode >= 200 && response.statusCode < 300)) {
+      var bodyJson = JSON.parse(body);
+      if (bodyJson.items && bodyJson.items.length && bodyJson.total){
+        if (bodyJson.items.length < bodyJson.total) {
+          // we need pagination. The request above was not necessarily
+          // made with order parameter. We will need to reset the length
+          // of array first
+          bodyJson.items = [];
+          //make recursive call. bodyJson is passed as reference so will get updated in the
+          // called function.
+          requestRecursive(reqParams, bodyJson, function (error, response){
+            callback(error, response, JSON.stringify(bodyJson));
+          });
+        } else {
+          callback(error, response, body);
+        }
+      } else {
+        callback(error, response, body);
+      }
+    }
+    else {
+      callback(error, response, body);
+    }
+  });
+};
+
+requestRecursive = function (reqParams, bodyJson, callback) {
+  // make a copy so that the original url is preserved for caching purposes
+  var req = JSON.parse(JSON.stringify(reqParams));
+
+  // specify the right offset and the order
+  req.url = req.url + '&skip=' + bodyJson.items.length + '&order=sys.createdAt';
+
+  // make the request
+  request(req, function(err, resp, bodyString) {
+    if (!err && resp && (resp.statusCode >= 200 && resp.statusCode < 300)){
+      // append the new array into the old one
+      Array.prototype.push.apply(bodyJson.items, JSON.parse(bodyString).items);
+      // if the length is still not enough we call again, otherwise we are done.
+      if (bodyJson.items.length < bodyJson.total){
+        requestRecursive (reqParams, bodyJson, function(error, response){
+          callback(error, response);
+        });
+      } else {
+        callback(err, resp);
+      }
+    } else {
+      callback(err, resp);
+    }
+  });
 };
 
 module.exports = {
