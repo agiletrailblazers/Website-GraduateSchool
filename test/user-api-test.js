@@ -776,7 +776,14 @@ test('get registrations success has reg details', function(t) {
             "courseTitle": "Introduction to Testing",
             "startDate" : startDateTime,
             "endDate" : endDateTime,
-            "address" : {
+            "locationAddress" : {
+                "address1": "123 Main Street",
+                "address2": "Suite 100",
+                "city": "Washington",
+                "state": "DC",
+                "postalCode": "12345"
+            },
+            "facilityAddress" : {
                 "address1": "123 Main Street",
                 "address2": "Suite 100",
                 "city": "Washington",
@@ -804,11 +811,16 @@ test('get registrations success has reg details', function(t) {
         expect(retrievedRegistrationDetails[0].courseTitle).to.eql("Introduction to Testing");
         expect(retrievedRegistrationDetails[0].startDate).to.eql(startDateTime);
         expect(retrievedRegistrationDetails[0].endDate).to.eql(endDateTime);
-        expect(retrievedRegistrationDetails[0].address.address1).to.eql("123 Main Street");
-        expect(retrievedRegistrationDetails[0].address.address2).to.eql("Suite 100");
-        expect(retrievedRegistrationDetails[0].address.city).to.eql("Washington");
-        expect(retrievedRegistrationDetails[0].address.state).to.eql("DC");
-        expect(retrievedRegistrationDetails[0].address.postalCode).to.eql("12345");
+        expect(retrievedRegistrationDetails[0].locationAddress.address1).to.eql("123 Main Street");
+        expect(retrievedRegistrationDetails[0].locationAddress.address2).to.eql("Suite 100");
+        expect(retrievedRegistrationDetails[0].locationAddress.city).to.eql("Washington");
+        expect(retrievedRegistrationDetails[0].locationAddress.state).to.eql("DC");
+        expect(retrievedRegistrationDetails[0].locationAddress.postalCode).to.eql("12345");
+        expect(retrievedRegistrationDetails[0].facilityAddress.address1).to.eql("123 Main Street");
+        expect(retrievedRegistrationDetails[0].facilityAddress.address2).to.eql("Suite 100");
+        expect(retrievedRegistrationDetails[0].facilityAddress.city).to.eql("Washington");
+        expect(retrievedRegistrationDetails[0].facilityAddress.state).to.eql("DC");
+        expect(retrievedRegistrationDetails[0].facilityAddress.postalCode).to.eql("12345");
         expect(retrievedRegistrationDetails[0].type).to.eql("CLASSROOM");
         expect(retrievedRegistrationDetails).to.eql(regDetailsList);
     });

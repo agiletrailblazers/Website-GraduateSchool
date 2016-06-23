@@ -36,21 +36,21 @@
               <td><%= startDate.getMonth()%>/<%= startDate.getDate()%>/<%=startDate.getFullYear()%></td>
               <td><%= endDate.getMonth()%>/<%= endDate.getDate()%>/<%=endDate.getFullYear()%></td>
               <td>
-                <% if (registrationDetails.address) {
-                    if (registrationDetails.address.city) {%>
-                      <%= registrationDetails.address.city%>
-                  <% if (registrationDetails.address.state) {%>
-                , <%= registrationDetails.address.state%>
+                <% if (registrationDetails.locationAddress) {
+                    if (registrationDetails.locationAddress.city) {%>
+                      <%= registrationDetails.locationAddress.city%>
+                  <% if (registrationDetails.locationAddress.state) {%>
+                , <%= registrationDetails.locationAddress.state%>
                 <%  }
                   }
-                if((typeof(registrationDetails.address.address1)!='undefined') && typeof(registrationDetails.address.address2)!='undefined') {%>
-                  <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= registrationDetails.address.city%>, <%= registrationDetails.address.state%>' data-address='<%= registrationDetails.address.address1 +', '+ registrationDetails.address.address2 +', '%> <%= registrationDetails.address.city  +', '%> <%= registrationDetails.address.state %> <%= registrationDetails.address.postalCode %>'></span>
-                  <% } else if(typeof(registrationDetails.address.address1)!='undefined') {%>
-                  <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= registrationDetails.address.city%>, <%= registrationDetails.address.state%>' data-address='<%= registrationDetails.address.address1 +', '%> <%= registrationDetails.address.city +', '%> <%= registrationDetails.address.state %> <%= registrationDetails.address.postalCode %>'></span>
-                  <% } else if(typeof(registrationDetails.address.address2)!= 'undefined') {%>
-                  <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= registrationDetails.address.city%>, <%= registrationDetails.address.state%>' data-address='<%= registrationDetails.address.address2 +', '%> <%= registrationDetails.address.city +', '%> <%= registrationDetails.address.state %> <%= registrationDetails.address.postalCode %>'></span>
-                  <% } else if (typeof(registrationDetails.address.city) != 'undefined') {%>
-                  <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= registrationDetails.address.city%>, <%= registrationDetails.address.state%>' data-address='<%= registrationDetails.address.city +', '%> <%= registrationDetails.address.state %> <%= registrationDetails.address.postalCode %>'></span>
+                if((typeof(registrationDetails.facilityAddress.address1)!='undefined') && typeof(registrationDetails.facilityAddress.address2)!='undefined') {%>
+                  <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= registrationDetails.facilityAddress.city%>, <%= registrationDetails.facilityAddress.state%>' data-address='<%= registrationDetails.facilityAddress.address1 +', '+ registrationDetails.facilityAddress.address2 +', '%> <%= registrationDetails.facilityAddress.city  +', '%> <%= registrationDetails.facilityAddress.state %> <%= registrationDetails.facilityAddress.postalCode %>'></span>
+                  <% } else if(typeof(registrationDetails.facilityAddress.address1)!='undefined') {%>
+                  <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= registrationDetails.facilityAddress.city%>, <%= registrationDetails.facilityAddress.state%>' data-address='<%= registrationDetails.facilityAddress.address1 +', '%> <%= registrationDetails.facilityAddress.city +', '%> <%= registrationDetails.facilityAddress.state %> <%= registrationDetails.facilityAddress.postalCode %>'></span>
+                  <% } else if(typeof(registrationDetails.facilityAddress.address2)!= 'undefined') {%>
+                  <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= registrationDetails.facilityAddress.city%>, <%= registrationDetails.facilityAddress.state%>' data-address='<%= registrationDetails.facilityAddress.address2 +', '%> <%= registrationDetails.facilityAddress.city +', '%> <%= registrationDetails.facilityAddress.state %> <%= registrationDetails.facilityAddress.postalCode %>'></span>
+                  <% } else if (typeof(registrationDetails.facilityAddress.city) != 'undefined') {%>
+                  <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= registrationDetails.facilityAddress.city%>, <%= registrationDetails.facilityAddress.state%>' data-address='<%= registrationDetails.facilityAddress.city +', '%> <%= registrationDetails.facilityAddress.state %> <%= registrationDetails.facilityAddress.postalCode %>'></span>
                   <%}
                 }%>
               </td>

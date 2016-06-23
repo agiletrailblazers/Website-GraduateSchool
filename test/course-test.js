@@ -8,6 +8,80 @@ var test = require('tap').test;
 
 var authToken = "token123456789";
 
+var sampleSchedule = [{
+    "classNumber": "600178",
+    "segment": null,
+    "startDate": "2016-09-13",
+    "endDate": "2016-09-16",
+    "startTime": "08:30",
+    "endTime": "16:30",
+    "days": "TUE-FRI",
+    "scheduleMaximum": 25,
+    "scheduleAvailable": 0,
+    "scheduleMinimum": 8,
+    "status": "S",
+    "notes": null,
+    "tuition": 1199.0,
+    "location": {
+        "id": "DCWAS20024",
+        "name": "Washington/DC",
+        "city": "Washington",
+        "state": "DC"
+    },
+    "facility": {
+        "id": "DCWASCAPGL",
+        "name": "Graduate School at Capital Gallery",
+        "address1": "L'Enfant Plaza Metro Stop",
+        "address2": "600 Maryland Avenue, SW",
+        "city": "Washington",
+        "state": "DC",
+        "postalCode": "20024"
+    },
+    "instructor": null,
+    "offeringSessionId": "class000000000089319",
+    "courseId": "cours000000000001163",
+    "courseCode": "ACCT7001D",
+    "courseTitle": "Introduction to Federal Accounting",
+    "curricumTitle": "Federal Financial Management",
+    "curricumTabDisplayOrder": 2
+}, {
+    "classNumber": "600176",
+    "segment": null,
+    "startDate": "2016-07-12",
+    "endDate": "2016-07-15",
+    "startTime": "08:30",
+    "endTime": "16:30",
+    "days": "TUE-FRI",
+    "scheduleMaximum": 25,
+    "scheduleAvailable": 7,
+    "scheduleMinimum": 8,
+    "status": "S",
+    "notes": null,
+    "tuition": 1199.0,
+    "location": {
+        "id": "DCWAS20024",
+        "name": "Washington/DC",
+        "city": "Washington",
+        "state": "DC"
+    },
+    "facility": {
+        "id": "DCWASCAPGL",
+        "name": "Graduate School at Capital Gallery",
+        "address1": "L'Enfant Plaza Metro Stop",
+        "address2": "600 Maryland Avenue, SW",
+        "city": "Washington",
+        "state": "DC",
+        "postalCode": "20024"
+    },
+    "instructor": null,
+    "offeringSessionId": "class000000000089063",
+    "courseId": "cours000000000001163",
+    "courseCode": "ACCT7001D",
+    "courseTitle": "Introduction to Federal Accounting",
+    "curricumTitle": "Federal Financial Management",
+    "curricumTabDisplayOrder": 2
+}];
+
 test('course-search with government search  criteria', function(t) {
   //use endpoing from config even for tests
   var apiServer = config("properties").apiServer;
@@ -309,5 +383,30 @@ test('getSession failure', function(t) {
       expect(session).to.be.a('null');
       expect(error).to.be.an.instanceof(Error);
     }, authToken);
+    t.end();
+});
+
+test('getSchedule success', function(t) {
+    //use endpoint from config even for tests
+    var apiServer = config("properties").apiServer;
+    var sessionId = "55555";
+    var expectedResponse = sampleSchedule;
+
+    //test a 200 ok
+    var courseServer = nock(apiServer, {
+        reqheaders: {
+            'Authorization': authToken
+        }
+    })
+        .get('/api/courses/' + sessionId + '/sessions')
+        .reply(200, expectedResponse);
+
+    courseServer;
+    course.getSchedule(function(response, error, result) {
+        courseServer.done();
+        expect(error).to.be.a('null');
+        expect(result).to.eql(expectedResponse);
+        expect(response.statusCode).to.eql(200);
+    }, sessionId, authToken);
     t.end();
 });
