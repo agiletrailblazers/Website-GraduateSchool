@@ -142,14 +142,14 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
         }
       });
 
-      // Determine if EP registration dealine has ellapsed
+      // Determine if Registration deadlines have passed. If so, do not show the session
       var classTypes = config("properties").classTypes;
       var code = courseData.class.code;
       var sessions = [];
       if (courseData.class.type.indexOf(classTypes.evening) > -1) {
           courseData.session.forEach(function(session) {
             var epRegDeadline = momentTz.tz(session.origStartDate, 'YYYY MM DD', "America/New_York").add(14, 'days').add(18, 'hours');
-            // if the deadline has gone then status is set to 'C'
+            // For Evening Program courses, only show the session if the registration deadline that is in the future
             var currTime = momentTz().tz("America/New_York");
             if (epRegDeadline.isAfter(currTime)){
               sessions.push(session)
@@ -159,7 +159,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
       } else if ((courseData.class.type.indexOf(classTypes.daytime) > -1) ||
                  ((courseData.class.type.indexOf(classTypes.virtual) > -1) && (code.substr(code.length-1).toUpperCase()=="A"))) {
           // for daytime courses or for virtual courses, with course code ending with 'A' are displayed
-          // only the sessions that have deadline beyond the current time are displayed.
+          // only the sessions that have a registration deadline that is in the future
           courseData.session.forEach(function(session) {
             var regDeadline = momentTz.tz(session.origStartDate, 'YYYY MM DD', "America/New_York");
             if (regDeadline.isAfter(momentTz().tz("America/New_York"))) {
