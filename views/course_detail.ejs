@@ -194,7 +194,7 @@
                 <td> $<%= session["tuition"]%></td>
                 <td class="statusData">
                   <% if (session["status"] === "C")  {%>
-                    <% if ((session["scheduleAvailable"] === session["scheduleMaximum"]) || session.epPastRegDeadline) { %>
+                    <% if ((session["scheduleAvailable"] === session["scheduleMaximum"])) { %>
                       <span class="label label-warning">F</span>
                     <% } else { %>
                     <span class="label label-success">G</span>
@@ -205,7 +205,7 @@
                 </td>
                 <% if (session["status"] === 'S' && session["scheduleAvailable"] === session["scheduleMaximum"]) { %>
                   <td></td>
-                <% } else if (session["status"] === 'C' && (session["scheduleAvailable"] === session["scheduleMaximum"] || (session.epPastRegDeadline))) { %>
+                <% } else if (session["status"] === 'C' && (session["scheduleAvailable"] === session["scheduleMaximum"] )) { %>
                   <td></td>
                 <% } else { %>
                   <td><button class="register" type="button" name="button" onclick="ga('send', 'event', 'register', 'sign-up', '<%= session["registrationUrl"] %>');location.href='<%= session["registrationUrl"] %>'"><%= content.registerButton %></button></td>
