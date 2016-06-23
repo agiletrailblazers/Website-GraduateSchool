@@ -4,6 +4,7 @@ var async = require('async');
 var router = express.Router();
 var logger = require('../../logger');
 var common = require("../../helpers/common.js");
+var config = require('konphyg')(__dirname + '/../../config');
 
   // Get Catalog Request Form  page.
   router.get('/catalog-request-form', function(req, res, next) {
@@ -108,6 +109,7 @@ var common = require("../../helpers/common.js");
       });
     } ], function(results) {
       res.render('catalogs', {
+        pageSearchPriority: convertPageSearchPriorityToString(config("pageSearchPriority").forms),
         entry: arrayOfContent, title: "Catalog Request Form",
         hardCopyEntry:catalogHardCopy,
         states: states,

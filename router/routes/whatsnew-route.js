@@ -20,10 +20,15 @@ router.get('/whats-new', function(req, res, next) {
         }
         else{
           content.class = response;
-          if (response && response.cmsEntry && response.cmsEntry.fields && response.cmsEntry.fields.topBanners){
-            content.class.cmsEntry.fields.topBanners.forEach(function(topBannersList) {
-              assetIdList += topBannersList.sys.id + ",";
-            });
+          if (response && response.cmsEntry && response.cmsEntry.fields){
+            if (response.cmsEntry.fields.topBanners){
+              content.class.cmsEntry.fields.topBanners.forEach(function(topBannersList) {
+                assetIdList += topBannersList.sys.id + ",";
+              });
+            }
+            if (common.isNotEmpty(response.cmsEntry.fields.pageSearchPriority)) {
+              content.pageSearchPriority = response.cmsEntry.fields.pageSearchPriority;
+            }
           }
           callback();
         }
@@ -53,6 +58,7 @@ router.get('/whats-new', function(req, res, next) {
   ], function(results) {
       res.render('whats_new', {
         title: 'What\'s new',
+        pageSearchPriority: convertPageSearchPriorityToString(content.pageSearchPriority),
         entry: content.class.cmsEntry.fields,
         whatsnewheaderImageURLList: content.whatsnewheaderImageURLList
       });

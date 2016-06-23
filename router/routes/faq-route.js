@@ -5,6 +5,7 @@ var router = express.Router();
 var marked = require('marked');
 var logger = require('../../logger');
 var common = require("../../helpers/common.js");
+var config = require('konphyg')(__dirname + '/../../config');
 
 router.get('/faq',
   function(req, res, next) {
@@ -77,6 +78,7 @@ router.get('/faq',
               return a.order > b.order;
             });
             res.render('faq', {
+              pageSearchPriority: convertPageSearchPriorityToString(config("pageSearchPriority").faq),
               title: "FAQ",
               faq: faq,
               markdown: marked

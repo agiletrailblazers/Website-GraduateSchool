@@ -7,6 +7,7 @@ var router = express.Router();
 var logger = require('../../logger');
 var common = require("../../helpers/common.js");
 var marked = require('marked');
+var config = require('konphyg')(__dirname + '/../../config');
 
 router.get('/news', function(req, res, next) {
   contentful.getNewsRecent(function(response, error) {
@@ -16,6 +17,7 @@ router.get('/news', function(req, res, next) {
     }
     else {
       res.render('news/recent_entries', {
+        pageSearchPriority: convertPageSearchPriorityToString(config("pageSearchPriority").news),
         posts: response.items,
         striptags: striptags, prune: prune, title: 'News'
       });
@@ -39,6 +41,7 @@ router.get('/news/:news_slug', function(req, res, next) {
     else {
       function renderNews(index, featureImageURL) {
         res.render('news/news_details', {
+          pageSearchPriority: convertPageSearchPriorityToString(config("pageSearchPriority").news),
           title: response.items[index].fields.title,
           body: response.items[index].fields.body.replace(/<br\/?>/gi, " "),
           featureImage: response.items[index].fields.featuredImage,

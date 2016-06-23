@@ -9,6 +9,7 @@ var prune = require('underscore.string/prune');
 var router = express.Router();
 var logger = require('../../logger');
 var common = require("../../helpers/common.js");
+var config = require('konphyg')(__dirname + '/../../config');
 
 // Search for a course.  If there is only one exact match redirect to the course details page
 //  otherwise show the search results page.
@@ -136,6 +137,7 @@ router.get('/search', function(req, res, next){
         }
         //display search results page
         var render = { courseResult: courseResult,
+          pageSearchPriority: convertPageSearchPriorityToString(config("pageSearchPriority").search),
           siteResult: siteResult,
           noSearch: noSearch,
           striptags: striptags,
