@@ -215,6 +215,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
       }
 
       res.render('course_detail', { content: content,
+        pageSearchPriority: convertPageSearchPriorityToString(config("pageSearchPriority").course_detail),
         courseData: courseData,
         title: 'Course Details',
         topTitle: courseData.class.title ,

@@ -125,6 +125,7 @@ module.exports = {
         }
 
         res.render('gtog/gtog', { title: results.getGtoGPage.title,
+          pageSearchPriority: convertPageSearchPriorityToString(config("pageSearchPriority").gtog),
           content: results.getGtoGPage,
           curriculumSessions: results.getSessions,
           markdown: marked

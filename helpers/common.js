@@ -169,6 +169,39 @@ requestRecursive = function (reqParams, bodyJson, callback) {
   });
 };
 
+// NUTCH and solr will use meta tag for sorting. The metatag will be
+// a string. This function provides conversion from numbers (user friendly priority) into
+// aplhabetical priority (solr friendly)
+convertPageSearchPriorityToString = function (priority) {
+  if (isNotEmpty(priority)) {
+    var priorityInChar;
+    switch(priority) {
+    case 11:
+        priorityInChar = 'B';
+        break;
+    case 12:
+        priorityInChar = 'C';
+        break;
+    case 13:
+        priorityInChar = 'D';
+        break;
+    case 14:
+        priorityInChar = 'E';
+        break;
+
+    default:
+        priorityInChar = 'Z';
+        if (priority < 11) {
+          priorityInChar = 'A';
+        }
+        break;
+    }
+    return priorityInChar;
+  } else {
+    return priority;
+  }
+}
+
 module.exports = {
   isNotEmpty: isNotEmpty,
   isEmpty: isEmpty,
@@ -178,5 +211,6 @@ module.exports = {
   redirectToError: redirectToError,
   cachedRequest: cachedRequest,
   cacheManager: this.cacheManager,
-  config: this.config
+  config: this.config,
+  convertPageSearchPriorityToString
 };

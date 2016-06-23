@@ -51,6 +51,7 @@ router.get(['/content/:content_slug','/content/:subfolder/:content_slug'], funct
 
     res.render('generic/generic_detail', {
       title: content.title,
+      pageSearchPriority:convertPageSearchPriorityToString(content.pageSearchPriority),
       slug: content.slug,
       intro: content.intro,
       subIntro: content.subIntro,

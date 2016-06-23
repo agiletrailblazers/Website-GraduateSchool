@@ -4,6 +4,7 @@
   var common = require("../../helpers/common.js");
   var router = express.Router();
   var logger = require('../../logger');
+  var config = require('konphyg')(__dirname + '/../../config');
 
   // Get Forms page.
   router.get('/forms', function(req, res, next) {
@@ -87,6 +88,7 @@
       });
     } ], function(results) {
       res.render('forms', {
+        pageSearchPriority: convertPageSearchPriorityToString(config("pageSearchPriority").forms),
         entry: arrayOfContent, title: "Forms"
       });
     });

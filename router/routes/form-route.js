@@ -54,6 +54,7 @@ router.get('/forms/onsite-inquiry', function(req, res, next) {
     }
   ], function(results) {
     res.render('forms/onsite_inquiry', {
+      pageSearchPriority: convertPageSearchPriorityToString(config("pageSearchPriority").forms),
       title: fields.title,
       topParagraph: fields.topParagraph,
       highlightedParagraph: fields.highlightedParagraph,
@@ -101,6 +102,7 @@ router.get('/forms/request-duplicate-form', function(req, res, next) {
   ], function(results) {
     //add error handling
     res.render('forms/request_course_completion_certificate', {
+      pageSearchPriority: convertPageSearchPriorityToString(config("pageSearchPriority").forms),
       sectionTitle: cmsEntry.fields.sectionTitle,
       sectionHeaderDescription: cmsEntry.fields.sectionHeaderDescription,
       sectionFooterDescription: cmsEntry.fields.sectionFooterDescription,
@@ -144,6 +146,7 @@ router.get('/forms/proctor-request-form', function(req, res, next) {
     }
   ], function(results) {
     res.render('forms/proctor_request_form', {
+      pageSearchPriority: convertPageSearchPriorityToString(config("pageSearchPriority").forms),
       sectionHeaderDescription: cmsEntry.fields.sectionHeaderDescription,
       sectionFooterDescription: cmsEntry.fields.sectionFooterDescription,
       title: cmsEntry.fields.sectionTitle,
@@ -178,6 +181,7 @@ router.get(
     }
   ], function(results) {
     res.render('forms/customer_form', {
+      pageSearchPriority: convertPageSearchPriorityToString(config("pageSearchPriority").forms),
       title: fields.title,
       subjectLine: fields.subjectLine,
       topParagraph: fields.topParagraph,
@@ -246,6 +250,7 @@ router.get(
       }
     ], function(results) {
       res.render('forms/certificate_program_forms', {
+        pageSearchPriority: convertPageSearchPriorityToString(config("pageSearchPriority").tainingAndDevForms),
         title: fields.sectionTitle,
         sectionHeaderDescription: fields.sectionHeaderDescription,
         states: states,
