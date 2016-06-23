@@ -55,14 +55,14 @@
                         </td>
                         <td>
                           <%= session.location["city"]%><% if (session.location["state"]) { %>, <%= session.location["state"]%><%}%>
-                          <% if((typeof(session.location["address1"])!='undefined') && typeof(session.location["address2"])!='undefined') {%>
-                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '+ session.location["address2"] +', '%> <%= session.location["city"]  +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
-                          <% } else if(typeof(session.location["address1"])!='undefined') {%>
-                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
-                          <% } else if(typeof(session.location["address2"])!= 'undefined') {%>
-                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
-                          <% } else if (typeof(session.location["city"]) != 'undefined') {%>
-                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
+                          <% if((typeof(session.facility["address1"])!='undefined') && typeof(session.facility["address2"])!='undefined') {%>
+                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["address1"] +', '+ session.facility["address2"] +', '%> <%= session.facility["city"]  +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
+                          <% } else if(typeof(session.facility["address1"])!='undefined') {%>
+                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["address1"] +', '%> <%= session.facility["city"] +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
+                          <% } else if(typeof(session.facility["address2"])!= 'undefined') {%>
+                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["address2"] +', '%> <%= session.facility["city"] +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
+                          <% } else if (typeof(session.facility["city"]) != 'undefined') {%>
+                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["city"] +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
                           <%}%>
                         </td>
                         <td><%= course.type %></td>
@@ -112,14 +112,14 @@
                         <th class="cart-mobile"><%= contentfulCourseInfo.sessionTable[1] %></th>
                         <td class="cart-mobile">
                           <%= session.location["city"]%><% if (session.location["state"]) { %>, <%= session.location["state"]%><%}%>
-                          <% if((typeof(session.location["address1"])!='undefined') && typeof(session.location["address2"])!='undefined') {%>
-                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '+ session.location["address2"] +', '%> <%= session.location["city"]  +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
-                          <% } else if(typeof(session.location["address1"])!='undefined') {%>
-                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address1"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
-                          <% } else if(typeof(session.location["address2"])!= 'undefined') {%>
-                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
-                          <% } else if (typeof(session.location["city"]) != 'undefined') {%>
-                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.location["city"]%>, <%= session.location["state"]%>' data-address='<%= session.location["address2"] +', '%> <%= session.location["city"] +', '%> <%= session.location["state"] %> <%= session.location["postalCode"] %>'></span>
+                          <% if((typeof(session.facility["address1"])!='undefined') && typeof(session.facility["address2"])!='undefined') {%>
+                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["address1"] +', '+ session.facility["address2"] +', '%> <%= session.facility["city"]  +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
+                          <% } else if(typeof(session.facility["address1"])!='undefined') {%>
+                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["address1"] +', '%> <%= session.facility["city"] +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
+                          <% } else if(typeof(session.facility["address2"])!= 'undefined') {%>
+                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["address2"] +', '%> <%= session.facility["city"] +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
+                          <% } else if (typeof(session.facility["city"]) != 'undefined') {%>
+                          <span id="location" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["address2"] +', '%> <%= session.facility["city"] +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
                           <%}%>
                         </td>
                       </tr>
