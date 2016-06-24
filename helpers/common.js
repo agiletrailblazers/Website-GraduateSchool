@@ -89,7 +89,7 @@ cachedRequest = function (reqParams, callback) {
         if (config("properties").contentfulCache.loggerOn) logger.info('Using cached content for: ' + reqParams.url);
         return;
       }
-      request(reqParams, function(error, response, body) {
+      requestWithPagination(reqParams, function(error, response, body) {
         if (config("properties").contentfulCache.loggerOn) logger.info('Fetching new content for: ' + reqParams.url);
         if (!error && response && (response.statusCode >= 200 && response.statusCode < 300)) {
           obj = { response: JSON.stringify(response), body: body };
@@ -99,7 +99,7 @@ cachedRequest = function (reqParams, callback) {
       });
     });
   } else {
-    request(reqParams, function(error, response, body) {
+    requestWithPagination(reqParams, function(error, response, body) {
       callback(error, response, body);
     });
   }
@@ -147,8 +147,23 @@ requestRecursive = function (reqParams, bodyJson, callback) {
   // make a copy so that the original url is preserved for caching purposes
   var req = JSON.parse(JSON.stringify(reqParams));
 
-  // specify the right offset and the order
-  req.url = req.url + '&skip=' + bodyJson.items.length + '&order=sys.createdAt';
+  // remove any trailing '/' or '.'
+  if ((req.url.charAt(req.url.length-1) === '/')|| (req.url.charAt(req.url.length-1) === '.')) {
+    req.url = req.url.substring(0, req.url.length - 1);
+  }
+
+  // specify the right offset
+  var skip = '&skip=';
+  if (req.url.indexOf('?')=== -1) {
+    skip = '?skip=';
+  }
+  req.url = req.url + skip + bodyJson.items.length ;
+
+  // if order is not there add it as it is required with skip
+  if (req.url.indexOf('&order=')=== -1) {
+    req.url = req.url + '&order=sys.createdAt';
+  }
+  logger.info('Using contentful pagination with url ' + req.url);
 
   // make the request
   request(req, function(err, resp, bodyString) {
