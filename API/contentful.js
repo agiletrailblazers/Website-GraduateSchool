@@ -548,7 +548,7 @@ module.exports = {
  },
 
  getContentUrlRedirect: function(callback) {
-   var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.content.spaceId+'/entries?content_type=redirect&limit=1000';
+   var targetURL = 'https://cdn.contentful.com/spaces/'+config("properties").spaces.content.spaceId+'/entries?content_type=redirect';
    common.cachedRequest({
      method: 'GET',
      url: targetURL,
