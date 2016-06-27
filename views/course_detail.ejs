@@ -18,7 +18,7 @@
             <div class="panel-group">
               <div class="panel panel-default course-detail">
                 <div class="panel-heading course-detail">
-                    <a data-toggle="collapse" href="#course-detail"><h4 class="panel-title"><%= content.courseDetailSectionTitle %></h4></a>
+                    <a data-toggle="collapse" href="#course-detail"><h4 id="courseDetailAccordion" class="panel-title"><%= content.courseDetailSectionTitle %></h4></a>
                 </div>
                 <div id="course-detail" class="panel-collapse collapse in">
                   <div class="panel-body">
@@ -33,7 +33,7 @@
                         <table class="details">
                           <tr>
                             <th><%= content.courseDetailTitles[2] %></th>
-                            <td>
+                            <td id="detailsLength">
                               <% if (courseData.class.length.value==0 || courseData.class.length.interval=='Variable') { %>
                                 <%= courseData.class.interval %>
                               <% } else { %>
@@ -43,7 +43,7 @@
                           </tr>
                           <tr>
                             <th><%= content.courseDetailTitles[3] %></th>
-                            <td><% if(courseData.class.credit) { %>
+                            <td id="detailsCredit"><% if(courseData.class.credit) { %>
                               <%= courseData.class.credit.value %> <%=courseData.class.credit.type %>
                               <% } %>
                               </td>
