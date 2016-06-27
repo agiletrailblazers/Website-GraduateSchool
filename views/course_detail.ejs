@@ -18,7 +18,7 @@
             <div class="panel-group">
               <div class="panel panel-default course-detail">
                 <div class="panel-heading course-detail">
-                    <a data-toggle="collapse" href="#course-detail"><h4 id="courseDetailAccordion" class="panel-title"><%= content.courseDetailSectionTitle %></h4></a>
+                    <a data-toggle="collapse" id="courseDetailAccordion" href="#course-detail"><h4 class="panel-title"><%= content.courseDetailSectionTitle %></h4></a>
                 </div>
                 <div id="course-detail" class="panel-collapse collapse in">
                   <div class="panel-body">
@@ -61,7 +61,7 @@
         <div class="panel-group non-mobile">
           <div class="panel panel-default related-links">
             <div class="panel-heading related-links heading-fix">
-                <a data-toggle="collapse" href="#related-links"><h4 class="panel-title"><%= content.linksSectionTitle %></h4></a>
+                <a data-toggle="collapse" id="relatedLinksAccordion" href="#related-links"><h4 class="panel-title"><%= content.linksSectionTitle %></h4></a>
             </div>
             <div id="related-links" class="panel-collapse collapse in">
               <div class="panel-body fix">
@@ -168,7 +168,7 @@
               </tr>
               <% } else { %>
               <tr class="courseDetailSessionRow" data-rowhide="<%= session.hide %>">
-                <td> <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br/>
+                <td id="sessionRowNumSchedule<%= current %>"> <%= session["startDate"].slice(0,-6) %> - <%= session["endDate"]%> <br/>
                     <% if (session["startTime"] !== null || session["endTime"] !== null) { %>
                       <%= session["startTime"]%> - <%= session["endTime"]%>
                     <% } %>
@@ -176,22 +176,22 @@
                     , <%= session["days"] %>
                     <% } %>
                 </td>
-                <td>
+                <td id="sessionRowNumLocation<%= current %>">
                   <%= session.location["city"]%>
                   <% if (session.location["state"]) { %>
                       , <%= session.location["state"]%>
                   <% } %>
                   <% if((typeof(session.facility["address1"])!='undefined') && typeof(session.facility["address2"])!='undefined') {%>
-                      <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["address1"] +', '+ session.facility["address2"] +', '%> <%= session.facility["city"]  +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
+                      <span id="sessionRowNumMap<%= current %>" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["address1"] +', '+ session.facility["address2"] +', '%> <%= session.facility["city"]  +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
                   <% } else if(typeof(session.facility["address1"])!='undefined') {%>
-                      <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["address1"] +', '%> <%= session.facility["city"] +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
+                      <span id="sessionRowNumMap<%= current %>" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["address1"] +', '%> <%= session.facility["city"] +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
                   <% } else if(typeof(session.facility["address2"])!= 'undefined') {%>
-                      <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["address2"] +', '%> <%= session.facility["city"] +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
+                      <span id="sessionRowNumMap<%= current %>" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["address2"] +', '%> <%= session.facility["city"] +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
                   <% } else if (typeof(session.facility["city"]) != 'undefined') {%>
-                      <span class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["city"] +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
+                      <span id="sessionRowNumMap<%= current %>" class="glyphicon glyphicon-map-marker pull-right" data-toggle="modal"  data-target="#mapModal" aria-hidden='true' data-city=' - <%= session.facility["city"]%>, <%= session.facility["state"]%>' data-address='<%= session.facility["city"] +', '%> <%= session.facility["state"] %> <%= session.facility["postalCode"] %>'></span>
                   <%}%>
                 </td>
-                <td> $<%= session["tuition"]%></td>
+                <td id="sessionRowNumTuition<%= current %>"> $<%= session["tuition"]%></td>
                 <td class="statusData">
                   <% if (session["status"] === "C")  {%>
                     <% if ((session["scheduleAvailable"] === session["scheduleMaximum"])) { %>
