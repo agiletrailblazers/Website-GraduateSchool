@@ -231,32 +231,32 @@
       <!-- Navigation -->
       <div id="course-information" class="non-mobile">
           <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#course-overview"><img src="../images/course-overview.png" alt="" /><%= content.courseInfoTitles[0] %></a></li>
+            <li class="active"><a id="courseOverview" data-toggle="tab" href="#course-overview"><img src="../images/course-overview.png" alt="" /><%= content.courseInfoTitles[0] %></a></li>
             <% if (courseData.class.objective) { %>
-            <li><a data-toggle="tab" href="#who-should-attend"><img src="../images/who-should-attend.png" alt="" /><%= content.courseInfoTitles[1] %></a></li>
+            <li><a id="whoShouldAttend" data-toggle="tab" href="#who-should-attend"><img src="../images/who-should-attend.png" alt="" /><%= content.courseInfoTitles[1] %></a></li>
             <% } %>
             <% if (courseData.class.outcomes && (courseData.class.outcomes.length > 0)) { %>
-              <li><a data-toggle="tab" href="#learning-outcomes"><img src="../images/learning-outcomes.png" alt="" /><%= content.courseInfoTitles[2] %></a></li>
+              <li><a id="learningOutcomes" data-toggle="tab" href="#learning-outcomes"><img src="../images/learning-outcomes.png" alt="" /><%= content.courseInfoTitles[2] %></a></li>
             <% } %>
             <% if ( courseData.syllabus &&  courseData.syllabus.fields &&  courseData.syllabus.fields.syllabusContent ) { %>
-              <li><a data-toggle="tab" href="#course-outline"><img src="../images/course-outline.png" alt="" /><%= content.courseInfoTitles[3] %></a></li>
+              <li><a id="courseOutline" data-toggle="tab" href="#course-outline"><img src="../images/course-outline.png" alt="" /><%= content.courseInfoTitles[3] %></a></li>
             <% } %>
           </ul>
       <!-- Content -->
       <div id="course-information-content" class="tab-content">
           <div id="course-overview" class="tab-pane fade in active">
-            <h3><%= content.courseInfoTitles[0] %></h3>
+            <h3 id="courseOverviewContentTitle"><%= content.courseInfoTitles[0] %></h3>
             <p><%- courseData.class.description.formatted %></p>
           </div>
           <% if (courseData.class.objective) { %>
             <div id="who-should-attend" class="tab-pane fade">
-              <h3><%= content.courseInfoTitles[1] %></h3>
+              <h3 id="whoShouldAttendContentTitle"><%= content.courseInfoTitles[1] %></h3>
               <p><%- courseData.class.objective %></p>
             </div>
           <% } %>
           <% if (courseData.class.outcomes && (courseData.class.outcomes.length > 0)) { %>
             <div id="learning-outcomes" class="tab-pane fade">
-              <h3><%= content.courseInfoTitles[2] %></h3>
+              <h3 id="learningOutcomesContentTitle"><%= content.courseInfoTitles[2] %></h3>
               <p>
                 <ul>
                     <% courseData.class.outcomes.forEach(function(outcome) { %>
@@ -270,7 +270,7 @@
           <% } %>
           <% if ( courseData.syllabus &&  courseData.syllabus.fields &&  courseData.syllabus.fields.syllabusContent ) { %>
             <div id="course-outline" class="tab-pane fade">
-              <h3><%= content.courseInfoTitles[3] %></h3>
+              <h3 id="courseOutlineContentTitle"><%= content.courseInfoTitles[3] %></h3>
               <%- courseData.syllabus.fields.syllabusContent %>
           <% } %>
           </div>
