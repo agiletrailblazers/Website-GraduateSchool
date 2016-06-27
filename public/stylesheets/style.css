@@ -6,7 +6,7 @@
       *{ -ms-filter: grayscale(100%); -o-filter: grayscale(100%);  filter: gray; /* IE 6-9 */
          color: #000 !important; background-color: transparent !important;}
 
-      .title {  -moz-filter: grayscale(100%) !important;
+      .title, #gs-form .panel > .panel-heading.gs  {  -moz-filter: grayscale(100%) !important;
         -ms-filter: grayscale(100%) !important;   -o-filter: grayscale(100%) !important; filter: gray !important; /* IE 6-9 */
          color: #000 !important; background-color: transparent !important;}
 
