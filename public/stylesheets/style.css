@@ -37,6 +37,8 @@
       #searchResults { width: 98% !important;}
 
       #main-container, .container { width: 95% !important;}
+
+      #accordion .collapse { display: block !important; height: auto !important; }
    } /* End of @Media Print */
 
 
