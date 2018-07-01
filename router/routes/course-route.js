@@ -193,6 +193,7 @@ router.get('/courses/:course_id_or_code', function(req, res, next){
 
       // add empty string to avoid exception
       if (courseData && courseData.class && common.isNotEmpty(courseData.class.objective)) {
+        console.log(courseData.class.objective);
         courseData.class.objective = cleanHtml(courseData.class.objective);
         courseData.class.objective = replaceUrl(courseData.class.objective);
       }
